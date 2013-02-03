@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "Neptuo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess", "Neptuo.DataAccess\Neptuo.DataAccess.csproj", "{ECA5CB11-154D-4777-966A-B478BC51BE11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess.EntityFramework", "Neptuo.DataAccess.EntityFramework\Neptuo.DataAccess.EntityFramework.csproj", "{4E2FF623-5EA8-478E-816E-C4973FCE28D0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{ECA5CB11-154D-4777-966A-B478BC51BE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECA5CB11-154D-4777-966A-B478BC51BE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECA5CB11-154D-4777-966A-B478BC51BE11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E2FF623-5EA8-478E-816E-C4973FCE28D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E2FF623-5EA8-478E-816E-C4973FCE28D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E2FF623-5EA8-478E-816E-C4973FCE28D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E2FF623-5EA8-478E-816E-C4973FCE28D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
