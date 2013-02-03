@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Neptuo.DataAccess.EntityFramework
 {
@@ -35,11 +34,6 @@ namespace Neptuo.DataAccess.EntityFramework
 
             unitOfWork = new EntityUnitOfWork(dbContext);
             return unitOfWork;
-        }
-
-        public T Create<T>()
-        {
-            throw new NotImplementedException();
         }
     }
 }

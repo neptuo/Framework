@@ -11,18 +11,14 @@ namespace Neptuo.DataAccess
     /// </summary>
     public interface IRepositoryFactory
     {
+        /// <summary>
+        /// Gets current unit of work, if non was created, returns null.
+        /// </summary>
         IUnitOfWork UnitOfWork { get; }
 
         /// <summary>
         /// Starts new unit of work.
         /// </summary>
         IUnitOfWork StartUnitOfWork();
-
-        /// <summary>
-        /// Creates mapped repository for <typeparamref name="T"/>.
-        /// </summary>
-        /// <typeparam name="T">Repository contract.</typeparam>
-        /// <returns>Mapped repository for <typeparamref name="T"/>.</returns>
-        T Create<T>();
     }
 }
