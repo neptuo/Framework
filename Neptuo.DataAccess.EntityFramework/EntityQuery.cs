@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace Neptuo.DataAccess.EntityFramework
 {
-    public class Query<TEntity> : IQuery<TEntity, TEntity>
+    public class EntityQuery<TEntity> : IQuery<TEntity, TEntity>
     {
         private int pageIndex = 0;
         private int pageSize = 50;
         private IQueryable<TEntity> innerQuery;
 
-        public Query(IQueryable<TEntity> innerQuery)
+        public EntityQuery(IQueryable<TEntity> innerQuery)
         {
             this.innerQuery = innerQuery;
         }
 
-        public Query(IQueryable<TEntity> innerQuery, int pageSize)
+        public EntityQuery(IQueryable<TEntity> innerQuery, int pageSize)
         {
             this.innerQuery = innerQuery;
             this.pageSize = pageSize;
@@ -26,26 +26,26 @@ namespace Neptuo.DataAccess.EntityFramework
 
         public IQuery<TEntity, TEntity> OrderBy(Expression<Func<TEntity, object>> sorter)
         {
-            innerQuery.OrderBy(sorter);
+            innerQuery = innerQuery.OrderBy(sorter);
             return this;
         }
 
         public IQuery<TEntity, TEntity> OrderByDescending(Expression<Func<TEntity, object>> sorter)
         {
-            innerQuery.OrderByDescending(sorter);
+            innerQuery = innerQuery.OrderByDescending(sorter);
             return this;
         }
 
-        //public IQuery<TEntity, TEntity> Where<TValue>(Expression<Func<TEntity, TValue>> filter, TValue value)
-        //{
-            
-        //    //innerQuery.Where(filter = value);
-        //    return this;
-        //}
+        public IQuery<TEntity, TEntity> Where<TValue>(Expression<Func<TEntity, TValue>> filter, TValue value)
+            where TValue : IEquatable<TValue>
+        {
+            innerQuery =  innerQuery.Where(t => filter.Compile()(t).Equals(value));
+            return this;
+        }
 
         public IQueryResult<TEntity> Result()
         {
-            return new QueryResult<TEntity>(
+            return new EntityQueryResult<TEntity>(
                 innerQuery.Skip(pageIndex * pageSize).Take(pageSize).ToList(),
                 innerQuery.Count()
             );
@@ -53,7 +53,7 @@ namespace Neptuo.DataAccess.EntityFramework
 
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
         {
-            return new QueryResult<TTarget>(
+            return new EntityQueryResult<TTarget>(
                 innerQuery.Skip(pageIndex * pageSize).Take(pageSize).Select(projection).ToList(), 
                 innerQuery.Count()
             );
@@ -68,7 +68,7 @@ namespace Neptuo.DataAccess.EntityFramework
 
         public IQueryResult<TEntity> PageResult(int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            return Page(pageIndex, pageSize).Result();
         }
     }
 }

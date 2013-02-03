@@ -13,7 +13,8 @@ namespace Neptuo.DataAccess
     {
         IQuery<TEntity, TFilter> OrderBy(Expression<Func<TEntity, object>> sorter);
         IQuery<TEntity, TFilter> OrderByDescending(Expression<Func<TEntity, object>> sorter);
-        //IQuery<TEntity, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value); // Pouze and!
+        IQuery<TEntity, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value)
+            where TValue : IEquatable<TValue>;
 
         IQueryResult<TEntity> Result();
         IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection);

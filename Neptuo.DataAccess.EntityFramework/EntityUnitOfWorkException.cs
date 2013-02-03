@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.DataAccess.EntityFramework
 {
-    public class UnitOfWorkException : Exception
+    public class EntityUnitOfWorkException : Exception
     {
-        public UnitOfWorkException(string message)
+        public EntityUnitOfWorkException(string message)
             : base(message)
         { }
     }
