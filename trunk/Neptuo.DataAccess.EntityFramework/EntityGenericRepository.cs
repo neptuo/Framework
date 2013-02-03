@@ -14,7 +14,7 @@ namespace Neptuo.DataAccess.EntityFramework
     /// <typeparam name="TEntity">Entity type.</typeparam>
     /// <typeparam name="TKey">Entity primary key type.</typeparam>
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
-    public abstract class GenericRepository<TEntity, TKey, TContext> : IRepository<TEntity, TKey>
+    public abstract class EntityGenericRepository<TEntity, TKey, TContext> : IRepository<TEntity, TKey>
         where TKey : struct
         where TEntity : class
         where TContext : DbContext, new()
@@ -24,7 +24,7 @@ namespace Neptuo.DataAccess.EntityFramework
         /// </summary>
         public TContext DbContext { get; protected set; }
 
-        public GenericRepository(TContext dbContext)
+        public EntityGenericRepository(TContext dbContext)
         {
             DbContext = dbContext;
         }
@@ -77,11 +77,11 @@ namespace Neptuo.DataAccess.EntityFramework
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
-    public class GenericRepository<TEntity, TContext> : GenericRepository<TEntity, int, TContext>, IRepository<TEntity>
+    public class EntityGenericRepository<TEntity, TContext> : EntityGenericRepository<TEntity, int, TContext>, IRepository<TEntity>
         where TEntity : class
         where TContext : DbContext, new()
     {
-        public GenericRepository(TContext dbContext)
+        public EntityGenericRepository(TContext dbContext)
             : base(dbContext)
         { }
     }

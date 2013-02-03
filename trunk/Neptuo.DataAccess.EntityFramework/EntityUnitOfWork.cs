@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.DataAccess.EntityFramework
 {
-    public class UnitOfWork : IUnitOfWork
+    public class EntityUnitOfWork : IUnitOfWork
     {
         private DbContext dbContext;
 
         public UnitOfWorkState State { get; protected set; }
 
-        public UnitOfWork(DbContext dbContext)
+        public EntityUnitOfWork(DbContext dbContext)
         {
             this.dbContext = dbContext;
             State = UnitOfWorkState.Started;
@@ -22,7 +22,7 @@ namespace Neptuo.DataAccess.EntityFramework
         public void Commit()
         {
             if (State != UnitOfWorkState.Started)
-                throw new UnitOfWorkException("Unit of work can commit only from started state!");
+                throw new EntityUnitOfWorkException("Unit of work can commit only from started state!");
 
             dbContext.SaveChanges();
             State = UnitOfWorkState.Commited;

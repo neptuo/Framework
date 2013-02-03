@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.DataAccess.EntityFramework
 {
-    public class RepositoryFactory : IRepositoryFactory
+    public class EntityRepositoryFactory : IRepositoryFactory
     {
         private DbContext dbContext;
         private IUnitOfWork unitOfWork;
@@ -17,13 +17,13 @@ namespace Neptuo.DataAccess.EntityFramework
             get
             {
                 if(unitOfWork == null)
-                    throw new UnitOfWorkException("Unit of work not started!");
+                    throw new EntityUnitOfWorkException("Unit of work not started!");
 
                 return unitOfWork;
             }
         }
 
-        public RepositoryFactory(DbContext dbContext)
+        public EntityRepositoryFactory(DbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -31,9 +31,9 @@ namespace Neptuo.DataAccess.EntityFramework
         public IUnitOfWork StartUnitOfWork()
         {
             if (unitOfWork != null)
-                throw new UnitOfWorkException("Unit of work already started started!");
+                throw new EntityUnitOfWorkException("Unit of work already started started!");
 
-            unitOfWork = new UnitOfWork(dbContext);
+            unitOfWork = new EntityUnitOfWork(dbContext);
             return unitOfWork;
         }
 
