@@ -35,9 +35,9 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Neptuo.DataAccess, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Neptuo.DataAccess, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Neptuo.DataAccess.1.0.3\lib\net45\Neptuo.DataAccess.dll</HintPath>
+      <HintPath>..\packages\Neptuo.DataAccess.1.0.4\lib\net45\Neptuo.DataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -59,7 +59,6 @@
     <Compile Include="EntityUnitOfWorkException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

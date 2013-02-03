@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.DataAccess.Collection
 {
     /// <summary>
-    /// Repostiory wrapper for collection.
+    /// Repository wrapper for collection.
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
     /// <typeparam name="TKey">Entity primary key type.</typeparam>
