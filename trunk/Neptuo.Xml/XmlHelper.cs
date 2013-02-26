@@ -9,6 +9,21 @@ namespace Neptuo.Xml
 {
     public class XmlHelper
     {
+        public static void ElementsByName<T>(XmlElement root, string name, T model, Action<T, XmlElement> onMatch, Action<T> onNoMatch = null)
+        {
+            XmlNodeList elements = root.GetElementsByTagName(name);
+            if (elements.Count > 0)
+            {
+                foreach (XmlElement element in elements)
+                    onMatch(model, (XmlElement)element);
+
+                return;
+            }
+            
+            if (onNoMatch != null)
+                onNoMatch(model);
+        }
+
         public static void ElementByName<T>(XmlElement root, string name, T model, Action<T, XmlElement> onMatch, Action<T> onNoMatch = null)
         {
             XmlNodeList elements = root.GetElementsByTagName(name);
