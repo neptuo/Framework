@@ -5,7 +5,7 @@ using System.Text;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Neptuo.Web.Framework.Utils
+namespace Neptuo.Linq.Expressions
 {
     public class TypeHelper
     {
