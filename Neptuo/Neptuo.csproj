@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="Func.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
