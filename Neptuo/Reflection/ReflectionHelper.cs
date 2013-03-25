@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 
-namespace Neptuo.Web.Framework.Utils
+namespace Neptuo.Reflection
 {
     public static class ReflectionHelper
     {
