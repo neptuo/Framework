@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Neptuo.Collections.ObjectModel
 {
-    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>
+    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IITemsSource
     {
         public ObservableCollection() { }
 

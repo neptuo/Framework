@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo", "Neptuo\Neptuo.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Migrations", "Neptuo.Migrations\Neptuo.Migrations.csproj", "{70114D0D-B9F1-464F-A068-9840D7FA6798}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Controls", "Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{70114D0D-B9F1-464F-A068-9840D7FA6798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70114D0D-B9F1-464F-A068-9840D7FA6798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70114D0D-B9F1-464F-A068-9840D7FA6798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A82625A-BB41-48CE-B3AD-0141DD3CB779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A82625A-BB41-48CE-B3AD-0141DD3CB779}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A82625A-BB41-48CE-B3AD-0141DD3CB779}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A82625A-BB41-48CE-B3AD-0141DD3CB779}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
