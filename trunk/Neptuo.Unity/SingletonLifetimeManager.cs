@@ -39,5 +39,21 @@ namespace Neptuo.Unity
         }
     }
 
-    public class SingletonLifetimeManager : SingletonLifetimeManager<object> { }
+    public class SingletonLifetimeManager : SingletonLifetimeManager<object>
+    {
+        public SingletonLifetimeManager()
+        { }
+
+        public SingletonLifetimeManager(object instance)
+            : base(instance)
+        { }
+
+        public SingletonLifetimeManager(Action<object> initialize)
+            : base(initialize)
+        { }
+
+        public SingletonLifetimeManager(object instance, Action<object> initialize)
+            : base(instance, initialize)
+        { }
+    }
 }
