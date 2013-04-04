@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Migrations
 {
-    public class BaseMigrationService : IMigrationService
+    public abstract class BaseMigrationService : IMigrationService
     {
-        private SortedList<DateTime, IMigration> migrations = new SortedList<DateTime, IMigration>();
-
         public bool IsExecuted { get; protected set; }
         public bool HasMigrations { get; protected set; }
 
@@ -24,27 +22,17 @@ namespace Neptuo.Migrations
             ToVersion = toVersion ?? DateTime.Now;
         }
 
-        public void Register(DateTime timestamp, IMigration migration)
-        {
-            if (timestamp > FromVersion && timestamp < ToVersion)
-            {
-                migrations.Add(timestamp, migration);
-                HasMigrations = true;
-            }
-        }
-
-        public void Register(IDateTimeMigration migration)
-        {
-            Register(migration.Timestamp, migration);
-        }
-
         public void Execute()
         {
             if (IsExecuted)
                 return;
 
-            foreach (KeyValuePair<DateTime, IMigration> migration in migrations)
-                migration.Value.Execute();
+            for (int i = 0; i < MigrationCount; i++)
+            {
+                IMigration migration = GetMigration(i);
+                if (migration != null)
+                    migration.Execute();
+            }
 
             if (OnExecuted != null)
                 OnExecuted(this, new MigrationServiceExecutedEventArgs(true));
@@ -52,15 +40,9 @@ namespace Neptuo.Migrations
             IsExecuted = true;
             HasMigrations = false;
         }
-    }
 
-    public class MigrationServiceExecutedEventArgs : EventArgs
-    {
-        public bool Success { get; private set; }
+        protected abstract int MigrationCount { get; }
 
-        public MigrationServiceExecutedEventArgs(bool success)
-        {
-            Success = success;
-        }
+        protected abstract IMigration GetMigration(int index);
     }
 }

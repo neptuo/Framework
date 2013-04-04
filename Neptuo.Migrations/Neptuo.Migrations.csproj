@@ -41,6 +41,10 @@
   <ItemGroup>
     <Compile Include="BaseMigrationProvider.cs" />
     <Compile Include="BaseMigrationService.cs" />
+    <Compile Include="InstanceMigrationProvider.cs" />
+    <Compile Include="InstanceMigrationService.cs" />
+    <Compile Include="LazyMigrationProvider.cs" />
+    <Compile Include="LazyMigrationService.cs" />
     <Compile Include="MigrationsAttribute.cs" />
     <Compile Include="IMigration.cs" />
     <Compile Include="IMigrationActivator.cs" />
@@ -48,6 +52,7 @@
     <Compile Include="IMigrationService.cs" />
     <Compile Include="MigrationAttribute.cs" />
     <Compile Include="MigrationException.cs" />
+    <Compile Include="MigrationServiceExecutedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

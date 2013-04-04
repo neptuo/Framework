@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Neptuo.Migrations
+{
+    public class MigrationServiceExecutedEventArgs : EventArgs
+    {
+        public bool Success { get; private set; }
+
+        public MigrationServiceExecutedEventArgs(bool success)
+        {
+            Success = success;
+        }
+    }
+}
