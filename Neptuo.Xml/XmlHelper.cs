@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Globalization;
+using System.Linq.Expressions;
+using Neptuo.Reflection;
 
 namespace Neptuo.Xml
 {
@@ -172,6 +174,17 @@ namespace Neptuo.Xml
             if (value != null)
             {
                 XmlAttribute att = doc.CreateAttribute(name);
+                att.Value = value.ToString();
+                el.Attributes.Append(att);
+            }
+        }
+
+        public static void SetAttribute(XmlDocument doc, XmlElement el, Expression<Func<object>> name)
+        {
+            object value = name.Compile().Invoke();
+            if (value != null)
+            {
+                XmlAttribute att = doc.CreateAttribute(ReflectionHelper.PropertyName(name));
                 att.Value = value.ToString();
                 el.Attributes.Append(att);
             }

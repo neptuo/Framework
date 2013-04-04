@@ -43,6 +43,12 @@
     <Compile Include="XmlNodeListExtensions.cs" />
     <Compile Include="XmlHelper.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
+      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
+      <Name>Neptuo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
