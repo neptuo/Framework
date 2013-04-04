@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Migrations
 {
-    public abstract class BaseMigrationProvider : IMigrationProvider
+    public abstract class BaseMigrationProvider<T> : IMigrationProvider
+        where T : BaseMigrationService
     {
         protected bool MigrationsFound { get; private set; }
         protected IMigrationActivator Activator { get; private set; }
@@ -35,7 +36,7 @@ namespace Neptuo.Migrations
                 RegisterMigrations();
                 MigrationsFound = true;
             }
-            BaseMigrationService service = CreateService();
+            T service = CreateService();
             Timestamp = LoadLastTimestamp();
             RegisterActiveUpMigrations(service, target);
 
@@ -59,7 +60,7 @@ namespace Neptuo.Migrations
                 RegisterMigrations();
                 MigrationsFound = true;
             }
-            BaseMigrationService service = CreateService();
+            T service = CreateService();
             Timestamp = LoadLastTimestamp();
             RegisterActiveDownMigrations(service, target);
 
@@ -82,7 +83,7 @@ namespace Neptuo.Migrations
             {
                 UpdateLastTimestamp(target.Value);
                 target = null;
-                ((BaseMigrationService)sender).OnExecuted -= OnExecuted;
+                ((InstanceMigrationService)sender).OnExecuted -= OnExecuted;
             }
         }
 
@@ -119,45 +120,39 @@ namespace Neptuo.Migrations
 
         protected virtual void RegisterMigration(Type type)
         {
-            MigrationAttribute attribute = ReflectionHelper.GetAttribute<MigrationAttribute>(type);
-            if (attribute != null)
-            {
-                Migrations.Add(attribute.Timestamp, type);
-                return;
-            }
-
-            IMigration migration = Activator.Activate(type);
-            if (migration is IDateTimeMigration)
-            {
-                Migrations.Add(((IDateTimeMigration)migration).Timestamp, type);
-                return;
-            }
-
-            throw new MigrationException("Can't find timestamp in migration!");
+            Migrations.Add(GetMigrationDateTime(type), type);
         }
 
-        protected virtual BaseMigrationService CreateService()
-        {
-            return new BaseMigrationService(Timestamp);
-        }
-
-        protected virtual void RegisterActiveUpMigrations(BaseMigrationService service, DateTime target)
+        protected virtual void RegisterActiveUpMigrations(T service, DateTime target)
         {
             foreach (KeyValuePair<DateTime, Type> migration in Migrations)
             {
                 if (migration.Key > Timestamp && migration.Key < target)
-                    service.Register(migration.Key, Activator.Activate(migration.Value));
+                    RegisterMigrationToService(service, migration.Key, migration.Value);
             }
         }
 
-        protected virtual void RegisterActiveDownMigrations(BaseMigrationService service, DateTime target)
+        protected virtual void RegisterActiveDownMigrations(T service, DateTime target)
         {
             foreach (KeyValuePair<DateTime, Type> migration in Migrations)
             {
                 if (migration.Key > target && migration.Key < Timestamp)
-                    service.Register(migration.Key, Activator.Activate(migration.Value));
+                    RegisterMigrationToService(service, migration.Key, migration.Value);
             }
         }
+
+        protected virtual DateTime GetMigrationDateTime(Type migrationType)
+        {
+            MigrationAttribute attribute = ReflectionHelper.GetAttribute<MigrationAttribute>(migrationType);
+            if (attribute != null)
+                return attribute.Timestamp;
+
+            throw new MigrationException("Can't find timestamp in migration!");
+        }
+
+        protected abstract T CreateService();
+
+        protected abstract void RegisterMigrationToService(T service, DateTime dateTime, Type migration);
 
         protected abstract DateTime LoadLastTimestamp();
 
