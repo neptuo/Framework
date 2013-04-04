@@ -83,7 +83,7 @@ namespace Neptuo.Migrations
             {
                 UpdateLastTimestamp(target.Value);
                 target = null;
-                ((InstanceMigrationService)sender).OnExecuted -= OnExecuted;
+                ((T)sender).OnExecuted -= OnExecuted;
             }
         }
 
