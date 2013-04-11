@@ -169,13 +169,20 @@ namespace Neptuo.Xml
             return doc;
         }
 
-        public static void SetAttribute<T>(XmlDocument doc, XmlElement el, string name, T value)
+        public static void SetAttribute<T>(XmlDocument doc, XmlElement el, string name, T value, Func<T, object> valueGetter = null)
         {
             if (value != null)
             {
-                XmlAttribute att = doc.CreateAttribute(name);
-                att.Value = value.ToString();
-                el.Attributes.Append(att);
+                object targetValue = value;
+                if (valueGetter != null)
+                    targetValue = valueGetter(value);
+
+                if (targetValue != null)
+                {
+                    XmlAttribute att = doc.CreateAttribute(name);
+                    att.Value = value.ToString();
+                    el.Attributes.Append(att);
+                }
             }
         }
 
