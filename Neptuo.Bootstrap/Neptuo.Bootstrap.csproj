@@ -39,11 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomaticBootstraper.cs" />
+    <Compile Include="AutomaticBootstrapper.cs" />
     <Compile Include="BaseBootstraper.cs" />
-    <Compile Include="IBootstraper.cs" />
+    <Compile Include="ConstraintAttribute.cs" />
+    <Compile Include="Constraints\AttributeConstraintProvider.cs" />
+    <Compile Include="Constraints\CachingConstraintProvider.cs" />
+    <Compile Include="Constraints\IBootstrapConstraint.cs" />
+    <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
+    <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTask.cs" />
-    <Compile Include="ManualBootstraper.cs" />
+    <Compile Include="ManualBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
