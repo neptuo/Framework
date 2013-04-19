@@ -44,7 +44,9 @@
     <Compile Include="ConstraintAttribute.cs" />
     <Compile Include="Constraints\AttributeConstraintProvider.cs" />
     <Compile Include="Constraints\CachingConstraintProvider.cs" />
+    <Compile Include="Constraints\DefaultBootstrapConstraintContext.cs" />
     <Compile Include="Constraints\IBootstrapConstraint.cs" />
+    <Compile Include="Constraints\IBootstrapConstraintContext.cs" />
     <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTask.cs" />

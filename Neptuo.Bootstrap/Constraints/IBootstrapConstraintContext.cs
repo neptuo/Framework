@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Constraints
 {
-    public interface IBootstrapConstraint
+    public interface IBootstrapConstraintContext
     {
-        bool Satisfies(IBootstrapConstraintContext context);
+        IBootstrapper Bootstrapper { get; }
     }
 }
