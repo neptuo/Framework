@@ -37,9 +37,10 @@ namespace Neptuo.Bootstrap
 
         public virtual void Initialize()
         {
+            IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
             foreach (IBootstrapTask task in Tasks)
             {
-                if (provider == null || provider.GetConstraints(task.GetType()).Satisfies())
+                if (provider == null || provider.GetConstraints(task.GetType()).Satisfies(context))
                     task.Initialize();
             }
         }
@@ -47,11 +48,11 @@ namespace Neptuo.Bootstrap
 
     internal static class IEnumerableConstraintExtensions
     {
-        public static bool Satisfies(this IEnumerable<IBootstrapConstraint> constraints)
+        public static bool Satisfies(this IEnumerable<IBootstrapConstraint> constraints, IBootstrapConstraintContext context)
         {
             foreach (IBootstrapConstraint constraint in constraints)
             {
-                if (!constraint.Satisfies())
+                if (!constraint.Satisfies(context))
                     return false;
             }
             return true;
