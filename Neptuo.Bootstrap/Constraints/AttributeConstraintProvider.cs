@@ -22,10 +22,14 @@ namespace Neptuo.Bootstrap.Constraints
             {
                 if (attribute is ConstraintAttribute)
                 {
+                    IBootstrapConstraint constraint = null;
                     if (attribute is IBootstrapConstraint)
-                        result.Add((IBootstrapConstraint)attribute);
+                        constraint = (IBootstrapConstraint)attribute;
                     else
-                        result.Add(CreateInstance(((ConstraintAttribute)attribute).GetConstraintType()));
+                        constraint = CreateInstance(((ConstraintAttribute)attribute).GetConstraintType());
+
+                    if (constraint != null)
+                        result.Add(constraint);
                 }
             }
             return result;
