@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap
+namespace Neptuo.Bootstrap.Constraints
 {
-    public interface IBootstraper
+    public interface IBootstrapConstraint
     {
-        void Initialize();
+        bool Satisfies();
     }
 }
