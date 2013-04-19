@@ -51,6 +51,7 @@
     <Compile Include="Constraints\NullObjectConstrainProvider.cs" />
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTask.cs" />
+    <Compile Include="IgnoreAutomaticConstraintAttribute.cs" />
     <Compile Include="ManualBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
