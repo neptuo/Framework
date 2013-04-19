@@ -20,7 +20,7 @@ namespace Neptuo.Bootstrap
                 throw new ArgumentNullException("factory");
 
             this.factory = factory;
-            this.provider = provider;
+            this.provider = provider ?? new NullObjectConstrainProvider();
             Tasks = new List<IBootstrapTask>();
         }
 
@@ -40,7 +40,7 @@ namespace Neptuo.Bootstrap
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
             foreach (IBootstrapTask task in Tasks)
             {
-                if (provider == null || provider.GetConstraints(task.GetType()).Satisfies(context))
+                if (provider.GetConstraints(task.GetType()).Satisfies(context))
                     task.Initialize();
             }
         }
