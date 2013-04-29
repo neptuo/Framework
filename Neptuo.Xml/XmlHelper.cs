@@ -180,7 +180,7 @@ namespace Neptuo.Xml
                 if (targetValue != null)
                 {
                     XmlAttribute att = doc.CreateAttribute(name);
-                    att.Value = value.ToString();
+                    att.Value = targetValue.ToString();
                     el.Attributes.Append(att);
                 }
             }
