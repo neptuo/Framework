@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
+    <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="Func.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
