@@ -5,5 +5,5 @@ using System.Text;
 
 namespace Neptuo
 {
-    delegate TReturn Func<T, TOutput, TReturn>(T input, out TOutput output);
+    public delegate TReturn OutFunc<T, TOutput, TReturn>(T input, out TOutput output);
 }
