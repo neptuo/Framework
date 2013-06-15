@@ -16,7 +16,7 @@ namespace Neptuo.Bootstrap
             : base(factory, provider)
         { }
 
-        public AutomaticBootstrapper(Func<Type, IBootstrapTask> factory, IEnumerable<Type> types, IBootstrapConstraintProvider provider)
+        public AutomaticBootstrapper(Func<Type, IBootstrapTask> factory, IEnumerable<Type> types, IBootstrapConstraintProvider provider = null)
             : base(factory, provider)
         {
             this.types = AddSupportedTypes(new List<Type>(), types);
