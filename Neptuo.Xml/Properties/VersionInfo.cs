@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Neptuo
+namespace Neptuo.Xml
 {
     public static class VersionInfo
     {
-        internal const string Version = "1.7.1";
+        internal const string Version = "1.8.0";
 
         public static Version GetVersion()
         {
