@@ -21,6 +21,12 @@ namespace Neptuo.Collections.ObjectModel
                 Add(item);
         }
 
+        public void AddRange(params T[] items)
+        {
+            foreach (T item in items)
+                Add(item);
+        }
+
         protected override void InsertItem(int index, T item)
         {
             base.InsertItem(index, item);
