@@ -26,6 +26,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Unity", "Neptuo.Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Threading", "Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.CodeGenerator", "Neptuo.SharpKit.CodeGenerator\Neptuo.SharpKit.CodeGenerator.csproj", "{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,10 @@ Global
 		{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
