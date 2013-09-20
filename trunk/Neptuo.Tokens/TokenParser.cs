@@ -7,35 +7,44 @@ namespace Neptuo.Tokens
 {
     public class TokenParser
     {
-        public OnParsedToken OnParsedToken { get; set; }
+        public TokenParserConfiguration Configuration { get; private set; }
+        public event EventHandler<TokenEventArgs> OnParsedToken;
+
+        public TokenParser()
+        {
+            Configuration = new TokenParserConfiguration();
+        }
 
         public bool Parse(string content)
         {
             if (OnParsedToken == null)
                 throw new InvalidOperationException("OnParsedItem is null.");
 
-            if (content.StartsWith("{"))
+            List<TokenStateMachine.Result> results = new List<TokenStateMachine.Result>();
+
+            TokenStateMachine stateMachine = new TokenStateMachine(GetStateMachineConfiguration());
+            stateMachine.OnEnterConcreteState<TokenDoneState>((sender, e) => results.Add(e.State.GetResult()));
+
+            if (stateMachine.Process(content).GetType() != typeof(TokenErrorState))
             {
-                try
-                {
-                    StateMachine machine = new StateMachine();
-                    StateMachineResult result = machine.Process(content);
+                foreach (TokenStateMachine.Result result in results)
+                    OnParsedToken(this, new TokenEventArgs(content, result.Token, result.StartIndex, result.LastIndex));
 
-                    if (result.Extension == null)
-                        return false;
-
-                    TokenEventArgs args = new TokenEventArgs(content, result.Extension, 0, result.LastIndex);
-                    OnParsedToken(args);
-
-                    return true;
-                }
-                catch (StateMachineException)
-                {
-                    return false;
-                }
+                return true;
             }
-
             return false;
+        }
+
+        private TokenStateMachine.Configuration GetStateMachineConfiguration()
+        {
+            return new TokenStateMachine.Configuration
+            {
+                AllowAttributes = Configuration.AllowAttributes,
+                AllowEscapeSequence = Configuration.AllowEscapeSequence,
+                AllowDefaultAttribute = Configuration.AllowDefaultAttribute,
+                AllowMultipleTokens = Configuration.AllowMultipleTokens,
+                AllowTextContent = Configuration.AllowTextContent
+            };
         }
     }
 }

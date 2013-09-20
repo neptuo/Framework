@@ -9,5 +9,11 @@ namespace Neptuo.Tokens
     {
         public string Name { get; set; }
         public string Value { get; set; }
+
+        public TokenAttribute(string name, string value = null)
+        {
+            Name = name;
+            Value = value;
+        }
     }
 }
