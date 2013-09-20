@@ -20,6 +20,4 @@ namespace Neptuo.Tokens
             EndPosition = endPosition;
         }
     }
-
-    public delegate void OnParsedToken(TokenEventArgs e);
 }
