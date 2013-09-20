@@ -11,6 +11,9 @@ namespace TestConsole
     {
         public static void Test()
         {
+            //string template = "{{ProductID ID=5, Converter={x:State NullToBool}}}x{DestinationID}";
+            string template = "http://localhost:60000/{Locale}/{DestinationID}/products/{ProductID}/info";
+
             TokenParser parser = new TokenParser();
             parser.Configuration.AllowTextContent = true;
             parser.Configuration.AllowMultipleTokens = true;
@@ -19,7 +22,7 @@ namespace TestConsole
             parser.Configuration.AllowEscapeSequence = true;
 
             parser.OnParsedToken += OnToken;
-            if (parser.Parse("{{ProductID ID=5, Converter={x:State NullToBool}}}x{DestinationID}"))
+            if (parser.Parse(template))
                 Console.WriteLine("=> Parsed");
             else
                 Console.WriteLine("=> Not parsed");
