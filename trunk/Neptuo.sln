@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Routing", "Neptuo.Web.Routing\Neptuo.Web.Routing.csproj", "{45C70782-7B22-4CDA-B8E4-9E71182E3A32}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "TestMvc4\TestMvc4.csproj", "{662F383E-7768-4A06-A8B9-DA15A73E4D47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,10 @@ Global
 		{45C70782-7B22-4CDA-B8E4-9E71182E3A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45C70782-7B22-4CDA-B8E4-9E71182E3A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45C70782-7B22-4CDA-B8E4-9E71182E3A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{662F383E-7768-4A06-A8B9-DA15A73E4D47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{662F383E-7768-4A06-A8B9-DA15A73E4D47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{662F383E-7768-4A06-A8B9-DA15A73E4D47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{662F383E-7768-4A06-A8B9-DA15A73E4D47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,6 +44,7 @@
     <Compile Include="Collections\ObjectModel\DictionaryStringValueProvider.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
+    <Compile Include="Globalization\CultureInfoExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
