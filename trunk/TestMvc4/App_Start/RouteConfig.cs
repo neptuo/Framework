@@ -20,7 +20,6 @@ namespace TestMvc4
 
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-
             routes.Add(new TokenRoute("~/text", new TestRouteHandler()));
             routes.Add(new TokenRoute("~/HelloWorld", new TestRouteHandler(), ".aspx"));
             routes.Add(new TokenRoute("~/{Locale}/HelloWorld", new TestRouteHandler()));

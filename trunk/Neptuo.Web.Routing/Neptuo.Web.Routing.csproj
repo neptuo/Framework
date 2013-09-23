@@ -50,6 +50,8 @@
     <Compile Include="RequiredRouteParameter.cs" />
     <Compile Include="Segments\RequiredRouteSegment.cs" />
     <Compile Include="Segments\StaticRouteSegment.cs" />
+    <Compile Include="TokenRouteBase.cs" />
+    <Compile Include="TreeTokenRoute.cs" />
     <Compile Include="TokenRoute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Segments\NamedRouteSegment.cs" />
