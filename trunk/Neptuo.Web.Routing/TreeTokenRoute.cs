@@ -9,15 +9,10 @@ namespace Neptuo.Web.Routing
 {
     public class TreeTokenRoute : TokenRouteBase
     {
-        protected override bool IsAbsolute
-        {
-            get { throw new NotImplementedException(); }
-        }
-
         public TreeTokenRoute(IRouteHandler routeHandler, string suffix = null, bool caseSensitive = false, IRouteParameterService parameterService = null)
             : base(routeHandler, suffix, caseSensitive, parameterService)
         {
-
+            throw new NotImplementedException();
         }
 
         protected override bool MatchUrl(string url, RouteValueDictionary values)
