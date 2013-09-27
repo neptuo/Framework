@@ -75,19 +75,4 @@ namespace Neptuo.StateMachines
             return currentState;
         }
     }
-
-    public interface IStateMachineState<TItem, TState>
-    {
-        TState Accept(TItem item, int position);
-    }
-
-    public class StateMachineEventArgs<TState>
-    {
-        public TState State { get; private set; }
-
-        public StateMachineEventArgs(TState state)
-        {
-            State = state;
-        }
-    }
 }
