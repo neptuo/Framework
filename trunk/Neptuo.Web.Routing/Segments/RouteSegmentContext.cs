@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace Neptuo.Web.Routing.Segments
 {
-    public class RouteSegmentContext : IRouteParameterContext
+    public class RouteSegmentContext : IRouteParameterMatchContext
     {
         public string OriginalUrl { get; private set; }
         public RouteValueDictionary Values { get; private set; }

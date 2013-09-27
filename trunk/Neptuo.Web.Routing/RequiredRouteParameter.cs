@@ -15,7 +15,7 @@ namespace Neptuo.Web.Routing
             IsRequired = true;
         }
 
-        public bool MatchUrl(IRouteParameterContext context)
+        public bool MatchUrl(IRouteParameterMatchContext context)
         {
             if (IsRequired && String.IsNullOrEmpty(context.OriginalUrl))
                 return false;
@@ -23,7 +23,7 @@ namespace Neptuo.Web.Routing
             return MatchRequiredUrl(context);
         }
 
-        public abstract bool MatchRequiredUrl(IRouteParameterContext context);
+        public abstract bool MatchRequiredUrl(IRouteParameterMatchContext context);
 
     }
 }

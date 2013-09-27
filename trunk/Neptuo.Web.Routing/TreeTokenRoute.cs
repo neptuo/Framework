@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace Neptuo.Web.Routing
 {
-    public class TreeTokenRoute : TokenRouteBase
+    public abstract class TreeTokenRoute : TokenRouteBase
     {
         public TreeTokenRoute(IRouteHandler routeHandler, string suffix = null, bool caseSensitive = false, IRouteParameterService parameterService = null)
             : base(routeHandler, suffix, caseSensitive, parameterService)
@@ -23,6 +23,11 @@ namespace Neptuo.Web.Routing
         public override VirtualPathData GetVirtualPath(RequestContext requestContext, RouteValueDictionary values)
         {
             throw new NotImplementedException();
+        }
+
+        protected override bool IsAbsolute
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }
