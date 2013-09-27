@@ -39,9 +39,12 @@ namespace Neptuo.SharpKit.CodeGenerator
         {
             foreach (string item in path)
             {
-                string reference = ResolveReferencePath(item);
-                References.Add(reference);
-                SharpKitReferences.Add(reference);
+                if (!item.Contains("Neptuo.SharpKit.CodeGenerator")) //TODO: Do it better!
+                {
+                    string reference = ResolveReferencePath(item);
+                    References.Add(reference);
+                    SharpKitReferences.Add(reference);
+                }
             }
         }
 
