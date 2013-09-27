@@ -17,7 +17,7 @@ namespace TestMvc4.Models
             this.defaultLocale = defaultLocale;
         }
 
-        public bool MatchUrl(IRouteParameterContext context)
+        public bool MatchUrl(IRouteParameterMatchContext context)
         {
             if (String.IsNullOrEmpty(context.OriginalUrl))
             {

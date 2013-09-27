@@ -8,6 +8,8 @@ namespace Neptuo.Web.Routing
 {
     public interface IRouteParameter
     {
-        bool MatchUrl(IRouteParameterContext context);
+        bool MatchUrl(IRouteParameterMatchContext context);
+
+
     }
 }

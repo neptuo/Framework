@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace Neptuo.Web.Routing
 {
-    public interface IRouteParameterContext
+    public interface IRouteParameterMatchContext
     {
         string OriginalUrl { get; }
         RouteValueDictionary Values { get; }

@@ -17,7 +17,7 @@ namespace Neptuo.Web.Routing
             Name = name;
         }
 
-        public bool MatchUrl(IRouteParameterContext context)
+        public bool MatchUrl(IRouteParameterMatchContext context)
         {
             foreach (char separator in Separators)
             {
