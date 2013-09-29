@@ -11,6 +11,11 @@ namespace Neptuo
         {
             return (T)provider.Resolve(typeof(T), null);
         }
+
+        public static object Resolve(this IDependencyProvider provider, Type type)
+        {
+            return provider.Resolve(type, null);
+        }
     }
         
     public static class DependencyContainerExtensions

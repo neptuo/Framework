@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public class ManualBootstrapper : BaseBootstraper, IBootstrapper
+    public class ManualBootstrapper : BaseBootstraper, IBootstrapper, IBootstrapTaskRegistry
     {
         public ManualBootstrapper(Func<Type, IBootstrapTask> factory)
             : base(factory)
         { }
 
-        public void Register(Type type)
+        public virtual void Register(Type type)
         {
-            Tasks.Add(CreateInstance(type));
+            Register(CreateInstance(type));
         }
 
         public void Register<T>()
@@ -23,7 +23,7 @@ namespace Neptuo.Bootstrap
             Register(typeof(T));
         }
 
-        public void Register(IBootstrapTask task)
+        public virtual void Register(IBootstrapTask task)
         {
             if (task != null)
                 Tasks.Add(task);
