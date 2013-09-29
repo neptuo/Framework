@@ -9,5 +9,6 @@ namespace Neptuo.Web.Routing
     public interface IRouteParameterRegistry
     {
         void Add(string parameterName, IRouteParameter parameter);
+        void Add(string parameterName, IRouteParameterFactory factory);
     }
 }
