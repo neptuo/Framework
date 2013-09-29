@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace Neptuo.Web.Routing
 {
@@ -32,7 +33,7 @@ namespace Neptuo.Web.Routing
 
     internal class DefaultRouteParameterService : IRouteParameterService, IRouteParameterRegistry
     {
-        private ConcurrentDictionary<string, IRouteParameter> parameters = new ConcurrentDictionary<string, IRouteParameter>();
+        private ConcurrentDictionary<string, IRouteParameterFactory> parameters = new ConcurrentDictionary<string, IRouteParameterFactory>();
 
         public void Add(string parameterName, IRouteParameter parameter)
         {
@@ -42,16 +43,49 @@ namespace Neptuo.Web.Routing
             if (parameter == null)
                 throw new ArgumentNullException("parameter");
 
-            parameters[parameterName] = parameter;
+            parameters[parameterName] = new ProxyRouteParameterFactory(parameter);
+        }
+
+        public void Add(string parameterName, IRouteParameterFactory factory)
+        {
+            if (parameterName == null)
+                throw new ArgumentNullException("parameterName");
+
+            if (factory == null)
+                throw new ArgumentNullException("factory");
+
+            parameters[parameterName] = factory;
         }
 
         public IRouteParameter Get(string parameterName)
         {
-            IRouteParameter parameter;
+            if (parameterName == null)
+                throw new ArgumentNullException("parameterName");
+
+            IRouteParameterFactory parameter;
             if (parameters.TryGetValue(parameterName, out parameter))
-                return parameter;
+                return parameter.CreateParameter(new HttpContextWrapper(HttpContext.Current));
+
+            parameterName = parameterName.ToLowerInvariant();
+            if (parameters.TryGetValue(parameterName, out parameter))
+                return parameter.CreateParameter(new HttpContextWrapper(HttpContext.Current));
 
             return new ProxyRouteParameter(parameterName);
+        }
+    }
+
+    internal class ProxyRouteParameterFactory : IRouteParameterFactory
+    {
+        private IRouteParameter routeParameter;
+
+        public ProxyRouteParameterFactory(IRouteParameter routeParameter)
+        {
+            this.routeParameter = routeParameter;
+        }
+
+        public IRouteParameter CreateParameter(HttpContextBase httpContext)
+        {
+            return routeParameter;
         }
     }
 

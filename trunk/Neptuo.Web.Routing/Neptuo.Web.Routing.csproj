@@ -43,6 +43,7 @@
     <Compile Include="IRequiredRouteParameter.cs" />
     <Compile Include="IRouteParameter.cs" />
     <Compile Include="IRouteParameterContext.cs" />
+    <Compile Include="IRouteParameterFactory.cs" />
     <Compile Include="IRouteParameterRegistry.cs" />
     <Compile Include="IRouteParameterService.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
