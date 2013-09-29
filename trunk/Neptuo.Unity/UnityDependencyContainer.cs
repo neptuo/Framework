@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Unity
 {
-    public class UnitDependencyContainer : IDependencyContainer
+    public class UnityDependencyContainer : IDependencyContainer
     {
         protected IUnityContainer UnityContainer { get; private set; }
 
-        public UnitDependencyContainer()
+        public UnityDependencyContainer()
             : this(new UnityContainer())
         { }
 
-        public UnitDependencyContainer(IUnityContainer unityContainer)
+        public UnityDependencyContainer(IUnityContainer unityContainer)
         {
             UnityContainer = unityContainer;
         }
@@ -34,7 +34,7 @@ namespace Neptuo.Unity
 
         public IDependencyContainer CreateChildContainer()
         {
-            return new UnitDependencyContainer(UnityContainer.CreateChildContainer());
+            return new UnityDependencyContainer(UnityContainer.CreateChildContainer());
         }
 
         public object Resolve(Type t, string name)
