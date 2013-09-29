@@ -33,6 +33,9 @@ namespace Neptuo.Web.Routing
 
         protected override bool MatchUrl(string url, RouteValueDictionary values)
         {
+            if (!String.IsNullOrEmpty(Suffix) && !url.EndsWith(Suffix))
+                return false;
+
             RouteSegmentContext context = new RouteSegmentContext(url, values);
             foreach (RouteSegment segment in Segments)
             {
