@@ -8,10 +8,12 @@ namespace Neptuo.Data.Queries
 {
     public interface IQuery<TResult, TFilter>
     {
+        TFilter Filter { get; }
+
         IQuery<TResult, TFilter> OrderBy(Expression<Func<TResult, object>> sorter);
         IQuery<TResult, TFilter> OrderByDescending(Expression<Func<TResult, object>> sorter);
-        IQuery<TResult, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value)
-            where TValue : IQuerySearch;
+        //IQuery<TResult, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value)
+        //    where TValue : IQuerySearch;
 
         IQueryResult<TResult> Result();
         IQueryResult<TTarget> Result<TTarget>(Expression<Func<TResult, TTarget>> projection);
