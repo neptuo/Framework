@@ -8,6 +8,9 @@ namespace Neptuo.Data.Commands
 {
     public interface ICommandDispatcher
     {
-        void Handle(ICommand command);
+        void Handle<TCommand>(TCommand command) 
+            where TCommand : ICommand;
+
+
     }
 }

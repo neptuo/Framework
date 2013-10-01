@@ -10,7 +10,9 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            TestTokens.Test();
+            //TestTokens.Test();
+            TestEntity.Test();
+
             Console.ReadKey(true);
         }
     }
