@@ -16,6 +16,12 @@ namespace Neptuo.Data
         where TEntity : class
     {
         /// <summary>
+        /// Finds all entities.
+        /// </summary>
+        /// <returns>All entities.</returns>
+        IQueryable<TEntity> Get();
+
+        /// <summary>
         /// Finds single result by <paramref name="id"/>.
         /// </summary>
         /// <param name="id">Entity key.</param>
@@ -46,6 +52,6 @@ namespace Neptuo.Data
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
     public interface IRepository<TEntity> : IRepository<TEntity, Key>
-        where TEntity : class
+        where TEntity : class, IKey<Key>, IVersion
     { }
 }

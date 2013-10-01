@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Queries
+namespace Neptuo.Data
 {
-    public interface IQueryDispatcher
+    public interface IVersion
     {
-        TQuery Get<TQuery>() 
-            where TQuery : IQuery;
+        byte[] Version { get; }
     }
 }

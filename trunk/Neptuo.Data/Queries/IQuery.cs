@@ -6,7 +6,10 @@ using System.Text;
 
 namespace Neptuo.Data.Queries
 {
-    public interface IQuery<TResult, TFilter>
+    public interface IQuery 
+    { }
+
+    public interface IQuery<TResult, TFilter> : IQuery
     {
         TFilter Filter { get; }
 

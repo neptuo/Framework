@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Queries
+namespace Neptuo.Data
 {
-    public interface IQueryDispatcher
+    public interface IKey<TKey>
     {
-        TQuery Get<TQuery>() 
-            where TQuery : IQuery;
+        TKey Key { get; }
     }
 }

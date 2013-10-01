@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "TestMvc4\TestMv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data", "Neptuo.Data\Neptuo.Data.csproj", "{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data.Entity", "Neptuo.Data.Entity\Neptuo.Data.Entity.csproj", "{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -110,6 +112,10 @@ Global
 		{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

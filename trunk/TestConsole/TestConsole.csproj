@@ -11,6 +11,8 @@
     <AssemblyName>TestConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -32,8 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,25 +55,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Commands\IProductQuery.cs" />
+    <Compile Include="Data\Commands\ProductEntityQuery.cs" />
+    <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\IProductRepository.cs" />
+    <Compile Include="Data\Product.cs" />
+    <Compile Include="Data\ProductEntity.cs" />
+    <Compile Include="Data\ProductRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestEntity.cs" />
     <Compile Include="TestTokens.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj">
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.DataAccess.EntityFramework\Neptuo.DataAccess.EntityFramework.csproj">
-      <Project>{4e2ff623-5ea8-478e-816e-c4973fce28d0}</Project>
-      <Name>Neptuo.DataAccess.EntityFramework</Name>
+    <ProjectReference Include="..\Neptuo.Data.Entity\Neptuo.Data.Entity.csproj">
+      <Project>{fee06f1e-0063-4d46-85ce-7334ce61afb0}</Project>
+      <Name>Neptuo.Data.Entity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.DataAccess\Neptuo.DataAccess.csproj">
-      <Project>{eca5cb11-154d-4777-966a-b478bc51be11}</Project>
-      <Name>Neptuo.DataAccess</Name>
+    <ProjectReference Include="..\Neptuo.Data\Neptuo.Data.csproj">
+      <Project>{304c75b0-88b0-4470-bd2d-fd7db582bebf}</Project>
+      <Name>Neptuo.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Migrations\Neptuo.Migrations.csproj">
       <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
@@ -68,6 +91,10 @@
     <ProjectReference Include="..\Neptuo.Tokens\Neptuo.Tokens.csproj">
       <Project>{4a4d8543-fcc0-434a-8831-b01df72e03b8}</Project>
       <Name>Neptuo.Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Unity\Neptuo.Unity.csproj">
+      <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>
+      <Name>Neptuo.Unity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
       <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>
@@ -90,7 +117,9 @@
       <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
