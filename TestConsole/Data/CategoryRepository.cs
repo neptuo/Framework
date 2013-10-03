@@ -12,5 +12,10 @@ namespace TestConsole.Data
         public CategoryRepository(DataContext dbContext)
             : base(dbContext)
         { }
+
+        public Category Create()
+        {
+            return new CategoryEntity();
+        }
     }
 }

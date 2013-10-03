@@ -30,7 +30,7 @@ namespace TestConsole
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
             IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
 
-            CreateProducts(dependencyContainer);
+            //CreateProducts(dependencyContainer);
             
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
             //IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
@@ -76,27 +76,22 @@ namespace TestConsole
         static void CreateProducts(IDependencyContainer dependencyContainer)
         {
             ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
-
-            Category uzenina = new CategoryEntity
-            {
-                Name = "Uzenina"
-            };
+            Category uzenina = categories.Create();
+            uzenina.Name = "Uzenina";
             categories.Insert(uzenina);
-            //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
             IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
-            products.Insert(new ProductEntity
-            {
-                Name = "Buřty",
-                Category = uzenina,
-                Price = 22
-            });
-            products.Insert(new ProductEntity
-            {
-                Name = "Šunka",
-                Category = uzenina,
-                Price = 32
-            });
+            Product burty = products.Create();
+            burty.Name = "Buřty";
+            burty.Category = uzenina;
+            burty.Price = 22;
+            products.Insert(burty);
+
+            Product sunka = products.Create();
+            sunka.Name = "Šunka";
+            sunka.Category = uzenina;
+            sunka.Price = 32;
+            products.Insert(sunka);
 
             dependencyContainer.Resolve<DataContext>().SaveChanges();
         }

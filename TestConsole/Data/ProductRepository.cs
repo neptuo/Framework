@@ -12,5 +12,10 @@ namespace TestConsole.Data
         public ProductRepository(DataContext dbContext)
             : base(dbContext)
         { }
+
+        public Product Create()
+        {
+            return new ProductEntity();
+        }
     }
 }
