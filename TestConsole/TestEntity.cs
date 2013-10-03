@@ -24,18 +24,28 @@ namespace TestConsole
             dependencyContainer
                 .RegisterInstance<DataContext>(new DataContext())
                 .RegisterType<IProductRepository, ProductRepository>()
+                .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<IProductQuery, ProductEntityQuery>();
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
             IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
 
-            //CreateProducts(dependencyContainer);
+            CreateProducts(dependencyContainer);
+            
+            //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+            //IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
+            //Product product = products.Get(1);
+            //product.Category = categories.Get(1);
+            //products.Update(product);
+            //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
-            IProductQuery query = queryDispatcher.Get<IProductQuery>();
-            Console.WriteLine(String.Join(", ", query.Result().Items));
-            Console.WriteLine(query.Result(p => new { Name = p.Name, Price = p.Price }).Items);
-            IEnumerable<string> productNames = query.Result(p => p.Name).Items;
-            Console.WriteLine(String.Join(", ", productNames));
+
+            //IProductQuery query = queryDispatcher.Get<IProductQuery>();
+            //query.Filter.Key = null;
+            //Console.WriteLine(String.Join(", ", query.Result().Items));
+            //Console.WriteLine(query.Result(p => new { Name = p.Name, Price = p.Price }).Items);//HOW TO SELECT NOT MAPPED PROPERTY?
+            //IEnumerable<string> productNames = query.Result(p => p.Name).Items;
+            //Console.WriteLine(String.Join(", ", productNames));
 
             //var q = dependencyContainer.Resolve<IRepository<Product>>().Get().Where(p => p.ID == 3).Select(p => new { ID = p.ID, Name = p.Name });
             //Console.WriteLine(q.ToString());
@@ -58,23 +68,36 @@ namespace TestConsole
             //dataContext.SaveChanges();
 
             Expression<Func<Product, object>> ex = p => new { Name = p.Name, Price = p.Price };
+
+
+            Console.WriteLine("Done.");
         }
 
         static void CreateProducts(IDependencyContainer dependencyContainer)
         {
-            IProductRepository repository = dependencyContainer.Resolve<IProductRepository>();
-            repository.Insert(new ProductEntity
+            ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+
+            Category uzenina = new CategoryEntity
+            {
+                Name = "Uzenina"
+            };
+            categories.Insert(uzenina);
+            //dependencyContainer.Resolve<DataContext>().SaveChanges();
+
+            IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
+            products.Insert(new ProductEntity
             {
                 Name = "Buřty",
-                Category = "Uzenina",
+                Category = uzenina,
                 Price = 22
             });
-            repository.Insert(new ProductEntity
+            products.Insert(new ProductEntity
             {
                 Name = "Šunka",
-                Category = "Uzenina",
+                Category = uzenina,
                 Price = 32
             });
+
             dependencyContainer.Resolve<DataContext>().SaveChanges();
         }
     }

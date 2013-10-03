@@ -55,7 +55,7 @@ namespace Neptuo.Data.Entity
             if (key == null)
                 throw new ArgumentNullException("key");
 
-            return DbContext.Set<TEntity>().Find(key);
+            return DbContext.Set<TEntity>().Find(key.ID);
         }
 
         /// <summary>

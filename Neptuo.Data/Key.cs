@@ -10,15 +10,15 @@ namespace Neptuo.Data
     {
         public int ID { get; protected set; }
         public byte[] Version { get; protected set; }
-        public string EntityUri { get; protected set; }
+        public Type ObjectType { get; protected set; }
 
         #region Construction
 
-        public Key(int id, byte[] version, string entityUri = null)
+        public Key(int id, byte[] version, Type objectType = null)
         {
             ID = id;
             Version = version;
-            EntityUri = entityUri;
+            ObjectType = objectType;
         }
 
         public static implicit operator Key(int id)
@@ -36,14 +36,14 @@ namespace Neptuo.Data
 
             StringBuilder part = new StringBuilder();
 
-            string entityUri = null;
+            string objectName = null;
             int? id = null;
             byte[] version = null;
             foreach (char item in value)
             {
-                if (item == ':' && entityUri == null)
+                if (item == ':' && objectName == null)
                 {
-                    entityUri = part.ToString();
+                    objectName = part.ToString();
                     part.Clear();
                     continue;
                 }
@@ -71,9 +71,9 @@ namespace Neptuo.Data
                 }
             }
 
-            if (entityUri != null && id != null)
+            if (objectName != null && id != null)
             {
-                key = new Key(id.Value, version, entityUri);
+                key = new Key(id.Value, version, Type.GetType(objectName));
                 return true;
             }
 
@@ -85,7 +85,7 @@ namespace Neptuo.Data
 
         public override string ToString()
         {
-            return String.Format("{0}:{1}", EntityUri, ID);
+            return String.Format("{0}:{1}", ObjectType.AssemblyQualifiedName, ID);
         }
 
         public string ToLongString()
@@ -93,7 +93,7 @@ namespace Neptuo.Data
             if (Version == null)
                 return ToString();
 
-            return String.Format("{0}:{1}:[{2}]", EntityUri, ID, String.Join(",", Version));
+            return String.Format("{0}:{1}:[{2}]", ObjectType.AssemblyQualifiedName, ID, String.Join(",", Version));
         }
     }
 }
