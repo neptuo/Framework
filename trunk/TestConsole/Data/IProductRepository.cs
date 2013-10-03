@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data
 {
-    public interface IProductRepository : IRepository<Product>
+    public interface IProductRepository : IRepository<Product>, IObjectFactory<Product>
     { }
 }
