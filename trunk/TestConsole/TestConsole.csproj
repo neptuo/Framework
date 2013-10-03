@@ -55,9 +55,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Category.cs" />
+    <Compile Include="Data\CategoryEntity.cs" />
+    <Compile Include="Data\CategoryRepository.cs" />
+    <Compile Include="Data\Commands\IProductFilter.cs" />
     <Compile Include="Data\Commands\IProductQuery.cs" />
     <Compile Include="Data\Commands\ProductEntityQuery.cs" />
     <Compile Include="Data\DataContext.cs" />
+    <Compile Include="Data\ICategoryRepository.cs" />
     <Compile Include="Data\IProductRepository.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductEntity.cs" />

@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Commands
 {
-    public interface IProductQuery : IQuery<Product, IProductFilter>
+    public interface IProductFilter
     {
+        IQuerySearch Key { set; }
+        IQuerySearch Name { set; }
+        IQuerySearch Category { set; }
+        IQuerySearch Price { set; }
     }
 }

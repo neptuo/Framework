@@ -10,6 +10,7 @@ namespace TestConsole.Data
     public class DataContext : DbContext
     {
         public DbSet<ProductEntity> Products { get; set; }
+        public DbSet<CategoryEntity> Categories { get; set; }
 
         static DataContext()
         {
