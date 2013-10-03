@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestConsole.Data.Commands
+namespace TestConsole.Data.Queries
 {
     public interface IProductQuery : IQuery<Product, IProductFilter>
     {

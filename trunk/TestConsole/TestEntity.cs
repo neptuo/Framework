@@ -1,6 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Data;
 using Neptuo.Data.Commands;
+using Neptuo.Data.Commands.Handlers;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;
@@ -13,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TestConsole.Data;
 using TestConsole.Data.Commands;
+using TestConsole.Data.Commands.Handlers;
+using TestConsole.Data.Queries;
 
 namespace TestConsole
 {
@@ -25,13 +28,24 @@ namespace TestConsole
                 .RegisterInstance<DataContext>(new DataContext())
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
+                .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
                 .RegisterType<IProductQuery, ProductEntityQuery>();
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
             IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
 
             //CreateProducts(dependencyContainer);
-            
+
+
+            //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+            //CreateProductCommand createProduct = new CreateProductCommand();
+            //createProduct.Name = "Uzený salám";
+            //createProduct.Price = 12;
+            //createProduct.Category = categories.Get(1);
+            //commandDispatcher.Handle(createProduct);
+            //dependencyContainer.Resolve<DataContext>().SaveChanges();
+
+
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
             //IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
             //Product product = products.Get(1);
@@ -40,7 +54,11 @@ namespace TestConsole
             //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
 
-            //IProductQuery query = queryDispatcher.Get<IProductQuery>();
+            IProductQuery query = queryDispatcher.Get<IProductQuery>();
+            //query.Filter.Category.Name = TextQuerySearch.Create("Uzeniny");
+            query.Where(f => f.Name, TextQuerySearch.Create("Buřty"));
+
+            Console.WriteLine(String.Join(", ", query.Result().Items));
             //query.Filter.Key = null;
             //Console.WriteLine(String.Join(", ", query.Result().Items));
             //Console.WriteLine(query.Result(p => new { Name = p.Name, Price = p.Price }).Items);//HOW TO SELECT NOT MAPPED PROPERTY?
