@@ -19,6 +19,8 @@ namespace TestConsole.Data.Queries
 
         protected override IQueryable<Product> AppendWhere(IQueryable<Product> items, Dictionary<string, IQuerySearch> whereFilters)
         {
+
+
             foreach (var whereFilter in whereFilters)
             {
                 if (whereFilter.Key == TypeHelper.PropertyName<IProductFilter, object>(p => p.Key))
@@ -36,7 +38,28 @@ namespace TestConsole.Data.Queries
                     if (String.IsNullOrEmpty(textSearch.Text))
                         continue;
 
-                    items = items.Where(p => p.Name == textSearch.Text);
+                    //items = items.Where(p => p.Name == textSearch.Text);
+
+
+                    
+                    ParameterExpression productParameter = Expression.Parameter(typeof(Product));
+                    MemberExpression nameProperty = Expression.Property(productParameter, TypeHelper.PropertyName<Product, string>(p => p.Name));
+                    ConstantExpression value = Expression.Constant(textSearch.Text);
+                    BinaryExpression equal = Expression.Equal(nameProperty, value);
+
+
+
+                    MethodCallExpression whereCallExpression = Expression.Call(
+                       typeof(Queryable),
+                       TypeHelper.MethodName<IQueryable<Product>, Expression<Func<Product, bool>>, IQueryable<Product>>(q => q.Where),
+                       new Type[] { typeof(Product) },
+                       items.Expression,
+                       Expression.Lambda<Func<Product, bool>>(equal, new ParameterExpression[] { productParameter })
+                    );
+
+                    items = items.Provider.CreateQuery<Product>(whereCallExpression);
+
+
                     continue;
                 }
             }

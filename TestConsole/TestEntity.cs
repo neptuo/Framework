@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TestConsole.Data;
@@ -58,7 +59,7 @@ namespace TestConsole
             //query.Filter.Category.Name = TextQuerySearch.Create("Uzeniny");
             query.Where(f => f.Name, TextQuerySearch.Create("Buřty"));
 
-            Console.WriteLine(String.Join(", ", query.Result().Items));
+            Console.WriteLine(String.Join(", ", query.Result().Items.Select(p => p.Name)));
             //query.Filter.Key = null;
             //Console.WriteLine(String.Join(", ", query.Result().Items));
             //Console.WriteLine(query.Result(p => new { Name = p.Name, Price = p.Price }).Items);//HOW TO SELECT NOT MAPPED PROPERTY?
@@ -86,9 +87,6 @@ namespace TestConsole
             //dataContext.SaveChanges();
 
             Expression<Func<Product, object>> ex = p => new { Name = p.Name, Price = p.Price };
-
-
-            Console.WriteLine("Done.");
         }
 
         static void CreateProducts(IDependencyContainer dependencyContainer)
