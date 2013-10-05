@@ -64,40 +64,11 @@ namespace TestConsole
             query.WhereText(f => f.Name, "U", TextSearchType.Contains);
             //query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
 
-            Console.WriteLine(String.Join(", ", query.Result().Items.Select(p => p.Name)));
+            Console.WriteLine(String.Join(", ", query.Result(p => p.Key).Items));
 
 
 
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-
-            for (int i = 0; i < 10; i++)
-            {
-                queryDispatcher.Get<IProductQuery>()
-                    .WhereInt(f => f.Key, 1, 3)
-                    .Result().Items
-                    .Select(p => p.Name)
-                    .ToArray();
-            }
-
-            sw.Stop();
-            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
-            sw.Reset();
-
-            DataContext dataContext = dependencyContainer.Resolve<DataContext>();
-            sw.Start();
-
-            for (int i = 0; i < 10; i++)
-            {
-                List<int> ids = new List<int>();
-                dataContext.Products
-                    .Where(p => ids.Contains(p.ID))
-                    .Select(p => p.Name)
-                    .ToArray();
-            }
-
-            sw.Stop();
-            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
+            //PerfTest(dependencyContainer, queryDispatcher);
 
 
 
@@ -128,6 +99,40 @@ namespace TestConsole
             //dataContext.SaveChanges();
 
             Expression<Func<Product, object>> ex = p => new { Name = p.Name, Price = p.Price };
+        }
+
+        static void PerfTest(IDependencyContainer dependencyContainer, IQueryDispatcher queryDispatcher)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            for (int i = 0; i < 10; i++)
+            {
+                queryDispatcher.Get<IProductQuery>()
+                    .WhereInt(f => f.Key, 1, 3)
+                    .Result().Items
+                    .Select(p => p.Name)
+                    .ToArray();
+            }
+
+            sw.Stop();
+            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
+            sw.Reset();
+
+            DataContext dataContext = dependencyContainer.Resolve<DataContext>();
+            sw.Start();
+
+            for (int i = 0; i < 10; i++)
+            {
+                List<int> ids = new List<int>();
+                dataContext.Products
+                    .Where(p => ids.Contains(p.ID))
+                    .Select(p => p.Name)
+                    .ToArray();
+            }
+
+            sw.Stop();
+            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
         }
 
         static void CreateProducts(IDependencyContainer dependencyContainer)
