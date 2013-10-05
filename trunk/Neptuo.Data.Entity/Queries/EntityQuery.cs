@@ -15,7 +15,7 @@ namespace Neptuo.Data.Entity.Queries
     {
         protected IQueryable<TEntity> OriginalItems { get; private set; }
         protected IQueryable<TEntity> Items { get; private set; }
-        protected Dictionary<string, IQuerySearch> WhereFilters { get; private set; }
+        protected Dictionary<string, object> WhereFilters { get; private set; }
 
         public EntityQuery(IQueryable<TEntity> items)
         {
@@ -24,13 +24,12 @@ namespace Neptuo.Data.Entity.Queries
 
             OriginalItems = items;
             Items = items;
-            WhereFilters = new Dictionary<string, IQuerySearch>();
+            WhereFilters = new Dictionary<string, object>();
         }
 
         public TFilter Filter { get; private set; }
 
         public IQuery<TEntity, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value)
-            where TValue : IQuerySearch
         {
             WhereFilters[TypeHelper.PropertyName(selector)] = value;
             return this;
@@ -90,7 +89,7 @@ namespace Neptuo.Data.Entity.Queries
             return Page(pageIndex, pageSize).Result();
         }
 
-        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items, Dictionary<string, IQuerySearch> whereFilters)
+        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items, Dictionary<string, object> whereFilters)
         {
             ParameterExpression parameter = Expression.Parameter(typeof(TEntity));
             Expression predicate = BuildWhereExpression(parameter, whereFilters);
@@ -110,6 +109,6 @@ namespace Neptuo.Data.Entity.Queries
             return items;
         }
 
-        protected abstract Expression BuildWhereExpression(Expression parameter, Dictionary<string, IQuerySearch> whereFilters);
+        protected abstract Expression BuildWhereExpression(Expression parameter, Dictionary<string, object> whereFilters);
     }
 }

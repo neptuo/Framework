@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Data.Commands.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,10 @@ namespace Neptuo.Data.Commands
 {
     public interface ICommandDispatcher
     {
-        void Handle<TCommand>(TCommand command) 
-            where TCommand : ICommand;
+        void Handle<TCommand>(TCommand command);
 
-
+        TValidationResult Validate<TCommand, TValidationResult>(TCommand command)
+            where TCommand : ICommandValidationResult<TValidationResult>
+            where TValidationResult : IValidationResult;
     }
 }

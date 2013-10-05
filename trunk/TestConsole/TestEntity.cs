@@ -2,9 +2,11 @@
 using Neptuo.Data;
 using Neptuo.Data.Commands;
 using Neptuo.Data.Commands.Handlers;
+using Neptuo.Data.Commands.Validation;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;
+using Neptuo.Linq.Expressions;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
@@ -17,6 +19,7 @@ using System.Threading.Tasks;
 using TestConsole.Data;
 using TestConsole.Data.Commands;
 using TestConsole.Data.Commands.Handlers;
+using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
 
 namespace TestConsole
@@ -31,7 +34,9 @@ namespace TestConsole
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
-                .RegisterType<IProductQuery, ProductEntityQuery>();
+                .RegisterType<IProductQuery, ProductEntityQuery>()
+                
+                .RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
             IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
@@ -39,13 +44,17 @@ namespace TestConsole
             //CreateProducts(dependencyContainer);
 
 
-            //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
-            //CreateProductCommand createProduct = new CreateProductCommand();
-            //createProduct.Name = "Uzený salám";
-            //createProduct.Price = 12;
-            //createProduct.Category = categories.Get(1);
-            //commandDispatcher.Handle(createProduct);
-            //dependencyContainer.Resolve<DataContext>().SaveChanges();
+            ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+            CreateProductCommand createProduct = new CreateProductCommand();
+            createProduct.Name = "Uzený salám";
+            createProduct.Price = 12;
+            createProduct.Category = categories.Get(1);
+
+            if (commandDispatcher.Validate<CreateProductCommand, IValidationResult>(createProduct).IsValid)
+            {
+                commandDispatcher.Handle(createProduct);
+                dependencyContainer.Resolve<DataContext>().SaveChanges();
+            }
 
 
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
@@ -60,9 +69,8 @@ namespace TestConsole
 
 
             IProductQuery query = queryDispatcher.Get<IProductQuery>();
-            //query.Filter.Category.Name = TextQuerySearch.Create("Uzeniny");
-            //query.WhereText(f => f.Name, "u", TextSearchType.Contains);
-            //query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
+            query.WhereText(f => f.Name, "u", TextSearchType.Contains);
+            query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
 
             IEnumerable<Key> keys = query.Result(p => p.Key).Items.ToList();
             Console.WriteLine(String.Join(", ", keys));
@@ -99,7 +107,8 @@ namespace TestConsole
             //dataContext.Set<Product>().Remove(product2);
             //dataContext.SaveChanges();
 
-            Expression<Func<Product, object>> ex = p => new { Name = p.Name, Price = p.Price };
+            //Expression<Func<Product, object>> ex = p => new { Name = p.Name, Price = p.Price };
+
         }
 
         static void PerfTest(IDependencyContainer dependencyContainer, IQueryDispatcher queryDispatcher)

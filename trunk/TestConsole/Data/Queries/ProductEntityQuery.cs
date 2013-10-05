@@ -17,7 +17,7 @@ namespace TestConsole.Data.Queries
             : base((IQueryable<ProductEntity>)repository.Get())
         { }
 
-        protected override Expression BuildWhereExpression(Expression parameter, Dictionary<string, IQuerySearch> whereFilters)
+        protected override Expression BuildWhereExpression(Expression parameter, Dictionary<string, object> whereFilters)
         {
             Expression target = null;
             foreach (var whereFilter in whereFilters)
