@@ -9,7 +9,7 @@ namespace TestConsole.Data.Queries
 {
     public interface ICategoryFilter
     {
-        IntQuerySearch Key { get; set; }
-        TextQuerySearch Name { get; set; }
+        IntSearch Key { get; set; }
+        TextSearch Name { get; set; }
     }
 }

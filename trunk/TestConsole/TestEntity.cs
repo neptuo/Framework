@@ -8,6 +8,7 @@ using Neptuo.Data.Queries;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
@@ -55,11 +56,51 @@ namespace TestConsole
             //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
 
+
+
+
             IProductQuery query = queryDispatcher.Get<IProductQuery>();
             //query.Filter.Category.Name = TextQuerySearch.Create("Uzeniny");
-            query.Where(f => f.Name, TextQuerySearch.Create("Buřty"));
+            query.WhereText(f => f.Name, "U", TextSearchType.Contains);
+            //query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
 
             Console.WriteLine(String.Join(", ", query.Result().Items.Select(p => p.Name)));
+
+
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            for (int i = 0; i < 10; i++)
+            {
+                queryDispatcher.Get<IProductQuery>()
+                    .WhereInt(f => f.Key, 1, 3)
+                    .Result().Items
+                    .Select(p => p.Name)
+                    .ToArray();
+            }
+
+            sw.Stop();
+            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
+            sw.Reset();
+
+            DataContext dataContext = dependencyContainer.Resolve<DataContext>();
+            sw.Start();
+
+            for (int i = 0; i < 10; i++)
+            {
+                List<int> ids = new List<int>();
+                dataContext.Products
+                    .Where(p => ids.Contains(p.ID))
+                    .Select(p => p.Name)
+                    .ToArray();
+            }
+
+            sw.Stop();
+            Console.WriteLine("Ellapsed: {0}ms", sw.ElapsedMilliseconds);
+
+
+
             //query.Filter.Key = null;
             //Console.WriteLine(String.Join(", ", query.Result().Items));
             //Console.WriteLine(query.Result(p => new { Name = p.Name, Price = p.Price }).Items);//HOW TO SELECT NOT MAPPED PROPERTY?

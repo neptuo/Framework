@@ -9,9 +9,9 @@ namespace TestConsole.Data.Queries
 {
     public interface IProductFilter
     {
-        IntQuerySearch Key { get; set; }
-        TextQuerySearch Name { get; set; }
+        IntSearch Key { get; set; }
+        TextSearch Name { get; set; }
         ICategoryFilter Category { get; set; }
-        DoubleQuerySearch Price { get; set; }
+        DoubleSearch Price { get; set; }
     }
 }
