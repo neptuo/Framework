@@ -56,13 +56,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Queries\DependencyQueryDispatcher.cs" />
-    <Compile Include="Queries\DoubleQuerySearch.cs" />
-    <Compile Include="Queries\IntQuerySearch.cs" />
+    <Compile Include="Queries\DoubleSearch.cs" />
+    <Compile Include="Queries\IntSearch.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryDispatcher.cs" />
     <Compile Include="Queries\IQueryResult.cs" />
     <Compile Include="Queries\IQuerySearch.cs" />
-    <Compile Include="Queries\TextQuerySearch.cs" />
+    <Compile Include="Queries\QuerySearchExtensions.cs" />
+    <Compile Include="Queries\TextSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

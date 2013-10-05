@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Queries
 {
-    public class DoubleQuerySearch : IQuerySearch
+    public class DoubleSearch : IQuerySearch
     {
         public List<double> Value { get; set; }
         
-        protected DoubleQuerySearch(double value)
+        protected DoubleSearch(double value)
         {
             Value = new List<double>();
             Value.Add(value);
         }
 
-        protected DoubleQuerySearch(IEnumerable<double> value)
+        protected DoubleSearch(IEnumerable<double> value)
         {
             Value = new List<double>(value);
         }
 
-        public static DoubleQuerySearch Create(double value)
+        public static DoubleSearch Create(double value)
         {
-            return new DoubleQuerySearch(value);
+            return new DoubleSearch(value);
         }
 
-        public static DoubleQuerySearch Create(IEnumerable<double> value)
+        public static DoubleSearch Create(IEnumerable<double> value)
         {
-            return new DoubleQuerySearch(value);
+            return new DoubleSearch(value);
         }
     }
 }

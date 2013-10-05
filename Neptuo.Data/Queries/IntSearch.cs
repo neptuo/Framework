@@ -6,29 +6,29 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Queries
 {
-    public class IntQuerySearch : IQuerySearch
+    public class IntSearch : IQuerySearch
     {
         public List<int> Value { get; set; }
 
-        protected IntQuerySearch(int value)
+        protected IntSearch(int value)
         {
             Value = new List<int>();
             Value.Add(value);
         }
 
-        protected IntQuerySearch(IEnumerable<int> value)
+        protected IntSearch(IEnumerable<int> value)
         {
             Value = new List<int>(value);
         }
 
-        public static IntQuerySearch Create(int value)
+        public static IntSearch Create(params int[] values)
         {
-            return new IntQuerySearch(value);
+            return new IntSearch(values);
         }
 
-        public static IntQuerySearch Create(IEnumerable<int> value)
+        public static IntSearch Create(IEnumerable<int> values)
         {
-            return new IntQuerySearch(value);
+            return new IntSearch(values);
         }
     }
 }

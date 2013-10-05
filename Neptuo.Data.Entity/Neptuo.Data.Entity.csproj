@@ -53,6 +53,8 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Queries\EntityQuery.cs" />
     <Compile Include="Queries\EntityQueryResult.cs" />
+    <Compile Include="Queries\EntityQuerySearch.cs" />
+    <Compile Include="Queries\MappingEntityQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Data\Neptuo.Data.csproj">

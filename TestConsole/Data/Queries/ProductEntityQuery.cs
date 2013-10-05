@@ -11,60 +11,45 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Queries
 {
-    public class ProductEntityQuery : EntityQuery<Product, IProductFilter>, IProductQuery
+    public class ProductEntityQuery : MappingEntityQuery<Product, ProductEntity, IProductFilter>, IProductQuery
     {
         public ProductEntityQuery(IProductRepository repository)
-            : base(repository.Get())
+            : base((IQueryable<ProductEntity>)repository.Get())
         { }
 
-        protected override IQueryable<Product> AppendWhere(IQueryable<Product> items, Dictionary<string, IQuerySearch> whereFilters)
+        protected override Expression BuildWhereExpression(Expression parameter, Dictionary<string, IQuerySearch> whereFilters)
         {
-
-
+            Expression target = null;
             foreach (var whereFilter in whereFilters)
             {
                 if (whereFilter.Key == TypeHelper.PropertyName<IProductFilter, object>(p => p.Key))
                 {
-                    IntQuerySearch intSearch = (IntQuerySearch)whereFilter.Value;
-                    if (intSearch.Value.Count == 0)
-                        continue;
+                    target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.ID, (IntSearch)whereFilter.Value);
+                    //IntSearch intSearch = (IntSearch)whereFilter.Value;
+                    //if (intSearch.Value.Count == 0)
+                    //    continue;
 
                     //if (intSearch.Value.Count == 1)
                     //    items = items.Where(i => i.Key == intSearch.Value[0]);
                 }
                 else if (whereFilter.Key == TypeHelper.PropertyName<IProductFilter, object>(p => p.Name))
                 {
-                    TextQuerySearch textSearch = (TextQuerySearch)whereFilter.Value;
-                    if (String.IsNullOrEmpty(textSearch.Text))
-                        continue;
+                    target = EntityQuerySearch.BuildTextSearch<Product>(target, parameter, p => p.Name, (TextSearch)whereFilter.Value);
 
-                    //items = items.Where(p => p.Name == textSearch.Text);
+                    //TextSearch textSearch = (TextSearch)whereFilter.Value;
+                    //if (String.IsNullOrEmpty(textSearch.Text))
+                    //    continue;
 
+                    //MemberExpression nameProperty = Expression.Property(parameter, TypeHelper.PropertyName<Product, string>(p => p.Name));
+                    //ConstantExpression value = Expression.Constant(textSearch.Text);
+                    //BinaryExpression equal = Expression.Equal(nameProperty, value);
 
-                    
-                    ParameterExpression productParameter = Expression.Parameter(typeof(Product));
-                    MemberExpression nameProperty = Expression.Property(productParameter, TypeHelper.PropertyName<Product, string>(p => p.Name));
-                    ConstantExpression value = Expression.Constant(textSearch.Text);
-                    BinaryExpression equal = Expression.Equal(nameProperty, value);
-
-
-
-                    MethodCallExpression whereCallExpression = Expression.Call(
-                       typeof(Queryable),
-                       TypeHelper.MethodName<IQueryable<Product>, Expression<Func<Product, bool>>, IQueryable<Product>>(q => q.Where),
-                       new Type[] { typeof(Product) },
-                       items.Expression,
-                       Expression.Lambda<Func<Product, bool>>(equal, new ParameterExpression[] { productParameter })
-                    );
-
-                    items = items.Provider.CreateQuery<Product>(whereCallExpression);
-
-
-                    continue;
+                    //if (target == null)
+                    //    target = equal;
                 }
             }
 
-            return items;
+            return target;
         }
     }
 }
