@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Commands.Validation
 {
-    public interface ICommandValidator<TCommand, out TResult>
-        where TResult : IValidationResult
-    {
-        TResult Validate(TCommand command);
-    }
+    public interface ICommandValidationResult<T>
+        where T : IValidationResult
+    { }
 }

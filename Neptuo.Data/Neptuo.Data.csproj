@@ -43,15 +43,16 @@
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Commands\Handlers\ICommandHandlerFactory.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
+    <Compile Include="Commands\Validation\ICommandValidationResult.cs" />
     <Compile Include="Commands\Validation\ICommandValidator.cs" />
     <Compile Include="Commands\Validation\IValidationResult.cs" />
+    <Compile Include="Commands\Validation\ValidationResultBase.cs" />
     <Compile Include="DataException.cs" />
     <Compile Include="IKey.cs" />
     <Compile Include="IObjectFactory.cs" />
     <Compile Include="IVersion.cs" />
     <Compile Include="IncorrectVersionException.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
