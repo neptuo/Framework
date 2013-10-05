@@ -48,6 +48,11 @@
     <Compile Include="Globalization\CultureInfoExtensions.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IDependencyProvider.cs" />
+    <Compile Include="Linq\Expressions\CompiledExpression.cs" />
+    <Compile Include="Linq\Expressions\DefaultTranslationOf.cs" />
+    <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
+    <Compile Include="Linq\Expressions\TranslationMap.cs" />
+    <Compile Include="Linq\ExpressiveExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

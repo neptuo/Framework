@@ -56,15 +56,16 @@ namespace TestConsole
             //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
 
-
+            ProductEntity e = new ProductEntity();
 
 
             IProductQuery query = queryDispatcher.Get<IProductQuery>();
             //query.Filter.Category.Name = TextQuerySearch.Create("Uzeniny");
-            query.WhereText(f => f.Name, "U", TextSearchType.Contains);
+            //query.WhereText(f => f.Name, "u", TextSearchType.Contains);
             //query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
 
-            Console.WriteLine(String.Join(", ", query.Result(p => p.Key).Items));
+            IEnumerable<Key> keys = query.Result(p => p.Key).Items.ToList();
+            Console.WriteLine(String.Join(", ", keys));
 
 
 
@@ -106,12 +107,12 @@ namespace TestConsole
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 queryDispatcher.Get<IProductQuery>()
                     .WhereInt(f => f.Key, 1, 3)
                     .Result().Items
-                    .Select(p => p.Name)
+                    .Select(p => p.Key)
                     .ToArray();
             }
 
@@ -122,12 +123,12 @@ namespace TestConsole
             DataContext dataContext = dependencyContainer.Resolve<DataContext>();
             sw.Start();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 List<int> ids = new List<int>();
                 dataContext.Products
                     .Where(p => ids.Contains(p.ID))
-                    .Select(p => p.Name)
+                    .Select(p => new { ID = p.ID, Version = p.Version })
                     .ToArray();
             }
 
