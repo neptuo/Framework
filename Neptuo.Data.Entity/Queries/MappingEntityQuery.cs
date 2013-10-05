@@ -1,4 +1,5 @@
 ﻿using Neptuo.Data.Queries;
+using Neptuo.Linq;
 using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace Neptuo.Data.Entity.Queries
 
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TBusiness, TTarget>> projection)
         {
-            var items = AppendWhere((IQueryable<TEntity>)Items, WhereFilters).Select(projection);
+            var items = AppendWhere((IQueryable<TEntity>)Items, WhereFilters).Select(projection).WithTranslations();
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
             return new EntityQueryResult<TTarget>(items, OriginalItems.Count());

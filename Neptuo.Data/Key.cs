@@ -8,11 +8,14 @@ namespace Neptuo.Data
 {
     public class Key
     {
-        public int ID { get; protected set; }
-        public byte[] Version { get; protected set; }
-        public Type ObjectType { get; protected set; }
+        public int ID { get; set; }
+        public byte[] Version { get; set; }
+        public Type ObjectType { get; set; }
 
         #region Construction
+
+        public Key()
+        { }
 
         public Key(int id, byte[] version, Type objectType = null)
         {
@@ -85,7 +88,7 @@ namespace Neptuo.Data
 
         public override string ToString()
         {
-            return String.Format("{0}:{1}", ObjectType.AssemblyQualifiedName, ID);
+            return String.Format("{0}:{1}", ObjectType, ID);
         }
 
         public string ToLongString()
@@ -93,7 +96,7 @@ namespace Neptuo.Data
             if (Version == null)
                 return ToString();
 
-            return String.Format("{0}:{1}:[{2}]", ObjectType.AssemblyQualifiedName, ID, String.Join(",", Version));
+            return String.Format("{0}:{1}:[{2}]", ObjectType, ID, String.Join(",", Version));
         }
     }
 }

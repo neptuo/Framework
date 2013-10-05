@@ -1,4 +1,6 @@
 ﻿using Neptuo.Data;
+using Neptuo.Linq;
+using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +13,9 @@ namespace TestConsole.Data
 {
     public class ProductEntity : Product
     {
+        private static readonly CompiledExpression<ProductEntity, Key> keyExpression
+            = DefaultTranslationOf<ProductEntity>.Property(p => p.Key, p => new Key { ID = (p as ProductEntity).ID, Version = (p as ProductEntity).Version });
+
         [Key]
         public int ID
         {
