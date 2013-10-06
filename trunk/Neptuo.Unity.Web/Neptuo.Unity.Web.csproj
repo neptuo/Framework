@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lifetimes\Mapping\PerRequestLifetimeMapper.cs" />
+    <Compile Include="Lifetimes\Mapping\PerSessionLifetimeMapper.cs" />
     <Compile Include="PerRequestLifetimeManager.cs" />
     <Compile Include="PerSessionLifetimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +62,10 @@
     <ProjectReference Include="..\Neptuo.Unity\Neptuo.Unity.csproj">
       <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>
       <Name>Neptuo.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
+      <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>
+      <Name>Neptuo.Web</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>

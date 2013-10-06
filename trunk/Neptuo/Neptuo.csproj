@@ -46,6 +46,7 @@
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="DependencyProviderExtensions.cs" />
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
+    <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
     <Compile Include="Lifetimes\SingletonLifetime.cs" />
     <Compile Include="Globalization\CultureInfoExtensions.cs" />
     <Compile Include="IActivator.cs" />
