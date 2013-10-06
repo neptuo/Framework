@@ -34,9 +34,9 @@ namespace TestConsole
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
-                .RegisterType<IProductQuery, ProductEntityQuery>()
-                
-                .RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
+                .RegisterType<IProductQuery, ProductEntityQuery>();
+
+            //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
             IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
@@ -44,17 +44,17 @@ namespace TestConsole
             //CreateProducts(dependencyContainer);
 
 
-            ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
-            CreateProductCommand createProduct = new CreateProductCommand();
-            createProduct.Name = "Uzený salám";
-            createProduct.Price = 12;
-            createProduct.Category = categories.Get(1);
+            //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+            //CreateProductCommand createProduct = new CreateProductCommand();
+            //createProduct.Name = "Uzený salám";
+            //createProduct.Price = 12;
+            //createProduct.Category = categories.Get(1);
 
-            if (commandDispatcher.Validate<CreateProductCommand, IValidationResult>(createProduct).IsValid)
-            {
-                commandDispatcher.Handle(createProduct);
-                dependencyContainer.Resolve<DataContext>().SaveChanges();
-            }
+            //if (commandDispatcher.Validate<CreateProductCommand, IValidationResult>(createProduct).IsValid)
+            //{
+            //    commandDispatcher.Handle(createProduct);
+            //    dependencyContainer.Resolve<DataContext>().SaveChanges();
+            //}
 
 
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();

@@ -35,15 +35,6 @@ namespace Neptuo.Data.Entity
         #region Get/Insert/Update/Delete
 
         /// <summary>
-        /// Finds all entities.
-        /// </summary>
-        /// <returns>All entities.</returns>
-        public virtual IQueryable<TEntity> Get()
-        {
-            return DbContext.Set<TEntity>();
-        }
-
-        /// <summary>
         /// Finds single result by <paramref name="key"/>.
         /// </summary>
         /// <param name="key">Entity key.</param>

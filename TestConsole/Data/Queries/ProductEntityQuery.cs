@@ -13,8 +13,8 @@ namespace TestConsole.Data.Queries
 {
     public class ProductEntityQuery : MappingEntityQuery<Product, ProductEntity, IProductFilter>, IProductQuery
     {
-        public ProductEntityQuery(IProductRepository repository)
-            : base((IQueryable<ProductEntity>)repository.Get())
+        public ProductEntityQuery(DataContext dataContext)
+            : base(dataContext.Products)
         { }
 
         protected override Expression BuildWhereExpression(Expression parameter, Dictionary<string, object> whereFilters)
