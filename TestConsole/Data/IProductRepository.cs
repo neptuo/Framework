@@ -1,4 +1,5 @@
-﻿using Neptuo.Data;
+﻿using Neptuo;
+using Neptuo.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data
 {
-    public interface IProductRepository : IRepository<Product>, IObjectFactory<Product>
+    public interface IProductRepository : IRepository<Product>, IActivator<Product>
     { }
 }
