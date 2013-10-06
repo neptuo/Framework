@@ -34,5 +34,16 @@ namespace Neptuo
         {
             return container.RegisterType(from, to, name, null);
         }
+
+        public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, object lifetime)
+        {
+            return container.RegisterType(from, from, null, lifetime);
+        }
+
+        public static IDependencyContainer RegisterType<TFrom>(this IDependencyContainer container, object lifetime)
+        {
+            return container.RegisterType(typeof(TFrom), typeof(TFrom), null, lifetime);
+        }
+
     }
 }
