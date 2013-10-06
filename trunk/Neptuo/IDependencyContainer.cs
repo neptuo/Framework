@@ -8,6 +8,6 @@ namespace Neptuo
     public interface IDependencyContainer : IDependencyProvider
     {
         IDependencyContainer RegisterInstance(Type t, string name, object instance);
-        IDependencyContainer RegisterType(Type from, Type to, string name);
+        IDependencyContainer RegisterType(Type from, Type to, string name, object lifetime);
     }
 }

@@ -45,10 +45,16 @@
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="DependencyProviderExtensions.cs" />
+    <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
+    <Compile Include="Lifetimes\SingletonLifetime.cs" />
     <Compile Include="Globalization\CultureInfoExtensions.cs" />
     <Compile Include="IActivator.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IDependencyProvider.cs" />
+    <Compile Include="Lifetimes\GetterLifetime.cs" />
+    <Compile Include="Lifetimes\Mapping\ILifetimeMapper.cs" />
+    <Compile Include="Lifetimes\Mapping\LifetimeMapperBase.cs" />
+    <Compile Include="Lifetimes\Mapping\LifetimeMapping.cs" />
     <Compile Include="Linq\Expressions\CompiledExpression.cs" />
     <Compile Include="Linq\Expressions\DefaultTranslationOf.cs" />
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />

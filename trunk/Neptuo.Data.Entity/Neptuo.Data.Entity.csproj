@@ -49,6 +49,7 @@
     <Compile Include="DbContextUnitOfWork.cs" />
     <Compile Include="DbContextUnitOfWorkFactory.cs" />
     <Compile Include="EntityRepository.cs" />
+    <Compile Include="IDbContext.cs" />
     <Compile Include="MappingEntityException.cs" />
     <Compile Include="MappingEntityRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

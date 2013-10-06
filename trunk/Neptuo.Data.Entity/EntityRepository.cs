@@ -17,7 +17,7 @@ namespace Neptuo.Data.Entity
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
     public abstract class EntityRepository<TEntity, TKey, TContext> : IRepository<TEntity, TKey>
         where TEntity : class
-        where TContext : DbContext, new()
+        where TContext : IDbContext
     {
         /// <summary>
         /// Current dbContext.
@@ -94,7 +94,7 @@ namespace Neptuo.Data.Entity
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
     public class EntityRepository<TEntity, TContext> : EntityRepository<TEntity, Key, TContext>, IRepository<TEntity>
         where TEntity : class, IKey<Key>, IVersion
-        where TContext : DbContext, new()
+        where TContext : IDbContext
     {
         public EntityRepository(TContext dbContext)
             : base(dbContext)
