@@ -6,10 +6,7 @@ using System.Text;
 
 namespace Neptuo.Data.Queries
 {
-    public interface IQuery 
-    { }
-
-    public interface IQuery<TResult, TFilter> : IQuery
+    public interface IQuery<TResult, TFilter>
     {
         IQuery<TResult, TFilter> OrderBy(Expression<Func<TResult, object>> sorter);
         IQuery<TResult, TFilter> OrderByDescending(Expression<Func<TResult, object>> sorter);

@@ -8,7 +8,6 @@ namespace Neptuo.Data.Queries
 {
     public interface IQueryDispatcher
     {
-        TQuery Get<TQuery>() 
-            where TQuery : IQuery;
+        TQuery Get<TQuery>();
     }
 }

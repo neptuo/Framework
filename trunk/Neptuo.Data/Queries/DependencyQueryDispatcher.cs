@@ -15,8 +15,7 @@ namespace Neptuo.Data.Queries
             this.dependencyProvider = dependencyProvider;
         }
 
-        public TQuery Get<TQuery>() 
-            where TQuery : IQuery
+        public TQuery Get<TQuery>()
         {
             TQuery query = dependencyProvider.Resolve<TQuery>();
             return query;
