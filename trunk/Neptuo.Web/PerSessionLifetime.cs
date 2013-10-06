@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web
 {
-    public class PerSessionLifetimeManager
+    public class PerSessionLifetime
     { }
 }
