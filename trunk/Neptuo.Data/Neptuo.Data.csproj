@@ -49,7 +49,6 @@
     <Compile Include="Commands\Validation\ValidationResultBase.cs" />
     <Compile Include="DataException.cs" />
     <Compile Include="IKey.cs" />
-    <Compile Include="IObjectFactory.cs" />
     <Compile Include="IVersion.cs" />
     <Compile Include="IncorrectVersionException.cs" />
     <Compile Include="IRepository.cs" />
