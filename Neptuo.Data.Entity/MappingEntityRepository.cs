@@ -15,9 +15,9 @@ namespace Neptuo.Data.Entity
     /// <typeparam name="TBusiness">Business type.</typeparam>
     /// <typeparam name="TEntity">Entity (db) type.</typeparam>
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
-    public class MappingEntityRepository<TBusiness, TEntity, TContext> : IRepository<TBusiness>
+    public class MappingEntityRepository<TBusiness, TEntity, TKey, TContext> : IRepository<TBusiness, TKey>
         where TEntity : class, TBusiness
-        where TBusiness : class, IKey<Key>, IVersion
+        where TBusiness : class, IKey<TKey>, IVersion
         where TContext : DbContext, new()
     {
 
@@ -41,12 +41,12 @@ namespace Neptuo.Data.Entity
         /// </summary>
         /// <param name="key">Entity key.</param>
         /// <returns>Single object or null.</returns>
-        public virtual TBusiness Get(Key key)
+        public virtual TBusiness Get(TKey key)
         {
             if (key == null)
                 throw new ArgumentNullException("key");
 
-            return DbContext.Set<TEntity>().Find(key.ID);
+            return DbContext.Set<TEntity>().Find(key);
         }
 
         /// <summary>
@@ -97,5 +97,24 @@ namespace Neptuo.Data.Entity
 
             return entity;
         }
+    }
+
+    public class MappingEntityRepository<TBusiness, TEntity, TContext> : MappingEntityRepository<TBusiness, TEntity, Key, TContext>, IRepository<TBusiness>
+        where TEntity : class, TBusiness
+        where TBusiness : class, IKey<Key>, IVersion
+        where TContext : DbContext, new()
+    {
+        public MappingEntityRepository(TContext dbContext)
+            : base(dbContext)
+        { }
+
+        public override TBusiness Get(Key key)
+        {
+            if (key == null)
+                throw new ArgumentNullException("key");
+
+            return DbContext.Set<TEntity>().Find(key.ID);
+        }
+
     }
 }

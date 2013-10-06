@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbContextUnitOfWork.cs" />
+    <Compile Include="DbContextUnitOfWorkFactory.cs" />
     <Compile Include="EntityRepository.cs" />
     <Compile Include="MappingEntityException.cs" />
     <Compile Include="MappingEntityRepository.cs" />
