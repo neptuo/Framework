@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Lifetimes.Mapping
 {
-    public static class LifetimeMappingExtensions
-    {
-        public static void Map<TBaseLifetimeManager, TLifetime>(this ILifetimeMapping<TBaseLifetimeManager> mapping, LifetimeMapperBase<TBaseLifetimeManager, TLifetime> mapper)
-        {
-            mapping.Map(typeof(TLifetime), mapper);
-        }
-    }
+    //public static class LifetimeMappingExtensions
+    //{
+    //    public static void Map<TLifetime, TBaseLifetimeManager>(this ILifetimeMapping<TBaseLifetimeManager> mapping, LifetimeMapperBase<TBaseLifetimeManager, TLifetime> mapper)
+    //    {
+    //        mapping.Map(typeof(TLifetime), mapper);
+    //    }
+    //}
 }
