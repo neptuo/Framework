@@ -18,7 +18,7 @@ namespace Neptuo.Data.Entity
     public class MappingEntityRepository<TBusiness, TEntity, TKey, TContext> : IRepository<TBusiness, TKey>
         where TEntity : class, TBusiness
         where TBusiness : class, IKey<TKey>, IVersion
-        where TContext : DbContext, new()
+        where TContext : IDbContext
     {
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Neptuo.Data.Entity
     public class MappingEntityRepository<TBusiness, TEntity, TContext> : MappingEntityRepository<TBusiness, TEntity, Key, TContext>, IRepository<TBusiness>
         where TEntity : class, TBusiness
         where TBusiness : class, IKey<Key>, IVersion
-        where TContext : DbContext, new()
+        where TContext : IDbContext
     {
         public MappingEntityRepository(TContext dbContext)
             : base(dbContext)

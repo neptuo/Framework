@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Data.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IDbContext
     {
         public DbSet<ProductEntity> Products { get; set; }
         public DbSet<CategoryEntity> Categories { get; set; }

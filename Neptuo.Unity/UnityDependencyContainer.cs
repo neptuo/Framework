@@ -1,4 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
+using Neptuo.Lifetimes;
+using Neptuo.Lifetimes.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +9,25 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Unity
 {
-    public class UnityDependencyContainer : IDependencyContainer
+    public class UnityDependencyContainer : IDependencyContainer, ILifetimeMapping<LifetimeManager>
     {
         protected IUnityContainer UnityContainer { get; private set; }
+        protected LifetimeMapping<LifetimeManager> LifetimeMapping { get; private set; }
 
         public UnityDependencyContainer()
-            : this(new UnityContainer())
+            : this(new UnityContainer(), new LifetimeMapping<LifetimeManager>())
         { }
 
-        public UnityDependencyContainer(IUnityContainer unityContainer)
+        public UnityDependencyContainer(IUnityContainer unityContainer, LifetimeMapping<LifetimeManager> lifetimeMapping)
         {
+            if (unityContainer == null)
+                throw new ArgumentNullException("unityContainer");
+
+            if (lifetimeMapping == null)
+                throw new ArgumentNullException("lifetimeMapping");
+
             UnityContainer = unityContainer;
+            LifetimeMapping = lifetimeMapping;
         }
 
         public IDependencyContainer RegisterInstance(Type t, string name, object instance)
@@ -26,15 +36,15 @@ namespace Neptuo.Unity
             return this;
         }
 
-        public IDependencyContainer RegisterType(Type from, Type to, string name)
+        public IDependencyContainer RegisterType(Type from, Type to, string name, object lifetime)
         {
-            UnityContainer.RegisterType(from, to, name);
+            UnityContainer.RegisterType(from, to, name, LifetimeMapping.Resolve(lifetime));
             return this;
         }
 
         public IDependencyContainer CreateChildContainer()
         {
-            return new UnityDependencyContainer(UnityContainer.CreateChildContainer());
+            return new UnityDependencyContainer(UnityContainer.CreateChildContainer(), LifetimeMapping);
         }
 
         public object Resolve(Type t, string name)
@@ -46,5 +56,12 @@ namespace Neptuo.Unity
         {
             return UnityContainer.ResolveAll(t);
         }
+
+
+        public void Map(Type lifetimeType, ILifetimeMapper<LifetimeManager> mapper)
+        {
+            LifetimeMapping.Map(lifetimeType, mapper);
+        }
     }
+
 }

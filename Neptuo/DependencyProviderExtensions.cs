@@ -27,7 +27,12 @@ namespace Neptuo
 
         public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container)
         {
-            return container.RegisterType(typeof(TFrom), typeof(TTo), null);
+            return container.RegisterType(typeof(TFrom), typeof(TTo), null, null);
+        }
+
+        public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, Type to, string name)
+        {
+            return container.RegisterType(from, to, name, null);
         }
     }
 }
