@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestConsole
+namespace TestConsole.Tokens
 {
     static class TestTokens
     {

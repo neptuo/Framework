@@ -22,7 +22,7 @@ using TestConsole.Data.Commands.Handlers;
 using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
 
-namespace TestConsole
+namespace TestConsole.Data
 {
     class TestEntity
     {
