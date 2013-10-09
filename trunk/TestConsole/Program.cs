@@ -17,6 +17,13 @@ namespace TestConsole
             //TestEntity.Test();
             TestPresentationModel.Test();
 
+            //List<int> list = new List<int>();
+            //list.Insert(0, 1);
+            //list.Insert(1, 2);
+
+            //Console.WriteLine(list[2]);
+            //list.Insert(2, 3);
+
             Console.ReadKey(true);
         }
     }
