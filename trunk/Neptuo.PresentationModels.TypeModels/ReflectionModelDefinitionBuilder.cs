@@ -48,8 +48,10 @@ namespace Neptuo.PresentationModels.TypeModels
             MetadataBuilderCollection collection = new MetadataBuilderCollection();
             foreach (Attribute attribute in memberInfo.GetCustomAttributes())
             {
-                IMetadataReader reader;
-                if(MetadataReaderService.TryGetReader(attribute.GetType(), out reader))
+                IMetadataReader reader = attribute as IMetadataReader;
+                if (reader != null)
+                    reader.Apply(attribute, collection);
+                else if(MetadataReaderService.TryGetReader(attribute.GetType(), out reader))
                     reader.Apply(attribute, collection);
             }
             return collection;
