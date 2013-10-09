@@ -8,7 +8,7 @@ namespace Neptuo.PresentationModels
 {
     public interface IModelView
     {
-        void SetValue(IModelValueGetter getter);
-        void GetValue(IModelValueSetter setter);
+        void SetValue(string identifier, object value);
+        object GetValue(string identifier);
     }
 }
