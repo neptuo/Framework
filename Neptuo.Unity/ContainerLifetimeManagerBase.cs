@@ -14,15 +14,17 @@ namespace Neptuo.Unity
         protected Guid Guid { get; private set; }
 
         public ContainerLifetimeManagerBase()
-        { }
+        {
+            Guid = Guid.NewGuid();
+        }
 
         public ContainerLifetimeManagerBase(IDictionary container)
+            : this()
         {
             if (container == null)
                 throw new ArgumentNullException("container");
 
             Container = container;
-            Guid = Guid.NewGuid();
         }
 
         public override object GetValue()
@@ -33,6 +35,11 @@ namespace Neptuo.Unity
             if (Container.Contains(Guid))
                 return Container[Guid];
 
+            return GetDefaultValue();
+        }
+
+        protected virtual object GetDefaultValue()
+        {
             return null;
         }
 

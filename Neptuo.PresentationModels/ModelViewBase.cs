@@ -17,7 +17,11 @@ namespace Neptuo.PresentationModels
 
         public object GetValue(string identifier)
         {
-            return GetFieldViewByIdentifier(identifier);
+            IFieldView fieldView = GetFieldViewByIdentifier(identifier);
+            if(fieldView != null)
+                return fieldView.GetValue();
+
+            return null;
         }
     }
 }
