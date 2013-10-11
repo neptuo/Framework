@@ -44,6 +44,7 @@
     <Compile Include="IFieldDefinition.cs" />
     <Compile Include="IFieldDefinitionBuilder.cs" />
     <Compile Include="IFieldMetadataCollection.cs" />
+    <Compile Include="IFieldType.cs" />
     <Compile Include="IFieldView.cs" />
     <Compile Include="IModelDefinition.cs" />
     <Compile Include="IModelDefinitionBuilder.cs" />
