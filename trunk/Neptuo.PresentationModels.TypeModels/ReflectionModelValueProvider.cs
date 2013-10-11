@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -29,7 +30,18 @@ namespace Neptuo.PresentationModels.TypeModels
 
         public virtual void SetValue(string identifier, object value)
         {
-            GetPropertyInfo(identifier).SetValue(Model, value);
+            PropertyInfo propertyInfo = GetPropertyInfo(identifier);
+            if(propertyInfo == null)
+                throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find property '{0}' in '{1}'.", identifier, ModelType.FullName));
+
+            if (value != null && !propertyInfo.PropertyType.IsAssignableFrom(value.GetType()))
+            {
+                TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
+                if (typeConverter != null)
+                    value = typeConverter.ConvertFrom(value);
+            }
+
+            propertyInfo.SetValue(Model, value);
         }
 
         protected PropertyInfo GetPropertyInfo(string identifier)
