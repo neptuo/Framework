@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
-    public interface IFieldDefinition
+    public interface IFieldType
     {
-        string Identifier { get; }
-        IFieldType FieldType { get; }
-        IFieldMetadataCollection Metadata { get; }
     }
 }

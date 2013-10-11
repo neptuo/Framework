@@ -33,7 +33,7 @@ namespace Neptuo.PresentationModels.TypeModels
         {
             List<IFieldDefinition> fields = new List<IFieldDefinition>();
             foreach (PropertyInfo propertyInfo in ModelType.GetProperties())
-                fields.Add(new FieldDefinition(BuildIdentifier(propertyInfo), propertyInfo.PropertyType, BuildMetadata(propertyInfo)));
+                fields.Add(new FieldDefinition(BuildIdentifier(propertyInfo), new TypeFieldType(propertyInfo.PropertyType), BuildMetadata(propertyInfo)));
 
             return fields;
         }

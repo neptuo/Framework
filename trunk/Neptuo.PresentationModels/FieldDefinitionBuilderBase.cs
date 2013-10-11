@@ -9,7 +9,7 @@ namespace Neptuo.PresentationModels
     public abstract class FieldDefinitionBuilderBase : IFieldDefinitionBuilder
     {
         protected abstract string BuildFieldIdentifier();
-        protected abstract Type BuildFieldType();
+        protected abstract IFieldType BuildFieldType();
         protected abstract IFieldMetadataCollection BuildFieldMetadata();
 
         public IFieldDefinition Build()
