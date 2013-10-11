@@ -38,7 +38,11 @@ namespace Neptuo.Unity
 
         public IDependencyContainer RegisterType(Type from, Type to, string name, object lifetime)
         {
-            UnityContainer.RegisterType(from, to, name, LifetimeMapping.Resolve(lifetime));
+            LifetimeManager lifetimeManager = null;
+            if(lifetime != null)
+                lifetimeManager = LifetimeMapping.Resolve(lifetime);
+
+            UnityContainer.RegisterType(from, to, name, lifetimeManager, new InjectionMember[0]);
             return this;
         }
 
