@@ -8,6 +8,8 @@ namespace Neptuo.PresentationModels
 {
     public interface IFieldMetadataCollection
     {
+        IEnumerable<string> Keys { get; }
+
         bool TryGet(string key, out object value);
     }
 }
