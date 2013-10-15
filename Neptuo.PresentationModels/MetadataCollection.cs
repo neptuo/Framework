@@ -9,6 +9,11 @@ namespace Neptuo.PresentationModels
     public class MetadataCollection : IModelMetadataCollection, IFieldMetadataCollection
     {
         protected Dictionary<string, object> Values { get; private set; }
+        
+        public IEnumerable<string> Keys
+        {
+            get { return Values.Keys; }
+        }
 
         public MetadataCollection()
         {
