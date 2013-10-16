@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IFiedMetadataGetterValidator.cs" />
     <Compile Include="IFiedMetadataValidator.cs" />
     <Compile Include="IFiedMetadataValidatorFactory.cs" />
     <Compile Include="IMetadataValidatorCollection.cs" />

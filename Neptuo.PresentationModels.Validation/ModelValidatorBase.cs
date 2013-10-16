@@ -27,11 +27,11 @@ namespace Neptuo.PresentationModels.Validation
         {
             IModelValidationBuilder resultBuilder = CreateResultBuilder();
             foreach (IFieldDefinition fieldDefinition in ModelDefinition.Fields)
-                ValidateField(fieldDefinition, getter.GetValue(fieldDefinition.Identifier), resultBuilder);
+                ValidateField(fieldDefinition, getter, resultBuilder);
 
             return resultBuilder.ToResult();
         }
 
-        protected abstract void ValidateField(IFieldDefinition fieldDefinition, object value, IModelValidationBuilder resultBuilder);
+        protected abstract void ValidateField(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder);
     }
 }
