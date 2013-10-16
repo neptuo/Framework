@@ -19,13 +19,19 @@ namespace Neptuo.PresentationModels.Validation
             Validators = validators;
         }
 
-        protected override void ValidateField(IFieldDefinition fieldDefinition, object value, IModelValidationBuilder resultBuilder)
+        protected override void ValidateField(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder)
         {
             foreach (string key in fieldDefinition.Metadata.Keys)
             {
                 IFiedMetadataValidator validator;
                 if (Validators.TryGet(ModelDefinition.Identifier, fieldDefinition.Identifier, key, out validator))
-                    validator.Validate(fieldDefinition, validator, resultBuilder);
+                {
+                    IFiedMetadataGetterValidator getterValidator = validator as IFiedMetadataGetterValidator;
+                    if (getterValidator != null)
+                        getterValidator.Validate(fieldDefinition, getter, resultBuilder);
+                    else
+                        validator.Validate(fieldDefinition, getter.GetValue(fieldDefinition.Identifier), resultBuilder);
+                }
             }
         }
     }
