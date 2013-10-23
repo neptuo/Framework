@@ -23,7 +23,7 @@ namespace Neptuo.PresentationModels.Validation
             return new ModelValidationBuilder();
         }
 
-        public IModelValidationResult Validate(IModelValueGetter getter)
+        public virtual IModelValidationResult Validate(IModelValueGetter getter)
         {
             IModelValidationBuilder resultBuilder = CreateResultBuilder();
             foreach (IFieldDefinition fieldDefinition in ModelDefinition.Fields)
