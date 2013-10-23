@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
-    public interface IFiedMetadataValidatorFactory : IActivator<IFiedMetadataValidator>
+    public interface IFieldMetadataValidatorFactory : IActivator<IFieldMetadataValidator>
     { }
 }

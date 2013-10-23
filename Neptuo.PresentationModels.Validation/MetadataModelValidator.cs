@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
-    public class MetadataModelValidatorBase : ModelValidatorBase
+    public class MetadataModelValidator : ModelValidatorBase
     {
         protected IMetadataValidatorCollection Validators { get; private set; }
 
-        public MetadataModelValidatorBase(IModelDefinition modelDefinition, IMetadataValidatorCollection validators)
+        public MetadataModelValidator(IModelDefinition modelDefinition, IMetadataValidatorCollection validators)
             : base(modelDefinition)
         {
             if (validators == null)
@@ -23,7 +23,7 @@ namespace Neptuo.PresentationModels.Validation
         {
             foreach (string key in fieldDefinition.Metadata.Keys)
             {
-                IFiedMetadataValidator validator;
+                IFieldMetadataValidator validator;
                 if (Validators.TryGet(ModelDefinition.Identifier, fieldDefinition.Identifier, key, out validator))
                     validator.Validate(fieldDefinition, getter, resultBuilder);
             }

@@ -71,6 +71,9 @@
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductEntity.cs" />
     <Compile Include="Data\ProductRepository.cs" />
+    <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
+    <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
+    <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
     <Compile Include="PresentationModels\TestPresentationModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,9 +101,17 @@
       <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
       <Name>Neptuo.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj">
+      <Project>{c4909618-fa01-4e6f-b34b-9f1d24239c87}</Project>
+      <Name>Neptuo.PresentationModels.TypeModels.DataAnnotations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj">
       <Project>{13b05164-c374-4e72-b702-96e5d9647265}</Project>
       <Name>Neptuo.PresentationModels.TypeModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo.PresentationModels.Validation\Neptuo.PresentationModels.Validation.csproj">
+      <Project>{f78cb21f-1499-4389-b33f-c94536087abc}</Project>
+      <Name>Neptuo.PresentationModels.Validation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>

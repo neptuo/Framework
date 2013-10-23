@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldDefinitionBuilderBase.cs" />
+    <Compile Include="MetadataCollectionExtensions.cs" />
     <Compile Include="IFieldDefinition.cs" />
     <Compile Include="IFieldDefinitionBuilder.cs" />
     <Compile Include="IFieldMetadataCollection.cs" />

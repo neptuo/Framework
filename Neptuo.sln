@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.Validation", "Neptuo.PresentationModels.Validation\Neptuo.PresentationModels.Validation.csproj", "{F78CB21F-1499-4389-B33F-C94536087ABC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels.DataAnnotations", "Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj", "{C4909618-FA01-4E6F-B34B-9F1D24239C87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -140,6 +142,10 @@ Global
 		{F78CB21F-1499-4389-B33F-C94536087ABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F78CB21F-1499-4389-B33F-C94536087ABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F78CB21F-1499-4389-B33F-C94536087ABC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
