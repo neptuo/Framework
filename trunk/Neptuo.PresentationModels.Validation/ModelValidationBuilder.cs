@@ -17,7 +17,9 @@ namespace Neptuo.PresentationModels.Validation
         }
 
         public ModelValidationBuilder()
-        { }
+        {
+            MessageList = new List<IValidationMessage>();
+        }
 
         public void AddMessage(IValidationMessage message)
         {

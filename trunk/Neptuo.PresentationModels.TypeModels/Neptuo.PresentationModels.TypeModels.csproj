@@ -48,7 +48,7 @@
     <Compile Include="IMetadataReader.cs" />
     <Compile Include="MetadataBuilderCollection.cs" />
     <Compile Include="MetadataReaderService.cs" />
-    <Compile Include="MetadataReader.cs" />
+    <Compile Include="MetadataReaderBase.cs" />
     <Compile Include="ReflectionModelDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReflectionModelValueProvider.cs" />
@@ -60,6 +60,7 @@
       <Name>Neptuo.PresentationModels</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

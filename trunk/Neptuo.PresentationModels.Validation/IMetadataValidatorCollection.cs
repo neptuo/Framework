@@ -8,6 +8,6 @@ namespace Neptuo.PresentationModels.Validation
 {
     public interface IMetadataValidatorCollection
     {
-        bool TryGet(string modelIdentifier, string fieldIdentifier, string metadataKey, out IFiedMetadataValidator validator);
+        bool TryGet(string modelIdentifier, string fieldIdentifier, string metadataKey, out IFieldMetadataValidator validator);
     }
 }

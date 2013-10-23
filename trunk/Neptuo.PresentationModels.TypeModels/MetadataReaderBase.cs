@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.TypeModels
 {
-    public abstract class MetadataReader<T> : IMetadataReader
+    public abstract class MetadataReaderBase<T> : IMetadataReader
         where T : Attribute
     {
         public void Apply(Attribute attribute, IMetadataBuilder builder)

@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
-    public interface IFiedMetadataValidator
+    public interface IFieldMetadataValidator
     {
-        bool Validate(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBulder);
+        bool Validate(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder);
     }
 }
