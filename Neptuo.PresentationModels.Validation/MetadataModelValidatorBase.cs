@@ -25,13 +25,7 @@ namespace Neptuo.PresentationModels.Validation
             {
                 IFiedMetadataValidator validator;
                 if (Validators.TryGet(ModelDefinition.Identifier, fieldDefinition.Identifier, key, out validator))
-                {
-                    IFiedMetadataGetterValidator getterValidator = validator as IFiedMetadataGetterValidator;
-                    if (getterValidator != null)
-                        getterValidator.Validate(fieldDefinition, getter, resultBuilder);
-                    else
-                        validator.Validate(fieldDefinition, getter.GetValue(fieldDefinition.Identifier), resultBuilder);
-                }
+                    validator.Validate(fieldDefinition, getter, resultBuilder);
             }
         }
     }

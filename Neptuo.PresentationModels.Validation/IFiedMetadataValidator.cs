@@ -8,6 +8,6 @@ namespace Neptuo.PresentationModels.Validation
 {
     public interface IFiedMetadataValidator
     {
-        bool Validate(IFieldDefinition fieldDefinition, object value, IModelValidationBuilder resultBulder);
+        bool Validate(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBulder);
     }
 }
