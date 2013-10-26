@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Commands
 {
-    public class CreateProductCommand : ICommandValidationResult<IValidationResult>
+    public class CreateProductCommand
     {
         public string Name { get; set; }
         public decimal Price { get; set; }

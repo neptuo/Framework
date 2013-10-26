@@ -11,8 +11,6 @@ namespace Neptuo.Data.Commands
     {
         void Handle<TCommand>(TCommand command);
 
-        TValidationResult Validate<TCommand, TValidationResult>(TCommand command)
-            where TCommand : ICommandValidationResult<TValidationResult>
-            where TValidationResult : IValidationResult;
+        IValidationResult Validate<TCommand>(TCommand command);
     }
 }
