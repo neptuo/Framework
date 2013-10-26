@@ -23,11 +23,9 @@ namespace Neptuo.Data.Commands
             handler.Handle(command);
         }
 
-        public TValidationResult Validate<TCommand, TValidationResult>(TCommand command)
-            where TCommand : ICommandValidationResult<TValidationResult>
-            where TValidationResult : IValidationResult
+        public IValidationResult Validate<TCommand>(TCommand command)
         {
-            ICommandValidator<TCommand, TValidationResult> validator = dependencyProvider.Resolve<ICommandValidator<TCommand, TValidationResult>>();
+            ICommandValidator<TCommand> validator = dependencyProvider.Resolve<ICommandValidator<TCommand>>();
             return validator.Validate(command);
         }
     }

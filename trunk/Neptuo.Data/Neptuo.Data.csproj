@@ -43,7 +43,6 @@
     <Compile Include="Commands\Handlers\ICommandHandler.cs" />
     <Compile Include="Commands\Handlers\ICommandHandlerFactory.cs" />
     <Compile Include="Commands\ICommandDispatcher.cs" />
-    <Compile Include="Commands\Validation\ICommandValidationResult.cs" />
     <Compile Include="Commands\Validation\ICommandValidator.cs" />
     <Compile Include="Commands\Validation\IValidationResult.cs" />
     <Compile Include="Commands\Validation\ValidationResultBase.cs" />

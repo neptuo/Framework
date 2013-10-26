@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Commands.Validation
 {
-    public class CreateProductValidator : ICommandValidator<CreateProductCommand, IValidationResult>
+    public class CreateProductValidator : ICommandValidator<CreateProductCommand>
     {
         public IValidationResult Validate(CreateProductCommand command)
         {
