@@ -110,6 +110,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TestHandler.cs" />
     <Compile Include="Controllers\TextRouteHandler.cs" />
     <Compile Include="Global.asax.cs">

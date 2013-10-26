@@ -48,14 +48,12 @@
     <Compile Include="IModelValidationBuilder.cs" />
     <Compile Include="IModelValidationResult.cs" />
     <Compile Include="IModelValidator.cs" />
-    <Compile Include="IValidationMessage.cs" />
     <Compile Include="MetadataModelValidator.cs" />
     <Compile Include="MetadataValidatorCollection.cs" />
     <Compile Include="ModelValidationBuilder.cs" />
     <Compile Include="ModelValidatorBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingletonFieldMetadataValidatorFactory.cs" />
-    <Compile Include="TextValidationMessage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">

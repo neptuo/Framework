@@ -58,6 +58,10 @@
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
+      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
+      <Name>Neptuo</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
