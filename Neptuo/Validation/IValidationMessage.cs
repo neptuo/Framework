@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.Validation
 {
     public interface IValidationMessage
     {
-        string FieldIdentifier { get; }
+        string Key { get; }
         string Message { get; }
     }
 }

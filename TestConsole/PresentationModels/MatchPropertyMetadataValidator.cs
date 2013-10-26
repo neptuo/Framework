@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Validation;
+using Neptuo.Validation;
 
 namespace TestConsole.PresentationModels
 {
