@@ -34,6 +34,7 @@ namespace TestConsole.Data
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
+                .RegisterType<ICommandValidator<CreateProductCommand>, CreateProductValidator>()
                 .RegisterType<IProductQuery, ProductEntityQuery>();
 
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
@@ -78,8 +79,6 @@ namespace TestConsole.Data
 
 
             //PerfTest(dependencyContainer, queryDispatcher);
-
-
 
             //query.Filter.Key = null;
             //Console.WriteLine(String.Join(", ", query.Result().Items));
