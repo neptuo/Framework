@@ -41,6 +41,13 @@
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="DependencyProviderExtensions.cs" />
+    <Compile Include="Events\EventDispatcher.cs" />
+    <Compile Include="Events\Handlers\GetterEventHandlerFactory.cs" />
+    <Compile Include="Events\Handlers\IEventHandler.cs" />
+    <Compile Include="Events\Handlers\IEventHandlerFactory.cs" />
+    <Compile Include="Events\Handlers\SingletonEventHandlerFactory.cs" />
+    <Compile Include="Events\IEventDispatcher.cs" />
+    <Compile Include="Events\IEventRegistry.cs" />
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
     <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
     <Compile Include="Lifetimes\SingletonLifetime.cs" />
