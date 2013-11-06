@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Commands.Validation
+namespace Neptuo.Validation
 {
-    public interface ICommandValidator<TCommand>
+    public interface IValidator<TModel>
     {
-        IValidationResult Validate(TCommand command);
+        IValidationResult Validate(TModel model);
     }
 }

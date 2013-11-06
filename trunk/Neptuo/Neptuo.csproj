@@ -78,7 +78,9 @@
     <Compile Include="StateMachines\StringState.cs" />
     <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
+    <Compile Include="Validation\IValidationResult.cs" />
     <Compile Include="Validation\IValidationMessage.cs" />
+    <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\TextValidationMessage.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

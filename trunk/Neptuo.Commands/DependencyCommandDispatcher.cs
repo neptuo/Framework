@@ -1,5 +1,6 @@
 ﻿using Neptuo.Commands.Handlers;
 using Neptuo.Commands.Validation;
+using Neptuo.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Neptuo.Commands
 
         public IValidationResult Validate<TCommand>(TCommand command)
         {
-            ICommandValidator<TCommand> validator = dependencyProvider.Resolve<ICommandValidator<TCommand>>();
+            IValidator<TCommand> validator = dependencyProvider.Resolve<IValidator<TCommand>>();
             return validator.Validate(command);
         }
     }
