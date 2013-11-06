@@ -1,11 +1,11 @@
-﻿using Neptuo.Data.Commands.Validation;
+﻿using Neptuo.Commands.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Commands
+namespace Neptuo.Commands
 {
     public interface ICommandDispatcher
     {

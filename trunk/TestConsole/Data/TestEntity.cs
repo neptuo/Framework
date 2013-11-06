@@ -1,8 +1,8 @@
 ﻿using Neptuo;
 using Neptuo.Data;
-using Neptuo.Data.Commands;
-using Neptuo.Data.Commands.Handlers;
-using Neptuo.Data.Commands.Validation;
+using Neptuo.Commands;
+using Neptuo.Commands.Handlers;
+using Neptuo.Commands.Validation;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;

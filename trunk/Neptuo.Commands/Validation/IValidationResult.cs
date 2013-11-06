@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Commands.Validation
+namespace Neptuo.Commands.Validation
 {
     public interface IValidationResult
     {
