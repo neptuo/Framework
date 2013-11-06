@@ -45,8 +45,6 @@
     <Compile Include="ICommandDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="Validation\ICommandValidator.cs" />
-    <Compile Include="Validation\IValidationResult.cs" />
     <Compile Include="Validation\ValidationResultBase.cs" />
   </ItemGroup>
   <ItemGroup>

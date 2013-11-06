@@ -21,6 +21,7 @@ using TestConsole.Data.Commands;
 using TestConsole.Data.Commands.Handlers;
 using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
+using Neptuo.Validation;
 
 namespace TestConsole.Data
 {
@@ -34,7 +35,7 @@ namespace TestConsole.Data
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
-                .RegisterType<ICommandValidator<CreateProductCommand>, CreateProductValidator>()
+                .RegisterType<IValidator<CreateProductCommand>, CreateProductValidator>()
                 .RegisterType<IProductQuery, ProductEntityQuery>();
 
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
