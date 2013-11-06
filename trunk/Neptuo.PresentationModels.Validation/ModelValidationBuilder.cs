@@ -11,7 +11,11 @@ namespace Neptuo.PresentationModels.Validation
     {
         protected List<IValidationMessage> MessageList { get; private set; }
 
-        public bool IsValid { get; protected set; }
+        public bool IsValid
+        {
+            get { return MessageList.Count == 0; }
+        }
+
         public IEnumerable<IValidationMessage> Messages
         {
             get { return MessageList; }
