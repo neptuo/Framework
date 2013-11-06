@@ -11,6 +11,6 @@ namespace Neptuo.PresentationModels.Validation
     {
         void AddMessage(IValidationMessage message);
         void AddMessages(IEnumerable<IValidationMessage> messages);
-        IModelValidationResult ToResult();
+        IValidationResult ToResult();
     }
 }

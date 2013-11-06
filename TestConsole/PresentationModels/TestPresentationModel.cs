@@ -3,6 +3,7 @@ using Neptuo.PresentationModels.TypeModels;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators;
 using Neptuo.PresentationModels.Validation;
+using Neptuo.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace TestConsole.PresentationModels
             IModelValueProvider valueProvider = new ReflectionModelValueProvider(model);
 
             IModelValidator modelValidator = new MetadataModelValidator(modelDefinition, validators);
-            IModelValidationResult validationResult = modelValidator.Validate(valueProvider);
+            IValidationResult validationResult = modelValidator.Validate(valueProvider);
             Console.WriteLine(validationResult);
         }
     }

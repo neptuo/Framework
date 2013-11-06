@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,7 @@ namespace Neptuo.PresentationModels.Validation
             return new ModelValidationBuilder();
         }
 
-        public virtual IModelValidationResult Validate(IModelValueGetter getter)
+        public virtual IValidationResult Validate(IModelValueGetter getter)
         {
             IModelValidationBuilder resultBuilder = CreateResultBuilder();
             foreach (IFieldDefinition fieldDefinition in ModelDefinition.Fields)

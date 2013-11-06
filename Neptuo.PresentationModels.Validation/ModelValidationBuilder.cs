@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
-    public class ModelValidationBuilder : IModelValidationResult, IModelValidationBuilder
+    public class ModelValidationBuilder : IValidationResult, IModelValidationBuilder
     {
         protected List<IValidationMessage> MessageList { get; private set; }
 
@@ -32,7 +32,7 @@ namespace Neptuo.PresentationModels.Validation
             MessageList.AddRange(messages);
         }
 
-        public IModelValidationResult ToResult()
+        public IValidationResult ToResult()
         {
             return this;
         }
