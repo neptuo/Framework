@@ -46,7 +46,6 @@
     <Compile Include="IFieldMetadataValidatorFactory.cs" />
     <Compile Include="IMetadataValidatorCollection.cs" />
     <Compile Include="IModelValidationBuilder.cs" />
-    <Compile Include="IModelValidationResult.cs" />
     <Compile Include="IModelValidator.cs" />
     <Compile Include="MetadataModelValidator.cs" />
     <Compile Include="MetadataValidatorCollection.cs" />
