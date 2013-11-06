@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Commands.Handlers
+namespace Neptuo.Commands.Handlers
 {
     public interface ICommandHandlerFactory<T>
     {

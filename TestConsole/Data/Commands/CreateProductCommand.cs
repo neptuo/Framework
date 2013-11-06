@@ -1,5 +1,5 @@
-﻿using Neptuo.Data.Commands;
-using Neptuo.Data.Commands.Validation;
+﻿using Neptuo.Commands;
+using Neptuo.Commands.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -89,6 +89,10 @@
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj">
+      <Project>{f0610126-41ff-4944-aed6-82c851c2a204}</Project>
+      <Name>Neptuo.Commands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Data.Entity\Neptuo.Data.Entity.csproj">
       <Project>{fee06f1e-0063-4d46-85ce-7334ce61afb0}</Project>
       <Name>Neptuo.Data.Entity</Name>
