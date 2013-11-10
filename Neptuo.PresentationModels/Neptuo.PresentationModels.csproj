@@ -39,8 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindingConverterCollection.cs" />
+    <Compile Include="BindingModelValueGetter.cs" />
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldDefinitionBuilderBase.cs" />
+    <Compile Include="IBindingConverter.cs" />
+    <Compile Include="IBindingConverterCollection.cs" />
+    <Compile Include="IBindingModelValueStorage.cs" />
     <Compile Include="MetadataCollectionExtensions.cs" />
     <Compile Include="IFieldDefinition.cs" />
     <Compile Include="IFieldDefinitionBuilder.cs" />
@@ -63,6 +68,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="ModelDefinition.cs" />
     <Compile Include="ProxyModelDefinition.cs" />
+    <Compile Include="ProxyModelDefinitionBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
