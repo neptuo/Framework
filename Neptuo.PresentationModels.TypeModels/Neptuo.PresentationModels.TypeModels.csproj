@@ -47,6 +47,7 @@
     <Compile Include="IMetadataBuilder.cs" />
     <Compile Include="IMetadataReader.cs" />
     <Compile Include="IModelDefinitionFactory.cs" />
+    <Compile Include="IModelValueProviderFactory.cs" />
     <Compile Include="MetadataBuilderCollection.cs" />
     <Compile Include="MetadataReaderService.cs" />
     <Compile Include="MetadataReaderBase.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="ModelDefinitionFactoryBase.cs" />
     <Compile Include="ReflectionModelDefinitionFactory.cs" />
     <Compile Include="ReflectionModelValueProvider.cs" />
+    <Compile Include="ReflectionModelValueProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
