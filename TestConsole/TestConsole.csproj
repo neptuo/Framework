@@ -105,6 +105,10 @@
       <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
       <Name>Neptuo.Migrations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo.PresentationModels.BindingConverters\Neptuo.PresentationModels.BindingConverters.csproj">
+      <Project>{471e1120-9720-449e-8ec2-7338b58eaf59}</Project>
+      <Name>Neptuo.PresentationModels.BindingConverters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj">
       <Project>{c4909618-fa01-4e6f-b34b-9f1d24239c87}</Project>
       <Name>Neptuo.PresentationModels.TypeModels.DataAnnotations</Name>

@@ -8,14 +8,16 @@ namespace Neptuo.PresentationModels
 {
     public class BindingConverterCollection : IBindingConverterCollection
     {
+        protected BindingConverterCollection PreviousCollection { get; private set; }
         protected Dictionary<IFieldType, List<IBindingConverter>> Storage { get; private set; }
 
-        public BindingConverterCollection()
+        public BindingConverterCollection(BindingConverterCollection previousCollection = null)
         {
             Storage = new Dictionary<IFieldType, List<IBindingConverter>>();
+            PreviousCollection = previousCollection;
         }
 
-        public void Add(IFieldType fieldType, IBindingConverter converter)
+        public BindingConverterCollection Add(IFieldType fieldType, IBindingConverter converter)
         {
             if (fieldType == null)
                 throw new ArgumentNullException("fieldType");
@@ -30,12 +32,13 @@ namespace Neptuo.PresentationModels
                 Storage.Add(fieldType, list);
             }
             list.Add(converter);
+            return this;
         }
 
         public bool TryConvert(string sourceValue, IFieldDefinition targetField, out object targetValue)
         {
-            List<IBindingConverter> converters;
-            if (Storage.TryGetValue(targetField.FieldType, out converters))
+            IEnumerable<IBindingConverter> converters;
+            if (TryGetConverters(targetField, out converters))
             {
                 foreach (IBindingConverter converter in converters)
                 {
@@ -45,6 +48,29 @@ namespace Neptuo.PresentationModels
             }
 
             targetValue = null;
+            return false;
+        }
+
+        public virtual bool TryGetConverters(IFieldDefinition targetField, out IEnumerable<IBindingConverter> converters)
+        {
+            List<IBindingConverter> storageValue;
+            if(Storage.TryGetValue(targetField.FieldType, out storageValue))
+            {
+                if (PreviousCollection != null)
+                {
+                    IEnumerable<IBindingConverter> previousConverters;
+                    if (PreviousCollection.TryGetConverters(targetField, out previousConverters))
+                        storageValue.AddRange(previousConverters);
+                }
+
+                converters = storageValue;
+                return true;
+            }
+
+            if (PreviousCollection != null)
+                return PreviousCollection.TryGetConverters(targetField, out converters);
+
+            converters = null;
             return false;
         }
     }

@@ -9,8 +9,8 @@ namespace Neptuo.PresentationModels.Validation
 {
     public interface IModelValidationBuilder
     {
-        void AddMessage(IValidationMessage message);
-        void AddMessages(IEnumerable<IValidationMessage> messages);
+        IModelValidationBuilder AddMessage(IValidationMessage message);
+        IModelValidationBuilder AddMessages(IEnumerable<IValidationMessage> messages);
         IValidationResult ToResult();
     }
 }

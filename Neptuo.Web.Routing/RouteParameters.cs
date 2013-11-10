@@ -35,7 +35,7 @@ namespace Neptuo.Web.Routing
     {
         private ConcurrentDictionary<string, IRouteParameterFactory> parameters = new ConcurrentDictionary<string, IRouteParameterFactory>();
 
-        public void Add(string parameterName, IRouteParameter parameter)
+        public IRouteParameterRegistry Add(string parameterName, IRouteParameter parameter)
         {
             if (parameterName == null)
                 throw new ArgumentNullException("parameterName");
@@ -44,9 +44,10 @@ namespace Neptuo.Web.Routing
                 throw new ArgumentNullException("parameter");
 
             parameters[parameterName] = new ProxyRouteParameterFactory(parameter);
+            return this;
         }
 
-        public void Add(string parameterName, IRouteParameterFactory factory)
+        public IRouteParameterRegistry Add(string parameterName, IRouteParameterFactory factory)
         {
             if (parameterName == null)
                 throw new ArgumentNullException("parameterName");
@@ -55,6 +56,7 @@ namespace Neptuo.Web.Routing
                 throw new ArgumentNullException("factory");
 
             parameters[parameterName] = factory;
+            return this;
         }
 
         public IRouteParameter Get(string parameterName)

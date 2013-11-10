@@ -15,7 +15,7 @@ namespace Neptuo.PresentationModels.TypeModels
             Values = new Dictionary<Type, IMetadataReader>();
         }
 
-        public void Register(Type attributeType, IMetadataReader reader)
+        public MetadataReaderService Add(Type attributeType, IMetadataReader reader)
         {
             if (attributeType == null)
                 throw new ArgumentNullException("attributeType");
@@ -24,6 +24,7 @@ namespace Neptuo.PresentationModels.TypeModels
                 throw new ArgumentNullException("reader");
 
             Values[attributeType] = reader;
+            return this;
         }
 
         public bool TryGetReader(Type attributeType, out IMetadataReader reader)

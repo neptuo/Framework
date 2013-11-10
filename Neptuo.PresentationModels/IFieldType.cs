@@ -8,5 +8,7 @@ namespace Neptuo.PresentationModels
 {
     public interface IFieldType
     {
+        //bool IsNullable { get; }
+        //bool CanAssign(object value);
     }
 }

@@ -15,7 +15,7 @@ namespace Neptuo.PresentationModels.Validation
             Validators = new Dictionary<string, Dictionary<string, Dictionary<string, IFieldMetadataValidatorFactory>>>();
         }
 
-        public void Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IFieldMetadataValidatorFactory validatorFactory)
+        public MetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IFieldMetadataValidatorFactory validatorFactory)
         {
             if (modelIdentifier == null)
                 modelIdentifier = String.Empty;
@@ -30,6 +30,7 @@ namespace Neptuo.PresentationModels.Validation
                 Validators[modelIdentifier][fieldIdentifier] = new Dictionary<string, IFieldMetadataValidatorFactory>();
 
             Validators[modelIdentifier][fieldIdentifier][metadataKey] = validatorFactory;
+            return this;
         }
 
         public bool TryGet(string modelIdentifier, string fieldIdentifier, string metadataKey, out IFieldMetadataValidator validator)
