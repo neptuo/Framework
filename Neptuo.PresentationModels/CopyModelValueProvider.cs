@@ -19,17 +19,20 @@ namespace Neptuo.PresentationModels
         }
 
         /// <summary>
-        /// Sets values to <paramref name="targetSetter"/> from <paramref name="sourceGetter"/>.
+        /// Sets values to <paramref name="targetSetter"/> from <paramref name="sourceGetters"/>.
         /// </summary>
         /// <param name="targetSetter">Target.</param>
-        /// <param name="sourceGetter">Source.</param>
-        public void Update(IModelValueSetter targetSetter, IModelValueGetter sourceGetter)
+        /// <param name="sourceGetters">Sources.</param>
+        public void Update(IModelValueSetter targetSetter, params IModelValueGetter[] sourceGetters)
         {
             foreach (IFieldDefinition field in ModelDefinition.Fields)
             {
                 object value;
-                if (sourceGetter.TryGetValue(field.Identifier, out value))
-                    targetSetter.SetValue(field.Identifier, value);
+                foreach (IModelValueGetter sourceGetter in sourceGetters)
+                {
+                    if (sourceGetter.TryGetValue(field.Identifier, out value))
+                        targetSetter.SetValue(field.Identifier, value);
+                }
             }
         }
     }
