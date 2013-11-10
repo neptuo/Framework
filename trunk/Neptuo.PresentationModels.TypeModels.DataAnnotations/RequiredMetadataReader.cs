@@ -14,6 +14,7 @@ namespace Neptuo.PresentationModels.TypeModels.DataAnnotations
             builder.Set("Required", true);
             builder.Set("Required.AllowEmptyStrings", attribute.AllowEmptyStrings);
             builder.Set("Required.ErrorMessage", attribute.ErrorMessage);
+            builder.Set("Required.Attribute", attribute);
         }
     }
 }

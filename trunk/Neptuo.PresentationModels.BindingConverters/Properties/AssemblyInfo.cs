@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Neptuo.PresentationModels")]
+[assembly: AssemblyTitle("Neptuo.PresentationModels.BindingConverters")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Neptuo.PresentationModels")]
+[assembly: AssemblyProduct("Neptuo.PresentationModels.BindingConverters")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("640b3a3b-4f2b-4188-a649-51d319a93597")]
+[assembly: Guid("be2f108c-2d01-4ff6-aad9-24d11f98846f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -36,8 +36,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
-
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.TypeModels")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.TypeModels.DataAnnotations")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.Validation")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.BindingConverters")]

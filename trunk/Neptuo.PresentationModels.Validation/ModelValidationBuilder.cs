@@ -26,14 +26,16 @@ namespace Neptuo.PresentationModels.Validation
             MessageList = new List<IValidationMessage>();
         }
 
-        public void AddMessage(IValidationMessage message)
+        public IModelValidationBuilder AddMessage(IValidationMessage message)
         {
             MessageList.Add(message);
+            return this;
         }
 
-        public void AddMessages(IEnumerable<IValidationMessage> messages)
+        public IModelValidationBuilder AddMessages(IEnumerable<IValidationMessage> messages)
         {
             MessageList.AddRange(messages);
+            return this;
         }
 
         public IValidationResult ToResult()
