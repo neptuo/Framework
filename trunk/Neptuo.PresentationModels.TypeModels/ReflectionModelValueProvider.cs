@@ -23,9 +23,10 @@ namespace Neptuo.PresentationModels.TypeModels
             ModelType = model.GetType();
         }
 
-        public virtual object GetValue(string identifier)
+        public bool TryGetValue(string identifier, out object value)
         {
-            return GetPropertyInfo(identifier).GetValue(Model);
+            value = GetPropertyInfo(identifier).GetValue(Model);
+            return true;
         }
 
         public virtual void SetValue(string identifier, object value)

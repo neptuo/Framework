@@ -17,8 +17,8 @@ namespace TestConsole.PresentationModels
 
         protected override bool Validate(object fieldValue, string metadataValue, FieldMetadataValidatorContext context)
         {
-            object otherProperty = context.Getter.GetValue(metadataValue);
-            if (fieldValue == null)
+            object otherProperty = null;
+            if (fieldValue == null || !context.Getter.TryGetValue(metadataValue, out otherProperty))
             {
                 if (otherProperty == null)
                     return true;

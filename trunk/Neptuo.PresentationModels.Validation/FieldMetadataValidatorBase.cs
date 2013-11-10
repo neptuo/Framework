@@ -24,7 +24,7 @@ namespace Neptuo.PresentationModels.Validation
             if (!fieldDefinition.Metadata.TryGet(MetadataKey, out metadataValue))
                 return MissingMetadataKey(fieldDefinition, getter, resultBuilder);
 
-            TFieldValue fieldValue = (TFieldValue)getter.GetValue(fieldDefinition.Identifier);
+            TFieldValue fieldValue = getter.GetValueOrDefault(fieldDefinition.Identifier, default(TFieldValue));
             TMetadataValue metadata = (TMetadataValue)metadataValue;
 
             return Validate(fieldValue, metadata, new FieldMetadataValidatorContext(fieldDefinition, getter, resultBuilder));
