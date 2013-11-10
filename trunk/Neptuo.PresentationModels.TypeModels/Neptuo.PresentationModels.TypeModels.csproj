@@ -46,11 +46,15 @@
     <Compile Include="Expressions\IPropertyValueProviderCollection.cs" />
     <Compile Include="IMetadataBuilder.cs" />
     <Compile Include="IMetadataReader.cs" />
+    <Compile Include="IModelDefinitionFactory.cs" />
     <Compile Include="MetadataBuilderCollection.cs" />
     <Compile Include="MetadataReaderService.cs" />
     <Compile Include="MetadataReaderBase.cs" />
+    <Compile Include="ModelDefinitionFactoryExtensions.cs" />
     <Compile Include="ReflectionModelDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ModelDefinitionFactoryBase.cs" />
+    <Compile Include="ReflectionModelDefinitionFactory.cs" />
     <Compile Include="ReflectionModelValueProvider.cs" />
   </ItemGroup>
   <ItemGroup>

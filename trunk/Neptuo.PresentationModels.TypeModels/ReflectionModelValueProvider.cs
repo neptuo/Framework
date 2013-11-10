@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.TypeModels
 {
-    public class ReflectionModelValueProvider : IModelValueProvider
+    public class ReflectionModelValueProvider<TModel> : IModelValueProvider
     {
         public Type ModelType { get; private set; }
-        public object Model { get; private set; }
+        public TModel Model { get; private set; }
         private Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
 
-        public ReflectionModelValueProvider(object model)
+        public ReflectionModelValueProvider(TModel model)
         {
             if (model == null)
                 throw new ArgumentNullException("model");
@@ -58,5 +58,12 @@ namespace Neptuo.PresentationModels.TypeModels
             }
             return propertyInfo;
         }
+    }
+
+    public class ReflectionModelValueProvider : ReflectionModelValueProvider<object>
+    {
+        public ReflectionModelValueProvider(object model)
+            : base(model)
+        { }
     }
 }
