@@ -35,7 +35,9 @@ namespace TestConsole.PresentationModels
                 //.Add(new TypeFieldType(typeof(string)), new StringBindingConverter());
                 .AddStandart();
 
-            IModelDefinition modelDefinition = new ReflectionModelDefinitionBuilder(typeof(RegisterUserModel), readerService).Build();
+            IModelDefinitionFactory factory = new ReflectionModelDefinitionFactory(readerService);
+
+            IModelDefinition modelDefinition = factory.Create<RegisterUserModel>();
             RegisterUserModel model = new RegisterUserModel();
             model.Username = "pepa";
             model.Password = "x";
