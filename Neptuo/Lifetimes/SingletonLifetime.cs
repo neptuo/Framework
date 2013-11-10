@@ -10,6 +10,9 @@ namespace Neptuo.Lifetimes
     {
         public object Instance { get; private set; }
 
+        public SingletonLifetime()
+        { }
+
         public SingletonLifetime(object instance)
         {
             Instance = instance;

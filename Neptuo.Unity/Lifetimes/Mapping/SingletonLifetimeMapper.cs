@@ -13,7 +13,10 @@ namespace Neptuo.Unity.Lifetimes.Mapping
     {
         protected override LifetimeManager Map(SingletonLifetime lifetime)
         {
-            return new SingletonLifetimeManager(lifetime.Instance);
+            if (lifetime.Instance != null)
+                return new SingletonLifetimeManager(lifetime.Instance);
+
+            return new SingletonLifetimeManager();
         }
     }
 }
