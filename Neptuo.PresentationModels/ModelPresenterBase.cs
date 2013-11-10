@@ -49,8 +49,12 @@ namespace Neptuo.PresentationModels
 
         public virtual void SetData(IModelValueGetter getter)
         {
+            object value;
             foreach (IFieldDefinition field in ModelDefinition.Fields)
-                ModelView.SetValue(field.Identifier, getter.GetValue(field.Identifier));
+            {
+                if (getter.TryGetValue(field.Identifier, out value))
+                    ModelView.SetValue(field.Identifier, value);
+            }
         }
 
         public virtual void GetData(IModelValueSetter setter)

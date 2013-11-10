@@ -31,9 +31,10 @@ namespace Neptuo.PresentationModels.TypeModels.Expressions
             return this;
         }
 
-        public object GetValue(string identifier)
+        public bool TryGetValue(string identifier, out object value)
         {
-            return GetValueProvider(identifier).GetValue(Model);
+            value = GetValueProvider(identifier).GetValue(Model);
+            return true;
         }
 
         public void SetValue(string identifier, object value)

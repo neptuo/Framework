@@ -28,7 +28,7 @@ namespace Neptuo.PresentationModels
             ModelDefinition = modelDefinition;
         }
 
-        public object GetValue(string identifier)
+        public bool TryGetValue(string identifier, out object value)
         {
             IFieldDefinition targetField = ModelDefinition.Fields.FirstOrDefault(f => f.Identifier == identifier);
             if (targetField == null)
@@ -36,12 +36,11 @@ namespace Neptuo.PresentationModels
 
             string sourceValue = Storage.GetValue(identifier);
 
-            object targetValue;
-            if (ConverterCollection.TryConvert(sourceValue, targetField, out targetValue))
-                return targetValue;
+            if (ConverterCollection.TryConvert(sourceValue, targetField, out value))
+                return true;
 
-            // TODO: Return some default value?
-            return null;
+            value = null;
+            return false;
         }
     }
 }
