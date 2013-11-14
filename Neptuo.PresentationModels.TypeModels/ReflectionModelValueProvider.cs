@@ -25,12 +25,18 @@ namespace Neptuo.PresentationModels.TypeModels
 
         public bool TryGetValue(string identifier, out object value)
         {
+            if (identifier == null)
+                throw new ArgumentNullException("identifier");
+
             value = GetPropertyInfo(identifier).GetValue(Model);
             return true;
         }
 
         public virtual void SetValue(string identifier, object value)
         {
+            if (identifier == null)
+                throw new ArgumentNullException("identifier");
+
             PropertyInfo propertyInfo = GetPropertyInfo(identifier);
             if(propertyInfo == null)
                 throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find property '{0}' in '{1}'.", identifier, ModelType.FullName));
