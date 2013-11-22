@@ -73,6 +73,6 @@ namespace TestConsole.PresentationModels
         public string PasswordAgain { get; set; }
 
         [Required]
-        public int Age { get; set; }
+        public int? Age { get; set; }
     }
 }
