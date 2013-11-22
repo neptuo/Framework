@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.BindingConverters
 {
-    public class BoolBindingConverter : IBindingConverter
+    public class BoolBindingConverter : BindingConverterBase<bool>
     {
-        public bool TryConvert(string sourceValue, IFieldDefinition targetField, out object targetValue)
+        public override bool TryConvert(string sourceValue, IFieldDefinition targetField, out bool targetValue)
         {
             if (sourceValue == null)
             {
-                targetValue = null;
+                targetValue = false;
                 return false;
             }
 
@@ -23,13 +23,13 @@ namespace Neptuo.PresentationModels.BindingConverters
                 return true;
             }
 
-            if(sourceValue.ToLowerInvariant() == "on")
+            if (sourceValue.ToLowerInvariant() == "on")
             {
                 targetValue = true;
                 return true;
             }
 
-            targetValue = null;
+            targetValue = false;
             return false;
         }
     }

@@ -45,6 +45,7 @@
     <Compile Include="DoubleBindingConverter.cs" />
     <Compile Include="FuncBindingConverter.cs" />
     <Compile Include="IntBindingConverter.cs" />
+    <Compile Include="NullBindingConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringBindingConverter.cs" />
   </ItemGroup>
