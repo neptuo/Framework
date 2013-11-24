@@ -15,6 +15,11 @@ namespace Neptuo.Lifetimes.Mapping
             Registry = new Dictionary<Type, ILifetimeMapper<TBaseLifetimeManager>>();
         }
 
+        internal LifetimeMapping(Dictionary<Type, ILifetimeMapper<TBaseLifetimeManager>> registry)
+        {
+            Registry = new Dictionary<Type, ILifetimeMapper<TBaseLifetimeManager>>(registry);
+        }
+
         public LifetimeMapping<TBaseLifetimeManager> Map(Type lifetimeType, ILifetimeMapper<TBaseLifetimeManager> mapper)
         {
             if (lifetimeType == null)
@@ -38,6 +43,11 @@ namespace Neptuo.Lifetimes.Mapping
                 throw new ArgumentOutOfRangeException("lifetime", "Unregistered lifetime.");
 
             return mapper.Map(lifetime);
+        }
+
+        public LifetimeMapping<TBaseLifetimeManager> CreateChildMapping()
+        {
+            return new LifetimeMapping<TBaseLifetimeManager>(Registry);
         }
     }
 }

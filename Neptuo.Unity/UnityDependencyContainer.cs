@@ -11,12 +11,15 @@ namespace Neptuo.Unity
 {
     public class UnityDependencyContainer : IDependencyContainer, ILifetimeMapping<LifetimeManager>
     {
+        protected bool IsChildMappingCreated { get; set; }
         protected IUnityContainer UnityContainer { get; private set; }
         protected LifetimeMapping<LifetimeManager> LifetimeMapping { get; private set; }
 
         public UnityDependencyContainer()
             : this(new UnityContainer(), new LifetimeMapping<LifetimeManager>())
-        { }
+        {
+            IsChildMappingCreated = true;
+        }
 
         public UnityDependencyContainer(IUnityContainer unityContainer, LifetimeMapping<LifetimeManager> lifetimeMapping)
         {
@@ -62,9 +65,21 @@ namespace Neptuo.Unity
         }
 
 
-        public void Map(Type lifetimeType, ILifetimeMapper<LifetimeManager> mapper)
+        public UnityDependencyContainer Map(Type lifetimeType, ILifetimeMapper<LifetimeManager> mapper)
         {
+            if (!IsChildMappingCreated)
+            {
+                LifetimeMapping = LifetimeMapping.CreateChildMapping();
+                IsChildMappingCreated = true;
+            }
+
             LifetimeMapping.Map(lifetimeType, mapper);
+            return this;
+        }
+
+        void ILifetimeMapping<LifetimeManager>.Map(Type lifetimeType, ILifetimeMapper<LifetimeManager> mapper)
+        {
+            Map(lifetimeType, mapper);
         }
     }
 
