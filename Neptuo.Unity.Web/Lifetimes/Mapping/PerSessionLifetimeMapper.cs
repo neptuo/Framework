@@ -13,7 +13,7 @@ namespace Neptuo.Unity.Web.Lifetimes.Mapping
     {
         protected override LifetimeManager Map(PerSessionLifetime lifetime)
         {
-            return new PerSessionLifetimeManager();
+            return new PerSessionLifetimeManager(lifetime.HopCount);
         }
     }
 }

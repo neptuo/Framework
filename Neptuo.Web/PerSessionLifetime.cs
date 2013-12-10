@@ -7,5 +7,15 @@ using System.Threading.Tasks;
 namespace Neptuo.Web
 {
     public class PerSessionLifetime
-    { }
+    {
+        /// <summary>
+        /// Sets TTL for request.
+        /// </summary>
+        public int? HopCount { get; set; }
+
+        public PerSessionLifetime(int? hopCount = null)
+        {
+            HopCount = hopCount;
+        }
+    }
 }

@@ -14,14 +14,45 @@ namespace Neptuo.Unity.Web
     {
         private readonly string guid = Guid.NewGuid().ToString();
 
+        /// <summary>
+        /// Sets TTL for request.
+        /// </summary>
+        public int? HopCount { get; set; }
+
         protected HttpSessionState Session
         {
             get { return HttpContext.Current.Session; }
         }
 
+        protected IDictionary Items
+        {
+            get { return HttpContext.Current.Items; }
+        }
+
+        public PerSessionLifetimeManager(int? hopCount = null)
+        {
+            HopCount = hopCount;
+        }
+
         public override object GetValue()
         {
-            return Session[guid];
+            ModelWrapper model = (ModelWrapper)Session[guid];
+            if (model == null)
+                return null;
+
+            if (model.HopCount != null && !Items.Contains(guid))
+            {
+                if(model.HopCount == 0)
+                {
+                    RemoveValue();
+                    return null;
+                }
+
+                Items[guid] = DateTime.Now;
+                model.HopCount--;
+            }
+
+            return model.Value;
         }
 
         public override void RemoveValue()
@@ -31,7 +62,19 @@ namespace Neptuo.Unity.Web
 
         public override void SetValue(object newValue)
         {
-            Session[guid] = newValue;
+            Session[guid] = new ModelWrapper(newValue, HopCount);
+        }
+
+        public class ModelWrapper
+        {
+            public object Value { get; set; }
+            public int? HopCount { get; set; }
+
+            public ModelWrapper(object value, int? hopCount)
+            {
+                Value = value;
+                HopCount = hopCount;
+            }
         }
     }
 }
