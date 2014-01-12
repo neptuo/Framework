@@ -1,4 +1,5 @@
-﻿using Neptuo.ObjectBuilder.Client;
+﻿using Neptuo.System.Client;
+using SharpKit.JavaScript;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -6,11 +7,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Neptuo.ObjectBuilder.Client")]
+[assembly: AssemblyTitle("Neptuo.System.Client")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Neptuo.ObjectBuilder.Client")]
+[assembly: AssemblyProduct("Neptuo.System.Client")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +22,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4d240d4e-b941-4d58-ad94-59061bd6ca7f")]
+[assembly: Guid("d1e2d5d1-2de4-4f19-bbce-30e6e5a132bf")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -36,3 +37,27 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
+
+[assembly: JsMergedFile(Filename = "res/System.js", Sources = new string[]
+{
+	"Compilation/JsCompiler.js",
+	"Internal/Core.js",
+	"Internal/CoreEx.js",
+})]
+
+[assembly: JsMergedFile(Filename = "Neptuo.System.Client.js", Sources = new string[]
+{
+	"res/System.js",
+	"res/System.IO.js",
+	"res/System.Linq.js",
+	"res/System.Collections.js",
+	"res/System.Reflection.js",
+	"res/System.Diagnostics.js",
+	"res/System.ComponentModel.js",
+	"res/System.Text.js",
+	"res/System.Ext.js"
+})]
+
+//[assembly: JsMergedFile(Filename = "../MagicWare.Client.Clr.TestingWeb/res/MagicWare.Client.Clr.js", Sources = new string[] { "Neptuo.System.Client.js" })]
+[assembly: JsMergedFile(Filename = "Neptuo.System.Client.min.js", Sources = new string[] { "Neptuo.System.Client.js" }, Minify = true)]
+[assembly: JsExport(UseStrict = true)]
