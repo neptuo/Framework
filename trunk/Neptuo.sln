@@ -68,6 +68,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Javascript", "Javascript", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.ObjectBuilder.Client", "Neptuo.ObjectBuilder.Client\Neptuo.ObjectBuilder.Client.csproj", "{96A14B62-6F39-4332-8C1E-709BD38D783D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.System.Client", "Neptuo.System.Client\Neptuo.System.Client.csproj", "{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -182,6 +184,10 @@ Global
 		{96A14B62-6F39-4332-8C1E-709BD38D783D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96A14B62-6F39-4332-8C1E-709BD38D783D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96A14B62-6F39-4332-8C1E-709BD38D783D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -190,6 +196,7 @@ Global
 		{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365} = {C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}
 		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9} = {C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}
 		{96A14B62-6F39-4332-8C1E-709BD38D783D} = {F14BA51C-5FC3-4154-A167-C8A5DEB754B3}
+		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E} = {F14BA51C-5FC3-4154-A167-C8A5DEB754B3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
