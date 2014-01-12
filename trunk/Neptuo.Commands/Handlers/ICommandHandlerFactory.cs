@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Commands.Handlers
 {
-    public interface ICommandHandlerFactory<T>
+    public interface ICommandHandlerFactory<TResult, TCommand>
     {
-        ICommandHandler<T> CreateHandler();
+        ICommandHandler<TResult, TCommand> CreateHandler();
     }
 }
