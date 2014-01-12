@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Commands.Handlers
 {
-    public class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
+    public class CreateProductCommandHandler : ICommandHandler<bool, CreateProductCommand>
     {
         private IProductRepository products;
 
@@ -17,13 +17,14 @@ namespace TestConsole.Data.Commands.Handlers
             this.products = products;
         }
 
-        public void Handle(CreateProductCommand command)
+        public Task<bool> Handle(CreateProductCommand command)
         {
             Product product = products.Create();
             product.Name = command.Name;
             product.Price = command.Price;
             product.Category = command.Category;
             products.Insert(product);
+            return Task.Factory.StartNew(() => true);
         }
     }
 }

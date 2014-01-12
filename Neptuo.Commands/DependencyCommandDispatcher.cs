@@ -18,10 +18,10 @@ namespace Neptuo.Commands
             this.dependencyProvider = dependencyProvider;
         }
 
-        public void Handle<TCommand>(TCommand command)
+        public Task<TResult> Handle<TResult, TCommand>(TCommand command)
         {
-            ICommandHandler<TCommand> handler = dependencyProvider.Resolve<ICommandHandler<TCommand>>();
-            handler.Handle(command);
+            ICommandHandler<TResult, TCommand> handler = dependencyProvider.Resolve<ICommandHandler<TResult, TCommand>>();
+            return handler.Handle(command);
         }
 
         public IValidationResult Validate<TCommand>(TCommand command)
