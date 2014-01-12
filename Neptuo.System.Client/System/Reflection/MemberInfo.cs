@@ -91,7 +91,7 @@ namespace SharpKit.JavaScript.Private
 	[JsType(Name = "System.Reflection.MethodBase", Filename = "~/res/System.Reflection.js")]
 	internal abstract class JsImplMethodBase : JsImplMemberInfo
 	{
-		public abstract object Invoke(object obj, object[] parameters);
+        //public abstract object Invoke(object obj, object[] parameters);
 	}
 
 
@@ -101,7 +101,7 @@ namespace SharpKit.JavaScript.Private
 		internal bool _IsStatic;
 
         public bool IsStatic { get { return _IsStatic; } }
-		public override object Invoke(object obj, object[] parameters)
+		public /*override*/ object Invoke(object obj, object[] parameters)
 		{
 			JsFunction func;
 			if (_IsStatic)
@@ -123,4 +123,30 @@ namespace SharpKit.JavaScript.Private
 		internal string JsName=null;
 
 	}
+
+    [JsType(Name = "System.Reflection.ConstructorInfo", Filename = "~/res/System.Reflection.js")]
+    internal class JsImplConstructorInfo : JsImplMethodBase
+    {
+        private JsFunction func;
+
+        public JsImplConstructorInfo(string methodName, JsFunction func)
+        {
+            _Name = methodName;
+            this.func = func;
+        }
+
+        [JsMethod(Code = @"
+            var constructor = this.func;
+            function F() {
+                return constructor.apply(this, parameters);
+            }
+            F.prototype = constructor.prototype;
+            return new F();
+        ")]
+        public object Invoke(object[] parameters)
+        {
+            return null;
+        }
+    }
+
 }

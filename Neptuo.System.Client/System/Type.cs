@@ -357,6 +357,35 @@ namespace SharpKit.JavaScript.Private
 			return GetMethods();
 		}
 
+        void VerifyConstructors()
+        {
+            if (_Constructors == null)
+            {
+                VerifyMethods();
+                _Constructors = new JsExtendedArray();
+                foreach (var ctorName in _JsType.ctors)
+                {
+                    var method = new JsImplConstructorInfo(ctorName, _JsType.ctors[ctorName].As<JsFunction>());
+                    method._DeclaringType = this;
+                    //method.JsName = funcName;
+                    //method.JsFunction = func;
+                    _Constructors.push(method);
+                }
+            }
+        }
+
+        JsExtendedArray _Constructors;
+        JsImplConstructorInfo[] GetContructors()
+        {
+            VerifyConstructors();
+            var arr = new JsArray();
+            for (var i = 0; i < _Constructors.length; i++)
+            {
+                arr.push(_Constructors[i]);
+            }
+            return arr.As<JsImplConstructorInfo[]>();
+        }
+
 		#endregion
 
 		protected override void VerifyCustomAttributes()

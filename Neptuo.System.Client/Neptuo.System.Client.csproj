@@ -119,6 +119,8 @@
     <Content Include="Compilation\JsCompiler.js" />
     <Content Include="Internal\Core.js" />
     <Content Include="Internal\CoreEx.js" />
+    <Content Include="Neptuo.System.Client.js" />
+    <Content Include="Neptuo.System.Client.min.js" />
   </ItemGroup>
   <!--<ItemGroup>
     <SkcPlugin Include="Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin">
