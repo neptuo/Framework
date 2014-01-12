@@ -29,6 +29,12 @@ namespace Neptuo.SharpKit.Exugin.Exports
             this.filenameFormat = filenameFormat;
         }
 
+        public void SetDefaults(string defaultFilename, string filenameFormat)
+        {
+            this.defaultFilename = defaultFilename;
+            this.filenameFormat = filenameFormat;
+        }
+
         /// <summary>
         /// Přidá do registru namespace.
         /// </summary>

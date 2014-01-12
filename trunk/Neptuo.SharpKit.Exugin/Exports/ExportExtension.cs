@@ -7,6 +7,8 @@ using ICSharpCode.NRefactory.TypeSystem;
 using SharpKit.Compiler;
 using SharpKit.JavaScript;
 using Mirrored.SharpKit.JavaScript;
+using System.IO;
+using System.Xml;
 
 namespace Neptuo.SharpKit.Exugin.Exports
 {
@@ -93,9 +95,10 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 }
             }
 
-            if (useExport)
+            if (useExport || IsConfigurationXml(assembly))
             {
                 NamespaceRegistry registry = new NamespaceRegistry(false, defaultFilename, filenameFormat);
+                TryReadConfigurationXml(assembly, registry);
                 foreach (KeyValuePair<string, string> item in mappings)
                     registry.Add(item.Key, item.Value);
 
@@ -103,6 +106,32 @@ namespace Neptuo.SharpKit.Exugin.Exports
             }
 
             return null;
+        }
+
+        private void TryReadConfigurationXml(IAssembly assembly, NamespaceRegistry registry)
+        {
+            if (IsConfigurationXml(assembly))
+            {
+                XmlDocument document = new XmlDocument();
+                document.Load(GetConfigurationXmlFileName(assembly));
+
+                foreach (XmlElement element in document.GetElementsByTagName(namespaceAttributeName))
+                    registry.Add(element.GetAttribute("namespace"), element.GetAttribute("filename"));
+
+                foreach (XmlElement element in document.GetElementsByTagName(defaultAttributeName))
+                    registry.SetDefaults(element.GetAttribute("defaultFilename"), element.GetAttribute("filenameFormat") ?? "{0}");
+            }
+        }
+
+        private bool IsConfigurationXml(IAssembly assembly)
+        {
+            return File.Exists(GetConfigurationXmlFileName(assembly));
+        }
+
+        private string GetConfigurationXmlFileName(IAssembly assembly)
+        {
+            string assemblyName = assembly.AssemblyName + ".xml";
+            return assemblyName;
         }
 
         /// <summary>

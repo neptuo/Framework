@@ -12,12 +12,14 @@ namespace Neptuo.SharpKit.Exugin.Expressions
     {
         private ExpressionCache cache;
         private ExpressionVisitor visitor;
+        private HashSet<string> prefixes;
 
-        public ExpressionExtension(bool debug)
+        public ExpressionExtension(IEnumerable<string> prefixes, bool debug)
             : base("Expression", debug)
         {
-            cache = new ExpressionCache();
-            visitor = new ExpressionVisitor(cache, Log);
+            this.prefixes = new HashSet<string>(prefixes);
+            this.cache = new ExpressionCache();
+            this.visitor = new ExpressionVisitor(cache, Log);
         }
 
         public void PrepareMethodCache(IEnumerable<IAssembly> assemblies)
@@ -31,7 +33,7 @@ namespace Neptuo.SharpKit.Exugin.Expressions
                         int i = 0;
                         foreach (IParameter parameter in method.Parameters)
                         {
-                            if (type.FullName.StartsWith("Magic") && parameter.Type.FullName.StartsWith("System.Linq.Expressions.Expression"))
+                            if (CheckPrefix(type.FullName) && parameter.Type.FullName.StartsWith("System.Linq.Expressions.Expression"))
                                 cache.Add(new ExpressionCacheItem(type, method, parameter, i + method.TypeArguments.Count));
 
                             i++;
@@ -39,6 +41,16 @@ namespace Neptuo.SharpKit.Exugin.Expressions
                     }
                 }
             }
+        }
+
+        private bool CheckPrefix(string fullName)
+        {
+            foreach (string prefix in prefixes)
+            {
+                if (fullName.StartsWith(prefix))
+                    return true;
+            }
+            return false;
         }
 
         public void Process(IEntity entity, JsNode node)
