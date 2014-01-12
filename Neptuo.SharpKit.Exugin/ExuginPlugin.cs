@@ -63,7 +63,7 @@ namespace Neptuo.SharpKit.Exugin
             compiler.AfterConvertCsToJsEntity += Compiler_AfterConvertCsToJsEntity;
 
             export = new ExportExtension(exportAttributeName, exportNamespaceAttributeName, debug);
-            expression = new ExpressionExtension(debug);
+            expression = new ExpressionExtension(configuration.GetString("ExpressionPrefixes", "Neptuo").Split(','), debug);
             ctorExport = new CtorExportExtension(debug);
             isAbstract = new IsAbtractExportExtension(debug);
         }
