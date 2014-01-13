@@ -1,5 +1,5 @@
-﻿using Neptuo.System.Client;
-using SharpKit.JavaScript;
+﻿using SharpKit.JavaScript;
+using System.Client;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

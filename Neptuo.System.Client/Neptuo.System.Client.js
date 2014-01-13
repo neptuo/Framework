@@ -16,9 +16,9 @@ if (typeof($CreateException)=='undefined')
 }
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var System$Collection$Generic$IEqualityComparer = {fullname: "System.Collection.Generic.IEqualityComparer", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Collection$Generic$IEqualityComparer = {fullname: "System.Collection.Generic.IEqualityComparer", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collection$Generic$IEqualityComparer);
-var System$IComparar$1 = {fullname: "System.IComparar$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$IComparar$1 = {fullname: "System.IComparar$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$IComparar$1);
 var AfterCompilationFunctions =  [];
 var BeforeCompilationFunctions =  [];
@@ -908,7 +908,9 @@ var System$Activator =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(System$Activator);
 var System$Attribute =
@@ -923,7 +925,9 @@ var System$Attribute =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Attribute);
 var System$Collections$Generic$KeyNotFoundException =
@@ -946,20 +950,22 @@ var System$Collections$Generic$KeyNotFoundException =
         {
             System.Exception.ctor$$String$$Exception.call(this, "JsImplKeyNotFoundException: " + s, innerException);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$KeyNotFoundException);
-var System$Collections$Generic$IEnumerator$1 = {fullname: "System.Collections.Generic.IEnumerator$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Collections$Generic$IEnumerator$1 = {fullname: "System.Collections.Generic.IEnumerator$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$IEnumerator$1);
-var System$Collections$Generic$IEnumerable$1 = {fullname: "System.Collections.Generic.IEnumerable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.IEnumerable"], Kind: "Interface"};
+var System$Collections$Generic$IEnumerable$1 = {fullname: "System.Collections.Generic.IEnumerable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.IEnumerable"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$IEnumerable$1);
-var System$Collections$Generic$IList$1 = {fullname: "System.Collections.Generic.IList$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.ICollection$1"], Kind: "Interface"};
+var System$Collections$Generic$IList$1 = {fullname: "System.Collections.Generic.IList$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.ICollection$1"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$IList$1);
-var System$Collections$Generic$ICollection$1 = {fullname: "System.Collections.Generic.ICollection$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.IEnumerable$1"], Kind: "Interface"};
+var System$Collections$Generic$ICollection$1 = {fullname: "System.Collections.Generic.ICollection$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.IEnumerable$1"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$ICollection$1);
-var System$Collections$Generic$IDictionary$2 = {fullname: "System.Collections.Generic.IDictionary$2", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Collections$Generic$IDictionary$2 = {fullname: "System.Collections.Generic.IDictionary$2", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$IDictionary$2);
-var System$Collections$Generic$ISet$1 = {fullname: "System.Collections.Generic.ISet$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.ICollection$1", "System.Collections.Generic.IEnumerable$1", "System.Collections.IEnumerable"], Kind: "Interface"};
+var System$Collections$Generic$ISet$1 = {fullname: "System.Collections.Generic.ISet$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.Generic.ICollection$1", "System.Collections.Generic.IEnumerable$1", "System.Collections.IEnumerable"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$Generic$ISet$1);
 var System$Comparison$1 =
 {
@@ -972,18 +978,20 @@ var System$Comparison$1 =
             this.T = T;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Comparison$1);
-var System$Collections$IDictionary = {fullname: "System.Collections.IDictionary", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.ICollection", "System.Collections.IEnumerable"], Kind: "Interface"};
+var System$Collections$IDictionary = {fullname: "System.Collections.IDictionary", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.ICollection", "System.Collections.IEnumerable"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$IDictionary);
-var System$Collections$IEnumerable = {fullname: "System.Collections.IEnumerable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Collections$IEnumerable = {fullname: "System.Collections.IEnumerable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$IEnumerable);
-var System$Collections$IEnumerator = {fullname: "System.Collections.IEnumerator", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Collections$IEnumerator = {fullname: "System.Collections.IEnumerator", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$IEnumerator);
-var System$Collections$ICollection = {fullname: "System.Collections.ICollection", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.IEnumerable"], Kind: "Interface"};
+var System$Collections$ICollection = {fullname: "System.Collections.ICollection", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.IEnumerable"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$ICollection);
-var System$Collections$IList = {fullname: "System.Collections.IList", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.ICollection"], Kind: "Interface"};
+var System$Collections$IList = {fullname: "System.Collections.IList", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", interfaceNames: ["System.Collections.ICollection"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Collections$IList);
 var System$ComponentModel$CancelEventHandler =
 {
@@ -995,7 +1003,9 @@ var System$ComponentModel$CancelEventHandler =
         {
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ComponentModel$CancelEventHandler);
 var System$ComponentModel$CancelEventArgs =
@@ -1027,12 +1037,14 @@ var System$ComponentModel$CancelEventArgs =
         {
             this._Cancel = value;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Boolean", parameters: ["System.Boolean"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ComponentModel$CancelEventArgs);
-var System$ComponentModel$INotifyPropertyChanging = {fullname: "System.ComponentModel.INotifyPropertyChanging", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$ComponentModel$INotifyPropertyChanging = {fullname: "System.ComponentModel.INotifyPropertyChanging", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$ComponentModel$INotifyPropertyChanging);
-var System$ComponentModel$INotifyPropertyChanged = {fullname: "System.ComponentModel.INotifyPropertyChanged", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$ComponentModel$INotifyPropertyChanged = {fullname: "System.ComponentModel.INotifyPropertyChanged", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$ComponentModel$INotifyPropertyChanged);
 var System$ComponentModel$PropertyChangedEventHandler =
 {
@@ -1044,7 +1056,9 @@ var System$ComponentModel$PropertyChangedEventHandler =
         {
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ComponentModel$PropertyChangedEventHandler);
 var System$ComponentModel$PropertyChangedEventArgs =
@@ -1066,7 +1080,9 @@ var System$ComponentModel$PropertyChangedEventArgs =
         {
             return this._PropertyName;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ComponentModel$PropertyChangedEventArgs);
 var System$DateTime =
@@ -1329,7 +1345,9 @@ var System$DateTime =
         {
             return this.date.GetHashCode();
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Int32$$Int32$$Int32", parameters: ["System.Int32", "System.Int32", "System.Int32"]}, {name: "ctor$$Int32$$Int32$$Int32$$Int32$$Int32$$Int32", parameters: ["System.Int32", "System.Int32", "System.Int32", "System.Int32", "System.Int32", "System.Int32"]}, {name: "ctor$$JsDate", parameters: ["SharpKit.JavaScript.JsDate"]}, {name: "ctor$$Int64", parameters: ["System.Int64"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$DateTime);
 var SharpKit$JavaScript$Private$Extensions =
@@ -1394,7 +1412,9 @@ var SharpKit$JavaScript$Private$Extensions =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(SharpKit$JavaScript$Private$Extensions);
 var System$Delegate =
@@ -1428,7 +1448,9 @@ var System$Delegate =
         {
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: true
 };
 JsTypes.push(System$Delegate);
 var System$MulticastDelegate =
@@ -1455,7 +1477,9 @@ var System$MulticastDelegate =
         {
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$MulticastDelegate);
 var System$Action =
@@ -1468,7 +1492,9 @@ var System$Action =
         {
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Action);
 var System$Action$1 =
@@ -1482,7 +1508,9 @@ var System$Action$1 =
             this.T = T;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Action$1);
 var System$Action$2 =
@@ -1497,7 +1525,9 @@ var System$Action$2 =
             this.T2 = T2;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Action$2);
 var System$Action$3 =
@@ -1513,7 +1543,9 @@ var System$Action$3 =
             this.T3 = T3;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Action$3);
 var System$Action$4 =
@@ -1530,7 +1562,9 @@ var System$Action$4 =
             this.T4 = T4;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Action$4);
 var System$Func$1 =
@@ -1544,7 +1578,9 @@ var System$Func$1 =
             this.TResult = TResult;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Func$1);
 var System$Func$2 =
@@ -1559,7 +1595,9 @@ var System$Func$2 =
             this.TResult = TResult;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Func$2);
 var System$Func$3 =
@@ -1575,7 +1613,9 @@ var System$Func$3 =
             this.TResult = TResult;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Func$3);
 var System$Func$4 =
@@ -1592,7 +1632,9 @@ var System$Func$4 =
             this.TResult = TResult;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Func$4);
 var System$EventHandler =
@@ -1605,7 +1647,9 @@ var System$EventHandler =
         {
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$EventHandler);
 var System$EventHandler$1 =
@@ -1619,7 +1663,9 @@ var System$EventHandler$1 =
             this.TEventArgs = TEventArgs;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$EventHandler$1);
 var System$Predicate$1 =
@@ -1633,7 +1679,9 @@ var System$Predicate$1 =
             this.T = T;
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Predicate$1);
 var System$Enum =
@@ -1699,7 +1747,9 @@ var System$Enum =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Enum);
 var System$Environment =
@@ -1730,7 +1780,9 @@ var System$Environment =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Environment);
 var System$EventArgs =
@@ -1745,7 +1797,9 @@ var System$EventArgs =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$EventArgs);
 var System$Exception =
@@ -1797,7 +1851,9 @@ var System$Exception =
         SetErrorCode: function (hr)
         {
         }
-    }
+    },
+    ctors: [ {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Exception);
 var System$NotImplementedException =
@@ -1816,7 +1872,9 @@ var System$NotImplementedException =
         {
             System.Exception.ctor$$String.call(this, "NotImplementedException: " + s);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$NotImplementedException);
 var System$SystemException =
@@ -1842,7 +1900,9 @@ var System$SystemException =
             System.Exception.ctor$$String$$Exception.call(this, message, innerException);
             this.SetErrorCode(-2146233087);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$SystemException);
 var System$ArgumentException =
@@ -1889,7 +1949,9 @@ var System$ArgumentException =
         {
             return this.m_paramName;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}, {name: "ctor$$String$$String", parameters: ["System.String", "System.String"]}, {name: "ctor$$String$$String$$Exception", parameters: ["System.String", "System.String", "System.Exception"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ArgumentException);
 var System$NullReferenceException =
@@ -1908,7 +1970,9 @@ var System$NullReferenceException =
         {
             System.SystemException.ctor$$String.call(this, message);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$NullReferenceException);
 var System$NotSupportedException =
@@ -1931,7 +1995,9 @@ var System$NotSupportedException =
         {
             System.SystemException.ctor$$String$$Exception.call(this, message, innerException);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$NotSupportedException);
 var System$ArgumentOutOfRangeException =
@@ -1994,14 +2060,16 @@ var System$ArgumentOutOfRangeException =
             }
             return System.ArgumentOutOfRangeException._rangeMessage;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}, {name: "ctor$$String$$String", parameters: ["System.String", "System.String"]}, {name: "ctor$$String$$Object$$String", parameters: ["System.String", "System.Object", "System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$ArgumentOutOfRangeException);
-var System$IDisposable = {fullname: "System.IDisposable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$IDisposable = {fullname: "System.IDisposable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$IDisposable);
-var System$IComparable$1 = {fullname: "System.IComparable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$IComparable$1 = {fullname: "System.IComparable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$IComparable$1);
-var System$IEquatable$1 = {fullname: "System.IEquatable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$IEquatable$1 = {fullname: "System.IEquatable$1", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$IEquatable$1);
 var System$Nullable$1 =
 {
@@ -2074,7 +2142,9 @@ var System$Nullable$1 =
             }
             return this.value.toString();
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Nullable$1);
 var System$Random =
@@ -2128,14 +2198,18 @@ var System$Random =
         {
             return Math.random();
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Int32", parameters: ["System.Int32"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Random);
 var System$StringSplitOptions =
 {
     fullname: "System.StringSplitOptions",
     staticDefinition: {None: 0, RemoveEmptyEntries: 1},
-    Kind: "Enum"
+    Kind: "Enum",
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$StringSplitOptions);
 var System$Char =
@@ -2165,7 +2239,9 @@ var System$Char =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Char);
 var System$CharEnumerator =
@@ -2215,14 +2291,18 @@ var System$CharEnumerator =
             }
             return this.currentElement;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["SharpKit.JavaScript.JsString"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$CharEnumerator);
 var System$StringComparison =
 {
     fullname: "System.StringComparison",
     staticDefinition: {CurrentCulture: 0, CurrentCultureIgnoreCase: 1, InvariantCulture: 2, InvariantCultureIgnoreCase: 3, Ordinal: 4, OrdinalIgnoreCase: 5},
-    Kind: "Enum"
+    Kind: "Enum",
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$StringComparison);
 var System$TimeSpan =
@@ -2570,7 +2650,9 @@ var System$TimeSpan =
             }
             return new System.TimeSpan.ctor$$Int64(num);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Int64", parameters: ["System.Int64"]}, {name: "ctor$$Int32$$Int32$$Int32", parameters: ["System.Int32", "System.Int32", "System.Int32"]}, {name: "ctor$$Int32$$Int32$$Int32$$Int32", parameters: ["System.Int32", "System.Int32", "System.Int32", "System.Int32"]}, {name: "ctor$$Int32$$Int32$$Int32$$Int32$$Int32", parameters: ["System.Int32", "System.Int32", "System.Int32", "System.Int32", "System.Int32"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$TimeSpan);
 var System$Tuple$1 =
@@ -2593,7 +2675,9 @@ var System$Tuple$1 =
         {
             return this._item1;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$1);
 var System$Tuple$2 =
@@ -2624,7 +2708,9 @@ var System$Tuple$2 =
         {
             return this._item2;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$2);
 var System$Tuple$3 =
@@ -2663,7 +2749,9 @@ var System$Tuple$3 =
         {
             return this._item3;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2", "T3"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$3);
 var System$Tuple$4 =
@@ -2710,7 +2798,9 @@ var System$Tuple$4 =
         {
             return this._item4;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2", "T3", "T4"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$4);
 var System$Tuple$5 =
@@ -2765,7 +2855,9 @@ var System$Tuple$5 =
         {
             return this._item5;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2", "T3", "T4", "T5"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$5);
 var System$Tuple$6 =
@@ -2828,7 +2920,9 @@ var System$Tuple$6 =
         {
             return this._item6;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2", "T3", "T4", "T5", "T6"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$6);
 var System$Tuple$7 =
@@ -2899,7 +2993,9 @@ var System$Tuple$7 =
         {
             return this._item7;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["T1", "T2", "T3", "T4", "T5", "T6", "T7"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Tuple$7);
 var System$UInt32 =
@@ -2942,7 +3038,9 @@ var System$UInt32 =
                 throw $CreateException(new System.FormatException.ctor(), new Error());
             return new Number(match[1]);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Object", parameters: ["System.Object"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$UInt32);
 var System$Uri =
@@ -2968,7 +3066,9 @@ var System$Uri =
         {
             return this._OriginalString;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Uri);
 var System$ValueType =
@@ -2983,7 +3083,9 @@ var System$ValueType =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$ValueType);
 var SharpKit$Html4$HtmlDomEventHandler =
@@ -2996,7 +3098,9 @@ var SharpKit$Html4$HtmlDomEventHandler =
         {
             System.MulticastDelegate.ctor.call(this, obj, func);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
 };
 JsTypes.push(SharpKit$Html4$HtmlDomEventHandler);
 var JsRuntime = function ()
@@ -3795,11 +3899,6 @@ JsTypes.push({
         }
     }
 });
-AfterCompilation(function()
-{
-	System.IO.Path.ctor();
-});
-
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var System$IO$Path =
@@ -4170,7 +4269,9 @@ var System$IO$Path =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(System$IO$Path);
 if (typeof(JsTypes) == "undefined")
@@ -4755,7 +4856,9 @@ var System$Linq$Enumerable =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(System$Linq$Enumerable);
 var System$Linq$Enumerable$Iterator =
@@ -4795,7 +4898,9 @@ var System$Linq$Enumerable$Iterator =
             iterator.state = 1;
             return iterator;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: true
 };
 JsTypes.push(System$Linq$Enumerable$Iterator);
 var System$Linq$Enumerable$WhereArrayIterator =
@@ -4846,7 +4951,9 @@ var System$Linq$Enumerable$WhereArrayIterator =
         {
             return new System.Linq.Enumerable.WhereArrayIterator.ctor(this.TSource, this.source, System.Linq.Enumerable.CombinePredicates$1(this.TSource, this.predicate, predicate));
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["TSource[]", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereArrayIterator);
 var System$Linq$Enumerable$WhereEnumerableIterator =
@@ -4913,7 +5020,9 @@ var System$Linq$Enumerable$WhereEnumerableIterator =
         {
             return new System.Linq.Enumerable.WhereEnumerableIterator.ctor(this.TSource, this.source, System.Linq.Enumerable.CombinePredicates$1(this.TSource, this.predicate, predicate));
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.Generic.IEnumerable", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereEnumerableIterator);
 var System$Linq$Enumerable$WhereListIterator =
@@ -4971,7 +5080,9 @@ var System$Linq$Enumerable$WhereListIterator =
         {
             return new System.Linq.Enumerable.WhereListIterator.ctor(this.TSource, this.source, System.Linq.Enumerable.CombinePredicates$1(this.TSource, this.predicate, predicate));
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.Generic.List", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereListIterator);
 var System$Linq$Enumerable$WhereSelectArrayIterator =
@@ -5025,7 +5136,9 @@ var System$Linq$Enumerable$WhereSelectArrayIterator =
         {
             return new System.Linq.Enumerable.WhereEnumerableIterator.ctor(this.TResult, this, predicate);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["TSource[]", "System.Func", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereSelectArrayIterator);
 var System$Linq$Enumerable$WhereSelectEnumerableIterator =
@@ -5095,7 +5208,9 @@ var System$Linq$Enumerable$WhereSelectEnumerableIterator =
         {
             return new System.Linq.Enumerable.WhereEnumerableIterator.ctor(this.TResult, this, predicate);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.Generic.IEnumerable", "System.Func", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereSelectEnumerableIterator);
 var System$Linq$Enumerable$WhereSelectListIterator =
@@ -5156,7 +5271,9 @@ var System$Linq$Enumerable$WhereSelectListIterator =
         {
             return new System.Linq.Enumerable.WhereEnumerableIterator.ctor(this.TResult, this, predicate);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.Generic.List", "System.Func", "System.Func"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$WhereSelectListIterator);
 var System$Linq$Enumerable$OfTypeIterator =
@@ -5208,7 +5325,9 @@ var System$Linq$Enumerable$OfTypeIterator =
         {
             return this;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.IEnumerable"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$OfTypeIterator);
 var System$Linq$Enumerable$SkipIterator =
@@ -5274,7 +5393,9 @@ var System$Linq$Enumerable$SkipIterator =
                 return this;
             return new System.Linq.Enumerable.SkipIterator.ctor(this.T, this.Source, this.SkipCount);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.IEnumerable", "System.Int32"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$SkipIterator);
 var System$Linq$Enumerable$TakeIterator =
@@ -5339,7 +5460,9 @@ var System$Linq$Enumerable$TakeIterator =
                 return this;
             return new System.Linq.Enumerable.TakeIterator.ctor(this.T, this.Source, this.TakeCount);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.IEnumerable", "System.Int32"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Linq$Enumerable$TakeIterator);
 var System$Linq$Error =
@@ -5369,7 +5492,9 @@ var System$Linq$Error =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(System$Linq$Error);
 if (typeof(JsTypes) == "undefined")
@@ -5386,7 +5511,9 @@ var System$Collections$ArrayList =
         {
             System.Collections.Generic.List$1.ctor.call(this, System.Object.ctor);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$ArrayList);
 var System$Collections$Generic$Dictionary$2 =
@@ -5547,7 +5674,9 @@ var System$Collections$Generic$Dictionary$2 =
         {
             return true;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEqualityComparer", parameters: ["System.Collections.Generic.IEqualityComparer"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$Dictionary$2);
 var System$Collections$Generic$HashSet$1 =
@@ -5677,7 +5806,9 @@ var System$Collections$Generic$HashSet$1 =
             }
             return new System.Collections.Generic.JsArrayEnumerator$1.ctor(this.T, array);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEqualityComparer", parameters: ["System.Collections.Generic.IEqualityComparer"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$HashSet$1);
 var System$StringComparer =
@@ -5707,7 +5838,9 @@ var System$StringComparer =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: true
 };
 JsTypes.push(System$StringComparer);
 var SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase =
@@ -5742,7 +5875,9 @@ var SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase =
                 return "null";
             return obj.toLowerCase();
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(SharpKit$JavaScript$Private$StringComparer_InvariantCultureIgnoreCase);
 var System$Collections$Generic$JsArrayEnumerator$1 =
@@ -5783,7 +5918,9 @@ var System$Collections$Generic$JsArrayEnumerator$1 =
         {
             this.Index = -1;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["SharpKit.JavaScript.JsArray"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$JsArrayEnumerator$1);
 var System$Collections$Generic$KeyNotFoundException =
@@ -5816,7 +5953,9 @@ var System$Collections$Generic$KeyNotFoundException =
             System.SystemException.ctor$$String$$Exception.call(this, message, innerException);
             this.SetErrorCode(-2146232969);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}, {name: "ctor$$String$$Exception", parameters: ["System.String", "System.Exception"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$KeyNotFoundException);
 var System$Collections$Generic$KeyValuePair$2 =
@@ -5855,7 +5994,9 @@ var System$Collections$Generic$KeyValuePair$2 =
             this._Value = null;
             System.ValueType.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor$$TKey$$TValue", parameters: ["TKey", "TValue"]}, {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$KeyValuePair$2);
 var System$Collections$Generic$List$1 =
@@ -6025,7 +6166,9 @@ var System$Collections$Generic$List$1 =
                 action(this._list[i]);
             }
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEnumerable", parameters: ["System.Collections.Generic.IEnumerable"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$List$1);
 var System$Collections$Generic$Queue$1 =
@@ -6101,7 +6244,9 @@ var System$Collections$Generic$Queue$1 =
         {
             return this._list.contains(item);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Int32", parameters: ["System.Int32"]}, {name: "ctor$$IEnumerable", parameters: ["System.Collections.Generic.IEnumerable"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$Queue$1);
 var System$Collections$Generic$Stack$1 =
@@ -6175,7 +6320,9 @@ var System$Collections$Generic$Stack$1 =
         {
             return this._list.GetEnumerator();
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Int32", parameters: ["System.Int32"]}, {name: "ctor$$IEnumerable", parameters: ["System.Collections.Generic.IEnumerable"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$Stack$1);
 var System$Collections$IListEnumerator$1 =
@@ -6216,7 +6363,9 @@ var System$Collections$IListEnumerator$1 =
         {
             this.Index = -1;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Collections.Generic.IList"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Collections$IListEnumerator$1);
 if (typeof(JsTypes) == "undefined")
@@ -6225,7 +6374,9 @@ var System$Reflection$BindingFlags =
 {
     fullname: "System.Reflection.BindingFlags",
     staticDefinition: {CreateInstance: 512, DeclaredOnly: 2, Default: 0, ExactBinding: 65536, FlattenHierarchy: 64, GetField: 1024, GetProperty: 4096, IgnoreCase: 1, IgnoreReturn: 16777216, Instance: 4, InvokeMethod: 256, NonPublic: 32, OptionalParamBinding: 262144, Public: 16, PutDispProperty: 16384, PutRefDispProperty: 32768, SetField: 2048, SetProperty: 8192, Static: 8, SuppressChangeType: 131072},
-    Kind: "Enum"
+    Kind: "Enum",
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Reflection$BindingFlags);
 var System$Reflection$MemberInfo =
@@ -6293,7 +6444,9 @@ var System$Reflection$MemberInfo =
                 this._CustomAttributes = new Array();
             return this._CustomAttributes;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: true
 };
 JsTypes.push(System$Reflection$MemberInfo);
 var System$Reflection$MethodBase =
@@ -6308,7 +6461,9 @@ var System$Reflection$MethodBase =
         {
             System.Reflection.MemberInfo.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: true
 };
 JsTypes.push(System$Reflection$MethodBase);
 var System$Reflection$MethodInfo =
@@ -6349,7 +6504,9 @@ var System$Reflection$MethodInfo =
                 res = func.apply(obj, parameters);
             return res;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Reflection$MethodInfo);
 var System$Reflection$ConstructorInfo =
@@ -6360,12 +6517,15 @@ var System$Reflection$ConstructorInfo =
     Kind: "Class",
     definition:
     {
-        ctor: function (methodName, func)
+        ctor: function (methodName, func, parameters)
         {
             this.func = null;
+            this.parameters = null;
+            this._parameterInfo = null;
             System.Reflection.MethodBase.ctor.call(this);
             this._Name = methodName;
             this.func = func;
+            this.parameters = parameters;
         },
         Invoke: function (parameters)
         {
@@ -6377,10 +6537,50 @@ var System$Reflection$ConstructorInfo =
             F.prototype = constructor.prototype;
             return new F();
         
+        },
+        GetParameters: function ()
+        {
+            if (this._parameterInfo == null)
+            {
+                this._parameterInfo =  [];
+                for (var $i14 = 0, $t14 = this.parameters, $l14 = $t14.length, paramTypeName = $t14[$i14]; $i14 < $l14; $i14++, paramTypeName = $t14[$i14])
+                    this._parameterInfo.push(new System.Reflection.ParameterInfo.ctor(System.Type.GetType$$String(paramTypeName)));
+            }
+            return this._parameterInfo;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.String", "SharpKit.JavaScript.JsFunction", "SharpKit.JavaScript.JsArray"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Reflection$ConstructorInfo);
+var System$Reflection$ParameterInfo =
+{
+    fullname: "System.Reflection.ParameterInfo",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.System.Client",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (parameterType)
+        {
+            this._ParameterType = null;
+            System.Object.ctor.call(this);
+            this.set_ParameterType(parameterType);
+        },
+        ParameterType$$: "System.Type",
+        get_ParameterType: function ()
+        {
+            return this._ParameterType;
+        },
+        set_ParameterType: function (value)
+        {
+            this._ParameterType = value;
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Type"]}],
+    IsAbstract: false
+};
+JsTypes.push(System$Reflection$ParameterInfo);
 var System$Reflection$PropertyInfo =
 {
     fullname: "System.Reflection.PropertyInfo",
@@ -6460,7 +6660,9 @@ var System$Reflection$PropertyInfo =
         {
             return this._PropertyType;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Reflection$PropertyInfo);
 var System$Type =
@@ -6679,7 +6881,7 @@ var System$Type =
                 if (baseType != null)
                 {
                     var props = baseType.GetProperties();
-                    for (var $i14 = 0, $l14 = props.length, pe = props[$i14]; $i14 < $l14; $i14++, pe = props[$i14])
+                    for (var $i15 = 0, $l15 = props.length, pe = props[$i15]; $i15 < $l15; $i15++, pe = props[$i15])
                     {
                         if (!this._PropertiesByName.hasOwnProperty(pe._Name))
                         {
@@ -6742,7 +6944,7 @@ var System$Type =
                 if (baseType != null)
                 {
                     var methods = baseType.GetMethods();
-                    for (var $i15 = 0, $l15 = methods.length, pe = methods[$i15]; $i15 < $l15; $i15++, pe = methods[$i15])
+                    for (var $i16 = 0, $l16 = methods.length, pe = methods[$i16]; $i16 < $l16; $i16++, pe = methods[$i16])
                     {
                         if (this._MethodsByName[pe._Name] == null)
                         {
@@ -6778,9 +6980,13 @@ var System$Type =
             {
                 this.VerifyMethods();
                 this._Constructors = new Array();
-                for (var ctorName in this._JsType.ctors)
+                for (var i = 0; i < this._JsType.ctors.length; i++)
                 {
-                    var method = new System.Reflection.ConstructorInfo.ctor(ctorName, this._JsType.ctors[ctorName]);
+                    var ctorMeta = this._JsType.ctors[i];
+                    var ctorName = ctorMeta["name"];
+                    var ctorParams = ctorMeta["parameters"];
+                    var ctorFunc = ctorMeta["_type"][ctorName];
+                    var method = new System.Reflection.ConstructorInfo.ctor(ctorName, ctorFunc, ctorParams);
                     method._DeclaringType = this;
                     this._Constructors.push(method);
                 }
@@ -6852,7 +7058,7 @@ var System$Type =
             {
                 var methodName = SharpKit.JavaScript.JsNamingHelper.JsFunctionNameToClrMethodName(memberName);
                 var methods = this.GetMethods$$String(methodName);
-                for (var $i16 = 0, $l16 = methods.length, method = methods[$i16]; $i16 < $l16; $i16++, method = methods[$i16])
+                for (var $i17 = 0, $l17 = methods.length, method = methods[$i17]; $i17 < $l17; $i17++, method = methods[$i17])
                 {
                     if (method.JsName == memberName)
                         return method;
@@ -6929,7 +7135,9 @@ return this._MakeGenericType(x);
             }
             return t;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: ["Neptuo.Client.Compilation.JsType"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Type);
 if (typeof(JsTypes) == "undefined")
@@ -6953,7 +7161,9 @@ var System$Diagnostics$Debugger =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Diagnostics$Debugger);
 var System$Diagnostics$Trace =
@@ -6990,7 +7200,9 @@ var System$Diagnostics$Trace =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(System$Diagnostics$Trace);
 if (typeof(JsTypes) == "undefined")
@@ -6999,7 +7211,9 @@ var System$ComponentModel$ListSortDirection =
 {
     fullname: "System.ComponentModel.ListSortDirection",
     staticDefinition: {Ascending: 0, Descending: 1},
-    Kind: "Enum"
+    Kind: "Enum",
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$ComponentModel$ListSortDirection);
 var System$Math =
@@ -7287,7 +7501,9 @@ var System$Math =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
 };
 JsTypes.push(System$Math);
 if (typeof(JsTypes) == "undefined")
@@ -7519,14 +7735,16 @@ var System$Text$StringBuilder =
             this.length = s.length;
             return this;
         }
-    }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}],
+    IsAbstract: false
 };
 JsTypes.push(System$Text$StringBuilder);
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var System$Runtime$Serialization$IExtensibleDataObject = {fullname: "System.Runtime.Serialization.IExtensibleDataObject", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Runtime$Serialization$IExtensibleDataObject = {fullname: "System.Runtime.Serialization.IExtensibleDataObject", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Runtime$Serialization$IExtensibleDataObject);
-var System$Runtime$Serialization$ISerializable = {fullname: "System.Runtime.Serialization.ISerializable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface"};
+var System$Runtime$Serialization$ISerializable = {fullname: "System.Runtime.Serialization.ISerializable", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(System$Runtime$Serialization$ISerializable);
 var SharpKit$PropertyInfoExtensions =
 {
@@ -7551,7 +7769,9 @@ var SharpKit$PropertyInfoExtensions =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(SharpKit$PropertyInfoExtensions);
 var SharpKit$Extensions2 =
@@ -7594,10 +7814,10 @@ var SharpKit$Extensions2 =
         {
             var sb = new System.Text.StringBuilder.ctor();
             var first = true;
-            var $it16 = s.GetEnumerator();
-            while ($it16.MoveNext())
+            var $it17 = s.GetEnumerator();
+            while ($it17.MoveNext())
             {
-                var c = $it16.get_Current();
+                var c = $it17.get_Current();
                 if (System.Char.IsUpper$$Char(c) && !first)
                 {
                     sb.Append$$Char(" ");
@@ -7630,7 +7850,9 @@ var SharpKit$Extensions2 =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(SharpKit$Extensions2);
 var SharpKit$JavaScript$Utils$Js =
@@ -7747,7 +7969,9 @@ return null;
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(SharpKit$JavaScript$Utils$Js);
 var SharpKit$JavaScript$JsNamingHelper =
@@ -7784,7 +8008,7 @@ var SharpKit$JavaScript$JsNamingHelper =
         },
         ConvertParametersToJsFunctionName: function (prms, sb)
         {
-            for (var $i18 = 0, $l18 = prms.length, prm = prms[$i18]; $i18 < $l18; $i18++, prm = prms[$i18])
+            for (var $i19 = 0, $l19 = prms.length, prm = prms[$i19]; $i19 < $l19; $i19++, prm = prms[$i19])
             {
                 sb.Append$$String("$$");
                 sb.Append$$String(prm.get_ParameterType().get_Name());
@@ -7848,6 +8072,8 @@ var SharpKit$JavaScript$JsNamingHelper =
         {
             System.Object.ctor.call(this);
         }
-    }
+    },
+    ctors: [],
+    IsAbstract: true
 };
 JsTypes.push(SharpKit$JavaScript$JsNamingHelper);

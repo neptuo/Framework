@@ -13,6 +13,19 @@ if (typeof($CreateException)=='undefined')
         return error;
     }
 }
+if (typeof ($CreateAnonymousDelegate) == 'undefined') {
+    var $CreateAnonymousDelegate = function (target, func) {
+        if (target == null || func == null)
+            return func;
+        var delegate = function () {
+            return func.apply(target, arguments);
+        };
+        delegate.func = func;
+        delegate.target = target;
+        delegate.isDelegate = true;
+        return delegate;
+    }
+}
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var Neptuo$ObjectBuilder$Client$DependencyContainer =
@@ -20,13 +33,57 @@ var Neptuo$ObjectBuilder$Client$DependencyContainer =
     fullname: "Neptuo.ObjectBuilder.Client.DependencyContainer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.ObjectBuilder.Client",
-    interfaceNames: ["Neptuo.IDependencyContainer"],
+    interfaceNames: ["Neptuo.IDependencyContainer", "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1"],
     Kind: "Class",
     definition:
     {
         ctor: function ()
         {
+            this._IsChildMappingCreated = false;
+            this._Registry = null;
+            this._LifetimeMapping = null;
+            Neptuo.ObjectBuilder.Client.DependencyContainer.ctor$$DependencyRegistry$$LifetimeMapping$1$IDependencyLifetime.call(this, new Neptuo.ObjectBuilder.Client.DependencyRegistry.ctor(), new Neptuo.Lifetimes.Mapping.LifetimeMapping$1.ctor(Neptuo.ObjectBuilder.Client.IDependencyLifetime.ctor));
+            this.set_IsChildMappingCreated(true);
+        },
+        IsChildMappingCreated$$: "System.Boolean",
+        get_IsChildMappingCreated: function ()
+        {
+            return this._IsChildMappingCreated;
+        },
+        set_IsChildMappingCreated: function (value)
+        {
+            this._IsChildMappingCreated = value;
+        },
+        Registry$$: "Neptuo.ObjectBuilder.Client.DependencyRegistry",
+        get_Registry: function ()
+        {
+            return this._Registry;
+        },
+        set_Registry: function (value)
+        {
+            this._Registry = value;
+        },
+        LifetimeMapping$$: "Neptuo.Lifetimes.Mapping.LifetimeMapping`1[[Neptuo.ObjectBuilder.Client.IDependencyLifetime]]",
+        get_LifetimeMapping: function ()
+        {
+            return this._LifetimeMapping;
+        },
+        set_LifetimeMapping: function (value)
+        {
+            this._LifetimeMapping = value;
+        },
+        ctor$$DependencyRegistry$$LifetimeMapping$1$IDependencyLifetime: function (registry, lifetimeMapping)
+        {
+            this._IsChildMappingCreated = false;
+            this._Registry = null;
+            this._LifetimeMapping = null;
             System.Object.ctor.call(this);
+            if (registry == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("registry"), new Error());
+            if (lifetimeMapping == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("lifetimeMapping"), new Error());
+            this.set_Registry(registry);
+            this.set_LifetimeMapping(lifetimeMapping);
         },
         RegisterInstance: function (t, name, instance)
         {
@@ -42,14 +99,298 @@ var Neptuo$ObjectBuilder$Client$DependencyContainer =
         },
         Resolve: function (t, name)
         {
+            var key = this.GetKey(t);
+            var item = this.get_Registry().GetByKey(key, name);
+            if (item != null)
+                return this.Build(item);
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
         },
         ResolveAll: function (t)
         {
+            var result = new System.Collections.Generic.List$1.ctor(System.Object.ctor);
+            var key = this.GetKey(t);
+            var $it1 = this.get_Registry().GetAllByKey(key).GetEnumerator();
+            while ($it1.MoveNext())
+            {
+                var item = $it1.get_Current();
+                result.Add(this.Build(item));
+            }
+            return result;
+        },
+        GetKey: function (t)
+        {
+            return t.get_FullName();
+        },
+        Build: function (item)
+        {
+            if (item == null)
+                return null;
+            var instance = item.get_LifetimeManager().GetValue();
+            if (instance != null)
+                return instance;
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        },
+        MapLifetime: function (lifetime)
+        {
+            var lifetimeManager = null;
+            if (lifetime != null)
+                lifetimeManager = this.get_LifetimeMapping().Resolve(lifetime);
+            else
+                lifetimeManager = new Neptuo.ObjectBuilder.Client.TransientLifetimeManager.ctor();
+            return lifetimeManager;
+        },
+        FindBestConstructor: function (type)
+        {
+            var result = null;
+            var $it2 = type.GetConstructors().GetEnumerator();
+            while ($it2.MoveNext())
+            {
+                var ctor = $it2.get_Current();
+                if (System.Reflection.ConstructorInfo.op_Equality$$ConstructorInfo$$ConstructorInfo(result, null))
+                    result = ctor;
+                else if (result.GetParameters().get_Length() < ctor.GetParameters().get_Length())
+                    result = ctor;
+            }
+            return result;
+        },
+        Map: function (lifetimeType, mapper)
+        {
+            if (!this.get_IsChildMappingCreated())
+            {
+                this.set_LifetimeMapping(this.get_LifetimeMapping().CreateChildMapping());
+                this.set_IsChildMappingCreated(true);
+            }
+            this.get_LifetimeMapping().Map(lifetimeType, mapper);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$DependencyRegistry$$LifetimeMapping", parameters: ["Neptuo.ObjectBuilder.Client.DependencyRegistry", "Neptuo.Lifetimes.Mapping.LifetimeMapping"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyContainer);
+var Neptuo$ObjectBuilder$Client$DependencyException =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.DependencyException",
+    baseTypeName: "System.Exception",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (message)
+        {
+            System.Exception.ctor$$String.call(this, message);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.String"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyException);
+var Neptuo$ObjectBuilder$Client$DependencyRegistry =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.DependencyRegistry",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            this.registries = null;
+            Neptuo.ObjectBuilder.Client.DependencyRegistry.ctor$$Dictionary$2.call(this, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor));
+        },
+        ctor$$Dictionary$2: function (registries)
+        {
+            this.registries = null;
+            System.Object.ctor.call(this);
+            if (registries == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("registries"), new Error());
+            this.registries = registries;
+        },
+        GetAllByKey: function (key)
+        {
+            if (key == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("key"), new Error());
+            if (this.registries.ContainsKey(key))
+                return this.registries.get_Item$$TKey(key).get_Values();
+            return new System.Collections.Generic.List$1.ctor(Neptuo.ObjectBuilder.Client.DependencyRegistryItem.ctor);
+        },
+        GetByKey: function (key, subKey)
+        {
+            if (key == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("key"), new Error());
+            if (this.registries.ContainsKey(key))
+            {
+                var subRegistry = this.registries.get_Item$$TKey(key);
+                if (subKey == null)
+                {
+                    if (!subRegistry.ContainsKey(System.String.Empty))
+                        throw $CreateException(new Neptuo.ObjectBuilder.Client.DependencyException.ctor("Missing default registry for key \'" + key + "\'."), new Error());
+                    return subRegistry.get_Item$$TKey(System.String.Empty);
+                }
+                if (subRegistry.ContainsKey(subKey))
+                    return subRegistry.get_Item$$TKey(subKey);
+                return null;
+            }
+            return null;
+        },
+        Add: function (key, subKey, item)
+        {
+            if (key == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("key"), new Error());
+            if (item == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("item"), new Error());
+            if (!this.registries.ContainsKey(key))
+                this.registries.set_Item$$TKey(key, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.ObjectBuilder.Client.DependencyRegistryItem.ctor));
+            this.registries.get_Item$$TKey(key).set_Item$$TKey((subKey != null ? subKey : System.String.Empty), item);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Dictionary", parameters: ["System.Collections.Generic.Dictionary"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyRegistry);
+var Neptuo$ObjectBuilder$Client$DependencyRegistryItem =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.DependencyRegistryItem",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            this._Target = null;
+            this._LifetimeManager = null;
+            this._Constructor = null;
+            System.Object.ctor.call(this);
+        },
+        Target$$: "System.Type",
+        get_Target: function ()
+        {
+            return this._Target;
+        },
+        set_Target: function (value)
+        {
+            this._Target = value;
+        },
+        LifetimeManager$$: "Neptuo.ObjectBuilder.Client.IDependencyLifetime",
+        get_LifetimeManager: function ()
+        {
+            return this._LifetimeManager;
+        },
+        set_LifetimeManager: function (value)
+        {
+            this._LifetimeManager = value;
+        },
+        Constructor$$: "System.Reflection.ConstructorInfo",
+        get_Constructor: function ()
+        {
+            return this._Constructor;
+        },
+        set_Constructor: function (value)
+        {
+            this._Constructor = value;
         }
     },
     ctors: [ {name: "ctor", parameters: []}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyContainer);
+JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyRegistryItem);
+var Neptuo$ObjectBuilder$Client$GetterLifetimeManager =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.GetterLifetimeManager",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    interfaceNames: ["Neptuo.ObjectBuilder.Client.IDependencyLifetime"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (getter)
+        {
+            this.getter = null;
+            System.Object.ctor.call(this);
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(getter, null))
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("getter"), new Error());
+            this.getter = getter;
+        },
+        GetValue: function ()
+        {
+            return this.getter();
+        },
+        RemoveValue: function ()
+        {
+            this.getter = $CreateAnonymousDelegate(this, function ()
+            {
+                return null;
+            });
+        },
+        SetValue: function (newValue)
+        {
+            this.getter = $CreateAnonymousDelegate(this, function ()
+            {
+                return newValue;
+            });
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Func"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$GetterLifetimeManager);
+var Neptuo$ObjectBuilder$Client$IDependencyLifetime = {fullname: "Neptuo.ObjectBuilder.Client.IDependencyLifetime", baseTypeName: "System.Object", assemblyName: "Neptuo.ObjectBuilder.Client", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$ObjectBuilder$Client$IDependencyLifetime);
+var Neptuo$ObjectBuilder$Client$SingletonLifetimeManager =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.SingletonLifetimeManager",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    interfaceNames: ["Neptuo.ObjectBuilder.Client.IDependencyLifetime"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (value)
+        {
+            this.value = null;
+            System.Object.ctor.call(this);
+            this.value = value;
+        },
+        GetValue: function ()
+        {
+            return this.value;
+        },
+        RemoveValue: function ()
+        {
+        },
+        SetValue: function (newValue)
+        {
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$SingletonLifetimeManager);
+var Neptuo$ObjectBuilder$Client$TransientLifetimeManager =
+{
+    fullname: "Neptuo.ObjectBuilder.Client.TransientLifetimeManager",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    interfaceNames: ["Neptuo.ObjectBuilder.Client.IDependencyLifetime"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            System.Object.ctor.call(this);
+        },
+        GetValue: function ()
+        {
+            return null;
+        },
+        RemoveValue: function ()
+        {
+        },
+        SetValue: function (newValue)
+        {
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Client$TransientLifetimeManager);

@@ -363,9 +363,14 @@ namespace SharpKit.JavaScript.Private
             {
                 VerifyMethods();
                 _Constructors = new JsExtendedArray();
-                foreach (var ctorName in _JsType.ctors)
+                for (int i = 0; i < _JsType.ctors.As<JsArray>().length; i++)
                 {
-                    var method = new JsImplConstructorInfo(ctorName, _JsType.ctors[ctorName].As<JsFunction>());
+                    JsObject ctorMeta = _JsType.ctors[i.As<string>()].As<JsObject>();
+                    string ctorName = ctorMeta["name"].As<string>();
+                    JsArray<string> ctorParams = ctorMeta["parameters"].As<JsArray<string>>();
+                    JsFunction ctorFunc = ctorMeta["_type"].As<JsObject>()[ctorName].As<JsFunction>();
+
+                    var method = new JsImplConstructorInfo(ctorName, ctorFunc, ctorParams);
                     method._DeclaringType = this;
                     //method.JsName = funcName;
                     //method.JsFunction = func;

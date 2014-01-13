@@ -40,8 +40,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyContainer.cs" />
+    <Compile Include="DependencyException.cs" />
+    <Compile Include="DependencyRegistry.cs" />
+    <Compile Include="DependencyRegistryItem.cs" />
+    <Compile Include="GetterLifetimeManager.cs" />
+    <Compile Include="IDependencyLifetime.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="SingletonLifetimeManager.cs" />
+    <Compile Include="TransientLifetimeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

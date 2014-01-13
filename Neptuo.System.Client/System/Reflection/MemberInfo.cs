@@ -128,11 +128,13 @@ namespace SharpKit.JavaScript.Private
     internal class JsImplConstructorInfo : JsImplMethodBase
     {
         private JsFunction func;
+        private JsArray<string> parameters;
 
-        public JsImplConstructorInfo(string methodName, JsFunction func)
+        public JsImplConstructorInfo(string methodName, JsFunction func, JsArray<string> parameters)
         {
             _Name = methodName;
             this.func = func;
+            this.parameters = parameters;
         }
 
         [JsMethod(Code = @"
@@ -146,6 +148,29 @@ namespace SharpKit.JavaScript.Private
         public object Invoke(object[] parameters)
         {
             return null;
+        }
+
+        private JsArray<JsImplParameterInfo> _parameterInfo = null;
+        public JsImplParameterInfo[] GetParameters()
+        {
+            if (_parameterInfo == null)
+            {
+                _parameterInfo = new JsArray<JsImplParameterInfo>();
+                foreach (string paramTypeName in parameters)
+                    _parameterInfo.Add(new JsImplParameterInfo(Type.GetType(paramTypeName)));
+            }
+            return _parameterInfo;
+        }
+    }
+
+    [JsType(Name = "System.Reflection.ParameterInfo", Filename = "~/res/System.Reflection.js")]
+    internal class JsImplParameterInfo
+    {
+        public Type ParameterType { get; private set; }
+
+        public JsImplParameterInfo(Type parameterType)
+        {
+            ParameterType = parameterType;
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.System.Client
+namespace System.Client
 {
     public static class VersionInfo
     {
