@@ -10,20 +10,20 @@ using System.IO;
 
 namespace SharpKit.JavaScript.Private
 {
-    [JsType(GlobalObject = true, Filename = "~/res/System.IO.js")]
-    class IOGlobal
-    {
-        //TODO: HACK: see Issue #43
-        [JsMethod(Code = @"AfterCompilation(function()
-{
-	System.IO.Path.ctor();
-});
-", GlobalCode = true)]
-        static void Global()
-        {
+//    [JsType(GlobalObject = true, Filename = "~/res/System.IO.js")]
+//    class IOGlobal
+//    {
+//        //TODO: HACK: see Issue #43
+//        [JsMethod(Code = @"AfterCompilation(function()
+//{
+//	System.IO.Path.ctor();
+//});
+//", GlobalCode = true)]
+//        static void Global()
+//        {
 
-        }
-    }
+//        }
+//    }
 
     [JsType(Name = "System.IO.Path", Filename = "~/res/System.IO.js")]
     internal static class JsImplPath
