@@ -17,9 +17,9 @@ if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var Neptuo$ObjectBuilder$Client$DependencyContainer =
 {
-    fullname: "Neptuo.ObjectBuilder.Client.DependencyContainer",
+    fullname: "Neptuo.ObjectBuilder.DependencyContainer",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder.Client",
+    assemblyName: "Neptuo.ObjectBuilder",
     interfaceNames: ["Neptuo.IDependencyContainer"],
     Kind: "Class",
     definition:
