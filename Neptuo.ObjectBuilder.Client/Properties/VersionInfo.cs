@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.ObjectBuilder.Client
+namespace Neptuo.ObjectBuilder
 {
     public static class VersionInfo
     {

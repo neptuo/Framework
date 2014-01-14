@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ObjectBuilder.Client
+namespace Neptuo.ObjectBuilder
 {
     public class DependencyRegistryItem
     {

@@ -63,7 +63,7 @@ namespace Neptuo.SharpKit.Exugin
             compiler.AfterConvertCsToJsEntity += Compiler_AfterConvertCsToJsEntity;
 
             export = new ExportExtension(exportAttributeName, exportNamespaceAttributeName, debug);
-            expression = new ExpressionExtension(configuration.GetString("ExpressionPrefixes", "Neptuo").Split(','), debug);
+            //expression = new ExpressionExtension(configuration.GetString("ExpressionPrefixes", "Neptuo").Split(','), debug);
             ctorExport = new CtorExportExtension(debug);
             isAbstract = new IsAbtractExportExtension(debug);
         }
@@ -71,12 +71,12 @@ namespace Neptuo.SharpKit.Exugin
         private void Compiler_AfterParseCs()
         {
             export.Process(compiler.CsCompilation.Assemblies, compiler.CustomAttributeProvider);
-            expression.PrepareMethodCache(compiler.CsCompilation.Assemblies);
+            //expression.PrepareMethodCache(compiler.CsCompilation.Assemblies);
         }
 
         private void Compiler_AfterConvertCsToJsEntity(IEntity arg1, JsNode arg2)
         {
-            expression.Process(arg1, arg2);
+            //expression.Process(arg1, arg2);
             ctorExport.Process(arg1, arg2);
             isAbstract.Process(arg1, arg2);
         }

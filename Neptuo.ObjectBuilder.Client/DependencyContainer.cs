@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ObjectBuilder.Client
+namespace Neptuo.ObjectBuilder
 {
     public class DependencyContainer : IDependencyContainer, ILifetimeMapping<IDependencyLifetime>
     {
@@ -34,26 +34,30 @@ namespace Neptuo.ObjectBuilder.Client
 
         public IDependencyContainer RegisterInstance(Type t, string name, object instance)
         {
-            //Registry.Add(GetKey(t), name, new DependencyRegistryItem
-            //{
-            //    Target = t,
-            //    Constructor = null,
-            //    LifetimeManager = new SingletonLifetimeManager(instance)
-            //});
-            //return this;
-            throw new NotImplementedException();
+            Registry.Add(GetKey(t), name, new DependencyRegistryItem
+            {
+                Target = t,
+                Constructor = null,
+                LifetimeManager = new SingletonLifetimeManager(instance)
+            });
+            return this;
         }
 
         public IDependencyContainer RegisterType(Type from, Type to, string name, object lifetime)
         {
-            //Registry.Add(GetKey(from), name, new DependencyRegistryItem
-            //{
-            //    Target = to,
-            //    Constructor = FindBestConstructor(to),
-            //    LifetimeManager = MapLifetime(lifetime)
-            //});
-            //return this;
-            throw new NotImplementedException();
+            if (to.IsInterface)
+                throw new DependencyException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", from.FullName, to.FullName));
+
+            if (to.IsAbstract)
+                throw new DependencyException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", from.FullName, to.FullName));
+
+            Registry.Add(GetKey(from), name, new DependencyRegistryItem
+            {
+                Target = to,
+                Constructor = FindBestConstructor(to),
+                LifetimeManager = MapLifetime(lifetime)
+            });
+            return this;
         }
 
         public IDependencyContainer CreateChildContainer()
@@ -65,11 +69,10 @@ namespace Neptuo.ObjectBuilder.Client
         {
             string key = GetKey(t);
             DependencyRegistryItem item = Registry.GetByKey(key, name);
-            if (item != null)
-                return Build(item);
-
-            throw new NotImplementedException();
-            //TODO: Implement registering class
+            if (item == null)
+                RegisterType(t, t, name, null);
+                
+            return Build(item);
         }
 
         public IEnumerable<object> ResolveAll(Type t)
@@ -97,8 +100,17 @@ namespace Neptuo.ObjectBuilder.Client
             if (instance != null)
                 return instance;
 
-            //TODO: Implement creating instance
-            throw new NotImplementedException();
+            if (item.Constructor == null)
+                throw new DependencyException("Missing constructor.");
+
+            ParameterInfo[] parameterDefinitions = item.Constructor.GetParameters();
+            object[] parameters = new object[parameterDefinitions.Length];
+            for (int i = 0; i < parameterDefinitions.Length; i++)
+                parameters[i] = Resolve(parameterDefinitions[i].ParameterType, null);
+
+            instance = item.Constructor.Invoke(parameters);
+            item.LifetimeManager.SetValue(instance);
+            return instance;
         }
 
         private IDependencyLifetime MapLifetime(object lifetime)
