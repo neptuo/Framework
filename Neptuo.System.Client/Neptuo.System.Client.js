@@ -6368,6 +6368,8 @@ var System$Collections$IListEnumerator$1 =
     IsAbstract: false
 };
 JsTypes.push(System$Collections$IListEnumerator$1);
+var System$Collections$Specialized$INotifyCollectionChanged = {fullname: "System.Collections.Specialized.INotifyCollectionChanged", baseTypeName: "System.Object", assemblyName: "Neptuo.System.Client", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(System$Collections$Specialized$INotifyCollectionChanged);
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var System$Reflection$BindingFlags =

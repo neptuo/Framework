@@ -66,6 +66,7 @@
     <Compile Include="System\Collections\IListEnumerator.cs" />
     <Compile Include="System\Collections\Interfaces.cs" />
     <Compile Include="System\Collections\NotifyCollectionChangedEventArgs.cs" />
+    <Compile Include="System\Collections\Specialized\INotifyCollectionChanged.cs" />
     <Compile Include="System\ComponentModel\CancelEventArgs.cs" />
     <Compile Include="System\ComponentModel\ListSortDirection.cs" />
     <Compile Include="System\ComponentModel\PropertyChangedEventArgs.cs" />
