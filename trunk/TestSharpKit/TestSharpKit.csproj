@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.html" />
+    <Content Include="Javascript\Neptuo.js" />
     <Content Include="Javascript\Neptuo.ObjectBuilder.Client.js" />
     <Content Include="Javascript\Neptuo.System.Client.js" />
     <Content Include="Web.config" />
