@@ -12,8 +12,8 @@ namespace Neptuo.SharpKit.Exugin.Exports
     public class NamespaceRegistry
     {
         private bool processWildcard;
-        private string defaultFilename;
-        private string filenameFormat;
+        public string DefaultFilename { get; set; }
+        public string FilenameFormat { get; set; }
         private Dictionary<string, string> mappings = new Dictionary<string, string>();
 
         /// <summary>
@@ -25,21 +25,15 @@ namespace Neptuo.SharpKit.Exugin.Exports
         public NamespaceRegistry(bool processWildcard, string defaultFilename, string filenameFormat)
         {
             this.processWildcard = processWildcard;
-            this.defaultFilename = defaultFilename;
-            this.filenameFormat = filenameFormat;
-        }
-
-        public void SetDefaults(string defaultFilename, string filenameFormat)
-        {
-            this.defaultFilename = defaultFilename;
-            this.filenameFormat = filenameFormat;
+            this.DefaultFilename = defaultFilename;
+            this.FilenameFormat = filenameFormat;
         }
 
         /// <summary>
         /// Přidá do registru namespace.
         /// </summary>
         /// <param name="ns">Jméno namespacu.</param>
-        /// <param name="filename">Jméno souboru, kam se má <paramref name="ns"/> exportovat (aplikuje se na něj <see cref="filenameFormat"/>).</param>
+        /// <param name="filename">Jméno souboru, kam se má <paramref name="ns"/> exportovat (aplikuje se na něj <see cref="FilenameFormat"/>).</param>
         public void Add(string ns, string filename)
         {
             if (!processWildcard)
@@ -53,7 +47,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
 
         /// <summary>
         /// Vrací jméno souboru kam se má <paramref name="ns"/> exportovat.
-        /// Již na něj aplikuje <see cref="filenameFormat"/>.
+        /// Již na něj aplikuje <see cref="FilenameFormat"/>.
         /// </summary>
         /// <param name="ns">Jméno namespacu.</param>
         /// <returns>Jméno souboru kam se má <paramref name="ns"/> exportovat.</returns>
@@ -61,11 +55,11 @@ namespace Neptuo.SharpKit.Exugin.Exports
         {
             if (!processWildcard)
             {
-                string filename = defaultFilename;
+                string filename = DefaultFilename;
                 if (mappings.ContainsKey(ns))
                     filename = mappings[ns];
 
-                return String.Format(filenameFormat, filename);
+                return String.Format(FilenameFormat, filename);
             }
 
             throw new NotImplementedException("Wildcards not yet supported");

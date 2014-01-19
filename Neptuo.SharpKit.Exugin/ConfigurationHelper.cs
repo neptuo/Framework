@@ -24,8 +24,8 @@ namespace Neptuo.SharpKit.Exugin
         /// <returns>Hodnotu klíče <paramref name="key"/> nebo <paramref name="defaultValue"/>.</returns>
         public string GetString(string key, string defaultValue = null)
         {
-            if (appConfig.AppSettings.Settings["key"] != null)
-                return appConfig.AppSettings.Settings["key"].Value;
+            if (appConfig.AppSettings.Settings[key] != null)
+                return appConfig.AppSettings.Settings[key].Value;
 
             return defaultValue;
         }
