@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ExportConfiguration>
   <Export DefaultFilename="Neptuo.ObjectBuilder.js" FilenameFormat="~/{0}" />
-  <!--<JsType TargetType="Neptuo.ObjectBuilder.DependencyRegistry" Export="False" />-->
 </ExportConfiguration>

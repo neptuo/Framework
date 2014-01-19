@@ -28,11 +28,11 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 }
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var Neptuo$ObjectBuilder$Client$DependencyContainer =
+var Neptuo$ObjectBuilder$DependencyContainer =
 {
     fullname: "Neptuo.ObjectBuilder.DependencyContainer",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     interfaceNames: ["Neptuo.IDependencyContainer", "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1"],
     Kind: "Class",
     definition:
@@ -194,12 +194,12 @@ var Neptuo$ObjectBuilder$Client$DependencyContainer =
     ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$DependencyRegistry$$LifetimeMapping", parameters: ["Neptuo.ObjectBuilder.DependencyRegistry", "Neptuo.Lifetimes.Mapping.LifetimeMapping"]}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyContainer);
-var Neptuo$ObjectBuilder$Client$DependencyException =
+JsTypes.push(Neptuo$ObjectBuilder$DependencyContainer);
+var Neptuo$ObjectBuilder$DependencyException =
 {
     fullname: "Neptuo.ObjectBuilder.DependencyException",
     baseTypeName: "System.Exception",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     Kind: "Class",
     definition:
     {
@@ -211,12 +211,12 @@ var Neptuo$ObjectBuilder$Client$DependencyException =
     ctors: [ {name: "ctor", parameters: ["System.String"]}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyException);
-var Neptuo$ObjectBuilder$Client$DependencyRegistry =
+JsTypes.push(Neptuo$ObjectBuilder$DependencyException);
+var Neptuo$ObjectBuilder$DependencyRegistry =
 {
     fullname: "Neptuo.ObjectBuilder.DependencyRegistry",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     Kind: "Class",
     definition:
     {
@@ -274,12 +274,12 @@ var Neptuo$ObjectBuilder$Client$DependencyRegistry =
     ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Dictionary", parameters: ["System.Collections.Generic.Dictionary"]}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyRegistry);
-var Neptuo$ObjectBuilder$Client$DependencyRegistryItem =
+JsTypes.push(Neptuo$ObjectBuilder$DependencyRegistry);
+var Neptuo$ObjectBuilder$DependencyRegistryItem =
 {
     fullname: "Neptuo.ObjectBuilder.DependencyRegistryItem",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     Kind: "Class",
     definition:
     {
@@ -321,12 +321,12 @@ var Neptuo$ObjectBuilder$Client$DependencyRegistryItem =
     ctors: [ {name: "ctor", parameters: []}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$DependencyRegistryItem);
-var Neptuo$ObjectBuilder$Client$GetterLifetimeManager =
+JsTypes.push(Neptuo$ObjectBuilder$DependencyRegistryItem);
+var Neptuo$ObjectBuilder$GetterLifetimeManager =
 {
     fullname: "Neptuo.ObjectBuilder.GetterLifetimeManager",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     interfaceNames: ["Neptuo.ObjectBuilder.IDependencyLifetime"],
     Kind: "Class",
     definition:
@@ -361,10 +361,10 @@ var Neptuo$ObjectBuilder$Client$GetterLifetimeManager =
     ctors: [ {name: "ctor", parameters: ["System.Func"]}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$GetterLifetimeManager);
-var Neptuo$ObjectBuilder$Client$IDependencyLifetime = {fullname: "Neptuo.ObjectBuilder.IDependencyLifetime", baseTypeName: "System.Object", assemblyName: "Neptuo.ObjectBuilder", Kind: "Interface", ctors: [], IsAbstract: true};
-JsTypes.push(Neptuo$ObjectBuilder$Client$IDependencyLifetime);
-var Neptuo$ObjectBuilder$Client$VersionInfo =
+JsTypes.push(Neptuo$ObjectBuilder$GetterLifetimeManager);
+var Neptuo$ObjectBuilder$IDependencyLifetime = {fullname: "Neptuo.ObjectBuilder.IDependencyLifetime", baseTypeName: "System.Object", assemblyName: "Neptuo.ObjectBuilder.Client", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$ObjectBuilder$IDependencyLifetime);
+var Neptuo$ObjectBuilder$VersionInfo =
 {
     fullname: "Neptuo.ObjectBuilder.VersionInfo",
     baseTypeName: "System.Object",
@@ -379,7 +379,7 @@ var Neptuo$ObjectBuilder$Client$VersionInfo =
             return new System.Version.ctor$$String("1.0.0");
         }
     },
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     Kind: "Class",
     definition:
     {
@@ -391,12 +391,12 @@ var Neptuo$ObjectBuilder$Client$VersionInfo =
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$VersionInfo);
-var Neptuo$ObjectBuilder$Client$SingletonLifetimeManager =
+JsTypes.push(Neptuo$ObjectBuilder$VersionInfo);
+var Neptuo$ObjectBuilder$SingletonLifetimeManager =
 {
     fullname: "Neptuo.ObjectBuilder.SingletonLifetimeManager",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     interfaceNames: ["Neptuo.ObjectBuilder.IDependencyLifetime"],
     Kind: "Class",
     definition:
@@ -421,12 +421,12 @@ var Neptuo$ObjectBuilder$Client$SingletonLifetimeManager =
     ctors: [ {name: "ctor", parameters: ["System.Object"]}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$SingletonLifetimeManager);
-var Neptuo$ObjectBuilder$Client$TransientLifetimeManager =
+JsTypes.push(Neptuo$ObjectBuilder$SingletonLifetimeManager);
+var Neptuo$ObjectBuilder$TransientLifetimeManager =
 {
     fullname: "Neptuo.ObjectBuilder.TransientLifetimeManager",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.ObjectBuilder",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
     interfaceNames: ["Neptuo.ObjectBuilder.IDependencyLifetime"],
     Kind: "Class",
     definition:
@@ -449,4 +449,4 @@ var Neptuo$ObjectBuilder$Client$TransientLifetimeManager =
     ctors: [ {name: "ctor", parameters: []}],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ObjectBuilder$Client$TransientLifetimeManager);
+JsTypes.push(Neptuo$ObjectBuilder$TransientLifetimeManager);
