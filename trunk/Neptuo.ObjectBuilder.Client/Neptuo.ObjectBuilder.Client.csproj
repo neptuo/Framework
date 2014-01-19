@@ -57,10 +57,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Neptuo.ObjectBuilder.Client.js" />
     <Content Include="Neptuo.ObjectBuilder.Client.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Neptuo.ObjectBuilder.js" />
   </ItemGroup>
   <ItemGroup>
     <SkcPlugin Include="Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin">
