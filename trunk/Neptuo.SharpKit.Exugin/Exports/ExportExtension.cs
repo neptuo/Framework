@@ -243,7 +243,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
             foreach (ITypeDefinition type in assembly.GetAllTypeDefinitions())
             {
                 LogDebug("Processing type '{0}'", type.FullName);
-                TypeRegistryItem typeItem = registry.Types.Get(type.FullName);
+                TypeRegistryItem typeItem = registry.Types.Get(type.FullTypeName.ReflectionName);
                 string filename = registry.Namespaces.GetFilename(type.Namespace);
                 ProcessType(type, attributeProvider, typeItem, filename);
             }

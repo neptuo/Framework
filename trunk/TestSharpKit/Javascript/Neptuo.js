@@ -111,143 +111,6 @@ if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var Neptuo$Collections$ObjectModel$IITemsSource = {fullname: "Neptuo.Collections.ObjectModel.IITemsSource", baseTypeName: "System.Object", assemblyName: "Neptuo", interfaceNames: ["System.Collections.IEnumerable"], Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Collections$ObjectModel$IITemsSource);
-var Neptuo$Collections$ObjectModel$ObservableDictionary$2 =
-{
-    fullname: "Neptuo.Collections.ObjectModel.ObservableDictionary$2",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["System.Collections.Generic.IDictionary$2", "System.ComponentModel.INotifyPropertyChanged", "System.Collections.Specialized.INotifyCollectionChanged"],
-    Kind: "Class",
-    definition:
-    {
-        ctor: function (TKey, TValue)
-        {
-            this.TKey = TKey;
-            this.TValue = TValue;
-            this.storage = new System.Collections.Generic.Dictionary$2.ctor(this.TKey, this.TValue);
-            this.CollectionChanged = null;
-            this.PropertyChanged = null;
-            System.Object.ctor.call(this);
-        },
-        Add$$TKey$$TValue: function (key, value)
-        {
-            this.storage.Add(key, value);
-            this.OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs.ctor$$NotifyCollectionChangedAction$$Object(0, key));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Count"));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Keys"));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Values"));
-        },
-        ContainsKey: function (key)
-        {
-            return this.storage.ContainsKey(key);
-        },
-        Keys$$: "System.Collections.Generic.ICollection`1[[`0]]",
-        get_Keys: function ()
-        {
-            return this.storage.get_Keys();
-        },
-        Remove$$TKey: function (key)
-        {
-            var result = this.storage.Remove(key);
-            if (result)
-            {
-                this.OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs.ctor$$NotifyCollectionChangedAction$$Object(1, key));
-                this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Count"));
-                this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Keys"));
-                this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Values"));
-            }
-            return result;
-        },
-        TryGetValue: function (key, value)
-        {
-            return this.storage.TryGetValue(key, value);
-        },
-        Values$$: "System.Collections.Generic.ICollection`1[[`1]]",
-        get_Values: function ()
-        {
-            return this.storage.get_Values();
-        },
-        Item$$: "`1",
-        get_Item$$TKey: function (key)
-        {
-            return this.storage.get_Item$$TKey(key);
-        },
-        set_Item$$TKey: function (key, value)
-        {
-            if (this.ContainsKey(key))
-                this.storage.set_Item$$TKey(key, value);
-            else
-                this.Add$$TKey$$TValue(key, value);
-        },
-        Add$$KeyValuePair$2: function (item)
-        {
-            this.Add$$TKey$$TValue(item.get_Key(), item.get_Value());
-        },
-        Clear: function ()
-        {
-            this.OnCollectionChanged(new System.Collections.Specialized.NotifyCollectionChangedEventArgs.ctor$$NotifyCollectionChangedAction$$Object(1, this.get_Keys()));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Count"));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Keys"));
-            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Values"));
-            this.storage.Clear();
-        },
-        Contains: function (item)
-        {
-            return System.Linq.Enumerable.Contains$1$$IEnumerable$1$$TSource(System.Collections.Generic.KeyValuePair$2.ctor, this.storage, item);
-        },
-        CopyTo: function (array, arrayIndex)
-        {
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        },
-        Count$$: "System.Int32",
-        get_Count: function ()
-        {
-            return this.storage.get_Count();
-        },
-        IsReadOnly$$: "System.Boolean",
-        get_IsReadOnly: function ()
-        {
-            return false;
-        },
-        Remove$$KeyValuePair$2: function (item)
-        {
-            return this.Remove$$TKey(item.get_Key());
-        },
-        GetEnumerator: function ()
-        {
-            return this.storage.GetEnumerator();
-        },
-        add_CollectionChanged: function (value)
-        {
-            this.CollectionChanged = $CombineDelegates(this.CollectionChanged, value);
-        },
-        remove_CollectionChanged: function (value)
-        {
-            this.CollectionChanged = $RemoveDelegate(this.CollectionChanged, value);
-        },
-        add_PropertyChanged: function (value)
-        {
-            this.PropertyChanged = $CombineDelegates(this.PropertyChanged, value);
-        },
-        remove_PropertyChanged: function (value)
-        {
-            this.PropertyChanged = $RemoveDelegate(this.PropertyChanged, value);
-        },
-        OnCollectionChanged: function (e)
-        {
-            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.CollectionChanged, null))
-                this.CollectionChanged(this, e);
-        },
-        OnPropertyChanged: function (e)
-        {
-            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.PropertyChanged, null))
-                this.PropertyChanged(this, e);
-        }
-    },
-    ctors: [ {name: "ctor", parameters: []}],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Collections$ObjectModel$ObservableDictionary$2);
 var Neptuo$Collections$ObjectModel$DictionaryStringValueProvider =
 {
     fullname: "Neptuo.Collections.ObjectModel.DictionaryStringValueProvider",
@@ -272,50 +135,6 @@ var Neptuo$Collections$ObjectModel$DictionaryStringValueProvider =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Collections$ObjectModel$DictionaryStringValueProvider);
-//var Neptuo$Collections$ObjectModel$SortableObservableCollection$1 =
-//{
-//    fullname: "Neptuo.Collections.ObjectModel.SortableObservableCollection$1",
-//    baseTypeName: "Neptuo.Collections.ObjectModel.ObservableCollection$1",
-//    assemblyName: "Neptuo",
-//    Kind: "Class",
-//    definition:
-//    {
-//        ctor: function (T)
-//        {
-//            this.T = T;
-//            Neptuo.Collections.ObjectModel.ObservableCollection$1.ctor.call(this, this.T);
-//        },
-//        Sort$1$$Func$2: function (TKey, keySelector)
-//        {
-//            this.InternalSort(System.Linq.Enumerable.OrderBy$2$$IEnumerable$1$$Func$2(this.T, TKey, this.get_Items(), keySelector));
-//        },
-//        SortDescending$1$$Func$2: function (TKey, keySelector)
-//        {
-//            this.InternalSort(System.Linq.Enumerable.OrderByDescending$2$$IEnumerable$1$$Func$2(this.T, TKey, this.get_Items(), keySelector));
-//        },
-//        Sort$1$$Func$2$$IComparer$1: function (TKey, keySelector, comparer)
-//        {
-//            this.InternalSort(System.Linq.Enumerable.OrderBy$2$$IEnumerable$1$$Func$2$$IComparer$1(this.T, TKey, this.get_Items(), keySelector, comparer));
-//        },
-//        SortDescending$1$$Func$2$$IComparer$1: function (TKey, keySelector, comparer)
-//        {
-//            this.InternalSort(System.Linq.Enumerable.OrderByDescending$2$$IEnumerable$1$$Func$2$$IComparer$1(this.T, TKey, this.get_Items(), keySelector, comparer));
-//        },
-//        InternalSort: function (sortedItems)
-//        {
-//            var sortedItemsList = System.Linq.Enumerable.ToList$1(this.T, sortedItems);
-//            var $it1 = sortedItemsList.GetEnumerator();
-//            while ($it1.MoveNext())
-//            {
-//                var item = $it1.get_Current();
-//                this.Move(this.IndexOf(item), sortedItemsList.IndexOf$$T(item));
-//            }
-//        }
-//    },
-//    ctors: [ {name: "ctor", parameters: []}],
-//    IsAbstract: false
-//};
-//JsTypes.push(Neptuo$Collections$ObjectModel$SortableObservableCollection$1);
 var Neptuo$ComponentModel$ReturnTypeAttribute =
 {
     fullname: "Neptuo.ComponentModel.ReturnTypeAttribute",
@@ -458,10 +277,10 @@ var Neptuo$Events$EventDispatcher =
                 return $res;
             }).call(this))
             {
-                var $it2 = handlers.GetEnumerator();
-                while ($it2.MoveNext())
+                var $it1 = handlers.GetEnumerator();
+                while ($it1.MoveNext())
                 {
-                    var handlerFactory = $it2.get_Current();
+                    var handlerFactory = $it1.get_Current();
                     handlerFactory.CreateHandler().Handle(eventData);
                 }
             }
@@ -629,10 +448,10 @@ var Neptuo$Globalization$CultureInfoExtensions =
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it3 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it3.MoveNext())
+            var $it2 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it2.MoveNext())
             {
-                var item = $it3.get_Current();
+                var item = $it2.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant()))
                 {
                     cultureInfo.Value = item;
@@ -898,70 +717,6 @@ var Neptuo$Linq$Expressions$DefaultTranslationOf$IncompletePropertyTranslation$2
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Linq$Expressions$DefaultTranslationOf$IncompletePropertyTranslation$2);
-//var Neptuo$Linq$Expressions$TranslatingExpressionVisitor =
-//{
-//    fullname: "Neptuo.Linq.Expressions.TranslatingExpressionVisitor",
-//    baseTypeName: "System.Linq.Expressions.ExpressionVisitor",
-//    staticDefinition:
-//    {
-//        EnsureTypeInitialized: function (type)
-//        {
-//            try
-//            {
-//                System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(type.get_TypeHandle());
-//            }
-//            catch ($$e1)
-//            {
-//            }
-//        }
-//    },
-//    assemblyName: "Neptuo",
-//    Kind: "Class",
-//    definition:
-//    {
-//        ctor: function (map)
-//        {
-//            this.bindings = new System.Collections.Generic.Stack$1.ctor(System.Collections.Generic.KeyValuePair$2.ctor);
-//            this.map = null;
-//            System.Linq.Expressions.ExpressionVisitor.ctor.call(this);
-//            this.map = map;
-//        },
-//        VisitMember: function (node)
-//        {
-//            Neptuo.Linq.Expressions.TranslatingExpressionVisitor.EnsureTypeInitialized(node.get_Member().get_DeclaringType());
-//            var cp;
-//            if ((function ()
-//            {
-//                var $1 = {Value: cp};
-//                var $res = this.map.TryGetValue(node.get_Member(), $1);
-//                cp = $1.Value;
-//                return $res;
-//            }).call(this))
-//                return this.VisitCompiledExpression(cp, node.get_Expression());
-//            if (Typeof(Neptuo.Linq.Expressions.CompiledExpression.ctor).IsAssignableFrom(node.get_Member().get_DeclaringType()))
-//                return this.VisitCompiledExpression(cp, node.get_Expression());
-//            return System.Linq.Expressions.ExpressionVisitor.commonPrototype.VisitMember.call(this, node);
-//        },
-//        VisitCompiledExpression: function (ce, expression)
-//        {
-//            this.bindings.Push(new System.Collections.Generic.KeyValuePair$2.ctor$$TKey$$TValue(System.Linq.Expressions.ParameterExpression.ctor, System.Linq.Expressions.Expression.ctor, System.Linq.Enumerable.Single$1$$IEnumerable$1(System.Linq.Expressions.ParameterExpression.ctor, ce.get_BoxedGet().get_Parameters()), expression));
-//            var body = this.Visit$$Expression(ce.get_BoxedGet().get_Body());
-//            this.bindings.Pop();
-//            return body;
-//        },
-//        VisitParameter: function (p)
-//        {
-//            var binding = System.Linq.Enumerable.FirstOrDefault$1$$IEnumerable$1(System.Collections.Generic.KeyValuePair$2.ctor, System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(System.Collections.Generic.KeyValuePair$2.ctor, this.bindings, $CreateAnonymousDelegate(this, function (b)
-//            {
-//                return b.get_Key() == p;
-//            })));
-//            return (binding.get_Value() == null) ? System.Linq.Expressions.ExpressionVisitor.commonPrototype.VisitParameter.call(this, p) : this.Visit$$Expression(binding.get_Value());
-//        }
-//    },
-//    ctors: [ {name: "ctor", parameters: ["Neptuo.Linq.Expressions.TranslationMap"]}],
-//    IsAbstract: false
-//};
-//JsTypes.push(Neptuo$Linq$Expressions$TranslatingExpressionVisitor);
 var Neptuo$Linq$Expressions$TranslationMap =
 {
     fullname: "Neptuo.Linq.Expressions.TranslationMap",
@@ -1001,42 +756,6 @@ var Neptuo$Linq$Expressions$TranslationMap =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Linq$Expressions$TranslationMap);
-var Neptuo$Linq$ExpressiveExtensions =
-{
-    fullname: "Neptuo.Linq.ExpressiveExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition:
-    {
-        WithTranslations$1$$IQueryable$1: function (T, source)
-        {
-            return source.get_Provider().CreateQuery$1$$Expression(T, Neptuo.Linq.ExpressiveExtensions.WithTranslations$$Expression(source.get_Expression()));
-        },
-        WithTranslations$1$$IQueryable$1$$TranslationMap: function (T, source, map)
-        {
-            return source.get_Provider().CreateQuery$1$$Expression(T, Neptuo.Linq.ExpressiveExtensions.WithTranslations$$Expression$$TranslationMap(source.get_Expression(), map));
-        },
-        WithTranslations$$Expression: function (expression)
-        {
-            return Neptuo.Linq.ExpressiveExtensions.WithTranslations$$Expression$$TranslationMap(expression, Neptuo.Linq.Expressions.TranslationMap.defaultMap);
-        },
-        WithTranslations$$Expression$$TranslationMap: function (expression, map)
-        {
-            return new Neptuo.Linq.Expressions.TranslatingExpressionVisitor.ctor(map).Visit$$Expression(expression);
-        }
-    },
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition:
-    {
-        ctor: function ()
-        {
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Linq$ExpressiveExtensions);
 var Neptuo$OutFunc$3 =
 {
     fullname: "Neptuo.OutFunc$3",
@@ -1055,54 +774,6 @@ var Neptuo$OutFunc$3 =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$OutFunc$3);
-//var Neptuo$Collections$ObjectModel$ObservableCollection$1 =
-//{
-//    fullname: "Neptuo.Collections.ObjectModel.ObservableCollection$1",
-//    baseTypeName: "System.Collections.ObjectModel.ObservableCollection$1",
-//    assemblyName: "Neptuo",
-//    interfaceNames: ["Neptuo.Collections.ObjectModel.IITemsSource"],
-//    Kind: "Class",
-//    definition:
-//    {
-//        ctor: function (T)
-//        {
-//            this.T = T;
-//            System.Collections.ObjectModel.ObservableCollection$1.ctor.call(this, this.T);
-//        },
-//        ctor$$IEnumerable$1: function (T, items)
-//        {
-//            this.T = T;
-//            System.Collections.ObjectModel.ObservableCollection$1.ctor.call(this, this.T);
-//            this.AddRange$$IEnumerable$1(items);
-//        },
-//        AddRange$$IEnumerable$1: function (items)
-//        {
-//            var $it4 = items.GetEnumerator();
-//            while ($it4.MoveNext())
-//            {
-//                var item = $it4.get_Current();
-//                this.Add(item);
-//            }
-//        },
-//        AddRange$$T$Array: function (items)
-//        {
-//            var $it5 = items.GetEnumerator();
-//            while ($it5.MoveNext())
-//            {
-//                var item = $it5.get_Current();
-//                this.Add(item);
-//            }
-//        },
-//        InsertItem: function (index, item)
-//        {
-//            System.Collections.ObjectModel.ObservableCollection$1.commonPrototype.InsertItem.call(this, index, item);
-//            this.OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs.ctor("Count"));
-//        }
-//    },
-//    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEnumerable", parameters: ["System.Collections.Generic.IEnumerable"]}],
-//    IsAbstract: false
-//};
-//JsTypes.push(Neptuo$Collections$ObjectModel$ObservableCollection$1);
 var Neptuo$VersionInfo =
 {
     fullname: "Neptuo.VersionInfo",
@@ -1159,10 +830,10 @@ var Neptuo$Reflection$ReflectionHelper =
         GetAnnotatedProperties$1: function (T, type)
         {
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it6 = type.GetProperties().GetEnumerator();
-            while ($it6.MoveNext())
+            var $it3 = type.GetProperties().GetEnumerator();
+            while ($it3.MoveNext())
             {
-                var prop = $it6.get_Current();
+                var prop = $it3.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -1262,10 +933,10 @@ var Neptuo$Security$Cryptography$HashHelper =
             var hasher = System.Security.Cryptography.SHA1.Create();
             var hash = hasher.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(text));
             var result = new System.Text.StringBuilder.ctor();
-            var $it7 = hash.GetEnumerator();
-            while ($it7.MoveNext())
+            var $it4 = hash.GetEnumerator();
+            while ($it4.MoveNext())
             {
-                var hashPart = $it7.get_Current();
+                var hashPart = $it4.get_Current();
                 result.Append$$String(hashPart.ToString$$String("X2"));
             }
             return result.ToString();
@@ -1407,10 +1078,10 @@ var Neptuo$StateMachines$StateMachine$2 =
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("items"), new Error());
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it8 = items.GetEnumerator();
-            while ($it8.MoveNext())
+            var $it5 = items.GetEnumerator();
+            while ($it5.MoveNext())
             {
-                var item = $it8.get_Current();
+                var item = $it5.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(new System.InvalidOperationException.ctor$$String("StateMachine in invalid state, got null new state."), new Error());
