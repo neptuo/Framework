@@ -4,7 +4,7 @@ namespace Neptuo.SharpKit.Exugin
 {
     public static class VersionInfo
     {
-        internal const string Version = "2.0.1";
+        internal const string Version = "2.0.2";
 
         public static Version GetVersion()
         {
