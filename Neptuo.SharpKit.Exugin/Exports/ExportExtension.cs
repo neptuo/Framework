@@ -147,7 +147,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
                     }
 
                     foreach (XmlElement element in document.GetElementsByTagName(namespaceAttributeName.Replace("Attribute", "")))
-                        registry.Namespaces.Add(element.GetAttribute("namespace"), element.GetAttribute("filename"));
+                        registry.Namespaces.Add(element.GetAttribute("Namespace"), element.GetAttribute("Filename"));
                 }
 
                 registry.Types = ReadTypeConfiguration(document);
