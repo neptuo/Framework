@@ -104,9 +104,25 @@ namespace Neptuo.SharpKit.Exugin.Exports
 
             if (namespaceItems != null)
             {
-                //TODO: Get by applying namespaces.
+                foreach (NamespaceRegistryItem item in namespaceItems)
+                {
+                    if (item.Target.StartsWith(targetTypeName))
+                    {
+                        TypeRegistryItem typeItem = new TypeRegistryItem
+                        {
+                            AutomaticPropertiesAsFields = item.AutomaticPropertiesAsFields,
+                            Export = item.Export,
+                            Filename = item.Filename,
+                            Mode = item.Mode,
+                            PropertiesAsFields = item.PropertiesAsFields
+                        };
+                        typeItems[targetTypeName] = typeItem;
+                        return typeItem;
+                    }
+                }
             }
 
+            // Applied also when only DefaultExport is used.
             if(IsExportAssembly)
             {
                 return new TypeRegistryItem
@@ -136,6 +152,16 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 filename = DefaultExport.Filename;
             }
 
+            return ApplyFilenameFormat(filename);
+        }
+
+        /// <summary>
+        /// Applies file name format from DefaultExport if used.
+        /// </summary>
+        /// <param name="filename">File name.</param>
+        /// <returns>File name format from DefaultExport if used.</returns>
+        public string ApplyFilenameFormat(string filename)
+        {
             if (DefaultExport != null && !String.IsNullOrEmpty(DefaultExport.FilenameFormat))
                 return String.Format(DefaultExport.FilenameFormat, filename);
 

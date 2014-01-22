@@ -131,7 +131,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
             item.Export = XmlUtil.GetAttributeBool(element, "Export") ?? registry.GetItem(item.Target).Export;
             item.Mode = XmlUtil.GetAttributeEnum<JsMode>(element, "Mode") ?? registry.GetItem(item.Target).Mode;
             item.PropertiesAsFields = XmlUtil.GetAttributeBool(element, "PropertiesAsFields") ?? registry.GetItem(item.Target).PropertiesAsFields;
-            item.Filename = XmlUtil.GetAttributeString(element, "Filename") ?? registry.GetItem(item.Target).Filename;
+            item.Filename = registry.ApplyFilenameFormat(XmlUtil.GetAttributeString(element, "Filename")) ?? registry.GetItem(item.Target).Filename;
         }
 
         #endregion
