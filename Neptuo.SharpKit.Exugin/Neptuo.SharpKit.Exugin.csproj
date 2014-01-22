@@ -56,11 +56,16 @@
     <Compile Include="ClassMetaExports\IsAbtractExportExtension.cs" />
     <Compile Include="ConfigurationHelper.cs" />
     <Compile Include="Exports\ExportExtension.cs" />
+    <Compile Include="Exports\ExportItem.cs" />
     <Compile Include="Exports\ExportRegistry.cs" />
+    <Compile Include="Exports\ExportService.cs" />
     <Compile Include="Exports\MethodRegistryItem.cs" />
     <Compile Include="Exports\NamespaceRegistry.cs" />
+    <Compile Include="Exports\NamespaceRegistryItem.cs" />
+    <Compile Include="Exports\RegistryItemBase.cs" />
     <Compile Include="Exports\TypeRegistry.cs" />
     <Compile Include="Exports\TypeRegistryItem.cs" />
+    <Compile Include="Exports\XmlUtil.cs" />
     <Compile Include="Expressions\ExpressionCache.cs" />
     <Compile Include="Expressions\ExpressionCacheItem.cs" />
     <Compile Include="Expressions\ExpressionExtension.cs" />

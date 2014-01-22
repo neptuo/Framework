@@ -52,8 +52,8 @@ namespace Neptuo.SharpKit.Exugin
         {
             configuration = new ConfigurationHelper();
             debug = configuration.GetBool("Debug");
-            exportAttributeName = configuration.GetString("ExportAttributeName", "ExportAttribute");
-            exportNamespaceAttributeName = configuration.GetString("ExportNamespaceAttributeName", "ExportNamespaceAttribute");
+            //exportAttributeName = configuration.GetString("ExportAttributeName", "ExportAttribute");
+            //exportNamespaceAttributeName = configuration.GetString("ExportNamespaceAttributeName", "ExportNamespaceAttribute");
         }
 
         public void Init(ICompiler compiler)
@@ -62,7 +62,7 @@ namespace Neptuo.SharpKit.Exugin
             compiler.AfterParseCs += Compiler_AfterParseCs;
             compiler.AfterConvertCsToJsEntity += Compiler_AfterConvertCsToJsEntity;
 
-            export = new ExportExtension(exportAttributeName, exportNamespaceAttributeName, debug);
+            export = new ExportExtension(debug);
             //expression = new ExpressionExtension(configuration.GetString("ExpressionPrefixes", "Neptuo").Split(','), debug);
             ctorExport = new CtorExportExtension(debug);
             isAbstract = new IsAbtractExportExtension(debug);
