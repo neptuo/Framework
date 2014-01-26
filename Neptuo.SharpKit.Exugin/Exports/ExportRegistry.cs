@@ -72,7 +72,8 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// </summary>
         public void BuildUp()
         {
-            namespaceItems = new List<NamespaceRegistryItem>(namespaceItems.OrderByDescending(item => item.Target.Length));
+            if (namespaceItems != null)
+                namespaceItems = new List<NamespaceRegistryItem>(namespaceItems.OrderByDescending(item => item.Target.Length));
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
             {
                 foreach (NamespaceRegistryItem item in namespaceItems)
                 {
-                    if (item.Target.StartsWith(targetTypeName))
+                    if (IsInNamespace(targetTypeName, item.Target))
                     {
                         TypeRegistryItem typeItem = new TypeRegistryItem
                         {
@@ -138,6 +139,32 @@ namespace Neptuo.SharpKit.Exugin.Exports
         }
 
         /// <summary>
+        /// Determins whether <paramref name="targetTypeName"/> is in <paramref name="namespaceName"/>.
+        /// If <paramref name="namespaceName"/> ends with dot ('.'), <paramref name="targetTypeName"/> can be in that namespace or any subnamespace.
+        /// </summary>
+        /// <param name="targetTypeName"></param>
+        /// <param name="namespaceName"></param>
+        /// <returns></returns>
+        private bool IsInNamespace(string targetTypeName, string namespaceName)
+        {
+            if (targetTypeName == null)
+                throw new ArgumentNullException("targetTypeName");
+
+            if (namespaceName == null)
+                throw new ArgumentNullException("namespaceName");
+
+            if (namespaceName.EndsWith(".") && targetTypeName.StartsWith(namespaceName.Substring(0, namespaceName.Length - 1)))
+                return true;
+
+            int lastIndexOfDot = targetTypeName.LastIndexOf('.');
+            if (lastIndexOfDot == -1)
+                return namespaceName == String.Empty;
+
+            string typeNamespaceName = targetTypeName.Substring(0, lastIndexOfDot);
+            return typeNamespaceName == namespaceName;
+        }
+
+        /// <summary>
         /// Returns filename with DefaultExport applied to it.
         /// </summary>
         /// <param name="filename">File name.</param>
@@ -162,6 +189,9 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// <returns>File name format from DefaultExport if used.</returns>
         public string ApplyFilenameFormat(string filename)
         {
+            if (filename == null)
+                return null;
+
             if (DefaultExport != null && !String.IsNullOrEmpty(DefaultExport.FilenameFormat))
                 return String.Format(DefaultExport.FilenameFormat, filename);
 

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ExportConfiguration>
-  <Export DefaultFilename="Neptuo.js" FilenameFormat="~/{0}" />
-  <JsType TargetType="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
-  <JsType TargetType="Neptuo.Linq.ExpressiveExtensions" Export="False" />
-  <JsType TargetType="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
-  <JsType TargetType="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
-  <JsType TargetType="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
-</ExportConfiguration>
+<Exugin>
+  <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
+  <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
+  <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />
+  <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
+  <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
+  <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
+</Exugin>
