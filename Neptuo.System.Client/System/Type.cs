@@ -380,7 +380,7 @@ namespace SharpKit.JavaScript.Private
         }
 
         JsExtendedArray _Constructors;
-        JsImplConstructorInfo[] GetContructors()
+        JsImplConstructorInfo[] GetConstructors()
         {
             VerifyConstructors();
             var arr = new JsArray();
