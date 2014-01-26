@@ -6994,7 +6994,7 @@ var System$Type =
                 }
             }
         },
-        GetContructors: function ()
+        GetConstructors: function ()
         {
             this.VerifyConstructors();
             var arr =  [];
