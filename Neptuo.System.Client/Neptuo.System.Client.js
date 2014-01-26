@@ -6515,6 +6515,28 @@ var System$Reflection$ConstructorInfo =
 {
     fullname: "System.Reflection.ConstructorInfo",
     baseTypeName: "System.Reflection.MethodBase",
+    staticDefinition:
+    {
+        op_Equality$$ConstructorInfo$$ConstructorInfo: function (info1, info2)
+        {
+            if (info1 == null)
+            {
+                if (info2 == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if (info2 == null)
+            {
+                return false;
+            }
+            return info1.GetParameters() == info2.GetParameters();
+        },
+        op_Inequality$$ConstructorInfo$$ConstructorInfo: function (info1, info2)
+        {
+            return !(System.Reflection.ConstructorInfo.op_Equality$$ConstructorInfo$$ConstructorInfo(info1, info2));
+        }
+    },
     assemblyName: "Neptuo.System.Client",
     Kind: "Class",
     definition:
@@ -6529,7 +6551,7 @@ var System$Reflection$ConstructorInfo =
             this.func = func;
             this.parameters = parameters;
         },
-        Invoke: function (parameters)
+        Invoke$$Object$Array: function (parameters)
         {
             
             var constructor = this.func;

@@ -70,7 +70,10 @@ namespace Neptuo.ObjectBuilder
             string key = GetKey(t);
             DependencyRegistryItem item = Registry.GetByKey(key, name);
             if (item == null)
+            {
                 RegisterType(t, t, name, null);
+                item = Registry.GetByKey(key, name);
+            }
                 
             return Build(item);
         }

@@ -137,7 +137,7 @@ namespace SharpKit.JavaScript.Private
             this.parameters = parameters;
         }
 
-        [JsMethod(Code = @"
+        [JsMethod(Name = "Invoke$$Object$Array", Code = @"
             var constructor = this.func;
             function F() {
                 return constructor.apply(this, parameters);
@@ -160,6 +160,30 @@ namespace SharpKit.JavaScript.Private
                     _parameterInfo.Add(new JsImplParameterInfo(Type.GetType(paramTypeName)));
             }
             return _parameterInfo;
+        }
+
+        [JsMethod(Name = "op_Equality$$ConstructorInfo$$ConstructorInfo")]
+        public static bool operator ==(JsImplConstructorInfo info1, JsImplConstructorInfo info2)
+        {
+            if ((object)info1 == null)
+            {
+                if ((object)info2 == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if ((object)info2 == null)
+            {
+                return false;
+            }
+
+            return info1.GetParameters() == info2.GetParameters();
+        }
+
+        [JsMethod(Name = "op_Inequality$$ConstructorInfo$$ConstructorInfo")]
+        public static bool operator !=(JsImplConstructorInfo info1, JsImplConstructorInfo info2)
+        {
+            return !(info1 == info2);
         }
     }
 
