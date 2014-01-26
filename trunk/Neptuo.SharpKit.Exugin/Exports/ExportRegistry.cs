@@ -117,6 +117,10 @@ namespace Neptuo.SharpKit.Exugin.Exports
                             Mode = item.Mode,
                             PropertiesAsFields = item.PropertiesAsFields
                         };
+
+                        if (typeItems == null)
+                            typeItems = new Dictionary<string, TypeRegistryItem>();
+
                         typeItems[targetTypeName] = typeItem;
                         return typeItem;
                     }
