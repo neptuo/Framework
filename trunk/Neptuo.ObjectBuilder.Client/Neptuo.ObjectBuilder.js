@@ -122,7 +122,10 @@ var Neptuo$ObjectBuilder$DependencyContainer =
             var key = this.GetKey(t);
             var item = this.get_Registry().GetByKey(key, name);
             if (item == null)
+            {
                 this.RegisterType(t, t, name, null);
+                item = this.get_Registry().GetByKey(key, name);
+            }
             return this.Build(item);
         },
         ResolveAll: function (t)
