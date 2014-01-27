@@ -22,7 +22,31 @@ namespace SharpKit.JavaScript.Private
 			_Name = _JsType.name;
 			if (EmptyTypes == null)
 				EmptyTypes = new JsImplType[0];
-		}
+        }
+
+        [JsMethod(Name = "op_Equality$$Type$$Type")]
+        public static bool operator ==(JsImplType left, JsImplType right)
+        {
+            if ((object)left == null)
+            {
+                if ((object)right == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if ((object)right == null)
+            {
+                return false;
+            }
+
+            return left.FullName == right.FullName;
+        }
+
+        [JsMethod(Name = "op_Inequality$$Type$$Type")]
+        public static bool operator !=(JsImplType left, JsImplType right)
+        {
+            return !(left == right);
+        }
 
 		public bool IsEnum
 		{

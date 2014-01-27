@@ -1457,6 +1457,28 @@ var System$MulticastDelegate =
 {
     fullname: "System.MulticastDelegate",
     baseTypeName: "System.Delegate",
+    staticDefinition:
+    {
+        op_Equality$$MulticastDelegate$$MulticastDelegate: function (left, right)
+        {
+            if (left == null)
+            {
+                if (right == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if (right == null)
+            {
+                return false;
+            }
+            return left == right;
+        },
+        op_Inequality$$MulticastDelegate$$MulticastDelegate: function (left, right)
+        {
+            return !(System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(left, right));
+        }
+    },
     assemblyName: "Neptuo.System.Client",
     Kind: "Class",
     definition:
@@ -6699,11 +6721,30 @@ var System$Type =
         {
             System.Type.EmptyTypes = null;
         },
+        op_Equality$$Type$$Type: function (left, right)
+        {
+            if (left == null)
+            {
+                if (right == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if (right == null)
+            {
+                return false;
+            }
+            return left.get_FullName() == right.get_FullName();
+        },
+        op_Inequality$$Type$$Type: function (left, right)
+        {
+            return !(System.Type.op_Equality$$Type$$Type(left, right));
+        },
         _TypeOf: function (jsType)
         {
             if (jsType == null)
                 throw $CreateException(new System.Exception.ctor$$String("Cannot resovle type"), new Error());
-            if (jsType._ClrType == null)
+            if (System.Type.op_Equality$$Type$$Type(jsType._ClrType, null))
                 jsType._ClrType = new System.Type.ctor(jsType);
             return jsType._ClrType;
         },
@@ -6877,7 +6918,7 @@ var System$Type =
             if (this.TryFillProperty(this._JsType.staticDefinition, name))
                 return;
             var baseType = this.get_BaseType();
-            if (baseType != null)
+            if (System.Type.op_Inequality$$Type$$Type(baseType, null))
             {
                 var pe = baseType.GetProperty$$String(name);
                 if (System.Reflection.PropertyInfo.op_Inequality$$PropertyInfo$$PropertyInfo(pe, null))
@@ -6902,7 +6943,7 @@ var System$Type =
                 this.FillProperties(this._JsType.definition);
                 this.FillProperties(this._JsType.staticDefinition);
                 var baseType = this.get_BaseType();
-                if (baseType != null)
+                if (System.Type.op_Inequality$$Type$$Type(baseType, null))
                 {
                     var props = baseType.GetProperties();
                     for (var $i15 = 0, $l15 = props.length, pe = props[$i15]; $i15 < $l15; $i15++, pe = props[$i15])
@@ -6965,7 +7006,7 @@ var System$Type =
                 this.FillMethods(this._JsType.definition);
                 this.FillMethods(this._JsType.staticDefinition);
                 var baseType = this.get_BaseType();
-                if (baseType != null)
+                if (System.Type.op_Inequality$$Type$$Type(baseType, null))
                 {
                     var methods = baseType.GetMethods();
                     for (var $i16 = 0, $l16 = methods.length, pe = methods[$i16]; $i16 < $l16; $i16++, pe = methods[$i16])
@@ -7143,7 +7184,7 @@ return this._MakeGenericType(x);
                 key += typeArg._Name;
             }
             var t = this._MakeGenericTypeCache[key];
-            if (t == null)
+            if (System.Type.op_Equality$$Type$$Type(t, null))
             {
                 t = new System.Type.ctor(this._JsType);
                 this._MakeGenericTypeCache[key] = t;

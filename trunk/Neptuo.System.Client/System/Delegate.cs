@@ -36,7 +36,31 @@ namespace SharpKit.JavaScript.Private
 
 	[JsType(Name = "System.MulticastDelegate", Filename = "~/Internal/Core.js")]
 	internal class JsImplMulticastDelegate : JsImplDelegate
-	{
+    {
+        [JsMethod(Name = "op_Equality$$MulticastDelegate$$MulticastDelegate")]
+        public static bool operator ==(JsImplMulticastDelegate left, JsImplMulticastDelegate right)
+        {
+            if ((object)left == null)
+            {
+                if ((object)right == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if ((object)right == null)
+            {
+                return false;
+            }
+
+            return (object)left == (object)right;
+        }
+
+        [JsMethod(Name = "op_Inequality$$MulticastDelegate$$MulticastDelegate")]
+        public static bool operator !=(JsImplMulticastDelegate left, JsImplMulticastDelegate right)
+        {
+            return !(left == right);
+        }
+
 		public JsImplDelegate[] GetInvocationList()
 		{
             throw new NotImplementedException();

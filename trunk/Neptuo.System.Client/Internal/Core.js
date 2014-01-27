@@ -608,6 +608,28 @@ var System$MulticastDelegate =
 {
     fullname: "System.MulticastDelegate",
     baseTypeName: "System.Delegate",
+    staticDefinition:
+    {
+        op_Equality$$MulticastDelegate$$MulticastDelegate: function (left, right)
+        {
+            if (left == null)
+            {
+                if (right == null)
+                    return true;
+                else
+                    return false;
+            }
+            else if (right == null)
+            {
+                return false;
+            }
+            return left == right;
+        },
+        op_Inequality$$MulticastDelegate$$MulticastDelegate: function (left, right)
+        {
+            return !(System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(left, right));
+        }
+    },
     assemblyName: "Neptuo.System.Client",
     Kind: "Class",
     definition:
