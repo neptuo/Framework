@@ -7843,7 +7843,7 @@ var System$Text$StringBuilder =
                 this.array.insert(index, value);
             return this;
         },
-        toString: function ()
+        ToString: function ()
         {
             return this.array.join("");
         },
