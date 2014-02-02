@@ -71,7 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Neptuo.PresentationModels.Validation.js" />
-    <Content Include="Neptuo.PresentationModels.Validation.xml" />
+    <Content Include="Neptuo.PresentationModels.Validation.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
