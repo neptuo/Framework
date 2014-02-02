@@ -3144,12 +3144,6 @@ if (!isMoz) {
 String.Format = function (format, varargs) {
     return String.format.apply(String, arguments);
 }
-String.Join$$String$$IEnumerable$1$String = function (seraparator, varargs) {
-    if (varargs == null)
-        return null;
-
-    return varargs.join(seraparator);
-}
 String.prototype.startsWith = function (str) {
 	return this.indexOf(str) == 0;
 }
@@ -3618,7 +3612,10 @@ JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definit
 		return this.toLowerCase();
 	},
 	ToLower: function () {
-		return this.toLowerCase();
+	    return this.toLowerCase();
+	},
+	ToLowerInvariant: function () {
+	    return this.toLowerCase();
 	},
 	ToUpper: function () {
 		return this.toUpperCase();
@@ -3725,6 +3722,12 @@ JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definit
             crc = ( crc >>> 8 ) ^ x; 
         } 
         return crc ^ (-1); 
+    },
+    Join$$String$$IEnumerable$1$String: function (seraparator, varargs) {
+        if (varargs == null)
+            return null;
+
+        return varargs.join(seraparator);
     },
 }, staticDefinition:
  {
