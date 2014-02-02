@@ -377,6 +377,7 @@ namespace SharpKit.JavaScript.Private
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        [JsMethod(Name = "ToString")]
         public override string ToString()
 		{
 			return this.array.join("");
