@@ -4,7 +4,7 @@ namespace Neptuo.Unity
 {
     public static class VersionInfo
     {
-        internal const string Version = "2.1.6";
+        internal const string Version = "2.1.7";
 
         public static Version GetVersion()
         {
