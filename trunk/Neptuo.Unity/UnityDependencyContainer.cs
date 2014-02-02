@@ -56,6 +56,9 @@ namespace Neptuo.Unity
 
         public object Resolve(Type t, string name)
         {
+            if (name == null && (t == typeof(IDependencyContainer) || t == typeof(IDependencyProvider)))
+                return this;
+
             return UnityContainer.Resolve(t, name);
         }
 
