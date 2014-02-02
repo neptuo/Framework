@@ -31,6 +31,9 @@ namespace Neptuo.Unity
 
             UnityContainer = unityContainer;
             LifetimeMapping = lifetimeMapping;
+
+            RegisterInstance(typeof(IDependencyContainer), null, this);
+            RegisterInstance(typeof(IDependencyProvider), null, this);
         }
 
         public IDependencyContainer RegisterInstance(Type t, string name, object instance)
@@ -56,9 +59,6 @@ namespace Neptuo.Unity
 
         public object Resolve(Type t, string name)
         {
-            if (name == null && (t == typeof(IDependencyContainer) || t == typeof(IDependencyProvider)))
-                return this;
-
             return UnityContainer.Resolve(t, name);
         }
 
