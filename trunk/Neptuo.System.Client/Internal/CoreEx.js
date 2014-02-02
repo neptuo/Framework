@@ -636,7 +636,14 @@ JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definit
 	    if (varargs == null)
 	        return null;
 
-	    return varargs.join(seraparator);
+	    var values = [];
+	    var it = varargs.GetEnumerator();
+	    while (it.MoveNext()) {
+	        var local = it.get_Current();
+	        values.push(local);
+	    }
+
+	    return values.join(seraparator);
 	},
 	IsNullOrEmpty: function (s) {
 		return s == null || s.length == 0;
