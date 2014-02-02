@@ -60,6 +60,28 @@ namespace Neptuo.SharpKit.CodeGenerator
                 SharpKitReferences.Add(ResolveReferencePath(item));
         }
 
+        public void RemoveReference(params string[] path)
+        {
+            foreach (string item in path)
+            {
+                if (!References.Remove(item))
+                {
+                    string targetReference = null;
+                    foreach (string reference in References)
+                    {
+                        if (reference.EndsWith(item))
+                        {
+                            targetReference = reference;
+                            break;
+                        }
+                    }
+
+                    if (targetReference != null)
+                        References.Remove(targetReference);
+                }
+            }
+        }
+
         protected string ResolveReferencePath(string path)
         {
             if (Path.IsPathRooted(path))
