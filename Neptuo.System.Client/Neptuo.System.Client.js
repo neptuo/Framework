@@ -4447,10 +4447,10 @@ var System$Linq$Enumerable =
             {
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
             }
-            var $it2 = source.GetEnumerator();
-            while ($it2.MoveNext())
+            var $it3 = source.GetEnumerator();
+            while ($it3.MoveNext())
             {
-                var local = $it2.get_Current();
+                var local = $it3.get_Current();
                 if (predicate(local))
                 {
                     return local;
@@ -4499,10 +4499,10 @@ var System$Linq$Enumerable =
             {
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
             }
-            var $it3 = source.GetEnumerator();
-            while ($it3.MoveNext())
+            var $it4 = source.GetEnumerator();
+            while ($it4.MoveNext())
             {
-                var local = $it3.get_Current();
+                var local = $it4.get_Current();
                 if (predicate(local))
                 {
                     return local;
@@ -4543,10 +4543,10 @@ var System$Linq$Enumerable =
                 throw $CreateException(System.Linq.Error.ArgumentNull("source"), new Error());
             if (predicate == null)
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
-            var $it4 = source.GetEnumerator();
-            while ($it4.MoveNext())
+            var $it5 = source.GetEnumerator();
+            while ($it5.MoveNext())
             {
-                var local = $it4.get_Current();
+                var local = $it5.get_Current();
                 if (predicate(local))
                     return local;
             }
@@ -4585,10 +4585,10 @@ var System$Linq$Enumerable =
                 throw $CreateException(System.Linq.Error.ArgumentNull("source"), new Error());
             if (predicate == null)
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
-            var $it5 = source.GetEnumerator();
-            while ($it5.MoveNext())
+            var $it6 = source.GetEnumerator();
+            while ($it6.MoveNext())
             {
-                var local = $it5.get_Current();
+                var local = $it6.get_Current();
                 if (predicate(local))
                     return local;
             }
@@ -4643,10 +4643,10 @@ var System$Linq$Enumerable =
             }
             var local = Default(TSource);
             var flag = false;
-            var $it6 = source.GetEnumerator();
-            while ($it6.MoveNext())
+            var $it7 = source.GetEnumerator();
+            while ($it7.MoveNext())
             {
-                var local2 = $it6.get_Current();
+                var local2 = $it7.get_Current();
                 if (predicate(local2))
                 {
                     local = local2;
@@ -4707,10 +4707,10 @@ var System$Linq$Enumerable =
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
             }
             var local = Default(TSource);
-            var $it7 = source.GetEnumerator();
-            while ($it7.MoveNext())
+            var $it8 = source.GetEnumerator();
+            while ($it8.MoveNext())
             {
-                var local2 = $it7.get_Current();
+                var local2 = $it8.get_Current();
                 if (predicate(local2))
                 {
                     local = local2;
@@ -4761,10 +4761,10 @@ var System$Linq$Enumerable =
             var is2 = As(source, System.Collections.Generic.ICollection$1.ctor);
             if (is2 != null)
                 return is2.Contains(value);
-            var $it8 = source.GetEnumerator();
-            while ($it8.MoveNext())
+            var $it9 = source.GetEnumerator();
+            while ($it9.MoveNext())
             {
-                var local = $it8.get_Current();
+                var local = $it9.get_Current();
                 if (local == value)
                     return true;
             }
@@ -4780,10 +4780,10 @@ var System$Linq$Enumerable =
             {
                 throw $CreateException(System.Linq.Error.ArgumentNull("source"), new Error());
             }
-            var $it9 = source.GetEnumerator();
-            while ($it9.MoveNext())
+            var $it10 = source.GetEnumerator();
+            while ($it10.MoveNext())
             {
-                var local = $it9.get_Current();
+                var local = $it10.get_Current();
                 if (comparer.Equals$$T$$T(local, value))
                 {
                     return true;
@@ -4821,10 +4821,10 @@ var System$Linq$Enumerable =
             {
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
             }
-            var $it10 = source.GetEnumerator();
-            while ($it10.MoveNext())
+            var $it11 = source.GetEnumerator();
+            while ($it11.MoveNext())
             {
-                var local = $it10.get_Current();
+                var local = $it11.get_Current();
                 if (predicate(local))
                 {
                     return true;
@@ -4869,10 +4869,10 @@ var System$Linq$Enumerable =
                 throw $CreateException(System.Linq.Error.ArgumentNull("predicate"), new Error());
             }
             var num = 0;
-            var $it11 = source.GetEnumerator();
-            while ($it11.MoveNext())
+            var $it12 = source.GetEnumerator();
+            while ($it12.MoveNext())
             {
-                var local = $it11.get_Current();
+                var local = $it12.get_Current();
                 if (predicate(local))
                 {
                     num++;
@@ -4941,10 +4941,10 @@ var System$Linq$Enumerable =
                 throw $CreateException(System.Linq.Error.ArgumentNull("source"), new Error());
             }
             var arr =  [];
-            var $it12 = source.GetEnumerator();
-            while ($it12.MoveNext())
+            var $it13 = source.GetEnumerator();
+            while ($it13.MoveNext())
             {
-                var obj = $it12.get_Current();
+                var obj = $it13.get_Current();
                 arr.push(obj);
             }
             return arr;
@@ -5806,6 +5806,23 @@ var System$Collections$Generic$HashSet$1 =
             this._Count = 0;
             System.Object.ctor.call(this);
         },
+        ctor$$IEnumerable$1: function (T, items)
+        {
+            this.T = T;
+            this.Hashtable = new Object();
+            this.Comparer = null;
+            this._Count = 0;
+            System.Object.ctor.call(this);
+            if (items != null)
+            {
+                var $it1 = items.GetEnumerator();
+                while ($it1.MoveNext())
+                {
+                    var item = $it1.get_Current();
+                    this.Add(item);
+                }
+            }
+        },
         ctor$$IEqualityComparer$1: function (T, comparer)
         {
             this.T = T;
@@ -5917,7 +5934,7 @@ var System$Collections$Generic$HashSet$1 =
             return new System.Collections.Generic.JsArrayEnumerator$1.ctor(this.T, array);
         }
     },
-    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEqualityComparer", parameters: ["System.Collections.Generic.IEqualityComparer"]}],
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$IEnumerable", parameters: ["System.Collections.Generic.IEnumerable"]}, {name: "ctor$$IEqualityComparer", parameters: ["System.Collections.Generic.IEqualityComparer"]}],
     IsAbstract: false
 };
 JsTypes.push(System$Collections$Generic$HashSet$1);
@@ -6176,10 +6193,10 @@ var System$Collections$Generic$List$1 =
         },
         AddRange: function (items)
         {
-            var $it1 = items.GetEnumerator();
-            while ($it1.MoveNext())
+            var $it2 = items.GetEnumerator();
+            while ($it2.MoveNext())
             {
-                var item = $it1.get_Current();
+                var item = $it2.get_Current();
                 this.Add(item);
             }
         },
@@ -6677,7 +6694,7 @@ var System$Reflection$ConstructorInfo =
             if (this._parameterInfo == null)
             {
                 this._parameterInfo =  [];
-                for (var $i14 = 0, $t14 = this.parameters, $l14 = $t14.length, paramTypeName = $t14[$i14]; $i14 < $l14; $i14++, paramTypeName = $t14[$i14])
+                for (var $i15 = 0, $t15 = this.parameters, $l15 = $t15.length, paramTypeName = $t15[$i15]; $i15 < $l15; $i15++, paramTypeName = $t15[$i15])
                     this._parameterInfo.push(new System.Reflection.ParameterInfo.ctor(System.Type.GetType$$String(paramTypeName)));
             }
             return this._parameterInfo;
@@ -7034,7 +7051,7 @@ var System$Type =
                 if (System.Type.op_Inequality$$Type$$Type(baseType, null))
                 {
                     var props = baseType.GetProperties();
-                    for (var $i15 = 0, $l15 = props.length, pe = props[$i15]; $i15 < $l15; $i15++, pe = props[$i15])
+                    for (var $i16 = 0, $l16 = props.length, pe = props[$i16]; $i16 < $l16; $i16++, pe = props[$i16])
                     {
                         if (!this._PropertiesByName.hasOwnProperty(pe._Name))
                         {
@@ -7097,7 +7114,7 @@ var System$Type =
                 if (System.Type.op_Inequality$$Type$$Type(baseType, null))
                 {
                     var methods = baseType.GetMethods();
-                    for (var $i16 = 0, $l16 = methods.length, pe = methods[$i16]; $i16 < $l16; $i16++, pe = methods[$i16])
+                    for (var $i17 = 0, $l17 = methods.length, pe = methods[$i17]; $i17 < $l17; $i17++, pe = methods[$i17])
                     {
                         if (this._MethodsByName[pe._Name] == null)
                         {
@@ -7211,7 +7228,7 @@ var System$Type =
             {
                 var methodName = SharpKit.JavaScript.JsNamingHelper.JsFunctionNameToClrMethodName(memberName);
                 var methods = this.GetMethods$$String(methodName);
-                for (var $i17 = 0, $l17 = methods.length, method = methods[$i17]; $i17 < $l17; $i17++, method = methods[$i17])
+                for (var $i18 = 0, $l18 = methods.length, method = methods[$i18]; $i18 < $l18; $i18++, method = methods[$i18])
                 {
                     if (method.JsName == memberName)
                         return method;
@@ -7967,10 +7984,10 @@ var SharpKit$Extensions2 =
         {
             var sb = new System.Text.StringBuilder.ctor();
             var first = true;
-            var $it17 = s.GetEnumerator();
-            while ($it17.MoveNext())
+            var $it18 = s.GetEnumerator();
+            while ($it18.MoveNext())
             {
-                var c = $it17.get_Current();
+                var c = $it18.get_Current();
                 if (System.Char.IsUpper$$Char(c) && !first)
                 {
                     sb.Append$$Char(" ");
@@ -8161,7 +8178,7 @@ var SharpKit$JavaScript$JsNamingHelper =
         },
         ConvertParametersToJsFunctionName: function (prms, sb)
         {
-            for (var $i19 = 0, $l19 = prms.length, prm = prms[$i19]; $i19 < $l19; $i19++, prm = prms[$i19])
+            for (var $i20 = 0, $l20 = prms.length, prm = prms[$i20]; $i20 < $l20; $i20++, prm = prms[$i20])
             {
                 sb.Append$$String("$$");
                 sb.Append$$String(prm.get_ParameterType().get_Name());

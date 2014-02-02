@@ -16,6 +16,14 @@ namespace SharpKit.JavaScript.Private
         public JsImplHashSet()
         {
         }
+        public JsImplHashSet(IEnumerable<T> items)
+        {
+            if(items != null)
+            {
+                foreach (T item in items)
+                    Add(item);
+            }
+        }
         public JsImplHashSet(IEqualityComparer<T> comparer)
         {
             Comparer = comparer;
