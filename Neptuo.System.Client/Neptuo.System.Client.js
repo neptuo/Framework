@@ -3142,7 +3142,13 @@ if (!isMoz) {
 	HTMLInputElement = null;
 }
 String.Format = function (format, varargs) {
-	return String.format.apply(String, arguments);
+    return String.format.apply(String, arguments);
+}
+String.Join$$String$$IEnumerable$1$String = function (seraparator, varargs) {
+    if (varargs == null)
+        return null;
+
+    return varargs.join(seraparator);
 }
 String.prototype.startsWith = function (str) {
 	return this.indexOf(str) == 0;
