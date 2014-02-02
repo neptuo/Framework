@@ -7,7 +7,7 @@ namespace System.Client
 {
     public static class VersionInfo
     {
-        internal const string Version = "4.4.1";
+        internal const string Version = "4.4.2";
 
         public static Version GetVersion()
         {
