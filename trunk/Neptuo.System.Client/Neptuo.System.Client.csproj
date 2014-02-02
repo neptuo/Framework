@@ -83,6 +83,7 @@
     <Compile Include="System\IDisposable.cs" />
     <Compile Include="System\Interfaces.cs" />
     <Compile Include="System\IO\Path.cs" />
+    <Compile Include="System\IO\StringWriter.cs" />
     <Compile Include="System\Linq\Enumerable.Iterator.cs" />
     <Compile Include="System\Linq\Enumerable.WhereArrayIterator.cs" />
     <Compile Include="System\Linq\Enumerable.WhereEnumerableIterator.cs" />

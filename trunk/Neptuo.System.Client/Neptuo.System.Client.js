@@ -4296,6 +4296,78 @@ var System$IO$Path =
     IsAbstract: true
 };
 JsTypes.push(System$IO$Path);
+var System$IO$StringWriter =
+{
+    fullname: "System.IO.StringWriter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.System.Client",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            this.array = null;
+            this._Length = 0;
+            System.Object.ctor.call(this);
+            this.array =  [];
+        },
+        Length$$: "System.Int32",
+        get_Length: function ()
+        {
+            return this._Length;
+        },
+        set_Length: function (value)
+        {
+            this._Length = value;
+        },
+        ctor$$String: function (s)
+        {
+            this.array = null;
+            this._Length = 0;
+            System.Object.ctor.call(this);
+            this.array = new Array(s);
+            this.set_Length(s == null ? 0 : s.length);
+        },
+        Write$$Char: function (s)
+        {
+            this.set_Length(this.get_Length() + 1);
+            this.array.push(s);
+        },
+        Write$$String: function (s)
+        {
+            if (s != null)
+            {
+                this.array.push(s);
+                this.set_Length(this.get_Length() + s.length);
+            }
+        },
+        Write$$Object: function (obj)
+        {
+            if (obj != null)
+            {
+                var s = obj.toString();
+                this.array.push(s);
+                this.set_Length(this.get_Length() + s.length);
+            }
+        },
+        Append$$Object: function (obj)
+        {
+            if (obj != null)
+            {
+                var s = obj.toString();
+                this.array.push(s);
+                this.set_Length(this.get_Length() + s.length);
+            }
+        },
+        toString: function ()
+        {
+            return this.array.join("");
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$String", parameters: ["System.String"]}],
+    IsAbstract: false
+};
+JsTypes.push(System$IO$StringWriter);
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var System$Linq$Enumerable =
