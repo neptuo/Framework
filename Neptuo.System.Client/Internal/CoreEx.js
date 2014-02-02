@@ -589,12 +589,6 @@ JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definit
         } 
         return crc ^ (-1); 
     },
-    Join$$String$$IEnumerable$1$String: function (seraparator, varargs) {
-        if (varargs == null)
-            return null;
-
-        return varargs.join(seraparator);
-    },
 }, staticDefinition:
 {
 	Empty: "",
@@ -637,6 +631,12 @@ JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definit
 			return -1;
 		else
 			return 0;
+	},
+	Join$$String$$IEnumerable$1$String: function (seraparator, varargs) {
+	    if (varargs == null)
+	        return null;
+
+	    return varargs.join(seraparator);
 	},
 	IsNullOrEmpty: function (s) {
 		return s == null || s.length == 0;
