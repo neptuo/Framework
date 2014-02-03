@@ -20,7 +20,15 @@ namespace Neptuo.SharpKit.CodeGenerator
         {
             foreach (string reference in referencePath)
                 arguments.AppendFormat("/reference:\"{0}\" ", reference);
-                
+
+            return this;
+        }
+
+        public SharpKitProcessBuilder AddPlugin(params string[] plugins)
+        {
+            foreach (string plugin in plugins)
+                arguments.AppendFormat("/plugin:\"{0}\" ", plugin);
+
             return this;
         }
 

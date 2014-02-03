@@ -19,6 +19,7 @@ namespace Neptuo.SharpKit.CodeGenerator
         protected HashSet<string> Folders { get; private set; }
         protected HashSet<string> References { get; private set; }
         protected HashSet<string> SharpKitReferences { get; private set; }
+        protected HashSet<string> Plugins { get; private set; }
 
         public string TempDirectory { get; set; }
 
@@ -27,6 +28,7 @@ namespace Neptuo.SharpKit.CodeGenerator
             Folders = new HashSet<string> { SkInstallation, CsInstallation };
             References = new HashSet<string>();
             SharpKitReferences = new HashSet<string>();
+            Plugins = new HashSet<string>();
         }
 
         public void AddReferenceFolder(string path)
@@ -80,6 +82,16 @@ namespace Neptuo.SharpKit.CodeGenerator
                         References.Remove(targetReference);
                 }
             }
+        }
+
+        public void AddPlugin(string assemblyTypeName)
+        {
+            Plugins.Add(assemblyTypeName);
+        }
+
+        public void AddPlugin(string assemlbyName, string typeName)
+        {
+            AddPlugin(String.Format("{0}, {1}", typeName, assemlbyName));
         }
 
         protected string ResolveReferencePath(string path)
@@ -139,7 +151,8 @@ namespace Neptuo.SharpKit.CodeGenerator
                 .OutputGeneratedJsFile(jsFileName)
                 .ManifestFile(manifestFileName)
                 .AddSourceFile(sourceCodeFileName)
-                .AddReference(References.ToArray());
+                .AddReference(References.ToArray())
+                .AddPlugin(Plugins.ToArray());
 
             SharpKitProcessBuilder cscBuilder = new SharpKitProcessBuilder()
                 .AddReference(References.ToArray());
