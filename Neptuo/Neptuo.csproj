@@ -47,6 +47,9 @@
     <Compile Include="Events\Handlers\SingletonEventHandlerFactory.cs" />
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
+    <Compile Include="Guard.cs" />
+    <Compile Include="GuidProvider.cs" />
+    <Compile Include="IGuidProvider.cs" />
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
     <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
     <Compile Include="Lifetimes\SingletonLifetime.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
+    <Compile Include="SequenceGuidProvider.cs" />
     <Compile Include="StateMachines\IStateMachineState.cs" />
     <Compile Include="StateMachines\IStringState.cs" />
     <Compile Include="StateMachines\StateMachine.cs" />

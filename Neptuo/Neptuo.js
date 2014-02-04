@@ -400,6 +400,82 @@ var Neptuo$Events$IEventDispatcher = {fullname: "Neptuo.Events.IEventDispatcher"
 JsTypes.push(Neptuo$Events$IEventDispatcher);
 var Neptuo$Events$IEventRegistry = {fullname: "Neptuo.Events.IEventRegistry", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$Guard =
+{
+    fullname: "Neptuo.Guard",
+    baseTypeName: "System.Object",
+    staticDefinition:
+    {
+        NotNull: function (argument, argumentName)
+        {
+            if (argument == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String(argumentName), new Error());
+        },
+        NotNullOrEmpty: function (argument, argumentName)
+        {
+            if (argument == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String(argumentName), new Error());
+            if (System.String.IsNullOrEmpty(argument))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Passed argument can\'t be empty string.", argumentName), new Error());
+        },
+        Positive: function (argument, argumentName)
+        {
+            if (argument <= 0)
+                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be positive (> 0)."), new Error());
+        },
+        PositiveOrZero: function (argument, argumentName)
+        {
+            if (argument < 0)
+                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be positive or zero (>= 0)."), new Error());
+        },
+        Negative: function (argument, argumentName)
+        {
+            if (argument >= 0)
+                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be negative (< 0)."), new Error());
+        },
+        NegativeOrZero: function (argument, argumentName)
+        {
+            if (argument > 0)
+                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be negative or zero (<= 0)."), new Error());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Guard);
+var Neptuo$GuidProvider =
+{
+    fullname: "Neptuo.GuidProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IGuidProvider"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            System.Object.ctor.call(this);
+        },
+        Next: function ()
+        {
+            return System.Guid.NewGuid().ToString();
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$GuidProvider);
+var Neptuo$IGuidProvider = {fullname: "Neptuo.IGuidProvider", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$IGuidProvider);
 var Neptuo$Lifetimes$Mapping$ILifetimeMapping$1 = {fullname: "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Lifetimes$Mapping$ILifetimeMapping$1);
 var Neptuo$Lifetimes$SingletonLifetime =
@@ -782,11 +858,11 @@ var Neptuo$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.VersionInfo.Version = "2.5.2";
+            Neptuo.VersionInfo.Version = "2.6.0";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("2.5.2");
+            return new System.Version.ctor$$String("2.6.0");
         }
     },
     assemblyName: "Neptuo",
@@ -1003,6 +1079,32 @@ var Neptuo$Linq$Expressions$TypeHelper =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Linq$Expressions$TypeHelper);
+var Neptuo$SequenceGuidProvider =
+{
+    fullname: "Neptuo.SequenceGuidProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IGuidProvider"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (prefix, offset)
+        {
+            this.prefix = null;
+            this.offset = 0;
+            System.Object.ctor.call(this);
+            this.prefix = prefix;
+            this.offset = offset;
+        },
+        Next: function ()
+        {
+            return this.prefix + (++this.offset);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.String", "System.Int32"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$SequenceGuidProvider);
 var Neptuo$StateMachines$IStateMachineState$2 = {fullname: "Neptuo.StateMachines.IStateMachineState$2", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$StateMachines$IStateMachineState$2);
 var Neptuo$StateMachines$IStringState$1 = {fullname: "Neptuo.StateMachines.IStringState$1", baseTypeName: "System.Object", assemblyName: "Neptuo", interfaceNames: ["Neptuo.StateMachines.IStateMachineState$2"], Kind: "Interface", ctors: [], IsAbstract: true};
