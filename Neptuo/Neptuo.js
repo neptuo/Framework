@@ -452,28 +452,6 @@ var Neptuo$Guard =
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Guard);
-var Neptuo$GuidProvider =
-{
-    fullname: "Neptuo.GuidProvider",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.IGuidProvider"],
-    Kind: "Class",
-    definition:
-    {
-        ctor: function ()
-        {
-            System.Object.ctor.call(this);
-        },
-        Next: function ()
-        {
-            return System.Guid.NewGuid().ToString();
-        }
-    },
-    ctors: [ {name: "ctor", parameters: []}],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$GuidProvider);
 var Neptuo$IGuidProvider = {fullname: "Neptuo.IGuidProvider", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$IGuidProvider);
 var Neptuo$Lifetimes$Mapping$ILifetimeMapping$1 = {fullname: "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};

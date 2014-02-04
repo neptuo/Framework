@@ -6,4 +6,5 @@
   <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
   <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
   <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
+  <Type Target="Neptuo.GuidProvider" Export="False" />
 </Exugin>
