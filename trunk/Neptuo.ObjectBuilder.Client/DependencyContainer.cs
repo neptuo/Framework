@@ -30,6 +30,9 @@ namespace Neptuo.ObjectBuilder
 
             Registry = registry;
             LifetimeMapping = lifetimeMapping;
+
+            RegisterInstance(typeof(IDependencyContainer), null, this);
+            RegisterInstance(typeof(IDependencyProvider), null, this);
         }
 
         public IDependencyContainer RegisterInstance(Type t, string name, object instance)
@@ -62,7 +65,7 @@ namespace Neptuo.ObjectBuilder
 
         public IDependencyContainer CreateChildContainer()
         {
-            throw new NotImplementedException();
+            return new DependencyContainer(new DependencyRegistry(Registry.CopyRegistries()), LifetimeMapping);
         }
 
         public object Resolve(Type t, string name)

@@ -70,5 +70,19 @@ namespace Neptuo.ObjectBuilder
 
             registries[key][subKey ?? String.Empty] = item;
         }
+
+        public Dictionary<string, Dictionary<string, DependencyRegistryItem>> CopyRegistries()
+        {
+            Dictionary<string, Dictionary<string, DependencyRegistryItem>> result = new Dictionary<string, Dictionary<string, DependencyRegistryItem>>();
+            foreach (KeyValuePair<string, Dictionary<string, DependencyRegistryItem>> item in registries)
+            {
+                Dictionary<string, DependencyRegistryItem> partialResult = new Dictionary<string, DependencyRegistryItem>();
+                foreach (KeyValuePair<string, DependencyRegistryItem> subItem in item.Value)
+                    partialResult.Add(subItem.Key, subItem.Value);
+
+                result.Add(item.Key, partialResult);
+            }
+            return result;
+        }
     }
 }

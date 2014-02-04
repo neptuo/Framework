@@ -84,6 +84,8 @@ var Neptuo$ObjectBuilder$DependencyContainer =
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("lifetimeMapping"), new Error());
             this.set_Registry(registry);
             this.set_LifetimeMapping(lifetimeMapping);
+            this.RegisterInstance(Typeof(Neptuo.IDependencyContainer.ctor), null , this);
+            this.RegisterInstance(Typeof(Neptuo.IDependencyProvider.ctor), null , this);
         },
         RegisterInstance: function (t, name, instance)
         {
@@ -115,7 +117,7 @@ var Neptuo$ObjectBuilder$DependencyContainer =
         },
         CreateChildContainer: function ()
         {
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+            return new Neptuo.ObjectBuilder.DependencyContainer.ctor$$DependencyRegistry$$LifetimeMapping$1$IDependencyLifetime(new Neptuo.ObjectBuilder.DependencyRegistry.ctor$$Dictionary$2(this.get_Registry().CopyRegistries()), this.get_LifetimeMapping());
         },
         Resolve: function (t, name)
         {
@@ -272,6 +274,24 @@ var Neptuo$ObjectBuilder$DependencyRegistry =
             if (!this.registries.ContainsKey(key))
                 this.registries.set_Item$$TKey(key, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.ObjectBuilder.DependencyRegistryItem.ctor));
             this.registries.get_Item$$TKey(key).set_Item$$TKey((subKey != null ? subKey : System.String.Empty), item);
+        },
+        CopyRegistries: function ()
+        {
+            var result = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor);
+            var $it3 = this.registries.GetEnumerator();
+            while ($it3.MoveNext())
+            {
+                var item = $it3.get_Current();
+                var partialResult = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.ObjectBuilder.DependencyRegistryItem.ctor);
+                var $it4 = item.get_Value().GetEnumerator();
+                while ($it4.MoveNext())
+                {
+                    var subItem = $it4.get_Current();
+                    partialResult.Add(subItem.get_Key(), subItem.get_Value());
+                }
+                result.Add(item.get_Key(), partialResult);
+            }
+            return result;
         }
     },
     ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Dictionary", parameters: ["System.Collections.Generic.Dictionary"]}],
@@ -367,6 +387,30 @@ var Neptuo$ObjectBuilder$GetterLifetimeManager =
 JsTypes.push(Neptuo$ObjectBuilder$GetterLifetimeManager);
 var Neptuo$ObjectBuilder$IDependencyLifetime = {fullname: "Neptuo.ObjectBuilder.IDependencyLifetime", baseTypeName: "System.Object", assemblyName: "Neptuo.ObjectBuilder.Client", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$ObjectBuilder$IDependencyLifetime);
+var Neptuo$ObjectBuilder$Lifetimes$Mapping$SingletonLifetimeMapper =
+{
+    fullname: "Neptuo.ObjectBuilder.Lifetimes.Mapping.SingletonLifetimeMapper",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.ObjectBuilder.Client",
+    interfaceNames: ["Neptuo.Lifetimes.Mapping.ILifetimeMapper$1"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            System.Object.ctor.call(this);
+        },
+        Map: function (lifetime)
+        {
+            var singletionLifetime = As(lifetime, Neptuo.Lifetimes.SingletonLifetime.ctor);
+            Neptuo.Guard.NotNull(singletionLifetime, "lifetime");
+            return new Neptuo.ObjectBuilder.SingletonLifetimeManager.ctor(singletionLifetime.get_Instance());
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ObjectBuilder$Lifetimes$Mapping$SingletonLifetimeMapper);
 var Neptuo$ObjectBuilder$VersionInfo =
 {
     fullname: "Neptuo.ObjectBuilder.VersionInfo",
@@ -375,11 +419,11 @@ var Neptuo$ObjectBuilder$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.ObjectBuilder.VersionInfo.Version = "1.0.0";
+            Neptuo.ObjectBuilder.VersionInfo.Version = "1.1.5";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("1.0.0");
+            return new System.Version.ctor$$String("1.1.5");
         }
     },
     assemblyName: "Neptuo.ObjectBuilder.Client",
