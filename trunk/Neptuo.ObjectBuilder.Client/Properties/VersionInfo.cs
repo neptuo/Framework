@@ -4,7 +4,7 @@ namespace Neptuo.ObjectBuilder
 {
     public static class VersionInfo
     {
-        internal const string Version = "1.1.5";
+        internal const string Version = "1.1.6";
 
         public static Version GetVersion()
         {
