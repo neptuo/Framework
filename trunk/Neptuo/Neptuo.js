@@ -406,10 +406,15 @@ var Neptuo$Guard =
     baseTypeName: "System.Object",
     staticDefinition:
     {
-        NotNull: function (argument, argumentName)
+        NotNull$$Object$$String: function (argument, argumentName)
         {
             if (argument == null)
                 throw $CreateException(new System.ArgumentNullException.ctor$$String(argumentName), new Error());
+        },
+        NotNull$$Object$$String$$String: function (argument, argumentName, message)
+        {
+            if (argument == null)
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String(message, argumentName), new Error());
         },
         NotNullOrEmpty: function (argument, argumentName)
         {
@@ -836,11 +841,11 @@ var Neptuo$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.VersionInfo.Version = "2.6.0";
+            Neptuo.VersionInfo.Version = "2.6.1";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("2.6.0");
+            return new System.Version.ctor$$String("2.6.1");
         }
     },
     assemblyName: "Neptuo",
