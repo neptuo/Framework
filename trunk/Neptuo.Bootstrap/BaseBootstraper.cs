@@ -35,6 +35,12 @@ namespace Neptuo.Bootstrap
             return factory(typeof(T));
         }
 
+        protected bool SatisfiesConstraints(Type taskType)
+        {
+            IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
+            return provider.GetConstraints(taskType).Satisfies(context);
+        }
+
         public virtual void Initialize()
         {
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);

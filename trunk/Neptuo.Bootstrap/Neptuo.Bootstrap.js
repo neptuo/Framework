@@ -56,9 +56,15 @@ var Neptuo$Bootstrap$AutomaticBootstrapper =
             while ($it1.MoveNext())
             {
                 var type = $it1.get_Current();
-                this.get_Tasks().Add(this.CreateInstance$$Type(type));
+                if (this.SatisfiesConstraints(type))
+                    this.get_Tasks().Add(this.CreateInstance$$Type(type));
             }
-            Neptuo.Bootstrap.BaseBootstraper.commonPrototype.Initialize.call(this);
+            var $it2 = this.get_Tasks().GetEnumerator();
+            while ($it2.MoveNext())
+            {
+                var task = $it2.get_Current();
+                task.Initialize();
+            }
         },
         FindTypes: function ()
         {
@@ -68,10 +74,10 @@ var Neptuo$Bootstrap$AutomaticBootstrapper =
         },
         SearchAssemblies: function (types)
         {
-            var $it2 = System.AppDomain.get_CurrentDomain().GetAssemblies().GetEnumerator();
-            while ($it2.MoveNext())
+            var $it3 = System.AppDomain.get_CurrentDomain().GetAssemblies().GetEnumerator();
+            while ($it3.MoveNext())
             {
-                var assembly = $it2.get_Current();
+                var assembly = $it3.get_Current();
                 try
                 {
                     this.AddSupportedTypes(types, assembly.GetTypes());
@@ -87,10 +93,10 @@ var Neptuo$Bootstrap$AutomaticBootstrapper =
             if (target == null)
                 target = new System.Collections.Generic.List$1.ctor(System.Type.ctor);
             var bootstrapInterfaceType = Typeof(Neptuo.Bootstrap.IBootstrapTask.ctor);
-            var $it3 = sourceTypes.GetEnumerator();
-            while ($it3.MoveNext())
+            var $it4 = sourceTypes.GetEnumerator();
+            while ($it4.MoveNext())
             {
-                var type = $it3.get_Current();
+                var type = $it4.get_Current();
                 if (bootstrapInterfaceType.IsAssignableFrom(type) && System.Type.op_Inequality$$Type$$Type(bootstrapInterfaceType, type) && !type.get_IsAbstract() && !type.get_IsInterface())
                     target.Add(type);
             }
@@ -139,13 +145,18 @@ var Neptuo$Bootstrap$BaseBootstraper =
         {
             return this.factory(Typeof(T));
         },
+        SatisfiesConstraints: function (taskType)
+        {
+            var context = new Neptuo.Bootstrap.Constraints.DefaultBootstrapConstraintContext.ctor(this);
+            return Neptuo.Bootstrap.IEnumerableConstraintExtensions.Satisfies(this.provider.GetConstraints(taskType), context);
+        },
         Initialize: function ()
         {
             var context = new Neptuo.Bootstrap.Constraints.DefaultBootstrapConstraintContext.ctor(this);
-            var $it4 = this.get_Tasks().GetEnumerator();
-            while ($it4.MoveNext())
+            var $it5 = this.get_Tasks().GetEnumerator();
+            while ($it5.MoveNext())
             {
-                var task = $it4.get_Current();
+                var task = $it5.get_Current();
                 if (Neptuo.Bootstrap.IEnumerableConstraintExtensions.Satisfies(this.provider.GetConstraints(task.GetType()), context))
                     task.Initialize();
             }
@@ -163,10 +174,10 @@ var Neptuo$Bootstrap$IEnumerableConstraintExtensions =
     {
         Satisfies: function (constraints, context)
         {
-            var $it5 = constraints.GetEnumerator();
-            while ($it5.MoveNext())
+            var $it6 = constraints.GetEnumerator();
+            while ($it6.MoveNext())
             {
-                var constraint = $it5.get_Current();
+                var constraint = $it6.get_Current();
                 if (!constraint.Satisfies(context))
                     return false;
             }
@@ -243,10 +254,10 @@ var Neptuo$Bootstrap$Constraints$AttributeConstraintProvider =
         GetConstraints: function (bootstrapTask)
         {
             var result = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Constraints.IBootstrapConstraint.ctor);
-            var $it6 = bootstrapTask.GetCustomAttributes$$Boolean(true).GetEnumerator();
-            while ($it6.MoveNext())
+            var $it7 = bootstrapTask.GetCustomAttributes$$Boolean(true).GetEnumerator();
+            while ($it7.MoveNext())
             {
-                var attribute = $it6.get_Current();
+                var attribute = $it7.get_Current();
                 if (Is(attribute, Neptuo.Bootstrap.ConstraintAttribute.ctor))
                 {
                     var constraint = null;
@@ -444,11 +455,11 @@ var Neptuo$Bootstrap$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.Bootstrap.VersionInfo.Version = "3.3.0";
+            Neptuo.Bootstrap.VersionInfo.Version = "3.4.0";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("3.3.0");
+            return new System.Version.ctor$$String("3.4.0");
         }
     },
     assemblyName: "Neptuo.Bootstrap",
@@ -469,6 +480,7 @@ var Neptuo$Bootstrap$ProxyBootstrapTask =
     fullname: "Neptuo.Bootstrap.ProxyBootstrapTask",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
+    customAttributes: [ {targetType: "type", typeName: "Neptuo.Bootstrap.IgnoreAutomaticConstraintAttribute", ctorName: "ctor"}],
     interfaceNames: ["Neptuo.Bootstrap.IBootstrapTask"],
     Kind: "Class",
     definition:

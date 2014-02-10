@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
+    [IgnoreAutomaticConstraint]
     internal class ProxyBootstrapTask : IBootstrapTask
     {
         private Func<IBootstrapTask> factory;

@@ -28,9 +28,13 @@ namespace Neptuo.Bootstrap
                 types = FindTypes();
 
             foreach (Type type in types)
+            {
+                if (SatisfiesConstraints(type))
                 Tasks.Add(CreateInstance(type));
+            }
 
-            base.Initialize();
+            foreach (IBootstrapTask task in Tasks)
+                task.Initialize();
         }
 
         protected virtual IEnumerable<Type> FindTypes()
