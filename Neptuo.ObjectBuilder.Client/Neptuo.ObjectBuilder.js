@@ -403,7 +403,7 @@ var Neptuo$ObjectBuilder$Lifetimes$Mapping$SingletonLifetimeMapper =
         Map: function (lifetime)
         {
             var singletionLifetime = As(lifetime, Neptuo.Lifetimes.SingletonLifetime.ctor);
-            Neptuo.Guard.NotNull(singletionLifetime, "lifetime");
+            Neptuo.Guard.NotNull$$Object$$String(singletionLifetime, "lifetime");
             return new Neptuo.ObjectBuilder.SingletonLifetimeManager.ctor(singletionLifetime.get_Instance());
         }
     },
@@ -419,11 +419,11 @@ var Neptuo$ObjectBuilder$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.ObjectBuilder.VersionInfo.Version = "1.1.5";
+            Neptuo.ObjectBuilder.VersionInfo.Version = "1.1.6";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("1.1.5");
+            return new System.Version.ctor$$String("1.1.6");
         }
     },
     assemblyName: "Neptuo.ObjectBuilder.Client",
