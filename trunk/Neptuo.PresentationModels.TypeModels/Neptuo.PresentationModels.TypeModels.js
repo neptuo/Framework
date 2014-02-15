@@ -352,7 +352,7 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder =
         BuildMetadata: function (memberInfo)
         {
             var collection = new Neptuo.PresentationModels.TypeModels.MetadataBuilderCollection.ctor();
-            var $it2 = System.Reflection.CustomAttributeExtensions.GetCustomAttributes$$MemberInfo(memberInfo).GetEnumerator();
+            var $it2 = memberInfo.GetCustomAttributes$$Boolean(true).GetEnumerator();
             while ($it2.MoveNext())
             {
                 var attribute = $it2.get_Current();

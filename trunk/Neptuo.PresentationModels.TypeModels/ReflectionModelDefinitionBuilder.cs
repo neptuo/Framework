@@ -46,7 +46,7 @@ namespace Neptuo.PresentationModels.TypeModels
         protected virtual MetadataCollection BuildMetadata(MemberInfo memberInfo)
         {
             MetadataBuilderCollection collection = new MetadataBuilderCollection();
-            foreach (Attribute attribute in memberInfo.GetCustomAttributes())
+            foreach (Attribute attribute in memberInfo.GetCustomAttributes(true))
             {
                 IMetadataReader reader = attribute as IMetadataReader;
                 if (reader != null)
