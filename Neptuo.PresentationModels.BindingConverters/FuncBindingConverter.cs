@@ -18,7 +18,7 @@ namespace Neptuo.PresentationModels.BindingConverters
             Converter = converter;
         }
 
-        public override bool TryConvert(string sourceValue, IFieldDefinition targetField, out T targetValue)
+        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out T targetValue)
         {
             return Converter(sourceValue, out targetValue);
         }

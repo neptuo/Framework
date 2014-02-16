@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels.BindingConverters
         public bool TryConvert(string sourceValue, IFieldDefinition targetField, out object targetValue)
         {
             T target;
-            if (TryConvert(sourceValue, targetField, out target))
+            if (TryConvertTo(sourceValue, targetField, out target))
             {
                 targetValue = target;
                 return true;
@@ -21,6 +21,6 @@ namespace Neptuo.PresentationModels.BindingConverters
             return false;
         }
 
-        public abstract bool TryConvert(string sourceValue, IFieldDefinition targetField, out T targetValue);
+        public abstract bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out T targetValue);
     }
 }

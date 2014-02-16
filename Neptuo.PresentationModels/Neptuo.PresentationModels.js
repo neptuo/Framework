@@ -42,7 +42,7 @@ var Neptuo$PresentationModels$BindingConverterCollection =
             this._PreviousCollection = null;
             this._Storage = null;
             System.Object.ctor.call(this);
-            this.set_Storage(new System.Collections.Generic.Dictionary$2.ctor(Neptuo.PresentationModels.IFieldType.ctor, System.Collections.Generic.List$1.ctor));
+            this.set_Storage(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.List$1.ctor));
             this.set_PreviousCollection(previousCollection);
         },
         PreviousCollection$$: "Neptuo.PresentationModels.BindingConverterCollection",
@@ -54,7 +54,7 @@ var Neptuo$PresentationModels$BindingConverterCollection =
         {
             this._PreviousCollection = value;
         },
-        Storage$$: "System.Collections.Generic.Dictionary`2[[Neptuo.PresentationModels.IFieldType],[System.Collections.Generic.List`1[[Neptuo.PresentationModels.IBindingConverter]]]]",
+        Storage$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Collections.Generic.List`1[[Neptuo.PresentationModels.IBindingConverter]]]]",
         get_Storage: function ()
         {
             return this._Storage;
@@ -65,21 +65,20 @@ var Neptuo$PresentationModels$BindingConverterCollection =
         },
         Add: function (fieldType, converter)
         {
-            if (fieldType == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("fieldType"), new Error());
-            if (converter == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("converter"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(fieldType, "fieldType");
+            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            var key = this.GetKey(fieldType);
             var list;
             if (!(function ()
             {
                 var $1 = {Value: list};
-                var $res = this.get_Storage().TryGetValue(fieldType, $1);
+                var $res = this.get_Storage().TryGetValue(key, $1);
                 list = $1.Value;
                 return $res;
             }).call(this))
             {
                 list = new System.Collections.Generic.List$1.ctor(Neptuo.PresentationModels.IBindingConverter.ctor);
-                this.get_Storage().Add(fieldType, list);
+                this.get_Storage().Add(key, list);
             }
             list.Add(converter);
             return this;
@@ -108,11 +107,12 @@ var Neptuo$PresentationModels$BindingConverterCollection =
         },
         TryGetConverters: function (targetField, converters)
         {
+            var key = this.GetKey(targetField.get_FieldType());
             var storageValue;
             if ((function ()
             {
                 var $1 = {Value: storageValue};
-                var $res = this.get_Storage().TryGetValue(targetField.get_FieldType(), $1);
+                var $res = this.get_Storage().TryGetValue(key, $1);
                 storageValue = $1.Value;
                 return $res;
             }).call(this))
@@ -136,6 +136,10 @@ var Neptuo$PresentationModels$BindingConverterCollection =
                 return this.get_PreviousCollection().TryGetConverters(targetField, converters);
             converters.Value = null;
             return false;
+        },
+        GetKey: function (fieldType)
+        {
+            return fieldType.ToString();
         }
     },
     ctors: [ {name: "ctor", parameters: ["Neptuo.PresentationModels.BindingConverterCollection"]}],
@@ -758,11 +762,11 @@ var Neptuo$PresentationModels$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.PresentationModels.VersionInfo.Version = "4.3.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "4.3.2";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("4.3.0");
+            return new System.Version.ctor$$String("4.3.2");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -977,6 +981,10 @@ var Neptuo$PresentationModels$TypeFieldType =
             if (fieldType == null)
                 return false;
             return System.Type.op_Equality$$Type$$Type(fieldType.get_Type(), this.get_Type());
+        },
+        ToString: function ()
+        {
+            return System.String.Format$$String$$Object("(FieldType:{0})", this.get_Type().get_FullName());
         }
     },
     ctors: [ {name: "ctor", parameters: ["System.Type"]}],

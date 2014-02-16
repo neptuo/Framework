@@ -9,27 +9,25 @@ namespace Neptuo.PresentationModels
     public class BindingConverterCollection : IBindingConverterCollection
     {
         protected BindingConverterCollection PreviousCollection { get; private set; }
-        protected Dictionary<IFieldType, List<IBindingConverter>> Storage { get; private set; }
+        protected Dictionary<string, List<IBindingConverter>> Storage { get; private set; }
 
         public BindingConverterCollection(BindingConverterCollection previousCollection = null)
         {
-            Storage = new Dictionary<IFieldType, List<IBindingConverter>>();
+            Storage = new Dictionary<string, List<IBindingConverter>>();
             PreviousCollection = previousCollection;
         }
 
         public BindingConverterCollection Add(IFieldType fieldType, IBindingConverter converter)
         {
-            if (fieldType == null)
-                throw new ArgumentNullException("fieldType");
+            Guard.NotNull(fieldType, "fieldType");
+            Guard.NotNull(converter, "converter");
 
-            if (converter == null)
-                throw new ArgumentNullException("converter");
-
+            string key = GetKey(fieldType); 
             List<IBindingConverter> list;
-            if (!Storage.TryGetValue(fieldType, out list))
+            if (!Storage.TryGetValue(key, out list))
             {
                 list = new List<IBindingConverter>();
-                Storage.Add(fieldType, list);
+                Storage.Add(key, list);
             }
             list.Add(converter);
             return this;
@@ -53,8 +51,9 @@ namespace Neptuo.PresentationModels
 
         public virtual bool TryGetConverters(IFieldDefinition targetField, out IEnumerable<IBindingConverter> converters)
         {
+            string key = GetKey(targetField.FieldType);
             List<IBindingConverter> storageValue;
-            if(Storage.TryGetValue(targetField.FieldType, out storageValue))
+            if(Storage.TryGetValue(key, out storageValue))
             {
                 if (PreviousCollection != null)
                 {
@@ -72,6 +71,11 @@ namespace Neptuo.PresentationModels
 
             converters = null;
             return false;
+        }
+
+        protected string GetKey(IFieldType fieldType)
+        {
+            return fieldType.ToString();
         }
     }
 }

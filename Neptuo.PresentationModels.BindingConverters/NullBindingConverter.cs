@@ -19,7 +19,7 @@ namespace Neptuo.PresentationModels.BindingConverters
             Converter = converter;
         }
 
-        public override bool TryConvert(string sourceValue, IFieldDefinition targetField, out T? targetValue)
+        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out T? targetValue)
         {
             if (String.IsNullOrEmpty(sourceValue))
             {
@@ -28,7 +28,7 @@ namespace Neptuo.PresentationModels.BindingConverters
             }
 
             T notNullValue;
-            if(Converter.TryConvert(sourceValue, targetField, out notNullValue))
+            if(Converter.TryConvertTo(sourceValue, targetField, out notNullValue))
             {
                 targetValue = notNullValue;
                 return true;
