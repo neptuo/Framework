@@ -8,7 +8,7 @@ namespace Neptuo.PresentationModels.BindingConverters
 {
     public class BoolBindingConverter : BindingConverterBase<bool>
     {
-        public override bool TryConvert(string sourceValue, IFieldDefinition targetField, out bool targetValue)
+        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out bool targetValue)
         {
             if (sourceValue == null)
             {

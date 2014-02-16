@@ -3489,7 +3489,7 @@ JsTypes.push({ fullname: "System.Int32", baseTypeName: "System.ValueType", defin
 	    return parseInt(s, 10);
 	},
 	TryParse$$String$$Int32: function (s, value) {
-	    var val = this.tryParse(s);
+	    var val = parseInt(s, 10);
 	    if (val.toString() == "NaN") {
 	        value.Value = 0;
 	        return false;

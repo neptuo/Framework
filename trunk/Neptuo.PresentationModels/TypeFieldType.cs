@@ -35,6 +35,11 @@ namespace Neptuo.PresentationModels
             return fieldType.Type == Type;
         }
 
+        public override string ToString()
+        {
+            return String.Format("(FieldType:{0})", Type.FullName);
+        }
+
         //private bool? isNullable;
         //public bool IsNullable
         //{
