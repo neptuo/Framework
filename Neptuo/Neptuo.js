@@ -244,7 +244,7 @@ var Neptuo$Events$EventDispatcher =
     fullname: "Neptuo.Events.EventDispatcher",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
+    interfaceNames: ["Neptuo.Events.IEventManager", "Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
     Kind: "Class",
     definition:
     {
@@ -398,6 +398,8 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 =
 JsTypes.push(Neptuo$Events$Handlers$SingletonEventHandlerFactory$1);
 var Neptuo$Events$IEventDispatcher = {fullname: "Neptuo.Events.IEventDispatcher", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$IEventDispatcher);
+var Neptuo$Events$IEventManager = {fullname: "Neptuo.Events.IEventManager", baseTypeName: "System.Object", assemblyName: "Neptuo", interfaceNames: ["Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"], Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$Events$IEventManager);
 var Neptuo$Events$IEventRegistry = {fullname: "Neptuo.Events.IEventRegistry", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$IEventRegistry);
 var Neptuo$Guard =

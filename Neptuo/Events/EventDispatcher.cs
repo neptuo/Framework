@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Events
 {
-    public class EventDispatcher : IEventDispatcher, IEventRegistry
+    public class EventDispatcher : IEventManager, IEventDispatcher, IEventRegistry
     {
         private Dictionary<Type, List<object>> Registry { get; set; }
 

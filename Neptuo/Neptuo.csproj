@@ -46,6 +46,7 @@
     <Compile Include="Events\Handlers\IEventHandlerFactory.cs" />
     <Compile Include="Events\Handlers\SingletonEventHandlerFactory.cs" />
     <Compile Include="Events\IEventDispatcher.cs" />
+    <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="GuidProvider.cs" />
