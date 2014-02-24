@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Commands.Handlers
+namespace Neptuo.Commands
 {
-    public interface ICommandHandlerFactory<TCommand>
+    public interface ICommand
     {
-        ICommandHandler<TCommand> CreateHandler();
+        string Guid { get; }
     }
 }

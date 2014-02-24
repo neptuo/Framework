@@ -34,7 +34,7 @@ namespace TestConsole.Data
                 .RegisterInstance<DataContext>(new DataContext())
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
-                .RegisterType<ICommandHandler<bool, CreateProductCommand>, CreateProductCommandHandler>()
+                .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
                 .RegisterType<IValidator<CreateProductCommand>, CreateProductValidator>()
                 .RegisterType<IProductQuery, ProductEntityQuery>();
 
@@ -57,7 +57,7 @@ namespace TestConsole.Data
             //    commandDispatcher.Handle(createProduct);
             //    dependencyContainer.Resolve<DataContext>().SaveChanges();
             //}
-            commandDispatcher.Handle<bool, CreateProductCommand>(new CreateProductCommand());
+            commandDispatcher.Handle<CreateProductCommand>(new CreateProductCommand());
 
 
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();

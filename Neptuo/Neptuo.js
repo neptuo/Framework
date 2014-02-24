@@ -843,11 +843,11 @@ var Neptuo$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.VersionInfo.Version = "2.6.1";
+            Neptuo.VersionInfo.Version = "2.7.0";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("2.6.1");
+            return new System.Version.ctor$$String("2.7.0");
         }
     },
     assemblyName: "Neptuo",
