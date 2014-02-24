@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Commands.Handlers
 {
-    public interface ICommandHandler<TResult, TCommand>
+    public interface ICommandHandler<TCommand>
     {
-        Task<TResult> Handle(TCommand command);
+        void Handle(TCommand command);
     }
 }

@@ -10,7 +10,7 @@ namespace Neptuo.Commands
 {
     public interface ICommandDispatcher
     {
-        Task<TResult> Handle<TResult, TCommand>(TCommand command);
+        void Handle<TCommand>(TCommand command);
 
         IValidationResult Validate<TCommand>(TCommand command);
     }
