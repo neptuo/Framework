@@ -135,6 +135,232 @@ var Neptuo$Collections$ObjectModel$DictionaryStringValueProvider =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Collections$ObjectModel$DictionaryStringValueProvider);
+var Neptuo$ComponentModel$Converters$ConverterBase$2 =
+{
+    fullname: "Neptuo.ComponentModel.Converters.ConverterBase$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverter$2"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function (TSource, TTarget)
+        {
+            this.TSource = TSource;
+            this.TTarget = TTarget;
+            this._Converter = null;
+            System.Object.ctor.call(this);
+        },
+        Converter$$: "Neptuo.OutFunc`3[[`0],[`1],[System.Boolean]]",
+        get_Converter: function ()
+        {
+            return this._Converter;
+        },
+        set_Converter: function (value)
+        {
+            this._Converter = value;
+        },
+        ctor$$OutFunc$3: function (TSource, TTarget, converter)
+        {
+            this.TSource = TSource;
+            this.TTarget = TTarget;
+            this._Converter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            this.set_Converter(converter);
+        },
+        TryConvert: function (sourceValue, targetValue)
+        {
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.get_Converter(), null))
+                return this.get_Converter()(sourceValue, targetValue);
+            throw $CreateException(new System.InvalidOperationException.ctor$$String("Override TryConvert method or provider Converter function."), new Error());
+        },
+        TryConvertGeneral: function (sourceType, targetType, sourceValue, targetValue)
+        {
+            var target;
+            if ((function ()
+            {
+                var $1 = {Value: target};
+                var $res = this.TryConvert(Cast(sourceValue, this.TSource), $1);
+                target = $1.Value;
+                return $res;
+            }).call(this))
+            {
+                targetValue.Value = target;
+                return true;
+            }
+            targetValue.Value = null;
+            return false;
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$OutFunc", parameters: ["Neptuo.OutFunc"]}],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Converters$ConverterBase$2);
+var Neptuo$ComponentModel$Converters$ConverterRepository =
+{
+    fullname: "Neptuo.ComponentModel.Converters.ConverterRepository",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverterRepository"],
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            this.OnSearchConverter = null;
+            this._Storage = null;
+            Neptuo.ComponentModel.Converters.ConverterRepository.ctor$$Dictionary$2.call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.Dictionary$2.ctor));
+        },
+        Storage$$: "System.Collections.Generic.Dictionary`2[[System.Type],[System.Collections.Generic.Dictionary`2[[System.Type],[Neptuo.ComponentModel.Converters.IConverter]]]]",
+        get_Storage: function ()
+        {
+            return this._Storage;
+        },
+        set_Storage: function (value)
+        {
+            this._Storage = value;
+        },
+        ctor$$Dictionary$2: function (storage)
+        {
+            this.OnSearchConverter = null;
+            this._Storage = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(storage, "storage");
+            this.set_Storage(storage);
+        },
+        Add: function (sourceType, targetType, converter)
+        {
+            Neptuo.Guard.NotNull$$Object$$String(sourceType, "sourceType");
+            Neptuo.Guard.NotNull$$Object$$String(targetType, "targetType");
+            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            var storage;
+            if (!(function ()
+            {
+                var $1 = {Value: storage};
+                var $res = this.get_Storage().TryGetValue(sourceType, $1);
+                storage = $1.Value;
+                return $res;
+            }).call(this))
+                storage = (function ($p1)
+                {
+                    this.get_Storage().set_Item$$TKey(sourceType, $p1);
+                    return $p1;
+                }).call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Converters.IConverter.ctor));
+            storage.set_Item$$TKey(targetType, converter);
+            return this;
+        },
+        add_OnSearchConverter: function (value)
+        {
+            this.OnSearchConverter = $CombineDelegates(this.OnSearchConverter, value);
+        },
+        remove_OnSearchConverter: function (value)
+        {
+            this.OnSearchConverter = $RemoveDelegate(this.OnSearchConverter, value);
+        },
+        TryConvert$2$$TSource$$TTarget: function (TSource, TTarget, sourceValue, targetValue)
+        {
+            var sourceType = Typeof(TSource);
+            var targetType = Typeof(TTarget);
+            var converter = null;
+            var storage;
+            if (!(function ()
+            {
+                var $1 = {Value: storage};
+                var $res = this.get_Storage().TryGetValue(sourceType, $1);
+                storage = $1.Value;
+                return $res;
+            }).call(this) || !(function ()
+            {
+                var $1 = {Value: converter};
+                var $res = storage.TryGetValue(targetType, $1);
+                converter = $1.Value;
+                return $res;
+            }).call(this))
+            {
+                if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.OnSearchConverter, null))
+                    converter = this.OnSearchConverter(sourceType, targetType);
+            }
+            if (converter == null)
+            {
+                targetValue.Value = Default(TTarget);
+                return false;
+            }
+            var genericConverter = As(converter, Neptuo.ComponentModel.Converters.IConverter$2.ctor);
+            if (genericConverter != null)
+                return genericConverter.TryConvert(sourceValue, targetValue);
+            var targetObject;
+            if ((function ()
+            {
+                var $1 = {Value: targetObject};
+                var $res = converter.TryConvertGeneral(sourceType, targetType, sourceValue, $1);
+                targetObject = $1.Value;
+                return $res;
+            }).call(this))
+            {
+                if (Is(targetObject, TTarget))
+                {
+                    targetValue.Value = Cast(targetObject, TTarget);
+                    return true;
+                }
+            }
+            targetValue.Value = Default(TTarget);
+            return false;
+        },
+        TryConvert$$Type$$Type$$Object$$Object: function (sourceType, targetType, sourceValue, targetValue)
+        {
+            var converter = null;
+            var storage;
+            if (!(function ()
+            {
+                var $1 = {Value: storage};
+                var $res = this.get_Storage().TryGetValue(sourceType, $1);
+                storage = $1.Value;
+                return $res;
+            }).call(this) || !(function ()
+            {
+                var $1 = {Value: converter};
+                var $res = storage.TryGetValue(targetType, $1);
+                converter = $1.Value;
+                return $res;
+            }).call(this))
+            {
+                if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.OnSearchConverter, null))
+                    converter = this.OnSearchConverter(sourceType, targetType);
+            }
+            if (converter == null)
+            {
+                targetValue.Value = null;
+                return false;
+            }
+            return converter.TryConvertGeneral(sourceType, targetType, sourceValue, targetValue);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: []}, {name: "ctor$$Dictionary", parameters: ["System.Collections.Generic.Dictionary"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Converters$ConverterRepository);
+var Neptuo$ComponentModel$Converters$ConverterSearchDelegate =
+{
+    fullname: "Neptuo.ComponentModel.Converters.ConverterSearchDelegate",
+    Kind: "Delegate",
+    definition:
+    {
+        ctor: function (obj, func)
+        {
+            System.MulticastDelegate.ctor.call(this, obj, func);
+        }
+    },
+    ctors: [ {name: "ctor", parameters: ["System.Object", "System.IntPtr"]}],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Converters$ConverterSearchDelegate);
+var Neptuo$ComponentModel$Converters$IConverter = {fullname: "Neptuo.ComponentModel.Converters.IConverter", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$ComponentModel$Converters$IConverter);
+var Neptuo$ComponentModel$Converters$IConverter$2 = {fullname: "Neptuo.ComponentModel.Converters.IConverter$2", baseTypeName: "System.Object", assemblyName: "Neptuo", interfaceNames: ["Neptuo.ComponentModel.Converters.IConverter"], Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$ComponentModel$Converters$IConverter$2);
+var Neptuo$ComponentModel$Converters$IConverterRepository = {fullname: "Neptuo.ComponentModel.Converters.IConverterRepository", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+JsTypes.push(Neptuo$ComponentModel$Converters$IConverterRepository);
 var Neptuo$ComponentModel$ReturnTypeAttribute =
 {
     fullname: "Neptuo.ComponentModel.ReturnTypeAttribute",
@@ -163,6 +389,48 @@ var Neptuo$ComponentModel$ReturnTypeAttribute =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$ReturnTypeAttribute);
+var Neptuo$Converts =
+{
+    fullname: "Neptuo.Converts",
+    baseTypeName: "System.Object",
+    staticDefinition:
+    {
+        cctor: function ()
+        {
+            Neptuo.Converts.repository = null;
+        },
+        Repository$$: "Neptuo.ComponentModel.Converters.IConverterRepository",
+        get_Repository: function ()
+        {
+            if (Neptuo.Converts.repository == null)
+            {
+                if (Neptuo.Converts.repository == null)
+                    Neptuo.Converts.repository = new Neptuo.ComponentModel.Converters.ConverterRepository.ctor();
+            }
+            return Neptuo.Converts.repository;
+        },
+        Try$2$$TSource$$TTarget: function (TSource, TTarget, sourceValue, targetValue)
+        {
+            return Neptuo.Converts.get_Repository().TryConvert$2$$TSource$$TTarget(TSource, TTarget, sourceValue, targetValue);
+        },
+        Try$$Type$$Type$$Object$$Object: function (sourceType, targetType, sourceValue, targetValue)
+        {
+            return Neptuo.Converts.get_Repository().TryConvert$$Type$$Type$$Object$$Object(sourceType, targetType, sourceValue, targetValue);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition:
+    {
+        ctor: function ()
+        {
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Converts);
 var Neptuo$DependencyProviderExtensions =
 {
     fullname: "Neptuo.DependencyProviderExtensions",
@@ -843,11 +1111,11 @@ var Neptuo$VersionInfo =
     {
         cctor: function ()
         {
-            Neptuo.VersionInfo.Version = "2.7.0";
+            Neptuo.VersionInfo.Version = "2.8.0";
         },
         GetVersion: function ()
         {
-            return new System.Version.ctor$$String("2.7.0");
+            return new System.Version.ctor$$String("2.8.0");
         }
     },
     assemblyName: "Neptuo",
