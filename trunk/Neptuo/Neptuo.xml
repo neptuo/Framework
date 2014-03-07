@@ -7,4 +7,6 @@
   <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
   <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
   <Type Target="Neptuo.GuidProvider" Export="False" />
+
+  <Merge Filename="C:/Temp/Neptuo2.js" Sources="Neptuo.js" Minify="true" />
 </Exugin>

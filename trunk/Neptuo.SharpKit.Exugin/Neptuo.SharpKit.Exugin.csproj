@@ -59,6 +59,7 @@
     <Compile Include="Exports\ExportItem.cs" />
     <Compile Include="Exports\ExportRegistry.cs" />
     <Compile Include="Exports\ExportService.cs" />
+    <Compile Include="Exports\MergeFileItem.cs" />
     <Compile Include="Exports\MethodRegistryItem.cs" />
     <Compile Include="Exports\NamespaceRegistry.cs" />
     <Compile Include="Exports\NamespaceRegistryItem.cs" />

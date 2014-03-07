@@ -10,8 +10,9 @@ namespace Neptuo.SharpKit.Exugin.Exports
 {
     public class ExportRegistry
     {
-        Dictionary<string, TypeRegistryItem> typeItems;
-        List<NamespaceRegistryItem> namespaceItems;
+        private Dictionary<string, TypeRegistryItem> typeItems;
+        private List<NamespaceRegistryItem> namespaceItems;
+        private List<MergeFileItem> mergeFiles;
 
         /// <summary>
         /// Bound assembly definition.
@@ -65,6 +66,18 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 item.Target = String.Empty;
 
             typeItems[item.Target] = item;
+        }
+
+        /// <summary>
+        /// Adds definition for merging files.
+        /// </summary>
+        /// <param name="item">Merge file definition.</param>
+        public void AddItem(MergeFileItem item)
+        {
+            if (mergeFiles == null)
+                mergeFiles = new List<MergeFileItem>();
+
+            mergeFiles.Add(item);
         }
 
         /// <summary>
@@ -200,6 +213,15 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 return String.Format(DefaultExport.FilenameFormat, filename);
 
             return filename;
+        }
+
+        /// <summary>
+        /// Returns definitions for merging files.
+        /// </summary>
+        /// <returns>Definitions for merging files.</returns>
+        public IEnumerable<MergeFileItem> GetMergeItems()
+        {
+            return mergeFiles ?? new List<MergeFileItem>();
         }
     }
 }
