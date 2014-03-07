@@ -52,6 +52,9 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 TypeRegistryItem typeItem = registry.GetItem(type);
                 ProcessType(type, attributeProvider, typeItem);
             }
+
+            foreach (MergeFileItem item in registry.GetMergeItems())
+                attributeProvider.AddCustomAttribute(assembly, new JsMergedFileAttribute { Filename = item.FileName, Sources = item.Sources, Minify = item.Minify });
         }
 
         private void ProcessType(ITypeDefinition type, ICustomAttributeProvider attributeProvider, TypeRegistryItem typeItem)

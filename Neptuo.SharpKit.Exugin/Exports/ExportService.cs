@@ -44,6 +44,9 @@ namespace Neptuo.SharpKit.Exugin.Exports
             foreach (XmlElement element in document.GetElementsByTagName("Type"))
                 result.AddItem(LoadType(element, result));
 
+            foreach (XmlElement element in document.GetElementsByTagName("Merge"))
+                result.AddItem(LoadMerge(element));
+
             result.BuildUp();
             return result;
         }
@@ -132,6 +135,20 @@ namespace Neptuo.SharpKit.Exugin.Exports
             item.Mode = XmlUtil.GetAttributeEnum<JsMode>(element, "Mode") ?? registry.GetItem(item.Target).Mode;
             item.PropertiesAsFields = XmlUtil.GetAttributeBool(element, "PropertiesAsFields") ?? registry.GetItem(item.Target).PropertiesAsFields;
             item.Filename = registry.ApplyFilenameFormat(XmlUtil.GetAttributeString(element, "Filename")) ?? registry.GetItem(item.Target).Filename;
+        }
+
+        /// <summary>
+        /// Loads merge file definition.
+        /// </summary>
+        /// <param name="element">Xml element.</param>
+        /// <returns>Merge file definition.</returns>
+        private MergeFileItem LoadMerge(XmlElement element)
+        {
+            MergeFileItem item = new MergeFileItem();
+            item.FileName = XmlUtil.GetAttributeString(element, "Filename");
+            item.Sources = (XmlUtil.GetAttributeString(element, "Sources") ?? "").Split(',');
+            item.Minify = XmlUtil.GetAttributeBool(element, "Minify") ?? false;
+            return item;
         }
 
         #endregion
