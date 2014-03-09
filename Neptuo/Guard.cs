@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void NotNull(object argument, string argumentName)
         {
             if (argument == null)
@@ -28,6 +30,7 @@ namespace Neptuo
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
         /// <param name="message">Text description.</param>
+        [DebuggerStepThrough]
         public static void NotNull(object argument, string argumentName, string message)
         {
             if (argument == null)
@@ -40,6 +43,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void NotNullOrEmpty(string argument, string argumentName)
         {
             if (argument == null)
@@ -54,6 +58,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void Positive(int argument, string argumentName)
         {
             if (argument <= 0)
@@ -65,6 +70,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void PositiveOrZero(int argument, string argumentName)
         {
             if (argument < 0)
@@ -76,6 +82,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void Negative(int argument, string argumentName)
         {
             if (argument >= 0)
@@ -87,6 +94,7 @@ namespace Neptuo
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
         public static void NegativeOrZero(int argument, string argumentName)
         {
             if (argument > 0)
