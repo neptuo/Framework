@@ -47,8 +47,9 @@ namespace TestConsole.PresentationModels
             IBindingModelValueStorage storage = new BindingDictionaryValueStorage()
                 .Add("Username", "Pepa")
                 .Add("Password", "XxYy")
-                //.Add("PasswordAgain", "  ")
-                .Add("Age", "25");
+                .Add("PasswordAgain", "XxYy")
+                .Add("Age", "25")
+                .Add("RoleIDs", "1,2,3,4,5,6");
 
             IModelValueGetter bindingGetter = new BindingModelValueGetter(storage, bindingConverters, modelDefinition);
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition);
@@ -74,5 +75,7 @@ namespace TestConsole.PresentationModels
 
         [Required]
         public int? Age { get; set; }
+
+        public IEnumerable<int> RoleIDs { get; set; }
     }
 }
