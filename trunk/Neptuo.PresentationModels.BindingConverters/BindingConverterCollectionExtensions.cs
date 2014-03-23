@@ -15,9 +15,14 @@ namespace Neptuo.PresentationModels.BindingConverters
                 .Add(new TypeFieldType(typeof(int)), new IntBindingConverter())
                 .Add(new TypeFieldType(typeof(double)), new DoubleBindingConverter())
                 .Add(new TypeFieldType(typeof(string)), new StringBindingConverter())
+
                 .Add(new TypeFieldType(typeof(bool?)), new NullBindingConverter<bool>(new BoolBindingConverter()))
                 .Add(new TypeFieldType(typeof(int?)), new NullBindingConverter<int>(new IntBindingConverter()))
-                .Add(new TypeFieldType(typeof(double?)), new NullBindingConverter<double>(new DoubleBindingConverter()));
+                .Add(new TypeFieldType(typeof(double?)), new NullBindingConverter<double>(new DoubleBindingConverter()))
+
+                .Add(new TypeFieldType(typeof(IEnumerable<bool>)), new ListBindingConverter<bool>(",", new BoolBindingConverter()))
+                .Add(new TypeFieldType(typeof(IEnumerable<int>)), new ListBindingConverter<int>(",", new IntBindingConverter()))
+                .Add(new TypeFieldType(typeof(IEnumerable<double>)), new ListBindingConverter<double>(",", new DoubleBindingConverter()));
         }
     }
 }
