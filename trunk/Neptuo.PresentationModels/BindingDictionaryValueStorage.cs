@@ -24,15 +24,13 @@ namespace Neptuo.PresentationModels
             return this;
         }
 
-        public string GetValue(string identifier)
+        public bool TryGetValue(string identifier, out string targetValue)
         {
             if (identifier != null)
-            {
-                string value;
-                if (Storage.TryGetValue(identifier, out value))
-                    return value;
-            }
-            return null;
+                return Storage.TryGetValue(identifier, out targetValue);
+
+            targetValue = null;
+            return false;
         }
     }
 }

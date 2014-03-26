@@ -8,6 +8,6 @@ namespace Neptuo.PresentationModels
 {
     public interface IBindingModelValueStorage
     {
-        string GetValue(string identifier);
+        bool TryGetValue(string identifier, out string targetValue);
     }
 }

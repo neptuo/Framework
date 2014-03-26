@@ -190,9 +190,18 @@ var Neptuo$PresentationModels$BindingModelValueGetter = {
             }));
             if (targetField == null)
                 throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String("identifier", System.String.Format$$String$$Object$$Object("Unnable to find field \'{0}\' in model \'{1}\'.", identifier, this.get_ModelDefinition().get_Identifier())), new Error());
-            var sourceValue = this.get_Storage().GetValue(identifier);
-            if (this.get_ConverterCollection().TryConvert(sourceValue, targetField, value))
-                return true;
+            var sourceValue;
+            if ((function (){
+                var $1 = {
+                    Value: sourceValue
+                };
+                var $res = this.get_Storage().TryGetValue(identifier, $1);
+                sourceValue = $1.Value;
+                return $res;
+            }).call(this)){
+                if (this.get_ConverterCollection().TryConvert(sourceValue, targetField, value))
+                    return true;
+            }
             value.Value = null;
             return false;
         }
@@ -279,20 +288,11 @@ var Neptuo$PresentationModels$BindingDictionaryValueStorage = {
             this.get_Storage().Add(key, value);
             return this;
         },
-        GetValue: function (identifier){
-            if (identifier != null){
-                var value;
-                if ((function (){
-                    var $1 = {
-                        Value: value
-                    };
-                    var $res = this.get_Storage().TryGetValue(identifier, $1);
-                    value = $1.Value;
-                    return $res;
-                }).call(this))
-                    return value;
-            }
-            return null;
+        TryGetValue: function (identifier, targetValue){
+            if (identifier != null)
+                return this.get_Storage().TryGetValue(identifier, targetValue);
+            targetValue.Value = null;
+            return false;
         }
     },
     ctors: [{
@@ -823,10 +823,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "4.4.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "4.4.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.4.0");
+            return new System.Version.ctor$$String("4.4.1");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
