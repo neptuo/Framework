@@ -34,10 +34,12 @@ namespace Neptuo.PresentationModels
             if (targetField == null)
                 throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find field '{0}' in model '{1}'.", identifier, ModelDefinition.Identifier));
 
-            string sourceValue = Storage.GetValue(identifier);
-
-            if (ConverterCollection.TryConvert(sourceValue, targetField, out value))
-                return true;
+            string sourceValue;
+            if (Storage.TryGetValue(identifier, out sourceValue))
+            {
+                if (ConverterCollection.TryConvert(sourceValue, targetField, out value))
+                    return true;
+            }
 
             value = null;
             return false;
