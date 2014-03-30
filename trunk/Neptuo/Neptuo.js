@@ -115,6 +115,29 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var Neptuo$Collections$Generic$DictionaryExtensions = {
+    fullname: "Neptuo.Collections.Generic.DictionaryExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddRange$2: function (TKey, TValue, target, source){
+            var $it1 = source.GetEnumerator();
+            while ($it1.MoveNext()){
+                var item = $it1.get_Current();
+                target.set_Item$$TKey(item.get_Key(), item.get_Value());
+            }
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Collections$Generic$DictionaryExtensions);
 var Neptuo$Collections$ObjectModel$IITemsSource = {
     fullname: "Neptuo.Collections.ObjectModel.IITemsSource",
     baseTypeName: "System.Object",
@@ -544,9 +567,9 @@ var Neptuo$Events$EventDispatcher = {
                 handlers = $1.Value;
                 return $res;
             }).call(this)){
-                var $it1 = handlers.GetEnumerator();
-                while ($it1.MoveNext()){
-                    var handlerFactory = $it1.get_Current();
+                var $it2 = handlers.GetEnumerator();
+                while ($it2.MoveNext()){
+                    var handlerFactory = $it2.get_Current();
                     handlerFactory.CreateHandler().Handle(eventData);
                 }
             }
@@ -810,9 +833,9 @@ var Neptuo$Globalization$CultureInfoExtensions = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it2 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it2.MoveNext()){
-                var item = $it2.get_Current();
+            var $it3 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it3.MoveNext()){
+                var item = $it3.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -1156,10 +1179,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.8.2";
+            Neptuo.VersionInfo.Version = "2.9.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.8.2");
+            return new System.Version.ctor$$String("2.9.0");
         }
     },
     assemblyName: "Neptuo",
@@ -1195,9 +1218,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it3 = type.GetProperties().GetEnumerator();
-            while ($it3.MoveNext()){
-                var prop = $it3.get_Current();
+            var $it4 = type.GetProperties().GetEnumerator();
+            while ($it4.MoveNext()){
+                var prop = $it4.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -1277,9 +1300,9 @@ var Neptuo$Security$Cryptography$HashHelper = {
             var hasher = System.Security.Cryptography.SHA1.Create();
             var hash = hasher.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(text));
             var result = new System.Text.StringBuilder.ctor();
-            var $it4 = hash.GetEnumerator();
-            while ($it4.MoveNext()){
-                var hashPart = $it4.get_Current();
+            var $it5 = hash.GetEnumerator();
+            while ($it5.MoveNext()){
+                var hashPart = $it5.get_Current();
                 result.Append$$String(hashPart.ToString$$String("X2"));
             }
             return result.ToString();
@@ -1439,9 +1462,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("items"), new Error());
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it5 = items.GetEnumerator();
-            while ($it5.MoveNext()){
-                var item = $it5.get_Current();
+            var $it6 = items.GetEnumerator();
+            while ($it6.MoveNext()){
+                var item = $it6.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(new System.InvalidOperationException.ctor$$String("StateMachine in invalid state, got null new state."), new Error());
