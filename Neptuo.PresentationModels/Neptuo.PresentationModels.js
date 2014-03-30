@@ -823,10 +823,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "4.4.1";
+            Neptuo.PresentationModels.VersionInfo.Version = "4.4.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.4.1");
+            return new System.Version.ctor$$String("4.4.2");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -1018,7 +1018,12 @@ var Neptuo$PresentationModels$TypeFieldType = {
             return System.Type.op_Equality$$Type$$Type(fieldType.get_Type(), this.get_Type());
         },
         ToString: function (){
-            return System.String.Format$$String$$Object("(FieldType:{0})", this.get_Type().get_FullName());
+            return System.String.Format$$String$$Object$$Object("(FieldType:{0}:{1})", this.get_Type().get_FullName(), this.GetGenericArgument());
+        },
+        GetGenericArgument: function (){
+            if (this.get_Type().get_IsGenericType())
+                return this.get_Type().GetGenericArguments()[0].get_FullName();
+            return System.String.Empty;
         }
     },
     ctors: [{

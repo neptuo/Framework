@@ -37,7 +37,15 @@ namespace Neptuo.PresentationModels
 
         public override string ToString()
         {
-            return String.Format("(FieldType:{0})", Type.FullName);
+            return String.Format("(FieldType:{0}:{1})", Type.FullName, GetGenericArgument());
+        }
+
+        private string GetGenericArgument()
+        {
+            if (Type.IsGenericType)
+                return Type.GetGenericArguments()[0].FullName;
+
+            return String.Empty;
         }
 
         //private bool? isNullable;
