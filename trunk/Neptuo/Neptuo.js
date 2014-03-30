@@ -424,6 +424,7 @@ var Neptuo$Converts = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
+            Neptuo.Converts.lockRepository = new System.Object.ctor();
             Neptuo.Converts.repository = null;
         },
         Repository$$: "Neptuo.ComponentModel.Converters.IConverterRepository",
@@ -1155,10 +1156,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.8.1";
+            Neptuo.VersionInfo.Version = "2.8.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.8.1");
+            return new System.Version.ctor$$String("2.8.2");
         }
     },
     assemblyName: "Neptuo",

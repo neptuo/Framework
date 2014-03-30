@@ -12,6 +12,7 @@ namespace Neptuo
     /// </summary>
     public static class Converts
     {
+        private static object lockRepository = new object();
         private static IConverterRepository repository;
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace Neptuo
             {
                 if (repository == null)
                 {
-                    lock (repository)
+                    lock (lockRepository)
                     {
                         if (repository == null)
                             repository = new ConverterRepository();
