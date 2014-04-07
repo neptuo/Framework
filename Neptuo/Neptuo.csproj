@@ -48,6 +48,8 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyProviderExtensions.cs" />
     <Compile Include="Events\EventDispatcher.cs" />
+    <Compile Include="Events\EventDispatcherExtensions.cs" />
+    <Compile Include="Events\Handlers\ActionEventHandler.cs" />
     <Compile Include="Events\Handlers\GetterEventHandlerFactory.cs" />
     <Compile Include="Events\Handlers\IEventHandler.cs" />
     <Compile Include="Events\Handlers\IEventHandlerFactory.cs" />
