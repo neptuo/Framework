@@ -41,7 +41,6 @@ namespace TestConsole.Data
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
-            IQueryDispatcher queryDispatcher = new DependencyQueryDispatcher(dependencyContainer);
 
             //CreateProducts(dependencyContainer);
 
@@ -57,7 +56,7 @@ namespace TestConsole.Data
             //    commandDispatcher.Handle(createProduct);
             //    dependencyContainer.Resolve<DataContext>().SaveChanges();
             //}
-            commandDispatcher.Handle<CreateProductCommand>(new CreateProductCommand());
+            //commandDispatcher.Handle<CreateProductCommand>(new CreateProductCommand());
 
 
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
@@ -71,12 +70,11 @@ namespace TestConsole.Data
             ProductEntity e = new ProductEntity();
 
 
-            IProductQuery query = queryDispatcher.Get<IProductQuery>();
-            query.WhereText(f => f.Name, "u", TextSearchType.Contains);
-            query.Where(f => f.Name, TextSearch.Create("a", TextSearchType.EndsWith));
+            IProductQuery query = dependencyContainer.Resolve<IProductQuery>();
+            query.Filter.Name = TextSearch.Create("u", TextSearchType.Contains);
 
-            IEnumerable<Key> keys = query.Result(p => p.Key).Items.ToList();
-            Console.WriteLine(String.Join(", ", keys));
+            var result = query.Result(p => p.Key);
+            Console.WriteLine(String.Format("{0} => {1}", result.TotalCount, String.Join(", ", result.Items.ToList())));
 
 
 
@@ -112,15 +110,14 @@ namespace TestConsole.Data
 
         }
 
-        static void PerfTest(IDependencyContainer dependencyContainer, IQueryDispatcher queryDispatcher)
+        static void PerfTest(IDependencyContainer dependencyContainer)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
             for (int i = 0; i < 1000; i++)
             {
-                queryDispatcher.Get<IProductQuery>()
-                    .WhereInt(f => f.Key, 1, 3)
+                dependencyContainer.Resolve<IProductQuery>()
                     .Result().Items
                     .Select(p => p.Key)
                     .ToArray();

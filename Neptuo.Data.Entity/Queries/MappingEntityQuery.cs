@@ -15,9 +15,22 @@ namespace Neptuo.Data.Entity.Queries
         where TEntity : class, TBusiness
         where TBusiness : IKey<Key>
     {
+        private TFilter filter;
+
         protected IQueryable<TBusiness> OriginalItems { get; private set; }
         protected IQueryable<TBusiness> Items { get; private set; }
-        protected Dictionary<string, object> WhereFilters { get; private set; }
+
+        public TFilter Filter
+        {
+            get
+            {
+                if (filter == null)
+                    filter = CreateFilter();
+
+                return filter;
+            }
+            set { filter = value; }
+        }
 
         public MappingEntityQuery(IQueryable<TEntity> items)
         {
@@ -26,13 +39,6 @@ namespace Neptuo.Data.Entity.Queries
 
             OriginalItems = items;
             Items = items;
-            WhereFilters = new Dictionary<string, object>();
-        }
-
-        public IQuery<TBusiness, TFilter> Where<TValue>(Expression<Func<TFilter, TValue>> selector, TValue value)
-        {
-            WhereFilters[TypeHelper.PropertyName(selector)] = value;
-            return this;
         }
 
         public IQuery<TBusiness, TFilter> OrderBy(Expression<Func<TBusiness, object>> sorter)
@@ -49,23 +55,25 @@ namespace Neptuo.Data.Entity.Queries
 
         public IQueryResult<TBusiness> Result()
         {
-            var items = AppendWhere((IQueryable<TEntity>)Items, WhereFilters);
+            var items = AppendWhere((IQueryable<TEntity>)Items);
+            var originalItems = AppendWhere((IQueryable<TEntity>)Items);
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TBusiness>(items, OriginalItems.Count());
+            return new EntityQueryResult<TBusiness>(items, originalItems.Count());
         }
 
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TBusiness, TTarget>> projection)
         {
-            var items = AppendWhere((IQueryable<TEntity>)Items, WhereFilters).Select(projection).WithTranslations();
+            var items = AppendWhere((IQueryable<TEntity>)Items).Select(projection).WithTranslations();
+            var originalItems = AppendWhere((IQueryable<TEntity>)Items);
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TTarget>(items, OriginalItems.Count());
+            return new EntityQueryResult<TTarget>(items, originalItems.Count());
         }
 
         public TBusiness ResultSingle()
         {
-            return Items.FirstOrDefault();
+            return AppendWhere((IQueryable<TEntity>)Items).FirstOrDefault();
         }
 
         public bool Any()
@@ -89,10 +97,10 @@ namespace Neptuo.Data.Entity.Queries
             return Page(pageIndex, pageSize).Result();
         }
 
-        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items, Dictionary<string, object> whereFilters)
+        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items)
         {
             ParameterExpression parameter = Expression.Parameter(typeof(TEntity));
-            Expression predicate = BuildWhereExpression(parameter, whereFilters);
+            Expression predicate = BuildWhereExpression(parameter);
 
             if (predicate != null)
             {
@@ -109,6 +117,8 @@ namespace Neptuo.Data.Entity.Queries
             return items;
         }
 
-        protected abstract Expression BuildWhereExpression(Expression parameter, Dictionary<string, object> whereFilters);
+        protected abstract Expression BuildWhereExpression(Expression parameter);
+
+        protected abstract TFilter CreateFilter();
     }
 }

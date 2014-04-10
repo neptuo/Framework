@@ -17,22 +17,22 @@ namespace TestConsole.Data.Queries
             : base(dataContext.Products)
         { }
 
-        protected override Expression BuildWhereExpression(Expression parameter, Dictionary<string, object> whereFilters)
+        protected override Expression BuildWhereExpression(Expression parameter)
         {
             Expression target = null;
-            foreach (var whereFilter in whereFilters)
-            {
-                if (whereFilter.Key == TypeHelper.PropertyName<IProductFilter, object>(p => p.Key))
-                {
-                    target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.ID, (IntSearch)whereFilter.Value);
-                }
-                else if (whereFilter.Key == TypeHelper.PropertyName<IProductFilter, object>(p => p.Name))
-                {
-                    target = EntityQuerySearch.BuildTextSearch<Product>(target, parameter, p => p.Name, (TextSearch)whereFilter.Value);
-                }
-            }
+
+            if (Filter.Key != null)
+                target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.ID, Filter.Key);
+
+            if (Filter.Name != null)
+                target = EntityQuerySearch.BuildTextSearch<ProductEntity>(target, parameter, p => p.Name, Filter.Name);
 
             return target;
+        }
+
+        protected override IProductFilter CreateFilter()
+        {
+            return new ProductFilter();
         }
     }
 }

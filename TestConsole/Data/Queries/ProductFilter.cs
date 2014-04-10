@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Queries
 {
-    public interface IProductFilter
+    public class ProductFilter : IProductFilter
     {
-        IntSearch Key { get; set; }
-        TextSearch Name { get; set; }
-        //ICategoryFilter Category { get; set; }
-        DoubleSearch Price { get; set; }
+        public IntSearch Key { get; set; }
+        public TextSearch Name { get; set; }
+        public DoubleSearch Price { get; set; }
     }
 }
