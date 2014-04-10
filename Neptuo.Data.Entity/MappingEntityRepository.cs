@@ -99,22 +99,21 @@ namespace Neptuo.Data.Entity
         }
     }
 
-    public class MappingEntityRepository<TBusiness, TEntity, TContext> : MappingEntityRepository<TBusiness, TEntity, Key, TContext>, IRepository<TBusiness>
+    public class MappingEntityRepository<TBusiness, TEntity, TContext> : MappingEntityRepository<TBusiness, TEntity, int, TContext>, IRepository<TBusiness>
         where TEntity : class, TBusiness
-        where TBusiness : class, IKey<Key>, IVersion
+        where TBusiness : class, IKey<int>, IVersion
         where TContext : IDbContext
     {
         public MappingEntityRepository(TContext dbContext)
             : base(dbContext)
         { }
 
-        public override TBusiness Get(Key key)
+        public override TBusiness Get(int key)
         {
-            if (key == null)
-                throw new ArgumentNullException("key");
+            //if (key == null)
+            //    throw new ArgumentNullException("key");
 
-            return DbContext.Set<TEntity>().Find(key.ID);
+            return DbContext.Set<TEntity>().Find(key);
         }
-
     }
 }

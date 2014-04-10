@@ -12,19 +12,19 @@ namespace TestConsole.Data
     public class CategoryEntity : Category
     {
         [Key]
-        public int ID
-        {
-            get { return Key == null ? 0 : Key.ID; }
-            set { Key = new Key(value, Version, typeof(Category)); }
-        }
+        public override int Key { get; set; }
+        //{
+        //    get { return Key == null ? 0 : Key.ID; }
+        //    set { Key = new Key(value, Version, typeof(Category)); }
+        //}
         [Timestamp, ConcurrencyCheck]
-        public override byte[] Version
-        {
-            get { return Key == null ? null : Key.Version; }
-            set { Key = new Key(ID, value, typeof(Category)); }
-        }
+        public override byte[] Version { get; set; }
+        //{
+        //    get { return Key == null ? null : Key.Version; }
+        //    set { Key = new Key(ID, value, typeof(Category)); }
+        //}
 
-        [NotMapped]
-        public override Key Key { get; set; }
+        //[NotMapped]
+        //public override Key Key { get; set; }
     }
 }

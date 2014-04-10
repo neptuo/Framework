@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Data.Entity.Queries
 {
     public abstract class EntityQuery<TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TEntity, TFilter>
-        where TEntity : IKey<Key>
+        where TEntity : IKey<int>
     {
         protected IQueryable<TEntity> OriginalItems { get; private set; }
         protected IQueryable<TEntity> Items { get; private set; }
@@ -49,7 +49,7 @@ namespace Neptuo.Data.Entity.Queries
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
         {
             var items = AppendWhere(Items).Select(projection);
-            var originalItems = AppendWhere((IQueryable<TEntity>)Items);
+            var originalItems = AppendWhere((IQueryable<TEntity>)Items);//.WithTranslations();
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
             return new EntityQueryResult<TTarget>(items, originalItems.Count());

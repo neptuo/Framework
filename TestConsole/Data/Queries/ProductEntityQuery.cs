@@ -22,7 +22,7 @@ namespace TestConsole.Data.Queries
             Expression target = null;
 
             if (Filter.Key != null)
-                target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.ID, Filter.Key);
+                target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.Key, Filter.Key);
 
             if (Filter.Name != null)
                 target = EntityQuerySearch.BuildTextSearch<ProductEntity>(target, parameter, p => p.Name, Filter.Name);
