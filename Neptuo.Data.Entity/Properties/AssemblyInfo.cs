@@ -1,4 +1,4 @@
-﻿using Neptuo.Data.Entity;
+﻿using Neptuo.Data;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
