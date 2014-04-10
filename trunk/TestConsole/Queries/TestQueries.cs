@@ -1,12 +1,9 @@
-﻿using Neptuo.Queries;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IntSearch = Neptuo.Data.Queries.IntSearch;
-using TextSearch = Neptuo.Data.Queries.TextSearch;
-using DoubleSearch = Neptuo.Data.Queries.DoubleSearch;
+using Neptuo.Data.Queries;
 
 namespace TestConsole.Queries
 {
@@ -14,14 +11,11 @@ namespace TestConsole.Queries
     {
         public static void Test()
         {
-            IQuery<ProductModel, IProductFilter> query = null;
+            IQuery<ProductModel, ProductFilter> query = null;
 
-            query
-                .Where(f => f.Key, IntSearch.Create(5))
-                .Or(
-                    query
-                        .Where(f => f.Name, TextSearch.Create("Spa"))
-                );
+            ProductFilter nameFilter = new ProductFilter();
+
+            query.Filter.Key = IntSearch.Create(5);
         }
     }
 }

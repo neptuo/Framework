@@ -15,8 +15,8 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //TestTokens.Test();
-            //TestEntity.Test();
-            TestPresentationModel.Test();
+            TestEntity.Test();
+            //TestPresentationModel.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
