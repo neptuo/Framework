@@ -13,7 +13,7 @@ namespace Neptuo.Data.Entity.Queries
 {
     public abstract class MappingEntityQuery<TBusiness, TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TBusiness, TFilter>
         where TEntity : class, TBusiness
-        where TBusiness : IKey<Key>
+        where TBusiness : IKey<int>
     {
         protected IQueryable<TBusiness> OriginalItems { get; private set; }
         protected IQueryable<TBusiness> Items { get; private set; }
@@ -50,7 +50,7 @@ namespace Neptuo.Data.Entity.Queries
 
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TBusiness, TTarget>> projection)
         {
-            var items = AppendWhere((IQueryable<TEntity>)Items).Select(projection).WithTranslations();
+            var items = AppendWhere((IQueryable<TEntity>)Items).Select(projection);//.WithTranslations();
             var originalItems = AppendWhere((IQueryable<TEntity>)Items);
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());

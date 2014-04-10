@@ -13,24 +13,24 @@ namespace TestConsole.Data
 {
     public class ProductEntity : Product
     {
-        private static readonly CompiledExpression<ProductEntity, Key> keyExpression
-            = DefaultTranslationOf<ProductEntity>.Property(p => p.Key, p => new Key { ID = (p as ProductEntity).ID, Version = (p as ProductEntity).Version });
+        //private static readonly CompiledExpression<ProductEntity, Key> keyExpression
+        //    = DefaultTranslationOf<ProductEntity>.Property(p => p.Key, p => new Key { ID = (p as ProductEntity).ID, Version = (p as ProductEntity).Version });
 
         [Key]
-        public int ID
-        {
-            get { return Key == null ? 0 : Key.ID; }
-            set { Key = new Key(value, Version, typeof(Product)); }
-        }
+        public override int Key { get; set; }
+        //{
+        //    get { return Key == null ? 0 : Key.ID; }
+        //    set { Key = new Key(value, Version, typeof(Product)); }
+        //}
         [Timestamp, ConcurrencyCheck]
-        public override byte[] Version
-        {
-            get { return Key == null ? null : Key.Version; }
-            set { Key = new Key(ID, value, typeof(Product)); }
-        }
+        public override byte[] Version { get; set; }
+        //{
+        //    get { return Key == null ? null : Key.Version; }
+        //    set { Key = new Key(ID, value, typeof(Product)); }
+        //}
 
-        [NotMapped]
-        public override Key Key { get; set; }
+        //[NotMapped]
+        //public override Key Key { get; set; }
 
         private CategoryEntity categoryEntity;
 
@@ -48,13 +48,13 @@ namespace TestConsole.Data
             {
                 categoryEntity = (CategoryEntity)value;
                 if (value != null)
-                    CategoryID = ((CategoryEntity)value).ID;
+                    CategoryKey = ((CategoryEntity)value).Key;
                 else
-                    CategoryID = null;
+                    CategoryKey = null;
             }
         }
 
         [ForeignKey("CategoryEntity")]
-        public int? CategoryID { get; set; }
+        public int? CategoryKey { get; set; }
     }
 }

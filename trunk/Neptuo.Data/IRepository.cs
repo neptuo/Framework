@@ -45,7 +45,7 @@ namespace Neptuo.Data
     /// Repository that uses <code>int</code> as primary key for entity.
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
-    public interface IRepository<TEntity> : IRepository<TEntity, Key>
-        where TEntity : class, IKey<Key>, IVersion
+    public interface IRepository<TEntity> : IRepository<TEntity, int>
+        where TEntity : class, IKey<int>, IVersion
     { }
 }

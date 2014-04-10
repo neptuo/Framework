@@ -92,20 +92,20 @@ namespace Neptuo.Data.Entity
     /// </summary>
     /// <typeparam name="TEntity">Entity type.</typeparam>
     /// <typeparam name="TContext">DbContext used for storing objects.</typeparam>
-    public class EntityRepository<TEntity, TContext> : EntityRepository<TEntity, Key, TContext>, IRepository<TEntity>
-        where TEntity : class, IKey<Key>, IVersion
+    public class EntityRepository<TEntity, TContext> : EntityRepository<TEntity, int, TContext>, IRepository<TEntity>
+        where TEntity : class, IKey<int>, IVersion
         where TContext : IDbContext
     {
         public EntityRepository(TContext dbContext)
             : base(dbContext)
         { }
 
-        public override TEntity Get(Key key)
+        public override TEntity Get(int key)
         {
-            if (key == null)
-                throw new ArgumentNullException("key");
+            //if (key == null)
+            //    throw new ArgumentNullException("key");
 
-            return DbContext.Set<TEntity>().Find(key.ID);
+            return DbContext.Set<TEntity>().Find(key);
         }
 
         public override void Update(TEntity item)

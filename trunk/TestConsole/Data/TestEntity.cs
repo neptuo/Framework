@@ -134,8 +134,8 @@ namespace TestConsole.Data
             {
                 List<int> ids = new List<int>();
                 dataContext.Products
-                    .Where(p => ids.Contains(p.ID))
-                    .Select(p => new { ID = p.ID, Version = p.Version })
+                    .Where(p => ids.Contains(p.Key))
+                    .Select(p => new { ID = p.Key, Version = p.Version })
                     .ToArray();
             }
 
