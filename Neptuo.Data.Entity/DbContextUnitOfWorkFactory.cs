@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Entity
 {
-    public class DbContextUnitOfWorkFactory : IUnitOfWorkFactory
+    public class DbContextUnitOfWorkFactory<TDbContext> : IUnitOfWorkFactory
+        where TDbContext : DbContext
     {
-        protected DbContext DbContext { get; private set; }
+        protected TDbContext DbContext { get; private set; }
 
-        public DbContextUnitOfWorkFactory(DbContext dbContext)
+        public DbContextUnitOfWorkFactory(TDbContext dbContext)
         {
             DbContext = dbContext;
         }

@@ -32,6 +32,14 @@ namespace Neptuo.Data.Entity
             DbContext = dbContext;
         }
 
+        /// <summary>
+        /// Saves changes on db context.
+        /// </summary>
+        protected virtual void SaveChanges()
+        {
+            DbContext.SaveChanges();
+        }
+
         #region Get/Insert/Update/Delete
 
         /// <summary>
@@ -57,6 +65,7 @@ namespace Neptuo.Data.Entity
                 throw new ArgumentNullException("item");
 
             DbContext.Set<TEntity>().Add(item);
+            SaveChanges();
         }
 
         /// <summary>
@@ -70,6 +79,7 @@ namespace Neptuo.Data.Entity
 
             DbContext.Set<TEntity>().Attach(item);
             DbContext.Entry<TEntity>(item).State = EntityState.Modified;
+            SaveChanges();
         }
 
         /// <summary>
@@ -82,6 +92,7 @@ namespace Neptuo.Data.Entity
                 throw new ArgumentNullException("item");
 
             DbContext.Set<TEntity>().Remove(item);
+            SaveChanges();
         }
 
         #endregion
@@ -132,11 +143,11 @@ namespace Neptuo.Data.Entity
             }
         }
 
-        protected void CheckVersion(TEntity item)
-        {
-            //TEntity current = Get(item.Key);
-            //if (current.Version != item.Version)
-            //    throw new IncorrectVersionException(item.Key);
-        }
+        //protected void CheckVersion(TEntity item)
+        //{
+        //    //TEntity current = Get(item.Key);
+        //    //if (current.Version != item.Version)
+        //    //    throw new IncorrectVersionException(item.Key);
+        //}
     }
 }

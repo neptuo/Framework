@@ -34,6 +34,28 @@ namespace Neptuo.Data.Entity
             DbContext = dbContext;
         }
 
+        /// <summary>
+        /// Saves changes on db context.
+        /// </summary>
+        protected virtual void SaveChanges()
+        {
+            DbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Checks whether passed <paramref name="input"/> is of type <typeparamref name="TEntity"/>.
+        /// </summary>
+        /// <param name="input">Input object.</param>
+        /// <returns><code>true</code> if <paramref name="input"/> is of type <typeparamref name="TEntity"/>.</returns>
+        protected TEntity CheckMapping(TBusiness input)
+        {
+            TEntity entity = input as TEntity;
+            if (entity == null)
+                throw new MappingEntityException(typeof(TBusiness), typeof(TEntity));
+
+            return entity;
+        }
+
         #region Get/Insert/Update/Delete
 
         /// <summary>
@@ -59,6 +81,7 @@ namespace Neptuo.Data.Entity
                 throw new ArgumentNullException("item");
 
             DbContext.Set<TEntity>().Add(CheckMapping(item));
+            SaveChanges();
         }
 
         /// <summary>
@@ -73,6 +96,7 @@ namespace Neptuo.Data.Entity
             TEntity entity = CheckMapping(item);
             DbContext.Set<TEntity>().Attach(entity);
             DbContext.Entry<TEntity>(entity).State = EntityState.Modified;
+            SaveChanges();
         }
 
         /// <summary>
@@ -85,18 +109,10 @@ namespace Neptuo.Data.Entity
                 throw new ArgumentNullException("item");
 
             DbContext.Set<TEntity>().Remove(CheckMapping(item));
+            SaveChanges();
         }
 
         #endregion
-
-        protected TEntity CheckMapping(TBusiness input)
-        {
-            TEntity entity = input as TEntity;
-            if (entity == null)
-                throw new MappingEntityException(typeof(TBusiness), typeof(TEntity));
-
-            return entity;
-        }
     }
 
     public class MappingEntityRepository<TBusiness, TEntity, TContext> : MappingEntityRepository<TBusiness, TEntity, int, TContext>, IRepository<TBusiness>

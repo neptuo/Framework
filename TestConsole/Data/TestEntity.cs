@@ -32,6 +32,7 @@ namespace TestConsole.Data
             IDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer
                 .RegisterInstance<DataContext>(new DataContext())
+                .RegisterType<IUnitOfWorkFactory, DbContextUnitOfWorkFactory<DataContext>>()
                 .RegisterType<IProductRepository, ProductRepository>()
                 .RegisterType<ICategoryRepository, CategoryRepository>()
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
@@ -44,6 +45,10 @@ namespace TestConsole.Data
 
             //CreateProducts(dependencyContainer);
 
+            ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+            Category uzenina = categories.Create();
+            uzenina.Name = "Software";
+            categories.Insert(uzenina);
 
             //ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
             //CreateProductCommand createProduct = new CreateProductCommand();
@@ -145,25 +150,28 @@ namespace TestConsole.Data
 
         static void CreateProducts(IDependencyContainer dependencyContainer)
         {
-            ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
-            Category uzenina = categories.Create();
-            uzenina.Name = "Uzenina";
-            categories.Insert(uzenina);
+            using (var transaction = dependencyContainer.Resolve<IUnitOfWorkFactory>().Create())
+            {
+                ICategoryRepository categories = dependencyContainer.Resolve<ICategoryRepository>();
+                Category uzenina = categories.Create();
+                uzenina.Name = "Uzenina";
+                categories.Insert(uzenina);
 
-            IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
-            Product burty = products.Create();
-            burty.Name = "Buřty";
-            burty.Category = uzenina;
-            burty.Price = 22;
-            products.Insert(burty);
+                IProductRepository products = dependencyContainer.Resolve<IProductRepository>();
+                Product burty = products.Create();
+                burty.Name = "Buřty";
+                burty.Category = uzenina;
+                burty.Price = 22;
+                products.Insert(burty);
 
-            Product sunka = products.Create();
-            sunka.Name = "Šunka";
-            sunka.Category = uzenina;
-            sunka.Price = 32;
-            products.Insert(sunka);
+                Product sunka = products.Create();
+                sunka.Name = "Šunka";
+                sunka.Category = uzenina;
+                sunka.Price = 32;
+                products.Insert(sunka);
 
-            dependencyContainer.Resolve<DataContext>().SaveChanges();
+                transaction.SaveChanges();
+            }
         }
     }
 }
