@@ -43,6 +43,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="SharpKitCompiler.cs" />
     <Compile Include="SharpKitCompilerContext.cs" />
+    <Compile Include="SharpKitCompilerException.cs" />
     <Compile Include="SharpKitProcessBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

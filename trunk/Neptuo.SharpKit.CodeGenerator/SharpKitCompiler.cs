@@ -22,6 +22,7 @@ namespace Neptuo.SharpKit.CodeGenerator
         protected HashSet<string> Plugins { get; private set; }
 
         public string TempDirectory { get; set; }
+        public bool RunCsc { get; set; }
 
         public SharpKitCompiler()
         {
@@ -29,6 +30,7 @@ namespace Neptuo.SharpKit.CodeGenerator
             References = new HashSet<string>();
             SharpKitReferences = new HashSet<string>();
             Plugins = new HashSet<string>();
+            RunCsc = true;
         }
 
         public void AddReferenceFolder(string path)
@@ -161,40 +163,39 @@ namespace Neptuo.SharpKit.CodeGenerator
             List<string> blackList = new List<string> { sourceCodeFileName, jsFileName, dllFileName, manifestFileName };
 
             string cscArgs = String.Format("/target:library /nologo /out:{1} {2} \"{0}\"", sourceCodeFileName, dllFileName, cscBuilder.Arguments());
-            
-            ExecuteResult cscResult = Execute(TempDirectory, CscPath, cscArgs);
-            if (cscResult.ExitCode != 0)
+
+            if (RunCsc)
+            {
+                ExecuteResult cscResult = Execute(TempDirectory, CscPath, cscArgs);
+                if (cscResult.ExitCode != 0)
+                    throw new SharpKitCompilerException(cscResult);
+            }
+
+            //string args = String.Format("/rebuild /out:{3} {4} {5} /OutputGeneratedJsFile:\"{0}\" \"{1}\" /ManifestFile:\"{2}\"", jsPath, sourceCodeFileName, manifestPath, dllFileName, sysRefsArgs, refsArgs);
+
+            ExecuteResult skResult = Execute(TempDirectory, skBuilder.Executable(), skBuilder.Arguments());
+            //skcRes.Output = GetOutput(skResult.Output, blackList);
+            //skcRes.Success = skResult.ExitCode == 0 && File.Exists(jsPath);
+            if (skResult.ExitCode != 0)
             {
                 //skcRes.ErrorMessage = "Compilation error";
-                //skcRes.Output = GetOutput(cscResult.Output, blackList);
-                throw new Exception("Compilation error");
+                throw new SharpKitCompilerException(skResult);
+            }
+            else if (!File.Exists(jsPath))
+            {
+                //skcRes.ErrorMessage = "No js files were generated";
+                throw new Exception("No js files were generated");
             }
             else
             {
-                //string args = String.Format("/rebuild /out:{3} {4} {5} /OutputGeneratedJsFile:\"{0}\" \"{1}\" /ManifestFile:\"{2}\"", jsPath, sourceCodeFileName, manifestPath, dllFileName, sysRefsArgs, refsArgs);
-
-                ExecuteResult skResult = Execute(TempDirectory, skBuilder.Executable(), skBuilder.Arguments());
-                //skcRes.Output = GetOutput(skResult.Output, blackList);
-                //skcRes.Success = skResult.ExitCode == 0 && File.Exists(jsPath);
-                if (skResult.ExitCode != 0)
-                {
-                    //skcRes.ErrorMessage = "Compilation error";
-                    throw new Exception("Compilation error");
-                }
-                else if (!File.Exists(jsPath))
-                {
-                    //skcRes.ErrorMessage = "No js files were generated";
-                    throw new Exception("No js files were generated");
-                }
-                else
-                {
-                    context.Output.Write(File.ReadAllText(jsPath));
-                    //skcRes.Success = true;
-                    File.Delete(jsPath);
-                }
-                if (File.Exists(manifestPath))
-                    File.Delete(manifestPath);
+                context.Output.Write(File.ReadAllText(jsPath));
+                //skcRes.Success = true;
+                File.Delete(jsPath);
             }
+            if (File.Exists(manifestPath))
+                File.Delete(manifestPath);
+
+
 
             if (File.Exists(dllPath))
                 File.Delete(dllPath);
@@ -239,7 +240,7 @@ namespace Neptuo.SharpKit.CodeGenerator
             return s;
         }
 
-        protected class ExecuteResult
+        public class ExecuteResult
         {
             public int ExitCode { get; set; }
             public List<string> Output { get; private set; }
