@@ -15,5 +15,7 @@ namespace Neptuo.Data.Entity
 
         DbEntityEntry<TEntity> Entry<TEntity>(TEntity entity) 
             where TEntity : class;
+
+        int SaveChanges();
     }
 }
