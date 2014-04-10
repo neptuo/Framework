@@ -36,3 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
+
+[assembly: InternalsVisibleTo("Neptuo.Data.Entity")]
