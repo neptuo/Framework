@@ -11,26 +11,12 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Entity.Queries
 {
-    public abstract class MappingEntityQuery<TBusiness, TEntity, TFilter> : IQuery<TBusiness, TFilter>
+    public abstract class MappingEntityQuery<TBusiness, TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TBusiness, TFilter>
         where TEntity : class, TBusiness
         where TBusiness : IKey<Key>
     {
-        private TFilter filter;
-
         protected IQueryable<TBusiness> OriginalItems { get; private set; }
         protected IQueryable<TBusiness> Items { get; private set; }
-
-        public TFilter Filter
-        {
-            get
-            {
-                if (filter == null)
-                    filter = CreateFilter();
-
-                return filter;
-            }
-            set { filter = value; }
-        }
 
         public MappingEntityQuery(IQueryable<TEntity> items)
         {
@@ -96,29 +82,5 @@ namespace Neptuo.Data.Entity.Queries
         {
             return Page(pageIndex, pageSize).Result();
         }
-
-        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items)
-        {
-            ParameterExpression parameter = Expression.Parameter(typeof(TEntity));
-            Expression predicate = BuildWhereExpression(parameter);
-
-            if (predicate != null)
-            {
-                MethodCallExpression whereCallExpression = Expression.Call(
-                   typeof(Queryable),
-                   TypeHelper.MethodName<IQueryable<TEntity>, Expression<Func<TEntity, bool>>, IQueryable<TEntity>>(q => q.Where),
-                   new Type[] { typeof(TEntity) },
-                   items.Expression,
-                   Expression.Lambda<Func<TEntity, bool>>(predicate, new ParameterExpression[] { parameter })
-                );
-
-                return items.Provider.CreateQuery<TEntity>(whereCallExpression);
-            }
-            return items;
-        }
-
-        protected abstract Expression BuildWhereExpression(Expression parameter);
-
-        protected abstract TFilter CreateFilter();
     }
 }
