@@ -18,9 +18,9 @@ namespace Neptuo.Data.Entity.Queries
             TotalCountInternal = totalCount;
         }
 
-        public IEnumerable<TEntity> Items
+        public IEnumerable<TEntity> EnumerateItems()
         {
-            get { return ItemsInternal; }
+            return ItemsInternal.ToList();
         }
 
         public int TotalCount
