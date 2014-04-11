@@ -8,7 +8,7 @@ namespace Neptuo.Data.Queries
 {
     public interface IQueryResult<TResult>
     {
-        IEnumerable<TResult> Items { get; }
+        IEnumerable<TResult> EnumerateItems();
         int TotalCount { get; }
     }
 }

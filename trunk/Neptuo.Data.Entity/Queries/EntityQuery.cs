@@ -15,9 +15,6 @@ namespace Neptuo.Data.Entity.Queries
     {
         protected IQueryable<TEntity> Items { get; private set; }
 
-        protected int? PageSize { get; set; }
-        protected int? PageIndex { get; set; }
-
         public EntityQuery(IQueryable<TEntity> items)
         {
             Guard.NotNull(items, "items");
@@ -36,29 +33,6 @@ namespace Neptuo.Data.Entity.Queries
             return this;
         }
 
-        public IQueryResult<TEntity> Result()
-        {
-            var items = AppendWhere(Items, PageIndex, PageSize);
-            var originalItems = AppendWhere(Items, null, null);
-            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
-            //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TEntity>(items, originalItems.Count());
-        }
-
-        public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
-        {
-            var items = AppendWhere(Items, PageIndex, PageSize).Select(projection);
-            var originalItems = AppendWhere(Items, null, null);//.WithTranslations();
-            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
-            //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TTarget>(items, originalItems.Count());
-        }
-
-        public TEntity ResultSingle()
-        {
-            return AppendWhere(Items, PageIndex, PageSize).FirstOrDefault();
-        }
-
         public bool Any()
         {
             return Items.Any();
@@ -69,16 +43,83 @@ namespace Neptuo.Data.Entity.Queries
             return Items.Count();
         }
 
-        public IQuery<TEntity, TFilter> Page(int? pageIndex, int? pageSize)
+        #region ResultSingle
+
+        public TEntity ResultSingle()
         {
-            PageIndex = pageIndex;
-            PageSize = pageSize;
-            return this;
+            return AppendWhere(Items, null, null).FirstOrDefault();
         }
+
+        public TEntity ResultSingle(int index)
+        {
+            return AppendWhere(Items, index, 1).FirstOrDefault();
+        }
+
+        #endregion
+
+        #region Result
+
+        public IQueryResult<TEntity> Result()
+        {
+            var items = AppendWhere(Items, null, null);
+            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
+            //Trace.WriteLine(items.ToString());
+            return new EntityQueryResult<TEntity>(items, items.Count());
+        }
+
+        public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
+        {
+            var items = AppendWhere(Items, null, null).Select(projection);
+            var originalItems = AppendWhere(Items, null, null);//.WithTranslations();
+            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
+            //Trace.WriteLine(items.ToString());
+            return new EntityQueryResult<TTarget>(items, originalItems.Count());
+        }
+
+        #endregion
+
+        #region PageResult
 
         public IQueryResult<TEntity> PageResult(int pageIndex, int pageSize)
         {
-            return Page(pageIndex, pageSize).Result();
+            var items = AppendWhere(Items, pageIndex, pageSize);
+            var originalItems = AppendWhere(Items, null, null);
+            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
+            //Trace.WriteLine(items.ToString());
+            return new EntityQueryResult<TEntity>(items, originalItems.Count());
         }
+
+        public IQueryResult<TTarget> PageResult<TTarget>(Expression<Func<TEntity, TTarget>> projection, int pageIndex, int pageSize)
+        {
+            var items = AppendWhere(Items, pageIndex, pageSize).Select(projection);
+            var originalItems = AppendWhere(Items, null, null);
+            //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
+            //Trace.WriteLine(items.ToString());
+            return new EntityQueryResult<TTarget>(items, originalItems.Count());
+        }
+
+        #endregion
+
+        #region EnumerateItems
+
+        public IEnumerable<TEntity> EnumerateItems()
+        {
+            var items = AppendWhere(Items, null, null);
+            return items.ToList();
+        }
+
+        public IEnumerable<TTarget> EnumerateItems<TTarget>(Expression<Func<TEntity, TTarget>> projection)
+        {
+            var items = AppendWhere(Items, null, null).Select(projection);
+            return items.ToList();
+        }
+
+        public IEnumerable<TTarget> EnumeratePageItems<TTarget>(Expression<Func<TEntity, TTarget>> projection, int pageIndex, int pageSize)
+        {
+            var items = AppendWhere(Items, pageIndex, pageSize).Select(projection);
+            return items.ToList();
+        }
+
+        #endregion
     }
 }

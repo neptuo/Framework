@@ -79,7 +79,7 @@ namespace TestConsole.Data
             query.Filter.Name = TextSearch.Create("u", TextSearchType.Contains);
 
             var result = query.Result(p => p.Key);
-            Console.WriteLine(String.Format("{0} => {1}", result.TotalCount, String.Join(", ", result.Items.ToList())));
+            Console.WriteLine(String.Format("{0} => {1}", result.TotalCount, String.Join(", ", result.EnumerateItems())));
 
 
 
@@ -123,7 +123,7 @@ namespace TestConsole.Data
             for (int i = 0; i < 1000; i++)
             {
                 dependencyContainer.Resolve<IProductQuery>()
-                    .Result().Items
+                    .Result().EnumerateItems()
                     .Select(p => p.Key)
                     .ToArray();
             }
