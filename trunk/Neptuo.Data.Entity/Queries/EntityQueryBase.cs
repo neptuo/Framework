@@ -26,8 +26,11 @@ namespace Neptuo.Data.Entity.Queries
             set { filter = value; }
         }
 
-        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items)
+        protected virtual IQueryable<TEntity> AppendWhere(IQueryable<TEntity> items, int? pageIndex, int? pageSize)
         {
+            if(pageSize != null)
+                items = items.Skip((pageIndex ?? 0) * pageSize.Value).Take(pageSize.Value);
+
             ParameterExpression parameter = Expression.Parameter(typeof(TEntity));
             Expression predicate = BuildWhereExpression(parameter);
 

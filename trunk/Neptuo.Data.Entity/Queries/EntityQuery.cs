@@ -13,15 +13,14 @@ namespace Neptuo.Data.Entity.Queries
     public abstract class EntityQuery<TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TEntity, TFilter>
         where TEntity : IKey<int>
     {
-        protected IQueryable<TEntity> OriginalItems { get; private set; }
         protected IQueryable<TEntity> Items { get; private set; }
+
+        protected int? PageSize { get; set; }
+        protected int? PageIndex { get; set; }
 
         public EntityQuery(IQueryable<TEntity> items)
         {
-            if (items == null)
-                throw new ArgumentNullException("items");
-
-            OriginalItems = items;
+            Guard.NotNull(items, "items");
             Items = items;
         }
 
@@ -39,8 +38,8 @@ namespace Neptuo.Data.Entity.Queries
 
         public IQueryResult<TEntity> Result()
         {
-            var items = AppendWhere(Items);
-            var originalItems = AppendWhere((IQueryable<TEntity>)Items);
+            var items = AppendWhere(Items, PageIndex, PageSize);
+            var originalItems = AppendWhere(Items, null, null);
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
             return new EntityQueryResult<TEntity>(items, originalItems.Count());
@@ -48,8 +47,8 @@ namespace Neptuo.Data.Entity.Queries
 
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
         {
-            var items = AppendWhere(Items).Select(projection);
-            var originalItems = AppendWhere((IQueryable<TEntity>)Items);//.WithTranslations();
+            var items = AppendWhere(Items, PageIndex, PageSize).Select(projection);
+            var originalItems = AppendWhere(Items, null, null);//.WithTranslations();
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
             return new EntityQueryResult<TTarget>(items, originalItems.Count());
@@ -57,7 +56,7 @@ namespace Neptuo.Data.Entity.Queries
 
         public TEntity ResultSingle()
         {
-            return AppendWhere(Items).FirstOrDefault();
+            return AppendWhere(Items, PageIndex, PageSize).FirstOrDefault();
         }
 
         public bool Any()
@@ -70,9 +69,10 @@ namespace Neptuo.Data.Entity.Queries
             return Items.Count();
         }
 
-        public IQuery<TEntity, TFilter> Page(int pageIndex, int pageSize)
+        public IQuery<TEntity, TFilter> Page(int? pageIndex, int? pageSize)
         {
-            Items = Items.Skip(pageIndex * pageSize).Take(pageSize);
+            PageIndex = pageIndex;
+            PageSize = PageSize;
             return this;
         }
 

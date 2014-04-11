@@ -19,7 +19,7 @@ namespace Neptuo.Data.Queries
         bool Any();
         int Count();
 
-        IQuery<TResult, TFilter> Page(int pageIndex, int pageSize);
+        IQuery<TResult, TFilter> Page(int? pageIndex, int? pageSize);
         IQueryResult<TResult> PageResult(int pageIndex, int pageSize);
     }
 }
