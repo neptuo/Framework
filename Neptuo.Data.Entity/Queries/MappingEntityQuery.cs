@@ -78,7 +78,7 @@ namespace Neptuo.Data.Entity.Queries
         public IQuery<TBusiness, TFilter> Page(int? pageIndex, int? pageSize)
         {
             PageIndex = pageIndex;
-            PageSize = PageSize;
+            PageSize = pageSize;
             return this;
         }
 
