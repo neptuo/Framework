@@ -133,6 +133,14 @@ namespace Neptuo.Data.Entity.Queries
             return items.ToList();
         }
 
+        public IEnumerable<TBusiness> EnumeratePageItems(int pageIndex, int pageSize)
+        {
+            var source = (IQueryable<TEntity>)Items;
+
+            var items = AppendWhere(source, pageIndex, pageSize);
+            return items.ToList();
+        }
+
         public IEnumerable<TTarget> EnumeratePageItems<TTarget>(Expression<Func<TBusiness, TTarget>> projection, int pageIndex, int pageSize)
         {
             var source = (IQueryable<TEntity>)Items;
