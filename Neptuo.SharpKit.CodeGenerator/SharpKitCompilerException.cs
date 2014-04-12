@@ -11,6 +11,7 @@ namespace Neptuo.SharpKit.CodeGenerator
         public SharpKitCompiler.ExecuteResult ExecuteResult { get; set; }
 
         public SharpKitCompilerException(SharpKitCompiler.ExecuteResult executeResult)
+            : base(String.Join(Environment.NewLine, executeResult.Output))
         {
             ExecuteResult = executeResult;
         }
