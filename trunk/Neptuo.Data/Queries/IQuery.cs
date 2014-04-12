@@ -27,6 +27,7 @@ namespace Neptuo.Data.Queries
 
         IEnumerable<TResult> EnumerateItems();
         IEnumerable<TTarget> EnumerateItems<TTarget>(Expression<Func<TResult, TTarget>> projection);
+        IEnumerable<TResult> EnumeratePageItems(int pageIndex, int pageSize);
         IEnumerable<TTarget> EnumeratePageItems<TTarget>(Expression<Func<TResult, TTarget>> projection, int pageIndex, int pageSize);
     }
 }

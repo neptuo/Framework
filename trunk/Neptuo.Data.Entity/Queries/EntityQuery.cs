@@ -114,6 +114,12 @@ namespace Neptuo.Data.Entity.Queries
             return items.ToList();
         }
 
+        public IEnumerable<TEntity> EnumeratePageItems(int pageIndex, int pageSize)
+        {
+            var items = AppendWhere(Items, pageIndex, pageSize);
+            return items.ToList();
+        }
+
         public IEnumerable<TTarget> EnumeratePageItems<TTarget>(Expression<Func<TEntity, TTarget>> projection, int pageIndex, int pageSize)
         {
             var items = AppendWhere(Items, pageIndex, pageSize).Select(projection);

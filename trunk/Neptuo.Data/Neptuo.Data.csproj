@@ -54,6 +54,7 @@
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryResult.cs" />
     <Compile Include="Queries\IQuerySearch.cs" />
+    <Compile Include="Queries\QueryExtensions.cs" />
     <Compile Include="Queries\TextSearch.cs" />
   </ItemGroup>
   <ItemGroup>
