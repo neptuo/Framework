@@ -1259,10 +1259,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.10.0";
+            Neptuo.VersionInfo.Version = "2.11.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.10.0");
+            return new System.Version.ctor$$String("2.11.0");
         }
     },
     assemblyName: "Neptuo",
@@ -1977,4 +1977,31 @@ var Neptuo$Validation$TextValidationMessage = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Validation$TextValidationMessage);
+var Neptuo$Validation$ValidationException = {
+    fullname: "Neptuo.Validation.ValidationException",
+    baseTypeName: "System.Exception",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (result){
+            this._Result = null;
+            System.Exception.ctor.call(this);
+            this.set_Result(result);
+        },
+        Result$$: "Neptuo.Validation.IValidationResult",
+        get_Result: function (){
+            return this._Result;
+        },
+        set_Result: function (value){
+            this._Result = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Validation.IValidationResult"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$ValidationException);
 
