@@ -13,7 +13,6 @@ namespace Neptuo.Data.Entity.Queries
 {
     public abstract class MappingEntityQuery<TBusiness, TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TBusiness, TFilter>
         where TEntity : class, TBusiness
-        where TBusiness : IKey<int>
     {
         protected IQueryable<TBusiness> Items { get; private set; }
 
