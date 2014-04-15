@@ -92,9 +92,11 @@
     <Compile Include="StateMachines\StringState.cs" />
     <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
+    <Compile Include="Validation\DependencyValidatorService.cs" />
     <Compile Include="Validation\IValidationResult.cs" />
     <Compile Include="Validation\IValidationMessage.cs" />
     <Compile Include="Validation\IValidator.cs" />
+    <Compile Include="Validation\IValidatorService.cs" />
     <Compile Include="Validation\TextValidationMessage.cs" />
     <Compile Include="Validation\ValidationException.cs" />
   </ItemGroup>
