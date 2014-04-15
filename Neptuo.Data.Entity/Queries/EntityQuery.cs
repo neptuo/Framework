@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace Neptuo.Data.Entity.Queries
 {
     public abstract class EntityQuery<TEntity, TFilter> : EntityQueryBase<TEntity, TFilter>, IQuery<TEntity, TFilter>
-        where TEntity : IKey<int>
     {
         protected IQueryable<TEntity> Items { get; private set; }
 

@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace Neptuo.Data.Entity.Queries
 {
     public abstract class EntityQueryBase<TEntity, TFilter>
-        where TEntity : IKey<int>
     {
         private TFilter filter;
 
