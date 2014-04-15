@@ -55,5 +55,18 @@ namespace Neptuo
             return container.RegisterType(typeof(TFrom), typeof(TTo), null, lifetime);
         }
 
+        #region Register activator
+
+        public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container)
+        {
+            return container.RegisterType<IActivator<T>, DependencyActivator<T>>();
+        }
+
+        public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container, object lifetime)
+        {
+            return container.RegisterType<IActivator<T>, DependencyActivator<T>>(lifetime);
+        }
+
+        #endregion
     }
 }
