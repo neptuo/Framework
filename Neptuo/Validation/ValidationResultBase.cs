@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Commands.Validation
+namespace Neptuo.Validation
 {
     public class ValidationResultBase : IValidationResult
     {
