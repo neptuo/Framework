@@ -2,7 +2,6 @@
 using Neptuo.Data;
 using Neptuo.Commands;
 using Neptuo.Commands.Handlers;
-using Neptuo.Commands.Validation;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;

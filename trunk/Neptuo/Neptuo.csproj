@@ -97,8 +97,14 @@
     <Compile Include="Validation\IValidationMessage.cs" />
     <Compile Include="Validation\IValidator.cs" />
     <Compile Include="Validation\IValidatorService.cs" />
+    <Compile Include="Validation\PropertyEqualMessage.cs" />
+    <Compile Include="Validation\PropertyValidationMessageBase.cs" />
+    <Compile Include="Validation\StringLengthMessage.cs" />
+    <Compile Include="Validation\StringNullOrEmptyMessage.cs" />
     <Compile Include="Validation\TextValidationMessage.cs" />
     <Compile Include="Validation\ValidationException.cs" />
+    <Compile Include="Validation\ValidationMessageBase.cs" />
+    <Compile Include="Validation\ValidationResultBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Neptuo.js" />

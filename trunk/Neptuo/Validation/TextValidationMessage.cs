@@ -6,18 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Validation
 {
-    public class TextValidationMessage : IValidationMessage
+    public class TextValidationMessage : ValidationMessageBase
     {
         public string Key { get; private set; }
         public string Message { get; private set; }
 
         public TextValidationMessage(string key, string message)
-        {
-            if (message == null)
-                throw new ArgumentNullException("message");
-
-            Key = key;
-            Message = message;
-        }
+            : base(key, message)
+        { }
     }
 }

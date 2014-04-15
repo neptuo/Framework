@@ -1291,10 +1291,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.13.0";
+            Neptuo.VersionInfo.Version = "2.14.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.13.0");
+            return new System.Version.ctor$$String("2.14.0");
         }
     },
     assemblyName: "Neptuo",
@@ -2005,21 +2005,134 @@ var Neptuo$Validation$IValidatorService = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Validation$IValidatorService);
+var Neptuo$Validation$PropertyEqualMessage = {
+    fullname: "Neptuo.Validation.PropertyEqualMessage",
+    baseTypeName: "Neptuo.Validation.PropertyValidationMessageBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (key, otherProperty, propertyName){
+            this._OtherProperty = null;
+            Neptuo.Validation.PropertyValidationMessageBase.ctor.call(this, key, propertyName);
+            this.set_OtherProperty(otherProperty);
+        },
+        OtherProperty$$: "System.String",
+        get_OtherProperty: function (){
+            return this._OtherProperty;
+        },
+        set_OtherProperty: function (value){
+            this._OtherProperty = value;
+        },
+        GetTextMessage: function (){
+            return System.String.Format$$String$$Object$$Object("{0} must match {1}.", this.get_PropertyName(), this.get_OtherProperty());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$PropertyEqualMessage);
+var Neptuo$Validation$PropertyValidationMessageBase = {
+    fullname: "Neptuo.Validation.PropertyValidationMessageBase",
+    baseTypeName: "Neptuo.Validation.ValidationMessageBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (key, propertyName){
+            this.propertyName = null;
+            Neptuo.Validation.ValidationMessageBase.ctor.call(this, key, null);
+            this.propertyName = propertyName;
+        },
+        PropertyName$$: "System.String",
+        get_PropertyName: function (){
+            return (this.propertyName != null ? this.propertyName : this.get_Key());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$PropertyValidationMessageBase);
+var Neptuo$Validation$StringLengthMessage = {
+    fullname: "Neptuo.Validation.StringLengthMessage",
+    baseTypeName: "Neptuo.Validation.PropertyValidationMessageBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (key, minLength, maxLength, propertyName){
+            this._MinLength = null;
+            this._MaxLength = null;
+            Neptuo.Validation.PropertyValidationMessageBase.ctor.call(this, key, propertyName);
+            this.set_MinLength(minLength);
+            this.set_MaxLength(maxLength);
+        },
+        MinLength$$: "System.Nullable`1[[System.Int32]]",
+        get_MinLength: function (){
+            return this._MinLength;
+        },
+        set_MinLength: function (value){
+            this._MinLength = value;
+        },
+        MaxLength$$: "System.Nullable`1[[System.Int32]]",
+        get_MaxLength: function (){
+            return this._MaxLength;
+        },
+        set_MaxLength: function (value){
+            this._MaxLength = value;
+        },
+        GetTextMessage: function (){
+            if (this.get_MinLength() == null)
+                return System.String.Format$$String$$Object$$Object("{0} must be shorter or equal to {1} characters.", this.get_PropertyName(), this.get_MaxLength());
+            if (this.get_MaxLength() == null)
+                return System.String.Format$$String$$Object$$Object("{0} must have length at least {1} characters.", this.get_PropertyName(), this.get_MinLength());
+            return System.String.Format$$String$$Object$$Object("Length of {0} muset be between {1} and {2} characters.", this.get_MinLength(), this.get_MaxLength());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.Nullable", "System.Nullable", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$StringLengthMessage);
+var Neptuo$Validation$StringNullOrEmptyMessage = {
+    fullname: "Neptuo.Validation.StringNullOrEmptyMessage",
+    baseTypeName: "Neptuo.Validation.PropertyValidationMessageBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (key, propertyName){
+            Neptuo.Validation.PropertyValidationMessageBase.ctor.call(this, key, propertyName);
+        },
+        GetTextMessage: function (){
+            return System.String.Format$$String$$Object("{0} can\'t be empty.", this.get_PropertyName());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$StringNullOrEmptyMessage);
 var Neptuo$Validation$TextValidationMessage = {
     fullname: "Neptuo.Validation.TextValidationMessage",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.Validation.ValidationMessageBase",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Validation.IValidationMessage"],
     Kind: "Class",
     definition: {
         ctor: function (key, message){
             this._Key = null;
             this._Message = null;
-            System.Object.ctor.call(this);
-            if (message == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("message"), new Error());
-            this.set_Key(key);
-            this.set_Message(message);
+            Neptuo.Validation.ValidationMessageBase.ctor.call(this, key, message);
         },
         Key$$: "System.String",
         get_Key: function (){
@@ -2071,4 +2184,93 @@ var Neptuo$Validation$ValidationException = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Validation$ValidationException);
+var Neptuo$Validation$ValidationMessageBase = {
+    fullname: "Neptuo.Validation.ValidationMessageBase",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Validation.IValidationMessage"],
+    Kind: "Class",
+    definition: {
+        ctor: function (key, message){
+            this.message = null;
+            this._Key = null;
+            System.Object.ctor.call(this);
+            this.set_Key(key);
+            this.set_Message(message);
+        },
+        Key$$: "System.String",
+        get_Key: function (){
+            return this._Key;
+        },
+        set_Key: function (value){
+            this._Key = value;
+        },
+        Message$$: "System.String",
+        get_Message: function (){
+            if (this.message == null)
+                this.message = this.GetTextMessage();
+            return this.message;
+        },
+        set_Message: function (value){
+            this.message = value;
+        },
+        GetTextMessage: function (){
+            return System.String.Empty;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$ValidationMessageBase);
+var Neptuo$Validation$ValidationResultBase = {
+    fullname: "Neptuo.Validation.ValidationResultBase",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Validation.IValidationResult"],
+    Kind: "Class",
+    definition: {
+        ctor$$Boolean: function (isValid){
+            this._IsValid = false;
+            this._Messages = null;
+            Neptuo.Validation.ValidationResultBase.ctor$$Boolean$$IEnumerable$1$IValidationMessage.call(this, isValid, new System.Collections.Generic.List$1.ctor(Neptuo.Validation.IValidationMessage.ctor));
+        },
+        IsValid$$: "System.Boolean",
+        get_IsValid: function (){
+            return this._IsValid;
+        },
+        set_IsValid: function (value){
+            this._IsValid = value;
+        },
+        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Validation.IValidationMessage]]",
+        get_Messages: function (){
+            return this._Messages;
+        },
+        set_Messages: function (value){
+            this._Messages = value;
+        },
+        ctor$$Boolean$$IEnumerable$1$IValidationMessage: function (isValid, messages){
+            this._IsValid = false;
+            this._Messages = null;
+            System.Object.ctor.call(this);
+            if (messages == null)
+                throw $CreateException(new System.ArgumentNullException.ctor$$String("messages"), new Error());
+            this.set_IsValid(isValid);
+            this.set_Messages(messages);
+        }
+    },
+    ctors: [{
+        name: "ctor$$Boolean",
+        parameters: ["System.Boolean"]
+    }, {
+        name: "ctor$$Boolean$$IEnumerable",
+        parameters: ["System.Boolean", "System.Collections.Generic.IEnumerable"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$ValidationResultBase);
 
