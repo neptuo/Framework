@@ -476,6 +476,32 @@ var Neptuo$Converts = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Converts);
+var Neptuo$DependencyActivator$1 = {
+    fullname: "Neptuo.DependencyActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, dependencyProvider){
+            this.T = T;
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        Create: function (){
+            return Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(this.T, this.dependencyProvider);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$DependencyActivator$1);
 var Neptuo$DependencyProviderExtensions = {
     fullname: "Neptuo.DependencyProviderExtensions",
     baseTypeName: "System.Object",
@@ -522,6 +548,12 @@ var Neptuo$DependencyContainerExtensions = {
         },
         RegisterType$2$$IDependencyContainer$$Object: function (TFrom, TTo, container, lifetime){
             return container.RegisterType(Typeof(TFrom), Typeof(TTo), null, lifetime);
+        },
+        RegisterActivator$1$$IDependencyContainer: function (T, container){
+            return Neptuo.DependencyContainerExtensions.RegisterType$2$$IDependencyContainer(Neptuo.IActivator$1.ctor, Neptuo.DependencyActivator$1.ctor, container);
+        },
+        RegisterActivator$1$$IDependencyContainer$$Object: function (T, container, lifetime){
+            return Neptuo.DependencyContainerExtensions.RegisterType$2$$IDependencyContainer$$Object(Neptuo.IActivator$1.ctor, Neptuo.DependencyActivator$1.ctor, container, lifetime);
         }
     },
     assemblyName: "Neptuo",
@@ -1259,10 +1291,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.11.0";
+            Neptuo.VersionInfo.Version = "2.12.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.11.0");
+            return new System.Version.ctor$$String("2.12.0");
         }
     },
     assemblyName: "Neptuo",
