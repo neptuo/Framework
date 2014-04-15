@@ -1291,10 +1291,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.12.0";
+            Neptuo.VersionInfo.Version = "2.13.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.12.0");
+            return new System.Version.ctor$$String("2.13.0");
         }
     },
     assemblyName: "Neptuo",
@@ -1943,6 +1943,32 @@ var Neptuo$StateMachines$StringStateMachine$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$StateMachines$StringStateMachine$1);
+var Neptuo$Validation$DependencyValidatorService = {
+    fullname: "Neptuo.Validation.DependencyValidatorService",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Validation.IValidatorService"],
+    Kind: "Class",
+    definition: {
+        ctor: function (dependencyProvider){
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        Validate$1: function (TModel, model){
+            var validator = Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validation.IValidator$1.ctor, this.dependencyProvider);
+            return validator.Validate(model);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Validation$DependencyValidatorService);
 var Neptuo$Validation$IValidationResult = {
     fullname: "Neptuo.Validation.IValidationResult",
     baseTypeName: "System.Object",
@@ -1970,6 +1996,15 @@ var Neptuo$Validation$IValidator$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Validation$IValidator$1);
+var Neptuo$Validation$IValidatorService = {
+    fullname: "Neptuo.Validation.IValidatorService",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Validation$IValidatorService);
 var Neptuo$Validation$TextValidationMessage = {
     fullname: "Neptuo.Validation.TextValidationMessage",
     baseTypeName: "System.Object",
