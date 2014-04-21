@@ -415,6 +415,37 @@ var Neptuo$ComponentModel$Converters$IConverterRepository = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$IConverterRepository);
+var Neptuo$ComponentModel$ObservableObject = {
+    fullname: "Neptuo.ComponentModel.ObservableObject",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["System.ComponentModel.INotifyPropertyChanged"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.PropertyChanged = null;
+            System.Object.ctor.call(this);
+        },
+        add_PropertyChanged: function (value){
+            this.PropertyChanged = $CombineDelegates(this.PropertyChanged, value);
+        },
+        remove_PropertyChanged: function (value){
+            this.PropertyChanged = $RemoveDelegate(this.PropertyChanged, value);
+        },
+        RaisePropertyChanged: function (propertyName){
+            Neptuo.Guard.NotNull$$Object$$String(propertyName, "propertyName");
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.PropertyChanged, null))
+                this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs.ctor(propertyName));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$ObservableObject);
 var Neptuo$ComponentModel$ReturnTypeAttribute = {
     fullname: "Neptuo.ComponentModel.ReturnTypeAttribute",
     baseTypeName: "System.Attribute",
@@ -1291,10 +1322,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.14.0";
+            Neptuo.VersionInfo.Version = "2.15.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.14.0");
+            return new System.Version.ctor$$String("2.15.0");
         }
     },
     assemblyName: "Neptuo",
