@@ -44,6 +44,7 @@
     <Compile Include="ComponentModel\Converters\ConverterSearchDelegate.cs" />
     <Compile Include="ComponentModel\Converters\IConverter.cs" />
     <Compile Include="ComponentModel\Converters\IConverterRepository.cs" />
+    <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
