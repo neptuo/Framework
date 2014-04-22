@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.BindingConverters
 {
-    public class StringBindingConverter : IBindingConverter
+    public class StringBindingConverter : BindingConverterBase<string>
     {
         public bool AllowConvertNull { get; set; }
         public bool AllowConvertEmpty { get; set; }
@@ -19,7 +19,7 @@ namespace Neptuo.PresentationModels.BindingConverters
             AllowConvertWhitespace = allowConvertWhitespace;
         }
 
-        public bool TryConvert(string sourceValue, IFieldDefinition targetField, out object targetValue)
+        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out string targetValue)
         {
             if (!AllowConvertNull && sourceValue == null)
             {
