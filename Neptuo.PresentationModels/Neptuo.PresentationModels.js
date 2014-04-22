@@ -823,10 +823,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "4.4.2";
+            Neptuo.PresentationModels.VersionInfo.Version = "4.5.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.4.2");
+            return new System.Version.ctor$$String("4.5.0");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
