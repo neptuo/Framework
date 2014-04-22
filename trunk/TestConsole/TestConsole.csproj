@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\StaticConfigurationScope.cs" />
+    <Compile Include="Configuration\TestConfiguration.cs" />
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\CategoryEntity.cs" />
     <Compile Include="Data\CategoryRepository.cs" />
@@ -97,6 +99,10 @@
     <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj">
       <Project>{f0610126-41ff-4944-aed6-82c851c2a204}</Project>
       <Name>Neptuo.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Configuration\Neptuo.Configuration.csproj">
+      <Project>{b21273f3-6326-4e7b-8d1c-13d4db440801}</Project>
+      <Name>Neptuo.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Data.Entity\Neptuo.Data.Entity.csproj">
       <Project>{fee06f1e-0063-4d46-85ce-7334ce61afb0}</Project>

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestConsole.Configuration;
 using TestConsole.Data;
 using TestConsole.PresentationModels;
 using TestConsole.Tokens;
@@ -15,8 +16,9 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //TestTokens.Test();
-            TestEntity.Test();
+            //TestEntity.Test();
             //TestPresentationModel.Test();
+            TestConfiguration.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
