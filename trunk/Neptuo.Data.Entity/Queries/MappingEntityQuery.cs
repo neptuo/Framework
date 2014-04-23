@@ -39,12 +39,14 @@ namespace Neptuo.Data.Entity.Queries
 
         public bool Any()
         {
-            return Items.Any();
+            var source = (IQueryable<TEntity>)Items;
+            return AppendWhere(source, null, null).Any();
         }
 
         public int Count()
         {
-            return Items.Count();
+            var source = (IQueryable<TEntity>)Items;
+            return AppendWhere(source, null, null).Count();
         }
 
         #region ResultSingle
