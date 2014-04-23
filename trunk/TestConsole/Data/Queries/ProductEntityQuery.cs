@@ -17,7 +17,7 @@ namespace TestConsole.Data.Queries
             : base(dataContext.Products)
         { }
 
-        protected override Expression BuildWhereExpression(Expression parameter)
+        protected override Expression BuildWhereExpression(ParameterExpression parameter)
         {
             Expression target = null;
 
@@ -26,6 +26,18 @@ namespace TestConsole.Data.Queries
 
             if (Filter.Name != null)
                 target = EntityQuerySearch.BuildTextSearch<ProductEntity>(target, parameter, p => p.Name, Filter.Name);
+
+            //if (Filter.CategoryKey != null)
+            //    target = EntityQuerySearch.BuildIntSearch<ProductEntity>(target, parameter, p => p.CategoryEntity.Key, Filter.CategoryKey);
+
+            if (Filter.AvailableFrom != null)
+                target = EntityQuerySearch.BuildDateTimeSearch<ProductEntity>(target, parameter, p => p.AvailableFrom, Filter.AvailableFrom);
+
+            if (Filter.StopSale != null)
+                target = EntityQuerySearch.BuildDateTimeSearch<ProductEntity>(target, parameter, p => p.StopSale, Filter.StopSale);
+
+            if (Filter.IsDiscount != null)
+                target = EntityQuerySearch.BuildBoolSearch<ProductEntity>(target, parameter, p => p.IsDiscount, Filter.IsDiscount);
 
             return target;
         }

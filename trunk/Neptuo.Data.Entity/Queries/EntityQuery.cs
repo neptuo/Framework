@@ -69,10 +69,10 @@ namespace Neptuo.Data.Entity.Queries
         public IQueryResult<TTarget> Result<TTarget>(Expression<Func<TEntity, TTarget>> projection)
         {
             var items = AppendWhere(Items, null, null).Select(projection);
-            var originalItems = AppendWhere(Items, null, null);//.WithTranslations();
+            //var originalItems = AppendWhere(Items, null, null);//.WithTranslations();
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TTarget>(items, originalItems.Count());
+            return new EntityQueryResult<TTarget>(items, items.Count());
         }
 
         #endregion

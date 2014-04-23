@@ -12,5 +12,13 @@ namespace TestConsole.Data.Queries
         public IntSearch Key { get; set; }
         public TextSearch Name { get; set; }
         public DoubleSearch Price { get; set; }
+
+        public ICategoryFilter Category { get; set; }
+
+        public DateTimeSearch AvailableFrom { get; set; }
+        public DateTimeSearch StopSale { get; set; }
+
+        public BoolSearch IsDiscount { get; set; }
+
     }
 }

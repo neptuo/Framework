@@ -8,9 +8,9 @@ namespace Neptuo.Data.Queries
 {
     public class TextSearch : IQuerySearch
     {
-        public string Text { get; set; }
-        public TextSearchType Type { get; set; }
-        public bool CaseSensitive { get; set; }
+        public string Text { get; protected set; }
+        public TextSearchType Type { get; protected set; }
+        public bool CaseSensitive { get; protected set; }
 
         public TextSearch(string text, TextSearchType type = TextSearchType.Match, bool caseSensitive = true)
         {
@@ -23,13 +23,25 @@ namespace Neptuo.Data.Queries
         {
             return new TextSearch(text, type, caseSensitive);
         }
-    }
 
-    public enum TextSearchType
-    {
-        StartsWith,
-        EndsWith,
-        Contains,
-        Match
+        public static TextSearch Match(string text, bool caseSensitive = true)
+        {
+            return new TextSearch(text, TextSearchType.Match, caseSensitive);
+        }
+
+        public static TextSearch Contains(string text, bool caseSensitive = true)
+        {
+            return new TextSearch(text, TextSearchType.Contains, caseSensitive);
+        }
+
+        public static TextSearch StartsWith(string text, bool caseSensitive = true)
+        {
+            return new TextSearch(text, TextSearchType.StartsWith, caseSensitive);
+        }
+
+        public static TextSearch EndsWith(string text, bool caseSensitive = true)
+        {
+            return new TextSearch(text, TextSearchType.EndsWith, caseSensitive);
+        }
     }
 }
