@@ -48,7 +48,7 @@ namespace Neptuo.Data.Entity.Queries
             return items;
         }
 
-        protected abstract Expression BuildWhereExpression(Expression parameter);
+        protected abstract Expression BuildWhereExpression(ParameterExpression parameter);
 
         protected abstract TFilter CreateFilter();
     }

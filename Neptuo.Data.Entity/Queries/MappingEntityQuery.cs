@@ -80,10 +80,10 @@ namespace Neptuo.Data.Entity.Queries
             var source = (IQueryable<TEntity>)Items;
 
             var items = AppendWhere(source, null, null).Select(projection);
-            var originalItems = AppendWhere(source, null, null);//.WithTranslations();
+            //var originalItems = AppendWhere(source, null, null);//.WithTranslations();
             //Trace.WriteLine("Neptuo.Data.Entity.Queries.EntityQuery: ");
             //Trace.WriteLine(items.ToString());
-            return new EntityQueryResult<TTarget>(items, originalItems.Count());
+            return new EntityQueryResult<TTarget>(items, items.Count());
         }
 
         #endregion

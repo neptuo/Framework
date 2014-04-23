@@ -71,11 +71,18 @@ namespace TestConsole.Data
             //dependencyContainer.Resolve<DataContext>().SaveChanges();
 
 
-            ProductEntity e = new ProductEntity();
+            //ProductEntity e = new ProductEntity();
 
 
             IProductQuery query = dependencyContainer.Resolve<IProductQuery>();
-            query.Filter.Name = TextSearch.Create("u", TextSearchType.Contains);
+            //query.Filter.Name = TextSearch.Create("u", TextSearchType.Contains);
+            //query.Filter.CategoryKey = IntSearch.Create(1);
+            //query.Filter.AvailableFrom = DateTimeSearch.CreateBeforeOrExactly(DateTime.Now);
+            //query.Filter.StopSale = DateTimeSearch.NotNull();//Create(DateTime.Now, DateTimeSearchType.Before);
+            query.Filter.Category = new CategoryFilter();
+            query.Filter.Category.Name = TextSearch.Match("Uzenina");
+            query.Filter.IsDiscount = BoolSearch.True();
+
 
             var result = query.Result(p => p.Key);
             Console.WriteLine(String.Format("{0} => {1}", result.TotalCount, String.Join(", ", result.EnumerateItems())));
@@ -161,13 +168,26 @@ namespace TestConsole.Data
                 burty.Name = "Buřty";
                 burty.Category = uzenina;
                 burty.Price = 22;
+                burty.AvailableFrom = DateTime.Now.AddDays(1);
+                burty.StopSale = DateTime.Now.AddDays(3);
+                burty.IsDiscount = true;
                 products.Insert(burty);
 
                 Product sunka = products.Create();
                 sunka.Name = "Šunka";
                 sunka.Category = uzenina;
                 sunka.Price = 32;
+                sunka.AvailableFrom = DateTime.Now.AddDays(-1);
+                sunka.StopSale = DateTime.Now.AddDays(3);
                 products.Insert(sunka);
+
+                Product hoveziKyta = products.Create();
+                hoveziKyta.Name = "Hovězí kýta";
+                hoveziKyta.Category = uzenina;
+                hoveziKyta.Price = 44;
+                hoveziKyta.AvailableFrom = DateTime.Now;
+                hoveziKyta.IsDiscount = true;
+                products.Insert(hoveziKyta);
 
                 transaction.SaveChanges();
             }

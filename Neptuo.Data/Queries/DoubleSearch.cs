@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Queries
 {
-    public class DoubleSearch : IQuerySearch
+    public class DoubleSearch : IMultiValueQuerySearch<double>
     {
-        public List<double> Value { get; set; }
+        public IReadOnlyList<double> Value { get; protected set; }
         
         protected DoubleSearch(double value)
         {
-            Value = new List<double>();
-            Value.Add(value);
+            Value = new List<double>(1) { value };
         }
 
         protected DoubleSearch(IEnumerable<double> value)

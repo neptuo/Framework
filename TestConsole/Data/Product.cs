@@ -16,5 +16,8 @@ namespace TestConsole.Data
         public string Name { get; set; }
         public virtual Category Category { get; set; }
         public decimal Price { get; set; }
+        public DateTime AvailableFrom { get; set; }
+        public DateTime? StopSale { get; set; }
+        public bool IsDiscount { get; set; }
     }
 }

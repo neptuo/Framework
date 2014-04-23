@@ -13,5 +13,11 @@ namespace TestConsole.Data.Queries
         TextSearch Name { get; set; }
         //ICategoryFilter Category { get; set; }
         DoubleSearch Price { get; set; }
+        ICategoryFilter Category { get; set; }
+
+        DateTimeSearch AvailableFrom { get; set; }
+        DateTimeSearch StopSale { get; set; }
+
+        BoolSearch IsDiscount { get; set; }
     }
 }
