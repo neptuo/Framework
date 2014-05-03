@@ -1322,10 +1322,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.15.0";
+            Neptuo.VersionInfo.Version = "2.15.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.15.0");
+            return new System.Version.ctor$$String("2.15.1");
         }
     },
     assemblyName: "Neptuo",
@@ -1977,6 +1977,11 @@ JsTypes.push(Neptuo$StateMachines$StringStateMachine$1);
 var Neptuo$Validation$DependencyValidatorService = {
     fullname: "Neptuo.Validation.DependencyValidatorService",
     baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Validation.DependencyValidatorService.ValidateMethodName = "Validate";
+        }
+    },
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.Validation.IValidatorService"],
     Kind: "Class",
@@ -1987,9 +1992,18 @@ var Neptuo$Validation$DependencyValidatorService = {
             Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         },
-        Validate$1: function (TModel, model){
+        Validate$1$$TModel: function (TModel, model){
             var validator = Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validation.IValidator$1.ctor, this.dependencyProvider);
             return validator.Validate(model);
+        },
+        Validate$$Object: function (model){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            var modelType = model.GetType();
+            var validatorType = Typeof(Neptuo.Validation.IValidator$1.ctor).MakeGenericType(modelType);
+            var validateMethod = validatorType.GetMethod$$String(Neptuo.Validation.DependencyValidatorService.ValidateMethodName);
+            var validator = Neptuo.DependencyProviderExtensions.Resolve$$IDependencyProvider$$Type(this.dependencyProvider, validatorType);
+            var validationResult = validateMethod.Invoke$$Object$$Object$Array(validator, [model]);
+            return Cast(validationResult, Neptuo.Validation.IValidationResult.ctor);
         }
     },
     ctors: [{
