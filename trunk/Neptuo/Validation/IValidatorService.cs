@@ -9,5 +9,6 @@ namespace Neptuo.Validation
     public interface IValidatorService
     {
         IValidationResult Validate<TModel>(TModel model);
+        IValidationResult Validate(object model);
     }
 }
