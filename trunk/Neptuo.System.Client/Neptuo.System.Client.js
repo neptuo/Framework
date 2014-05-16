@@ -6311,6 +6311,14 @@ var System$Reflection$PropertyInfo = {
         GetValue$$Object: function (obj){
             return this.GetValue$$Object$$Object$Array(obj, null);
         },
+        CanRead$$: "System.Boolean",
+        get_CanRead: function (){
+            return this._Getter != null;
+        },
+        CanWrite$$: "System.Boolean",
+        get_CanWrite: function (){
+            return this._Setter != null;
+        },
         GetValue$$Object$$BindingFlags$$Binder$$Object$Array$$CultureInfo: function (obj, invokeAttr, binder, index, culture){
             return this.GetValue$$Object$$Object$Array(obj, index);
         },

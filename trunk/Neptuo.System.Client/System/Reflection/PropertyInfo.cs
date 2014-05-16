@@ -60,6 +60,16 @@ namespace SharpKit.JavaScript.Private
             return this.GetValue(obj, null);
         }
 
+        public bool CanRead
+        {
+            get { return _Getter != null; }
+        }
+
+        public bool CanWrite
+        {
+            get { return _Setter != null; }
+        }
+
         // System.Reflection.PropertyInfo
         /// <summary>When overridden in a derived class, returns the value of a property having the specified binding, index, and <see cref="T:System.Globalization.CultureInfo" />.</summary>
         /// <returns>The property value for <paramref name="obj" />.</returns>
