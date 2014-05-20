@@ -1,4 +1,5 @@
-﻿using Neptuo.Commands.Handlers;
+﻿using Neptuo.Commands.Execution;
+using Neptuo.Commands.Handlers;
 using Neptuo.Validation;
 using System;
 using System.Collections.Generic;
@@ -16,70 +17,55 @@ namespace Neptuo.Commands
         private IDependencyProvider dependencyProvider;
 
         /// <summary>
-        /// Initializes new instance with <paramref name="dependencyProvider"/> as source for registrations of <see cref="ICommandHandler<>"/>.
+        /// Initializes new instance with <paramref name="dependencyProvider"/>.
         /// </summary>
-        /// <param name="dependencyProvider">Source for registrations of <see cref="ICommandHandler<>"/>.</param>
+        /// <param name="dependencyProvider">Source for registrations.</param>
         public DependencyCommandDispatcher(IDependencyProvider dependencyProvider)
         {
+            Guard.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 
         /// <summary>
         /// Handles <paramref name="command"/>.
         /// </summary>
-        /// <typeparam name="TCommand">Type of command to handle.</typeparam>
         /// <param name="command">Command to handle.</param>
-        public void Handle<TCommand>(TCommand command)
+        public void Handle(object command)
         {
-            try
-            {
-                ICommandHandler<TCommand> handler = dependencyProvider.Resolve<ICommandHandler<TCommand>>();
-                handler.Handle(command);
-            }
-            catch (Exception e)
-            {
-                HandleException(e, ExceptionSource.FromHandle);
-            }
+            Guard.NotNull(command, "command");
+            HandleInternal(command, true);
         }
 
-        /// <summary>
-        /// Validates <paramref name="command"/>.
-        /// </summary>
-        /// <typeparam name="TCommand">Type of command to validate.</typeparam>
-        /// <param name="command">Command to validate.</param>
-        /// <returns>Validation result.</returns>
-        public IValidationResult Validate<TCommand>(TCommand command)
+        protected virtual void HandleInternal(object command, bool handleException)
         {
             try
             {
-                IValidator<TCommand> validator = dependencyProvider.Resolve<IValidator<TCommand>>();
-                return validator.Validate(command);
+                ICommandExecutorFactory executorFactory = dependencyProvider.Resolve<ICommandExecutorFactory>();
+                ICommandExecutor executor = executorFactory.CreateExecutor(command);
+                executor.Handle(command);
+                // Return from method.
+
+
+
+                
             }
             catch (Exception e)
             {
-                HandleException(e, ExceptionSource.FromValidate);
-                return new ValidationResultBase(false);
+                if (handleException)
+                    HandleException(e);
+                else
+                    throw new CommandDispatcherException("Unahandled exception during command execution.", e);
             }
         }
 
         /// <summary>
         /// Handles exceptions occured while handling or validating command.
         /// </summary>
-        /// <param name="e">Exception that occured.</param>
-        /// <param name="source">Whether Handle or Validate method caused exception.</param>
-        protected virtual void HandleException(Exception e, ExceptionSource source)
+        /// <param name="exception">Exception that occured.</param>
+        protected virtual void HandleException(Exception exception)
         {
-            ICommandHandler<Exception> exceptionHandler = dependencyProvider.Resolve<ICommandHandler<Exception>>();
-            exceptionHandler.Handle(e);
-        }
-
-        /// <summary>
-        /// Enumeration of methods where exception can occur while dispatching command.
-        /// </summary>
-        public enum ExceptionSource
-        {
-            FromHandle,
-            FromValidate,
+            Guard.NotNull(exception, "exception");
+            HandleInternal(exception, false);
         }
     }
 }
