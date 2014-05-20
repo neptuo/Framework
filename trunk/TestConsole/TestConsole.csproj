@@ -57,6 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateProductCommand.cs" />
+    <Compile Include="Commands\CreateProductCommandHandler.cs" />
+    <Compile Include="Commands\TestCommands.cs" />
     <Compile Include="Configuration\StaticConfigurationScope.cs" />
     <Compile Include="Configuration\TestConfiguration.cs" />
     <Compile Include="Data\Category.cs" />
