@@ -2,6 +2,7 @@
 using Neptuo.Commands;
 using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
+using Neptuo.Commands.Interception;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,11 @@ namespace TestConsole.Commands
         {
             DependencyContainer = new UnityDependencyContainer();
 
+            ManualInterceptorProvider interceptorProvider = new ManualInterceptorProvider(DependencyContainer)
+                .AddInterceptorFactory(typeof(CreateProductCommandHandler), provider => new DiscardExceptionAttribute(typeof(NullReferenceException)));
+
             DispatchingCommandExecutorFactory commandExecutorFactory = new DispatchingCommandExecutorFactory()
-                .AddFactory(typeof(CreateProductCommand), new ThreadPoolCommandExecutorFactory(new DependencyCommandExecutorFactory(DependencyContainer)));
+                .AddFactory(typeof(CreateProductCommand), new ThreadPoolCommandExecutorFactory(new DependencyCommandExecutorFactory(DependencyContainer, interceptorProvider)));
 
             commandExecutorFactory.OnSearchFactory += OnSearchFactory;
 
@@ -81,7 +85,7 @@ namespace TestConsole.Commands
 
         public ICommandExecutor CreateExecutor(object command)
         {
-            return new DependencyCommandExecutor(TestCommands.DependencyContainer);
+            return this;
         }
 
         public void Handle(object command)

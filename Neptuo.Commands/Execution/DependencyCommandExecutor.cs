@@ -26,6 +26,11 @@ namespace Neptuo.Commands.Execution
         private IDependencyProvider dependencyProvider;
 
         /// <summary>
+        /// Current provider for interceptors.
+        /// </summary>
+        private IInterceptorProvider interceptorProvider;
+
+        /// <summary>
         /// Fired when handling of command was completed.
         /// </summary>
         public event Action<ICommandExecutor, object> OnCommandHandled;
@@ -34,10 +39,12 @@ namespace Neptuo.Commands.Execution
         /// Initializes new instance with <paramref name="dependencyProvider"/>.
         /// </summary>
         /// <param name="dependencyProvider">Source for registrations.</param>
-        public DependencyCommandExecutor(IDependencyProvider dependencyProvider)
+        public DependencyCommandExecutor(IDependencyProvider dependencyProvider, IInterceptorProvider interceptorProvider)
         {
             Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Guard.NotNull(interceptorProvider, "interceptorProvider");
             this.dependencyProvider = dependencyProvider;
+            this.interceptorProvider = interceptorProvider;
         }
 
         /// <summary>
@@ -49,20 +56,12 @@ namespace Neptuo.Commands.Execution
             Guard.NotNull(command, "command");
             Type commandType = command.GetType();
 
-
             Type genericHandlerType = typeof(ICommandHandler<>);
             Type concreteHandlerType = genericHandlerType.MakeGenericType(commandType);
             MethodInfo methodInfo = concreteHandlerType.GetMethod(handleMethodName);
-
             object commandHandler = dependencyProvider.Resolve(concreteHandlerType);
 
-            List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>();
-            foreach (Attribute attribute in commandHandler.GetType().GetCustomAttributes(true))
-            {
-                IDecoratedInvoke interceptor = attribute as IDecoratedInvoke;
-                if (interceptor != null)
-                    interceptors.Add(interceptor);
-            }
+            List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>(interceptorProvider.GetInterceptors(commandHandler));
             interceptors.Add(this);
 
             InterceptorCollection context = new InterceptorCollection(interceptors, commandHandler, command);
