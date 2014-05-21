@@ -42,16 +42,25 @@
     <Compile Include="CommandDispatcherException.cs" />
     <Compile Include="CommandException.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />
-    <Compile Include="Execution\CommandExecutorFactoryException.cs" />
+    <Compile Include="Execution\CommandExecutorException.cs" />
     <Compile Include="Execution\DependencyCommandExecutor.cs" />
     <Compile Include="Execution\DependencyCommandExecutorFactory.cs" />
     <Compile Include="Execution\DispatchingCommandExecutorFactory.cs" />
+    <Compile Include="Execution\ICommandHandlerAware.cs" />
+    <Compile Include="Execution\PoolCommandExecutor.cs" />
+    <Compile Include="Execution\PoolCommandExecutorFactory.cs" />
+    <Compile Include="Execution\ThreadPoolCommandExecutor.cs" />
+    <Compile Include="Execution\ThreadPoolCommandExecutorFactory.cs" />
     <Compile Include="Handlers\ICommandHandler.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandDispatcher.cs" />
     <Compile Include="Events\CommandHandled.cs" />
     <Compile Include="Execution\ICommandExecutor.cs" />
     <Compile Include="Execution\ICommandExecutorFactory.cs" />
+    <Compile Include="Interception\DiscardExceptionAttribute.cs" />
+    <Compile Include="Interception\IDecoratedInvoke.cs" />
+    <Compile Include="Interception\IDecoratedInvokeContext.cs" />
+    <Compile Include="Execution\InterceptorCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>

@@ -30,11 +30,25 @@ namespace Neptuo.Commands.Execution
         }
 
         /// <summary>
+        /// Adds factory for commands of type <paramref name="commandType"/>.
+        /// </summary>
+        /// <param name="commandType">Command type.</param>
+        /// <param name="factory">Command executor factory for commands of type <paramref name="commandType"/>.</param>
+        /// <returns>This (fluently).</returns>
+        public DispatchingCommandExecutorFactory AddFactory(Type commandType, ICommandExecutorFactory factory)
+        {
+            Guard.NotNull(commandType, "commandType");
+            Guard.NotNull(factory, "factory");
+            Factories[commandType] = factory;
+            return this;
+        }
+
+        /// <summary>
         /// Seaches for <see cref="ICommandExecutorFactory"/> in registered factories or using <see cref="OnSearchFactory"/>.
         /// </summary>
         /// <param name="command">Command instance.</param>
         /// <returns>Command executor.</returns>
-        /// <exception cref="CommandExecutorFactoryException">When factory lookup failed.</exception>
+        /// <exception cref="CommandExecutorException">When factory lookup failed.</exception>
         public ICommandExecutor CreateExecutor(object command)
         {
             Guard.NotNull(command, "command");
@@ -51,7 +65,7 @@ namespace Neptuo.Commands.Execution
                     return factory.CreateExecutor(command);
             }
 
-            throw new CommandExecutorFactoryException(String.Format("Unnable to find factory for command of type '{0}'.", commandType.FullName));
+            throw new CommandExecutorException(String.Format("Unnable to find factory for command of type '{0}'.", commandType.FullName));
         }
     }
 }

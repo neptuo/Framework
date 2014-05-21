@@ -1,4 +1,5 @@
 ﻿using Neptuo.Commands.Handlers;
+using Neptuo.Commands.Interception;
 using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Neptuo.Commands.Execution
     /// <summary>
     /// <see cref="ICommandExecutor"/> using <see cref="IDependencyProvider"/>.
     /// </summary>
-    public class DependencyCommandExecutor : ICommandExecutor
+    public class DependencyCommandExecutor : ICommandExecutor, IDecoratedInvoke
     {
         /// <summary>
         /// Name of <see cref="ICommandHandler<>.Handle"/>.
@@ -23,6 +24,11 @@ namespace Neptuo.Commands.Execution
         /// Current dependency provider.
         /// </summary>
         private IDependencyProvider dependencyProvider;
+
+        /// <summary>
+        /// Fired when handling of command was completed.
+        /// </summary>
+        public event Action<ICommandExecutor, object> OnCommandHandled;
 
         /// <summary>
         /// Initializes new instance with <paramref name="dependencyProvider"/>.
@@ -46,14 +52,34 @@ namespace Neptuo.Commands.Execution
 
             Type genericHandlerType = typeof(ICommandHandler<>);
             Type concreteHandlerType = genericHandlerType.MakeGenericType(commandType);
-
+            MethodInfo methodInfo = concreteHandlerType.GetMethod(handleMethodName);
 
             object commandHandler = dependencyProvider.Resolve(concreteHandlerType);
-            MethodInfo methodInfo = concreteHandlerType.GetMethod(handleMethodName);
-            methodInfo.Invoke(commandHandler, new[] { command });
 
-            //ICommandHandler<TCommand> handler = dependencyProvider.Resolve<ICommandHandler<TCommand>>();
-            //handler.Handle(command);
+            List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>();
+            foreach (Attribute attribute in commandHandler.GetType().GetCustomAttributes(true))
+            {
+                IDecoratedInvoke interceptor = attribute as IDecoratedInvoke;
+                if (interceptor != null)
+                    interceptors.Add(interceptor);
+            }
+            interceptors.Add(this);
+
+            InterceptorCollection context = new InterceptorCollection(interceptors, commandHandler, command);
+            context.Next();
+        }
+
+        public void OnInvoke(IDecoratedInvokeContext context)
+        {
+            ICommandHandlerAware collection = context as ICommandHandlerAware;
+            if (collection == null)
+                throw new CommandExecutorException(String.Format("Context is not of type '{0}'.", typeof(ICommandHandlerAware).FullName));
+
+            MethodInfo methodInfo = collection.CommandHandler.GetType().GetMethod(handleMethodName);
+            methodInfo.Invoke(collection.CommandHandler, new[] { context.Command });
+
+            if (OnCommandHandled != null)
+                OnCommandHandled(this, context.Command);
         }
     }
 }
