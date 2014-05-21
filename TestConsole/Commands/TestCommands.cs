@@ -8,28 +8,34 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestConsole.Commands
 {
     class TestCommands
     {
-        static IDependencyContainer dependencyContainer;
+        public static IDependencyContainer DependencyContainer;
 
         public static void Test()
         {
-            DispatchingCommandExecutorFactory commandExecutorFactory = new DispatchingCommandExecutorFactory();
+            DependencyContainer = new UnityDependencyContainer();
+
+            DispatchingCommandExecutorFactory commandExecutorFactory = new DispatchingCommandExecutorFactory()
+                .AddFactory(typeof(CreateProductCommand), new ThreadPoolCommandExecutorFactory(new DependencyCommandExecutorFactory(DependencyContainer)));
+
             commandExecutorFactory.OnSearchFactory += OnSearchFactory;
 
-            dependencyContainer = new UnityDependencyContainer()
+            DependencyContainer
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
                 .RegisterInstance<ICommandExecutorFactory>(commandExecutorFactory);
 
-            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
-            
-            
-            
-            commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0));
+            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(DependencyContainer);
+
+            Console.WriteLine("Console ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
+
+            for (int i = 0; i < 5; i++)
+                commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0));
 
 
             //int count = 1000;
@@ -64,23 +70,29 @@ namespace TestConsole.Commands
 
         private static ICommandExecutorFactory OnSearchFactory(object arg)
         {
-            return new DependencyCommandExecutorFactory(dependencyContainer);
-            //return new TestCommandExecutor();
+            //return new DependencyCommandExecutorFactory(dependencyContainer);
+            return new TestCommandExecutor();
         }
     }
 
     class TestCommandExecutor : ICommandExecutorFactory, ICommandExecutor
     {
+        public event Action<ICommandExecutor, object> OnCommandHandled;
+
         public ICommandExecutor CreateExecutor(object command)
         {
-            return this;
+            return new DependencyCommandExecutor(TestCommands.DependencyContainer);
         }
 
         public void Handle(object command)
         {
             var handler = new CreateProductCommandHandler();
             handler.Handle((CreateProductCommand)command);
+
+            if (OnCommandHandled != null)
+                OnCommandHandled(this, command);
         }
+
     }
 
 }

@@ -38,23 +38,32 @@ namespace Neptuo.Commands
 
         protected virtual void HandleInternal(object command, bool handleException)
         {
+            ICommandExecutor executor = null;
             try
             {
                 ICommandExecutorFactory executorFactory = dependencyProvider.Resolve<ICommandExecutorFactory>();
-                ICommandExecutor executor = executorFactory.CreateExecutor(command);
+                executor = executorFactory.CreateExecutor(command);
                 executor.Handle(command);
-                // Return from method.
-
-
-
-                
             }
             catch (Exception e)
             {
                 if (handleException)
+                {
                     HandleException(e);
-                else
-                    throw new CommandDispatcherException("Unahandled exception during command execution.", e);
+                    return;
+                }
+
+                Exception commandException = command as Exception;
+                if (commandException != null)
+                    throw new CommandDispatcherException("Unahandled exception during command execution.", commandException);
+
+                throw new CommandDispatcherException("Unahandled exception during command execution.", e);
+            }
+            finally
+            {
+                IDisposable disposable = executor as IDisposable;
+                if (disposable != null)
+                    disposable.Dispose();
             }
         }
 
