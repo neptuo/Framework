@@ -42,6 +42,7 @@
     <Compile Include="CommandDispatcherException.cs" />
     <Compile Include="CommandException.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />
+    <Compile Include="Execution\IPoolCommandExecutorContext.cs" />
     <Compile Include="Interception\AttributeInterceptorProvider.cs" />
     <Compile Include="Execution\CommandExecutorException.cs" />
     <Compile Include="Execution\DependencyCommandExecutor.cs" />
@@ -61,7 +62,7 @@
     <Compile Include="Interception\DiscardExceptionAttribute.cs" />
     <Compile Include="Interception\IDecoratedInvoke.cs" />
     <Compile Include="Interception\IDecoratedInvokeContext.cs" />
-    <Compile Include="Execution\InterceptorCollection.cs" />
+    <Compile Include="Execution\InterceptorExectionContext.cs" />
     <Compile Include="Interception\IInterceptorProvider.cs" />
     <Compile Include="Interception\ManualInterceptorProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

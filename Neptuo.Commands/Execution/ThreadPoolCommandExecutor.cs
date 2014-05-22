@@ -16,6 +16,11 @@ namespace Neptuo.Commands.Execution
             : base(poolFactory)
         { }
 
+        /// <summary>
+        /// Handles command in new thread.
+        /// </summary>
+        /// <param name="executor">Inner executor.</param>
+        /// <param name="command">Command to handle.</param>
         protected override void DoHandleCommand(ICommandExecutor executor, object command)
         {
             Thread thread = new Thread(executor.Handle);

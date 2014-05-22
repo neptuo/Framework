@@ -12,6 +12,7 @@ namespace Neptuo.Commands.Execution
 {
     /// <summary>
     /// <see cref="ICommandExecutor"/> using <see cref="IDependencyProvider"/>.
+    /// Enables interception.
     /// </summary>
     public class DependencyCommandExecutor : ICommandExecutor, IDecoratedInvoke
     {
@@ -64,10 +65,15 @@ namespace Neptuo.Commands.Execution
             List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>(interceptorProvider.GetInterceptors(commandHandler));
             interceptors.Add(this);
 
-            InterceptorCollection context = new InterceptorCollection(interceptors, commandHandler, command);
+            InterceptorExectionContext context = new InterceptorExectionContext(interceptors, commandHandler, command);
             context.Next();
         }
 
+        /// <summary>
+        /// When all interceptors are done, executes command.
+        /// Requires <paramref name="context"/> to be of type <see cref="ICommandHandlerAware"/>.
+        /// </summary>
+        /// <param name="context">Context object, must be of type <see cref="ICommandHandlerAware"/>.</param>
         public void OnInvoke(IDecoratedInvokeContext context)
         {
             ICommandHandlerAware collection = context as ICommandHandlerAware;

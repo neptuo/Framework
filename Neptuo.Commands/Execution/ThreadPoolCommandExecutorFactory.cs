@@ -28,6 +28,11 @@ namespace Neptuo.Commands.Execution
             : base(poolSize, innerFactory)
         { }
 
+        /// <summary>
+        /// Creates <see cref="ThreadPoolCommandExecutor"/>.
+        /// </summary>
+        /// <param name="command">Command to handle.</param>
+        /// <returns><see cref="ThreadPoolCommandExecutor"/>.</returns>
         protected override PoolCommandExecutor CreatePoolExecutor(object command)
         {
             return new ThreadPoolCommandExecutor(this);
