@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Neptuo.Commands.Interception
 {
+    /// <summary>
+    /// Enables static manual interception registration.
+    /// For now, supports only interceptors for handler types, not handler methods.
+    /// </summary>
     public class ManualInterceptorProvider : IInterceptorProvider
     {
         private IDependencyProvider dependencyProvider;
@@ -55,7 +60,7 @@ namespace Neptuo.Commands.Interception
             return this;
         }
 
-        public IEnumerable<IDecoratedInvoke> GetInterceptors(object commandHandler)
+        public IEnumerable<IDecoratedInvoke> GetInterceptors(object commandHandler, object command, MethodInfo commandHandlerMethod)
         {
             Guard.NotNull(commandHandler, "commandHandler");
             Type commandHandlerType = commandHandler.GetType();

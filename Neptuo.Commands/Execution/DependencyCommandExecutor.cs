@@ -62,7 +62,7 @@ namespace Neptuo.Commands.Execution
             MethodInfo methodInfo = concreteHandlerType.GetMethod(handleMethodName);
             object commandHandler = dependencyProvider.Resolve(concreteHandlerType);
 
-            List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>(interceptorProvider.GetInterceptors(commandHandler));
+            List<IDecoratedInvoke> interceptors = new List<IDecoratedInvoke>(interceptorProvider.GetInterceptors(commandHandler, command, methodInfo));
             interceptors.Add(this);
 
             InterceptorExectionContext context = new InterceptorExectionContext(interceptors, commandHandler, command);
@@ -80,8 +80,15 @@ namespace Neptuo.Commands.Execution
             if (collection == null)
                 throw new CommandExecutorException(String.Format("Context is not of type '{0}'.", typeof(ICommandHandlerAware).FullName));
 
-            MethodInfo methodInfo = collection.CommandHandler.GetType().GetMethod(handleMethodName);
-            methodInfo.Invoke(collection.CommandHandler, new[] { context.Command });
+            try
+            {
+                MethodInfo methodInfo = collection.CommandHandler.GetType().GetMethod(handleMethodName);
+                methodInfo.Invoke(collection.CommandHandler, new[] { context.Command });
+            }
+            catch (TargetInvocationException e)
+            {
+                throw e.InnerException;
+            }
 
             if (OnCommandHandled != null)
                 OnCommandHandled(this, context.Command);

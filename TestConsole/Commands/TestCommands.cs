@@ -38,7 +38,7 @@ namespace TestConsole.Commands
 
             Console.WriteLine("Console ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
                 commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0));
 
 

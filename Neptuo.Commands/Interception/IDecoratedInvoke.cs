@@ -11,6 +11,10 @@ namespace Neptuo.Commands.Interception
     /// </summary>
     public interface IDecoratedInvoke
     {
+        /// <summary>
+        /// Arround handler invoke.
+        /// </summary>
+        /// <param name="context">Context.</param>
         void OnInvoke(IDecoratedInvokeContext context);
     }
 }
