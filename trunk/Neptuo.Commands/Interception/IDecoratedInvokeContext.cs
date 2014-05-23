@@ -17,6 +17,11 @@ namespace Neptuo.Commands.Interception
         object Command { get; }
 
         /// <summary>
+        /// Exception, that occured during execution.
+        /// </summary>
+        Exception Exception { get; set; }
+
+        /// <summary>
         /// Process execution to next interceptor.
         /// </summary>
         void Next();

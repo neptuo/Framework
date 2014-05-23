@@ -8,6 +8,6 @@ namespace Neptuo.Events.Handlers
 {
     public interface IEventHandlerFactory<TEvent>
     {
-        IEventHandler<TEvent> CreateHandler();
+        IEventHandler<TEvent> CreateHandler(TEvent eventData);
     }
 }

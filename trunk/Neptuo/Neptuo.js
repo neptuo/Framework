@@ -598,8 +598,8 @@ var Neptuo$DependencyContainerExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$DependencyContainerExtensions);
-var Neptuo$Events$EventDispatcher = {
-    fullname: "Neptuo.Events.EventDispatcher",
+var Neptuo$Events$EventManager = {
+    fullname: "Neptuo.Events.EventManager",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.Events.IEventManager", "Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
@@ -633,7 +633,9 @@ var Neptuo$Events$EventDispatcher = {
                 var $it2 = handlers.GetEnumerator();
                 while ($it2.MoveNext()){
                     var handlerFactory = $it2.get_Current();
-                    handlerFactory.CreateHandler().Handle(eventData);
+                    var handler = handlerFactory.CreateHandler(eventData);
+                    if (handler != null)
+                        handler.Handle(eventData);
                 }
             }
         },
@@ -674,7 +676,7 @@ var Neptuo$Events$EventDispatcher = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Events$EventDispatcher);
+JsTypes.push(Neptuo$Events$EventManager);
 var Neptuo$Events$EventDispatcherExtensions = {
     fullname: "Neptuo.Events.EventDispatcherExtensions",
     baseTypeName: "System.Object",
@@ -777,7 +779,7 @@ var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 = {
         set_Getter: function (value){
             this._Getter = value;
         },
-        CreateHandler: function (){
+        CreateHandler: function (eventData){
             return this.get_Getter()();
         }
     },
@@ -829,7 +831,7 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 = {
         set_Handler: function (value){
             this._Handler = value;
         },
-        CreateHandler: function (){
+        CreateHandler: function (eventData){
             return this.get_Handler();
         }
     },

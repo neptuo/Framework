@@ -80,6 +80,7 @@
     <Compile Include="Data\ProductEntity.cs" />
     <Compile Include="Data\ProductRepository.cs" />
     <Compile Include="Data\Queries\ProductFilter.cs" />
+    <Compile Include="Events\TestEvents.cs" />
     <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
