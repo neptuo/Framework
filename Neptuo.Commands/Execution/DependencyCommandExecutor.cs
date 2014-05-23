@@ -67,6 +67,16 @@ namespace Neptuo.Commands.Execution
 
             InterceptorExectionContext context = new InterceptorExectionContext(interceptors, commandHandler, command);
             context.Next();
+
+            if (context.Exception == null)
+            {
+                if (OnCommandHandled != null)
+                    OnCommandHandled(this, context.Command);
+            }
+            else
+            {
+                throw context.Exception;
+            }
         }
 
         /// <summary>
@@ -87,11 +97,8 @@ namespace Neptuo.Commands.Execution
             }
             catch (TargetInvocationException e)
             {
-                throw e.InnerException;
+                context.Exception = e.InnerException;
             }
-
-            if (OnCommandHandled != null)
-                OnCommandHandled(this, context.Command);
         }
     }
 }

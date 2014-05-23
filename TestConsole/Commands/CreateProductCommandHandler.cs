@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Commands
 {
-    [DiscardException(typeof(NullReferenceException))]
+    //[DiscardException(typeof(NullReferenceException))]
     class CreateProductCommandHandler : ICommandHandler<CreateProductCommand>
     {
         static int count = 0;

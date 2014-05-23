@@ -33,6 +33,11 @@ namespace Neptuo.Commands.Execution
         public object Command { get; private set; }
 
         /// <summary>
+        /// Exception, that occured during execution.
+        /// </summary>
+        public Exception Exception { get; set; }
+
+        /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="interceptors">List of interceptors.</param>

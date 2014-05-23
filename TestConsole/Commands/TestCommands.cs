@@ -1,8 +1,12 @@
 ﻿using Neptuo;
 using Neptuo.Commands;
+using Neptuo.Commands.Events;
+using Neptuo.Commands.Events.Handlers;
 using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
 using Neptuo.Commands.Interception;
+using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
@@ -14,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Commands
 {
-    class TestCommands
+    class TestCommands : TestClass
     {
         public static IDependencyContainer DependencyContainer;
 
@@ -22,8 +26,10 @@ namespace TestConsole.Commands
         {
             DependencyContainer = new UnityDependencyContainer();
 
-            ManualInterceptorProvider interceptorProvider = new ManualInterceptorProvider(DependencyContainer)
-                .AddInterceptorFactory(typeof(CreateProductCommandHandler), provider => new DiscardExceptionAttribute(typeof(NullReferenceException)));
+            EventManager eventManager = new EventManager();
+
+            ManualInterceptorProvider interceptorProvider = new ManualInterceptorProvider(DependencyContainer);
+                //.AddInterceptorFactory(typeof(CreateProductCommandHandler), provider => new DiscardExceptionAttribute(typeof(NullReferenceException)));
 
             DispatchingCommandExecutorFactory commandExecutorFactory = new DispatchingCommandExecutorFactory()
                 .AddFactory(typeof(CreateProductCommand), new ThreadPoolCommandExecutorFactory(new DependencyCommandExecutorFactory(DependencyContainer, interceptorProvider)));
@@ -34,12 +40,17 @@ namespace TestConsole.Commands
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
                 .RegisterInstance<ICommandExecutorFactory>(commandExecutorFactory);
 
-            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(DependencyContainer);
+            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(DependencyContainer, eventManager);
 
             Console.WriteLine("Console ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
             for (int i = 0; i < 1; i++)
-                commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0));
+            {
+                CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
+
+                eventManager.Subscribe(new CommandHandlerFactory(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
+                commandDispatcher.Handle(command);
+            }
 
 
             //int count = 1000;
@@ -47,29 +58,19 @@ namespace TestConsole.Commands
             //TestDirect(count);
         }
 
+        private static void OnCommandHandled(CommandHandled eventData)
+        {
+            Console.WriteLine(eventData);
+        }
+
         static void TestCommandDispatcher(int count, ICommandDispatcher commandDispatcher)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < count; i++)
-            {
-                commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0));
-            }
-            sw.Stop();
-            Console.WriteLine("CommandDispatcher: {0}ms", sw.ElapsedMilliseconds);
+            DebugIteration("CommandDispatcher", count, () => commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0)));
         }
 
         static void TestDirect(int count)
         {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < count; i++)
-            {
-                var handler = new CreateProductCommandHandler();
-                handler.Handle(new CreateProductCommand("Pen", 5.0));
-            }
-            sw.Stop();
-            Console.WriteLine("Direct: {0}ms", sw.ElapsedMilliseconds);
+            DebugIteration("Direct", count, () => new CreateProductCommandHandler().Handle(new CreateProductCommand("Pen", 5.0)));
         }
 
         private static ICommandExecutorFactory OnSearchFactory(object arg)

@@ -30,17 +30,10 @@ namespace Neptuo.Commands.Interception
 
         public void OnInvoke(IDecoratedInvokeContext context)
         {
-            try
-            {
-                context.Next();
-            }
-            catch (Exception e)
-            {
-                if (Exceptions.Contains(e.GetType()))
-                    return;
+            context.Next();
 
-                throw e;
-            }
+            if (context.Exception != null && Exceptions.Contains(context.Exception.GetType()))
+                context.Exception = null;
         }
     }
 }

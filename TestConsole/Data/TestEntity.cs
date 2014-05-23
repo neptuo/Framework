@@ -21,6 +21,7 @@ using TestConsole.Data.Commands.Handlers;
 using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
 using Neptuo.Validation;
+using Neptuo.Events;
 
 namespace TestConsole.Data
 {
@@ -40,7 +41,7 @@ namespace TestConsole.Data
 
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
-            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer);
+            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer, new EventManager());
 
             //CreateProducts(dependencyContainer);
 

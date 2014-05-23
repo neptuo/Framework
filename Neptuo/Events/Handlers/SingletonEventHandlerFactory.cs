@@ -18,7 +18,7 @@ namespace Neptuo.Events.Handlers
             Handler = handler;
         }
 
-        public IEventHandler<TEvent> CreateHandler()
+        public IEventHandler<TEvent> CreateHandler(TEvent eventData)
         {
             return Handler;
         }

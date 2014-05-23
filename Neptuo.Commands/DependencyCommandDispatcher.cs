@@ -1,5 +1,7 @@
-﻿using Neptuo.Commands.Execution;
+﻿using Neptuo.Commands.Events;
+using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
+using Neptuo.Events;
 using Neptuo.Validation;
 using System;
 using System.Collections.Generic;
@@ -15,15 +17,18 @@ namespace Neptuo.Commands
     public class DependencyCommandDispatcher : ICommandDispatcher
     {
         private IDependencyProvider dependencyProvider;
+        private IEventDispatcher eventDispatcher;
 
         /// <summary>
         /// Initializes new instance with <paramref name="dependencyProvider"/>.
         /// </summary>
         /// <param name="dependencyProvider">Source for registrations.</param>
-        public DependencyCommandDispatcher(IDependencyProvider dependencyProvider)
+        public DependencyCommandDispatcher(IDependencyProvider dependencyProvider, IEventDispatcher eventDispatcher)
         {
             Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Guard.NotNull(eventDispatcher, "eventDispatcher");
             this.dependencyProvider = dependencyProvider;
+            this.eventDispatcher = eventDispatcher;
         }
 
         /// <summary>
@@ -43,6 +48,7 @@ namespace Neptuo.Commands
             {
                 ICommandExecutorFactory executorFactory = dependencyProvider.Resolve<ICommandExecutorFactory>();
                 executor = executorFactory.CreateExecutor(command);
+                executor.OnCommandHandled += OnCommandHandled;
                 executor.Handle(command);
             }
             catch (Exception e)
@@ -65,6 +71,16 @@ namespace Neptuo.Commands
                 if (disposable != null)
                     disposable.Dispose();
             }
+        }
+
+        private void OnCommandHandled(ICommandExecutor executor, object command)
+        {
+            executor.OnCommandHandled -= OnCommandHandled;
+            ICommand guidCommand = command as ICommand;
+            if (guidCommand != null)
+                eventDispatcher.Publish(new CommandHandled(guidCommand));
+            else
+                eventDispatcher.Publish(new CommandHandled(command));
         }
 
         /// <summary>

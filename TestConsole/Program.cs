@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TestConsole.Commands;
 using TestConsole.Configuration;
 using TestConsole.Data;
+using TestConsole.Events;
 using TestConsole.PresentationModels;
 using TestConsole.Tokens;
 
@@ -21,6 +22,7 @@ namespace TestConsole
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
             TestCommands.Test();
+            //TestEvents.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
@@ -46,6 +48,15 @@ namespace TestConsole
             Console.WriteLine("{0}: {1}ms", title, sw.ElapsedMilliseconds);
         }
 
+        public static void DebugIteration(string title, int count, Action action)
+        {
+            Debug(title, () =>
+            {
+                for (int i = 0; i < count; i++)
+                    action();
+            });
+        }
+
         public static T Debug<T>(string title, Func<T> action)
         {
             Stopwatch sw = new Stopwatch();
@@ -56,6 +67,18 @@ namespace TestConsole
             sw.Stop();
             Console.WriteLine("{0}: {1}ms", title, sw.ElapsedMilliseconds);
             return result;
+        }
+
+        public static List<T> DebugIteration<T>(string title, int count, Func<T> action)
+        {
+            return Debug(title, () =>
+            {
+                List<T> result = new List<T>();
+                for (int i = 0; i < count; i++)
+                    action();
+                
+                return result;
+            });
         }
     }
 }

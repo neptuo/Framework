@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Events
 {
-    public class EventDispatcher : IEventManager, IEventDispatcher, IEventRegistry
+    public class EventManager : IEventManager, IEventDispatcher, IEventRegistry
     {
         private Dictionary<Type, List<object>> Registry { get; set; }
 
-        public EventDispatcher()
+        public EventManager()
         {
             Registry = new Dictionary<Type, List<object>>();
         }
@@ -27,9 +27,9 @@ namespace Neptuo.Events
             {
                 foreach (IEventHandlerFactory<TEvent> handlerFactory in handlers)
                 {
-                    handlerFactory
-                        .CreateHandler()
-                        .Handle(eventData);
+                    IEventHandler<TEvent> handler = handlerFactory.CreateHandler(eventData);
+                    if(handler != null)
+                        handler.Handle(eventData);
                 }
             }
         }
