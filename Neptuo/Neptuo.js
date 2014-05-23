@@ -1324,10 +1324,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.15.1";
+            Neptuo.VersionInfo.Version = "2.15.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.15.1");
+            return new System.Version.ctor$$String("2.15.2");
         }
     },
     assemblyName: "Neptuo",
