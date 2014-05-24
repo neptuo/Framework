@@ -10,7 +10,24 @@ namespace Neptuo.Events
 {
     public static class EventDispatcherExtensions
     {
-        //public static Subscribe
+        /// <summary>
+        /// Subscribes <typeparamref name="TEventHandler"/> using dependency handler factory.
+        /// </summary>
+        /// <typeparam name="TEvent">Type of event data.</typeparam>
+        /// <typeparam name="TEventHandler">Type of event handler</typeparam>
+        /// <param name="eventRegistry">Event registry.</param>
+        /// <param name="dependencyProvider">Dependency provider for resolving .</param>
+        /// <returns>Created event handler factory.</returns>
+        public static DependencyEventHandlerFactory<TEvent, TEventHandler> SubscribeDependency<TEvent, TEventHandler>(this IEventRegistry eventRegistry, IDependencyProvider dependencyProvider)
+            where TEventHandler : IEventHandler<TEvent>
+        {
+            Guard.NotNull(eventRegistry, "eventRegistry");
+            Guard.NotNull(dependencyProvider, "dependencyProvider");
+
+            DependencyEventHandlerFactory<TEvent, TEventHandler> factory = new DependencyEventHandlerFactory<TEvent, TEventHandler>(dependencyProvider);
+            eventRegistry.Subscribe(factory);
+            return factory;
+        }
 
         public static IDisposable Using<TEvent>(this IEventRegistry eventRegistry, IEventHandler<TEvent> eventHandler)
         {
