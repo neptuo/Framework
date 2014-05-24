@@ -9,7 +9,7 @@ namespace Neptuo.Events.Handlers
     /// <summary>
     /// Creates instances of event handler using <see cref="IDependencyProvider"/>.
     /// </summary>
-    /// <typeparam name="TEvent">Type of event.</typeparam>
+    /// <typeparam name="TEvent">Type of event data.</typeparam>
     /// <typeparam name="TEventHandler">Type of handler to handle events of type <typeparamref name="TEvent"/>.</typeparam>
     public class DependencyEventHandlerFactory<TEvent, TEventHandler> : IEventHandlerFactory<TEvent>
         where TEventHandler : IEventHandler<TEvent>

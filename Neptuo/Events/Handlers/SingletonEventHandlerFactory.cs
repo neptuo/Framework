@@ -6,15 +6,24 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Events.Handlers
 {
+    /// <summary>
+    /// Single instance event handler factory.
+    /// </summary>
+    /// <typeparam name="TEvent">Type of event data.</typeparam>
     public class SingletonEventHandlerFactory<TEvent> : IEventHandlerFactory<TEvent>
     {
-        protected IEventHandler<TEvent> Handler { get; private set; }
+        /// <summary>
+        /// Singleton event handler.
+        /// </summary>
+        public IEventHandler<TEvent> Handler { get; private set; }
 
+        /// <summary>
+        /// Creates new instance using <paramref name="handler"/>.
+        /// </summary>
+        /// <param name="handler">Singleton event handler.</param>
         public SingletonEventHandlerFactory(IEventHandler<TEvent> handler)
         {
-            if (handler == null)
-                throw new ArgumentNullException("handler");
-
+            Guard.NotNull(handler, "handler");
             Handler = handler;
         }
 
