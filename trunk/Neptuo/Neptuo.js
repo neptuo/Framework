@@ -630,10 +630,10 @@ var Neptuo$Events$EventManager = {
                 handlers = $1.Value;
                 return $res;
             }).call(this)){
-                var $it2 = handlers.GetEnumerator();
+                var $it2 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlers).GetEnumerator();
                 while ($it2.MoveNext()){
                     var handlerFactory = $it2.get_Current();
-                    var handler = handlerFactory.CreateHandler(eventData);
+                    var handler = handlerFactory.CreateHandler(eventData, this);
                     if (handler != null)
                         handler.Handle(eventData);
                 }
@@ -757,6 +757,33 @@ var Neptuo$Events$Handlers$ActionEventHandler$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Events$Handlers$ActionEventHandler$1);
+var Neptuo$Events$Handlers$DependencyEventHandlerFactory$2 = {
+    fullname: "Neptuo.Events.Handlers.DependencyEventHandlerFactory$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (TEvent, TEventHandler, dependencyProvider){
+            this.TEvent = TEvent;
+            this.TEventHandler = TEventHandler;
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        CreateHandler: function (eventData, currentManager){
+            return Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(this.TEventHandler, this.dependencyProvider);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Events$Handlers$DependencyEventHandlerFactory$2);
 var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 = {
     fullname: "Neptuo.Events.Handlers.GetterEventHandlerFactory$1",
     baseTypeName: "System.Object",
@@ -779,7 +806,7 @@ var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 = {
         set_Getter: function (value){
             this._Getter = value;
         },
-        CreateHandler: function (eventData){
+        CreateHandler: function (eventData, currentManager){
             return this.get_Getter()();
         }
     },
@@ -831,7 +858,7 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 = {
         set_Handler: function (value){
             this._Handler = value;
         },
-        CreateHandler: function (eventData){
+        CreateHandler: function (eventData, currentManager){
             return this.get_Handler();
         }
     },

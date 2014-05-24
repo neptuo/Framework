@@ -52,6 +52,7 @@
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventDispatcherExtensions.cs" />
     <Compile Include="Events\Handlers\ActionEventHandler.cs" />
+    <Compile Include="Events\Handlers\DependencyEventHandlerFactory.cs" />
     <Compile Include="Events\Handlers\GetterEventHandlerFactory.cs" />
     <Compile Include="Events\Handlers\IEventHandler.cs" />
     <Compile Include="Events\Handlers\IEventHandlerFactory.cs" />

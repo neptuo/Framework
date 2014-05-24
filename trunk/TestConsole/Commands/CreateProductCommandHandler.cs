@@ -21,7 +21,7 @@ namespace TestConsole.Commands
             Guard.NotNull(command, "command");
 
             Console.WriteLine("Handler ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             count++;
 
             Console.WriteLine("Creating product {2}: '{0}' with price {1}.", command.Name, command.Price, count);

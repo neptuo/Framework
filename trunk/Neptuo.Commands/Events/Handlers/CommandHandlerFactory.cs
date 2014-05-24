@@ -1,4 +1,5 @@
-﻿using Neptuo.Events.Handlers;
+﻿using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,13 @@ namespace Neptuo.Commands.Events.Handlers
             this.innerFactory = innerFactory;
         }
 
-        public IEventHandler<CommandHandled> CreateHandler(CommandHandled eventData)
+        public IEventHandler<CommandHandled> CreateHandler(CommandHandled eventData, IEventManager currentManager)
         {
             if (eventData.Command == command)
-                return innerFactory.CreateHandler(eventData);
+            {
+                currentManager.UnSubscribe(this);
+                return innerFactory.CreateHandler(eventData, currentManager);
+            }
 
             return null;
         }
