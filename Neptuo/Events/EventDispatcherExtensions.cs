@@ -10,6 +10,8 @@ namespace Neptuo.Events
 {
     public static class EventDispatcherExtensions
     {
+        //public static Subscribe
+
         public static IDisposable Using<TEvent>(this IEventRegistry eventRegistry, IEventHandler<TEvent> eventHandler)
         {
             return new UsignEventHandlerSubscriber<TEvent>(eventRegistry, eventHandler);

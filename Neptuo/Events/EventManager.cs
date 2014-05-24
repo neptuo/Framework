@@ -22,12 +22,12 @@ namespace Neptuo.Events
                 throw new ArgumentNullException("eventData");
 
             Type eventType = typeof(TEvent);
-            List<object> handlers;
-            if (Registry.TryGetValue(eventType, out handlers))
+            List<object> handlerFactories;
+            if (Registry.TryGetValue(eventType, out handlerFactories))
             {
-                foreach (IEventHandlerFactory<TEvent> handlerFactory in handlers)
+                foreach (IEventHandlerFactory<TEvent> handlerFactory in handlerFactories.ToList())
                 {
-                    IEventHandler<TEvent> handler = handlerFactory.CreateHandler(eventData);
+                    IEventHandler<TEvent> handler = handlerFactory.CreateHandler(eventData, this);
                     if(handler != null)
                         handler.Handle(eventData);
                 }

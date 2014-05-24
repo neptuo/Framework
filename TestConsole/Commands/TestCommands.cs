@@ -37,6 +37,10 @@ namespace TestConsole.Commands
             commandExecutorFactory.OnSearchFactory += OnSearchFactory;
 
             DependencyContainer
+                .RegisterInstance<IEventDispatcher>(eventManager)
+                .RegisterInstance<IEventManager>(eventManager)
+                .RegisterInstance<IEventRegistry>(eventManager)
+
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
                 .RegisterInstance<ICommandExecutorFactory>(commandExecutorFactory);
 
@@ -49,7 +53,9 @@ namespace TestConsole.Commands
                 CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
 
                 eventManager.Subscribe(new CommandHandlerFactory(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
+                eventManager.Subscribe(new CommandHandlerFactory(command, new DependencyEventHandlerFactory<CommandHandled, CreateProductEventHandler>(DependencyContainer)));
                 commandDispatcher.Handle(command);
+                GC.Collect();
             }
 
 
@@ -79,6 +85,26 @@ namespace TestConsole.Commands
             return new TestCommandExecutor();
         }
     }
+
+    class CreateProductEventHandler : IEventHandler<CommandHandled>
+    {
+        public CreateProductEventHandler()
+        {
+            Console.WriteLine("Constructing CreateProductEventHandler.");
+        }
+
+        ~CreateProductEventHandler()
+        {
+            Console.WriteLine("Destructing CreateProductEventHandler.");
+        }
+
+        public void Handle(CommandHandled eventData)
+        {
+            CreateProductCommand command = (CreateProductCommand)eventData.Command;
+            Console.WriteLine("Crated product: {0}", command.Name);
+        }
+    }
+
 
     class TestCommandExecutor : ICommandExecutorFactory, ICommandExecutor
     {
