@@ -7,10 +7,19 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Events
 {
+    /// <summary>
+    /// Implementation of <see cref="IEventManager"/>.
+    /// </summary>
     public class EventManager : IEventManager, IEventDispatcher, IEventRegistry
     {
-        private Dictionary<Type, List<object>> Registry { get; set; }
+        /// <summary>
+        /// Internal storage for registrations.
+        /// </summary>
+        protected Dictionary<Type, List<object>> Registry { get; set; }
 
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
         public EventManager()
         {
             Registry = new Dictionary<Type, List<object>>();
@@ -34,25 +43,67 @@ namespace Neptuo.Events
             }
         }
 
-        public void Subscribe<TEvent>(IEventHandlerFactory<TEvent> factory)
+        /// <summary>
+        /// Subscribes <paramref name="factory"/> for events of type <paramref name="eventDataType"/>.
+        /// Doesn't provide any type checks!
+        /// </summary>
+        /// <param name="eventDataType">Type of event data.</param>
+        /// <param name="factory">Event handler factory for events of type <paramref name="eventDataType"/>.</param>
+        protected void SubscribeInternal(Type eventDataType, IEventHandlerFactory factory)
         {
-            Type eventType = typeof(TEvent);
             List<object> handlers;
-            if (!Registry.TryGetValue(eventType, out handlers))
+            if (!Registry.TryGetValue(eventDataType, out handlers))
             {
                 handlers = new List<object>();
-                Registry.Add(eventType, handlers);
+                Registry.Add(eventDataType, handlers);
             }
 
             handlers.Add(factory);
         }
 
+        public void Subscribe<TEvent>(IEventHandlerFactory<TEvent> factory)
+        {
+            Guard.NotNull(factory, "factory");
+            Type eventDataType = typeof(TEvent);
+            SubscribeInternal(eventDataType, factory);
+        }
+
+        public void Subscribe(Type eventDataType, IEventHandlerFactory factory)
+        {
+            Guard.NotNull(eventDataType, "eventDataType");
+            Guard.NotNull(factory, "factory");
+
+            if (!typeof(IEventHandlerFactory<>).MakeGenericType(eventDataType).IsAssignableFrom(factory.GetType()))
+                throw new ArgumentException(String.Format("Factory doesn't implement IEventHandlerFactory<{0}>", eventDataType.FullName), "factory");
+
+            SubscribeInternal(eventDataType, factory);
+        }
+
+        /// <summary>
+        /// Unsubscribes <paramref name="factory"/> from events of type <paramref name="eventDataType"/>.
+        /// Doesn't provide any type checks!
+        /// </summary>
+        /// <param name="eventDataType">Type of event data.</param>
+        /// <param name="factory">Event handler factory for events of type <paramref name="eventDataType"/>.</param>
+        protected void UnSubscribeInternal(Type eventDataType, IEventHandlerFactory factory)
+        {
+            List<object> handlers;
+            if (Registry.TryGetValue(eventDataType, out handlers))
+                handlers.Remove(factory);
+        }
+
         public void UnSubscribe<TEvent>(IEventHandlerFactory<TEvent> factory)
         {
-            Type eventType = typeof(TEvent);
-            List<object> handlers;
-            if (Registry.TryGetValue(eventType, out handlers))
-                handlers.Remove(factory);
+            Guard.NotNull(factory, "factory");
+            Type eventDataType = typeof(TEvent);
+            UnSubscribeInternal(eventDataType, factory);
+        }
+
+        public void UnSubscribe(Type eventDataType, IEventHandlerFactory factory)
+        {
+            Guard.NotNull(eventDataType, "eventDataType");
+            Guard.NotNull(factory, "factory");
+            UnSubscribeInternal(eventDataType, factory);
         }
     }
 }
