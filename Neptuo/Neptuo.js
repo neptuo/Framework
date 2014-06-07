@@ -598,6 +598,111 @@ var Neptuo$DependencyContainerExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$DependencyContainerExtensions);
+var Neptuo$Diagnostics$DebugBase = {
+    fullname: "Neptuo.Diagnostics.DebugBase",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (innerWriter){
+            this.InnerWriter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(innerWriter, "innerWriter");
+            this.InnerWriter = innerWriter;
+        },
+        Debug$$String$$Action: function (title, action){
+            Neptuo.Guard.NotNull$$Object$$String(title, "title");
+            Neptuo.Guard.NotNull$$Object$$String(action, "action");
+            var sw = new System.Diagnostics.Stopwatch.ctor();
+            sw.Start();
+            action();
+            sw.Stop();
+            this.InnerWriter.WriteLine$$String$$Object$$Object("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
+        },
+        DebugIteration$$String$$Int32$$Action: function (title, count, action){
+            Neptuo.Guard.NotNull$$Object$$String(title, "title");
+            Neptuo.Guard.PositiveOrZero(count, "count");
+            Neptuo.Guard.NotNull$$Object$$String(action, "action");
+            this.Debug$$String$$Action(title, $CreateAnonymousDelegate(this, function (){
+                for (var i = 0; i < count; i++)
+                    action();
+            }));
+        },
+        Debug$1$$String$$Func$1: function (T, title, action){
+            Neptuo.Guard.NotNull$$Object$$String(title, "title");
+            Neptuo.Guard.NotNull$$Object$$String(action, "action");
+            var sw = new System.Diagnostics.Stopwatch.ctor();
+            sw.Start();
+            var result = action();
+            sw.Stop();
+            this.InnerWriter.WriteLine$$String$$Object$$Object("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
+            return result;
+        },
+        DebugIteration$1$$String$$Int32$$Func$1: function (T, title, count, action){
+            Neptuo.Guard.NotNull$$Object$$String(title, "title");
+            Neptuo.Guard.PositiveOrZero(count, "count");
+            Neptuo.Guard.NotNull$$Object$$String(action, "action");
+            return this.Debug$1$$String$$Func$1(System.Collections.Generic.List$1.ctor, title, $CreateAnonymousDelegate(this, function (){
+                var result = new System.Collections.Generic.List$1.ctor(T);
+                for (var i = 0; i < count; i++)
+                    action();
+                return result;
+            }));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.IO.TextWriter"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Diagnostics$DebugBase);
+var Neptuo$Diagnostics$DebugHelper = {
+    fullname: "Neptuo.Diagnostics.DebugHelper",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Diagnostics.DebugHelper.debug = null;
+        },
+        EnsureDebug: function (){
+            if (Neptuo.Diagnostics.DebugHelper.debug == null){
+                if (Neptuo.Diagnostics.DebugHelper.debug == null)
+                    Neptuo.Diagnostics.DebugHelper.debug = new Neptuo.Diagnostics.DebugBase.ctor(System.Console.get_Out());
+            }
+        },
+        Debug$$String$$Action: function (title, action){
+            Neptuo.Diagnostics.DebugHelper.EnsureDebug();
+            Neptuo.Diagnostics.DebugHelper.debug.Debug$$String$$Action(title, action);
+        },
+        DebugIteration$$String$$Int32$$Action: function (title, count, action){
+            Neptuo.Diagnostics.DebugHelper.EnsureDebug();
+            Neptuo.Diagnostics.DebugHelper.debug.DebugIteration$$String$$Int32$$Action(title, count, action);
+        },
+        Debug$1$$String$$Func$1: function (T, title, action){
+            Neptuo.Diagnostics.DebugHelper.EnsureDebug();
+            return Neptuo.Diagnostics.DebugHelper.debug.Debug$1$$String$$Func$1(T, title, action);
+        },
+        DebugIteration$1$$String$$Int32$$Func$1: function (T, title, count, action){
+            Neptuo.Diagnostics.DebugHelper.EnsureDebug();
+            return Neptuo.Diagnostics.DebugHelper.debug.DebugIteration$1$$String$$Int32$$Func$1(T, title, count, action);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Diagnostics$DebugHelper);
 var Neptuo$Events$EventManager = {
     fullname: "Neptuo.Events.EventManager",
     baseTypeName: "System.Object",
@@ -621,16 +726,16 @@ var Neptuo$Events$EventManager = {
             if (eventData == null)
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("eventData"), new Error());
             var eventType = Typeof(TEvent);
-            var handlers;
+            var handlerFactories;
             if ((function (){
                 var $1 = {
-                    Value: handlers
+                    Value: handlerFactories
                 };
                 var $res = this.get_Registry().TryGetValue(eventType, $1);
-                handlers = $1.Value;
+                handlerFactories = $1.Value;
                 return $res;
             }).call(this)){
-                var $it2 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlers).GetEnumerator();
+                var $it2 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
                 while ($it2.MoveNext()){
                     var handlerFactory = $it2.get_Current();
                     var handler = handlerFactory.CreateHandler(eventData, this);
@@ -639,34 +744,54 @@ var Neptuo$Events$EventManager = {
                 }
             }
         },
-        Subscribe$1: function (TEvent, factory){
-            var eventType = Typeof(TEvent);
+        SubscribeInternal: function (eventDataType, factory){
             var handlers;
             if (!(function (){
                 var $1 = {
                     Value: handlers
                 };
-                var $res = this.get_Registry().TryGetValue(eventType, $1);
+                var $res = this.get_Registry().TryGetValue(eventDataType, $1);
                 handlers = $1.Value;
                 return $res;
             }).call(this)){
                 handlers = new System.Collections.Generic.List$1.ctor(System.Object.ctor);
-                this.get_Registry().Add(eventType, handlers);
+                this.get_Registry().Add(eventDataType, handlers);
             }
             handlers.Add(factory);
         },
-        UnSubscribe$1: function (TEvent, factory){
-            var eventType = Typeof(TEvent);
+        Subscribe$1$$IEventHandlerFactory$1: function (TEvent, factory){
+            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+            var eventDataType = Typeof(TEvent);
+            this.SubscribeInternal(eventDataType, factory);
+        },
+        Subscribe$$Type$$IEventHandlerFactory: function (eventDataType, factory){
+            Neptuo.Guard.NotNull$$Object$$String(eventDataType, "eventDataType");
+            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+            if (!Typeof(Neptuo.Events.Handlers.IEventHandlerFactory$1.ctor).MakeGenericType(eventDataType).IsAssignableFrom(factory.GetType()))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String(System.String.Format$$String$$Object("Factory doesn\'t implement IEventHandlerFactory<{0}>", eventDataType.get_FullName()), "factory"), new Error());
+            this.SubscribeInternal(eventDataType, factory);
+        },
+        UnSubscribeInternal: function (eventDataType, factory){
             var handlers;
             if ((function (){
                 var $1 = {
                     Value: handlers
                 };
-                var $res = this.get_Registry().TryGetValue(eventType, $1);
+                var $res = this.get_Registry().TryGetValue(eventDataType, $1);
                 handlers = $1.Value;
                 return $res;
             }).call(this))
                 handlers.Remove(factory);
+        },
+        UnSubscribe$1$$IEventHandlerFactory$1: function (TEvent, factory){
+            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+            var eventDataType = Typeof(TEvent);
+            this.UnSubscribeInternal(eventDataType, factory);
+        },
+        UnSubscribe$$Type$$IEventHandlerFactory: function (eventDataType, factory){
+            Neptuo.Guard.NotNull$$Object$$String(eventDataType, "eventDataType");
+            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+            this.UnSubscribeInternal(eventDataType, factory);
         }
     },
     ctors: [{
@@ -681,6 +806,13 @@ var Neptuo$Events$EventDispatcherExtensions = {
     fullname: "Neptuo.Events.EventDispatcherExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
+        SubscribeDependency$2: function (TEvent, TEventHandler, eventRegistry, dependencyProvider){
+            Neptuo.Guard.NotNull$$Object$$String(eventRegistry, "eventRegistry");
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            var factory = new Neptuo.Events.Handlers.DependencyEventHandlerFactory$2.ctor(TEvent, TEventHandler, dependencyProvider);
+            eventRegistry.Subscribe$1$$IEventHandlerFactory$1(TEvent, factory);
+            return factory;
+        },
         Using$1: function (TEvent, eventRegistry, eventHandler){
             return new Neptuo.Events.UsignEventHandlerSubscriber$1.ctor(TEvent, eventRegistry, eventHandler);
         }
@@ -710,10 +842,10 @@ var Neptuo$Events$UsignEventHandlerSubscriber$1 = {
             System.Object.ctor.call(this);
             this.eventRegistry = eventRegistry;
             this.eventHandlerFactory = new Neptuo.Events.Handlers.SingletonEventHandlerFactory$1.ctor(this.TEvent, eventHandler);
-            eventRegistry.Subscribe$1(this.TEvent, this.eventHandlerFactory);
+            eventRegistry.Subscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
         },
         Dispose: function (){
-            this.eventRegistry.UnSubscribe$1(this.TEvent, this.eventHandlerFactory);
+            this.eventRegistry.UnSubscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
         }
     },
     ctors: [{
@@ -795,8 +927,7 @@ var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 = {
             this.TEvent = TEvent;
             this._Getter = null;
             System.Object.ctor.call(this);
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(getter, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("getter"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(getter, "getter");
             this.set_Getter(getter);
         },
         Getter$$: "System.Func`1[[Neptuo.Events.Handlers.IEventHandler`1[[`0]]]]",
@@ -827,10 +958,20 @@ var Neptuo$Events$Handlers$IEventHandler$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$Handlers$IEventHandler$1);
+var Neptuo$Events$Handlers$IEventHandlerFactory = {
+    fullname: "Neptuo.Events.Handlers.IEventHandlerFactory",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Events$Handlers$IEventHandlerFactory);
 var Neptuo$Events$Handlers$IEventHandlerFactory$1 = {
     fullname: "Neptuo.Events.Handlers.IEventHandlerFactory$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -847,8 +988,7 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 = {
             this.TEvent = TEvent;
             this._Handler = null;
             System.Object.ctor.call(this);
-            if (handler == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("handler"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
             this.set_Handler(handler);
         },
         Handler$$: "Neptuo.Events.Handlers.IEventHandler`1[[`0]]",
@@ -1351,10 +1491,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.15.2";
+            Neptuo.VersionInfo.Version = "2.16.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.15.2");
+            return new System.Version.ctor$$String("2.16.0");
         }
     },
     assemblyName: "Neptuo",
