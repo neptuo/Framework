@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Diagnostics
 {
+    /// <summary>
+    /// Provides access for method execution in stopwatch.
+    /// </summary>
     public class DebugBase
     {
         protected TextWriter InnerWriter;

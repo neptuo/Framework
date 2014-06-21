@@ -7,15 +7,19 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Diagnostics
 {
+    /// <summary>
+    /// Provides access for method execution in stopwatch.
+    /// </summary>
     public class DebugHelper
     {
+        private static object debugLock = new object();
         private static DebugBase debug = null;
 
         private static void EnsureDebug()
         {
             if (debug == null)
             {
-                lock (debug)
+                lock (debugLock)
                 {
                     if (debug == null)
                         debug = new DebugBase(Console.Out);
