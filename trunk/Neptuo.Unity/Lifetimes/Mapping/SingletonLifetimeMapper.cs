@@ -9,14 +9,25 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Unity.Lifetimes.Mapping
 {
-    public class SingletonLifetimeMapper : LifetimeMapperBase<LifetimeManager, SingletonLifetime>
+    public class SingletonLifetimeMapper<T> : LifetimeMapperBase<LifetimeManager, SingletonLifetime<T>>
     {
-        protected override LifetimeManager Map(SingletonLifetime lifetime)
+        protected override LifetimeManager Map(SingletonLifetime<T> lifetime)
         {
             if (lifetime.Instance != null)
-                return new SingletonLifetimeManager(lifetime.Instance);
+            {
+                if(lifetime.Initialize != null)
+                    return new SingletonLifetimeManager<T>(lifetime.Instance, lifetime.Initialize);
 
-            return new SingletonLifetimeManager();
+                return new SingletonLifetimeManager<T>(lifetime.Instance);
+            }
+
+            if(lifetime.Initialize != null)
+                return new SingletonLifetimeManager<T>(lifetime.Initialize);
+
+            return new SingletonLifetimeManager<T>();
         }
     }
+
+    public class SingletonLifetimeMapper : SingletonLifetimeMapper<object>
+    { }
 }

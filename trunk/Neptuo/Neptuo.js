@@ -663,6 +663,7 @@ var Neptuo$Diagnostics$DebugHelper = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
+            Neptuo.Diagnostics.DebugHelper.debugLock = new System.Object.ctor();
             Neptuo.Diagnostics.DebugHelper.debug = null;
         },
         EnsureDebug: function (){
@@ -1102,27 +1103,92 @@ var Neptuo$Lifetimes$Mapping$ILifetimeMapping$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Lifetimes$Mapping$ILifetimeMapping$1);
-var Neptuo$Lifetimes$SingletonLifetime = {
-    fullname: "Neptuo.Lifetimes.SingletonLifetime",
+var Neptuo$Lifetimes$SingletonLifetime$1 = {
+    fullname: "Neptuo.Lifetimes.SingletonLifetime$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor: function (){
+        ctor: function (T){
+            this.T = T;
             this._Instance = null;
+            this._Initialize = null;
             System.Object.ctor.call(this);
         },
-        Instance$$: "System.Object",
+        Instance$$: "`0",
         get_Instance: function (){
             return this._Instance;
         },
         set_Instance: function (value){
             this._Instance = value;
         },
-        ctor$$Object: function (instance){
+        Initialize$$: "System.Action`1[[`0]]",
+        get_Initialize: function (){
+            return this._Initialize;
+        },
+        set_Initialize: function (value){
+            this._Initialize = value;
+        },
+        ctor$$T: function (T, instance){
+            this.T = T;
             this._Instance = null;
+            this._Initialize = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(instance, "instance");
             this.set_Instance(instance);
+        },
+        ctor$$Action$1: function (T, initialize){
+            this.T = T;
+            this._Instance = null;
+            this._Initialize = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(initialize, "initialize");
+            this.set_Initialize(initialize);
+        },
+        ctor$$T$$Action$1: function (T, instance, initialize){
+            this.T = T;
+            this._Instance = null;
+            this._Initialize = null;
+            Neptuo.Lifetimes.SingletonLifetime$1.ctor$$T.call(this, this.T, instance);
+            Neptuo.Guard.NotNull$$Object$$String(instance, "instance");
+            Neptuo.Guard.NotNull$$Object$$String(initialize, "initialize");
+            this.set_Initialize(initialize);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$T",
+        parameters: ["T"]
+    }, {
+        name: "ctor$$Action",
+        parameters: ["System.Action"]
+    }, {
+        name: "ctor$$T$$Action",
+        parameters: ["T", "System.Action"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Lifetimes$SingletonLifetime$1);
+var Neptuo$Lifetimes$SingletonLifetime = {
+    fullname: "Neptuo.Lifetimes.SingletonLifetime",
+    baseTypeName: "Neptuo.Lifetimes.SingletonLifetime$1",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Lifetimes.SingletonLifetime$1.ctor.call(this, System.Object.ctor);
+        },
+        ctor$$Object: function (instance){
+            Neptuo.Lifetimes.SingletonLifetime$1.ctor$$T.call(this, System.Object.ctor, instance);
+        },
+        ctor$$Action$1$Object: function (initialize){
+            Neptuo.Lifetimes.SingletonLifetime$1.ctor$$Action$1.call(this, System.Object.ctor, initialize);
+        },
+        ctor$$Object$$Action$1$Object: function (instance, initialize){
+            Neptuo.Lifetimes.SingletonLifetime$1.ctor$$T$$Action$1.call(this, System.Object.ctor, instance, initialize);
         }
     },
     ctors: [{
@@ -1131,6 +1197,12 @@ var Neptuo$Lifetimes$SingletonLifetime = {
     }, {
         name: "ctor$$Object",
         parameters: ["System.Object"]
+    }, {
+        name: "ctor$$Action",
+        parameters: ["System.Action"]
+    }, {
+        name: "ctor$$Object$$Action",
+        parameters: ["System.Object", "System.Action"]
     }
     ],
     IsAbstract: false
@@ -1491,10 +1563,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "2.16.0";
+            Neptuo.VersionInfo.Version = "2.16.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.16.0");
+            return new System.Version.ctor$$String("2.16.2");
         }
     },
     assemblyName: "Neptuo",
