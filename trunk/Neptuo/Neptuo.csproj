@@ -62,6 +62,7 @@
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
+    <Compile Include="FileSystems\File.cs" />
     <Compile Include="FileSystems\IDirectory.cs" />
     <Compile Include="FileSystems\IFile.cs" />
     <Compile Include="FileSystems\IFileSystem.cs" />

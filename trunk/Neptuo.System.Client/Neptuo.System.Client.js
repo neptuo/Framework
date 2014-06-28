@@ -6228,7 +6228,7 @@ var System$Reflection$ConstructorInfo = {
             
             var constructor = this.func;
             var thisValue = Object.create(constructor.prototype);
-            var result = constructor.apply(thisValue, args);
+            var result = constructor.apply(thisValue, parameters);
             if (typeof result === 'object' && result !== null) {
                 return result;
             }

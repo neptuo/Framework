@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Resources>
+    <Resource Name="CommonJavascript">
+        <Javascript Source="~/Javascript/jquery-1.9.1.js" />
+        <Javascript Source="~/Javascript/Generated/Neptuo.System.Client.js" />
+    </Resource>
+    <Resource Name="FluentConsole">
+        <Stylesheet Source="~/Stylesheet/FluentConsole.css" />
+        <Javascript Source="~/Javascript/Generated/FluentConsole/Neptuo.TemplateEngine.FluentConsole.js" />
+        <Resource Name="CommonJavascript" />
+    </Resource>
+</Resources>
