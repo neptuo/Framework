@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\LazyResource.cs" />
     <Compile Include="Collections\XmlReader.cs" />
     <Compile Include="FileResources\FileJavascript.cs" />
     <Compile Include="FileResources\FileResource.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Collections\ResourceCollectionBase.cs" />
     <Compile Include="Collections\XmlResourceCollection.cs" />
+    <Compile Include="ResourceTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

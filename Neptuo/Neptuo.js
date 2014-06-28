@@ -1039,6 +1039,100 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$FileSystems$File = {
+    fullname: "Neptuo.FileSystems.File",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IFile"],
+    Kind: "Class",
+    definition: {
+        ctor: function (fullPath){
+            this._Name = null;
+            this._Extension = null;
+            this._FullPath = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            if (!System.IO.File.Exists(fullPath))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing file.", "fullPath"), new Error());
+            this.set_FullPath(fullPath);
+            this.set_Name(System.IO.Path.GetFileNameWithoutExtension(fullPath));
+            this.set_Extension(System.IO.Path.GetExtension(fullPath));
+        },
+        Name$$: "System.String",
+        get_Name: function (){
+            return this._Name;
+        },
+        set_Name: function (value){
+            this._Name = value;
+        },
+        Extension$$: "System.String",
+        get_Extension: function (){
+            return this._Extension;
+        },
+        set_Extension: function (value){
+            this._Extension = value;
+        },
+        FullPath$$: "System.String",
+        get_FullPath: function (){
+            return this._FullPath;
+        },
+        set_FullPath: function (value){
+            this._FullPath = value;
+        },
+        Parent$$: "Neptuo.FileSystems.IDirectory",
+        get_Parent: function (){
+            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        },
+        FileSize$$: "System.Int64",
+        get_FileSize: function (){
+            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        },
+        GetContent: function (){
+            return System.IO.File.ReadAllText$$String(this.get_FullPath());
+        },
+        GetContentAsByteArray: function (){
+            return System.IO.File.ReadAllBytes(this.get_FullPath());
+        },
+        GetContentAsStream: function (){
+            return new System.IO.FileStream.ctor$$String$$FileMode(this.get_FullPath(), 3);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$FileSystems$File);
+var Neptuo$FileSystems$IDirectory = {
+    fullname: "Neptuo.FileSystems.IDirectory",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$IDirectory);
+var Neptuo$FileSystems$IFile = {
+    fullname: "Neptuo.FileSystems.IFile",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$IFile);
+var Neptuo$FileSystems$IFileSystem = {
+    fullname: "Neptuo.FileSystems.IFileSystem",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IDirectory"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$IFileSystem);
 var Neptuo$Guard = {
     fullname: "Neptuo.Guard",
     baseTypeName: "System.Object",

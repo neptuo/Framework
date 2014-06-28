@@ -9,6 +9,7 @@ using TestConsole.Configuration;
 using TestConsole.Data;
 using TestConsole.Events;
 using TestConsole.PresentationModels;
+using TestConsole.Resources;
 using TestConsole.Tokens;
 
 namespace TestConsole
@@ -21,8 +22,9 @@ namespace TestConsole
             //TestEntity.Test();
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
-            TestCommands.Test();
+            //TestCommands.Test();
             //TestEvents.Test();
+            TestResources.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
