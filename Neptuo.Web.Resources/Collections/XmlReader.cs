@@ -1,4 +1,5 @@
 ﻿using Neptuo.FileSystems;
+using Neptuo.Web.Resources.FileResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,30 @@ using System.Xml;
 
 namespace Neptuo.Web.Resources.Collections
 {
-    internal class XmlReader
+    public class XmlReader
     {
-        public static IXmlElement CreateRootElement(IFile file)
+        public static void LoadFromXml(IResourceCollection collection, IFile file)
+        {
+            Guard.NotNull(collection, "collection");
+            Guard.NotNull(file, "file");
+            foreach (IXmlElement resourceElement in CreateRootElement(file).GetChildElements("Resource"))
+            {
+                FileResource resource = new FileResource(resourceElement.GetAttribute("Name"));
+                collection.Add(resource);
+
+                foreach (IXmlElement javascriptElement in resourceElement.GetChildElements("Javascript"))
+                    resource.AddJavascript(new FileJavascript(javascriptElement.GetAttribute("Source")));
+
+                foreach (IXmlElement stylesheetElement in resourceElement.GetChildElements("Stylesheet"))
+                    resource.AddStylesheet(new FileStylesheet(stylesheetElement.GetAttribute("Source")));
+
+                foreach (IXmlElement dependencyElement in resourceElement.GetChildElements("Resource"))
+                    resource.AddDependency(new LazyResource(collection, dependencyElement.GetAttribute("Name")));
+            }
+        }
+
+
+        internal static IXmlElement CreateRootElement(IFile file)
         {
             Guard.NotNull(file, "file");
 

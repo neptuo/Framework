@@ -13,7 +13,7 @@ namespace TestConsole.Resources
     {
         public static void Test()
         {
-            ResourceTable.SetXmlCollection(new File(System.IO.Path.Combine(Environment.CurrentDirectory, "Resources.xml")));
+            XmlReader.LoadFromXml(ResourceTable.Resources, new StaticFile(System.IO.Path.Combine(Environment.CurrentDirectory, "Resources.xml")));
             IResourceCollection collection = ResourceTable.Resources;
 
             IResource resource;

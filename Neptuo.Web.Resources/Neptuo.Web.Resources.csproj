@@ -52,7 +52,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Collections\ResourceCollectionBase.cs" />
-    <Compile Include="Collections\XmlResourceCollection.cs" />
     <Compile Include="ResourceTable.cs" />
   </ItemGroup>
   <ItemGroup>
