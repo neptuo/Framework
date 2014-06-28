@@ -6227,11 +6227,12 @@ var System$Reflection$ConstructorInfo = {
         Invoke$$Object$Array: function (parameters){
             
             var constructor = this.func;
-            function F() {
-                return constructor.apply(this, parameters);
+            var thisValue = Object.create(constructor.prototype);
+            var result = constructor.apply(thisValue, args);
+            if (typeof result === 'object' && result !== null) {
+                return result;
             }
-            F.prototype = constructor.prototype;
-            return new F();
+            return thisValue;
         
         },
         GetParameters: function (){
