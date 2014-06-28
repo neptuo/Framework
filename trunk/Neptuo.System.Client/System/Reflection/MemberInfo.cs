@@ -139,11 +139,12 @@ namespace SharpKit.JavaScript.Private
 
         [JsMethod(Name = "Invoke$$Object$Array", Code = @"
             var constructor = this.func;
-            function F() {
-                return constructor.apply(this, parameters);
+            var thisValue = Object.create(constructor.prototype);
+            var result = constructor.apply(thisValue, parameters);
+            if (typeof result === 'object' && result !== null) {
+                return result;
             }
-            F.prototype = constructor.prototype;
-            return new F();
+            return thisValue;
         ")]
         public object Invoke(object[] parameters)
         {
