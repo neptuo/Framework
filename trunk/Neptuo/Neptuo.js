@@ -1039,8 +1039,8 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
-var Neptuo$FileSystems$File = {
-    fullname: "Neptuo.FileSystems.File",
+var Neptuo$FileSystems$StaticFile = {
+    fullname: "Neptuo.FileSystems.StaticFile",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FileSystems.IFile"],
@@ -1104,7 +1104,7 @@ var Neptuo$FileSystems$File = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$FileSystems$File);
+JsTypes.push(Neptuo$FileSystems$StaticFile);
 var Neptuo$FileSystems$IDirectory = {
     fullname: "Neptuo.FileSystems.IDirectory",
     baseTypeName: "System.Object",

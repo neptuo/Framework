@@ -13,19 +13,25 @@ namespace Neptuo.Web.Resources
     /// </summary>
     public static class ResourceTable
     {
+        private static object lockObject = new object();
+        private static IResourceCollection resources;
+
         /// <summary>
         /// Singleton instance of resources.
         /// </summary>
-        public static IResourceCollection Resources { get; private set; }
-
-        /// <summary>
-        /// Loads to <see cref="ResourceTable.Resources"/> xml resources from <paramref name="file"/>.
-        /// </summary>
-        /// <param name="file">Xml file with resources.</param>
-        public static void SetXmlCollection(IFile file)
+        public static IResourceCollection Resources
         {
-            Guard.NotNull(file, "file");
-            Resources = new XmlResourceCollection(file);
+            get
+            {
+                if (resources == null)
+                {
+                    lock (lockObject)
+                    {
+                        resources = new ResourceCollectionBase();
+                    }
+                }
+                return resources;
+            }
         }
     }
 }

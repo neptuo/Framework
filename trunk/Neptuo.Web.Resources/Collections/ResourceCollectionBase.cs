@@ -9,7 +9,7 @@ namespace Neptuo.Web.Resources
     /// <summary>
     /// Base implementation for <see cref="IResourceCollection"/>.
     /// </summary>
-    public abstract class ResourceCollectionBase : IResourceCollection
+    public class ResourceCollectionBase : IResourceCollection
     {
         /// <summary>
         /// Inner storage for implementations.

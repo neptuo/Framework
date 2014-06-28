@@ -4,14 +4,13 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IoFile = System.IO.File;
 
 namespace Neptuo.FileSystems
 {
     /// <summary>
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
-    public class File : IFile
+    public class StaticFile : IFile
     {
         public string Name { get; private set; }
         public string Extension { get; private set; }
@@ -31,10 +30,10 @@ namespace Neptuo.FileSystems
         /// Creates new instance that points to <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">Standard file system path to file.</param>
-        public File(string fullPath)
+        public StaticFile(string fullPath)
         {
             Guard.NotNullOrEmpty(fullPath, "fullPath");
-            if (!IoFile.Exists(fullPath))
+            if (!File.Exists(fullPath))
                 throw new ArgumentException("Provided path must be existing file.", "fullPath");
 
             FullPath = fullPath;
@@ -44,12 +43,12 @@ namespace Neptuo.FileSystems
 
         public string GetContent()
         {
-            return IoFile.ReadAllText(FullPath);
+            return File.ReadAllText(FullPath);
         }
 
         public byte[] GetContentAsByteArray()
         {
-            return IoFile.ReadAllBytes(FullPath);
+            return File.ReadAllBytes(FullPath);
         }
 
         public Stream GetContentAsStream()
