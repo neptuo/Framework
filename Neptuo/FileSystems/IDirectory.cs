@@ -74,9 +74,9 @@ namespace Neptuo.FileSystems
         /// <summary>
         /// Creates new sub directory in this directory.
         /// </summary>
-        /// <param name="name">Name of new directory, must be unique.</param>
+        /// <param name="directoryName">Name of new directory, must be unique.</param>
         /// <returns>Newly create directory.</returns>
-        IDirectory CreateDirectory(string name);
+        IDirectory CreateDirectory(string directoryName);
 
         /// <summary>
         /// Creats new file or overrides is <paramref name="fileName"/> exists.
