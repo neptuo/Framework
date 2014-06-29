@@ -1039,24 +1039,184 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$FileSystems$StaticDirectory = {
+    fullname: "Neptuo.FileSystems.StaticDirectory",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        GetParentDirectoryFromFullPath: function (fullPath){
+            return new Neptuo.FileSystems.StaticDirectory.ctor(System.IO.Path.GetDirectoryName(fullPath));
+        }
+    },
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IDirectory"],
+    Kind: "Class",
+    definition: {
+        ctor: function (fullPath){
+            this.parent = null;
+            this._Name = null;
+            this._FullPath = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            this.SetDirectoryRelatedProperties(fullPath);
+        },
+        Name$$: "System.String",
+        get_Name: function (){
+            return this._Name;
+        },
+        set_Name: function (value){
+            this._Name = value;
+        },
+        FullPath$$: "System.String",
+        get_FullPath: function (){
+            return this._FullPath;
+        },
+        set_FullPath: function (value){
+            this._FullPath = value;
+        },
+        Parent$$: "Neptuo.FileSystems.IDirectory",
+        get_Parent: function (){
+            if (this.parent == null)
+                this.parent = Neptuo.FileSystems.StaticDirectory.GetParentDirectoryFromFullPath(this.get_FullPath());
+            return this.parent;
+        },
+        set_Parent: function (value){
+            this.parent = value;
+        },
+        ctor$$IDirectory$$String: function (parent, fullPath){
+            this.parent = null;
+            this._Name = null;
+            this._FullPath = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(parent, "parent");
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            this.set_Parent(parent);
+            this.SetDirectoryRelatedProperties(fullPath);
+        },
+        SetDirectoryRelatedProperties: function (fullPath){
+            if (!System.IO.Directory.Exists(fullPath))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing directory.", "fullPath"), new Error());
+            this.set_Name(System.IO.Path.GetFileName(fullPath));
+            this.set_FullPath(fullPath);
+        },
+        EnumerateChildDirectories: function (paths){
+            var $yield = [];
+            var $it3 = paths.GetEnumerator();
+            while ($it3.MoveNext()){
+                var path = $it3.get_Current();
+                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, path));
+            }
+            return $yield;
+        },
+        EnumerateAllDirectories: function (paths){
+            var $yield = [];
+            var $it4 = paths.GetEnumerator();
+            while ($it4.MoveNext()){
+                var path = $it4.get_Current();
+                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor(path));
+            }
+            return $yield;
+        },
+        GetSearchOption: function (inAllDescendants){
+            var searchOption = 0;
+            if (inAllDescendants)
+                searchOption = 1;
+            return searchOption;
+        },
+        EnumerateDirectories: function (){
+            return this.EnumerateChildDirectories(System.IO.Directory.GetDirectories$$String(this.get_FullPath()));
+        },
+        FindDirectories: function (searchPattern, inAllDescendants){
+            Neptuo.Guard.NotNullOrEmpty(searchPattern, "searchPattern");
+            var paths = System.IO.Directory.GetDirectories$$String$$String$$SearchOption(this.get_FullPath(), searchPattern, this.GetSearchOption(inAllDescendants));
+            if (!inAllDescendants)
+                return this.EnumerateChildDirectories(paths);
+            return this.EnumerateAllDirectories(paths);
+        },
+        EnumerateFiles: function (){
+            var $yield = [];
+            var $it5 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
+            while ($it5.MoveNext()){
+                var path = $it5.get_Current();
+                $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, path));
+            }
+            return $yield;
+        },
+        FindFiles: function (searchPattern, inAllDescendants){
+            var $yield = [];
+            Neptuo.Guard.NotNullOrEmpty(searchPattern, "searchPattern");
+            var paths = System.IO.Directory.GetFiles$$String$$String$$SearchOption(this.get_FullPath(), searchPattern, this.GetSearchOption(inAllDescendants));
+            if (!inAllDescendants){
+                var $it6 = paths.GetEnumerator();
+                while ($it6.MoveNext()){
+                    var path = $it6.get_Current();
+                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, path));
+                }
+            }
+            else {
+                var $it7 = paths.GetEnumerator();
+                while ($it7.MoveNext()){
+                    var path = $it7.get_Current();
+                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor(path));
+                }
+            }
+            return $yield;
+        },
+        ContainsDirectoryName: function (directoryName){
+            Neptuo.Guard.NotNullOrEmpty(directoryName, "directoryName");
+            return System.IO.Directory.Exists(System.IO.Path.Combine$$String$$String(this.get_FullPath(), directoryName));
+        },
+        ContainsFileName: function (fileName){
+            Neptuo.Guard.NotNullOrEmpty(fileName, "fileName");
+            return System.IO.File.Exists(System.IO.Path.Combine$$String$$String(this.get_FullPath(), fileName));
+        },
+        CreateDirectory: function (directoryName){
+            Neptuo.Guard.NotNullOrEmpty(directoryName, "directoryName");
+            var newDirectory = System.IO.Directory.CreateDirectory$$String(System.IO.Path.Combine$$String$$String(this.get_FullPath(), directoryName));
+            return new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, newDirectory.get_FullName());
+        },
+        CreateOrRewriteFile: function (fileName, fileContent){
+            Neptuo.Guard.NotNullOrEmpty(fileName, "fileName");
+            Neptuo.Guard.NotNull$$Object$$String(fileContent, "fileContent");
+            var filePath = System.IO.Path.Combine$$String$$String(this.get_FullPath(), fileName);
+            var fileStream = new System.IO.FileStream.ctor$$String$$FileMode(filePath, 4);
+            fileContent.CopyTo$$Stream(fileStream);
+            return new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, filePath);
+        }
+    },
+    ctors: [{
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$IDirectory$$String",
+        parameters: ["Neptuo.FileSystems.IDirectory", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$FileSystems$StaticDirectory);
 var Neptuo$FileSystems$StaticFile = {
     fullname: "Neptuo.FileSystems.StaticFile",
     baseTypeName: "System.Object",
+    staticDefinition: {
+        GetFileSize: function (fullPath){
+            return new System.IO.FileInfo.ctor(fullPath).get_Length();
+        },
+        GetParentDirectoryFromFullPath: function (fullPath){
+            return new Neptuo.FileSystems.StaticDirectory.ctor(System.IO.Path.GetDirectoryName(fullPath));
+        }
+    },
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FileSystems.IFile"],
     Kind: "Class",
     definition: {
         ctor: function (fullPath){
+            this.parent = null;
+            this.fileSize = null;
             this._Name = null;
             this._Extension = null;
             this._FullPath = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
-            if (!System.IO.File.Exists(fullPath))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing file.", "fullPath"), new Error());
-            this.set_FullPath(fullPath);
-            this.set_Name(System.IO.Path.GetFileNameWithoutExtension(fullPath));
-            this.set_Extension(System.IO.Path.GetExtension(fullPath));
+            this.SetFileRelatedProperties(fullPath);
         },
         Name$$: "System.String",
         get_Name: function (){
@@ -1081,11 +1241,37 @@ var Neptuo$FileSystems$StaticFile = {
         },
         Parent$$: "Neptuo.FileSystems.IDirectory",
         get_Parent: function (){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+            if (this.parent == null)
+                this.parent = Neptuo.FileSystems.StaticFile.GetParentDirectoryFromFullPath(this.get_FullPath());
+            return this.parent;
+        },
+        set_Parent: function (value){
+            this.parent = value;
         },
         FileSize$$: "System.Int64",
         get_FileSize: function (){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+            if (this.fileSize == null)
+                this.fileSize = Neptuo.FileSystems.StaticFile.GetFileSize(this.get_FullPath());
+            return this.fileSize.get_Value();
+        },
+        ctor$$IDirectory$$String: function (parent, fullPath){
+            this.parent = null;
+            this.fileSize = null;
+            this._Name = null;
+            this._Extension = null;
+            this._FullPath = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(parent, "parent");
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            this.set_Parent(parent);
+            this.SetFileRelatedProperties(fullPath);
+        },
+        SetFileRelatedProperties: function (fullPath){
+            if (!System.IO.File.Exists(fullPath))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing file.", "fullPath"), new Error());
+            this.set_FullPath(fullPath);
+            this.set_Name(System.IO.Path.GetFileNameWithoutExtension(fullPath));
+            this.set_Extension(System.IO.Path.GetExtension(fullPath));
         },
         GetContent: function (){
             return System.IO.File.ReadAllText$$String(this.get_FullPath());
@@ -1098,8 +1284,11 @@ var Neptuo$FileSystems$StaticFile = {
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$String",
         parameters: ["System.String"]
+    }, {
+        name: "ctor$$IDirectory$$String",
+        parameters: ["Neptuo.FileSystems.IDirectory", "System.String"]
     }
     ],
     IsAbstract: false
@@ -1311,9 +1500,9 @@ var Neptuo$Globalization$CultureInfoExtensions = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it3 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it3.MoveNext()){
-                var item = $it3.get_Current();
+            var $it8 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it8.MoveNext()){
+                var item = $it8.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -1696,9 +1885,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it4 = type.GetProperties().GetEnumerator();
-            while ($it4.MoveNext()){
-                var prop = $it4.get_Current();
+            var $it9 = type.GetProperties().GetEnumerator();
+            while ($it9.MoveNext()){
+                var prop = $it9.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -1778,9 +1967,9 @@ var Neptuo$Security$Cryptography$HashHelper = {
             var hasher = System.Security.Cryptography.SHA1.Create();
             var hash = hasher.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(text));
             var result = new System.Text.StringBuilder.ctor();
-            var $it5 = hash.GetEnumerator();
-            while ($it5.MoveNext()){
-                var hashPart = $it5.get_Current();
+            var $it10 = hash.GetEnumerator();
+            while ($it10.MoveNext()){
+                var hashPart = $it10.get_Current();
                 result.Append$$String(hashPart.ToString$$String("X2"));
             }
             return result.ToString();
@@ -1940,9 +2129,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("items"), new Error());
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it6 = items.GetEnumerator();
-            while ($it6.MoveNext()){
-                var item = $it6.get_Current();
+            var $it11 = items.GetEnumerator();
+            while ($it11.MoveNext()){
+                var item = $it11.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(new System.InvalidOperationException.ctor$$String("StateMachine in invalid state, got null new state."), new Error());
