@@ -33,5 +33,10 @@ namespace Neptuo.Web.Resources
         /// </summary>
         /// <returns>Enumeration of all registered resources.</returns>
         IEnumerable<IResource> EnumerateResources();
+
+        /// <summary>
+        /// Removes all registrations.
+        /// </summary>
+        void Clear();
     }
 }
