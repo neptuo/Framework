@@ -1398,6 +1398,24 @@ var Neptuo$IGuidProvider = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$IGuidProvider);
+var Neptuo$Lifetimes$HierarchicalLifetime = {
+    fullname: "Neptuo.Lifetimes.HierarchicalLifetime",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Lifetimes$HierarchicalLifetime);
 var Neptuo$Lifetimes$Mapping$ILifetimeMapping$1 = {
     fullname: "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1",
     baseTypeName: "System.Object",

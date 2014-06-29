@@ -52,6 +52,7 @@
     <Compile Include="ContainerLifetimeManagerBase.cs" />
     <Compile Include="GetterLifetimeManager.cs" />
     <Compile Include="Lifetimes\Mapping\GetterLifetimeMapper.cs" />
+    <Compile Include="Lifetimes\Mapping\HierarchicalLifetimeMapper.cs" />
     <Compile Include="Lifetimes\Mapping\SingletonLifetimeMapper.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="SingletonLifetimeManager.cs" />
