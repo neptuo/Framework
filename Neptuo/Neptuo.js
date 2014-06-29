@@ -1322,6 +1322,27 @@ var Neptuo$FileSystems$IFileSystem = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$FileSystems$IFileSystem);
+var Neptuo$FileSystems$StaticFileSystem = {
+    fullname: "Neptuo.FileSystems.StaticFileSystem",
+    baseTypeName: "Neptuo.FileSystems.StaticDirectory",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IFileSystem"],
+    Kind: "Class",
+    definition: {
+        ctor: function (rootPath){
+            Neptuo.FileSystems.StaticDirectory.ctor.call(this, rootPath);
+            if (!System.IO.Path.IsPathRooted(rootPath))
+                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Path to file system must be rooted.", "rootPath"), new Error());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$FileSystems$StaticFileSystem);
 var Neptuo$Guard = {
     fullname: "Neptuo.Guard",
     baseTypeName: "System.Object",

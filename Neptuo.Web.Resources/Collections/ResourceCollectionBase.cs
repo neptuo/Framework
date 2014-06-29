@@ -60,5 +60,13 @@ namespace Neptuo.Web.Resources
         {
             return resources.Values;
         }
+
+        /// <summary>
+        /// Removes all registrations.
+        /// </summary>
+        public void Clear()
+        {
+            resources.Clear();
+        }
     }
 }
