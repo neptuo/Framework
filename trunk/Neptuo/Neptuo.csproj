@@ -71,6 +71,7 @@
     <Compile Include="Guard.cs" />
     <Compile Include="GuidProvider.cs" />
     <Compile Include="IGuidProvider.cs" />
+    <Compile Include="Lifetimes\HierarchicalLifetime.cs" />
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
     <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
     <Compile Include="Lifetimes\SingletonLifetime.cs" />
