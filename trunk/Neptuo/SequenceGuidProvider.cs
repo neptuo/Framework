@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo
 {
+    /// <summary>
+    /// Generates identifiers using specified prefix and integer sequence.
+    /// </summary>
     public class SequenceGuidProvider : IGuidProvider
     {
         private string prefix;
