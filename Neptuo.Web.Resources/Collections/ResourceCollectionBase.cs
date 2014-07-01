@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Web.Resources
+namespace Neptuo.Web.Resources.Collections
 {
     /// <summary>
     /// Base implementation for <see cref="IResourceCollection"/>.

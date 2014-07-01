@@ -46,7 +46,7 @@ namespace Neptuo.FileSystems
         /// Creates new instance that points to <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">Standard file system path to file.</param>
-        public StaticFile(string fullPath)
+        internal StaticFile(string fullPath)
         {
             SetFileRelatedProperties(fullPath);
         }

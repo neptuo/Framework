@@ -12,6 +12,12 @@ namespace Neptuo
             return (T)provider.Resolve(typeof(T), null);
         }
 
+        public static T Resolve<T>(this IDependencyProvider provider, string name)
+        {
+            Guard.NotNullOrEmpty(name, "name");
+            return (T)provider.Resolve(typeof(T), name);
+        }
+
         public static IEnumerable<T> ResolveAll<T>(this IDependencyProvider provider)
         {
             return (IEnumerable<T>)provider.ResolveAll(typeof(T));

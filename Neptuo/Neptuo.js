@@ -1039,19 +1039,67 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$FileSystems$FileSystemException = {
+    fullname: "Neptuo.FileSystems.FileSystemException",
+    baseTypeName: "System.Exception",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor$$String: function (message){
+            System.Exception.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, innerExceptio){
+            System.Exception.ctor$$String$$Exception.call(this, message, innerExceptio);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            System.Exception.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$FileSystems$FileSystemException);
+var Neptuo$FileSystems$IReadOnlyDirectory = {
+    fullname: "Neptuo.FileSystems.IReadOnlyDirectory",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$IReadOnlyDirectory);
+var Neptuo$FileSystems$IReadOnlyFile = {
+    fullname: "Neptuo.FileSystems.IReadOnlyFile",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$IReadOnlyFile);
 var Neptuo$FileSystems$StaticDirectory = {
     fullname: "Neptuo.FileSystems.StaticDirectory",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetParentDirectoryFromFullPath: function (fullPath){
-            return new Neptuo.FileSystems.StaticDirectory.ctor(System.IO.Path.GetDirectoryName(fullPath));
+            return new Neptuo.FileSystems.StaticDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
         }
     },
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FileSystems.IDirectory"],
     Kind: "Class",
     definition: {
-        ctor: function (fullPath){
+        ctor$$String: function (fullPath){
             this.parent = null;
             this._Name = null;
             this._FullPath = null;
@@ -1112,7 +1160,7 @@ var Neptuo$FileSystems$StaticDirectory = {
             var $it4 = paths.GetEnumerator();
             while ($it4.MoveNext()){
                 var path = $it4.get_Current();
-                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor(path));
+                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor$$String(path));
             }
             return $yield;
         },
@@ -1156,7 +1204,7 @@ var Neptuo$FileSystems$StaticDirectory = {
                 var $it7 = paths.GetEnumerator();
                 while ($it7.MoveNext()){
                     var path = $it7.get_Current();
-                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor(path));
+                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$String(path));
                 }
             }
             return $yield;
@@ -1202,14 +1250,14 @@ var Neptuo$FileSystems$StaticFile = {
             return new System.IO.FileInfo.ctor(fullPath).get_Length();
         },
         GetParentDirectoryFromFullPath: function (fullPath){
-            return new Neptuo.FileSystems.StaticDirectory.ctor(System.IO.Path.GetDirectoryName(fullPath));
+            return new Neptuo.FileSystems.StaticDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
         }
     },
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FileSystems.IFile"],
     Kind: "Class",
     definition: {
-        ctor: function (fullPath){
+        ctor$$String: function (fullPath){
             this.parent = null;
             this.fileSize = null;
             this._Name = null;
@@ -1298,6 +1346,7 @@ var Neptuo$FileSystems$IDirectory = {
     fullname: "Neptuo.FileSystems.IDirectory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IReadOnlyDirectory"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1307,6 +1356,7 @@ var Neptuo$FileSystems$IFile = {
     fullname: "Neptuo.FileSystems.IFile",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.FileSystems.IReadOnlyFile"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1316,7 +1366,6 @@ var Neptuo$FileSystems$IFileSystem = {
     fullname: "Neptuo.FileSystems.IFileSystem",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.FileSystems.IDirectory"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1324,20 +1373,59 @@ var Neptuo$FileSystems$IFileSystem = {
 JsTypes.push(Neptuo$FileSystems$IFileSystem);
 var Neptuo$FileSystems$StaticFileSystem = {
     fullname: "Neptuo.FileSystems.StaticFileSystem",
-    baseTypeName: "Neptuo.FileSystems.StaticDirectory",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FromFilePath: function (filePath){
+            Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
+            if (!System.IO.File.Exists(filePath))
+                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("Can\'t create static file for path \'{0}\', because is doesn\'t point to existing file.", filePath)), new Error());
+            return new Neptuo.FileSystems.StaticFile.ctor$$String(filePath);
+        }
+    },
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FileSystems.IFileSystem"],
     Kind: "Class",
     definition: {
-        ctor: function (rootPath){
-            Neptuo.FileSystems.StaticDirectory.ctor.call(this, rootPath);
+        ctor: function (rootPath, isReadOnly){
+            this._RootDirectory = null;
+            this._IsReadOnly = false;
+            System.Object.ctor.call(this);
             if (!System.IO.Path.IsPathRooted(rootPath))
                 throw $CreateException(new System.ArgumentException.ctor$$String$$String("Path to file system must be rooted.", "rootPath"), new Error());
+            this.set_RootDirectory(new Neptuo.FileSystems.StaticDirectory.ctor$$String(rootPath));
+            this.set_IsReadOnly(isReadOnly);
+        },
+        RootDirectory$$: "Neptuo.FileSystems.IReadOnlyDirectory",
+        get_RootDirectory: function (){
+            return this._RootDirectory;
+        },
+        set_RootDirectory: function (value){
+            this._RootDirectory = value;
+        },
+        IsReadOnly$$: "System.Boolean",
+        get_IsReadOnly: function (){
+            return this._IsReadOnly;
+        },
+        set_IsReadOnly: function (value){
+            this._IsReadOnly = value;
+        },
+        IsWriteable: function (directory){
+            return this.get_IsReadOnly();
+        },
+        AsWriteable: function (directory){
+            Neptuo.Guard.NotNull$$Object$$String(directory, "directory");
+            if (!this.get_IsReadOnly())
+                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("File system rooted by \'{0}\' is read only.", this.get_RootDirectory().get_FullPath())), new Error());
+            var staticDirectory = As(directory, Neptuo.FileSystems.StaticDirectory.ctor);
+            if (staticDirectory == null){
+                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object$$Object("Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.StaticDirectory.ctor).get_FullName())), new Error());
+            }
+            return staticDirectory;
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String"]
+        parameters: ["System.String", "System.Boolean"]
     }
     ],
     IsAbstract: false
@@ -1398,19 +1486,62 @@ var Neptuo$IGuidProvider = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$IGuidProvider);
-var Neptuo$Lifetimes$HierarchicalLifetime = {
-    fullname: "Neptuo.Lifetimes.HierarchicalLifetime",
+var Neptuo$Lifetimes$HierarchicalLifetime$1 = {
+    fullname: "Neptuo.Lifetimes.HierarchicalLifetime$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor: function (){
+        ctor: function (T){
+            this.T = T;
+            this._Initialize = null;
             System.Object.ctor.call(this);
+        },
+        Initialize$$: "System.Action`1[[`0]]",
+        get_Initialize: function (){
+            return this._Initialize;
+        },
+        set_Initialize: function (value){
+            this._Initialize = value;
+        },
+        ctor$$Action$1: function (T, initialize){
+            this.T = T;
+            this._Initialize = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(initialize, "initialize");
+            this.set_Initialize(initialize);
         }
     },
     ctors: [{
         name: "ctor",
         parameters: []
+    }, {
+        name: "ctor$$Action",
+        parameters: ["System.Action"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Lifetimes$HierarchicalLifetime$1);
+var Neptuo$Lifetimes$HierarchicalLifetime = {
+    fullname: "Neptuo.Lifetimes.HierarchicalLifetime",
+    baseTypeName: "Neptuo.Lifetimes.HierarchicalLifetime$1",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Lifetimes.HierarchicalLifetime$1.ctor.call(this, System.Object.ctor);
+        },
+        ctor$$Action$1$Object: function (initialize){
+            Neptuo.Lifetimes.HierarchicalLifetime$1.ctor$$Action$1.call(this, System.Object.ctor, initialize);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Action",
+        parameters: ["System.Action"]
     }
     ],
     IsAbstract: false
@@ -1885,10 +2016,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.0.0";
+            Neptuo.VersionInfo.Version = "3.0.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.0.0");
+            return new System.Version.ctor$$String("3.0.1");
         }
     },
     assemblyName: "Neptuo",

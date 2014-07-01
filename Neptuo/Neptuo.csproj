@@ -48,6 +48,7 @@
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
+    <Compile Include="DependencyNamedActivator.cs" />
     <Compile Include="DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
@@ -62,6 +63,9 @@
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
+    <Compile Include="FileSystems\FileSystemException.cs" />
+    <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
+    <Compile Include="FileSystems\IReadOnlyFile.cs" />
     <Compile Include="FileSystems\StaticDirectory.cs" />
     <Compile Include="FileSystems\StaticFile.cs" />
     <Compile Include="FileSystems\IDirectory.cs" />
@@ -71,6 +75,7 @@
     <Compile Include="Guard.cs" />
     <Compile Include="GuidProvider.cs" />
     <Compile Include="IGuidProvider.cs" />
+    <Compile Include="INamedActivator.cs" />
     <Compile Include="Lifetimes\HierarchicalLifetime.cs" />
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
     <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />

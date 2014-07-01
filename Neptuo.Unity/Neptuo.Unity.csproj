@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ContainerLifetimeManagerBase.cs" />
     <Compile Include="GetterLifetimeManager.cs" />
+    <Compile Include="HierarchicalLifetimeManager.cs" />
     <Compile Include="Lifetimes\Mapping\GetterLifetimeMapper.cs" />
     <Compile Include="Lifetimes\Mapping\HierarchicalLifetimeMapper.cs" />
     <Compile Include="Lifetimes\Mapping\SingletonLifetimeMapper.cs" />

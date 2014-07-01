@@ -10,49 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Represents file in virtual file system.
     /// </summary>
-    public interface IFile
+    public interface IFile : IReadOnlyFile
     {
-        /// <summary>
-        /// File name without extension.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// File extension.
-        /// </summary>
-        string Extension { get; }
-
-        /// <summary>
-        /// Path from root containing this file name and extension.
-        /// </summary>
-        string FullPath { get; }
-
-        /// <summary>
-        /// Link to parent directory.
-        /// </summary>
-        IDirectory Parent { get; }
-
-        /// <summary>
-        /// Size of file in bytes.
-        /// </summary>
-        long FileSize { get; }
-
-        /// <summary>
-        /// Returns file content.
-        /// </summary>
-        /// <returns>File content.</returns>
-        string GetContent();
-
-        /// <summary>
-        /// Returns file content as byte array.
-        /// </summary>
-        /// <returns>File content as byte array.</returns>
-        byte[] GetContentAsByteArray();
-
-        /// <summary>
-        /// Returns file content as stream.
-        /// </summary>
-        /// <returns>File content as stream.</returns>
-        Stream GetContentAsStream();
     }
 }
