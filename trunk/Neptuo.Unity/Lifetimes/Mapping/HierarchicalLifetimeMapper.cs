@@ -9,11 +9,17 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Unity.Lifetimes.Mapping
 {
-    public class HierarchicalLifetimeMapper : LifetimeMapperBase<HierarchicalLifetimeManager, HierarchicalLifetime>
+    public class HierarchicalLifetimeMapper<T> : LifetimeMapperBase<LifetimeManager, HierarchicalLifetime<T>>
     {
-        protected override HierarchicalLifetimeManager Map(HierarchicalLifetime lifetime)
+        protected override LifetimeManager Map(HierarchicalLifetime<T> lifetime)
         {
-            return new HierarchicalLifetimeManager();
+            if (lifetime.Initialize != null)
+                return new HierarchicalLifetimeManager<T>(lifetime.Initialize);
+
+            return new HierarchicalLifetimeManager<T>();
         }
     }
+
+    public class HierarchicalLifetimeMapper : HierarchicalLifetimeMapper<object>
+    { }
 }

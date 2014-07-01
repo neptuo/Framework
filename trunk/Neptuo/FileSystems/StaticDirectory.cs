@@ -29,7 +29,11 @@ namespace Neptuo.FileSystems
             private set { parent = value; }
         }
 
-        public StaticDirectory(string fullPath)
+        /// <summary>
+        /// Creates new instance that points to <paramref name="fullPath"/>.
+        /// </summary>
+        /// <param name="fullPath">Standard file system path to directory.</param>
+        internal StaticDirectory(string fullPath)
         {
             Guard.NotNullOrEmpty(fullPath, "fullPath");
             SetDirectoryRelatedProperties(fullPath);

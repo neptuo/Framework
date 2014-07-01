@@ -39,8 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\LazyResource.cs" />
-    <Compile Include="Collections\XmlReader.cs" />
+    <Compile Include="LazyResources\LazyResource.cs" />
+    <Compile Include="Providers\XmlProviders\IXmlElement.cs" />
+    <Compile Include="Providers\XmlProviders\XmlDocumentElement.cs" />
+    <Compile Include="Providers\XmlProviders\XmlResourceReader.cs" />
     <Compile Include="FileResources\FileJavascript.cs" />
     <Compile Include="FileResources\FileResource.cs" />
     <Compile Include="FileResources\FileStylesheet.cs" />
@@ -52,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Collections\ResourceCollectionBase.cs" />
+    <Compile Include="Providers\IResourceCollectionInitializer.cs" />
     <Compile Include="ResourceTable.cs" />
   </ItemGroup>
   <ItemGroup>

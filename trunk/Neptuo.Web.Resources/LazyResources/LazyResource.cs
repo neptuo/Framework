@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Web.Resources.Collections
+namespace Neptuo.Web.Resources.LazyResources
 {
     /// <summary>
     /// Lazy implementation of <see cref="IResource"/> that finds real resource only when needed.
