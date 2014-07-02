@@ -1,5 +1,6 @@
 ﻿using Neptuo.FileSystems;
 using Neptuo.Web.Resources.Collections;
+using Neptuo.Web.Resources.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ namespace Neptuo.Web.Resources
                 {
                     lock (lockObject)
                     {
-                        resources = new ResourceCollectionBase();
+                        resources = ResourceCollectionProvider.ProviderGetter();
                     }
                 }
                 return resources;

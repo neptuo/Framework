@@ -1,5 +1,7 @@
 ﻿using Neptuo.FileSystems;
 using Neptuo.Web.Resources;
+using Neptuo.Web.Resources.Bundling.Collections;
+using Neptuo.Web.Resources.Bundling.Formatters;
 using Neptuo.Web.Resources.Collections;
 using Neptuo.Web.Resources.Providers;
 using Neptuo.Web.Resources.Providers.XmlProviders;
@@ -16,6 +18,14 @@ namespace TestConsole.Resources
     {
         public static void Test()
         {
+            ResourceCollectionProvider.ProviderGetter = () => {
+                return new BundlingResourceCollection(
+                    new ResourceCollectionBase(),
+                    new StringBundlePathFormatter("~/js/{0}", "~/css/{0}"),
+                    BundlingStrategy.BundlePerResourceWithDependencies
+                );
+            };
+
             IReadOnlyFile file = StaticFileSystem.FromFilePath(Path.Combine(Environment.CurrentDirectory, "Resources.xml"));
             using (IResourceCollectionInitializer loader = new XmlResourceReader(file))
             {

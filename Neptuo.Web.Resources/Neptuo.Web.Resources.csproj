@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LazyResources\LazyResource.cs" />
+    <Compile Include="Providers\ResourceCollectionProvider.cs" />
     <Compile Include="Providers\XmlProviders\IXmlElement.cs" />
     <Compile Include="Providers\XmlProviders\XmlDocumentElement.cs" />
     <Compile Include="Providers\XmlProviders\XmlResourceReader.cs" />

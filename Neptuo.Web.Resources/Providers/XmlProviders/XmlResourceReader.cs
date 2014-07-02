@@ -10,16 +10,28 @@ using System.Xml;
 
 namespace Neptuo.Web.Resources.Providers.XmlProviders
 {
+    /// <summary>
+    /// Initializes resource collections from xml file.
+    /// </summary>
     public class XmlResourceReader : IResourceCollectionInitializer
     {
         private IXmlElement rootElement;
 
+        /// <summary>
+        /// Creates new instance with <paramref name="file"/> as source xml file.
+        /// </summary>
+        /// <param name="file">Xml source file.</param>
         public XmlResourceReader(IReadOnlyFile file)
         {
             Guard.NotNull(file, "file");
             rootElement = CreateRootElement(file);
         }
 
+        /// <summary>
+        /// Creates xml root element from <paramref name="file"/>.
+        /// </summary>
+        /// <param name="file">Xml source file.</param>
+        /// <returns>Root xml element of document created from <paramref name="file"/>.</returns>
         internal static IXmlElement CreateRootElement(IReadOnlyFile file)
         {
             Guard.NotNull(file, "file");
@@ -35,7 +47,6 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
             foreach (IXmlElement resourceElement in rootElement.GetChildElements("Resource"))
             {
                 FileResource resource = new FileResource(resourceElement.GetAttribute("Name"));
-                collection.Add(resource);
 
                 foreach (IXmlElement javascriptElement in resourceElement.GetChildElements("Javascript"))
                     resource.AddJavascript(new FileJavascript(javascriptElement.GetAttribute("Source")));
@@ -45,6 +56,8 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
 
                 foreach (IXmlElement dependencyElement in resourceElement.GetChildElements("Resource"))
                     resource.AddDependency(new LazyResource(collection, dependencyElement.GetAttribute("Name")));
+
+                collection.Add(resource);
             }
         }
 

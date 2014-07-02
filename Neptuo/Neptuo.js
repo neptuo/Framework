@@ -533,12 +533,42 @@ var Neptuo$DependencyActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyActivator$1);
+var Neptuo$DependencyNamedActivator$1 = {
+    fullname: "Neptuo.DependencyNamedActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.INamedActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, dependencyProvider){
+            this.T = T;
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        Create: function (name){
+            return Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider$$String(this.T, this.dependencyProvider, name);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$DependencyNamedActivator$1);
 var Neptuo$DependencyProviderExtensions = {
     fullname: "Neptuo.DependencyProviderExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         Resolve$1$$IDependencyProvider: function (T, provider){
             return Cast(provider.Resolve(Typeof(T), null), T);
+        },
+        Resolve$1$$IDependencyProvider$$String: function (T, provider, name){
+            Neptuo.Guard.NotNullOrEmpty(name, "name");
+            return Cast(provider.Resolve(Typeof(T), name), T);
         },
         ResolveAll$1: function (T, provider){
             return Cast(provider.ResolveAll(Typeof(T)), System.Collections.Generic.IEnumerable$1.ctor);
@@ -1486,6 +1516,15 @@ var Neptuo$IGuidProvider = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$IGuidProvider);
+var Neptuo$INamedActivator$1 = {
+    fullname: "Neptuo.INamedActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$INamedActivator$1);
 var Neptuo$Lifetimes$HierarchicalLifetime$1 = {
     fullname: "Neptuo.Lifetimes.HierarchicalLifetime$1",
     baseTypeName: "System.Object",
