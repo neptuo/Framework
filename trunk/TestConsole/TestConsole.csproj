@@ -150,6 +150,10 @@
       <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>
       <Name>Neptuo.Unity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Web.Resources.Bundling\Neptuo.Web.Resources.Bundling.csproj">
+      <Project>{e7759ff6-dac4-4809-ae06-b7f2ec0e90cf}</Project>
+      <Name>Neptuo.Web.Resources.Bundling</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web.Resources\Neptuo.Web.Resources.csproj">
       <Project>{129e1518-e28e-44cb-8834-4b2118eb030c}</Project>
       <Name>Neptuo.Web.Resources</Name>
