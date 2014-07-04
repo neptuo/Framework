@@ -3,6 +3,7 @@ using Neptuo.Web.Resources.FileResources;
 using Neptuo.Web.Resources.LazyResources;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,8 +38,11 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
             Guard.NotNull(file, "file");
 
             XmlDocument document = new XmlDocument();
-            document.Load(file.GetContentAsStream());
-            return new XmlDocumentElement(document.DocumentElement);
+            using (Stream fileContent = file.GetContentAsStream())
+            {
+                document.Load(fileContent);
+                return new XmlDocumentElement(document.DocumentElement);
+            }
         }
 
         public void FillCollection(IResourceCollection collection)
