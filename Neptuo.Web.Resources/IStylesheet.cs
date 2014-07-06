@@ -9,7 +9,7 @@ namespace Neptuo.Web.Resources
     /// <summary>
     /// Stylesheet source.
     /// </summary>
-    public interface IStylesheet : IWithSource
+    public interface IStylesheet : IWithSource, IWithMeta
     {
     }
 }

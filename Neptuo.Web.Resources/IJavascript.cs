@@ -9,7 +9,7 @@ namespace Neptuo.Web.Resources
     /// <summary>
     /// Javascript source.
     /// </summary>
-    public interface IJavascript : IWithSource
+    public interface IJavascript : IWithSource, IWithMeta
     {
     }
 }

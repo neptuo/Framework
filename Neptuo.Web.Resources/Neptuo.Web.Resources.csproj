@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileResources\WithMetaBase.cs" />
+    <Compile Include="IWithMeta.cs" />
     <Compile Include="LazyResources\LazyResource.cs" />
     <Compile Include="Providers\ResourceCollectionProvider.cs" />
     <Compile Include="Providers\XmlProviders\IXmlElement.cs" />

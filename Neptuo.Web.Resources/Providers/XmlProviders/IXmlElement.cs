@@ -9,7 +9,8 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
     internal interface IXmlElement
     {
         string Name { get; }
-        string GetAttribute(string attributeName);
-        IEnumerable<IXmlElement> GetChildElements(string elementName);
+        string GetAttributeValue(string attributeName);
+        IEnumerable<string> EnumerateAttributeNames();
+        IEnumerable<IXmlElement> EnumerateChildElements(string elementName);
     }
 }

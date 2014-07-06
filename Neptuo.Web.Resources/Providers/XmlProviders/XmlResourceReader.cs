@@ -48,21 +48,36 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
         public void FillCollection(IResourceCollection collection)
         {
             Guard.NotNull(collection, "collection");
-            foreach (IXmlElement resourceElement in rootElement.GetChildElements("Resource"))
+            foreach (IXmlElement resourceElement in rootElement.EnumerateChildElements("Resource"))
             {
-                FileResource resource = new FileResource(resourceElement.GetAttribute("Name"));
+                FileResource resource = new FileResource(resourceElement.GetAttributeValue("Name"), GetAttributesWithout(resourceElement, "Name"));
 
-                foreach (IXmlElement javascriptElement in resourceElement.GetChildElements("Javascript"))
-                    resource.AddJavascript(new FileJavascript(javascriptElement.GetAttribute("Source")));
+                foreach (IXmlElement javascriptElement in resourceElement.EnumerateChildElements("Javascript"))
+                    resource.AddJavascript(new FileJavascript(javascriptElement.GetAttributeValue("Source"), GetAttributesWithout(javascriptElement, "Source")));
 
-                foreach (IXmlElement stylesheetElement in resourceElement.GetChildElements("Stylesheet"))
-                    resource.AddStylesheet(new FileStylesheet(stylesheetElement.GetAttribute("Source")));
+                foreach (IXmlElement stylesheetElement in resourceElement.EnumerateChildElements("Stylesheet"))
+                    resource.AddStylesheet(new FileStylesheet(stylesheetElement.GetAttributeValue("Source"), GetAttributesWithout(stylesheetElement, "Source")));
 
-                foreach (IXmlElement dependencyElement in resourceElement.GetChildElements("Resource"))
-                    resource.AddDependency(new LazyResource(collection, dependencyElement.GetAttribute("Name")));
+                foreach (IXmlElement dependencyElement in resourceElement.EnumerateChildElements("Resource"))
+                    resource.AddDependency(new LazyResource(collection, dependencyElement.GetAttributeValue("Name")));
 
                 collection.Add(resource);
             }
+        }
+
+        /// <summary>
+        /// Returns key-value collection of all attributes on <paramref name="element"/> excluding those named in <paramref name="attributeNamesToRemove"/>.
+        /// </summary>
+        /// <param name="element">Source xml element to read attributes on.</param>
+        /// <param name="attributeNamesToRemove">Enumeration of attribute names to exclude from result.</param>
+        /// <returns>Key-value collection of attributes on <paramref name="element"/>.</returns>
+        private IDictionary<string, string> GetAttributesWithout(IXmlElement element, params string[] attributeNamesToRemove)
+        {
+            Dictionary<string, string> result = new Dictionary<string,string>();
+            foreach (string attributeName in element.EnumerateAttributeNames().Where(name => !attributeNamesToRemove.Contains(name)))
+                result[attributeName] = element.GetAttributeValue(attributeName);
+
+            return result;
         }
 
         public void Dispose()

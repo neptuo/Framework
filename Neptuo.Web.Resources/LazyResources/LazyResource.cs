@@ -35,6 +35,12 @@ namespace Neptuo.Web.Resources.LazyResources
                 throw new InvalidOperationException(String.Format("Unnable to find resource with name '{0}'.", Name));
         }
 
+        public string Meta(string key, string defaultValue)
+        {
+            EnsureResource();
+            return innerResource.Meta(key, defaultValue);
+        }
+
         public IEnumerable<IJavascript> EnumerateJavascripts()
         {
             EnsureResource();
