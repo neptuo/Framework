@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    /// <summary>
+    /// Implementation of <see cref="IFieldDefinition"/>.
+    /// </summary>
     public class FieldDefinition : IFieldDefinition
     {
         public string Identifier { get; protected set; }
@@ -14,15 +17,9 @@ namespace Neptuo.PresentationModels
 
         public FieldDefinition(string identifier, IFieldType fieldType, IFieldMetadataCollection metadata)
         {
-            if (identifier == null)
-                throw new ArgumentNullException("identifier");
-
-            if (fieldType == null)
-                throw new ArgumentNullException("fieldType");
-
-            if(metadata == null)
-                throw new ArgumentNullException("metadata");
-
+            Guard.NotNull(identifier ,"identifier");
+            Guard.NotNull(fieldType ,"fieldType");
+            Guard.NotNull(metadata, "metadata");
             Identifier = identifier;
             FieldType = fieldType;
             Metadata = metadata;

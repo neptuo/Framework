@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    [Obsolete]
     public interface IModelView
     {
         void SetValue(string identifier, object value);

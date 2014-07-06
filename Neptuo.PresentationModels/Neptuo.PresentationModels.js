@@ -31,11 +31,11 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var Neptuo$PresentationModels$BindingConverterCollection = {
-    fullname: "Neptuo.PresentationModels.BindingConverterCollection",
+var Neptuo$PresentationModels$Binding$BindingConverterCollection = {
+    fullname: "Neptuo.PresentationModels.Binding.BindingConverterCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IBindingConverterCollection"],
+    interfaceNames: ["Neptuo.PresentationModels.Binding.IBindingConverterCollection"],
     Kind: "Class",
     definition: {
         ctor: function (previousCollection){
@@ -45,14 +45,14 @@ var Neptuo$PresentationModels$BindingConverterCollection = {
             this.set_Storage(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.List$1.ctor));
             this.set_PreviousCollection(previousCollection);
         },
-        PreviousCollection$$: "Neptuo.PresentationModels.BindingConverterCollection",
+        PreviousCollection$$: "Neptuo.PresentationModels.Binding.BindingConverterCollection",
         get_PreviousCollection: function (){
             return this._PreviousCollection;
         },
         set_PreviousCollection: function (value){
             this._PreviousCollection = value;
         },
-        Storage$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Collections.Generic.List`1[[Neptuo.PresentationModels.IBindingConverter]]]]",
+        Storage$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Collections.Generic.List`1[[Neptuo.PresentationModels.Binding.IBindingConverter]]]]",
         get_Storage: function (){
             return this._Storage;
         },
@@ -72,7 +72,7 @@ var Neptuo$PresentationModels$BindingConverterCollection = {
                 list = $1.Value;
                 return $res;
             }).call(this)){
-                list = new System.Collections.Generic.List$1.ctor(Neptuo.PresentationModels.IBindingConverter.ctor);
+                list = new System.Collections.Generic.List$1.ctor(Neptuo.PresentationModels.Binding.IBindingConverter.ctor);
                 this.get_Storage().Add(key, list);
             }
             list.Add(converter);
@@ -135,14 +135,14 @@ var Neptuo$PresentationModels$BindingConverterCollection = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.BindingConverterCollection"]
+        parameters: ["Neptuo.PresentationModels.Binding.BindingConverterCollection"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$BindingConverterCollection);
-var Neptuo$PresentationModels$BindingModelValueGetter = {
-    fullname: "Neptuo.PresentationModels.BindingModelValueGetter",
+JsTypes.push(Neptuo$PresentationModels$Binding$BindingConverterCollection);
+var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
+    fullname: "Neptuo.PresentationModels.Binding.BindingModelValueGetter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueGetter"],
@@ -163,14 +163,14 @@ var Neptuo$PresentationModels$BindingModelValueGetter = {
             this.set_ConverterCollection(converterCollection);
             this.set_ModelDefinition(modelDefinition);
         },
-        Storage$$: "Neptuo.PresentationModels.IBindingModelValueStorage",
+        Storage$$: "Neptuo.PresentationModels.Binding.IBindingModelValueStorage",
         get_Storage: function (){
             return this._Storage;
         },
         set_Storage: function (value){
             this._Storage = value;
         },
-        ConverterCollection$$: "Neptuo.PresentationModels.IBindingConverterCollection",
+        ConverterCollection$$: "Neptuo.PresentationModels.Binding.IBindingConverterCollection",
         get_ConverterCollection: function (){
             return this._ConverterCollection;
         },
@@ -208,12 +208,12 @@ var Neptuo$PresentationModels$BindingModelValueGetter = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IBindingModelValueStorage", "Neptuo.PresentationModels.IBindingConverterCollection", "Neptuo.PresentationModels.IModelDefinition"]
+        parameters: ["Neptuo.PresentationModels.Binding.IBindingModelValueStorage", "Neptuo.PresentationModels.Binding.IBindingConverterCollection", "Neptuo.PresentationModels.IModelDefinition"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$BindingModelValueGetter);
+JsTypes.push(Neptuo$PresentationModels$Binding$BindingModelValueGetter);
 var Neptuo$PresentationModels$CopyModelValueProvider = {
     fullname: "Neptuo.PresentationModels.CopyModelValueProvider",
     baseTypeName: "System.Object",
@@ -223,8 +223,7 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
         ctor: function (modelDefinition){
             this._ModelDefinition = null;
             System.Object.ctor.call(this);
-            if (modelDefinition == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("modelDefinition"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
@@ -263,11 +262,11 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$CopyModelValueProvider);
-var Neptuo$PresentationModels$BindingDictionaryValueStorage = {
-    fullname: "Neptuo.PresentationModels.BindingDictionaryValueStorage",
+var Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage = {
+    fullname: "Neptuo.PresentationModels.Binding.BindingDictionaryValueStorage",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IBindingModelValueStorage"],
+    interfaceNames: ["Neptuo.PresentationModels.Binding.IBindingModelValueStorage"],
     Kind: "Class",
     definition: {
         ctor: function (storage){
@@ -302,7 +301,7 @@ var Neptuo$PresentationModels$BindingDictionaryValueStorage = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$BindingDictionaryValueStorage);
+JsTypes.push(Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage);
 var Neptuo$PresentationModels$FieldDefinition = {
     fullname: "Neptuo.PresentationModels.FieldDefinition",
     baseTypeName: "System.Object",
@@ -315,12 +314,9 @@ var Neptuo$PresentationModels$FieldDefinition = {
             this._FieldType = null;
             this._Metadata = null;
             System.Object.ctor.call(this);
-            if (identifier == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("identifier"), new Error());
-            if (fieldType == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("fieldType"), new Error());
-            if (metadata == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("metadata"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(identifier, "identifier");
+            Neptuo.Guard.NotNull$$Object$$String(fieldType, "fieldType");
+            Neptuo.Guard.NotNull$$Object$$String(metadata, "metadata");
             this.set_Identifier(identifier);
             this.set_FieldType(fieldType);
             this.set_Metadata(metadata);
@@ -377,33 +373,33 @@ var Neptuo$PresentationModels$FieldDefinitionBuilderBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$FieldDefinitionBuilderBase);
-var Neptuo$PresentationModels$IBindingConverter = {
-    fullname: "Neptuo.PresentationModels.IBindingConverter",
+var Neptuo$PresentationModels$Binding$IBindingConverter = {
+    fullname: "Neptuo.PresentationModels.Binding.IBindingConverter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$IBindingConverter);
-var Neptuo$PresentationModels$IBindingConverterCollection = {
-    fullname: "Neptuo.PresentationModels.IBindingConverterCollection",
+JsTypes.push(Neptuo$PresentationModels$Binding$IBindingConverter);
+var Neptuo$PresentationModels$Binding$IBindingConverterCollection = {
+    fullname: "Neptuo.PresentationModels.Binding.IBindingConverterCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$IBindingConverterCollection);
-var Neptuo$PresentationModels$IBindingModelValueStorage = {
-    fullname: "Neptuo.PresentationModels.IBindingModelValueStorage",
+JsTypes.push(Neptuo$PresentationModels$Binding$IBindingConverterCollection);
+var Neptuo$PresentationModels$Binding$IBindingModelValueStorage = {
+    fullname: "Neptuo.PresentationModels.Binding.IBindingModelValueStorage",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$IBindingModelValueStorage);
+JsTypes.push(Neptuo$PresentationModels$Binding$IBindingModelValueStorage);
 var Neptuo$PresentationModels$MetadataCollectionExtensions = {
     fullname: "Neptuo.PresentationModels.MetadataCollectionExtensions",
     baseTypeName: "System.Object",
@@ -823,10 +819,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "4.5.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "5.0.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.5.0");
+            return new System.Version.ctor$$String("5.0.0");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -852,12 +848,9 @@ var Neptuo$PresentationModels$ModelDefinition = {
             this._Fields = null;
             this._Metadata = null;
             System.Object.ctor.call(this);
-            if (identifier == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("identifier"), new Error());
-            if (fields == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("fields"), new Error());
-            if (metadata == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("metadata"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(identifier, "identifier");
+            Neptuo.Guard.NotNull$$Object$$String(fields, "fields");
+            Neptuo.Guard.NotNull$$Object$$String(metadata, "metadata");
             this.set_Identifier(identifier);
             this.set_Fields(new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.PresentationModels.IFieldDefinition.ctor, fields));
             this.set_Metadata(metadata);
@@ -901,8 +894,7 @@ var Neptuo$PresentationModels$ProxyModelDefinition = {
         ctor: function (modelDefinition){
             this._ModelDefinition = null;
             Neptuo.PresentationModels.ProxyModelDefinitionBase.ctor.call(this);
-            if (modelDefinition == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("modelDefinition"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
@@ -941,38 +933,38 @@ var Neptuo$PresentationModels$ProxyModelDefinitionBase = {
             this.identifier = null;
             this.fields = null;
             this.metadata = null;
-            this._RequiresRefresh = false;
+            this._IsRefreshRequired = false;
             System.Object.ctor.call(this);
-            this.set_RequiresRefresh(true);
+            this.set_IsRefreshRequired(true);
         },
-        RequiresRefresh$$: "System.Boolean",
-        get_RequiresRefresh: function (){
-            return this._RequiresRefresh;
+        IsRefreshRequired$$: "System.Boolean",
+        get_IsRefreshRequired: function (){
+            return this._IsRefreshRequired;
         },
-        set_RequiresRefresh: function (value){
-            this._RequiresRefresh = value;
+        set_IsRefreshRequired: function (value){
+            this._IsRefreshRequired = value;
         },
         Identifier$$: "System.String",
         get_Identifier: function (){
-            if (this.get_RequiresRefresh()){
+            if (this.get_IsRefreshRequired()){
                 this.identifier = this.RefreshIdentifier();
-                this.set_RequiresRefresh(false);
+                this.set_IsRefreshRequired(false);
             }
             return this.identifier;
         },
         Fields$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.PresentationModels.IFieldDefinition]]",
         get_Fields: function (){
-            if (this.get_RequiresRefresh()){
+            if (this.get_IsRefreshRequired()){
                 this.fields = this.RefreshFields();
-                this.set_RequiresRefresh(false);
+                this.set_IsRefreshRequired(false);
             }
             return this.fields;
         },
         Metadata$$: "Neptuo.PresentationModels.IModelMetadataCollection",
         get_Metadata: function (){
-            if (this.get_RequiresRefresh()){
+            if (this.get_IsRefreshRequired()){
                 this.metadata = this.RefreshMetadata();
-                this.set_RequiresRefresh(false);
+                this.set_IsRefreshRequired(false);
             }
             return this.metadata;
         }
@@ -985,9 +977,14 @@ var Neptuo$PresentationModels$ProxyModelDefinitionBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$ProxyModelDefinitionBase);
-var Neptuo$PresentationModels$TypeFieldType = {
-    fullname: "Neptuo.PresentationModels.TypeFieldType",
+var Neptuo$PresentationModels$FieldType = {
+    fullname: "Neptuo.PresentationModels.FieldType",
     baseTypeName: "System.Object",
+    staticDefinition: {
+        FromType: function (type){
+            return new Neptuo.PresentationModels.FieldType.ctor(type);
+        }
+    },
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IFieldType"],
     Kind: "Class",
@@ -995,8 +992,7 @@ var Neptuo$PresentationModels$TypeFieldType = {
         ctor: function (type){
             this._Type = null;
             System.Object.ctor.call(this);
-            if (System.Type.op_Equality$$Type$$Type(type, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("type"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(type, "type");
             this.set_Type(type);
         },
         Type$$: "System.Type",
@@ -1012,15 +1008,15 @@ var Neptuo$PresentationModels$TypeFieldType = {
         Equals$$Object: function (obj){
             if (obj == null)
                 return false;
-            var fieldType = As(obj, Neptuo.PresentationModels.TypeFieldType.ctor);
+            var fieldType = As(obj, Neptuo.PresentationModels.FieldType.ctor);
             if (fieldType == null)
                 return false;
             return System.Type.op_Equality$$Type$$Type(fieldType.get_Type(), this.get_Type());
         },
         ToString: function (){
-            return System.String.Format$$String$$Object$$Object("(FieldType:{0}:{1})", this.get_Type().get_FullName(), this.GetGenericArgument());
+            return System.String.Format$$String$$Object$$Object("(FieldType:{0}:{1})", this.get_Type().get_FullName(), this.GetGenericArgumentFullName());
         },
-        GetGenericArgument: function (){
+        GetGenericArgumentFullName: function (){
             if (this.get_Type().get_IsGenericType())
                 return this.get_Type().GetGenericArguments()[0].get_FullName();
             return System.String.Empty;
@@ -1033,7 +1029,7 @@ var Neptuo$PresentationModels$TypeFieldType = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$TypeFieldType);
+JsTypes.push(Neptuo$PresentationModels$FieldType);
 var Neptuo$PresentationModels$Validation$FieldMetadataValidatorBase$2 = {
     fullname: "Neptuo.PresentationModels.Validation.FieldMetadataValidatorBase$2",
     baseTypeName: "System.Object",

@@ -6,16 +6,24 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    /// <summary>
+    /// Wraps inner model definition into proxy model definition.
+    /// </summary>
     public class ProxyModelDefinition : ProxyModelDefinitionBase
     {
+        /// <summary>
+        /// Inner model definition.
+        /// </summary>
         protected IModelDefinition ModelDefinition { get; private set; }
 
+        /// <summary>
+        /// Creates new instance with <paramref name="modelDefinition"/> as inner model definition.
+        /// </summary>
+        /// <param name="modelDefinition">Inner model definition.</param>
         public ProxyModelDefinition(IModelDefinition modelDefinition)
             : base()
         {
-            if (modelDefinition == null)
-                throw new ArgumentNullException("modelDefinition");
-
+            Guard.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

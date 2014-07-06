@@ -6,15 +6,24 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    /// <summary>
+    /// Copies values from source getter to target setter.
+    /// Instance per model definition.
+    /// </summary>
     public class CopyModelValueProvider
     {
+        /// <summary>
+        /// Model definition.
+        /// </summary>
         public IModelDefinition ModelDefinition { get; private set; }
 
+        /// <summary>
+        /// Creates new instance for <paramref name="modelDefinition"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
         public CopyModelValueProvider(IModelDefinition modelDefinition)
         {
-            if (modelDefinition == null)
-                throw new ArgumentNullException("modelDefinition");
-
+            Guard.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

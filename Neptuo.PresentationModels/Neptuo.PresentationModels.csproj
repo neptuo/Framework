@@ -35,15 +35,15 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BindingConverterCollection.cs" />
-    <Compile Include="BindingModelValueGetter.cs" />
+    <Compile Include="Binding\BindingConverterCollection.cs" />
+    <Compile Include="Binding\BindingModelValueGetter.cs" />
     <Compile Include="CopyModelValueProvider.cs" />
-    <Compile Include="BindingDictionaryValueStorage.cs" />
+    <Compile Include="Binding\BindingDictionaryValueStorage.cs" />
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldDefinitionBuilderBase.cs" />
-    <Compile Include="IBindingConverter.cs" />
-    <Compile Include="IBindingConverterCollection.cs" />
-    <Compile Include="IBindingModelValueStorage.cs" />
+    <Compile Include="Binding\IBindingConverter.cs" />
+    <Compile Include="Binding\IBindingConverterCollection.cs" />
+    <Compile Include="Binding\IBindingModelValueStorage.cs" />
     <Compile Include="MetadataCollectionExtensions.cs" />
     <Compile Include="IFieldDefinition.cs" />
     <Compile Include="IFieldDefinitionBuilder.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="ModelDefinition.cs" />
     <Compile Include="ProxyModelDefinition.cs" />
     <Compile Include="ProxyModelDefinitionBase.cs" />
-    <Compile Include="TypeFieldType.cs" />
+    <Compile Include="FieldType.cs" />
     <Compile Include="Validation\FieldMetadataValidatorBase.cs" />
     <Compile Include="Validation\FieldMetadataValidatorContext.cs" />
     <Compile Include="Validation\FuncFieldMetadataValidatorFactory.cs" />

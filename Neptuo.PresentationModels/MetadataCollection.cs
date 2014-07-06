@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    /// <summary>
+    /// Implementation of <see cref="IModelMetadataCollection"/> and <see cref="IFieldMetadataCollection"/>
+    /// using dictionary.
+    /// </summary>
     public class MetadataCollection : IModelMetadataCollection, IFieldMetadataCollection
     {
+        /// <summary>
+        /// Value storage.
+        /// </summary>
         protected Dictionary<string, object> Values { get; private set; }
         
         public IEnumerable<string> Keys
