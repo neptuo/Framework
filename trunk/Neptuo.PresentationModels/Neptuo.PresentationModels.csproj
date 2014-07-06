@@ -72,6 +72,19 @@
     <Compile Include="ProxyModelDefinition.cs" />
     <Compile Include="ProxyModelDefinitionBase.cs" />
     <Compile Include="TypeFieldType.cs" />
+    <Compile Include="Validation\FieldMetadataValidatorBase.cs" />
+    <Compile Include="Validation\FieldMetadataValidatorContext.cs" />
+    <Compile Include="Validation\FuncFieldMetadataValidatorFactory.cs" />
+    <Compile Include="Validation\IFieldMetadataValidator.cs" />
+    <Compile Include="Validation\IFieldMetadataValidatorFactory.cs" />
+    <Compile Include="Validation\IMetadataValidatorCollection.cs" />
+    <Compile Include="Validation\IModelValidationBuilder.cs" />
+    <Compile Include="Validation\IModelValidator.cs" />
+    <Compile Include="Validation\MetadataModelValidator.cs" />
+    <Compile Include="Validation\MetadataValidatorCollection.cs" />
+    <Compile Include="Validation\ModelValidationBuilder.cs" />
+    <Compile Include="Validation\ModelValidatorBase.cs" />
+    <Compile Include="Validation\SingletonFieldMetadataValidatorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Neptuo.PresentationModels.js" />
