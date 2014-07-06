@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Creates instance of <see cref="IFieldMetadataValidator"/>.
+    /// </summary>
     public interface IFieldMetadataValidatorFactory : IActivator<IFieldMetadataValidator>
     { }
 }

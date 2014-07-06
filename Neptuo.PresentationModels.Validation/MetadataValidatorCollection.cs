@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Implementation of <see cref="IMetadataValidatorCollection"/>.
+    /// </summary>
     public class MetadataValidatorCollection : IMetadataValidatorCollection
     {
         protected Dictionary<string, Dictionary<string, Dictionary<string, IFieldMetadataValidatorFactory>>> Validators { get; private set; }
@@ -15,6 +18,14 @@ namespace Neptuo.PresentationModels.Validation
             Validators = new Dictionary<string, Dictionary<string, Dictionary<string, IFieldMetadataValidatorFactory>>>();
         }
 
+        /// <summary>
+        /// Add validator for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.
+        /// </summary>
+        /// <param name="modelIdentifier">Identifier of model definition.</param>
+        /// <param name="fieldIdentifier">Identifier of field definition.</param>
+        /// <param name="metadataKey">Field metadata validator key.</param>
+        /// <param name="validatorFactory">Factory for validators.</param>
+        /// <returns>Self (for fluency).</returns>
         public MetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IFieldMetadataValidatorFactory validatorFactory)
         {
             if (modelIdentifier == null)

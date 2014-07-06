@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Implementation of <see cref="IModelValidationBuilder"/> and <see cref="IValidationResult"/>.
+    /// Instance of this class can act like both of these.
+    /// </summary>
     public class ModelValidationBuilder : IValidationResult, IModelValidationBuilder
     {
+        /// <summary>
+        /// List of validator messages.
+        /// </summary>
         protected List<IValidationMessage> MessageList { get; private set; }
 
         public bool IsValid
@@ -28,12 +35,14 @@ namespace Neptuo.PresentationModels.Validation
 
         public IModelValidationBuilder AddMessage(IValidationMessage message)
         {
+            Guard.NotNull(message, "message");
             MessageList.Add(message);
             return this;
         }
 
         public IModelValidationBuilder AddMessages(IEnumerable<IValidationMessage> messages)
         {
+            Guard.NotNull(messages, "messages");
             MessageList.AddRange(messages);
             return this;
         }

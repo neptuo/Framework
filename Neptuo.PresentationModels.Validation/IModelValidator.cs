@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Defines presentation model validator.
+    /// </summary>
     public interface IModelValidator : IValidator<IModelValueGetter>
     {
     }

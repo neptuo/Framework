@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Provides context information for validator of type <see cref="FieldMetadataValidatorBase<,>"/>.
+    /// </summary>
     public class FieldMetadataValidatorContext
     {
         public IFieldDefinition FieldDefinition { get; private set; }
@@ -14,15 +17,9 @@ namespace Neptuo.PresentationModels.Validation
 
         public FieldMetadataValidatorContext(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder)
         {
-            if (fieldDefinition == null)
-                throw new ArgumentNullException("fieldDefinition");
-
-            if (getter == null)
-                throw new ArgumentNullException("getter");
-
-            if (resultBuilder == null)
-                throw new ArgumentNullException("resultBuilder");
-
+            Guard.NotNull(fieldDefinition, "fieldDefinition");
+            Guard.NotNull(getter, "getter");
+            Guard.NotNull(resultBuilder, "resultBuilder");
             FieldDefinition = fieldDefinition;
             Getter = getter;
             ResultBuilder = resultBuilder;
