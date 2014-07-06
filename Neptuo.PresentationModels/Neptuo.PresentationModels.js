@@ -1370,6 +1370,25 @@ var Neptuo$PresentationModels$Validation$MetadataValidatorCollection = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Validation$MetadataValidatorCollection);
+var Neptuo$PresentationModels$Validation$MetadataValidatorCollectionExtensions = {
+    fullname: "Neptuo.PresentationModels.Validation.MetadataValidatorCollectionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        Add: function (collection, modelIdentifier, fieldIdentifier, metadataKey, validator){
+            return collection.Add(modelIdentifier, fieldIdentifier, metadataKey, new Neptuo.PresentationModels.Validation.SingletonFieldMetadataValidatorFactory.ctor(validator));
+        }
+    },
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Validation$MetadataValidatorCollectionExtensions);
 var Neptuo$PresentationModels$Validation$ModelValidationBuilder = {
     fullname: "Neptuo.PresentationModels.Validation.ModelValidationBuilder",
     baseTypeName: "System.Object",

@@ -357,7 +357,7 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder = {
             var $it1 = this.get_ModelType().GetProperties().GetEnumerator();
             while ($it1.MoveNext()){
                 var propertyInfo = $it1.get_Current();
-                fields.Add(new Neptuo.PresentationModels.FieldDefinition.ctor(this.BuildIdentifier(propertyInfo), new Neptuo.PresentationModels.TypeFieldType.ctor(propertyInfo.get_PropertyType()), this.BuildMetadata(propertyInfo)));
+                fields.Add(new Neptuo.PresentationModels.FieldDefinition.ctor(this.BuildIdentifier(propertyInfo), new Neptuo.PresentationModels.FieldType.ctor(propertyInfo.get_PropertyType()), this.BuildMetadata(propertyInfo)));
             }
             return fields;
         },

@@ -19,7 +19,7 @@ namespace Neptuo.PresentationModels.Validation
         }
 
         /// <summary>
-        /// Add validator for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.
+        /// Add validator factory for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.
         /// </summary>
         /// <param name="modelIdentifier">Identifier of model definition.</param>
         /// <param name="fieldIdentifier">Identifier of field definition.</param>
@@ -69,6 +69,25 @@ namespace Neptuo.PresentationModels.Validation
 
             validator = factory.Create();
             return true;
+        }
+    }
+
+    /// <summary>
+    /// Extensions methods for <see cref="MetadataValidatorCollection"/>.
+    /// </summary>
+    public static class MetadataValidatorCollectionExtensions
+    {
+        /// <summary>
+        /// Add validator for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.
+        /// </summary>
+        /// <param name="modelIdentifier">Identifier of model definition.</param>
+        /// <param name="fieldIdentifier">Identifier of field definition.</param>
+        /// <param name="metadataKey">Field metadata validator key.</param>
+        /// <param name="validatorFactory">Factory for validators.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static MetadataValidatorCollection Add(this MetadataValidatorCollection collection, string modelIdentifier, string fieldIdentifier, string metadataKey, IFieldMetadataValidator validator)
+        {
+            return collection.Add(modelIdentifier, fieldIdentifier, metadataKey, new SingletonFieldMetadataValidatorFactory(validator));
         }
     }
 }
