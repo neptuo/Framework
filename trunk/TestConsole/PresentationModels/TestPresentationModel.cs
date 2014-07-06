@@ -1,4 +1,5 @@
 ﻿using Neptuo.PresentationModels;
+using Neptuo.PresentationModels.Binding;
 using Neptuo.PresentationModels.BindingConverters;
 using Neptuo.PresentationModels.TypeModels;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations;
@@ -25,8 +26,8 @@ namespace TestConsole.PresentationModels
                 .Add(typeof(MatchPropertyAttribute), new MatchPropertyMetadataReader());
 
             MetadataValidatorCollection validators = new MetadataValidatorCollection()
-                .Add(null, null, "Required", new SingletonFieldMetadataValidatorFactory(new RequiredMetadataValidator()))
-                .Add(null, null, "MatchProperty", new SingletonFieldMetadataValidatorFactory(new MatchPropertyMetadataValidator()));
+                .Add(null, null, "Required", new RequiredMetadataValidator())
+                .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
             BindingConverterCollection bindingConverters = new BindingConverterCollection()
                 //.Add(new TypeFieldType(typeof(bool)), new BoolBindingConverter())
