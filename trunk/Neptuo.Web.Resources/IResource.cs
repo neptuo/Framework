@@ -9,7 +9,7 @@ namespace Neptuo.Web.Resources
     /// <summary>
     /// Registered resource.
     /// </summary>
-    public interface IResource
+    public interface IResource : IWithMeta
     {
         /// <summary>
         /// Resource name.

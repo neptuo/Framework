@@ -22,13 +22,13 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
             get { return element.Name; }
         }
 
-        public string GetAttribute(string attributeName)
+        public string GetAttributeValue(string attributeName)
         {
             Guard.NotNullOrEmpty(attributeName, "attributeName");
             return element.GetAttribute(attributeName);
         }
 
-        public IEnumerable<IXmlElement> GetChildElements(string elementName)
+        public IEnumerable<IXmlElement> EnumerateChildElements(string elementName)
         {
             Guard.NotNullOrEmpty(elementName, "elementName");
             foreach (XmlNode node in element.ChildNodes)
@@ -36,6 +36,12 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
                 if (node.NodeType == XmlNodeType.Element && node.Name == elementName)
                     yield return new XmlDocumentElement((XmlElement)node);
             }
+        }
+
+        public IEnumerable<string> EnumerateAttributeNames()
+        {
+            foreach (XmlAttribute attribute in element.Attributes)
+                yield return attribute.Name;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Web.Resources
 {
     /// <summary>
-    /// Base source with source property.
+    /// Base resource with source property.
     /// </summary>
     public interface IWithSource
     {

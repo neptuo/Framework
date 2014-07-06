@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web.Resources.FileResources
 {
-    public class FileResource : IResource
+    public class FileResource : WithMetaBase, IResource
     {
         protected List<IJavascript> Javascripts { get; private set; }
         protected List<IStylesheet> Stylesheets { get; private set; }
@@ -15,6 +15,11 @@ namespace Neptuo.Web.Resources.FileResources
         public string Name { get; private set; }
 
         public FileResource(string name)
+            : this(name, new Dictionary<string, string>())
+        { }
+
+        public FileResource(string name, IDictionary<string, string> metadata)
+            : base(metadata)
         {
             Guard.NotNullOrEmpty(name, "name");
             Name = name;

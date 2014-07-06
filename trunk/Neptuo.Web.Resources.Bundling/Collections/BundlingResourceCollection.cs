@@ -12,6 +12,10 @@ namespace Neptuo.Web.Resources.Bundling.Collections
     /// <summary>
     /// Wrapps inner resource collection and creates bundles for registered resources.
     /// </summary>
+    /// <remarks>
+    /// ISSUES:
+    /// 1) Removes all meta data from source resources.
+    /// </remarks>
     public class BundlingResourceCollection : IResourceCollection
     {
         private BundleCollection bundleCollection;
