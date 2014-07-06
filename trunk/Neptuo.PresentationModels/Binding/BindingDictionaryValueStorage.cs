@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels
+namespace Neptuo.PresentationModels.Binding
 {
     public class BindingDictionaryValueStorage : IBindingModelValueStorage
     {

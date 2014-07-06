@@ -6,22 +6,39 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    /// <summary>
+    /// Model definition that dynamically refreshes model parts as requested.
+    /// </summary>
     public abstract class ProxyModelDefinitionBase : IModelDefinition
     {
+        /// <summary>
+        /// Cached model identifier.
+        /// </summary>
         private string identifier;
+
+        /// <summary>
+        /// Cached model fields.
+        /// </summary>
         private IEnumerable<IFieldDefinition> fields;
+
+        /// <summary>
+        /// Cached model metadata.
+        /// </summary>
         private IModelMetadataCollection metadata;
 
-        protected bool RequiresRefresh { get; set; }
+        /// <summary>
+        /// If <c>true</c>, next access to identifier, fields or metadata forces refresh.
+        /// </summary>
+        protected bool IsRefreshRequired { get; set; }
 
         public string Identifier
         {
             get
             {
-                if (RequiresRefresh)
+                if (IsRefreshRequired)
                 {
                     identifier = RefreshIdentifier();
-                    RequiresRefresh = false;
+                    IsRefreshRequired = false;
                 }
                 return identifier;
             }
@@ -31,10 +48,10 @@ namespace Neptuo.PresentationModels
         {
             get
             {
-                if (RequiresRefresh)
+                if (IsRefreshRequired)
                 {
                     fields = RefreshFields();
-                    RequiresRefresh = false;
+                    IsRefreshRequired = false;
                 }
                 return fields;
             }
@@ -44,10 +61,10 @@ namespace Neptuo.PresentationModels
         {
             get
             {
-                if (RequiresRefresh)
+                if (IsRefreshRequired)
                 {
                     metadata = RefreshMetadata();
-                    RequiresRefresh = false;
+                    IsRefreshRequired = false;
                 }
                 return metadata;
             }
@@ -55,13 +72,25 @@ namespace Neptuo.PresentationModels
 
         public ProxyModelDefinitionBase()
         {
-            RequiresRefresh = true;
+            IsRefreshRequired = true;
         }
 
+        /// <summary>
+        /// Provides model identifier.
+        /// </summary>
+        /// <returns>Model identifier.</returns>
         protected abstract string RefreshIdentifier();
 
+        /// <summary>
+        /// Provides model fields.
+        /// </summary>
+        /// <returns>Model fields.</returns>
         protected abstract IEnumerable<IFieldDefinition> RefreshFields();
 
+        /// <summary>
+        /// Provides model metadata.
+        /// </summary>
+        /// <returns>Model metadata.</returns>
         protected abstract IModelMetadataCollection RefreshMetadata();
     }
 }

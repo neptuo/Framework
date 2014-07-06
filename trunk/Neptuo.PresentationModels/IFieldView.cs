@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels
 {
+    [Obsolete]
     public interface IFieldView
     {
         void SetValue(object value);
