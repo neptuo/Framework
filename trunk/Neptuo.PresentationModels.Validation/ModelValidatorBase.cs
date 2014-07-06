@@ -7,19 +7,28 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Validation
 {
+    /// <summary>
+    /// Base for <see cref="IModelValidator"/>.
+    /// Validator result built from validation of all fields.
+    /// </summary>
     public abstract class ModelValidatorBase : IModelValidator
     {
+        /// <summary>
+        /// Model definition to validate.
+        /// </summary>
         protected IModelDefinition ModelDefinition { get; private set; }
 
         public ModelValidatorBase(IModelDefinition modelDefinition)
         {
-            if (modelDefinition == null)
-                throw new ArgumentNullException("modelDefinition");
-
+            Guard.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 
-        protected virtual ModelValidationBuilder CreateResultBuilder()
+        /// <summary>
+        /// Creates instance of validation result builder.
+        /// </summary>
+        /// <returns></returns>
+        protected virtual IModelValidationBuilder CreateResultBuilder()
         {
             return new ModelValidationBuilder();
         }
@@ -33,6 +42,12 @@ namespace Neptuo.PresentationModels.Validation
             return resultBuilder.ToResult();
         }
 
+        /// <summary>
+        /// Provides logic for validating <paramref name="fieldDefinition"/>.
+        /// </summary>
+        /// <param name="fieldDefinition">Defines field to validate.</param>
+        /// <param name="getter">Provides current values.</param>
+        /// <param name="resultBuilder">Validation result builder.</param>
         protected abstract void ValidateField(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder);
     }
 }
