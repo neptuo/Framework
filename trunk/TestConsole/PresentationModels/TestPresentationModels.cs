@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.PresentationModels
 {
-    class TestPresentationModel : TestClass
+    class TestPresentationModels : TestClass
     {
         public static void Test()
         {

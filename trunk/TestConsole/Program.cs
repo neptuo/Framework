@@ -11,6 +11,7 @@ using TestConsole.Events;
 using TestConsole.PresentationModels;
 using TestConsole.Resources;
 using TestConsole.Tokens;
+using TestConsole.WebServices;
 
 namespace TestConsole
 {
@@ -24,7 +25,8 @@ namespace TestConsole
             //TestConfiguration.Test();
             //TestCommands.Test();
             //TestEvents.Test();
-            TestResources.Test();
+            //TestResources.Test();
+            TestWebServices.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
