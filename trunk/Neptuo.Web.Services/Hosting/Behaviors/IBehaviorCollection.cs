@@ -46,5 +46,15 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
             collection.Add(new InterfaceBehaviorProvider(typeof(TContract), typeof(TImplementation)));
             return collection;
         }
+
+        public static IBehaviorCollection AddEndpoints(this IBehaviorCollection collection)
+        {
+            Guard.NotNull(collection, "collection");
+            collection.Add(
+                new InterfaceBehaviorProvider(typeof(IGet), typeof(GetBehavior))
+                    .AddMapping(typeof(IPost), typeof(PostBehavior))
+            );
+            return collection;
+        }
     }
 }

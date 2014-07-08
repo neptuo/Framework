@@ -24,7 +24,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         public void Add(IBehaviorProvider provider)
         {
             Guard.NotNull(provider, "provider");
-            providers.Add(provider);
+            providers.Insert(0, provider);
         }
 
         /// <summary>

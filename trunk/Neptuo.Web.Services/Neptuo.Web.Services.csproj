@@ -47,6 +47,7 @@
     <Compile Include="Hosting\Behaviors\IBehavior.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorCollection.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorContext.cs" />
+    <Compile Include="Hosting\Behaviors\PostBehavior.cs" />
     <Compile Include="Hosting\Behaviors\Providers\IBehaviorProvider.cs" />
     <Compile Include="Hosting\Behaviors\Providers\InterfaceBehaviorProvider.cs" />
     <Compile Include="Hosting\Behaviors\WithBehaviorBase.cs" />
