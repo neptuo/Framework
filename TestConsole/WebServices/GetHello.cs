@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.WebServices
 {
-    public class GetHello : IWithOutput<string>, IWithRedirect, IGet
+    public class GetHello : IGet, IWithOutput<string>, IWithRedirect
     {
         public string Location { get; private set; }
         public string Output { get; private set; }
@@ -16,7 +16,7 @@ namespace TestConsole.WebServices
         public void Get()
         {
             Location = "http://www.google.com/";
-            Output = "Hello, World";
+            Output = "Hello, World!";
         }
     }
 

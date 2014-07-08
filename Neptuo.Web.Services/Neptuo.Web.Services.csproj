@@ -46,8 +46,9 @@
     <Compile Include="Hosting\Behaviors\GetBehavior.cs" />
     <Compile Include="Hosting\Behaviors\IBehavior.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorCollection.cs" />
-    <Compile Include="Hosting\Behaviors\IBehaviorContractSorter.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorContext.cs" />
+    <Compile Include="Hosting\Behaviors\Providers\IBehaviorProvider.cs" />
+    <Compile Include="Hosting\Behaviors\Providers\InterfaceBehaviorProvider.cs" />
     <Compile Include="Hosting\Behaviors\WithBehaviorBase.cs" />
     <Compile Include="Hosting\Behaviors\WithOutputBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithRedirectBehavior.cs" />

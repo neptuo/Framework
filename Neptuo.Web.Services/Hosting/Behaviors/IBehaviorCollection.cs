@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Web.Services.Hosting.Behaviors.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,20 +13,17 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public interface IBehaviorCollection
     {
         /// <summary>
-        /// Adds mapping of behavior contract <paramref name="behaviorContract"/> to implementation <paramref name="behaviorImplementation"/>.
+        /// Adds provider for behaviors.
         /// </summary>
-        /// <param name="behaviorContract">Behavior contract type.</param>
-        /// <param name="behaviorImplementation">Behavior implementation type.</param>
-        void Add(Type behaviorContract, Type behaviorImplementation);
+        /// <param name="provider">Behavior provider.</param>
+        void Add(IBehaviorProvider provider);
 
         /// <summary>
-        /// Tries to find mapping for behavior contract <paramref name="behaviorContract"/>.
-        /// If found, returns true; otherwise false.
+        /// Gets registered behaviors for handler of type <paramref name="handlerType"/>.
         /// </summary>
-        /// <param name="behaviorContract">Behavior contract type.</param>
-        /// <param name="behaviorImplementation">Behavior implementation type.</param>
-        /// <returns>If mapping is found, returns true; otherwise false.</returns>
-        bool TryGet(Type behaviorContract, out Type behaviorImplementation);
+        /// <param name="handlerType">Handler type.</param>
+        /// <returns>Registered behaviors for handler of type <paramref name="handlerType"/>.</returns>
+        IEnumerable<Type> GetBehaviors(Type handlerType);
     }
 
     /// <summary>
@@ -34,17 +32,18 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public static class BehaviorCollectionExtensions
     {
         /// <summary>
-        /// Generic version of <see cref="IBehaviorCollection.Add"/>.
+        /// Adds <see cref="InterfaceBehaviorProvider"/> with <typeparamref name="TContract"/> as contract interface 
+        /// and <typeparamref name="TImplementation"/> as implementation class.
         /// </summary>
-        /// <typeparam name="TContract">Behavior contract type.</typeparam>
-        /// <typeparam name="TImplementation">Behavior implementation type.</typeparam>
-        /// <param name="collection">Behavior collection to insert into.</param>
+        /// <typeparam name="TContract">Contract interface</typeparam>
+        /// <typeparam name="TImplementation">Implementation type.</typeparam>
+        /// <param name="collection">Collection to insert into.</param>
         /// <returns><paramref name="collection"/> (for fluency).</returns>
         public static IBehaviorCollection Add<TContract, TImplementation>(this IBehaviorCollection collection)
             where TImplementation : IBehavior<TContract>
         {
             Guard.NotNull(collection, "collection");
-            collection.Add(typeof(TContract), typeof(TImplementation));
+            collection.Add(new InterfaceBehaviorProvider(typeof(TContract), typeof(TImplementation)));
             return collection;
         }
     }
