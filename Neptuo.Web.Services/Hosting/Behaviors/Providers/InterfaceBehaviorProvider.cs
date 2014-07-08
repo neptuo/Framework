@@ -7,19 +7,11 @@ using System.Threading.Tasks;
 namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
 {
     /// <summary>
-    /// Provides behavior based on implemented interface.
+    /// Provides behavior based on implemented interfaces.
     /// </summary>
     public class InterfaceBehaviorProvider : IBehaviorProvider
     {
-        /// <summary>
-        /// Behavior interface contract.
-        /// </summary>
-        private Type behaviorContract;
-
-        /// <summary>
-        /// Behavior contract implementor.
-        /// </summary>
-        private Type behaviorImplementation;
+        private Dictionary<Type, Type> storage;
 
         /// <summary>
         /// Creates new instance with <paramref name="behaviorContract"/> as contract and <paramref name="behaviorImplementation"/> as implementation type.
@@ -30,8 +22,33 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
         {
             Guard.NotNull(behaviorContract, "behaviorContract");
             Guard.NotNull(behaviorImplementation, "behaviorImplementation");
-            this.behaviorContract = behaviorContract;
-            this.behaviorImplementation = behaviorImplementation;
+
+            storage = new Dictionary<Type, Type>();
+            storage[behaviorContract] = behaviorImplementation;
+        }
+
+        /// <summary>
+        /// Creates new instance from <paramref name="storage"/>.
+        /// </summary>
+        /// <param name="storage">Mapping between constracts and implementations.</param>
+        public InterfaceBehaviorProvider(Dictionary<Type, Type> storage)
+        {
+            Guard.NotNull(storage, "storage");
+            this.storage = storage;
+        }
+
+        /// <summary>
+        /// Adds mapping with <paramref name="behaviorContract"/> as contract and <paramref name="behaviorImplementation"/> as implementation type.
+        /// </summary>
+        /// <param name="behaviorContract">Behavior interface contract.</param>
+        /// <param name="behaviorImplementation">Behavior contract implementor.</param>
+        /// <returns>Self (for fluency).</returns>
+        public InterfaceBehaviorProvider AddMapping(Type behaviorContract, Type behaviorImplementation)
+        {
+            Guard.NotNull(behaviorContract, "behaviorContract");
+            Guard.NotNull(behaviorImplementation, "behaviorImplementation");
+            storage[behaviorContract] = behaviorImplementation;
+            return this;
         }
 
         /// <summary>
@@ -42,24 +59,23 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
         public IEnumerable<Type> GetBehaviors(Type handlerType)
         {
             Guard.NotNull(handlerType, "handlerType");
+            Type behaviorImplementation;
             foreach (Type interfaceType in handlerType.GetInterfaces())
             {
-                if(interfaceType == behaviorContract)
-                {
+                if (storage.TryGetValue(interfaceType, out behaviorImplementation))
                     yield return behaviorImplementation;
-                    break;
-                }
 
                 // If contract is generic, try to find generic registration.
-                if (interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == behaviorContract)
+                if (interfaceType.IsGenericType)
                 {
-                    // If implementation type is generic, pass generic arguments from contract to implementation.
-                    if (behaviorImplementation.IsGenericType)
-                        yield return behaviorImplementation.MakeGenericType(interfaceType.GetGenericArguments());
-                    else
-                        yield return behaviorImplementation;
+                    if (storage.TryGetValue(interfaceType.GetGenericTypeDefinition(), out behaviorImplementation))
+                    {
+                        // If implementation type is generic, pass generic arguments from contract to implementation.
+                        if (behaviorImplementation.IsGenericType)
+                            behaviorImplementation.MakeGenericType(interfaceType.GetGenericArguments());
 
-                    break;
+                        yield return behaviorImplementation;
+                    }
                 }
             }
         }

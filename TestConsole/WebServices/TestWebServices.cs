@@ -15,9 +15,9 @@ namespace TestConsole.WebServices
         public static void Test()
         {
             ServiceEnvironment.Behaviors
+                .AddEndpoints()
                 .Add<IWithRedirect, WithRedirectBehavior>()
-                .Add<IWithOutput<string>, WithOutputBehavior<string>>()
-                .Add<IGet, GetBehavior>();
+                .Add<IWithOutput<string>, WithOutputBehavior<string>>();
 
             ReflectionPipeline<GetHello> pipeline = new ReflectionPipeline<GetHello>(ServiceEnvironment.Behaviors);
             pipeline.Invoke(new ConsoleContext());
