@@ -27,7 +27,6 @@ namespace TestConsole.WebServices
 
 
             IHttpContext context = new ConsoleContext(HttpMethod.Get, new Uri("~/hello", UriKind.Relative));
-
             IPipelineFactory pipelineFactory;
             if (ServiceEnvironment.RouteTable.TryGet(context.Request, out pipelineFactory))
                 pipelineFactory.Create().Invoke(context);
