@@ -16,7 +16,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         protected override void Execute(IWithRedirect handler, IHttpContext context)
         {
             if (!String.IsNullOrEmpty(handler.Location))
-                context.Response.Write("Redirect to: " + handler.Location);
+                context.Response.OutputWriter.Write("Redirect to: " + handler.Location);
         }
     }
 }

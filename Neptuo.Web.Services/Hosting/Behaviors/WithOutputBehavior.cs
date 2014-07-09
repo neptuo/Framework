@@ -18,7 +18,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         {
             string output = handler.Output as string;
             if (output != null)
-                context.Response.Write(output);
+                context.Response.OutputWriter.Write(output);
         }
     }
 }
