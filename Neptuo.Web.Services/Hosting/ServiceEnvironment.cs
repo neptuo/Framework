@@ -1,5 +1,6 @@
 ﻿using Neptuo.Web.Services.Hosting.Behaviors;
 using Neptuo.Web.Services.Hosting.Pipelines;
+using Neptuo.Web.Services.Hosting.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,8 @@ namespace Neptuo.Web.Services.Hosting
         private static object behaviorsLock = new object();
         private static IBehaviorCollection behaviors;
 
-        private static object pipelineFactoryLock = new object();
-        private static IPipelineFactory pipelineFactory;
+        private static object routeTableLock = new object();
+        private static IRouteTable routeTable;
 
         /// <summary>
         /// Collection of supported behaviors.
@@ -38,21 +39,20 @@ namespace Neptuo.Web.Services.Hosting
         }
 
         /// <summary>
-        /// Factory for mapping requests to pipelines.
+        /// Maps requests to pipelines.
         /// </summary>
-        public static IPipelineFactory PipelineFactory
+        public static IRouteTable RouteTable
         {
             get
             {
-                if (pipelineFactory == null)
+                if (routeTable == null)
                 {
-                    lock (pipelineFactoryLock)
+                    lock (routeTableLock)
                     {
-                        //TODO: Use pipeline factory.
-                        pipelineFactory = null;
+                        routeTable = new RouteTableBase();
                     }
                 }
-                return pipelineFactory;
+                return routeTable;
             }
         }
     }

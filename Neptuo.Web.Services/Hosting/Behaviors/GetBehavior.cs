@@ -13,14 +13,17 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public class GetBehavior : IBehavior<IGet>
     {
         /// <summary>
-        /// Executes <see cref="IGet.Get"/> method on <paramref name="handler"/>.
+        /// Executes <see cref="IGet.Get"/> method on <paramref name="handler"/> if current request is GET request.
         /// </summary>
         /// <param name="handler">Behavior interface.</param>
         /// <param name="context">Current Http context.</param>
         /// <param name="pipeline">Processing pipeline.</param>
         public void Execute(IGet handler, IHttpContext context, IBehaviorContext pipeline)
         {
-            handler.Get();
+            if (context.Request.Method == HttpMethod.Get)
+                handler.Get();
+            else
+                pipeline.Next();
         }
     }
 }

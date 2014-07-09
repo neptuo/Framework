@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web.Services.Hosting.Behaviors
 {
-    public class WithOutputBehavior<T> : WithBehaviorBase<IWithOutput<T>>
+    /// <summary>
+    /// Implementation of <see cref="IWithOutput<>"/> contract.
+    /// </summary>
+    /// <typeparam name="T">Type of output.</typeparam>
+    public class WithOutputBehavior<T> : WithBehavior<IWithOutput<T>>
     {
         protected override void Execute(IWithOutput<T> handler, IHttpContext context)
         {

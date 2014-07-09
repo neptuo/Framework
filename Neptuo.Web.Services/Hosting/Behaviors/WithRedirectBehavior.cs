@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web.Services.Hosting.Behaviors
 {
-    public class WithRedirectBehavior : WithBehaviorBase<IWithRedirect>
+    /// <summary>
+    /// Implementation of <see cref="IWithRedirect"/> contract.
+    /// </summary>
+    public class WithRedirectBehavior : WithBehavior<IWithRedirect>
     {
         protected override void Execute(IWithRedirect handler, IHttpContext context)
         {

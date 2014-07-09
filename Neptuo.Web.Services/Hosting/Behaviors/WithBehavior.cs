@@ -11,7 +11,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     /// Base class for behavior in 'Response' processing pipeline.
     /// </summary>
     /// <typeparam name="T">Type of behavior interface.</typeparam>
-    public abstract class WithBehaviorBase<T> : IBehavior<T>
+    public abstract class WithBehavior<T> : IBehavior<T>
     {
         /// <summary>
         /// Invokes abstract <see cref="Execute"/> after promoting to next behavior in pipeline.

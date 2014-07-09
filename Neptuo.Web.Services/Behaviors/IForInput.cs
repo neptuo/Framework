@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 namespace Neptuo.Web.Services.Behaviors
 {
     /// <summary>
-    /// If <see cref="IWithRedirect.Location"/> is not null, client is directed to provided url.
+    /// Provides handler input.
     /// </summary>
-    public interface IWithRedirect : IWithStatus
+    /// <typeparam name="T">Type of input.</typeparam>
+    public interface IForInput<T>
     {
         /// <summary>
-        /// Redirect url.
+        /// Handler input.
         /// </summary>
-        string Location { get; }
+        T Input { set; }
     }
 }
