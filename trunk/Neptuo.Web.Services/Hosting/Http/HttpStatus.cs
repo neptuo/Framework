@@ -80,6 +80,7 @@ namespace Neptuo.Web.Services.Hosting.Http
             Ok,
             Created,
             NoContent,
+            MovedPermanently,
             NotFound,
             InternalServerError
         };
@@ -98,6 +99,11 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// 204 No Content
         /// </summary>
         public static HttpStatus NoContent = new HttpStatus(204, "No Content");
+
+        /// <summary>
+        /// 301 Moved Permanently.
+        /// </summary>
+        public static HttpStatus MovedPermanently = new HttpStatus(301, "Moved Permanently");
 
         /// <summary>
         /// 404 Not Found
