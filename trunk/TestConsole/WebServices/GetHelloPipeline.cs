@@ -16,7 +16,7 @@ namespace TestConsole.WebServices
         {
             yield return new WithRedirectBehavior();
             yield return new WithOutputBehavior<string>();
-            yield return new GetBehavior();
+            //yield return new GetBehavior();
         }
     }
 }
