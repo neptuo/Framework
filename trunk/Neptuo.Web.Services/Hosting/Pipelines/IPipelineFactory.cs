@@ -8,10 +8,8 @@ using System.Threading.Tasks;
 namespace Neptuo.Web.Services.Hosting.Pipelines
 {
     /// <summary>
-    /// Factory for mapping requests to pipelines.
+    /// Factory for creating instances of pipelines.
     /// </summary>
-    public interface IPipelineFactory
-    {
-        IPipeline Create(IHttpContext context);
-    }
+    public interface IPipelineFactory : IActivator<IPipeline>
+    { }
 }

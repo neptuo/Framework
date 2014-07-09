@@ -16,12 +16,12 @@ namespace TestConsole.WebServices
         public void Get()
         {
             Location = "http://www.google.com/";
-            Output = "Hello, World!";
+            Output = "Hello, Get!";
         }
 
         public void Post()
         {
-            throw new NotImplementedException();
+            Output = "Hello, Post!";
         }
     }
 

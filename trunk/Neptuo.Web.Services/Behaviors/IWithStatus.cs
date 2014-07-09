@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Web.Services.Hosting.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Web.Services.Behaviors
 {
     /// <summary>
-    /// If <see cref="IWithRedirect.Location"/> is not null, client is directed to provided url.
+    /// Provides access to Http response status.
     /// </summary>
-    public interface IWithRedirect : IWithStatus
+    public interface IWithStatus
     {
         /// <summary>
-        /// Redirect url.
+        /// Http response status.
         /// </summary>
-        string Location { get; }
+        HttpStatus Status { get; }
     }
 }

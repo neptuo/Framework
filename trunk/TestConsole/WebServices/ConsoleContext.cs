@@ -1,4 +1,5 @@
-﻿using Neptuo.Web.Services.Hosting;
+﻿using Neptuo;
+using Neptuo.Web.Services.Hosting;
 using Neptuo.Web.Services.Hosting.Http;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,17 @@ namespace TestConsole.WebServices
     {
         public IHttpRequest Request { get { return this; } }
         public IHttpResponse Response { get { return this; } }
+
+        public HttpMethod Method { get; private set; }
+        public Uri Url { get; private set; }
+
+        public ConsoleContext(HttpMethod method, Uri url)
+        {
+            Guard.NotNull(method, "method");
+            Guard.NotNull(url, "url");
+            Method = method;
+            Url = url;
+        }
 
         public void Write(string content)
         {

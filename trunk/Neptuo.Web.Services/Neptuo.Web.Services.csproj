@@ -39,10 +39,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\IForInput.cs" />
     <Compile Include="Behaviors\IWithOutput.cs" />
     <Compile Include="Behaviors\IWithRedirect.cs" />
+    <Compile Include="Behaviors\IWithStatus.cs" />
     <Compile Include="Hosting\Behaviors\BehaviorCollectionBase.cs" />
-    <Compile Include="Hosting\Behaviors\ForBehaviorBase.cs" />
+    <Compile Include="Hosting\Behaviors\ForBehavior.cs" />
+    <Compile Include="Hosting\Behaviors\ForInputBehavior.cs" />
     <Compile Include="Hosting\Behaviors\GetBehavior.cs" />
     <Compile Include="Hosting\Behaviors\IBehavior.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorCollection.cs" />
@@ -50,10 +53,15 @@
     <Compile Include="Hosting\Behaviors\PostBehavior.cs" />
     <Compile Include="Hosting\Behaviors\Providers\IBehaviorProvider.cs" />
     <Compile Include="Hosting\Behaviors\Providers\InterfaceBehaviorProvider.cs" />
-    <Compile Include="Hosting\Behaviors\WithBehaviorBase.cs" />
+    <Compile Include="Hosting\Behaviors\WithBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithOutputBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithRedirectBehavior.cs" />
+    <Compile Include="Hosting\Behaviors\WithStatusBehavior.cs" />
     <Compile Include="Hosting\DependencyHandlerFactory.cs" />
+    <Compile Include="Hosting\Http\HttpMethod.cs" />
+    <Compile Include="Hosting\Http\HttpStatus.cs" />
+    <Compile Include="Hosting\Http\HttpStatusCollection.cs" />
+    <Compile Include="Hosting\Http\IHttpFile.cs" />
     <Compile Include="Hosting\Pipelines\CodeDomPipeline.cs" />
     <Compile Include="Hosting\DefaultHandlerFactory.cs" />
     <Compile Include="Hosting\Pipelines\DefaultPipelineBase.cs" />
@@ -64,11 +72,20 @@
     <Compile Include="Hosting\Http\IHttpRequest.cs" />
     <Compile Include="Hosting\Http\IHttpResponse.cs" />
     <Compile Include="Hosting\Pipelines\PipelineBase.cs" />
+    <Compile Include="Hosting\Pipelines\ReflectionPipeline.cs" />
+    <Compile Include="Hosting\Pipelines\ReflectionPipelineFactory.cs" />
+    <Compile Include="Hosting\Routing\IRoute.cs" />
+    <Compile Include="Hosting\Routing\IRouteTable.cs" />
+    <Compile Include="Hosting\Routing\RouteNotFoundException.cs" />
+    <Compile Include="Hosting\Routing\RouteTableBase.cs" />
+    <Compile Include="Hosting\Routing\RoutingException.cs" />
+    <Compile Include="Hosting\Routing\UriRoute.cs" />
     <Compile Include="IGet.cs" />
     <Compile Include="IPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Hosting\ServiceEnvironment.cs" />
+    <Compile Include="ServiceException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

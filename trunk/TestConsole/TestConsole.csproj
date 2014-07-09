@@ -96,7 +96,6 @@
     <Compile Include="WebServices\GetHello.cs" />
     <Compile Include="WebServices\GetHelloFactory.cs" />
     <Compile Include="WebServices\GetHelloPipeline.cs" />
-    <Compile Include="WebServices\ReflectionPipeline.cs" />
     <Compile Include="WebServices\TestWebServices.cs" />
   </ItemGroup>
   <ItemGroup>
