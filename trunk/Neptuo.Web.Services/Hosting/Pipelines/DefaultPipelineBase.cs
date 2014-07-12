@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web.Services.Hosting.Pipelines
 {
+    /// <summary>
+    /// Pipeline for handlers with parameterless constructor.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public abstract class DefaultPipelineBase<T> : PipelineBase<T>
         where T: new()
     {
