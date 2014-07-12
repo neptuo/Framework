@@ -62,20 +62,11 @@ namespace Neptuo.Web.Services.Hosting.Http
         {
             Guard.NotNullOrEmpty(standartName, "standartName");
 
-            if (standartName == Get.Name)
-                return Get;
-            else if (standartName == Post.Name)
-                return Post;
-            else if (standartName == Put.Name)
-                return Put;
-            else if (standartName == Delete.Name)
-                return Delete;
-            else if (standartName == Head.Name)
-                return Head;
-            else if (standartName == Options.Name)
-                return Options;
-            else
+            HttpMethod method = KnownMethods[standartName];
+            if(method == null)
                 throw new ArgumentOutOfRangeException(String.Format("Passed non-standart http method name '{0}'"));
+
+            return method;
         }
 
         public static implicit operator string(HttpMethod method)
@@ -85,6 +76,21 @@ namespace Neptuo.Web.Services.Hosting.Http
         }
 
         #endregion
+
+        static HttpMethod()
+        {
+            KnownMethods.Add(Get);
+            KnownMethods.Add(Post);
+            KnownMethods.Add(Put);
+            KnownMethods.Add(Delete);
+            KnownMethods.Add(Head);
+            KnownMethods.Add(Options);
+        }
+
+        /// <summary>
+        /// List known status codes.
+        /// </summary>
+        internal static readonly HttpMethodCollection KnownMethods = new HttpMethodCollection();
 
         /// <summary>
         /// Standart Http GET method.
