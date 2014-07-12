@@ -44,7 +44,7 @@ namespace Neptuo.Web.Services.Hosting.Routing
         /// </summary>
         /// <param name="request">Current Http request.</param>
         /// <returns><c>true</c> if <c>request.Url</c> is matched exactly with <see cref="UriRoute.Url"/>; false otherwise.</returns>
-        public bool IsMatch(IHttpRequest request)
+        public virtual bool IsMatch(IHttpRequest request)
         {
             return request.Url == Url;
         }
