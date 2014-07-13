@@ -26,8 +26,11 @@ namespace TestConsole.WebServices
                 .Add(new UriRoute("~/hello", UriKind.Relative), new ReflectionPipelineFactory<GetHello>());
 
 
+            IPipelineFactory pipelineFactory = new CodeDomPipelineFactory(typeof(GetHello), ServiceEnvironment.Behaviors);
+            pipelineFactory.Create();
+
+
             IHttpContext context = new ConsoleContext(HttpMethod.Get, new Uri("~/hello", UriKind.Relative));
-            IPipelineFactory pipelineFactory;
             if (ServiceEnvironment.RouteTable.TryGet(context.Request, out pipelineFactory))
                 pipelineFactory.Create().Invoke(context);
         }
