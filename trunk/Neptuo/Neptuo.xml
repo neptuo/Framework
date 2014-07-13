@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Exugin>
-  <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
-  <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
-  <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />
-  <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
-  <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
-  <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
-  <Type Target="Neptuo.GuidProvider" Export="False" />
+    <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
+    <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
+    <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />
+    <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
+    <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
+    <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
+    <Type Target="Neptuo.GuidProvider" Export="False" />
+    <Type Target="Neptuo.CodeDom.Compiler.CsCodeDomCompiler" Export="False" />
 </Exugin>

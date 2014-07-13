@@ -75,8 +75,9 @@
     <Compile Include="Hosting\Http\Serialization\ITypeSerializerCollection.cs" />
     <Compile Include="Hosting\Http\Serialization\XmlSerializer.cs" />
     <Compile Include="Hosting\Http\Serialization\XmlSerializerBase.cs" />
-    <Compile Include="Hosting\Pipelines\CodeDomPipeline.cs" />
     <Compile Include="Hosting\DefaultHandlerFactory.cs" />
+    <Compile Include="Hosting\Pipelines\CodeDomPipelineFactory.cs" />
+    <Compile Include="Hosting\Pipelines\CodeDomPipelineGenerator.cs" />
     <Compile Include="Hosting\Pipelines\DefaultPipelineBase.cs" />
     <Compile Include="Hosting\Http\IHttpContext.cs" />
     <Compile Include="Hosting\IHandlerFactory.cs" />
