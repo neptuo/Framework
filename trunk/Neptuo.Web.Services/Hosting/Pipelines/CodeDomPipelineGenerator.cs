@@ -8,15 +8,25 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Neptuo.Web.Services.Hosting.Pipelines
 {
+    /// <summary>
+    /// CodeDom generator for pipelines based on concrete handlert type.
+    /// </summary>
     public class CodeDomPipelineGenerator
     {
+        /// <summary>
+        /// Name of variable containing behaviors in GetBehavior method of PipelineBase.
+        /// </summary>
         private const string resultListName = "result";
 
+        /// <summary>
+        /// Target handler type.
+        /// </summary>
         private Type handlerType;
 
         /// <summary>
@@ -24,6 +34,11 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         /// </summary>
         private IBehaviorCollection behaviorCollection;
 
+        /// <summary>
+        /// Creates new instance for <paramref name="handlerType"/>.
+        /// </summary>
+        /// <param name="handlerType">Target handler type.</param>
+        /// <param name="behaviorCollection">Behavior collection.</param>
         public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection)
         {
             Guard.NotNull(handlerType, "handlerType");
@@ -32,6 +47,10 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             this.behaviorCollection = behaviorCollection;
         }
 
+        /// <summary>
+        /// Generates dynamicly pipeline type for handler.
+        /// </summary>
+        /// <returns></returns>
         public Type GeneratePipeline()
         {
             CodeCompileUnit unit = CreateUnit();
@@ -43,32 +62,36 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             type.Members.Add(method);
             GenerateBehaviorMethodBody(method);
 
-            CsCodeDomCompiler compiler = new CsCodeDomCompiler();
-            compiler.AddReferencedFolder(Environment.CurrentDirectory);
-            CompilerResults result = compiler.CompileAssemblyFromUnit(unit, Path.Combine(Environment.CurrentDirectory, "xyz.dll"));
-            Type pipelineType = result.CompiledAssembly.GetType(String.Format("{0}Pipeline", handlerType.Name));
+            Assembly assembly = CompileCodeUnit(unit);
+            Type pipelineType = assembly.GetType(FormatPipelineTypeName());
             return pipelineType;
-
-            //provider.CompileAssemblyFromDom(new CompilerParameters(), unit);
-
-            //throw new NotImplementedException();
-            //CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-            //provider.CompileAssemblyFromDom(new CompilerParameters(), new CodeCompileUnit {  })
         }
 
+        /// <summary>
+        /// Creates code compile unit.
+        /// </summary>
+        /// <returns>Code compile unit.</returns>
         private CodeCompileUnit CreateUnit()
         {
             return new CodeCompileUnit();
         }
 
+        /// <summary>
+        /// Creates code namespace for pipeline type.
+        /// </summary>
+        /// <returns>Code namespace for pipeline type.</returns>
         private CodeNamespace CreateNamespace()
         {
             return new CodeNamespace();
         }
 
+        /// <summary>
+        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase<>"/>.
+        /// </summary>
+        /// <returns>Empty pipeline type.</returns>
         private CodeTypeDeclaration CreateType()
         {
-            CodeTypeDeclaration type = new CodeTypeDeclaration(String.Format("{0}Pipeline", handlerType.Name));
+            CodeTypeDeclaration type = new CodeTypeDeclaration(FormatPipelineTypeName());
 
             if (handlerType.GetConstructor(new Type[0]) != null)
                 type.BaseTypes.Add(typeof(DefaultPipelineBase<>).MakeGenericType(handlerType));
@@ -78,6 +101,10 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             return type;
         }
 
+        /// <summary>
+        /// Creates empty GetBehaviors method of <see cref="PipelineBase<>"/>.
+        /// </summary>
+        /// <returns></returns>
         private CodeMemberMethod CreateBehaviorMethod()
         {
             CodeMemberMethod getBehaviorsMethod = new CodeMemberMethod();
@@ -88,6 +115,10 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             return getBehaviorsMethod;
         }
 
+        /// <summary>
+        /// Fills GetBehaviors method body by creating collection of registered <see cref="IBehavior<>"/>.
+        /// </summary>
+        /// <param name="method">GetBehaviors empty method.</param>
         private void GenerateBehaviorMethodBody(CodeMemberMethod method)
         {
             Type resultListType = typeof(List<>).MakeGenericType(typeof(IBehavior<>).MakeGenericType(handlerType));
@@ -110,6 +141,28 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             method.Statements.Add(new CodeMethodReturnStatement(
                 new CodeVariableReferenceExpression(resultListName)
             ));
+        }
+
+        /// <summary>
+        /// Compiles <paramref name="unit"/> and returns generated assembly.
+        /// </summary>
+        /// <param name="unit">Source code compile unit.</param>
+        /// <returns>Generated assembly.</returns>
+        private Assembly CompileCodeUnit(CodeCompileUnit unit)
+        {
+            CsCodeDomCompiler compiler = new CsCodeDomCompiler();
+            compiler.AddReferencedFolder(Environment.CurrentDirectory);
+            CompilerResults result = compiler.CompileAssemblyFromUnit(unit, Path.Combine(Environment.CurrentDirectory, "xyz.dll"));
+            return result.CompiledAssembly;
+        }
+
+        /// <summary>
+        /// Formats pipeline type based on name of handler type.
+        /// </summary>
+        /// <returns>Pipeline name.</returns>
+        private string FormatPipelineTypeName()
+        {
+            return String.Format("{0}Pipeline", handlerType.Name);
         }
     }
 }

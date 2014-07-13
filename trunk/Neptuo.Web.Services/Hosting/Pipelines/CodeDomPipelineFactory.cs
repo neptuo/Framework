@@ -9,9 +9,19 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Web.Services.Hosting.Pipelines
 {
+    /// <summary>
+    /// Generates pipeline using <see cref="System.CodeDom"/>.
+    /// </summary>
     public class CodeDomPipelineFactory : IPipelineFactory
     {
+        /// <summary>
+        /// Handler type.
+        /// </summary>
         private Type handlerType;
+
+        /// <summary>
+        /// Function that creates instance of pipeline.
+        /// </summary>
         private Func<IPipeline> generatedFactory;
 
         /// <summary>
@@ -19,6 +29,11 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         /// </summary>
         private IBehaviorCollection behaviorCollection;
 
+        /// <summary>
+        /// Creates new instance for handler of type <paramref name="handlerType"/>.
+        /// </summary>
+        /// <param name="handlerType">Handler type.</param>
+        /// <param name="behaviorCollection">Behavior collection.</param>
         public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection)
         {
             Guard.NotNull(handlerType, "handlerType");
@@ -27,18 +42,28 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
             this.behaviorCollection = behaviorCollection;
         }
 
+        /// <summary>
+        /// Creates instance of compiled pipeline.
+        /// </summary>
+        /// <returns>Instance of pipeline for handler type.</returns>
         public IPipeline Create()
         {
             EnsurePipelineFactory();
             return generatedFactory();
         }
 
+        /// <summary>
+        /// Ensures that pipeline factory is created.
+        /// </summary>
         private void EnsurePipelineFactory()
         {
             if (generatedFactory == null)
                 GeneratePipelineFactory();
         }
 
+        /// <summary>
+        /// Creates pipeline factory using <see cref="CodeDomPipelineGenerator"/>.
+        /// </summary>
         private void GeneratePipelineFactory()
         {
             CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, behaviorCollection);

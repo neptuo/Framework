@@ -37,6 +37,6 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// <summary>
         /// Output stream type and other related settings.
         /// </summary>
-        IMediaTypeContext InputContext { get; }
+        IMediaTypeContext OutputContext { get; }
     }
 }
