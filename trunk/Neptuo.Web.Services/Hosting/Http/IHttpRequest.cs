@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Web.Services.Hosting.Http.MediaTypes;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -32,6 +33,11 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// Input stream
         /// </summary>
         Stream Input { get; }
+
+        /// <summary>
+        /// Input stream type and other related settings.
+        /// </summary>
+        IMediaTypeContext InputContext { get; }
 
         /// <summary>
         /// Input query string.

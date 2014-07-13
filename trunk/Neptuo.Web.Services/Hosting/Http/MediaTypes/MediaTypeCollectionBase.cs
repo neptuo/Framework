@@ -24,12 +24,21 @@ namespace Neptuo.Web.Services.Hosting.Http.MediaTypes
 
         public IMediaTypeContext FindContentTypeContext(IHttpRequest request)
         {
-            throw new NotImplementedException();
+            foreach (IMediaTypeContext context in storage)
+            {
+                if (context.IsContentTypeMatch(request))
+                    return context;
+            }
+            return null;
         }
 
-        public IEnumerable<IMediaTypeCollection> FindAccessTypeContext(IHttpRequest request)
+        public IEnumerable<IMediaTypeContext> FindAccessTypeContext(IHttpRequest request)
         {
-            throw new NotImplementedException();
+            foreach (IMediaTypeContext context in storage)
+            {
+                if (context.IsAccessTypeMatch(request))
+                    yield return context;
+            }
         }
     }
 }
