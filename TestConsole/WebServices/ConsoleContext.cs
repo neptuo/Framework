@@ -61,7 +61,7 @@ namespace TestConsole.WebServices
         public TextWriter OutputWriter { get; set; }
 
 
-        public Neptuo.Web.Services.Hosting.Http.MediaTypes.IMediaTypeContext InputContext
+        public Neptuo.Web.Services.Hosting.Http.MediaTypes.IMediaTypeContext OutputContext
         {
             get { throw new NotImplementedException(); }
         }
