@@ -16,7 +16,9 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     {
         protected override void Execute(IForInput<T> handler, IHttpContext context)
         {
-            
+            T model;
+            if (context.Request.InputContext.Deserializer.TryDeserialize(context.Request, out model))
+                handler.Input = model;
         }
     }
 }

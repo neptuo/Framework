@@ -65,5 +65,17 @@ namespace TestConsole.WebServices
         {
             get { throw new NotImplementedException(); }
         }
+
+
+        public Neptuo.Web.Services.Hosting.Http.MediaTypes.IMediaTypeContext InputContext
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public string ResolveUrl(string appRelativeUrl)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
