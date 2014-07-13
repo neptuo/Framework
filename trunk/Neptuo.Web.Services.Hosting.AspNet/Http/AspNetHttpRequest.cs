@@ -35,7 +35,7 @@ namespace Neptuo.Web.Services.Hosting.Http
             get { return request.InputStream; }
         }
 
-        public IMediaTypeContext OutputContext
+        public IMediaTypeContext InputContext
         {
             get { throw new NotImplementedException(); }
         }
