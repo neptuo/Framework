@@ -35,16 +35,23 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         private IBehaviorCollection behaviorCollection;
 
         /// <summary>
+        /// Generator configuration.
+        /// </summary>
+        private CodeDomPipelineConfiguration configuration;
+
+        /// <summary>
         /// Creates new instance for <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
-        public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection)
+        public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
             Guard.NotNull(handlerType, "handlerType");
             Guard.NotNull(behaviorCollection, "behaviorCollection");
+            Guard.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -151,8 +158,25 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         private Assembly CompileCodeUnit(CodeCompileUnit unit)
         {
             CsCodeDomCompiler compiler = new CsCodeDomCompiler();
-            compiler.AddReferencedFolder(Environment.CurrentDirectory);
-            CompilerResults result = compiler.CompileAssemblyFromUnit(unit, Path.Combine(Environment.CurrentDirectory, "xyz.dll"));
+
+            foreach (string binDirectory in configuration.EnumerateBindDirectories())
+                compiler.AddReferencedFolder(binDirectory);
+
+            CompilerResults result = compiler.CompileAssemblyFromUnit(unit, Path.Combine(configuration.TempDirectory, FormatAssemblyFileName()));
+
+            if (result.Errors.Count > 0)
+            {
+                CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
+                string sourceCodePath = Path.Combine(configuration.TempDirectory, FormatSourceCodeFileName());
+
+                using (StreamWriter writer = new StreamWriter(sourceCodePath))
+                {
+                    provider.GenerateCodeFromCompileUnit(unit, writer, new CodeGeneratorOptions());
+                }
+
+                throw new PipelineFactoryException(String.Format("Error during compilation of generated pipeline, source code saved to '{0}'.", sourceCodePath));
+            }
+
             return result.CompiledAssembly;
         }
 
@@ -163,6 +187,24 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         private string FormatPipelineTypeName()
         {
             return String.Format("{0}Pipeline", handlerType.Name);
+        }
+
+        /// <summary>
+        /// Formats name for generated assembly (only file name with extension).
+        /// </summary>
+        /// <returns>Name for generated assembly.</returns>
+        private string FormatAssemblyFileName()
+        {
+            return String.Format("{0}.dll", handlerType.FullName);
+        }
+
+        /// <summary>
+        /// Formats name for generated source code (only file name with extension).
+        /// </summary>
+        /// <returns>Name for generated assesource codembly.</returns>
+        private string FormatSourceCodeFileName()
+        {
+            return String.Format("{0}.cs", handlerType.FullName);
         }
     }
 }

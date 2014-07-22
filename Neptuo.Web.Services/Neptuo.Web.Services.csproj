@@ -76,6 +76,7 @@
     <Compile Include="Hosting\Http\Serialization\XmlSerializer.cs" />
     <Compile Include="Hosting\Http\Serialization\XmlSerializerBase.cs" />
     <Compile Include="Hosting\DefaultHandlerFactory.cs" />
+    <Compile Include="Hosting\Pipelines\CodeDomPipelineConfiguration.cs" />
     <Compile Include="Hosting\Pipelines\CodeDomPipelineFactory.cs" />
     <Compile Include="Hosting\Pipelines\CodeDomPipelineGenerator.cs" />
     <Compile Include="Hosting\Pipelines\DefaultPipelineBase.cs" />
@@ -86,6 +87,8 @@
     <Compile Include="Hosting\Http\IHttpRequest.cs" />
     <Compile Include="Hosting\Http\IHttpResponse.cs" />
     <Compile Include="Hosting\Pipelines\PipelineBase.cs" />
+    <Compile Include="Hosting\Pipelines\PipelineException.cs" />
+    <Compile Include="Hosting\Pipelines\PipelineFactoryException.cs" />
     <Compile Include="Hosting\Pipelines\ReflectionPipeline.cs" />
     <Compile Include="Hosting\Pipelines\ReflectionPipelineFactory.cs" />
     <Compile Include="Hosting\Routing\Conventions\ConventionRouteLoader.cs" />

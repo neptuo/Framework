@@ -18,7 +18,10 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         {
             string output = handler.Output as string;
             if (output != null)
+            {
                 context.Response.OutputWriter.Write(output);
+                return;
+            }
 
             if (handler.Output != null)
                 context.Response.OutputContext.Serializer.TrySerialize(context.Response, handler.Output);

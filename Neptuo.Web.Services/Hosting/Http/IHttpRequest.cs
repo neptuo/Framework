@@ -45,6 +45,11 @@ namespace Neptuo.Web.Services.Hosting.Http
         NameValueCollection QueryString { get; }
 
         /// <summary>
+        /// Data posted as form data.
+        /// </summary>
+        NameValueCollection Form { get; }
+
+        /// <summary>
         /// Posted files.
         /// </summary>
         IEnumerable<IHttpFile> Files { get; }

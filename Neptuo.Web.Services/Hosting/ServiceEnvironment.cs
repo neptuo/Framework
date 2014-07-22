@@ -69,7 +69,7 @@ namespace Neptuo.Web.Services.Hosting
             {
                 if(mediaTypes == null)
                 {
-                    lock (mediaTypes)
+                    lock (mediaTypesLock)
                     {
                         mediaTypes = new MediaTypeCollectionBase();
                     }

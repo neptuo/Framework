@@ -38,10 +38,13 @@ namespace Neptuo.Web.Services.Hosting.Http
 
         public override bool Equals(object obj)
         {
-            HttpStatus other = obj as HttpStatus;
-            if (other == null)
+            if (obj == null)
                 return false;
 
+            if (!(obj is HttpStatus))
+                return false;
+
+            HttpStatus other = (HttpStatus)obj;
             return other.Code == Code && other.Text == Text;
         }
 
@@ -72,18 +75,23 @@ namespace Neptuo.Web.Services.Hosting.Http
             return !left.Equals(right);
         }
 
+        static HttpStatus()
+        {
+            KnownStatuses = new HttpStatusCollection()
+            {
+                Ok,
+                Created,
+                NoContent,
+                MovedPermanently,
+                NotFound,
+                InternalServerError
+            };
+        }
+
         /// <summary>
         /// List known status codes.
         /// </summary>
-        internal static HttpStatusCollection KnownStatuses = new HttpStatusCollection()
-        {
-            Ok,
-            Created,
-            NoContent,
-            MovedPermanently,
-            NotFound,
-            InternalServerError
-        };
+        internal static HttpStatusCollection KnownStatuses;
 
         /// <summary>
         /// 200 OK
