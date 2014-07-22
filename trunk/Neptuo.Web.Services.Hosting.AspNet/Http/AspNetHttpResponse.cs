@@ -10,6 +10,9 @@ using System.Web;
 
 namespace Neptuo.Web.Services.Hosting.Http
 {
+    /// <summary>
+    /// Wraps <see cref="HttpResponse"/>.
+    /// </summary>
     public class AspNetHttpResponse : IHttpResponse
     {
         private HttpResponse response;
@@ -22,7 +25,7 @@ namespace Neptuo.Web.Services.Hosting.Http
                 if (value != null)
                 {
                     response.StatusCode = value.Code;
-                    response.Status = value.Text;
+                    //response.Status = value.Text;
                 }
             }
         }

@@ -46,7 +46,10 @@ namespace Neptuo.Web.Services.Hosting.Routing
         /// <returns><c>true</c> if <c>request.Url</c> is matched exactly with <see cref="UriRoute.Url"/>; false otherwise.</returns>
         public virtual bool IsMatch(IHttpRequest request)
         {
-            return request.Url == Url;
+            if (Url.IsAbsoluteUri)
+                return request.Url == Url;
+
+            return "~" + request.Url.LocalPath == Url.OriginalString;
         }
     }
 }

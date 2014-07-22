@@ -33,7 +33,9 @@ namespace Neptuo.Web.Services.Hosting.Routing
                 }
             }
 
-            throw new RouteNotFoundException(request.Method, request.Url.AbsolutePath);
+            //throw new RouteNotFoundException(request.Method, request.Url.AbsolutePath);
+            pipelineFactory = null;
+            return false;
         }
     }
 }

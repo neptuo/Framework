@@ -11,14 +11,14 @@ using System.Web;
 
 namespace Neptuo.Web.Services.Hosting.Http
 {
+    /// <summary>
+    /// Wraps <see cref="HttpRequest"/>.
+    /// </summary>
     public class AspNetHttpRequest : IHttpRequest
     {
         private HttpRequest request;
 
-        public HttpMethod Method
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public HttpMethod Method { get; private set; }
 
         public Uri Url
         {
@@ -45,6 +45,11 @@ namespace Neptuo.Web.Services.Hosting.Http
             get { return request.QueryString; }
         }
 
+        public NameValueCollection Form
+        {
+            get { return request.Form; }
+        }
+
         public IEnumerable<IHttpFile> Files
         {
             get { throw new NotImplementedException(); }
@@ -54,6 +59,7 @@ namespace Neptuo.Web.Services.Hosting.Http
         {
             Guard.NotNull(request, "request");
             this.request = request;
+            Method = (HttpMethod)request.HttpMethod;
         }
     }
 }

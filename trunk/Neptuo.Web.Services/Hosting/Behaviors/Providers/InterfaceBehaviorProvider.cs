@@ -72,7 +72,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
                     {
                         // If implementation type is generic, pass generic arguments from contract to implementation.
                         if (behaviorImplementation.IsGenericType)
-                            behaviorImplementation.MakeGenericType(interfaceType.GetGenericArguments());
+                            behaviorImplementation = behaviorImplementation.MakeGenericType(interfaceType.GetGenericArguments());
 
                         yield return behaviorImplementation;
                     }

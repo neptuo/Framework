@@ -17,7 +17,7 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         /// <summary>
         /// Handler type.
         /// </summary>
-        private Type handlerType;
+        private readonly Type handlerType;
 
         /// <summary>
         /// Function that creates instance of pipeline.
@@ -27,19 +27,27 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         /// <summary>
         /// Behavior collection.
         /// </summary>
-        private IBehaviorCollection behaviorCollection;
+        private readonly IBehaviorCollection behaviorCollection;
+
+        /// <summary>
+        /// Generator configuration.
+        /// </summary>
+        private readonly CodeDomPipelineConfiguration configuration;
 
         /// <summary>
         /// Creates new instance for handler of type <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
-        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection)
+        /// <param name="configuration">Generator configuration.</param>
+        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
             Guard.NotNull(handlerType, "handlerType");
             Guard.NotNull(behaviorCollection, "behaviorCollection");
+            Guard.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -66,7 +74,7 @@ namespace Neptuo.Web.Services.Hosting.Pipelines
         /// </summary>
         private void GeneratePipelineFactory()
         {
-            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, behaviorCollection);
+            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, behaviorCollection, configuration);
             Type pipelineType = generator.GeneratePipeline();
 
             generatedFactory = () => (IPipeline)Activator.CreateInstance(pipelineType);
