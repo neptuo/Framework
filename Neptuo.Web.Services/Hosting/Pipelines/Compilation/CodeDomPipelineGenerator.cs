@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Web.Services.Hosting.Pipelines
+namespace Neptuo.Web.Services.Hosting.Pipelines.Compilation
 {
     /// <summary>
     /// CodeDom generator for pipelines based on concrete handlert type.
