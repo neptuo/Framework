@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Web.Services.Hosting.Pipelines
+namespace Neptuo.Web.Services.Hosting.Pipelines.Compilation
 {
     /// <summary>
     /// Generates pipeline using <see cref="System.CodeDom"/>.

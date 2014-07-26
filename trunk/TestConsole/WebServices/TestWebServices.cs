@@ -4,6 +4,7 @@ using Neptuo.Web.Services.Hosting;
 using Neptuo.Web.Services.Hosting.Behaviors;
 using Neptuo.Web.Services.Hosting.Http;
 using Neptuo.Web.Services.Hosting.Pipelines;
+using Neptuo.Web.Services.Hosting.Pipelines.Compilation;
 using Neptuo.Web.Services.Hosting.Routing;
 using System;
 using System.Collections.Generic;
