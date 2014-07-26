@@ -9,10 +9,8 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
     /// <summary>
     /// Provides behavior based on implemented interfaces.
     /// </summary>
-    public class InterfaceBehaviorProvider : IBehaviorProvider
+    public class InterfaceBehaviorProvider : MappingBehaviorProviderBase
     {
-        private Dictionary<Type, Type> storage;
-
         /// <summary>
         /// Creates new instance with <paramref name="behaviorContract"/> as contract and <paramref name="behaviorImplementation"/> as implementation type.
         /// </summary>
@@ -22,19 +20,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
         {
             Guard.NotNull(behaviorContract, "behaviorContract");
             Guard.NotNull(behaviorImplementation, "behaviorImplementation");
-
-            storage = new Dictionary<Type, Type>();
-            storage[behaviorContract] = behaviorImplementation;
-        }
-
-        /// <summary>
-        /// Creates new instance from <paramref name="storage"/>.
-        /// </summary>
-        /// <param name="storage">Mapping between constracts and implementations.</param>
-        public InterfaceBehaviorProvider(Dictionary<Type, Type> storage)
-        {
-            Guard.NotNull(storage, "storage");
-            this.storage = storage;
+            AddMapping(behaviorContract, behaviorImplementation);
         }
 
         /// <summary>
@@ -47,7 +33,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
         {
             Guard.NotNull(behaviorContract, "behaviorContract");
             Guard.NotNull(behaviorImplementation, "behaviorImplementation");
-            storage[behaviorContract] = behaviorImplementation;
+            base.AddMappingInternal(behaviorContract, behaviorImplementation);
             return this;
         }
 
@@ -56,9 +42,8 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
         /// </summary>
         /// <param name="handlerType">Handler type.</param>
         /// <returns><see cref="behaviorImplementation"/> if <paramref name="handlerType"/> implements <see cref="behaviorContract"/>; empty enumeration otherwise.</returns>
-        public IEnumerable<Type> GetBehaviors(Type handlerType)
+        protected override IEnumerable<Type> GetBehaviorInternal(Type handlerType, Dictionary<Type, Type> storage)
         {
-            Guard.NotNull(handlerType, "handlerType");
             Type behaviorImplementation;
             foreach (Type interfaceType in handlerType.GetInterfaces())
             {
