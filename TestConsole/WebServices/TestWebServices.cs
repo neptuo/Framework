@@ -18,6 +18,9 @@ namespace TestConsole.WebServices
     {
         public static void Test()
         {
+            ServiceEnvironment
+                .WithCodeDom(new CodeDomPipelineConfiguration(Environment.CurrentDirectory, Environment.CurrentDirectory));
+
             ServiceEnvironment.Behaviors
                 .AddEndpoints()
                 .Add<IWithRedirect, WithRedirectBehavior>()
@@ -27,7 +30,7 @@ namespace TestConsole.WebServices
                 .Add(new UriRoute("~/hello", UriKind.Relative), new ReflectionPipelineFactory<GetHello>());
 
 
-            IPipelineFactory pipelineFactory = new CodeDomPipelineFactory(typeof(GetHello), ServiceEnvironment.Behaviors, new CodeDomPipelineConfiguration(Environment.CurrentDirectory, Environment.CurrentDirectory));
+            IPipelineFactory pipelineFactory = new CodeDomPipelineFactory(typeof(GetHello), ServiceEnvironment.Behaviors, ServiceEnvironment.CodeDom);
             pipelineFactory.Create();
 
 

@@ -12,6 +12,12 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
     public class InterfaceBehaviorProvider : MappingBehaviorProviderBase
     {
         /// <summary>
+        /// Creates empty instance.
+        /// </summary>
+        public InterfaceBehaviorProvider()
+        { }
+
+        /// <summary>
         /// Creates new instance with <paramref name="behaviorContract"/> as contract and <paramref name="behaviorImplementation"/> as implementation type.
         /// </summary>
         /// <param name="behaviorContract">Behavior interface contract.</param>

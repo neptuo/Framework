@@ -25,20 +25,5 @@ namespace Neptuo.Web.Services.Hosting.Behaviors.Providers
             return provider
                 .AddMapping(typeof(TBehavior), typeof(TImplementation));
         }
-
-        /// <summary>
-        /// Maps known (get, post, put, delete) behaviors to its mappings.
-        /// </summary>
-        /// <param name="provider">Interface behavior provider.</param>
-        /// <returns><paramref name="provider"/> (for fluency).</returns>
-        public static InterfaceBehaviorProvider AddHttpMethods(this InterfaceBehaviorProvider provider)
-        {
-            Guard.NotNull(provider, "provider");
-            return provider
-                .AddMapping<IGet, GetBehavior>()
-                .AddMapping<IPost, PostBehavior>()
-                .AddMapping<IPut, PutBehavior>()
-                .AddMapping<IDelete, DeleteBehavior>();
-        }
     }
 }
