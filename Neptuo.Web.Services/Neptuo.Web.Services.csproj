@@ -44,6 +44,7 @@
     <Compile Include="Behaviors\IWithRedirect.cs" />
     <Compile Include="Behaviors\IWithStatus.cs" />
     <Compile Include="Hosting\Behaviors\BehaviorCollectionBase.cs" />
+    <Compile Include="Hosting\Behaviors\DeleteBehavior.cs" />
     <Compile Include="Hosting\Behaviors\ForBehavior.cs" />
     <Compile Include="Hosting\Behaviors\ForInputBehavior.cs" />
     <Compile Include="Hosting\Behaviors\GetBehavior.cs" />
@@ -51,8 +52,10 @@
     <Compile Include="Hosting\Behaviors\IBehaviorCollection.cs" />
     <Compile Include="Hosting\Behaviors\IBehaviorContext.cs" />
     <Compile Include="Hosting\Behaviors\PostBehavior.cs" />
+    <Compile Include="Hosting\Behaviors\Providers\InterfaceBehaviorProviderExtensions.cs" />
     <Compile Include="Hosting\Behaviors\Providers\IBehaviorProvider.cs" />
     <Compile Include="Hosting\Behaviors\Providers\InterfaceBehaviorProvider.cs" />
+    <Compile Include="Hosting\Behaviors\PutBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithOutputBehavior.cs" />
     <Compile Include="Hosting\Behaviors\WithRedirectBehavior.cs" />
@@ -101,8 +104,10 @@
     <Compile Include="Hosting\Routing\RoutingException.cs" />
     <Compile Include="Hosting\Routing\UriMethodRoute.cs" />
     <Compile Include="Hosting\Routing\UriRoute.cs" />
+    <Compile Include="IDelete.cs" />
     <Compile Include="IGet.cs" />
     <Compile Include="IPost.cs" />
+    <Compile Include="IPut.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Hosting\ServiceEnvironment.cs" />
