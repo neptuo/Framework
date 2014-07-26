@@ -22,7 +22,7 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// <summary>
         /// Http response headers.
         /// </summary>
-        NameValueCollection Headers { get; }
+        IDictionary<string, string> Headers { get; }
 
         /// <summary>
         /// Response stream

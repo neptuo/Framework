@@ -29,6 +29,6 @@ namespace Neptuo.Web.Services.Hosting.Http.MediaTypes
         /// </summary>
         /// <param name="request">Current Http context.</param>
         /// <returns>Media type context for response of <paramref name="request"/>.</returns>
-        IEnumerable<IMediaTypeContext> FindAccessTypeContext(IHttpRequest request);
+        IMediaTypeContext FindAcceptTypeContext(IHttpRequest request);
     }
 }

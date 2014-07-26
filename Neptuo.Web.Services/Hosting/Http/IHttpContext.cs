@@ -23,6 +23,11 @@ namespace Neptuo.Web.Services.Hosting.Http
         IHttpResponse Response { get; }
 
         /// <summary>
+        /// Collection of custom values.
+        /// </summary>
+        IDictionary<string, string> Values { get; }
+
+        /// <summary>
         /// Resolves url starting with ~/...
         /// </summary>
         /// <param name="appRelativeUrl">Application relative url.</param>

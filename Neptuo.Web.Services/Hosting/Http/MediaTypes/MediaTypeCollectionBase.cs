@@ -32,13 +32,14 @@ namespace Neptuo.Web.Services.Hosting.Http.MediaTypes
             return null;
         }
 
-        public IEnumerable<IMediaTypeContext> FindAccessTypeContext(IHttpRequest request)
+        public IMediaTypeContext FindAcceptTypeContext(IHttpRequest request)
         {
             foreach (IMediaTypeContext context in storage)
             {
                 if (context.IsAccessTypeMatch(request))
-                    yield return context;
+                    return context;
             }
+            return null;
         }
     }
 }

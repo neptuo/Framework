@@ -1,6 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Web.Services.Hosting;
 using Neptuo.Web.Services.Hosting.Http;
+using Neptuo.Web.Services.Hosting.Http.MediaTypes;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -34,7 +35,7 @@ namespace TestConsole.WebServices
         }
 
 
-        public NameValueCollection Headers
+        public IReadOnlyDictionary<string, string> Headers
         {
             get { throw new NotImplementedException(); }
         }
@@ -44,7 +45,7 @@ namespace TestConsole.WebServices
             get { throw new NotImplementedException(); }
         }
 
-        public NameValueCollection QueryString
+        public IReadOnlyDictionary<string, string> QueryString
         {
             get { throw new NotImplementedException(); }
         }
@@ -61,13 +62,13 @@ namespace TestConsole.WebServices
         public TextWriter OutputWriter { get; set; }
 
 
-        public Neptuo.Web.Services.Hosting.Http.MediaTypes.IMediaTypeContext OutputContext
+        public IMediaTypeContext OutputContext
         {
             get { throw new NotImplementedException(); }
         }
 
 
-        public Neptuo.Web.Services.Hosting.Http.MediaTypes.IMediaTypeContext InputContext
+        public IMediaTypeContext InputContext
         {
             get { throw new NotImplementedException(); }
         }
@@ -76,6 +77,24 @@ namespace TestConsole.WebServices
         public string ResolveUrl(string appRelativeUrl)
         {
             throw new NotImplementedException();
+        }
+
+
+        public IDictionary<string, string> Values
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        public IReadOnlyDictionary<string, string> Form
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+
+        IDictionary<string, string> IHttpResponse.Headers
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 }

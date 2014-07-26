@@ -27,7 +27,7 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// <summary>
         /// Http request headers.
         /// </summary>
-        NameValueCollection Headers { get; }
+        IReadOnlyDictionary<string, string> Headers { get; }
 
         /// <summary>
         /// Input stream
@@ -42,12 +42,12 @@ namespace Neptuo.Web.Services.Hosting.Http
         /// <summary>
         /// Input query string.
         /// </summary>
-        NameValueCollection QueryString { get; }
+        IReadOnlyDictionary<string, string> QueryString { get; }
 
         /// <summary>
         /// Data posted as form data.
         /// </summary>
-        NameValueCollection Form { get; }
+        IReadOnlyDictionary<string, string> Form { get; }
 
         /// <summary>
         /// Posted files.
