@@ -51,8 +51,11 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         {
             Guard.NotNull(collection, "collection");
             collection.Add(
-                new InterfaceBehaviorProvider(typeof(IGet), typeof(GetBehavior))
-                    .AddMapping(typeof(IPost), typeof(PostBehavior))
+                new InterfaceBehaviorProvider()
+                    .AddMapping<IGet, GetBehavior>()
+                    .AddMapping<IPost, PostBehavior>()
+                    .AddMapping<IPut, PutBehavior>()
+                    .AddMapping<IDelete, DeleteBehavior>()
             );
             return collection;
         }
