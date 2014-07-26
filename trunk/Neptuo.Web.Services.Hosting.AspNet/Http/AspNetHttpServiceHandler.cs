@@ -34,7 +34,7 @@ namespace Neptuo.Web.Services.Hosting.Http
 
         public void ProcessRequest(HttpContext context)
         {
-            IHttpContext httpContext = new AspNetHttpContext(context);
+            IHttpContext httpContext = new AspNetHttpContext(context, mediaTypes);
             ProcessRequest(httpContext, routeTable);
         }
 

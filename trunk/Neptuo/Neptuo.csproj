@@ -40,6 +40,9 @@
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
     <Compile Include="Collections\ObjectModel\DictionaryStringValueProvider.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
+    <Compile Include="Collections\Specialized\NameValueDictionary.cs" />
+    <Compile Include="Collections\Specialized\NameValueEnumerator.cs" />
+    <Compile Include="Collections\Specialized\NameValueReadOnlyDictionary.cs" />
     <Compile Include="ComponentModel\Converters\ConverterBase.cs" />
     <Compile Include="ComponentModel\Converters\ConverterRepository.cs" />
     <Compile Include="ComponentModel\Converters\ConverterSearchDelegate.cs" />
