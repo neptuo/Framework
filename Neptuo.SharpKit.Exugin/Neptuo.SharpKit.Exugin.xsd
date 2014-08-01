@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Exugin"
+    targetNamespace="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="Boolean">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="False" />
+            <xs:enumeration value="True" />
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:complexType name="ExportNamespaceType">
+        <xs:attribute name="Target" type="xs:string" use="required" />
+        <xs:attribute name="AutomaticPropertiesAsFields" type="Boolean" use="optional" />
+        <xs:attribute name="Export" type="Boolean" use="optional" />
+        <xs:attribute name="Mode" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Clr" />
+                    <xs:enumeration value="ExtJs" />
+                    <xs:enumeration value="Global" />
+                    <xs:enumeration value="Json" />
+                    <xs:enumeration value="Prototype" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="PropertiesAsFields" type="Boolean" use="optional" />
+        <xs:attribute name="Filename" type="xs:string" />
+    </xs:complexType>
+    
+    <xs:complexType name="ExportTypeType">
+        <xs:attribute name="Target" type="xs:string" use="required" />
+        <xs:attribute name="AutomaticPropertiesAsFields" type="Boolean" use="optional" />
+        <xs:attribute name="Export" type="Boolean" use="optional" />
+        <xs:attribute name="Mode" use="optional">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Clr" />
+                    <xs:enumeration value="ExtJs" />
+                    <xs:enumeration value="Global" />
+                    <xs:enumeration value="Json" />
+                    <xs:enumeration value="Prototype" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="PropertiesAsFields" type="Boolean" use="optional" />
+        <xs:attribute name="Filename" type="xs:string" />
+        
+        <xs:attribute name="Name" type="xs:string" use="optional" />
+        <xs:attribute name="OrderInFile" type="xs:integer" use="optional" />
+    </xs:complexType>
+
+    <xs:complexType name="MergeType">
+        <xs:attribute name="Filename" type="xs:string" use="required" />
+        <xs:attribute name="Sources" type="xs:string" use="required" />
+        <xs:attribute name="Minify" type="Boolean" use="optional" />
+    </xs:complexType>
+    
+    <xs:element name="Exugin">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="Export" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="Filename" type="xs:string" use="required" />
+                        <xs:attribute name="FilenameFormat" type="xs:string" use="optional" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Namespace" minOccurs="0" maxOccurs="unbounded" type="ExportNamespaceType" />
+                <xs:element name="Type" minOccurs="0" maxOccurs="unbounded" type="ExportTypeType" />
+                <xs:element name="Merge" minOccurs="0" maxOccurs="unbounded" type="MergeType" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>
