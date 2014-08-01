@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Commands
 {
+    /// <summary>
+    /// Optional base 
+    /// </summary>
     public interface ICommand
     {
         string Guid { get; }
