@@ -75,12 +75,17 @@
       <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <SkcPlugin Include="Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin">
+      <InProject>false</InProject>
+    </SkcPlugin>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Neptuo.Commands.js" />
+    <Content Include="Neptuo.Commands.xml">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
 </Project>
