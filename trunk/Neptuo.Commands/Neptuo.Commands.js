@@ -1026,10 +1026,10 @@ var Neptuo$Commands$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.Commands.VersionInfo.Version = "2.0.0";
+            Neptuo.Commands.VersionInfo.Version = "0.1.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("2.0.0");
+            return new System.Version.ctor$$String("0.1.0");
         }
     },
     assemblyName: "Neptuo.Commands",

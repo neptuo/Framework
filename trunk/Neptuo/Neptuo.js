@@ -3141,23 +3141,7 @@ var Neptuo$Validation$TextValidationMessage = {
     Kind: "Class",
     definition: {
         ctor: function (key, message){
-            this._Key = null;
-            this._Message = null;
             Neptuo.Validation.ValidationMessageBase.ctor.call(this, key, message);
-        },
-        Key$$: "System.String",
-        get_Key: function (){
-            return this._Key;
-        },
-        set_Key: function (value){
-            this._Key = value;
-        },
-        Message$$: "System.String",
-        get_Message: function (){
-            return this._Message;
-        },
-        set_Message: function (value){
-            this._Message = value;
         }
     },
     ctors: [{

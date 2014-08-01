@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Exugin>
+<Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
     <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
     <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
     <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />

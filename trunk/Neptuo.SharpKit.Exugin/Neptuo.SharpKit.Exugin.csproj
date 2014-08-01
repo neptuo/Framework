@@ -80,6 +80,9 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.SharpKit.Exugin.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Neptuo.SharpKit.Exugin.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
