@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using TestConsole.Commands;
 using TestConsole.Configuration;
 using TestConsole.Data;
+using TestConsole.Delegates;
 using TestConsole.Events;
 using TestConsole.PresentationModels;
 using TestConsole.Resources;
@@ -26,7 +27,8 @@ namespace TestConsole
             //TestCommands.Test();
             //TestEvents.Test();
             //TestResources.Test();
-            TestWebServices.Test();
+            //TestWebServices.Test();
+            TestDelegates.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
