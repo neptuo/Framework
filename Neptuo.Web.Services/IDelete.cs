@@ -14,6 +14,6 @@ namespace Neptuo.Web.Services
         /// <summary>
         /// Invoked on Http DELETE request.
         /// </summary>
-        void Delete();
+        void Execute();
     }
 }
