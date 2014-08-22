@@ -13,7 +13,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public class PostBehavior : IBehavior<IPost>
     {
         /// <summary>
-        /// Executes <see cref="IPost.Post"/> method on <paramref name="handler"/> if current request is POST request.
+        /// Executes <see cref="IPost.Execute"/> method on <paramref name="handler"/> if current request is POST request.
         /// </summary>
         /// <param name="handler">Behavior interface.</param>
         /// <param name="context">Current Http context.</param>
@@ -21,7 +21,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         public void Execute(IPost handler, IHttpContext context, IBehaviorContext pipeline)
         {
             if (context.Request.Method == HttpMethod.Post)
-                handler.Post();
+                handler.Execute();
             else
                 pipeline.Next();
         }

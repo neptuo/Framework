@@ -13,7 +13,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public class PutBehavior : IBehavior<IPut>
     {
         /// <summary>
-        /// Executes <see cref="IPut.Put"/> method on <paramref name="handler"/> if current request is PUT request.
+        /// Executes <see cref="IPut.Execute"/> method on <paramref name="handler"/> if current request is PUT request.
         /// </summary>
         /// <param name="handler">Behavior interface.</param>
         /// <param name="context">Current Http context.</param>
@@ -21,7 +21,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         public void Execute(IPut handler, IHttpContext context, IBehaviorContext pipeline)
         {
             if (context.Request.Method == HttpMethod.Post)
-                handler.Put();
+                handler.Execute();
             else
                 pipeline.Next();
         }

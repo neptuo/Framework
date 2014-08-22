@@ -14,6 +14,6 @@ namespace Neptuo.Web.Services
         /// <summary>
         /// Invoked on Http POST request.
         /// </summary>
-        void Post();
+        void Execute();
     }
 }

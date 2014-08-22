@@ -14,6 +14,6 @@ namespace Neptuo.Web.Services
         /// <summary>
         /// Invoked on Http PUT request.
         /// </summary>
-        void Put();
+        void Execute();
     }
 }

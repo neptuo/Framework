@@ -11,7 +11,7 @@ namespace TestMvc4.Handlers
     {
         public string Output { get; private set; }
 
-        public void Get()
+        public void Execute()
         {
             Output = "Hello, World!";
         }

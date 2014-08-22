@@ -13,7 +13,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
     public class DeleteBehavior : IBehavior<IDelete>
     {
         /// <summary>
-        /// Executes <see cref="IDelete.Delete"/> method on <paramref name="handler"/> if current request is DELETE request.
+        /// Executes <see cref="IDelete.Execute"/> method on <paramref name="handler"/> if current request is DELETE request.
         /// </summary>
         /// <param name="handler">Behavior interface.</param>
         /// <param name="context">Current Http context.</param>
@@ -21,7 +21,7 @@ namespace Neptuo.Web.Services.Hosting.Behaviors
         public void Execute(IDelete handler, IHttpContext context, IBehaviorContext pipeline)
         {
             if (context.Request.Method == HttpMethod.Post)
-                handler.Delete();
+                handler.Execute();
             else
                 pipeline.Next();
         }

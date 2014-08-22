@@ -9,22 +9,17 @@ using System.Threading.Tasks;
 
 namespace TestConsole.WebServices
 {
-    public class GetHello : IGet, IPost, IWithOutput<string>, IWithRedirect
+    public class GetHello : IGet, IWithOutput<string>, IWithRedirect
     {
         public HttpStatus Status { get; private set; }
         public string Location { get; private set; }
         public string Output { get; private set; }
 
-        public void Get()
+        public void Execute()
         {
-            //Status = HttpStatus.MovedPermanently;
+            Status = HttpStatus.MovedPermanently;
             Location = "http://www.google.com/";
             Output = "Hello, Get!";
-        }
-
-        public void Post()
-        {
-            Output = "Hello, Post!";
         }
     }
 
