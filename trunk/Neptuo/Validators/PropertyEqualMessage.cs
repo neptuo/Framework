@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Validators
 {
+    /// <summary>
+    /// Validation message for comparing two properties.
+    /// </summary>
     public class PropertyEqualMessage : PropertyValidationMessageBase
     {
         public string OtherProperty { get; private set; }

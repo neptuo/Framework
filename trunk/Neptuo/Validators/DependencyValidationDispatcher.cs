@@ -8,13 +8,29 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Validators
 {
-    public class DependencyValidatorService : IValidationDispatcher
+    /// <summary>
+    /// Base implementation of <see cref="IValidationDispatcher"/> using <see cref="IDependencyProvider"/>.
+    /// </summary>
+    public class DependencyValidationDispatcher : IValidationDispatcher
     {
+        /// <summary>
+        /// Name of <see cref="IValidationHandler.Validate"/>.
+        /// </summary>
+        /// <remarks>
+        /// Because of SharpKit can't be defined by <see cref="TypeHelper"/>.
+        /// </remarks>
         private static readonly string ValidateMethodName = "Validate"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
 
+        /// <summary>
+        /// Inner provider of validation handlers.
+        /// </summary>
         private readonly IDependencyProvider dependencyProvider;
 
-        public DependencyValidatorService(IDependencyProvider dependencyProvider)
+        /// <summary>
+        /// Creates new instance using <paramref name="dependencyProvider"/> for resolving validation handlers.
+        /// </summary>
+        /// <param name="dependencyProvider">Resolver of validation handlers.</param>
+        public DependencyValidationDispatcher(IDependencyProvider dependencyProvider)
         {
             Guard.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;

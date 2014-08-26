@@ -6,11 +6,28 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Validators
 {
+    /// <summary>
+    /// Validation message for minimal and maximal string length.
+    /// </summary>
     public class StringLengthMessage : PropertyValidationMessageBase
     {
+        /// <summary>
+        /// Minimal required string length.
+        /// </summary>
         public int? MinLength { get; private set; }
+
+        /// <summary>
+        /// Maximal allowed string length.
+        /// </summary>
         public int? MaxLength { get; private set; }
 
+        /// <summary>
+        /// Creates new instance for <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">Validation message key.</param>
+        /// <param name="minLength">Minimal required string length.</param>
+        /// <param name="maxLength">Maximal allowed string length.</param>
+        /// <param name="propertyName">Optional property name when differs from <paramref name="key"/>.</param>
         public StringLengthMessage(string key, int? minLength, int? maxLength, string propertyName = null)
             : base(key, propertyName)
         {

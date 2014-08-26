@@ -113,7 +113,7 @@
     <Compile Include="StateMachines\StringState.cs" />
     <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
-    <Compile Include="Validators\DependencyValidatorService.cs" />
+    <Compile Include="Validators\DependencyValidationDispatcher.cs" />
     <Compile Include="Validators\IValidationResult.cs" />
     <Compile Include="Validators\IValidationMessage.cs" />
     <Compile Include="Validators\IValidationHandler.cs" />
