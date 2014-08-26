@@ -13,11 +13,10 @@ namespace Neptuo.Validators
     public interface IValidationHandler<TModel>
     {
         /// <summary>
-        /// Validates <paramref name="model"/>.
-        /// Returns validation result.
+        /// Validates <paramref name="model"/> and returns validation result.
         /// </summary>
-        /// <param name="model">Instance to validate.</param>
-        /// <returns>Validation result.</returns>
+        /// <param name="model">Model instance to validate.</param>
+        /// <returns><see cref="IValidationResult"/> describing succes or validation failure.</returns>
         IValidationResult Validate(TModel model);
     }
 }

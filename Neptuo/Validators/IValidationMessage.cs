@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Validators
 {
+    /// <summary>
+    /// Describes validation message.
+    /// Not necessary must be error message.
+    /// </summary>
     public interface IValidationMessage
     {
+        /// <summary>
+        /// Key (or property name) this message is bound to.
+        /// </summary>
         string Key { get; }
+        
+        /// <summary>
+        /// Text representation of message.
+        /// </summary>
         string Message { get; }
     }
 }
