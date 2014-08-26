@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validation
+namespace Neptuo.Validators
 {
     /// <summary>
     /// Validator for instances of <typeparamref name="TModel"/>.
     /// </summary>
     /// <typeparam name="TModel">Type of model to validate.</typeparam>
-    public interface IValidator<TModel>
+    public interface IValidationHandler<TModel>
     {
         /// <summary>
         /// Validates <paramref name="model"/>.

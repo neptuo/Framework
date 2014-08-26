@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validation
+namespace Neptuo.Validators
 {
     public class PropertyValidationMessageBase : ValidationMessageBase
     {

@@ -2,7 +2,7 @@
 using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
 using Neptuo.Events;
-using Neptuo.Validation;
+using Neptuo.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;

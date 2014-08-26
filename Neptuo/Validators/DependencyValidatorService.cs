@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validation
+namespace Neptuo.Validators
 {
-    public class DependencyValidatorService : IValidatorService
+    public class DependencyValidatorService : IValidationDispatcher
     {
         private static readonly string ValidateMethodName = "Validate"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
 
@@ -22,7 +22,7 @@ namespace Neptuo.Validation
 
         public IValidationResult Validate<TModel>(TModel model)
         {
-            IValidator<TModel> validator = dependencyProvider.Resolve<IValidator<TModel>>();
+            IValidationHandler<TModel> validator = dependencyProvider.Resolve<IValidationHandler<TModel>>();
             return validator.Validate(model);
         }
 
@@ -30,7 +30,7 @@ namespace Neptuo.Validation
         {
             Guard.NotNull(model, "model");
             Type modelType = model.GetType();
-            Type validatorType = typeof(IValidator<>).MakeGenericType(modelType);
+            Type validatorType = typeof(IValidationHandler<>).MakeGenericType(modelType);
             MethodInfo validateMethod = validatorType.GetMethod(ValidateMethodName);
             
             object validator = dependencyProvider.Resolve(validatorType);

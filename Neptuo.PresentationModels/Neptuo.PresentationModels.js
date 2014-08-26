@@ -1219,7 +1219,7 @@ var Neptuo$PresentationModels$Validation$IModelValidator = {
     fullname: "Neptuo.PresentationModels.Validation.IModelValidator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Validation.IValidator$1"],
+    interfaceNames: ["Neptuo.Validators.IValidationHandler$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1393,15 +1393,15 @@ var Neptuo$PresentationModels$Validation$ModelValidationBuilder = {
     fullname: "Neptuo.PresentationModels.Validation.ModelValidationBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Validation.IValidationResult", "Neptuo.PresentationModels.Validation.IModelValidationBuilder"],
+    interfaceNames: ["Neptuo.Validators.IValidationResult", "Neptuo.PresentationModels.Validation.IModelValidationBuilder"],
     Kind: "Class",
     definition: {
         ctor: function (){
             this._MessageList = null;
             System.Object.ctor.call(this);
-            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Validation.IValidationMessage.ctor));
+            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Validators.IValidationMessage.ctor));
         },
-        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Validation.IValidationMessage]]",
+        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Validators.IValidationMessage]]",
         get_MessageList: function (){
             return this._MessageList;
         },
@@ -1412,7 +1412,7 @@ var Neptuo$PresentationModels$Validation$ModelValidationBuilder = {
         get_IsValid: function (){
             return this.get_MessageList().get_Count() == 0;
         },
-        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Validation.IValidationMessage]]",
+        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Validators.IValidationMessage]]",
         get_Messages: function (){
             return this.get_MessageList();
         },
