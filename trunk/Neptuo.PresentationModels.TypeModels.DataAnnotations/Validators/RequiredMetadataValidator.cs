@@ -1,5 +1,5 @@
 ﻿using Neptuo.PresentationModels.Validation;
-using Neptuo.Validation;
+using Neptuo.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

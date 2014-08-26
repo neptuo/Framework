@@ -1,4 +1,4 @@
-﻿using Neptuo.Validation;
+﻿using Neptuo.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Data.Commands.Validation
 {
-    public class CreateProductValidator : IValidator<CreateProductCommand>
+    public class CreateProductValidator : IValidationHandler<CreateProductCommand>
     {
         public IValidationResult Validate(CreateProductCommand command)
         {

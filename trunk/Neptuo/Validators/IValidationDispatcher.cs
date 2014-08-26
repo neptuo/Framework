@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validation
+namespace Neptuo.Validators
 {
-    public interface IValidatorService
+    public interface IValidationDispatcher
     {
         IValidationResult Validate<TModel>(TModel model);
         IValidationResult Validate(object model);
