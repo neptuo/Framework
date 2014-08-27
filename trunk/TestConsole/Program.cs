@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -36,6 +37,10 @@ namespace TestConsole
 
             //Console.WriteLine(list[2]);
             //list.Insert(2, 3);
+
+            //IKeyValueCollection collection = null;
+            //int intValue;
+            //collection.TryGet("Hello", out intValue);
 
             Console.ReadKey(true);
         }
