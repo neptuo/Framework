@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
-    /// Base for <see cref="IModelValidator"/>.
+    /// Base for <see cref="IModelValidationHandler"/>.
     /// Validator result built from validation of all fields.
     /// </summary>
-    public abstract class ModelValidatorBase : IModelValidator
+    public abstract class ModelValidatorBase : IModelValidationHandler
     {
         /// <summary>
         /// Model definition to validate.
