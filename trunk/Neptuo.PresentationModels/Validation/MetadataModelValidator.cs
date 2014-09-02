@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
     /// Validates model using collection of metadata validators.

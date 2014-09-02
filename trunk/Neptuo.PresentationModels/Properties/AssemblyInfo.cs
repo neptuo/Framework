@@ -39,5 +39,5 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Neptuo.PresentationModels.TypeModels")]
 [assembly: InternalsVisibleTo("Neptuo.PresentationModels.TypeModels.DataAnnotations")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.Validation")]
+[assembly: InternalsVisibleTo("Neptuo.PresentationModels.Validators")]
 [assembly: InternalsVisibleTo("Neptuo.PresentationModels.BindingConverters")]

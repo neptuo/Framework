@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
     /// Defines presentation model validator.
     /// </summary>
-    public interface IModelValidator : IValidationHandler<IModelValueGetter>
+    public interface IModelValidationHandler : IValidationHandler<IModelValueGetter>
     {
     }
 }

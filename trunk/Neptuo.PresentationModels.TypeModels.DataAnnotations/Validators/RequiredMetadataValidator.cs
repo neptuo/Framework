@@ -1,4 +1,4 @@
-﻿using Neptuo.PresentationModels.Validation;
+﻿using Neptuo.PresentationModels.Validators;
 using Neptuo.Validators;
 using System;
 using System.Collections.Generic;

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
     /// Implementation of <see cref="IModelValidationBuilder"/> and <see cref="IValidationResult"/>.

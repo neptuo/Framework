@@ -49,12 +49,12 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$RequiredMetadataReader 
 JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$RequiredMetadataReader);
 var Neptuo$PresentationModels$TypeModels$DataAnnotations$Validators$RequiredMetadataValidator = {
     fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators.RequiredMetadataValidator",
-    baseTypeName: "Neptuo.PresentationModels.Validation.FieldMetadataValidatorBase$2",
+    baseTypeName: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorBase$2",
     assemblyName: "Neptuo.PresentationModels.TypeModels.DataAnnotations",
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.PresentationModels.Validation.FieldMetadataValidatorBase$2.ctor.call(this, System.Boolean.ctor, System.Object.ctor, "Required");
+            Neptuo.PresentationModels.Validators.FieldMetadataValidatorBase$2.ctor.call(this, System.Boolean.ctor, System.Object.ctor, "Required");
         },
         Validate$$Object$$Boolean$$FieldMetadataValidatorContext: function (fieldValue, metadataValue, context){
             if (fieldValue == null){

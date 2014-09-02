@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.Validation
+namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
     /// Base field validator for meta data of type <typeparamref name="TMetadataValue"/> and field value of type <typeparamref name="TFieldValue"/>.
