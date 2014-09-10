@@ -61,6 +61,8 @@
     <Compile Include="DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
+    <Compile Include="Engine.cs" />
+    <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventDispatcherExtensions.cs" />
     <Compile Include="Events\Handlers\ActionEventHandler.cs" />

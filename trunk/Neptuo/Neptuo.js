@@ -172,6 +172,70 @@ var Neptuo$Collections$ObjectModel$DictionaryStringValueProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Collections$ObjectModel$DictionaryStringValueProvider);
+var Neptuo$Collections$Specialized$IKeyValueCollection = {
+    fullname: "Neptuo.Collections.Specialized.IKeyValueCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Collections$Specialized$IKeyValueCollection);
+var Neptuo$Collections$Specialized$IReadOnlyKeyValueCollection = {
+    fullname: "Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Collections$Specialized$IReadOnlyKeyValueCollection);
+var Neptuo$Collections$Specialized$KeyValueCollection = {
+    fullname: "Neptuo.Collections.Specialized.KeyValueCollection",
+    baseTypeName: "System.Collections.Generic.Dictionary$2",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Collections.Specialized.IKeyValueCollection"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Collections.Generic.Dictionary$2.ctor.call(this, System.String.ctor, System.Object.ctor);
+        },
+        ctor$$Int32: function (capacity){
+            System.Collections.Generic.Dictionary$2.ctor$$Int32.call(this, System.String.ctor, System.Object.ctor, capacity);
+        },
+        ctor$$IEqualityComparer$1$String: function (comparer){
+            System.Collections.Generic.Dictionary$2.ctor$$IEqualityComparer$1.call(this, System.String.ctor, System.Object.ctor, comparer);
+        },
+        ctor$$IDictionary$2$String$Object: function (source){
+            System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2.call(this, System.String.ctor, System.Object.ctor, source);
+        },
+        Set: function (key, value){
+            Neptuo.Guard.NotNull$$Object$$String(key, "key");
+            this.set_Item$$TKey(key, value);
+        },
+        TryGet: function (key, value){
+            Neptuo.Guard.NotNull$$Object$$String(key, "key");
+            return this.TryGetValue(key, value);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Int32",
+        parameters: ["System.Int32"]
+    }, {
+        name: "ctor$$IEqualityComparer",
+        parameters: ["System.Collections.Generic.IEqualityComparer"]
+    }, {
+        name: "ctor$$IDictionary",
+        parameters: ["System.Collections.Generic.IDictionary"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Collections$Specialized$KeyValueCollection);
 var Neptuo$Collections$Specialized$NameValueDictionary = {
     fullname: "Neptuo.Collections.Specialized.NameValueDictionary",
     baseTypeName: "System.Object",
@@ -405,6 +469,112 @@ var Neptuo$Collections$Specialized$NameValueReadOnlyDictionary = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Collections$Specialized$NameValueReadOnlyDictionary);
+var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
+    fullname: "Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        TryGet$$IKeyValueCollection$$String$$Int32: function (collection, key, intValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            var value;
+            if ((function (){
+                var $1 = {
+                    Value: value
+                };
+                var $res = collection.TryGet(key, $1);
+                value = $1.Value;
+                return $res;
+            })())
+                return Neptuo.Converts.Try$2$$TSource$$TTarget(System.Object.ctor, System.Int32.ctor, value, intValue);
+            intValue.Value = 0;
+            return false;
+        },
+        Get$$IKeyValueCollection$$String$$Nullable$1$Int32: function (collection, key, defaultValue){
+            var intValue;
+            if ((function (){
+                var $1 = {
+                    Value: intValue
+                };
+                var $res = Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.TryGet$$IKeyValueCollection$$String$$Int32(collection, key, $1);
+                intValue = $1.Value;
+                return $res;
+            })())
+                return intValue;
+            if (defaultValue != null)
+                return defaultValue.get_Value();
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type int with key \'{0}\'", key)), new Error());
+        },
+        TryGet$$IKeyValueCollection$$String$$String: function (collection, key, stringValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            var value;
+            if ((function (){
+                var $1 = {
+                    Value: value
+                };
+                var $res = collection.TryGet(key, $1);
+                value = $1.Value;
+                return $res;
+            })())
+                return Neptuo.Converts.Try$2$$TSource$$TTarget(System.Object.ctor, System.String.ctor, value, stringValue);
+            stringValue.Value = null;
+            return false;
+        },
+        Get$$IKeyValueCollection$$String$$String: function (collection, key, defaultValue){
+            var stringValue;
+            if ((function (){
+                var $1 = {
+                    Value: stringValue
+                };
+                var $res = Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.TryGet$$IKeyValueCollection$$String$$String(collection, key, $1);
+                stringValue = $1.Value;
+                return $res;
+            })())
+                return stringValue;
+            if (defaultValue != null)
+                return defaultValue;
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type string with key \'{0}\'", key)), new Error());
+        },
+        TryGet$$IKeyValueCollection$$String$$Boolean: function (collection, key, boolValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            var value;
+            if ((function (){
+                var $1 = {
+                    Value: value
+                };
+                var $res = collection.TryGet(key, $1);
+                value = $1.Value;
+                return $res;
+            })())
+                return Neptuo.Converts.Try$2$$TSource$$TTarget(System.Object.ctor, System.Boolean.ctor, value, boolValue);
+            boolValue.Value = false;
+            return false;
+        },
+        Get$$IKeyValueCollection$$String$$Nullable$1$Boolean: function (collection, key, defaultValue){
+            var boolValue;
+            if ((function (){
+                var $1 = {
+                    Value: boolValue
+                };
+                var $res = Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.TryGet$$IKeyValueCollection$$String$$Boolean(collection, key, $1);
+                boolValue = $1.Value;
+                return $res;
+            })())
+                return boolValue;
+            if (defaultValue != null)
+                return defaultValue.get_Value();
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type bool with key \'{0}\'", key)), new Error());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions);
 var Neptuo$ComponentModel$Converters$ConverterBase$2 = {
     fullname: "Neptuo.ComponentModel.Converters.ConverterBase$2",
     baseTypeName: "System.Object",
@@ -1078,6 +1248,104 @@ var Neptuo$Diagnostics$DebugHelper = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Diagnostics$DebugHelper);
+var Neptuo$Engine = {
+    fullname: "Neptuo.Engine",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Engine.environmentLock = new System.Object.ctor();
+            Neptuo.Engine.environment = null;
+        },
+        RootContainer$$: "Neptuo.IDependencyContainer",
+        get_RootContainer: function (){
+            return Neptuo.Engine.get_Environment().With$1(Neptuo.IDependencyContainer.ctor, null);
+        },
+        Environment$$: "Neptuo.EngineEnvironment",
+        get_Environment: function (){
+            if (Neptuo.Engine.environment == null){
+                if (Neptuo.Engine.environment == null)
+                    Neptuo.Engine.environment = new Neptuo.EngineEnvironment.ctor();
+            }
+            return Neptuo.Engine.environment;
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Engine);
+var Neptuo$EngineEnvironment = {
+    fullname: "Neptuo.EngineEnvironment",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.storage = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.Dictionary$2.ctor);
+            System.Object.ctor.call(this);
+        },
+        Use$1: function (T, service, name){
+            Neptuo.Guard.NotNull$$Object$$String(service, "instance");
+            if (name == null)
+                name = System.String.Empty;
+            var serviceType = Typeof(T);
+            var innerStorage;
+            if (!(function (){
+                var $1 = {
+                    Value: innerStorage
+                };
+                var $res = this.storage.TryGetValue(serviceType, $1);
+                innerStorage = $1.Value;
+                return $res;
+            }).call(this))
+                innerStorage = (function ($p2){
+                    this.storage.set_Item$$TKey(serviceType, $p2);
+                    return $p2;
+                }).call(this, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Object.ctor));
+            innerStorage.set_Item$$TKey(name, service);
+            return this;
+        },
+        With$1: function (T, name){
+            if (name == null)
+                name = System.String.Empty;
+            var serviceType = Typeof(T);
+            var innerStorage;
+            if (!(function (){
+                var $1 = {
+                    Value: innerStorage
+                };
+                var $res = this.storage.TryGetValue(serviceType, $1);
+                innerStorage = $1.Value;
+                return $res;
+            }).call(this))
+                throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Service of type \'{0}\' is not registered.", serviceType.get_FullName())), new Error());
+            var service;
+            if (!(function (){
+                var $1 = {
+                    Value: service
+                };
+                var $res = innerStorage.TryGetValue(name, $1);
+                service = $1.Value;
+                return $res;
+            }).call(this))
+                throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Service of type \'{0}\' is not registered under name \'{1}\'.", serviceType.get_FullName(), name)), new Error());
+            return Cast(service, T);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$EngineEnvironment);
 var Neptuo$Events$EventManager = {
     fullname: "Neptuo.Events.EventManager",
     baseTypeName: "System.Object",
@@ -1869,6 +2137,15 @@ var Neptuo$INamedActivator$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$INamedActivator$1);
+var Neptuo$IParametrizedActivator$1 = {
+    fullname: "Neptuo.IParametrizedActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$IParametrizedActivator$1);
 var Neptuo$Lifetimes$HierarchicalLifetime$1 = {
     fullname: "Neptuo.Lifetimes.HierarchicalLifetime$1",
     baseTypeName: "System.Object",
@@ -2399,10 +2676,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.0.3";
+            Neptuo.VersionInfo.Version = "3.1.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.0.3");
+            return new System.Version.ctor$$String("3.1.0");
         }
     },
     assemblyName: "Neptuo",
@@ -3051,12 +3328,12 @@ var Neptuo$StateMachines$StringStateMachine$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$StateMachines$StringStateMachine$1);
-var Neptuo$Validators$DependencyValidatorService = {
-    fullname: "Neptuo.Validators.DependencyValidatorService",
+var Neptuo$Validators$DependencyValidationDispatcher = {
+    fullname: "Neptuo.Validators.DependencyValidationDispatcher",
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.Validators.DependencyValidatorService.ValidateMethodName = "Validate";
+            Neptuo.Validators.DependencyValidationDispatcher.ValidateMethodName = "Validate";
         }
     },
     assemblyName: "Neptuo",
@@ -3077,7 +3354,7 @@ var Neptuo$Validators$DependencyValidatorService = {
             Neptuo.Guard.NotNull$$Object$$String(model, "model");
             var modelType = model.GetType();
             var validatorType = Typeof(Neptuo.Validators.IValidationHandler$1.ctor).MakeGenericType(modelType);
-            var validateMethod = validatorType.GetMethod$$String(Neptuo.Validators.DependencyValidatorService.ValidateMethodName);
+            var validateMethod = validatorType.GetMethod$$String(Neptuo.Validators.DependencyValidationDispatcher.ValidateMethodName);
             var validator = Neptuo.DependencyProviderExtensions.Resolve$$IDependencyProvider$$Type(this.dependencyProvider, validatorType);
             var validationResult = validateMethod.Invoke$$Object$$Object$Array(validator, [model]);
             return Cast(validationResult, Neptuo.Validators.IValidationResult.ctor);
@@ -3090,7 +3367,7 @@ var Neptuo$Validators$DependencyValidatorService = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Validators$DependencyValidatorService);
+JsTypes.push(Neptuo$Validators$DependencyValidationDispatcher);
 var Neptuo$Validators$IValidationResult = {
     fullname: "Neptuo.Validators.IValidationResult",
     baseTypeName: "System.Object",
@@ -3272,6 +3549,7 @@ var Neptuo$Validators$ValidationException = {
         ctor: function (result){
             this._Result = null;
             System.Exception.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(result, "result");
             this.set_Result(result);
         },
         Result$$: "Neptuo.Validators.IValidationResult",
