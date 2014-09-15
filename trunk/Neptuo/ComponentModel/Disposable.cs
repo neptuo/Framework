@@ -24,6 +24,9 @@ namespace Neptuo.ComponentModel
             this.reference = new WeakReference<T>(target);
         }
 
+        /// <summary>
+        /// Dispose weak reference.
+        /// </summary>
         protected override void DisposeManagedResources()
         {
             base.DisposeManagedResources();
