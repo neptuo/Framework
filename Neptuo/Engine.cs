@@ -35,7 +35,7 @@ namespace Neptuo
             {
                 if (environment == null)
                 {
-                    lock (environment)
+                    lock (environmentLock)
                     {
                         if (environment == null)
                             environment = new EngineEnvironment();
