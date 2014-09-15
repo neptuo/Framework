@@ -52,6 +52,7 @@
     <Compile Include="ComponentModel\Converters\ConverterSearchDelegate.cs" />
     <Compile Include="ComponentModel\Converters\IConverter.cs" />
     <Compile Include="ComponentModel\Converters\IConverterRepository.cs" />
+    <Compile Include="ComponentModel\DisposableBase.cs" />
     <Compile Include="ComponentModel\Envelope.cs" />
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="FileSystems\StaticFileSystem.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="GuidProvider.cs" />
+    <Compile Include="IDisposable.cs" />
     <Compile Include="IGuidProvider.cs" />
     <Compile Include="INamedActivator.cs" />
     <Compile Include="IParametrizedActivator.cs" />

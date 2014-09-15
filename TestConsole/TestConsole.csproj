@@ -81,6 +81,7 @@
     <Compile Include="Data\ProductRepository.cs" />
     <Compile Include="Data\Queries\ProductFilter.cs" />
     <Compile Include="Delegates\TestDelegates.cs" />
+    <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
