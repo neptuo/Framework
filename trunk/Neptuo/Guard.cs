@@ -54,7 +54,7 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> is <paramref name="argument"/> is lower or equal to zero.
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is lower or equal to zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
@@ -66,7 +66,7 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> is <paramref name="argument"/> is lower than zero.
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is lower than zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
@@ -78,7 +78,7 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> is <paramref name="argument"/> is greater or equal to zero.
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is greater or equal to zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
@@ -90,7 +90,7 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> is <paramref name="argument"/> is greater than zero.
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is greater than zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
         /// <param name="argumentName">Argument name.</param>
@@ -99,6 +99,18 @@ namespace Neptuo
         {
             if (argument > 0)
                 throw new ArgumentOutOfRangeException(argumentName, "Argument must be negative or zero (<= 0).");
+        }
+
+        /// <summary>
+        /// Throws <see cref="ObjectDisposedException"/> if <paramref name="argument"/> is already disposed.
+        /// </summary>
+        /// <param name="argument">Argument to test.</param>
+        /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
+        public static void NotDisposed(IDisposable argument, string argumentName)
+        {
+            if (argument.IsDisposed)
+                throw new ObjectDisposedException(argumentName);
         }
     }
 }

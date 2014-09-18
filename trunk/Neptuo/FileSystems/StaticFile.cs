@@ -113,5 +113,23 @@ namespace Neptuo.FileSystems
         {
             return new FileStream(FullPath, FileMode.Open);
         }
+
+        public void SetContent(string fileContent)
+        {
+            File.WriteAllText(FullPath, fileContent);
+        }
+
+        public void SetContentFromByteArray(byte[] fileContent)
+        {
+            File.WriteAllBytes(FullPath, fileContent);
+        }
+
+        public void SetContentFromStream(Stream fileContent)
+        {
+            using (FileStream fileStream = new FileStream(FullPath, FileMode.OpenOrCreate))
+            {
+                fileContent.CopyTo(fileStream);
+            }
+        }
     }
 }
