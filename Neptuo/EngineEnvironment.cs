@@ -61,5 +61,28 @@ namespace Neptuo
 
             return (T)service;
         }
+
+        /// <summary>
+        /// Returns <c>true</c> if there is registered service of type <typeparamref name="T"/> with optional name <paramref name="name"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of service.</typeparam>
+        /// <param name="name">Optional service name (for registering more services of the same type.</param>
+        /// <returns><c>true</c> if such a service is registered; <c>false</c> otherwise.</returns>
+        public bool Is<T>(string name = null)
+        {
+            if (name == null)
+                name = String.Empty;
+            
+            Type serviceType = typeof(T);
+            Dictionary<string, object> innerStorage;
+            if (!storage.TryGetValue(serviceType, out innerStorage))
+                return false;
+
+            object service;
+            if (!innerStorage.TryGetValue(name, out service))
+                return false;
+
+            return true;
+        }
     }
 }
