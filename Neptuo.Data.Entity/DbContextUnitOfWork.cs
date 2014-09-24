@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Entity
 {
-    public class DbContextUnitOfWork : IUnitOfWork
+    public class DbContextUnitOfWork : DisposableBase, IUnitOfWork
     {
         protected DbContextTransaction Transaction { get; private set; }
         protected DbContext DbContext { get; private set; }
@@ -25,8 +26,9 @@ namespace Neptuo.Data.Entity
             Transaction.Commit();
         }
 
-        public void Dispose()
+        protected override void DisposeManagedResources()
         {
+            base.DisposeManagedResources();
             Transaction.Dispose();
         }
     }

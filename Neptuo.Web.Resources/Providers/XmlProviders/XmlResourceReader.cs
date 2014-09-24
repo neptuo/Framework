@@ -1,4 +1,5 @@
-﻿using Neptuo.FileSystems;
+﻿using Neptuo.ComponentModel;
+using Neptuo.FileSystems;
 using Neptuo.Web.Resources.FileResources;
 using Neptuo.Web.Resources.LazyResources;
 using System;
@@ -14,7 +15,7 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
     /// <summary>
     /// Initializes resource collections from xml file.
     /// </summary>
-    public class XmlResourceReader : IResourceCollectionInitializer
+    public class XmlResourceReader : DisposableBase, IResourceCollectionInitializer
     {
         private IXmlElement rootElement;
 
@@ -38,7 +39,7 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
             Guard.NotNull(file, "file");
 
             XmlDocument document = new XmlDocument();
-            using (Stream fileContent = file.GetContentAsStream())
+            using (Stream fileContent = file.GetContentAsStreamAsync().Result)
             {
                 document.Load(fileContent);
                 return new XmlDocumentElement(document.DocumentElement);
@@ -79,8 +80,5 @@ namespace Neptuo.Web.Resources.Providers.XmlProviders
 
             return result;
         }
-
-        public void Dispose()
-        { }
     }
 }

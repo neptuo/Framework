@@ -243,7 +243,7 @@ var Neptuo$Commands$DependencyCommandDispatcher = {
                 throw $CreateException(new Neptuo.Commands.CommandDispatcherException.ctor$$String$$Exception("Unahandled exception during command execution.", e), new Error());
             }
             finally{
-                var disposable = As(executor, System.IDisposable.ctor);
+                var disposable = As(executor, Neptuo.IDisposable.ctor);
                 if (disposable != null)
                     disposable.Dispose();
             }

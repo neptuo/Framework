@@ -99,36 +99,40 @@ namespace Neptuo.FileSystems
         }
 
 
-        public string GetContent()
+        public Task<string> GetContentAsync()
         {
-            return File.ReadAllText(FullPath);
+            return Task.FromResult(File.ReadAllText(FullPath));
         }
 
-        public byte[] GetContentAsByteArray()
+        public Task<byte[]> GetContentAsByteArrayAsync()
         {
-            return File.ReadAllBytes(FullPath);
+            return Task.FromResult(File.ReadAllBytes(FullPath));
         }
 
-        public Stream GetContentAsStream()
+        public Task<Stream> GetContentAsStreamAsync()
         {
-            return new FileStream(FullPath, FileMode.Open);
+            return Task.FromResult<Stream>(new FileStream(FullPath, FileMode.Open));
         }
 
-        public void SetContent(string fileContent)
+        public Task SetContentAsync(string fileContent)
         {
             File.WriteAllText(FullPath, fileContent);
+            return Task.FromResult(true);
         }
 
-        public void SetContentFromByteArray(byte[] fileContent)
-        {
-            File.WriteAllBytes(FullPath, fileContent);
-        }
-
-        public void SetContentFromStream(Stream fileContent)
+        public Task SetContentFromByteArrayAsync(byte[] fileContent)
         {
             using (FileStream fileStream = new FileStream(FullPath, FileMode.OpenOrCreate))
             {
-                fileContent.CopyTo(fileStream);
+                return fileStream.WriteAsync(fileContent, 0, fileContent.Length);
+            }
+        }
+
+        public Task SetContentFromStreamAsync(Stream fileContent)
+        {
+            using (FileStream fileStream = new FileStream(FullPath, FileMode.OpenOrCreate))
+            {
+                return fileContent.CopyToAsync(fileStream);
             }
         }
     }
