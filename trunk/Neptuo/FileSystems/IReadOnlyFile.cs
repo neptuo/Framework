@@ -41,18 +41,18 @@ namespace Neptuo.FileSystems
         /// Returns file content.
         /// </summary>
         /// <returns>File content.</returns>
-        string GetContent();
+        Task<string> GetContentAsync();
 
         /// <summary>
         /// Returns file content as byte array.
         /// </summary>
         /// <returns>File content as byte array.</returns>
-        byte[] GetContentAsByteArray();
+        Task<byte[]> GetContentAsByteArrayAsync();
 
         /// <summary>
         /// Returns file content as stream.
         /// </summary>
         /// <returns>File content as stream.</returns>
-        Stream GetContentAsStream();
+        Task<Stream> GetContentAsStreamAsync();
     }
 }

@@ -155,21 +155,19 @@ namespace Neptuo.FileSystems
             return File.Exists(Path.Combine(FullPath, fileName));
         }
 
-        public IDirectory CreateDirectory(string directoryName)
+        public Task<IDirectory> CreateDirectory(string directoryName)
         {
             Guard.NotNullOrEmpty(directoryName, "directoryName");
             DirectoryInfo newDirectory = Directory.CreateDirectory(Path.Combine(FullPath, directoryName));
-            return new StaticDirectory(this, newDirectory.FullName);
+            return Task.FromResult<IDirectory>(new StaticDirectory(this, newDirectory.FullName));
         }
 
-        public IFile CreateOrRewriteFile(string fileName, Stream fileContent)
+        public Task<IFile> CreateFile(string fileName)
         {
             Guard.NotNullOrEmpty(fileName, "fileName");
-            Guard.NotNull(fileContent, "fileContent");
             string filePath= Path.Combine(FullPath, fileName);
-            FileStream fileStream = new FileStream(filePath, FileMode.OpenOrCreate);
-            fileContent.CopyTo(fileStream);
-            return new StaticFile(this, filePath);
+            File.Create(filePath).Dispose();
+            return Task.FromResult<IFile>(new StaticFile(this, filePath));
         }
     }
 }

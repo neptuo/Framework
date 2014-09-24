@@ -818,6 +818,83 @@ var Neptuo$ComponentModel$Converters$IConverterRepository = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$IConverterRepository);
+var Neptuo$ComponentModel$Disposable$1 = {
+    fullname: "Neptuo.ComponentModel.Disposable$1",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (T, target){
+            this.T = T;
+            this.reference = null;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            this.reference = new System.WeakReference$1.ctor$$T(this.T, target);
+        },
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            var target;
+            if ((function (){
+                var $1 = {
+                    Value: target
+                };
+                var $res = this.reference.TryGetTarget($1);
+                target = $1.Value;
+                return $res;
+            }).call(this))
+                target.Dispose();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["T"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Disposable$1);
+var Neptuo$ComponentModel$DisposableBase = {
+    fullname: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IDisposable"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._IsDisposed = false;
+            System.Object.ctor.call(this);
+        },
+        IsDisposed$$: "System.Boolean",
+        get_IsDisposed: function (){
+            return this._IsDisposed;
+        },
+        set_IsDisposed: function (value){
+            this._IsDisposed = value;
+        },
+        Dispose: function (){
+            this.Dispose$$Boolean(true);
+            System.GC.SuppressFinalize(this);
+        },
+        Dispose$$Boolean: function (disposing){
+            if (this.get_IsDisposed())
+                return;
+            if (disposing)
+                this.DisposeManagedResources();
+            this.DisposeUnmanagedResources();
+            this.set_IsDisposed(true);
+        },
+        DisposeManagedResources: function (){
+        },
+        DisposeUnmanagedResources: function (){
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$DisposableBase);
 var Neptuo$ComponentModel$Envelope = {
     fullname: "Neptuo.ComponentModel.Envelope",
     baseTypeName: "System.Object",
@@ -1336,6 +1413,32 @@ var Neptuo$EngineEnvironment = {
             }).call(this))
                 throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Service of type \'{0}\' is not registered under name \'{1}\'.", serviceType.get_FullName(), name)), new Error());
             return Cast(service, T);
+        },
+        Is$1: function (T, name){
+            if (name == null)
+                name = System.String.Empty;
+            var serviceType = Typeof(T);
+            var innerStorage;
+            if (!(function (){
+                var $1 = {
+                    Value: innerStorage
+                };
+                var $res = this.storage.TryGetValue(serviceType, $1);
+                innerStorage = $1.Value;
+                return $res;
+            }).call(this))
+                return false;
+            var service;
+            if (!(function (){
+                var $1 = {
+                    Value: service
+                };
+                var $res = innerStorage.TryGetValue(name, $1);
+                service = $1.Value;
+                return $res;
+            }).call(this))
+                return false;
+            return true;
         }
     },
     ctors: [{
@@ -1473,21 +1576,21 @@ var Neptuo$Events$EventDispatcherExtensions = {
 JsTypes.push(Neptuo$Events$EventDispatcherExtensions);
 var Neptuo$Events$UsignEventHandlerSubscriber$1 = {
     fullname: "Neptuo.Events.UsignEventHandlerSubscriber$1",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
     assemblyName: "Neptuo",
-    interfaceNames: ["System.IDisposable"],
     Kind: "Class",
     definition: {
         ctor: function (TEvent, eventRegistry, eventHandler){
             this.TEvent = TEvent;
             this.eventRegistry = null;
             this.eventHandlerFactory = null;
-            System.Object.ctor.call(this);
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
             this.eventRegistry = eventRegistry;
             this.eventHandlerFactory = new Neptuo.Events.Handlers.SingletonEventHandlerFactory$1.ctor(this.TEvent, eventHandler);
             eventRegistry.Subscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
         },
-        Dispose: function (){
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
             this.eventRegistry.UnSubscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
         }
     },
@@ -1862,15 +1965,13 @@ var Neptuo$FileSystems$StaticDirectory = {
         CreateDirectory: function (directoryName){
             Neptuo.Guard.NotNullOrEmpty(directoryName, "directoryName");
             var newDirectory = System.IO.Directory.CreateDirectory$$String(System.IO.Path.Combine$$String$$String(this.get_FullPath(), directoryName));
-            return new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, newDirectory.get_FullName());
+            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IDirectory.ctor, new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, newDirectory.get_FullName()));
         },
-        CreateOrRewriteFile: function (fileName, fileContent){
+        CreateFile: function (fileName){
             Neptuo.Guard.NotNullOrEmpty(fileName, "fileName");
-            Neptuo.Guard.NotNull$$Object$$String(fileContent, "fileContent");
             var filePath = System.IO.Path.Combine$$String$$String(this.get_FullPath(), fileName);
-            var fileStream = new System.IO.FileStream.ctor$$String$$FileMode(filePath, 4);
-            fileContent.CopyTo$$Stream(fileStream);
-            return new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, filePath);
+            System.IO.File.Create$$String(filePath).Dispose();
+            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IFile.ctor, new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, filePath));
         }
     },
     ctors: [{
@@ -1963,14 +2064,36 @@ var Neptuo$FileSystems$StaticFile = {
             this.set_Name(System.IO.Path.GetFileNameWithoutExtension(fullPath));
             this.set_Extension(System.IO.Path.GetExtension(fullPath));
         },
-        GetContent: function (){
-            return System.IO.File.ReadAllText$$String(this.get_FullPath());
+        GetContentAsync: function (){
+            return System.Threading.Tasks.Task.FromResult$1(System.String.ctor, System.IO.File.ReadAllText$$String(this.get_FullPath()));
         },
-        GetContentAsByteArray: function (){
-            return System.IO.File.ReadAllBytes(this.get_FullPath());
+        GetContentAsByteArrayAsync: function (){
+            return System.Threading.Tasks.Task.FromResult$1(Uint8Array.ctor, System.IO.File.ReadAllBytes(this.get_FullPath()));
         },
-        GetContentAsStream: function (){
-            return new System.IO.FileStream.ctor$$String$$FileMode(this.get_FullPath(), 3);
+        GetContentAsStreamAsync: function (){
+            return System.Threading.Tasks.Task.FromResult$1(System.IO.Stream.ctor, new System.IO.FileStream.ctor$$String$$FileMode(this.get_FullPath(), 3));
+        },
+        SetContentAsync: function (fileContent){
+            System.IO.File.WriteAllText$$String$$String(this.get_FullPath(), fileContent);
+            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
+        },
+        SetContentFromByteArrayAsync: function (fileContent){
+            var fileStream = new System.IO.FileStream.ctor$$String$$FileMode(this.get_FullPath(), 4);
+            try{
+                return fileStream.WriteAsync$$Byte$Array$$Int32$$Int32(fileContent, 0, fileContent.get_Length());
+            }
+            finally{
+                fileStream.Dispose();
+            }
+        },
+        SetContentFromStreamAsync: function (fileContent){
+            var fileStream = new System.IO.FileStream.ctor$$String$$FileMode(this.get_FullPath(), 4);
+            try{
+                return fileContent.CopyToAsync$$Stream(fileStream);
+            }
+            finally{
+                fileStream.Dispose();
+            }
         }
     },
     ctors: [{
@@ -2106,6 +2229,10 @@ var Neptuo$Guard = {
         NegativeOrZero: function (argument, argumentName){
             if (argument > 0)
                 throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be negative or zero (<= 0)."), new Error());
+        },
+        NotDisposed: function (argument, argumentName){
+            if (argument.get_IsDisposed())
+                throw $CreateException(new System.ObjectDisposedException.ctor$$String(argumentName), new Error());
         }
     },
     assemblyName: "Neptuo",
@@ -2119,6 +2246,16 @@ var Neptuo$Guard = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Guard);
+var Neptuo$IDisposable = {
+    fullname: "Neptuo.IDisposable",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["System.IDisposable"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$IDisposable);
 var Neptuo$IGuidProvider = {
     fullname: "Neptuo.IGuidProvider",
     baseTypeName: "System.Object",
@@ -2676,10 +2813,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.1.0";
+            Neptuo.VersionInfo.Version = "3.2.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.1.0");
+            return new System.Version.ctor$$String("3.2.0");
         }
     },
     assemblyName: "Neptuo",

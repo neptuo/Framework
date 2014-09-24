@@ -1030,7 +1030,7 @@ var Neptuo$PresentationModels$FieldType = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$FieldType);
-var Neptuo$PresentationModels$Validation$FieldMetadataValidatorBase$2 = {
+var Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2 = {
     fullname: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorBase$2",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1078,8 +1078,8 @@ var Neptuo$PresentationModels$Validation$FieldMetadataValidatorBase$2 = {
     ],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$FieldMetadataValidatorBase$2);
-var Neptuo$PresentationModels$Validation$FieldMetadataValidatorContext = {
+JsTypes.push(Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2);
+var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
     fullname: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1126,8 +1126,8 @@ var Neptuo$PresentationModels$Validation$FieldMetadataValidatorContext = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$FieldMetadataValidatorContext);
-var Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory$1 = {
+JsTypes.push(Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext);
+var Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory$1 = {
     fullname: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1159,8 +1159,8 @@ var Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory$1 = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory$1);
-var Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory = {
+JsTypes.push(Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory$1);
+var Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory = {
     fullname: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory",
     baseTypeName: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory$1",
     assemblyName: "Neptuo.PresentationModels",
@@ -1177,8 +1177,8 @@ var Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$FuncFieldMetadataValidatorFactory);
-var Neptuo$PresentationModels$Validation$IFieldMetadataValidator = {
+JsTypes.push(Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory);
+var Neptuo$PresentationModels$Validators$IFieldMetadataValidator = {
     fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1186,8 +1186,8 @@ var Neptuo$PresentationModels$Validation$IFieldMetadataValidator = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$IFieldMetadataValidator);
-var Neptuo$PresentationModels$Validation$IFieldMetadataValidatorFactory = {
+JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidator);
+var Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory = {
     fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1196,8 +1196,8 @@ var Neptuo$PresentationModels$Validation$IFieldMetadataValidatorFactory = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$IFieldMetadataValidatorFactory);
-var Neptuo$PresentationModels$Validation$IMetadataValidatorCollection = {
+JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory);
+var Neptuo$PresentationModels$Validators$IMetadataValidatorCollection = {
     fullname: "Neptuo.PresentationModels.Validators.IMetadataValidatorCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1205,8 +1205,8 @@ var Neptuo$PresentationModels$Validation$IMetadataValidatorCollection = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$IMetadataValidatorCollection);
-var Neptuo$PresentationModels$Validation$IModelValidationBuilder = {
+JsTypes.push(Neptuo$PresentationModels$Validators$IMetadataValidatorCollection);
+var Neptuo$PresentationModels$Validators$IModelValidationBuilder = {
     fullname: "Neptuo.PresentationModels.Validators.IModelValidationBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1214,9 +1214,9 @@ var Neptuo$PresentationModels$Validation$IModelValidationBuilder = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$IModelValidationBuilder);
-var Neptuo$PresentationModels$Validation$IModelValidator = {
-    fullname: "Neptuo.PresentationModels.Validators.IModelValidator",
+JsTypes.push(Neptuo$PresentationModels$Validators$IModelValidationBuilder);
+var Neptuo$PresentationModels$Validators$IModelValidationHandler = {
+    fullname: "Neptuo.PresentationModels.Validators.IModelValidationHandler",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.Validators.IValidationHandler$1"],
@@ -1224,8 +1224,8 @@ var Neptuo$PresentationModels$Validation$IModelValidator = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$IModelValidator);
-var Neptuo$PresentationModels$Validation$MetadataModelValidator = {
+JsTypes.push(Neptuo$PresentationModels$Validators$IModelValidationHandler);
+var Neptuo$PresentationModels$Validators$MetadataModelValidator = {
     fullname: "Neptuo.PresentationModels.Validators.MetadataModelValidator",
     baseTypeName: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
     assemblyName: "Neptuo.PresentationModels",
@@ -1268,8 +1268,8 @@ var Neptuo$PresentationModels$Validation$MetadataModelValidator = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$MetadataModelValidator);
-var Neptuo$PresentationModels$Validation$MetadataValidatorCollection = {
+JsTypes.push(Neptuo$PresentationModels$Validators$MetadataModelValidator);
+var Neptuo$PresentationModels$Validators$MetadataValidatorCollection = {
     fullname: "Neptuo.PresentationModels.Validators.MetadataValidatorCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1369,8 +1369,8 @@ var Neptuo$PresentationModels$Validation$MetadataValidatorCollection = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$MetadataValidatorCollection);
-var Neptuo$PresentationModels$Validation$MetadataValidatorCollectionExtensions = {
+JsTypes.push(Neptuo$PresentationModels$Validators$MetadataValidatorCollection);
+var Neptuo$PresentationModels$Validators$MetadataValidatorCollectionExtensions = {
     fullname: "Neptuo.PresentationModels.Validators.MetadataValidatorCollectionExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
@@ -1388,8 +1388,8 @@ var Neptuo$PresentationModels$Validation$MetadataValidatorCollectionExtensions =
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$MetadataValidatorCollectionExtensions);
-var Neptuo$PresentationModels$Validation$ModelValidationBuilder = {
+JsTypes.push(Neptuo$PresentationModels$Validators$MetadataValidatorCollectionExtensions);
+var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
     fullname: "Neptuo.PresentationModels.Validators.ModelValidationBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1437,12 +1437,12 @@ var Neptuo$PresentationModels$Validation$ModelValidationBuilder = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$ModelValidationBuilder);
-var Neptuo$PresentationModels$Validation$ModelValidatorBase = {
+JsTypes.push(Neptuo$PresentationModels$Validators$ModelValidationBuilder);
+var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
     fullname: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.Validators.IModelValidator"],
+    interfaceNames: ["Neptuo.PresentationModels.Validators.IModelValidationHandler"],
     Kind: "Class",
     definition: {
         ctor: function (modelDefinition){
@@ -1478,8 +1478,8 @@ var Neptuo$PresentationModels$Validation$ModelValidatorBase = {
     ],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$ModelValidatorBase);
-var Neptuo$PresentationModels$Validation$SingletonFieldMetadataValidatorFactory = {
+JsTypes.push(Neptuo$PresentationModels$Validators$ModelValidatorBase);
+var Neptuo$PresentationModels$Validators$SingletonFieldMetadataValidatorFactory = {
     fullname: "Neptuo.PresentationModels.Validators.SingletonFieldMetadataValidatorFactory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
@@ -1510,5 +1510,5 @@ var Neptuo$PresentationModels$Validation$SingletonFieldMetadataValidatorFactory 
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validation$SingletonFieldMetadataValidatorFactory);
+JsTypes.push(Neptuo$PresentationModels$Validators$SingletonFieldMetadataValidatorFactory);
 

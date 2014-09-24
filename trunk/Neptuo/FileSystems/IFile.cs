@@ -16,18 +16,18 @@ namespace Neptuo.FileSystems
         /// Overrides file content to <paramref name="fileContent"/>.
         /// </summary>
         /// <param name="fileContent">New file content.</param>
-        void SetContent(string fileContent);
+        Task SetContentAsync(string fileContent);
 
         /// <summary>
         /// Overrides file content to <paramref name="fileContent"/>.
         /// </summary>
         /// <param name="fileContent">New file content.</param>
-        void SetContentFromByteArray(byte[] fileContent);
+        Task SetContentFromByteArrayAsync(byte[] fileContent);
 
         /// <summary>
         /// Overrides file content to <paramref name="fileContent"/>.
         /// </summary>
         /// <param name="fileContent">New file content.</param>
-        void SetContentFromStream(Stream fileContent);
+        Task SetContentFromStreamAsync(Stream fileContent);
     }
 }

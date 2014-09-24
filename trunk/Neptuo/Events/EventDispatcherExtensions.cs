@@ -1,4 +1,5 @@
-﻿using Neptuo.Events;
+﻿using Neptuo.ComponentModel;
+using Neptuo.Events;
 using Neptuo.Events.Handlers;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,7 @@ namespace Neptuo.Events
         }
     }
 
-    internal class UsignEventHandlerSubscriber<TEvent> : IDisposable
+    internal class UsignEventHandlerSubscriber<TEvent> : DisposableBase
     {
         private IEventRegistry eventRegistry;
         private IEventHandlerFactory<TEvent> eventHandlerFactory;
@@ -48,10 +49,10 @@ namespace Neptuo.Events
             eventRegistry.Subscribe(eventHandlerFactory);
         }
 
-        public void Dispose()
+        protected override void DisposeManagedResources()
         {
+            base.DisposeManagedResources();
             eventRegistry.UnSubscribe(eventHandlerFactory);
         }
     }
-
 }

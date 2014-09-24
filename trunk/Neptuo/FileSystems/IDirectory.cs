@@ -18,14 +18,13 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="directoryName">Name of new directory, must be unique.</param>
         /// <returns>Newly create directory.</returns>
-        IDirectory CreateDirectory(string directoryName);
+        Task<IDirectory> CreateDirectory(string directoryName);
 
         /// <summary>
-        /// Creats new file or overrides is <paramref name="fileName"/> exists.
+        /// Creats new empty file with name <paramref name="fileName"/>.
         /// </summary>
         /// <param name="fileName">New file name.</param>
-        /// <param name="fileContent">New file content.</param>
         /// <returns>Newly created file.</returns>
-        IFile CreateOrRewriteFile(string fileName, Stream fileContent);
+        Task<IFile> CreateFile(string fileName);
     }
 }
