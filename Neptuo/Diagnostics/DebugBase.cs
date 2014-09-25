@@ -13,14 +13,36 @@ namespace Neptuo.Diagnostics
     /// </summary>
     public class DebugBase
     {
-        protected TextWriter InnerWriter;
+        private TextWriter innerWriter;
 
+        /// <summary>
+        /// Writer for measurements.
+        /// </summary>
+        protected TextWriter InnerWriter
+        {
+            get { return innerWriter; }
+            set
+            {
+                if (value != null)
+                    innerWriter = value;
+            }
+        }
+
+        /// <summary>
+        /// Creates instance and uses <paramref name="innerWriter"/> as writer for measurements.
+        /// </summary>
+        /// <param name="innerWriter">Writer for measurements.</param>
         public DebugBase(TextWriter innerWriter)
         {
             Guard.NotNull(innerWriter, "innerWriter");
             InnerWriter = innerWriter;
         }
 
+        /// <summary>
+        /// Executes <paramref name="action"/> in stopwatch and saves message titled as <paramref name="title"/>.
+        /// </summary>
+        /// <param name="title">Measurement title.</param>
+        /// <param name="action">Action to execute in stopwatch.</param>
         protected internal void Debug(string title, Action action)
         {
             Guard.NotNull(title, "title");
@@ -35,6 +57,12 @@ namespace Neptuo.Diagnostics
             InnerWriter.WriteLine("{0}: {1}ms", title, sw.ElapsedMilliseconds);
         }
 
+        /// <summary>
+        /// Executes <paramref name="action"/> <paramref name="count"/>-times in stopwatch and saves message titled as <paramref name="title"/>.
+        /// </summary>
+        /// <param name="title">Measurement title.</param>
+        /// <param name="count">Number of exections to run.</param>
+        /// <param name="action">Action to execute in stopwatch.</param>
         protected internal void DebugIteration(string title, int count, Action action)
         {
             Guard.NotNull(title, "title");
@@ -48,6 +76,13 @@ namespace Neptuo.Diagnostics
             });
         }
 
+        /// <summary>
+        /// Executes <paramref name="action"/> in stopwatch and saves message titled as <paramref name="title"/>.
+        /// </summary>
+        /// <typeparam name="T">Type returned from <paramref name="action"/>.</typeparam>
+        /// <param name="title">Measurement title.</param>
+        /// <param name="action">Action to execute in stopwatch.</param>
+        /// <rereturns>Returns result from <paramref name="action"/>.</rereturns>
         protected internal T Debug<T>(string title, Func<T> action)
         {
             Guard.NotNull(title, "title");
@@ -63,6 +98,14 @@ namespace Neptuo.Diagnostics
             return result;
         }
 
+        /// <summary>
+        /// Executes <paramref name="action"/> <paramref name="count"/>-times in stopwatch and saves message titled as <paramref name="title"/>.
+        /// </summary>
+        /// <typeparam name="T">Type returned from <paramref name="action"/>.</typeparam>
+        /// <param name="title">Measurement title.</param>
+        /// <param name="count">Number of exections to run.</param>
+        /// <param name="action">Action to execute in stopwatch.</param>
+        /// <rereturns>Returns result from <paramref name="action"/>.</rereturns>
         protected internal List<T> DebugIteration<T>(string title, int count, Func<T> action)
         {
             Guard.NotNull(title, "title");
