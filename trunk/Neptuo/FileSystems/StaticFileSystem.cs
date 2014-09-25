@@ -72,5 +72,21 @@ namespace Neptuo.FileSystems
 
             return new StaticFile(filePath);
         }
+
+        /// <summary>
+        /// Creates static file for <paramref name="directoryPath"/> of standart file system.
+        /// </summary>
+        /// <param name="directoryPath">Path to existing directory.</param>
+        /// <returns>Static file for <paramref name="directoryPath"/>.</returns>
+        /// <exception cref="FileSystemException">When <paramref name="directoryPath"/> doesn't point to existing directory.</exception>
+        public static IReadOnlyDirectory FromDirectoryPath(string directoryPath)
+        {
+            Guard.NotNullOrEmpty(directoryPath, "directoryPath");
+
+            if(!Directory.Exists(directoryPath))
+                throw new FileSystemException(String.Format("Can't create static directory for path '{0}', because is doesn't point to existing directory.", directoryPath));
+
+            return new StaticDirectory(directoryPath);
+        }
     }
 }
