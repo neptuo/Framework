@@ -34,7 +34,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeDom\Compiler\CompilerService.cs" />
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
+    <Compile Include="CodeDom\Compiler\ICodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
