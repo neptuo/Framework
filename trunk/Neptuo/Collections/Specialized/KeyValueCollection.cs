@@ -32,10 +32,29 @@ namespace Neptuo.Collections.Specialized
             this[key] = value;
         }
 
-        public bool TryGet(string key, out object value)
+        public bool TryGet<T>(string key, out T value)
         {
             Guard.NotNull(key, "key");
-            return TryGetValue(key, out value);
+
+            object sourceValue;
+            if (TryGetValue(key, out sourceValue) && sourceValue != null)
+            {
+                if(sourceValue is T)
+                {
+                    value = (T)sourceValue;
+                    return true;
+                }
+
+                object targetValue;
+                if(Converts.Try(sourceValue.GetType(), typeof(T), sourceValue, out targetValue))
+                {
+                    value = (T)targetValue;
+                    return true;
+                }
+            }
+
+            value = default(T);
+            return false;
         }
     }
 }
