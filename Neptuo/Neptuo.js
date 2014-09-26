@@ -528,7 +528,22 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
     fullname: "Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
+        Get$1$$IReadOnlyKeyValueCollection$$String: function (T, collection, key){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            var value;
+            if ((function (){
+                var $1 = {
+                    Value: value
+                };
+                var $res = collection.TryGet$1(T, key, $1);
+                value = $1.Value;
+                return $res;
+            })())
+                return value;
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key)), new Error());
+        },
         Get$$IKeyValueCollection$$String$$Nullable$1$Int32: function (collection, key, defaultValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var intValue;
             if ((function (){
                 var $1 = {
@@ -541,9 +556,10 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return intValue;
             if (defaultValue != null)
                 return defaultValue.get_Value();
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type int with key \'{0}\'", key)), new Error());
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type int with key \'{0}\'.", key)), new Error());
         },
         Get$$IKeyValueCollection$$String$$String: function (collection, key, defaultValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var stringValue;
             if ((function (){
                 var $1 = {
@@ -556,9 +572,10 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return stringValue;
             if (defaultValue != null)
                 return defaultValue;
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type string with key \'{0}\'", key)), new Error());
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type string with key \'{0}\'.", key)), new Error());
         },
         Get$$IKeyValueCollection$$String$$Nullable$1$Boolean: function (collection, key, defaultValue){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var boolValue;
             if ((function (){
                 var $1 = {
@@ -571,7 +588,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return boolValue;
             if (defaultValue != null)
                 return defaultValue.get_Value();
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type bool with key \'{0}\'", key)), new Error());
+            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type bool with key \'{0}\'.", key)), new Error());
         }
     },
     assemblyName: "Neptuo",
@@ -2837,10 +2854,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.3.2";
+            Neptuo.VersionInfo.Version = "3.3.4";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.3.2");
+            return new System.Version.ctor$$String("3.3.4");
         }
     },
     assemblyName: "Neptuo",
