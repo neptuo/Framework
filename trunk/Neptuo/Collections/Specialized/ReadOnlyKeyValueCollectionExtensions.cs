@@ -13,15 +13,37 @@ namespace Neptuo.Collections.Specialized
     {
         /// <summary>
         /// Reads the value of <paramref name="key"/> in <paramref name="collection"/>.
+        /// If value is found and can be converted to <typeparamref name="T"/>, returns it.
+        /// Otherwise returns <paramref name="defaultValue"/> (if provided) or throws <see cref="InvalidOperationException"/>.
+        /// </summary>
+        /// <param name="collection">Collection of key-value pairs.</param>
+        /// <param name="key">Requested key.</param>
+        /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
+        /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
+        public static T Get<T>(this IReadOnlyKeyValueCollection collection, string key)
+        {
+            Guard.NotNull(collection, "collection");
+
+            T value;
+            if (collection.TryGet(key, out value))
+                return value;
+
+            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key));
+        }
+
+        /// <summary>
+        /// Reads the value of <paramref name="key"/> in <paramref name="collection"/>.
         /// If value is found and can be converted to <see cref="System.Int32"/>, returns it.
         /// Otherwise returns <paramref name="defaultValue"/> (if provided) or throws <see cref="InvalidOperationException"/>.
         /// </summary>
         /// <param name="collection">Collection of key-value pairs.</param>
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
-        /// <returns><c>true</c> if key is found and is convertible; <c>false</c> otherwise.</returns>
+        /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static int Get(this IKeyValueCollection collection, string key, int? defaultValue)
         {
+            Guard.NotNull(collection, "collection");
+
             int intValue;
             if (collection.TryGet(key, out intValue))
                 return intValue;
@@ -29,7 +51,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type int with key '{0}'", key));
+            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type int with key '{0}'.", key));
         }
 
         /// <summary>
@@ -40,9 +62,11 @@ namespace Neptuo.Collections.Specialized
         /// <param name="collection">Collection of key-value pairs.</param>
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
-        /// <returns><c>true</c> if key is found and is convertible; <c>false</c> otherwise.</returns>
+        /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static string Get(this IKeyValueCollection collection, string key, string defaultValue)
         {
+            Guard.NotNull(collection, "collection");
+
             string stringValue;
             if (collection.TryGet(key, out stringValue))
                 return stringValue;
@@ -50,7 +74,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type string with key '{0}'", key));
+            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type string with key '{0}'.", key));
         }
 
         /// <summary>
@@ -61,9 +85,11 @@ namespace Neptuo.Collections.Specialized
         /// <param name="collection">Collection of key-value pairs.</param>
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
-        /// <returns><c>true</c> if key is found and is convertible; <c>false</c> otherwise.</returns>
+        /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static bool Get(this IKeyValueCollection collection, string key, bool? defaultValue)
         {
+            Guard.NotNull(collection, "collection");
+
             bool boolValue;
             if (collection.TryGet(key, out boolValue))
                 return boolValue;
@@ -71,7 +97,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type bool with key '{0}'", key));
+            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type bool with key '{0}'.", key));
         }
     }
 }
