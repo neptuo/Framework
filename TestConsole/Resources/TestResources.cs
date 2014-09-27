@@ -26,7 +26,7 @@ namespace TestConsole.Resources
                 );
             };
 
-            IReadOnlyFile file = StaticFileSystem.FromFilePath(Path.Combine(Environment.CurrentDirectory, "Resources.xml"));
+            IReadOnlyFile file = LocalFileSystem.FromFilePath(Path.Combine(Environment.CurrentDirectory, "Resources.xml"));
             using (IResourceCollectionInitializer loader = new XmlResourceReader(file))
             {
                 loader.FillCollection(ResourceTable.Resources);

@@ -1867,12 +1867,12 @@ var Neptuo$FileSystems$IReadOnlyFile = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$FileSystems$IReadOnlyFile);
-var Neptuo$FileSystems$StaticDirectory = {
-    fullname: "Neptuo.FileSystems.StaticDirectory",
+var Neptuo$FileSystems$LocalDirectory = {
+    fullname: "Neptuo.FileSystems.LocalDirectory",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetParentDirectoryFromFullPath: function (fullPath){
-            return new Neptuo.FileSystems.StaticDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
+            return new Neptuo.FileSystems.LocalDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
         }
     },
     assemblyName: "Neptuo",
@@ -1904,7 +1904,7 @@ var Neptuo$FileSystems$StaticDirectory = {
         Parent$$: "Neptuo.FileSystems.IDirectory",
         get_Parent: function (){
             if (this.parent == null)
-                this.parent = Neptuo.FileSystems.StaticDirectory.GetParentDirectoryFromFullPath(this.get_FullPath());
+                this.parent = Neptuo.FileSystems.LocalDirectory.GetParentDirectoryFromFullPath(this.get_FullPath());
             return this.parent;
         },
         set_Parent: function (value){
@@ -1931,7 +1931,7 @@ var Neptuo$FileSystems$StaticDirectory = {
             var $it5 = paths.GetEnumerator();
             while ($it5.MoveNext()){
                 var path = $it5.get_Current();
-                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, path));
+                $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
         },
@@ -1940,7 +1940,7 @@ var Neptuo$FileSystems$StaticDirectory = {
             var $it6 = paths.GetEnumerator();
             while ($it6.MoveNext()){
                 var path = $it6.get_Current();
-                $yield.push(new Neptuo.FileSystems.StaticDirectory.ctor$$String(path));
+                $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$String(path));
             }
             return $yield;
         },
@@ -1965,7 +1965,7 @@ var Neptuo$FileSystems$StaticDirectory = {
             var $it7 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
             while ($it7.MoveNext()){
                 var path = $it7.get_Current();
-                $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, path));
+                $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
         },
@@ -1977,14 +1977,14 @@ var Neptuo$FileSystems$StaticDirectory = {
                 var $it8 = paths.GetEnumerator();
                 while ($it8.MoveNext()){
                     var path = $it8.get_Current();
-                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, path));
+                    $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
                 }
             }
             else {
                 var $it9 = paths.GetEnumerator();
                 while ($it9.MoveNext()){
                     var path = $it9.get_Current();
-                    $yield.push(new Neptuo.FileSystems.StaticFile.ctor$$String(path));
+                    $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$String(path));
                 }
             }
             return $yield;
@@ -2000,13 +2000,13 @@ var Neptuo$FileSystems$StaticDirectory = {
         CreateDirectory: function (directoryName){
             Neptuo.Guard.NotNullOrEmpty(directoryName, "directoryName");
             var newDirectory = System.IO.Directory.CreateDirectory$$String(System.IO.Path.Combine$$String$$String(this.get_FullPath(), directoryName));
-            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IDirectory.ctor, new Neptuo.FileSystems.StaticDirectory.ctor$$IDirectory$$String(this, newDirectory.get_FullName()));
+            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IDirectory.ctor, new Neptuo.FileSystems.LocalDirectory.ctor$$IDirectory$$String(this, newDirectory.get_FullName()));
         },
         CreateFile: function (fileName){
             Neptuo.Guard.NotNullOrEmpty(fileName, "fileName");
             var filePath = System.IO.Path.Combine$$String$$String(this.get_FullPath(), fileName);
             System.IO.File.Create$$String(filePath).Dispose();
-            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IFile.ctor, new Neptuo.FileSystems.StaticFile.ctor$$IDirectory$$String(this, filePath));
+            return System.Threading.Tasks.Task.FromResult$1(Neptuo.FileSystems.IFile.ctor, new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, filePath));
         }
     },
     ctors: [{
@@ -2019,16 +2019,16 @@ var Neptuo$FileSystems$StaticDirectory = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$FileSystems$StaticDirectory);
-var Neptuo$FileSystems$StaticFile = {
-    fullname: "Neptuo.FileSystems.StaticFile",
+JsTypes.push(Neptuo$FileSystems$LocalDirectory);
+var Neptuo$FileSystems$LocalFile = {
+    fullname: "Neptuo.FileSystems.LocalFile",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetFileSize: function (fullPath){
             return new System.IO.FileInfo.ctor(fullPath).get_Length();
         },
         GetParentDirectoryFromFullPath: function (fullPath){
-            return new Neptuo.FileSystems.StaticDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
+            return new Neptuo.FileSystems.LocalDirectory.ctor$$String(System.IO.Path.GetDirectoryName(fullPath));
         }
     },
     assemblyName: "Neptuo",
@@ -2068,7 +2068,7 @@ var Neptuo$FileSystems$StaticFile = {
         Parent$$: "Neptuo.FileSystems.IDirectory",
         get_Parent: function (){
             if (this.parent == null)
-                this.parent = Neptuo.FileSystems.StaticFile.GetParentDirectoryFromFullPath(this.get_FullPath());
+                this.parent = Neptuo.FileSystems.LocalFile.GetParentDirectoryFromFullPath(this.get_FullPath());
             return this.parent;
         },
         set_Parent: function (value){
@@ -2077,7 +2077,7 @@ var Neptuo$FileSystems$StaticFile = {
         FileSize$$: "System.Int64",
         get_FileSize: function (){
             if (this.fileSize == null)
-                this.fileSize = Neptuo.FileSystems.StaticFile.GetFileSize(this.get_FullPath());
+                this.fileSize = Neptuo.FileSystems.LocalFile.GetFileSize(this.get_FullPath());
             return this.fileSize.get_Value();
         },
         ctor$$IDirectory$$String: function (parent, fullPath){
@@ -2141,7 +2141,7 @@ var Neptuo$FileSystems$StaticFile = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$FileSystems$StaticFile);
+JsTypes.push(Neptuo$FileSystems$LocalFile);
 var Neptuo$FileSystems$IDirectory = {
     fullname: "Neptuo.FileSystems.IDirectory",
     baseTypeName: "System.Object",
@@ -2171,21 +2171,21 @@ var Neptuo$FileSystems$IFileSystem = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$FileSystems$IFileSystem);
-var Neptuo$FileSystems$StaticFileSystem = {
-    fullname: "Neptuo.FileSystems.StaticFileSystem",
+var Neptuo$FileSystems$LocalFileSystem = {
+    fullname: "Neptuo.FileSystems.LocalFileSystem",
     baseTypeName: "System.Object",
     staticDefinition: {
         FromFilePath: function (filePath){
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
                 throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("Can\'t create static file for path \'{0}\', because is doesn\'t point to existing file.", filePath)), new Error());
-            return new Neptuo.FileSystems.StaticFile.ctor$$String(filePath);
+            return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
                 throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("Can\'t create static directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath)), new Error());
-            return new Neptuo.FileSystems.StaticDirectory.ctor$$String(directoryPath);
+            return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
     assemblyName: "Neptuo",
@@ -2198,7 +2198,7 @@ var Neptuo$FileSystems$StaticFileSystem = {
             System.Object.ctor.call(this);
             if (!System.IO.Path.IsPathRooted(rootPath))
                 throw $CreateException(new System.ArgumentException.ctor$$String$$String("Path to file system must be rooted.", "rootPath"), new Error());
-            this.set_RootDirectory(new Neptuo.FileSystems.StaticDirectory.ctor$$String(rootPath));
+            this.set_RootDirectory(new Neptuo.FileSystems.LocalDirectory.ctor$$String(rootPath));
             this.set_IsReadOnly(isReadOnly);
         },
         RootDirectory$$: "Neptuo.FileSystems.IReadOnlyDirectory",
@@ -2222,9 +2222,9 @@ var Neptuo$FileSystems$StaticFileSystem = {
             Neptuo.Guard.NotNull$$Object$$String(directory, "directory");
             if (!this.get_IsReadOnly())
                 throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("File system rooted by \'{0}\' is read only.", this.get_RootDirectory().get_FullPath())), new Error());
-            var staticDirectory = As(directory, Neptuo.FileSystems.StaticDirectory.ctor);
+            var staticDirectory = As(directory, Neptuo.FileSystems.LocalDirectory.ctor);
             if (staticDirectory == null){
-                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object$$Object("Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.StaticDirectory.ctor).get_FullName())), new Error());
+                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object$$Object("Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.LocalDirectory.ctor).get_FullName())), new Error());
             }
             return staticDirectory;
         }
@@ -2236,7 +2236,7 @@ var Neptuo$FileSystems$StaticFileSystem = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$FileSystems$StaticFileSystem);
+JsTypes.push(Neptuo$FileSystems$LocalFileSystem);
 var Neptuo$Guard = {
     fullname: "Neptuo.Guard",
     baseTypeName: "System.Object",
