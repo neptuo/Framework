@@ -10,7 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
-    public class StaticFile : IFile
+    public class LocalFile : IFile
     {
         private IDirectory parent;
         private long? fileSize;
@@ -46,7 +46,7 @@ namespace Neptuo.FileSystems
         /// Creates new instance that points to <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">Standard file system path to file.</param>
-        internal StaticFile(string fullPath)
+        internal LocalFile(string fullPath)
         {
             SetFileRelatedProperties(fullPath);
         }
@@ -56,7 +56,7 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="parent">Virtual parent directory.</param>
         /// <param name="fullPath">Standard file system path to file.</param>
-        internal StaticFile(IDirectory parent, string fullPath)
+        internal LocalFile(IDirectory parent, string fullPath)
         {
             Guard.NotNull(parent, "parent");
             Guard.NotNullOrEmpty(fullPath, "fullPath");
@@ -95,7 +95,7 @@ namespace Neptuo.FileSystems
         /// <returns>Wrapped parent directory.</returns>
         private static IDirectory GetParentDirectoryFromFullPath(string fullPath)
         {
-            return new StaticDirectory(Path.GetDirectoryName(fullPath));
+            return new LocalDirectory(Path.GetDirectoryName(fullPath));
         }
 
 

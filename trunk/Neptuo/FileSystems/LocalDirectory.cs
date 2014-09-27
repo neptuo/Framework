@@ -10,7 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
-    public class StaticDirectory : IDirectory
+    public class LocalDirectory : IDirectory
     {
         private IDirectory parent;
 
@@ -33,13 +33,13 @@ namespace Neptuo.FileSystems
         /// Creates new instance that points to <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">Standard file system path to directory.</param>
-        internal StaticDirectory(string fullPath)
+        internal LocalDirectory(string fullPath)
         {
             Guard.NotNullOrEmpty(fullPath, "fullPath");
             SetDirectoryRelatedProperties(fullPath);
         }
 
-        internal StaticDirectory(IDirectory parent, string fullPath)
+        internal LocalDirectory(IDirectory parent, string fullPath)
         {
             Guard.NotNull(parent, "parent");
             Guard.NotNullOrEmpty(fullPath, "fullPath");
@@ -67,7 +67,7 @@ namespace Neptuo.FileSystems
         /// <returns>Wrapped parent directory.</returns>
         private static IDirectory GetParentDirectoryFromFullPath(string fullPath)
         {
-            return new StaticDirectory(Path.GetDirectoryName(fullPath));
+            return new LocalDirectory(Path.GetDirectoryName(fullPath));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Neptuo.FileSystems
         private IEnumerable<IDirectory> EnumerateChildDirectories(IEnumerable<string> paths)
         {
             foreach (string path in paths)
-                yield return new StaticDirectory(this, path);
+                yield return new LocalDirectory(this, path);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Neptuo.FileSystems
         private IEnumerable<IDirectory> EnumerateAllDirectories(IEnumerable<string> paths)
         {
             foreach (string path in paths)
-                yield return new StaticDirectory(path);
+                yield return new LocalDirectory(path);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace Neptuo.FileSystems
         public IEnumerable<IFile> EnumerateFiles()
         {
             foreach (string path in Directory.GetFiles(FullPath))
-                yield return new StaticFile(this, path);
+                yield return new LocalFile(this, path);
         }
 
         public IEnumerable<IFile> FindFiles(string searchPattern, bool inAllDescendants)
@@ -134,12 +134,12 @@ namespace Neptuo.FileSystems
             if (!inAllDescendants)
             {
                 foreach (string path in paths)
-                    yield return new StaticFile(this, path);
+                    yield return new LocalFile(this, path);
             }
             else
             {
                 foreach (string path in paths)
-                    yield return new StaticFile(path);
+                    yield return new LocalFile(path);
             }
         }
 
@@ -159,7 +159,7 @@ namespace Neptuo.FileSystems
         {
             Guard.NotNullOrEmpty(directoryName, "directoryName");
             DirectoryInfo newDirectory = Directory.CreateDirectory(Path.Combine(FullPath, directoryName));
-            return Task.FromResult<IDirectory>(new StaticDirectory(this, newDirectory.FullName));
+            return Task.FromResult<IDirectory>(new LocalDirectory(this, newDirectory.FullName));
         }
 
         public Task<IFile> CreateFile(string fileName)
@@ -167,7 +167,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(fileName, "fileName");
             string filePath= Path.Combine(FullPath, fileName);
             File.Create(filePath).Dispose();
-            return Task.FromResult<IFile>(new StaticFile(this, filePath));
+            return Task.FromResult<IFile>(new LocalFile(this, filePath));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system implemented as stadart file system.
     /// </summary>
-    public class StaticFileSystem : IFileSystem
+    public class LocalFileSystem : IFileSystem
     {
         /// <summary>
         /// File system root directory.
@@ -23,12 +23,12 @@ namespace Neptuo.FileSystems
         /// Creates new instance with <paramref name="rootPaht"/> as root directory.
         /// </summary>
         /// <param name="rootPath">Path to root directory.</param>
-        public StaticFileSystem(string rootPath, bool isReadOnly)
+        public LocalFileSystem(string rootPath, bool isReadOnly)
         {
             if (!Path.IsPathRooted(rootPath))
                 throw new ArgumentException("Path to file system must be rooted.", "rootPath");
 
-            RootDirectory = new StaticDirectory(rootPath);
+            RootDirectory = new LocalDirectory(rootPath);
             IsReadOnly = isReadOnly;
         }
 
@@ -44,13 +44,13 @@ namespace Neptuo.FileSystems
             if (!IsReadOnly)
                 throw new FileSystemException(String.Format("File system rooted by '{0}' is read only.", RootDirectory.FullPath));
 
-            StaticDirectory staticDirectory = directory as StaticDirectory;
+            LocalDirectory staticDirectory = directory as LocalDirectory;
             if (staticDirectory == null)
             {
                 throw new FileSystemException(String.Format(
                     "Passed instance of '{0}' into static file system. Static file system operates only on directories of type '{1}'.", 
                     directory.GetType().FullName, 
-                    typeof(StaticDirectory).FullName
+                    typeof(LocalDirectory).FullName
                 ));
             }
 
@@ -70,7 +70,7 @@ namespace Neptuo.FileSystems
             if (!File.Exists(filePath))
                 throw new FileSystemException(String.Format("Can't create static file for path '{0}', because is doesn't point to existing file.", filePath));
 
-            return new StaticFile(filePath);
+            return new LocalFile(filePath);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Neptuo.FileSystems
             if(!Directory.Exists(directoryPath))
                 throw new FileSystemException(String.Format("Can't create static directory for path '{0}', because is doesn't point to existing directory.", directoryPath));
 
-            return new StaticDirectory(directoryPath);
+            return new LocalDirectory(directoryPath);
         }
     }
 }
