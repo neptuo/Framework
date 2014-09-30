@@ -48,6 +48,7 @@
     <Compile Include="Collections\Specialized\NameValueDictionary.cs" />
     <Compile Include="Collections\Specialized\NameValueEnumerator.cs" />
     <Compile Include="Collections\Specialized\NameValueReadOnlyDictionary.cs" />
+    <Compile Include="Collections\Specialized\ProviderKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\ReadOnlyKeyValueCollectionExtensions.cs" />
     <Compile Include="ComponentModel\Converters\ConverterBase.cs" />
     <Compile Include="ComponentModel\Converters\ConverterRepository.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
+    <Compile Include="FileSystems\FileContentExtensions.cs" />
     <Compile Include="FileSystems\FileSystemException.cs" />
     <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
     <Compile Include="FileSystems\IReadOnlyFile.cs" />
