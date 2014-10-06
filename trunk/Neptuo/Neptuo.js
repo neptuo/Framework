@@ -524,6 +524,39 @@ var Neptuo$Collections$Specialized$NameValueReadOnlyDictionary = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Collections$Specialized$NameValueReadOnlyDictionary);
+var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
+    fullname: "Neptuo.Collections.Specialized.ProviderKeyValueCollection",
+    baseTypeName: "Neptuo.Collections.Specialized.KeyValueCollection",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._IsReadOnly = false;
+            Neptuo.Collections.Specialized.KeyValueCollection.ctor.call(this);
+        },
+        IsReadOnly$$: "System.Boolean",
+        get_IsReadOnly: function (){
+            return this._IsReadOnly;
+        },
+        set_IsReadOnly: function (value){
+            this._IsReadOnly = value;
+        },
+        Set: function (key, value){
+            if (this.get_IsReadOnly())
+                throw $CreateException(new System.InvalidOperationException.ctor$$String("Collection is in read-only mode."), new Error());
+        },
+        TryGet$1: function (T, key, value){
+            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Collections$Specialized$ProviderKeyValueCollection);
 var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
     fullname: "Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions",
     baseTypeName: "System.Object",
@@ -1819,6 +1852,43 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$FileSystems$FileContentExtensions = {
+    fullname: "Neptuo.FileSystems.FileContentExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        GetContent: function (file){
+            Neptuo.Guard.NotNull$$Object$$String(file, "file");
+            return file.GetContentAsync().get_Result();
+        },
+        GetContentAsByteArray: function (file){
+            Neptuo.Guard.NotNull$$Object$$String(file, "file");
+            return file.GetContentAsByteArrayAsync().get_Result();
+        },
+        GetContentAsStream: function (file){
+            Neptuo.Guard.NotNull$$Object$$String(file, "file");
+            return file.GetContentAsStreamAsync().get_Result();
+        },
+        SetContent: function (file, fileContent){
+            file.SetContentAsync(fileContent).Wait();
+        },
+        SetContentFromByteArray: function (file, fileContent){
+            file.SetContentFromByteArrayAsync(fileContent).Wait();
+        },
+        SetContentFromStream: function (file, fileContent){
+            file.SetContentFromStreamAsync(fileContent).Wait();
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$FileContentExtensions);
 var Neptuo$FileSystems$FileSystemException = {
     fullname: "Neptuo.FileSystems.FileSystemException",
     baseTypeName: "System.Exception",
@@ -2854,10 +2924,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.3.5";
+            Neptuo.VersionInfo.Version = "3.3.7";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.3.5");
+            return new System.Version.ctor$$String("3.3.7");
         }
     },
     assemblyName: "Neptuo",
@@ -3013,10 +3083,13 @@ var Neptuo$Linq$Expressions$TypeHelper = {
         MethodName$4$$Expression$1: function (T, TParam1, TParam2, TParam3, propertyGetter){
             return (As((As((As((Cast(propertyGetter.get_Body(), System.Linq.Expressions.UnaryExpression.ctor)).get_Operand(), System.Linq.Expressions.MethodCallExpression.ctor)).get_Object(), System.Linq.Expressions.ConstantExpression.ctor)).get_Value(), System.Reflection.MethodInfo.ctor)).get_Name();
         },
-        MethodName$1$$Expression$1: function (T, propertyGetter){
+        MethodName$5$$Expression$1: function (T, TParam1, TParam2, TParam3, TParam4, propertyGetter){
             return (As((As((As((Cast(propertyGetter.get_Body(), System.Linq.Expressions.UnaryExpression.ctor)).get_Operand(), System.Linq.Expressions.MethodCallExpression.ctor)).get_Object(), System.Linq.Expressions.ConstantExpression.ctor)).get_Value(), System.Reflection.MethodInfo.ctor)).get_Name();
         },
-        MethodName$5$$Expression$1: function (T, TParam1, TParam2, TParam3, TParam4, propertyGetter){
+        MethodName$6$$Expression$1: function (T, TParam1, TParam2, TParam3, TParam4, TResult, propertyGetter){
+            return (As((As((As((Cast(propertyGetter.get_Body(), System.Linq.Expressions.UnaryExpression.ctor)).get_Operand(), System.Linq.Expressions.MethodCallExpression.ctor)).get_Object(), System.Linq.Expressions.ConstantExpression.ctor)).get_Value(), System.Reflection.MethodInfo.ctor)).get_Name();
+        },
+        MethodName$1$$Expression$1: function (T, propertyGetter){
             return (As((As((As((Cast(propertyGetter.get_Body(), System.Linq.Expressions.UnaryExpression.ctor)).get_Operand(), System.Linq.Expressions.MethodCallExpression.ctor)).get_Object(), System.Linq.Expressions.ConstantExpression.ctor)).get_Value(), System.Reflection.MethodInfo.ctor)).get_Name();
         }
     },

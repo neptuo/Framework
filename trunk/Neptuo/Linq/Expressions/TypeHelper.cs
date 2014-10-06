@@ -34,6 +34,16 @@ namespace Neptuo.Linq.Expressions
             return (((((UnaryExpression)propertyGetter.Body).Operand as MethodCallExpression).Object as ConstantExpression).Value as MethodInfo).Name;
         }
 
+        public static string MethodName<T, TParam1, TParam2, TParam3, TResult>(Expression<Func<T, System.Func<TParam1, TParam2, TParam3, TResult>>> propertyGetter)
+        {
+            return (((((UnaryExpression)propertyGetter.Body).Operand as MethodCallExpression).Object as ConstantExpression).Value as MethodInfo).Name;
+        }
+
+        public static string MethodName<T, TParam1, TParam2, TParam3, TParam4, TResult>(Expression<Func<T, System.Func<TParam1, TParam2, TParam3, TParam4, TResult>>> propertyGetter)
+        {
+            return (((((UnaryExpression)propertyGetter.Body).Operand as MethodCallExpression).Object as ConstantExpression).Value as MethodInfo).Name;
+        }
+
         public static string MethodName<T>(Expression<Func<T, Action>> propertyGetter)
         {
             return (((((UnaryExpression)propertyGetter.Body).Operand as MethodCallExpression).Object as ConstantExpression).Value as MethodInfo).Name;
