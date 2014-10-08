@@ -604,7 +604,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return value;
             throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key)), new Error());
         },
-        Get$$IKeyValueCollection$$String$$Nullable$1$Int32: function (collection, key, defaultValue){
+        Get$$IReadOnlyKeyValueCollection$$String$$Nullable$1$Int32: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var intValue;
             if ((function (){
@@ -620,7 +620,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return defaultValue.get_Value();
             throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type int with key \'{0}\'.", key)), new Error());
         },
-        Get$$IKeyValueCollection$$String$$String: function (collection, key, defaultValue){
+        Get$$IReadOnlyKeyValueCollection$$String$$String: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var stringValue;
             if ((function (){
@@ -636,7 +636,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return defaultValue;
             throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type string with key \'{0}\'.", key)), new Error());
         },
-        Get$$IKeyValueCollection$$String$$Nullable$1$Boolean: function (collection, key, defaultValue){
+        Get$$IReadOnlyKeyValueCollection$$String$$Nullable$1$Boolean: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
             var boolValue;
             if ((function (){
