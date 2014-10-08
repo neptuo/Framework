@@ -98,6 +98,35 @@ function $RemoveDelegate(delOriginal,delToRemove)
     }
 };
 
+if (typeof($CreateDelegate)=='undefined'){
+    if(typeof($iKey)=='undefined') var $iKey = 0;
+    if(typeof($pKey)=='undefined') var $pKey = String.fromCharCode(1);
+    var $CreateDelegate = function(target, func){
+        if (target == null || func == null) 
+            return func;
+        if(func.target==target && func.func==func)
+            return func;
+        if (target.$delegateCache == null)
+            target.$delegateCache = {};
+        if (func.$key == null)
+            func.$key = $pKey + String(++$iKey);
+        var delegate;
+        if(target.$delegateCache!=null)
+            delegate = target.$delegateCache[func.$key];
+        if (delegate == null){
+            delegate = function(){
+                return func.apply(target, arguments);
+            };
+            delegate.func = func;
+            delegate.target = target;
+            delegate.isDelegate = true;
+            if(target.$delegateCache!=null)
+                target.$delegateCache[func.$key] = delegate;
+        }
+        return delegate;
+    }
+}
+
 if (typeof ($CreateAnonymousDelegate) == 'undefined') {
     var $CreateAnonymousDelegate = function (target, func) {
         if (target == null || func == null)
@@ -1285,19 +1314,25 @@ var Neptuo$Diagnostics$DebugBase = {
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor: function (innerWriter){
+        ctor$$DebugMessageWriter: function (innerWriter){
             this.innerWriter = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(innerWriter, "innerWriter");
             this.set_InnerWriter(innerWriter);
         },
-        InnerWriter$$: "System.IO.TextWriter",
+        InnerWriter$$: "Neptuo.Diagnostics.DebugBase+DebugMessageWriter",
         get_InnerWriter: function (){
             return this.innerWriter;
         },
         set_InnerWriter: function (value){
-            if (value != null)
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(value, null))
                 this.innerWriter = value;
+        },
+        ctor$$TextWriter: function (innerWriter){
+            this.innerWriter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(innerWriter, "innerWriter");
+            this.set_InnerWriter($CreateDelegate(innerWriter, innerWriter.WriteLine$$String$$Object$Array));
         },
         Debug$$String$$Action: function (title, action){
             Neptuo.Guard.NotNull$$Object$$String(title, "title");
@@ -1306,7 +1341,7 @@ var Neptuo$Diagnostics$DebugBase = {
             sw.Start();
             action();
             sw.Stop();
-            this.get_InnerWriter().WriteLine$$String$$Object$$Object("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
+            this.get_InnerWriter()("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
         },
         DebugIteration$$String$$Int32$$Action: function (title, count, action){
             Neptuo.Guard.NotNull$$Object$$String(title, "title");
@@ -1324,7 +1359,7 @@ var Neptuo$Diagnostics$DebugBase = {
             sw.Start();
             var result = action();
             sw.Stop();
-            this.get_InnerWriter().WriteLine$$String$$Object$$Object("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
+            this.get_InnerWriter()("{0}: {1}ms", title, sw.get_ElapsedMilliseconds());
             return result;
         },
         DebugIteration$1$$String$$Int32$$Func$1: function (T, title, count, action){
@@ -1340,13 +1375,32 @@ var Neptuo$Diagnostics$DebugBase = {
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$DebugMessageWriter",
+        parameters: ["Neptuo.Diagnostics.DebugBase.DebugMessageWriter"]
+    }, {
+        name: "ctor$$TextWriter",
         parameters: ["System.IO.TextWriter"]
     }
     ],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Diagnostics$DebugBase);
+var Neptuo$Diagnostics$DebugBase$DebugMessageWriter = {
+    fullname: "Neptuo.Diagnostics.DebugBase.DebugMessageWriter",
+    Kind: "Delegate",
+    definition: {
+        ctor: function (obj, func){
+            System.MulticastDelegate.ctor.call(this, obj, func);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Object", "System.IntPtr"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Diagnostics$DebugBase$DebugMessageWriter);
 var Neptuo$Diagnostics$DebugHelper = {
     fullname: "Neptuo.Diagnostics.DebugHelper",
     baseTypeName: "System.Object",
@@ -1358,7 +1412,7 @@ var Neptuo$Diagnostics$DebugHelper = {
         EnsureDebug: function (){
             if (Neptuo.Diagnostics.DebugHelper.debug == null){
                 if (Neptuo.Diagnostics.DebugHelper.debug == null)
-                    Neptuo.Diagnostics.DebugHelper.debug = new Neptuo.Diagnostics.DebugBase.ctor(System.Console.get_Out());
+                    Neptuo.Diagnostics.DebugHelper.debug = new Neptuo.Diagnostics.DebugBase.ctor$$TextWriter(System.Console.get_Out());
             }
         },
         Debug$$String$$Action: function (title, action){
@@ -2924,10 +2978,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.3.7";
+            Neptuo.VersionInfo.Version = "3.3.8";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.3.7");
+            return new System.Version.ctor$$String("3.3.8");
         }
     },
     assemblyName: "Neptuo",

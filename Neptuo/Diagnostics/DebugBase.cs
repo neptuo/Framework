@@ -13,12 +13,20 @@ namespace Neptuo.Diagnostics
     /// </summary>
     public class DebugBase
     {
-        private TextWriter innerWriter;
+        /// <summary>
+        /// Debug message writer. 
+        /// Should use <paramref name="format"/> as formatter for <paramref name="parameters"/>.
+        /// </summary>
+        /// <param name="format">The message.</param>
+        /// <param name="parameters">Optional arguments/parameters for <paramref name="format"/>.</param>
+        public delegate void DebugMessageWriter(string format, params object[] parameters);
+
+        private DebugMessageWriter innerWriter;
 
         /// <summary>
         /// Writer for measurements.
         /// </summary>
-        protected TextWriter InnerWriter
+        protected DebugMessageWriter InnerWriter
         {
             get { return innerWriter; }
             set
@@ -32,10 +40,20 @@ namespace Neptuo.Diagnostics
         /// Creates instance and uses <paramref name="innerWriter"/> as writer for measurements.
         /// </summary>
         /// <param name="innerWriter">Writer for measurements.</param>
-        public DebugBase(TextWriter innerWriter)
+        public DebugBase(DebugMessageWriter innerWriter)
         {
             Guard.NotNull(innerWriter, "innerWriter");
             InnerWriter = innerWriter;
+        }
+
+        /// <summary>
+        /// Creates instance and uses <paramref name="innerWriter"/> as writer for measurements.
+        /// </summary>
+        /// <param name="innerWriter">Writer for measurements.</param>
+        public DebugBase(TextWriter innerWriter)
+        {
+            Guard.NotNull(innerWriter, "innerWriter");
+            InnerWriter = innerWriter.WriteLine;
         }
 
         /// <summary>
@@ -54,7 +72,7 @@ namespace Neptuo.Diagnostics
             action();
 
             sw.Stop();
-            InnerWriter.WriteLine("{0}: {1}ms", title, sw.ElapsedMilliseconds);
+            InnerWriter("{0}: {1}ms", title, sw.ElapsedMilliseconds);
         }
 
         /// <summary>
@@ -94,7 +112,7 @@ namespace Neptuo.Diagnostics
             T result = action();
 
             sw.Stop();
-            InnerWriter.WriteLine("{0}: {1}ms", title, sw.ElapsedMilliseconds);
+            InnerWriter("{0}: {1}ms", title, sw.ElapsedMilliseconds);
             return result;
         }
 
