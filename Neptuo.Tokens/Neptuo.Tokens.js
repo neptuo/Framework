@@ -147,9 +147,10 @@ var Neptuo$Tokens$Token = {
             this._Prefix = null;
             this._Name = null;
             this._Attributes = null;
-            this._DefaultAttributeValue = null;
+            this._DefaultAttributes = null;
             System.Object.ctor.call(this);
             this.set_Attributes(new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenAttribute.ctor));
+            this.set_DefaultAttributes(new System.Collections.Generic.List$1.ctor(System.String.ctor));
         },
         Prefix$$: "System.String",
         get_Prefix: function (){
@@ -188,12 +189,42 @@ var Neptuo$Tokens$Token = {
         set_Attributes: function (value){
             this._Attributes = value;
         },
-        DefaultAttributeValue$$: "System.String",
-        get_DefaultAttributeValue: function (){
-            return this._DefaultAttributeValue;
+        DefaultAttributes$$: "System.Collections.Generic.List`1[[System.String]]",
+        get_DefaultAttributes: function (){
+            return this._DefaultAttributes;
         },
-        set_DefaultAttributeValue: function (value){
-            this._DefaultAttributeValue = value;
+        set_DefaultAttributes: function (value){
+            this._DefaultAttributes = value;
+        },
+        ToString: function (){
+            var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
+            var isFirstAttribute = true;
+            var $it1 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it1.MoveNext()){
+                var defaultAttribute = $it1.get_Current();
+                if (isFirstAttribute){
+                    isFirstAttribute = false;
+                    result.Append$$String(" ");
+                }
+                else {
+                    result.Append$$String(", ");
+                }
+                result.AppendFormat$$String$$Object$Array(defaultAttribute);
+            }
+            var $it2 = this.get_Attributes().GetEnumerator();
+            while ($it2.MoveNext()){
+                var attribute = $it2.get_Current();
+                if (isFirstAttribute){
+                    isFirstAttribute = false;
+                    result.Append$$String(" ");
+                }
+                else {
+                    result.Append$$String(", ");
+                }
+                result.AppendFormat$$String$$Object$$Object("{0}={1}", attribute.get_Name(), attribute.get_Value());
+            }
+            result.Append$$String("}");
+            return result.ToString();
         }
     },
     ctors: [{
@@ -256,6 +287,12 @@ var Neptuo$Tokens$TokenEventArgs = {
             this._StartPosition = 0;
             this._EndPosition = 0;
             System.EventArgs.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(originalContent, "originalContent");
+            Neptuo.Guard.NotNull$$Object$$String(token, "token");
+            Neptuo.Guard.PositiveOrZero(startPosition, "startPosition");
+            Neptuo.Guard.Positive(endPosition, "endPosition");
+            if (endPosition <= startPosition)
+                Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "endPosition", "End position index must be greater that start position index");
             this.set_OriginalContent(originalContent);
             this.set_Token(token);
             this.set_StartPosition(startPosition);
@@ -332,9 +369,9 @@ var Neptuo$Tokens$TokenParser = {
                 results.Add(e.get_State().GetResult());
             }));
             if (System.Type.op_Inequality$$Type$$Type(stateMachine.Process(content).GetType(), Typeof(Neptuo.Tokens.TokenErrorState.ctor))){
-                var $it1 = results.GetEnumerator();
-                while ($it1.MoveNext()){
-                    var result = $it1.get_Current();
+                var $it3 = results.GetEnumerator();
+                while ($it3.MoveNext()){
+                    var result = $it3.get_Current();
                     this.OnParsedToken(this, new Neptuo.Tokens.TokenEventArgs.ctor(content, result.get_Token(), result.get_StartIndex(), result.get_LastIndex()));
                 }
                 return true;
@@ -661,7 +698,7 @@ var Neptuo$Tokens$TokenFirstAttributeState = {
             if (input == ","){
                 if (!this.get_Configuration().get_AllowDefaultAttribute())
                     return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
-                this.get_Context().get_Token().set_DefaultAttributeValue(this.get_Text().ToString());
+                this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
                 return this.Move$1(Neptuo.Tokens.TokenAttributeNameState.ctor);
             }
             if (input == "="){
@@ -673,7 +710,7 @@ var Neptuo$Tokens$TokenFirstAttributeState = {
                     return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
                 if (this.innerExtensions == 0){
                     this.get_Context().set_LastIndex(position);
-                    this.get_Context().get_Token().set_DefaultAttributeValue(this.get_Text().ToString());
+                    this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
                     return this.Move$1(Neptuo.Tokens.TokenDoneState.ctor);
                 }
                 else {

@@ -96,7 +96,7 @@ namespace Neptuo.Tokens
                     return Move<TokenErrorState>();
 
                 Context.Token.Fullname = Text.ToString();
-                return Move<TokenFirstAttributeState>();
+                return Move<TokenDefaultAttributesState>();
             }
 
             if (input == '}')
@@ -114,7 +114,7 @@ namespace Neptuo.Tokens
         }
     }
 
-    internal class TokenFirstAttributeState : TokenState
+    internal class TokenDefaultAttributesState : TokenState
     {
         private int innerExtensions = 0;
 
@@ -125,7 +125,7 @@ namespace Neptuo.Tokens
                 if (!Configuration.AllowDefaultAttribute)
                     return Move<TokenErrorState>();
 
-                Context.Token.DefaultAttributeValue = Text.ToString();
+                Context.Token.DefaultAttributes.Add(Text.ToString());
                 return Move<TokenAttributeNameState>();
             }
             
@@ -143,7 +143,7 @@ namespace Neptuo.Tokens
                 if (innerExtensions == 0)
                 {
                     Context.LastIndex = position;
-                    Context.Token.DefaultAttributeValue = Text.ToString();
+                    Context.Token.DefaultAttributes.Add(Text.ToString());
                     return Move<TokenDoneState>();
                 }
                 else

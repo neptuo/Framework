@@ -32,7 +32,7 @@ namespace TestConsole.Tokens
         {
             Console.WriteLine("Starting at {0}, to {1}, source.substring: {2}", e.StartPosition, e.EndPosition, e.OriginalContent.Substring(e.StartPosition, e.EndPosition - e.StartPosition + 1));
             Console.WriteLine(e.Token.Fullname);
-            Console.WriteLine(e.Token.DefaultAttributeValue);
+            Console.WriteLine(e.Token.DefaultAttributes);
             Console.WriteLine(String.Join(";", e.Token.Attributes.Select(a => String.Format("{0}:{1}", a.Name, a.Value))));
         }
     }
