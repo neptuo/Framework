@@ -71,7 +71,7 @@ namespace Neptuo.FileSystems
         private void SetFileRelatedProperties(string fullPath)
         {
             if (!File.Exists(fullPath))
-                throw new ArgumentException("Provided path must be existing file.", "fullPath");
+                throw Guard.Exception.Argument("fullPath", "Provided path must be existing file.");
 
             FullPath = fullPath;
             Name = Path.GetFileNameWithoutExtension(fullPath);

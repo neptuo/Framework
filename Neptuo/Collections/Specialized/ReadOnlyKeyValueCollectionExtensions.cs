@@ -28,7 +28,7 @@ namespace Neptuo.Collections.Specialized
             if (collection.TryGet(key, out value))
                 return value;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key));
+            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type int with key '{0}'.", key));
+            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type int with key '{0}'.", key);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type string with key '{0}'.", key));
+            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type string with key '{0}'.", key);
         }
 
         /// <summary>
@@ -97,7 +97,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw new InvalidOperationException(String.Format("Collection doesn't contain value of type bool with key '{0}'.", key));
+            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type bool with key '{0}'.", key);
         }
     }
 }

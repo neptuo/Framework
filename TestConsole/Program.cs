@@ -1,4 +1,5 @@
-﻿using Neptuo.Collections.Specialized;
+﻿using Neptuo;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -41,7 +42,6 @@ namespace TestConsole
             //IKeyValueCollection collection = null;
             //int intValue;
             //collection.TryGet("Hello", out intValue);
-
             Console.ReadKey(true);
         }
     }

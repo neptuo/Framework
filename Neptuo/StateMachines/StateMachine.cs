@@ -16,18 +16,14 @@ namespace Neptuo.StateMachines
 
         public StateMachine(TState initialState)
         {
-            if (initialState == null)
-                throw new ArgumentNullException("initialState");
-
+            Guard.NotNull(initialState, "initialState");
             InitialState = initialState;
         }
 
         public void OnEnterConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)
             where TConcreteState : TState
         {
-            if (handler == null)
-                throw new ArgumentNullException("handler");
-
+            Guard.NotNull(handler, "handler");
             OnEnterState += (sender, e) =>
             {
                 if (e.State.GetType() == typeof(TConcreteState))
@@ -38,9 +34,7 @@ namespace Neptuo.StateMachines
         public void OnLeaveConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)
             where TConcreteState : TState
         {
-            if (handler == null)
-                throw new ArgumentNullException("handler");
-
+            Guard.NotNull(handler, "handler");
             OnLeaveState += (sender, e) =>
             {
                 if (e.State.GetType() == typeof(TConcreteState))
@@ -50,16 +44,14 @@ namespace Neptuo.StateMachines
 
         public TState Process(IEnumerable<TItem> items)
         {
-            if (items == null)
-                throw new ArgumentNullException("items");
-
+            Guard.NotNull(items, "items");
             TState currentState = InitialState;
             int index = 0;
             foreach (TItem item in items)
             {
                 TState newState = currentState.Accept(item, index);
                 if (newState == null)
-                    throw new InvalidOperationException("StateMachine in invalid state, got null new state.");
+                    throw Guard.Exception.InvalidOperation("StateMachine in invalid state, got null new state.");
 
                 if (newState != currentState)
                 {

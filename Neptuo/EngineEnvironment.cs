@@ -53,11 +53,11 @@ namespace Neptuo
             Type serviceType = typeof(T);
             Dictionary<string, object> innerStorage;
             if (!storage.TryGetValue(serviceType, out innerStorage))
-                throw new InvalidOperationException(String.Format("Service of type '{0}' is not registered.", serviceType.FullName));
+                throw Guard.Exception.InvalidOperation("Service of type '{0}' is not registered.", serviceType.FullName);
 
             object service;
             if(!innerStorage.TryGetValue(name, out service))
-                throw new InvalidOperationException(String.Format("Service of type '{0}' is not registered under name '{1}'.", serviceType.FullName, name));
+                throw Guard.Exception.InvalidOperation("Service of type '{0}' is not registered under name '{1}'.", serviceType.FullName, name);
 
             return (T)service;
         }

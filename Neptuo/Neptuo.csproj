@@ -28,6 +28,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -68,6 +70,7 @@
     <Compile Include="Diagnostics\DebugHelper.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
+    <Compile Include="Exceptions\_GuardArgumentExtensions.cs" />
     <Compile Include="Events\EventManager.cs" />
     <Compile Include="Events\EventDispatcherExtensions.cs" />
     <Compile Include="Events\Handlers\ActionEventHandler.cs" />
@@ -79,6 +82,8 @@
     <Compile Include="Events\IEventDispatcher.cs" />
     <Compile Include="Events\IEventManager.cs" />
     <Compile Include="Events\IEventRegistry.cs" />
+    <Compile Include="Exceptions\Helpers\GuardExceptionHelper.cs" />
+    <Compile Include="Exceptions\_GuardSystemExtensions.cs" />
     <Compile Include="FileSystems\FileContentExtensions.cs" />
     <Compile Include="FileSystems\FileSystemException.cs" />
     <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
@@ -89,10 +94,11 @@
     <Compile Include="FileSystems\IFile.cs" />
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystem.cs" />
+    <Compile Include="FileSystems\_GuardExtensions.cs" />
     <Compile Include="Guard.cs" />
-    <Compile Include="GuidProvider.cs" />
+    <Compile Include="ComponentModel\GuidProvider.cs" />
     <Compile Include="IDisposable.cs" />
-    <Compile Include="IGuidProvider.cs" />
+    <Compile Include="ComponentModel\IGuidProvider.cs" />
     <Compile Include="INamedActivator.cs" />
     <Compile Include="IParametrizedActivator.cs" />
     <Compile Include="Lifetimes\HierarchicalLifetime.cs" />
@@ -119,7 +125,7 @@
     <Compile Include="Reflection\ReflectionHelper.cs" />
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
-    <Compile Include="SequenceGuidProvider.cs" />
+    <Compile Include="ComponentModel\SequenceGuidProvider.cs" />
     <Compile Include="StateMachines\IStateMachineState.cs" />
     <Compile Include="StateMachines\IStringState.cs" />
     <Compile Include="StateMachines\StateMachine.cs" />
@@ -152,6 +158,7 @@
       <InProject>false</InProject>
     </SkcPlugin>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
 </Project>

@@ -22,25 +22,20 @@ namespace Neptuo.Lifetimes.Mapping
 
         public LifetimeMapping<TBaseLifetimeManager> Map(Type lifetimeType, ILifetimeMapper<TBaseLifetimeManager> mapper)
         {
-            if (lifetimeType == null)
-                throw new ArgumentNullException("lifetimeType");
-
-            if (mapper == null)
-                throw new ArgumentNullException("mapper");
-
+            Guard.NotNull(lifetimeType, "lifetimeType");
+            Guard.NotNull(mapper, "mapper");
             Registry[lifetimeType] = mapper;
             return this;
         }
 
         public TBaseLifetimeManager Resolve(object lifetime)
         {
-            if (lifetime == null)
-                throw new ArgumentNullException("lifetime");
+            Guard.NotNull(lifetime, "lifetime");
 
             Type lifetimeType = lifetime.GetType();
             ILifetimeMapper<TBaseLifetimeManager> mapper;
             if (!Registry.TryGetValue(lifetimeType, out mapper))
-                throw new ArgumentOutOfRangeException("lifetime", "Unregistered lifetime.");
+                throw Guard.Exception.ArgumentOutOfRange("lifetime", "Unregistered lifetime '{0}'.", lifetimeType.FullName);
 
             return mapper.Map(lifetime);
         }

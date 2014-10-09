@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo
+namespace Neptuo.ComponentModel
 {
     /// <summary>
     /// Provider for unique identifiers.

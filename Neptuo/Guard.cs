@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Exceptions.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Neptuo
         public static void NotNull(object argument, string argumentName, string message)
         {
             if (argument == null)
-                throw new ArgumentException(message, argumentName);
+                throw Exception.Argument(message, argumentName);
         }
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace Neptuo
                 throw new ArgumentNullException(argumentName);
 
             if (String.IsNullOrEmpty(argument))
-                throw new ArgumentException("Passed argument can't be empty string.", argumentName);
+                throw Exception.Argument("Passed argument can't be empty string.", argumentName);
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace Neptuo
         public static void Positive(int argument, string argumentName)
         {
             if (argument <= 0)
-                throw new ArgumentOutOfRangeException(argumentName, "Argument must be positive (> 0).");
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be positive (> 0).");
         }
 
         /// <summary>
@@ -74,7 +75,7 @@ namespace Neptuo
         public static void PositiveOrZero(int argument, string argumentName)
         {
             if (argument < 0)
-                throw new ArgumentOutOfRangeException(argumentName, "Argument must be positive or zero (>= 0).");
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be positive or zero (>= 0).");
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace Neptuo
         public static void Negative(int argument, string argumentName)
         {
             if (argument >= 0)
-                throw new ArgumentOutOfRangeException(argumentName, "Argument must be negative (< 0).");
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be negative (< 0).");
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace Neptuo
         public static void NegativeOrZero(int argument, string argumentName)
         {
             if (argument > 0)
-                throw new ArgumentOutOfRangeException(argumentName, "Argument must be negative or zero (<= 0).");
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be negative or zero (<= 0).");
         }
 
         /// <summary>
@@ -112,5 +113,10 @@ namespace Neptuo
             if (argument.IsDisposed)
                 throw new ObjectDisposedException(argumentName);
         }
+
+        /// <summary>
+        /// Helper for throwing exceptions.
+        /// </summary>
+        public static readonly GuardExceptionHelper Exception = new GuardExceptionHelper();
     }
 }

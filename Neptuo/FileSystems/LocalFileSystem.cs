@@ -26,7 +26,7 @@ namespace Neptuo.FileSystems
         public LocalFileSystem(string rootPath, bool isReadOnly)
         {
             if (!Path.IsPathRooted(rootPath))
-                throw new ArgumentException("Path to file system must be rooted.", "rootPath");
+                throw Guard.Exception.Argument("rootPath", "Path to file system must be rooted.");
 
             RootDirectory = new LocalDirectory(rootPath);
             IsReadOnly = isReadOnly;
@@ -42,16 +42,16 @@ namespace Neptuo.FileSystems
             Guard.NotNull(directory, "directory");
 
             if (!IsReadOnly)
-                throw new FileSystemException(String.Format("File system rooted by '{0}' is read only.", RootDirectory.FullPath));
+                throw Guard.Exception.FileSystem("File system rooted by '{0}' is read only.", RootDirectory.FullPath);
 
             LocalDirectory staticDirectory = directory as LocalDirectory;
             if (staticDirectory == null)
             {
-                throw new FileSystemException(String.Format(
+                throw Guard.Exception.FileSystem(
                     "Passed instance of '{0}' into static file system. Static file system operates only on directories of type '{1}'.", 
                     directory.GetType().FullName, 
                     typeof(LocalDirectory).FullName
-                ));
+                );
             }
 
             return staticDirectory;
@@ -68,7 +68,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(filePath, "filePath");
 
             if (!File.Exists(filePath))
-                throw new FileSystemException(String.Format("Can't create static file for path '{0}', because is doesn't point to existing file.", filePath));
+                throw Guard.Exception.FileSystem("Can't create static file for path '{0}', because is doesn't point to existing file.", filePath);
 
             return new LocalFile(filePath);
         }
@@ -84,7 +84,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(directoryPath, "directoryPath");
 
             if(!Directory.Exists(directoryPath))
-                throw new FileSystemException(String.Format("Can't create static directory for path '{0}', because is doesn't point to existing directory.", directoryPath));
+                throw Guard.Exception.FileSystem("Can't create static directory for path '{0}', because is doesn't point to existing directory.", directoryPath);
 
             return new LocalDirectory(directoryPath);
         }

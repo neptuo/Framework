@@ -337,7 +337,7 @@ var Neptuo$Collections$Specialized$NameValueDictionary = {
         Add$$String$$String: function (key, value){
             Neptuo.Guard.NotNull$$Object$$String(key, "key");
             if (this.ContainsKey(key))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String(System.String.Format$$String$$Object("Collection already contains it with key \'{0}\'.", key), "key"), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "key", "Collection already contains it with key \'{0}\'.", key), new Error());
             this.source.set_Item$$String(key, value);
         },
         ContainsKey: function (key){
@@ -407,7 +407,7 @@ var Neptuo$Collections$Specialized$NameValueDictionary = {
             return false;
         },
         CopyTo: function (array, arrayIndex){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.NotImplemented(Neptuo.Guard.Exception, null), new Error());
         },
         Count$$: "System.Int32",
         get_Count: function (){
@@ -572,10 +572,10 @@ var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
         },
         Set: function (key, value){
             if (this.get_IsReadOnly())
-                throw $CreateException(new System.InvalidOperationException.ctor$$String("Collection is in read-only mode."), new Error());
+                throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection is in read-only mode."), new Error());
         },
         TryGet$1: function (T, key, value){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.NotImplemented(Neptuo.Guard.Exception, null), new Error());
         }
     },
     ctors: [{
@@ -602,7 +602,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return $res;
             })())
                 return value;
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key)), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key), new Error());
         },
         Get$$IReadOnlyKeyValueCollection$$String$$Nullable$1$Int32: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
@@ -618,7 +618,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return intValue;
             if (defaultValue != null)
                 return defaultValue.get_Value();
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type int with key \'{0}\'.", key)), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection doesn\'t contain value of type int with key \'{0}\'.", key), new Error());
         },
         Get$$IReadOnlyKeyValueCollection$$String$$String: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
@@ -634,7 +634,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return stringValue;
             if (defaultValue != null)
                 return defaultValue;
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type string with key \'{0}\'.", key)), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection doesn\'t contain value of type string with key \'{0}\'.", key), new Error());
         },
         Get$$IReadOnlyKeyValueCollection$$String$$Nullable$1$Boolean: function (collection, key, defaultValue){
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
@@ -650,7 +650,7 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
                 return boolValue;
             if (defaultValue != null)
                 return defaultValue.get_Value();
-            throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Collection doesn\'t contain value of type bool with key \'{0}\'.", key)), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection doesn\'t contain value of type bool with key \'{0}\'.", key), new Error());
         }
     },
     assemblyName: "Neptuo",
@@ -695,7 +695,7 @@ var Neptuo$ComponentModel$Converters$ConverterBase$2 = {
         TryConvert: function (sourceValue, targetValue){
             if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.get_Converter(), null))
                 return this.get_Converter()(sourceValue, targetValue);
-            throw $CreateException(new System.InvalidOperationException.ctor$$String("Override TryConvert method or provider Converter function."), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Override TryConvert method or provider Converter function."), new Error());
         },
         TryConvertGeneral: function (sourceType, targetType, sourceValue, targetValue){
             var target;
@@ -1523,7 +1523,7 @@ var Neptuo$EngineEnvironment = {
                 innerStorage = $1.Value;
                 return $res;
             }).call(this))
-                throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object("Service of type \'{0}\' is not registered.", serviceType.get_FullName())), new Error());
+                throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Service of type \'{0}\' is not registered.", serviceType.get_FullName()), new Error());
             var service;
             if (!(function (){
                 var $1 = {
@@ -1533,7 +1533,7 @@ var Neptuo$EngineEnvironment = {
                 service = $1.Value;
                 return $res;
             }).call(this))
-                throw $CreateException(new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$$Object("Service of type \'{0}\' is not registered under name \'{1}\'.", serviceType.get_FullName(), name)), new Error());
+                throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Service of type \'{0}\' is not registered under name \'{1}\'.", serviceType.get_FullName(), name), new Error());
             return Cast(service, T);
         },
         Is$1: function (T, name){
@@ -1571,6 +1571,40 @@ var Neptuo$EngineEnvironment = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$EngineEnvironment);
+var Neptuo$_GuardArgumentExtensions = {
+    fullname: "Neptuo._GuardArgumentExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        Argument: function (guard, argumentName, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            Neptuo.Guard.NotNullOrEmpty(argumentName, "argumentName");
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            return new System.ArgumentException.ctor$$String$$String(argumentName, System.String.Format$$String$$Object$Array(format, formatParameters));
+        },
+        ArgumentNull: function (guard, argumentName, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            Neptuo.Guard.NotNullOrEmpty(argumentName, "argumentName");
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            return new System.ArgumentNullException.ctor$$String$$String(argumentName, System.String.Format$$String$$Object$Array(format, formatParameters));
+        },
+        ArgumentOutOfRange: function (guard, argumentName, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            Neptuo.Guard.NotNullOrEmpty(argumentName, "argumentName");
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            return new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, System.String.Format$$String$$Object$Array(format, formatParameters));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$_GuardArgumentExtensions);
 var Neptuo$Events$EventManager = {
     fullname: "Neptuo.Events.EventManager",
     baseTypeName: "System.Object",
@@ -1591,8 +1625,7 @@ var Neptuo$Events$EventManager = {
             this._Registry = value;
         },
         Publish$1: function (TEvent, eventData){
-            if (eventData == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("eventData"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(eventData, "eventData");
             var eventType = Typeof(TEvent);
             var handlerFactories;
             if ((function (){
@@ -1636,7 +1669,7 @@ var Neptuo$Events$EventManager = {
             Neptuo.Guard.NotNull$$Object$$String(eventDataType, "eventDataType");
             Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
             if (!Typeof(Neptuo.Events.Handlers.IEventHandlerFactory$1.ctor).MakeGenericType(eventDataType).IsAssignableFrom(factory.GetType()))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String(System.String.Format$$String$$Object("Factory doesn\'t implement IEventHandlerFactory<{0}>", eventDataType.get_FullName()), "factory"), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "factory", "Factory doesn\'t implement IEventHandlerFactory<{0}>", eventDataType.get_FullName()), new Error());
             this.SubscribeInternal(eventDataType, factory);
         },
         UnSubscribeInternal: function (eventDataType, factory){
@@ -1906,6 +1939,57 @@ var Neptuo$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Events$IEventRegistry);
+var Neptuo$Exceptions$Helpers$GuardExceptionHelper = {
+    fullname: "Neptuo.Exceptions.Helpers.GuardExceptionHelper",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Exceptions$Helpers$GuardExceptionHelper);
+var Neptuo$_GuardSystemExtensions = {
+    fullname: "Neptuo._GuardSystemExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        NotImplemented: function (guard, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            if (System.String.IsNullOrEmpty(format))
+                return new System.NotImplementedException.ctor();
+            return new System.NotImplementedException.ctor$$String(System.String.Format$$String$$Object$Array(format, formatParameters));
+        },
+        NotSupported: function (guard, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            if (System.String.IsNullOrEmpty(format))
+                return new System.NotSupportedException.ctor();
+            return new System.NotSupportedException.ctor$$String(System.String.Format$$String$$Object$Array(format, formatParameters));
+        },
+        InvalidOperation: function (guard, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            return new System.InvalidOperationException.ctor$$String(System.String.Format$$String$$Object$Array(format, formatParameters));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$_GuardSystemExtensions);
 var Neptuo$FileSystems$FileContentExtensions = {
     fullname: "Neptuo.FileSystems.FileContentExtensions",
     baseTypeName: "System.Object",
@@ -2046,7 +2130,7 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         SetDirectoryRelatedProperties: function (fullPath){
             if (!System.IO.Directory.Exists(fullPath))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing directory.", "fullPath"), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "fullPath", "Provided path must be existing directory."), new Error());
             this.set_Name(System.IO.Path.GetFileName(fullPath));
             this.set_FullPath(fullPath);
         },
@@ -2218,7 +2302,7 @@ var Neptuo$FileSystems$LocalFile = {
         },
         SetFileRelatedProperties: function (fullPath){
             if (!System.IO.File.Exists(fullPath))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Provided path must be existing file.", "fullPath"), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "fullPath", "Provided path must be existing file."), new Error());
             this.set_FullPath(fullPath);
             this.set_Name(System.IO.Path.GetFileNameWithoutExtension(fullPath));
             this.set_Extension(System.IO.Path.GetExtension(fullPath));
@@ -2302,13 +2386,13 @@ var Neptuo$FileSystems$LocalFileSystem = {
         FromFilePath: function (filePath){
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
-                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("Can\'t create static file for path \'{0}\', because is doesn\'t point to existing file.", filePath)), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create static file for path \'{0}\', because is doesn\'t point to existing file.", filePath), new Error());
             return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
-                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("Can\'t create static directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath)), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create static directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath), new Error());
             return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
@@ -2321,7 +2405,7 @@ var Neptuo$FileSystems$LocalFileSystem = {
             this._IsReadOnly = false;
             System.Object.ctor.call(this);
             if (!System.IO.Path.IsPathRooted(rootPath))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Path to file system must be rooted.", "rootPath"), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "rootPath", "Path to file system must be rooted."), new Error());
             this.set_RootDirectory(new Neptuo.FileSystems.LocalDirectory.ctor$$String(rootPath));
             this.set_IsReadOnly(isReadOnly);
         },
@@ -2345,10 +2429,10 @@ var Neptuo$FileSystems$LocalFileSystem = {
         AsWriteable: function (directory){
             Neptuo.Guard.NotNull$$Object$$String(directory, "directory");
             if (!this.get_IsReadOnly())
-                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object("File system rooted by \'{0}\' is read only.", this.get_RootDirectory().get_FullPath())), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "File system rooted by \'{0}\' is read only.", this.get_RootDirectory().get_FullPath()), new Error());
             var staticDirectory = As(directory, Neptuo.FileSystems.LocalDirectory.ctor);
             if (staticDirectory == null){
-                throw $CreateException(new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object$$Object("Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.LocalDirectory.ctor).get_FullName())), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.LocalDirectory.ctor).get_FullName()), new Error());
             }
             return staticDirectory;
         }
@@ -2361,39 +2445,63 @@ var Neptuo$FileSystems$LocalFileSystem = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$FileSystems$LocalFileSystem);
+var Neptuo$FileSystems$_GuardExtensions = {
+    fullname: "Neptuo.FileSystems._GuardExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FileSystem: function (guard, format, formatParameters){
+            Neptuo.Guard.NotNull$$Object$$String(guard, "guard");
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            return new Neptuo.FileSystems.FileSystemException.ctor$$String(System.String.Format$$String$$Object$Array(format, formatParameters));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$FileSystems$_GuardExtensions);
 var Neptuo$Guard = {
     fullname: "Neptuo.Guard",
     baseTypeName: "System.Object",
     staticDefinition: {
+        cctor: function (){
+            Neptuo.Guard.Exception = new Neptuo.Exceptions.Helpers.GuardExceptionHelper.ctor();
+        },
         NotNull$$Object$$String: function (argument, argumentName){
             if (argument == null)
                 throw $CreateException(new System.ArgumentNullException.ctor$$String(argumentName), new Error());
         },
         NotNull$$Object$$String$$String: function (argument, argumentName, message){
             if (argument == null)
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String(message, argumentName), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, message, argumentName), new Error());
         },
         NotNullOrEmpty: function (argument, argumentName){
             if (argument == null)
                 throw $CreateException(new System.ArgumentNullException.ctor$$String(argumentName), new Error());
             if (System.String.IsNullOrEmpty(argument))
-                throw $CreateException(new System.ArgumentException.ctor$$String$$String("Passed argument can\'t be empty string.", argumentName), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "Passed argument can\'t be empty string.", argumentName), new Error());
         },
         Positive: function (argument, argumentName){
             if (argument <= 0)
-                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be positive (> 0)."), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, argumentName, "Argument must be positive (> 0)."), new Error());
         },
         PositiveOrZero: function (argument, argumentName){
             if (argument < 0)
-                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be positive or zero (>= 0)."), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, argumentName, "Argument must be positive or zero (>= 0)."), new Error());
         },
         Negative: function (argument, argumentName){
             if (argument >= 0)
-                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be negative (< 0)."), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, argumentName, "Argument must be negative (< 0)."), new Error());
         },
         NegativeOrZero: function (argument, argumentName){
             if (argument > 0)
-                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, "Argument must be negative or zero (<= 0)."), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, argumentName, "Argument must be negative or zero (<= 0)."), new Error());
         },
         NotDisposed: function (argument, argumentName){
             if (argument.get_IsDisposed())
@@ -2421,15 +2529,15 @@ var Neptuo$IDisposable = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$IDisposable);
-var Neptuo$IGuidProvider = {
-    fullname: "Neptuo.IGuidProvider",
+var Neptuo$ComponentModel$IGuidProvider = {
+    fullname: "Neptuo.ComponentModel.IGuidProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$IGuidProvider);
+JsTypes.push(Neptuo$ComponentModel$IGuidProvider);
 var Neptuo$INamedActivator$1 = {
     fullname: "Neptuo.INamedActivator$1",
     baseTypeName: "System.Object",
@@ -2769,16 +2877,13 @@ var Neptuo$Lifetimes$Mapping$LifetimeMapping$1 = {
             this.set_Registry(new System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2(System.Type.ctor, Neptuo.Lifetimes.Mapping.ILifetimeMapper$1.ctor, registry));
         },
         Map: function (lifetimeType, mapper){
-            if (System.Type.op_Equality$$Type$$Type(lifetimeType, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("lifetimeType"), new Error());
-            if (mapper == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("mapper"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(lifetimeType, "lifetimeType");
+            Neptuo.Guard.NotNull$$Object$$String(mapper, "mapper");
             this.get_Registry().set_Item$$TKey(lifetimeType, mapper);
             return this;
         },
         Resolve: function (lifetime){
-            if (lifetime == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("lifetime"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(lifetime, "lifetime");
             var lifetimeType = lifetime.GetType();
             var mapper;
             if (!(function (){
@@ -2789,7 +2894,7 @@ var Neptuo$Lifetimes$Mapping$LifetimeMapping$1 = {
                 mapper = $1.Value;
                 return $res;
             }).call(this))
-                throw $CreateException(new System.ArgumentOutOfRangeException.ctor$$String$$String("lifetime", "Unregistered lifetime."), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "lifetime", "Unregistered lifetime \'{0}\'.", lifetimeType.get_FullName()), new Error());
             return mapper.Map(lifetime);
         },
         CreateChildMapping: function (){
@@ -2978,10 +3083,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.3.8";
+            Neptuo.VersionInfo.Version = "3.4.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.3.8");
+            return new System.Version.ctor$$String("3.4.0");
         }
     },
     assemblyName: "Neptuo",
@@ -3162,17 +3267,18 @@ var Neptuo$Linq$Expressions$TypeHelper = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Linq$Expressions$TypeHelper);
-var Neptuo$SequenceGuidProvider = {
-    fullname: "Neptuo.SequenceGuidProvider",
+var Neptuo$ComponentModel$SequenceGuidProvider = {
+    fullname: "Neptuo.ComponentModel.SequenceGuidProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.IGuidProvider"],
+    interfaceNames: ["Neptuo.ComponentModel.IGuidProvider"],
     Kind: "Class",
     definition: {
         ctor: function (prefix, offset){
             this.prefix = null;
             this.offset = 0;
             System.Object.ctor.call(this);
+            Neptuo.Guard.PositiveOrZero(offset, "offset");
             this.prefix = prefix;
             this.offset = offset;
         },
@@ -3187,7 +3293,7 @@ var Neptuo$SequenceGuidProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$SequenceGuidProvider);
+JsTypes.push(Neptuo$ComponentModel$SequenceGuidProvider);
 var Neptuo$StateMachines$IStateMachineState$2 = {
     fullname: "Neptuo.StateMachines.IStateMachineState$2",
     baseTypeName: "System.Object",
@@ -3220,8 +3326,7 @@ var Neptuo$StateMachines$StateMachine$2 = {
             this.OnLeaveState = null;
             this._InitialState = null;
             System.Object.ctor.call(this);
-            if (initialState == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("initialState"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(initialState, "initialState");
             this.set_InitialState(initialState);
         },
         InitialState$$: "`1",
@@ -3244,24 +3349,21 @@ var Neptuo$StateMachines$StateMachine$2 = {
             this.OnLeaveState = $RemoveDelegate(this.OnLeaveState, value);
         },
         OnEnterConcreteState$1: function (TConcreteState, handler){
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(handler, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("handler"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
             this.add_OnEnterState($CreateAnonymousDelegate(this, function (sender, e){
                 if (System.Type.op_Equality$$Type$$Type(e.get_State().GetType(), Typeof(TConcreteState)))
                     handler(this, new Neptuo.StateMachines.StateMachineEventArgs$1.ctor(TConcreteState, Cast(e.get_State(), TConcreteState)));
             }));
         },
         OnLeaveConcreteState$1: function (TConcreteState, handler){
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(handler, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("handler"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
             this.add_OnLeaveState($CreateAnonymousDelegate(this, function (sender, e){
                 if (System.Type.op_Equality$$Type$$Type(e.get_State().GetType(), Typeof(TConcreteState)))
                     handler(this, new Neptuo.StateMachines.StateMachineEventArgs$1.ctor(TConcreteState, Cast(e.get_State(), TConcreteState)));
             }));
         },
         Process: function (items){
-            if (items == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("items"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
             var $it13 = items.GetEnumerator();
@@ -3269,7 +3371,7 @@ var Neptuo$StateMachines$StateMachine$2 = {
                 var item = $it13.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
-                    throw $CreateException(new System.InvalidOperationException.ctor$$String("StateMachine in invalid state, got null new state."), new Error());
+                    throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "StateMachine in invalid state, got null new state."), new Error());
                 if (newState != currentState){
                     if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.OnLeaveState, null))
                         this.OnLeaveState(this, new Neptuo.StateMachines.StateMachineEventArgs$1.ctor(this.TState, currentState));
@@ -3300,6 +3402,7 @@ var Neptuo$StateMachines$StateMachineEventArgs$1 = {
             this.TState = TState;
             this._State = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(state, "state");
             this.set_State(state);
         },
         State$$: "`0",
@@ -3945,8 +4048,7 @@ var Neptuo$Validators$ValidationResultBase = {
             this._IsValid = false;
             this._Messages = null;
             System.Object.ctor.call(this);
-            if (messages == null)
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("messages"), new Error());
+            Neptuo.Guard.NotNull$$Object$$String(messages, "messages");
             this.set_IsValid(isValid);
             this.set_Messages(messages);
         }

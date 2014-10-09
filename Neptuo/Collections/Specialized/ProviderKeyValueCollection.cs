@@ -17,12 +17,12 @@ namespace Neptuo.Collections.Specialized
         public void Set(string key, object value)
         {
             if (IsReadOnly)
-                throw new InvalidOperationException("Collection is in read-only mode.");
+                throw Guard.Exception.InvalidOperation("Collection is in read-only mode.");
         }
 
         public bool TryGet<T>(string key, out T value)
         {
-            throw new NotImplementedException();
+            throw Guard.Exception.NotImplemented();
         }
     }
 }

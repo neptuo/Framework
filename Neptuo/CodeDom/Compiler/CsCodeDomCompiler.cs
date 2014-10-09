@@ -99,7 +99,7 @@ namespace Neptuo.CodeDom.Compiler
         {
             Guard.NotNullOrEmpty(source, "source");
             if (output == null && !IsGeneratedInMemory)
-                throw new ArgumentOutOfRangeException("Output path must be provided or IsGeneratedInMemory must be set to true.");
+                throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
 
             compilerParameters.GenerateExecutable = output == null;
             compilerParameters.OutputAssembly = output;
@@ -119,7 +119,7 @@ namespace Neptuo.CodeDom.Compiler
         {
             Guard.NotNull(unit, "unit");
             if (output == null && !IsGeneratedInMemory)
-                throw new ArgumentOutOfRangeException("Output path must be provided or IsGeneratedInMemory must be set to true.");
+                throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
 
             compilerParameters.OutputAssembly = output;
             return provider.CompileAssemblyFromDom(compilerParameters, unit);

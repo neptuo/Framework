@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo
+namespace Neptuo.ComponentModel
 {
+    /// <summary>
+    /// Generates identifiers from <see cref="Guid"/>.
+    /// </summary>
     public class GuidProvider : IGuidProvider
     {
         public string Next()
