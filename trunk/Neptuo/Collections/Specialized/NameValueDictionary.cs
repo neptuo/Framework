@@ -40,7 +40,7 @@ namespace Neptuo.Collections.Specialized
         {
             Guard.NotNull(key, "key");
             if (ContainsKey(key))
-                throw new ArgumentException(String.Format("Collection already contains it with key '{0}'.", key), "key");
+                throw Guard.Exception.Argument("key", "Collection already contains it with key '{0}'.", key);
 
             source[key] = value;
         }
@@ -132,7 +132,7 @@ namespace Neptuo.Collections.Specialized
 
         public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            throw Guard.Exception.NotImplemented();
         }
 
         public int Count

@@ -27,8 +27,7 @@ namespace Neptuo.Events
 
         public void Publish<TEvent>(TEvent eventData)
         {
-            if (eventData == null)
-                throw new ArgumentNullException("eventData");
+            Guard.NotNull(eventData, "eventData");
 
             Type eventType = typeof(TEvent);
             List<object> handlerFactories;
@@ -74,7 +73,7 @@ namespace Neptuo.Events
             Guard.NotNull(factory, "factory");
 
             if (!typeof(IEventHandlerFactory<>).MakeGenericType(eventDataType).IsAssignableFrom(factory.GetType()))
-                throw new ArgumentException(String.Format("Factory doesn't implement IEventHandlerFactory<{0}>", eventDataType.FullName), "factory");
+                throw Guard.Exception.Argument("factory", "Factory doesn't implement IEventHandlerFactory<{0}>", eventDataType.FullName);
 
             SubscribeInternal(eventDataType, factory);
         }

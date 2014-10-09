@@ -54,7 +54,7 @@ namespace Neptuo.FileSystems
         private void SetDirectoryRelatedProperties(string fullPath)
         {
             if (!Directory.Exists(fullPath))
-                throw new ArgumentException("Provided path must be existing directory.", "fullPath");
+                throw Guard.Exception.Argument("fullPath", "Provided path must be existing directory.");
 
             Name = Path.GetFileName(fullPath);
             FullPath = fullPath;

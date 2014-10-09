@@ -12,6 +12,7 @@ namespace Neptuo.StateMachines
 
         public StateMachineEventArgs(TState state)
         {
+            Guard.NotNull(state, "state");
             State = state;
         }
     }
