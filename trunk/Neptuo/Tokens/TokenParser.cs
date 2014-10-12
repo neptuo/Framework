@@ -37,20 +37,38 @@ namespace Neptuo.Tokens
         public bool Parse(string content)
         {
             if (OnParsedToken == null)
-                throw new InvalidOperationException("OnParsedItem is null.");
+                throw Guard.Exception.InvalidOperation("OnParsedItem event is null, so there isn't callback for parsed tokens.");
 
             List<TokenStateMachine.Result> results = new List<TokenStateMachine.Result>();
 
             TokenStateMachine stateMachine = new TokenStateMachine(GetStateMachineConfiguration());
             stateMachine.OnEnterConcreteState<TokenDoneState>((sender, e) => results.Add(e.State.GetResult()));
 
-            if (stateMachine.Process(content).GetType() != typeof(TokenErrorState))
+            TokenState finalState = stateMachine.Process(content);
+            if (IsSuccessState(finalState))
             {
                 foreach (TokenStateMachine.Result result in results)
-                    OnParsedToken(this, new TokenEventArgs(content, result.Token, result.StartIndex, result.LastIndex));
+                    OnParsedToken(this, new TokenEventArgs(content, result.Token, result.StartIndex, result.LastIndex + 1));
 
                 return true;
             }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Determines if <paramref name="finalState"/> is acceptable in current context (and configuration).
+        /// </summary>
+        /// <param name="finalState">Returned state from state machine.</param>
+        /// <returns><c>true</c> if <paramref name="finalState"/> is acceptable; <c>false</c> otherwise.</returns>
+        private bool IsSuccessState(TokenState finalState)
+        {
+            if (finalState.GetType() == typeof(TokenDoneState))
+                return true;
+
+            if (Configuration.AllowTextContent && finalState.GetType() == typeof(TokenStartState))
+                return true;
+
             return false;
         }
 
@@ -63,7 +81,7 @@ namespace Neptuo.Tokens
             {
                 AllowAttributes = Configuration.AllowAttributes,
                 AllowEscapeSequence = Configuration.AllowEscapeSequence,
-                AllowDefaultAttribute = Configuration.AllowDefaultAttribute,
+                AllowDefaultAttributes = Configuration.AllowDefaultAttributes,
                 AllowMultipleTokens = Configuration.AllowMultipleTokens,
                 AllowTextContent = Configuration.AllowTextContent
             };

@@ -27,6 +27,7 @@ namespace Neptuo.Tokens
         /// <param name="value">Attribute value.</param>
         public TokenAttribute(string name, string value = null)
         {
+            Guard.NotNullOrEmpty(name, "name");
             Name = name;
             Value = value;
         }

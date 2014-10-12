@@ -63,10 +63,6 @@
     <Compile Include="Segments\StaticNamedRouteSegment.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.Tokens\Neptuo.Tokens.csproj">
-      <Project>{4a4d8543-fcc0-434a-8831-b01df72e03b8}</Project>
-      <Name>Neptuo.Tokens</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

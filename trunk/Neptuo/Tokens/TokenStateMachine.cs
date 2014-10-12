@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Tokens
 {
+    /// <summary>
+    /// Internal token parser realized as state machine.
+    /// </summary>
     internal class TokenStateMachine : StringStateMachine<TokenState>
     {
         public TokenStateMachine(Configuration configuration)
@@ -18,7 +21,7 @@ namespace Neptuo.Tokens
             public bool AllowTextContent { get; set; }
             public bool AllowMultipleTokens { get; set; }
             public bool AllowAttributes { get; set; }
-            public bool AllowDefaultAttribute { get; set; }
+            public bool AllowDefaultAttributes { get; set; }
             public bool AllowEscapeSequence { get; set; }
         }
 
@@ -39,11 +42,13 @@ namespace Neptuo.Tokens
     internal abstract class TokenState : StringState<TokenStateMachine.Result, TokenState>
     {
         protected TokenStateMachine.Configuration Configuration { get; set; }
+        protected bool HasToken { get; set; }
 
         protected override TNewState Move<TNewState>()
         {
             TNewState newState = base.Move<TNewState>();
             newState.Configuration = Configuration;
+            newState.HasToken = HasToken;
             return newState;
         }
     }
@@ -73,6 +78,28 @@ namespace Neptuo.Tokens
         }
     }
 
+    /// <summary>
+    /// After escape start sequence '{{'.
+    /// After finding '}}' moves to start state.
+    /// </summary>
+    internal class TokenEscapeState : TokenState
+    {
+        private bool hasFirstEscape;
+
+        public override TokenState Accept(char input, int position)
+        {
+            if(input == '}')
+            {
+                if (hasFirstEscape)
+                    return Move<TokenStartState>();
+
+                hasFirstEscape = true;
+            }
+
+            return this;
+        }
+    }
+
     internal class TokenFullnameState : TokenState
     {
         public override TokenState Accept(char input, int position)
@@ -82,13 +109,14 @@ namespace Neptuo.Tokens
                 if (Text.Length == 0)
                 {
                     if (Configuration.AllowEscapeSequence)
-                        return Move<TokenStartState>();
-                    else
-                        return Move<TokenErrorState>();
+                        return Move<TokenEscapeState>();
                 }
 
                 return Move<TokenErrorState>();
             }
+
+            if (HasToken && !Configuration.AllowMultipleTokens)
+                return Move<TokenErrorState>();
 
             if (input == ' ')
             {
@@ -120,24 +148,30 @@ namespace Neptuo.Tokens
 
         public override TokenState Accept(char input, int position)
         {
-            if (input == ',')
-            {
-                if (!Configuration.AllowDefaultAttribute)
-                    return Move<TokenErrorState>();
+            if (input == ' ' && Text.Length == 0)
+                return this;
 
-                Context.Token.DefaultAttributes.Add(Text.ToString());
-                return Move<TokenAttributeNameState>();
-            }
-            
-            if (input == '=')
+            if (innerExtensions == 0)
             {
-                Context.Token.Attributes.Add(new TokenAttribute(Text.ToString()));
-                return Move<TokenAttributeValueState>();
+                if (input == ',')
+                {
+                    if (!Configuration.AllowDefaultAttributes)
+                        return Move<TokenErrorState>();
+
+                    Context.Token.DefaultAttributes.Add(Text.ToString());
+                    return Move<TokenDefaultAttributesState>();
+                }
+
+                if (input == '=')
+                {
+                    Context.Token.Attributes.Add(new TokenAttribute(Text.ToString()));
+                    return Move<TokenAttributeValueState>();
+                }
             }
             
             if (input == '}')
             {
-                if (!Configuration.AllowDefaultAttribute)
+                if (!Configuration.AllowDefaultAttributes)
                     return Move<TokenErrorState>();
 
                 if (innerExtensions == 0)
@@ -160,6 +194,9 @@ namespace Neptuo.Tokens
         }
     }
 
+    /// <summary>
+    /// When processing 
+    /// </summary>
     internal class TokenAttributeNameState : TokenState
     {
         public override TokenState Accept(char input, int position)
@@ -181,16 +218,22 @@ namespace Neptuo.Tokens
         }
     }
 
+    /// <summary>
+    /// When processing named attribute value.
+    /// </summary>
     internal class TokenAttributeValueState : TokenState
     {
         private int innerExtensions = 0;
 
         public override TokenState Accept(char input, int position)
         {
-            if (input == ',')
+            if (innerExtensions == 0)
             {
-                Context.Token.Attributes.LastOrDefault().Value = Text.ToString();
-                return Move<TokenAttributeNameState>();
+                if (input == ',')
+                {
+                    Context.Token.Attributes.LastOrDefault().Value = Text.ToString();
+                    return Move<TokenAttributeNameState>();
+                }
             }
             
             if (input == '}')
@@ -217,7 +260,9 @@ namespace Neptuo.Tokens
 
 
 
-
+    /// <summary>
+    /// When processing input finished successfully.
+    /// </summary>
     internal class TokenDoneState : TokenStartState
     {
         protected override TokenStateMachine.Result GetContextForNewState()
@@ -227,9 +272,7 @@ namespace Neptuo.Tokens
 
         public override TokenState Accept(char input, int position)
         {
-            if (!Configuration.AllowMultipleTokens && input == '{')
-                return Move<TokenErrorState>();
-
+            HasToken = true;
             TokenState newState = base.Accept(input, position);
             return newState;
         }
@@ -240,6 +283,9 @@ namespace Neptuo.Tokens
         }
     }
 
+    /// <summary>
+    /// When input was not valid to token.
+    /// </summary>
     internal class TokenErrorState : TokenState
     {
         public override TokenState Accept(char input, int position)

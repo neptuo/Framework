@@ -270,6 +270,7 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
         Set: function (key, value){
             Neptuo.Guard.NotNull$$Object$$String(key, "key");
             this.set_Item$$TKey(key, value);
+            return this;
         },
         TryGet$1: function (T, key, value){
             Neptuo.Guard.NotNull$$Object$$String(key, "key");
@@ -573,6 +574,7 @@ var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
         Set: function (key, value){
             if (this.get_IsReadOnly())
                 throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection is in read-only mode."), new Error());
+            throw $CreateException(Neptuo._GuardSystemExtensions.NotImplemented(Neptuo.Guard.Exception, null), new Error());
         },
         TryGet$1: function (T, key, value){
             throw $CreateException(Neptuo._GuardSystemExtensions.NotImplemented(Neptuo.Guard.Exception, null), new Error());
@@ -3083,10 +3085,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.4.0";
+            Neptuo.VersionInfo.Version = "3.5.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.4.0");
+            return new System.Version.ctor$$String("3.5.0");
         }
     },
     assemblyName: "Neptuo",
@@ -3736,6 +3738,892 @@ var Neptuo$StateMachines$StringStateMachine$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$StateMachines$StringStateMachine$1);
+var Neptuo$Tokens$Token = {
+    fullname: "Neptuo.Tokens.Token",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Prefix = null;
+            this._Name = null;
+            this._Attributes = null;
+            this._DefaultAttributes = null;
+            System.Object.ctor.call(this);
+            this.set_Attributes(new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenAttribute.ctor));
+            this.set_DefaultAttributes(new System.Collections.Generic.List$1.ctor(System.String.ctor));
+        },
+        Prefix$$: "System.String",
+        get_Prefix: function (){
+            return this._Prefix;
+        },
+        set_Prefix: function (value){
+            this._Prefix = value;
+        },
+        Name$$: "System.String",
+        get_Name: function (){
+            return this._Name;
+        },
+        set_Name: function (value){
+            this._Name = value;
+        },
+        Fullname$$: "System.String",
+        get_Fullname: function (){
+            if (System.String.IsNullOrEmpty(this.get_Prefix()))
+                return this.get_Name();
+            return this.get_Prefix() + ":" + this.get_Name();
+        },
+        set_Fullname: function (value){
+            var index = value.IndexOf$$Char(":");
+            if (index != -1){
+                this.set_Prefix(value.Substring$$Int32$$Int32(0, index));
+                this.set_Name(value.Substring$$Int32(index + 1));
+            }
+            else {
+                this.set_Name(value);
+            }
+        },
+        Attributes$$: "System.Collections.Generic.List`1[[Neptuo.Tokens.TokenAttribute]]",
+        get_Attributes: function (){
+            return this._Attributes;
+        },
+        set_Attributes: function (value){
+            this._Attributes = value;
+        },
+        DefaultAttributes$$: "System.Collections.Generic.List`1[[System.String]]",
+        get_DefaultAttributes: function (){
+            return this._DefaultAttributes;
+        },
+        set_DefaultAttributes: function (value){
+            this._DefaultAttributes = value;
+        },
+        ToString: function (){
+            var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
+            var isFirstAttribute = true;
+            var $it14 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it14.MoveNext()){
+                var defaultAttribute = $it14.get_Current();
+                if (isFirstAttribute){
+                    isFirstAttribute = false;
+                    result.Append$$String(" ");
+                }
+                else {
+                    result.Append$$String(", ");
+                }
+                result.AppendFormat$$String$$Object$Array(defaultAttribute);
+            }
+            var $it15 = this.get_Attributes().GetEnumerator();
+            while ($it15.MoveNext()){
+                var attribute = $it15.get_Current();
+                if (isFirstAttribute){
+                    isFirstAttribute = false;
+                    result.Append$$String(" ");
+                }
+                else {
+                    result.Append$$String(", ");
+                }
+                result.AppendFormat$$String$$Object$$Object("{0}={1}", attribute.get_Name(), attribute.get_Value());
+            }
+            result.Append$$String("}");
+            return result.ToString();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$Token);
+var Neptuo$Tokens$TokenAttribute = {
+    fullname: "Neptuo.Tokens.TokenAttribute",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (name, value){
+            this._Name = null;
+            this._Value = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(name, "name");
+            this.set_Name(name);
+            this.set_Value(value);
+        },
+        Name$$: "System.String",
+        get_Name: function (){
+            return this._Name;
+        },
+        set_Name: function (value){
+            this._Name = value;
+        },
+        Value$$: "System.String",
+        get_Value: function (){
+            return this._Value;
+        },
+        set_Value: function (value){
+            this._Value = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenAttribute);
+var Neptuo$Tokens$TokenEventArgs = {
+    fullname: "Neptuo.Tokens.TokenEventArgs",
+    baseTypeName: "System.EventArgs",
+    staticDefinition: {
+        cctor: function (){
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (originalContent, token, startPosition, endPosition){
+            this._OriginalContent = null;
+            this._Token = null;
+            this._StartPosition = 0;
+            this._EndPosition = 0;
+            System.EventArgs.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(originalContent, "originalContent");
+            Neptuo.Guard.NotNull$$Object$$String(token, "token");
+            Neptuo.Guard.PositiveOrZero(startPosition, "startPosition");
+            Neptuo.Guard.Positive(endPosition, "endPosition");
+            if (endPosition <= startPosition)
+                Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "endPosition", "End position index must be greater that start position index");
+            this.set_OriginalContent(originalContent);
+            this.set_Token(token);
+            this.set_StartPosition(startPosition);
+            this.set_EndPosition(endPosition);
+        },
+        OriginalContent$$: "System.String",
+        get_OriginalContent: function (){
+            return this._OriginalContent;
+        },
+        set_OriginalContent: function (value){
+            this._OriginalContent = value;
+        },
+        Token$$: "Neptuo.Tokens.Token",
+        get_Token: function (){
+            return this._Token;
+        },
+        set_Token: function (value){
+            this._Token = value;
+        },
+        StartPosition$$: "System.Int32",
+        get_StartPosition: function (){
+            return this._StartPosition;
+        },
+        set_StartPosition: function (value){
+            this._StartPosition = value;
+        },
+        EndPosition$$: "System.Int32",
+        get_EndPosition: function (){
+            return this._EndPosition;
+        },
+        set_EndPosition: function (value){
+            this._EndPosition = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "Neptuo.Tokens.Token", "System.Int32", "System.Int32"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenEventArgs);
+var Neptuo$Tokens$TokenParser = {
+    fullname: "Neptuo.Tokens.TokenParser",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.OnParsedToken = null;
+            this._Configuration = null;
+            System.Object.ctor.call(this);
+            this.set_Configuration(new Neptuo.Tokens.TokenParserConfiguration.ctor());
+        },
+        Configuration$$: "Neptuo.Tokens.TokenParserConfiguration",
+        get_Configuration: function (){
+            return this._Configuration;
+        },
+        set_Configuration: function (value){
+            this._Configuration = value;
+        },
+        add_OnParsedToken: function (value){
+            this.OnParsedToken = $CombineDelegates(this.OnParsedToken, value);
+        },
+        remove_OnParsedToken: function (value){
+            this.OnParsedToken = $RemoveDelegate(this.OnParsedToken, value);
+        },
+        Parse: function (content){
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(this.OnParsedToken, null))
+                throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "OnParsedItem event is null, so there isn\'t callback for parsed tokens."), new Error());
+            var results = new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenStateMachine.Result.ctor);
+            var stateMachine = new Neptuo.Tokens.TokenStateMachine.ctor(this.GetStateMachineConfiguration());
+            stateMachine.OnEnterConcreteState$1(Neptuo.Tokens.TokenDoneState.ctor, $CreateAnonymousDelegate(this, function (sender, e){
+                results.Add(e.get_State().GetResult());
+            }));
+            var finalState = stateMachine.Process(content);
+            if (this.IsSuccessState(finalState)){
+                var $it16 = results.GetEnumerator();
+                while ($it16.MoveNext()){
+                    var result = $it16.get_Current();
+                    this.OnParsedToken(this, new Neptuo.Tokens.TokenEventArgs.ctor(content, result.get_Token(), result.get_StartIndex(), result.get_LastIndex() + 1));
+                }
+                return true;
+            }
+            return false;
+        },
+        IsSuccessState: function (finalState){
+            if (System.Type.op_Equality$$Type$$Type(finalState.GetType(), Typeof(Neptuo.Tokens.TokenDoneState.ctor)))
+                return true;
+            if (this.get_Configuration().get_AllowTextContent() && System.Type.op_Equality$$Type$$Type(finalState.GetType(), Typeof(Neptuo.Tokens.TokenStartState.ctor)))
+                return true;
+            return false;
+        },
+        GetStateMachineConfiguration: function (){
+            return (function (){
+                var $v1 = new Neptuo.Tokens.TokenStateMachine.Configuration.ctor();
+                $v1.set_AllowAttributes(this.get_Configuration().get_AllowAttributes());
+                $v1.set_AllowEscapeSequence(this.get_Configuration().get_AllowEscapeSequence());
+                $v1.set_AllowDefaultAttributes(this.get_Configuration().get_AllowDefaultAttributes());
+                $v1.set_AllowMultipleTokens(this.get_Configuration().get_AllowMultipleTokens());
+                $v1.set_AllowTextContent(this.get_Configuration().get_AllowTextContent());
+                return $v1;
+            }).call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenParser);
+var Neptuo$Tokens$TokenParserConfiguration = {
+    fullname: "Neptuo.Tokens.TokenParserConfiguration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._AllowTextContent = false;
+            this._AllowEscapeSequence = false;
+            this._AllowMultipleTokens = false;
+            this._AllowDefaultAttributes = false;
+            this._AllowAttributes = false;
+            System.Object.ctor.call(this);
+        },
+        AllowTextContent$$: "System.Boolean",
+        get_AllowTextContent: function (){
+            return this._AllowTextContent;
+        },
+        set_AllowTextContent: function (value){
+            this._AllowTextContent = value;
+        },
+        AllowEscapeSequence$$: "System.Boolean",
+        get_AllowEscapeSequence: function (){
+            return this._AllowEscapeSequence;
+        },
+        set_AllowEscapeSequence: function (value){
+            this._AllowEscapeSequence = value;
+        },
+        AllowMultipleTokens$$: "System.Boolean",
+        get_AllowMultipleTokens: function (){
+            return this._AllowMultipleTokens;
+        },
+        set_AllowMultipleTokens: function (value){
+            this._AllowMultipleTokens = value;
+        },
+        AllowDefaultAttributes$$: "System.Boolean",
+        get_AllowDefaultAttributes: function (){
+            return this._AllowDefaultAttributes;
+        },
+        set_AllowDefaultAttributes: function (value){
+            this._AllowDefaultAttributes = value;
+        },
+        AllowAttributes$$: "System.Boolean",
+        get_AllowAttributes: function (){
+            return this._AllowAttributes;
+        },
+        set_AllowAttributes: function (value){
+            this._AllowAttributes = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenParserConfiguration);
+var Neptuo$Tokens$TokenStateMachine = {
+    fullname: "Neptuo.Tokens.TokenStateMachine",
+    baseTypeName: "Neptuo.StateMachines.StringStateMachine$1",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (configuration){
+            Neptuo.StateMachines.StringStateMachine$1.ctor.call(this, Neptuo.Tokens.TokenState.ctor, new Neptuo.Tokens.TokenStartState.ctor$$Configuration(configuration));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Tokens.TokenStateMachine.Configuration"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenStateMachine);
+var Neptuo$Tokens$TokenStateMachine$Configuration = {
+    fullname: "Neptuo.Tokens.TokenStateMachine.Configuration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._AllowTextContent = false;
+            this._AllowMultipleTokens = false;
+            this._AllowAttributes = false;
+            this._AllowDefaultAttributes = false;
+            this._AllowEscapeSequence = false;
+            System.Object.ctor.call(this);
+        },
+        AllowTextContent$$: "System.Boolean",
+        get_AllowTextContent: function (){
+            return this._AllowTextContent;
+        },
+        set_AllowTextContent: function (value){
+            this._AllowTextContent = value;
+        },
+        AllowMultipleTokens$$: "System.Boolean",
+        get_AllowMultipleTokens: function (){
+            return this._AllowMultipleTokens;
+        },
+        set_AllowMultipleTokens: function (value){
+            this._AllowMultipleTokens = value;
+        },
+        AllowAttributes$$: "System.Boolean",
+        get_AllowAttributes: function (){
+            return this._AllowAttributes;
+        },
+        set_AllowAttributes: function (value){
+            this._AllowAttributes = value;
+        },
+        AllowDefaultAttributes$$: "System.Boolean",
+        get_AllowDefaultAttributes: function (){
+            return this._AllowDefaultAttributes;
+        },
+        set_AllowDefaultAttributes: function (value){
+            this._AllowDefaultAttributes = value;
+        },
+        AllowEscapeSequence$$: "System.Boolean",
+        get_AllowEscapeSequence: function (){
+            return this._AllowEscapeSequence;
+        },
+        set_AllowEscapeSequence: function (value){
+            this._AllowEscapeSequence = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenStateMachine$Configuration);
+var Neptuo$Tokens$TokenStateMachine$Result = {
+    fullname: "Neptuo.Tokens.TokenStateMachine.Result",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Token = null;
+            this._StartIndex = 0;
+            this._LastIndex = 0;
+            System.Object.ctor.call(this);
+            this.set_Token(new Neptuo.Tokens.Token.ctor());
+        },
+        Token$$: "Neptuo.Tokens.Token",
+        get_Token: function (){
+            return this._Token;
+        },
+        set_Token: function (value){
+            this._Token = value;
+        },
+        StartIndex$$: "System.Int32",
+        get_StartIndex: function (){
+            return this._StartIndex;
+        },
+        set_StartIndex: function (value){
+            this._StartIndex = value;
+        },
+        LastIndex$$: "System.Int32",
+        get_LastIndex: function (){
+            return this._LastIndex;
+        },
+        set_LastIndex: function (value){
+            this._LastIndex = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenStateMachine$Result);
+var Neptuo$Tokens$TokenState = {
+    fullname: "Neptuo.Tokens.TokenState",
+    baseTypeName: "Neptuo.StateMachines.StringState$2",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Configuration = null;
+            this._HasToken = false;
+            Neptuo.StateMachines.StringState$2.ctor.call(this, Neptuo.Tokens.TokenStateMachine.Result.ctor, Neptuo.Tokens.TokenState.ctor);
+        },
+        Configuration$$: "Neptuo.Tokens.TokenStateMachine+Configuration",
+        get_Configuration: function (){
+            return this._Configuration;
+        },
+        set_Configuration: function (value){
+            this._Configuration = value;
+        },
+        HasToken$$: "System.Boolean",
+        get_HasToken: function (){
+            return this._HasToken;
+        },
+        set_HasToken: function (value){
+            this._HasToken = value;
+        },
+        Move$1: function (TNewState){
+            var newState = Neptuo.StateMachines.StringState$2.commonPrototype.Move$1.call(TNewState, this);
+            newState.set_Configuration(this.get_Configuration());
+            newState.set_HasToken(this.get_HasToken());
+            return newState;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Tokens$TokenState);
+var Neptuo$Tokens$TokenStartState = {
+    fullname: "Neptuo.Tokens.TokenStartState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        ctor$$Configuration: function (configuration){
+            Neptuo.Tokens.TokenState.ctor.call(this);
+            this.set_Context(new Neptuo.Tokens.TokenStateMachine.Result.ctor());
+            this.set_Configuration(configuration);
+        },
+        Accept: function (input, position){
+            if (input == "{")
+                return this.Move$1(Neptuo.Tokens.TokenFullnameState.ctor);
+            if (!this.get_Configuration().get_AllowTextContent())
+                return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Configuration",
+        parameters: ["Neptuo.Tokens.TokenStateMachine.Configuration"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenStartState);
+var Neptuo$Tokens$TokenEscapeState = {
+    fullname: "Neptuo.Tokens.TokenEscapeState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.hasFirstEscape = false;
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            if (input == "}"){
+                if (this.hasFirstEscape)
+                    return this.Move$1(Neptuo.Tokens.TokenStartState.ctor);
+                this.hasFirstEscape = true;
+            }
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenEscapeState);
+var Neptuo$Tokens$TokenFullnameState = {
+    fullname: "Neptuo.Tokens.TokenFullnameState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            if (input == "{"){
+                if (this.get_Text().get_Length() == 0){
+                    if (this.get_Configuration().get_AllowEscapeSequence())
+                        return this.Move$1(Neptuo.Tokens.TokenEscapeState.ctor);
+                }
+                return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+            }
+            if (this.get_HasToken() && !this.get_Configuration().get_AllowMultipleTokens())
+                return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+            if (input == " "){
+                if (!this.get_Configuration().get_AllowAttributes())
+                    return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+                this.get_Context().get_Token().set_Fullname(this.get_Text().ToString());
+                return this.Move$1(Neptuo.Tokens.TokenDefaultAttributesState.ctor);
+            }
+            if (input == "}"){
+                this.get_Context().set_LastIndex(position);
+                this.get_Context().get_Token().set_Fullname(this.get_Text().ToString());
+                return this.Move$1(Neptuo.Tokens.TokenDoneState.ctor);
+            }
+            if (this.get_Text().get_Length() == 0)
+                this.get_Context().set_StartIndex(position - 1);
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenFullnameState);
+var Neptuo$Tokens$TokenDefaultAttributesState = {
+    fullname: "Neptuo.Tokens.TokenDefaultAttributesState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.innerExtensions = 0;
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            if (input == " " && this.get_Text().get_Length() == 0)
+                return this;
+            if (this.innerExtensions == 0){
+                if (input == ","){
+                    if (!this.get_Configuration().get_AllowDefaultAttributes())
+                        return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+                    this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
+                    return this.Move$1(Neptuo.Tokens.TokenDefaultAttributesState.ctor);
+                }
+                if (input == "="){
+                    this.get_Context().get_Token().get_Attributes().Add(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
+                    return this.Move$1(Neptuo.Tokens.TokenAttributeValueState.ctor);
+                }
+            }
+            if (input == "}"){
+                if (!this.get_Configuration().get_AllowDefaultAttributes())
+                    return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+                if (this.innerExtensions == 0){
+                    this.get_Context().set_LastIndex(position);
+                    this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
+                    return this.Move$1(Neptuo.Tokens.TokenDoneState.ctor);
+                }
+                else {
+                    this.innerExtensions--;
+                }
+            }
+            if (input == "{")
+                this.innerExtensions++;
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenDefaultAttributesState);
+var Neptuo$Tokens$TokenAttributeNameState = {
+    fullname: "Neptuo.Tokens.TokenAttributeNameState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            if (input == "="){
+                this.get_Context().get_Token().get_Attributes().Add(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
+                return this.Move$1(Neptuo.Tokens.TokenAttributeValueState.ctor);
+            }
+            if (input == " " && this.get_Text().get_Length() == 0)
+                return this;
+            if (input == "{" || input == "}" || input == "," || input == " ")
+                return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenAttributeNameState);
+var Neptuo$Tokens$TokenAttributeValueState = {
+    fullname: "Neptuo.Tokens.TokenAttributeValueState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.innerExtensions = 0;
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            if (this.innerExtensions == 0){
+                if (input == ","){
+                    System.Linq.Enumerable.LastOrDefault$1$$IEnumerable$1(Neptuo.Tokens.TokenAttribute.ctor, this.get_Context().get_Token().get_Attributes()).set_Value(this.get_Text().ToString());
+                    return this.Move$1(Neptuo.Tokens.TokenAttributeNameState.ctor);
+                }
+            }
+            if (input == "}"){
+                if (this.innerExtensions == 0){
+                    this.get_Context().set_LastIndex(position);
+                    System.Linq.Enumerable.LastOrDefault$1$$IEnumerable$1(Neptuo.Tokens.TokenAttribute.ctor, this.get_Context().get_Token().get_Attributes()).set_Value(this.get_Text().ToString());
+                    return this.Move$1(Neptuo.Tokens.TokenDoneState.ctor);
+                }
+                else {
+                    this.innerExtensions--;
+                }
+            }
+            if (input == "{")
+                this.innerExtensions++;
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenAttributeValueState);
+var Neptuo$Tokens$TokenDoneState = {
+    fullname: "Neptuo.Tokens.TokenDoneState",
+    baseTypeName: "Neptuo.Tokens.TokenStartState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Tokens.TokenStartState.ctor.call(this);
+        },
+        GetContextForNewState: function (){
+            return new Neptuo.Tokens.TokenStateMachine.Result.ctor();
+        },
+        Accept: function (input, position){
+            this.set_HasToken(true);
+            var newState = Neptuo.Tokens.TokenStartState.commonPrototype.Accept.call(this, input, position);
+            return newState;
+        },
+        GetResult: function (){
+            return this.get_Context();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenDoneState);
+var Neptuo$Tokens$TokenErrorState = {
+    fullname: "Neptuo.Tokens.TokenErrorState",
+    baseTypeName: "Neptuo.Tokens.TokenState",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Tokens.TokenState.ctor.call(this);
+        },
+        Accept: function (input, position){
+            this.get_Text().Append$$Char(input);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenErrorState);
+var Neptuo$Tokens$TokenWriter = {
+    fullname: "Neptuo.Tokens.TokenWriter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (format){
+            this.items = new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenWriterItem.ctor);
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(format, "format");
+            Neptuo.Tokens.TokenFormatHelper.Parse(format, this.items);
+        },
+        Format$$Func$2$String$String: function (tokenMapper){
+            var result = new System.Text.StringBuilder.ctor();
+            var $it17 = this.items.GetEnumerator();
+            while ($it17.MoveNext()){
+                var item = $it17.get_Current();
+                if (item.get_IsToken())
+                    result.Append$$String(tokenMapper(item.get_Value()));
+                else
+                    result.Append$$String(item.get_Value());
+            }
+            return result.ToString();
+        },
+        Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
+            var result = new System.Text.StringBuilder.ctor();
+            var $it18 = this.items.GetEnumerator();
+            while ($it18.MoveNext()){
+                var item = $it18.get_Current();
+                if (item.get_IsToken())
+                    result.Append$$String(Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.Get$$IReadOnlyKeyValueCollection$$String$$String(tokenMapper, item.get_Value(), ""));
+                else
+                    result.Append$$String(item.get_Value());
+            }
+            return result.ToString();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenWriter);
+var Neptuo$Tokens$TokenFormatHelper = {
+    fullname: "Neptuo.Tokens.TokenFormatHelper",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        Parse: function (format, items){
+            var lastTokenEndIndex = 0;
+            var parser = new Neptuo.Tokens.TokenParser.ctor();
+            parser.get_Configuration().set_AllowTextContent(true);
+            parser.get_Configuration().set_AllowEscapeSequence(true);
+            parser.get_Configuration().set_AllowMultipleTokens(true);
+            parser.add_OnParsedToken(function (sender, e){
+                if (e.get_StartPosition() > 0){
+                    var startIndex = System.Linq.Enumerable.Any$1$$IEnumerable$1(Neptuo.Tokens.TokenWriterItem.ctor, items) ? lastTokenEndIndex : 0;
+                    if (startIndex < e.get_StartPosition())
+                        items.Add(new Neptuo.Tokens.TokenWriterItem.ctor(false, format.Substring$$Int32$$Int32(startIndex, e.get_StartPosition() - startIndex)));
+                }
+                items.Add(new Neptuo.Tokens.TokenWriterItem.ctor(true, e.get_Token().get_Fullname()));
+                lastTokenEndIndex = e.get_EndPosition();
+            });
+            if (!parser.Parse(format))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "format", "Format string \'{0}\' doesn\'t contain valid token format string.", format), new Error());
+            if (lastTokenEndIndex < format.get_Length())
+                items.Add(new Neptuo.Tokens.TokenWriterItem.ctor(false, format.Substring$$Int32(lastTokenEndIndex)));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenFormatHelper);
+var Neptuo$Tokens$TokenWriterItem = {
+    fullname: "Neptuo.Tokens.TokenWriterItem",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (isToken, value){
+            this._IsToken = false;
+            this._Value = null;
+            System.Object.ctor.call(this);
+            this.set_IsToken(isToken);
+            this.set_Value(value);
+        },
+        IsToken$$: "System.Boolean",
+        get_IsToken: function (){
+            return this._IsToken;
+        },
+        set_IsToken: function (value){
+            this._IsToken = value;
+        },
+        Value$$: "System.String",
+        get_Value: function (){
+            return this._Value;
+        },
+        set_Value: function (value){
+            this._Value = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Boolean", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Tokens$TokenWriterItem);
 var Neptuo$Validators$DependencyValidationDispatcher = {
     fullname: "Neptuo.Validators.DependencyValidationDispatcher",
     baseTypeName: "System.Object",

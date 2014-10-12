@@ -23,12 +23,13 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //TestTokens.Test();
+            TestTokenWriter.Test();
             //TestEntity.Test();
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
             //TestEvents.Test();
-            TestResources.Test();
+            //TestResources.Test();
             //TestWebServices.Test();
             //TestDelegates.Test();
 

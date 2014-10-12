@@ -18,6 +18,6 @@ namespace Neptuo.Collections.Specialized
         /// <param name="key">Key to associate <paramref name="value"/> with.</param>
         /// <param name="value">New value of <paramref name="key"/>.</param>
         /// <exception cref="ArgumentNullException">When <paramref name="key"/> is <c>null</c>.</exception>
-        void Set(string key, object value);
+        IKeyValueCollection Set(string key, object value);
     }
 }
