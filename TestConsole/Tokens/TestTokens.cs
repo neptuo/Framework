@@ -11,15 +11,16 @@ namespace TestConsole.Tokens
     {
         public static void Test()
         {
-            //string template = "{{ProductID ID=5, Converter={x:State NullToBool}}}x{DestinationID}";
-            string template = "http://localhost:60000/{Locale}/{DestinationID}/products/{ProductID}/info";
+            //string template = "{ProductID ID=5, Converter={x:State NullToBool, AppendOnly}}x{DestinationID}";
+            string template = "{ProductID ID=5, Converter={x:State NullToBool, AppendOnly}}{DestinationID}";
+            //string template = "http://localhost:60000/{Locale}/{DestinationID}/products/{ProductID}/info";
 
             TokenParser parser = new TokenParser();
             parser.Configuration.AllowTextContent = true;
             parser.Configuration.AllowMultipleTokens = true;
             parser.Configuration.AllowAttributes = true;
-            parser.Configuration.AllowDefaultAttribute = true;
-            parser.Configuration.AllowEscapeSequence = true;
+            parser.Configuration.AllowDefaultAttributes = true;
+            parser.Configuration.AllowEscapeSequence = false;
 
             parser.OnParsedToken += OnToken;
             if (parser.Parse(template))
@@ -32,8 +33,9 @@ namespace TestConsole.Tokens
         {
             Console.WriteLine("Starting at {0}, to {1}, source.substring: {2}", e.StartPosition, e.EndPosition, e.OriginalContent.Substring(e.StartPosition, e.EndPosition - e.StartPosition + 1));
             Console.WriteLine(e.Token.Fullname);
-            Console.WriteLine(e.Token.DefaultAttributes);
+            Console.WriteLine(String.Join(";", e.Token.DefaultAttributes));
             Console.WriteLine(String.Join(";", e.Token.Attributes.Select(a => String.Format("{0}:{1}", a.Name, a.Value))));
+            Console.WriteLine("---");
         }
     }
 }

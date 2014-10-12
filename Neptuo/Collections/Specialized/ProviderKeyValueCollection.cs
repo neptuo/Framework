@@ -14,10 +14,12 @@ namespace Neptuo.Collections.Specialized
     {
         public bool IsReadOnly { get; set; }
 
-        public void Set(string key, object value)
+        public IKeyValueCollection Set(string key, object value)
         {
             if (IsReadOnly)
                 throw Guard.Exception.InvalidOperation("Collection is in read-only mode.");
+
+            throw Guard.Exception.NotImplemented();
         }
 
         public bool TryGet<T>(string key, out T value)

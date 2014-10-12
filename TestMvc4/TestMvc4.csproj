@@ -149,10 +149,6 @@
       <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
       <Name>Neptuo.Migrations</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Tokens\Neptuo.Tokens.csproj">
-      <Project>{4a4d8543-fcc0-434a-8831-b01df72e03b8}</Project>
-      <Name>Neptuo.Tokens</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web.Routing\Neptuo.Web.Routing.csproj">
       <Project>{45c70782-7b22-4cda-b8e4-9e71182e3a32}</Project>
       <Name>Neptuo.Web.Routing</Name>

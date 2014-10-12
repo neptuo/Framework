@@ -94,6 +94,7 @@
     <Compile Include="Queries\TestQueries.cs" />
     <Compile Include="Resources\TestResources.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
+    <Compile Include="Tokens\TestTokenWriter.cs" />
     <Compile Include="WebServices\ConsoleContext.cs" />
     <Compile Include="WebServices\GetHello.cs" />
     <Compile Include="WebServices\GetHelloFactory.cs" />
@@ -144,10 +145,6 @@
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Tokens\Neptuo.Tokens.csproj">
-      <Project>{4a4d8543-fcc0-434a-8831-b01df72e03b8}</Project>
-      <Name>Neptuo.Tokens</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Unity\Neptuo.Unity.csproj">
       <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>

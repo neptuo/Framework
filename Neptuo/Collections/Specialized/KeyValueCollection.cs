@@ -26,10 +26,11 @@ namespace Neptuo.Collections.Specialized
             : base(source)
         { }
 
-        public void Set(string key, object value)
+        public IKeyValueCollection Set(string key, object value)
         {
             Guard.NotNull(key, "key");
             this[key] = value;
+            return this;
         }
 
         public bool TryGet<T>(string key, out T value)

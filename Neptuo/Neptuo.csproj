@@ -133,6 +133,13 @@
     <Compile Include="StateMachines\StringState.cs" />
     <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
+    <Compile Include="Tokens\Token.cs" />
+    <Compile Include="Tokens\TokenAttribute.cs" />
+    <Compile Include="Tokens\TokenEventArgs.cs" />
+    <Compile Include="Tokens\TokenParser.cs" />
+    <Compile Include="Tokens\TokenParserConfiguration.cs" />
+    <Compile Include="Tokens\TokenStateMachine.cs" />
+    <Compile Include="Tokens\TokenWriter.cs" />
     <Compile Include="Validators\DependencyValidationDispatcher.cs" />
     <Compile Include="Validators\IValidationResult.cs" />
     <Compile Include="Validators\IValidationMessage.cs" />
