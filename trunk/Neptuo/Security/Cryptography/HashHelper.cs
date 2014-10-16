@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Neptuo.Security.Cryptography
 {
+    [Obsolete]
     public static class HashHelper
     {
         public static string Sha1(string text)
