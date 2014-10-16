@@ -11,6 +11,7 @@ using TestConsole.Configuration;
 using TestConsole.Data;
 using TestConsole.Delegates;
 using TestConsole.Events;
+using TestConsole.Hashing;
 using TestConsole.PresentationModels;
 using TestConsole.Resources;
 using TestConsole.Tokens;
@@ -23,7 +24,7 @@ namespace TestConsole
         static void Main(string[] args)
         {
             //TestTokens.Test();
-            TestTokenWriter.Test();
+            //TestTokenWriter.Test();
             //TestEntity.Test();
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
@@ -32,6 +33,7 @@ namespace TestConsole
             //TestResources.Test();
             //TestWebServices.Test();
             //TestDelegates.Test();
+            TestHash.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);
