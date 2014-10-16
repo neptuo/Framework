@@ -3296,6 +3296,79 @@ var Neptuo$ComponentModel$SequenceGuidProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$SequenceGuidProvider);
+var Neptuo$Security$Cryptography$HashProvider = {
+    fullname: "Neptuo.Security.Cryptography.HashProvider",
+    Kind: "Delegate",
+    definition: {
+        ctor: function (obj, func){
+            System.MulticastDelegate.ctor.call(this, obj, func);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Object", "System.IntPtr"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Security$Cryptography$HashProvider);
+var Neptuo$Security$Cryptography$HashService = {
+    fullname: "Neptuo.Security.Cryptography.HashService",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Security.Cryptography.HashService.sha1 = null;
+            Neptuo.Security.Cryptography.HashService.sha1Lock = new System.Object.ctor();
+            Neptuo.Security.Cryptography.HashService.sha256 = null;
+            Neptuo.Security.Cryptography.HashService.sha256Lock = new System.Object.ctor();
+        },
+        Sha1$$: "Neptuo.Security.Cryptography.HashProvider",
+        get_Sha1: function (){
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashService.sha1, null)){
+                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashService.sha1, null))
+                    Neptuo.Security.Cryptography.HashService.sha1 = Neptuo.Security.Cryptography.HashService.CreateSha1();
+            }
+            return Neptuo.Security.Cryptography.HashService.sha1;
+        },
+        Sha256$$: "Neptuo.Security.Cryptography.HashProvider",
+        get_Sha256: function (){
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashService.sha256, null)){
+                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashService.sha256, null))
+                    Neptuo.Security.Cryptography.HashService.sha256 = Neptuo.Security.Cryptography.HashService.CreateSha256();
+            }
+            return Neptuo.Security.Cryptography.HashService.sha256;
+        },
+        CreateProvider: function (algorithm){
+            Neptuo.Guard.NotNull$$Object$$String(algorithm, "algorithm");
+            return function (source){
+                var hash = algorithm.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(source));
+                var result = new System.Text.StringBuilder.ctor();
+                var $it13 = hash.GetEnumerator();
+                while ($it13.MoveNext()){
+                    var hashPart = $it13.get_Current();
+                    result.Append$$String(hashPart.ToString$$String("X2"));
+                }
+                return result.ToString();
+            };
+        },
+        CreateSha1: function (){
+            return Neptuo.Security.Cryptography.HashService.CreateProvider(System.Security.Cryptography.SHA1.Create());
+        },
+        CreateSha256: function (){
+            return Neptuo.Security.Cryptography.HashService.CreateProvider(System.Security.Cryptography.SHA256.Create());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Security$Cryptography$HashService);
 var Neptuo$StateMachines$IStateMachineState$2 = {
     fullname: "Neptuo.StateMachines.IStateMachineState$2",
     baseTypeName: "System.Object",
@@ -3368,9 +3441,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Guard.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it13 = items.GetEnumerator();
-            while ($it13.MoveNext()){
-                var item = $it13.get_Current();
+            var $it14 = items.GetEnumerator();
+            while ($it14.MoveNext()){
+                var item = $it14.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -3800,9 +3873,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it14 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it14.MoveNext()){
-                var defaultAttribute = $it14.get_Current();
+            var $it15 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it15.MoveNext()){
+                var defaultAttribute = $it15.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3812,9 +3885,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it15 = this.get_Attributes().GetEnumerator();
-            while ($it15.MoveNext()){
-                var attribute = $it15.get_Current();
+            var $it16 = this.get_Attributes().GetEnumerator();
+            while ($it16.MoveNext()){
+                var attribute = $it16.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3972,9 +4045,9 @@ var Neptuo$Tokens$TokenParser = {
             }));
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
-                var $it16 = results.GetEnumerator();
-                while ($it16.MoveNext()){
-                    var result = $it16.get_Current();
+                var $it17 = results.GetEnumerator();
+                while ($it17.MoveNext()){
+                    var result = $it17.get_Current();
                     this.OnParsedToken(this, new Neptuo.Tokens.TokenEventArgs.ctor(content, result.get_Token(), result.get_StartIndex(), result.get_LastIndex() + 1));
                 }
                 return true;
@@ -4517,9 +4590,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it17 = this.items.GetEnumerator();
-            while ($it17.MoveNext()){
-                var item = $it17.get_Current();
+            var $it18 = this.items.GetEnumerator();
+            while ($it18.MoveNext()){
+                var item = $it18.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -4529,9 +4602,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it18 = this.items.GetEnumerator();
-            while ($it18.MoveNext()){
-                var item = $it18.get_Current();
+            var $it19 = this.items.GetEnumerator();
+            while ($it19.MoveNext()){
+                var item = $it19.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.Get$$IReadOnlyKeyValueCollection$$String$$String(tokenMapper, item.get_Value(), ""));
                 else

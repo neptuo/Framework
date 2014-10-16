@@ -83,6 +83,7 @@
     <Compile Include="Delegates\TestDelegates.cs" />
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
+    <Compile Include="Hashing\TestHash.cs" />
     <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
