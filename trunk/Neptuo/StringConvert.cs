@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo
 {
+    [Obsolete]
     public class StringConvertBase
     {
         public static TType Convert<TType>(string value, OutFunc<string, TType, bool> func, TType defaultValue)
@@ -29,6 +30,7 @@ namespace Neptuo
         }
     }
 
+    [Obsolete]
     public class StringConvert<T> : StringConvertBase
     {
         private IStringValueProvider<T> provider;
@@ -150,6 +152,7 @@ namespace Neptuo
         }
     }
 
+    [Obsolete]
     public interface IStringConvert
     {
         bool Bool(string name, bool defaultValue = false);
@@ -171,6 +174,7 @@ namespace Neptuo
         string Value(string name, string defaultValue = null);
     }
 
+    [Obsolete]
     public class StringStringConvert<T> : IStringConvert
     {
         private StringConvert<T> convert;
@@ -269,6 +273,7 @@ namespace Neptuo
         }
     }
 
+    [Obsolete]
     public interface IStringValueProvider<T>
     {
         string GetValue(T model, string key);
