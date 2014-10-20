@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public abstract class BaseBootstraper : IBootstrapper
+    public abstract class BootstrapperBase : IBootstrapper
     {
         private IBootstrapConstraintProvider provider;
         private Func<Type, IBootstrapTask> factory;
 
         protected List<IBootstrapTask> Tasks { get; private set; }
 
-        public BaseBootstraper(Func<Type, IBootstrapTask> factory, IBootstrapConstraintProvider provider = null)
+        public BootstrapperBase(Func<Type, IBootstrapTask> factory, IBootstrapConstraintProvider provider = null)
         {
             if (factory == null)
                 throw new ArgumentNullException("factory");
@@ -47,21 +47,13 @@ namespace Neptuo.Bootstrap
             foreach (IBootstrapTask task in Tasks)
             {
                 if (provider.GetConstraints(task.GetType()).Satisfies(context))
-                    task.Initialize();
+                    InitializeTask(task);
             }
         }
-    }
 
-    internal static class IEnumerableConstraintExtensions
-    {
-        public static bool Satisfies(this IEnumerable<IBootstrapConstraint> constraints, IBootstrapConstraintContext context)
+        protected virtual void InitializeTask(IBootstrapTask task)
         {
-            foreach (IBootstrapConstraint constraint in constraints)
-            {
-                if (!constraint.Satisfies(context))
-                    return false;
-            }
-            return true;
+            task.Initialize();
         }
     }
 }

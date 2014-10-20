@@ -40,7 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutomaticBootstrapper.cs" />
-    <Compile Include="BaseBootstraper.cs" />
+    <Compile Include="BootstrapperBase.cs" />
     <Compile Include="ConstraintAttribute.cs" />
     <Compile Include="Constraints\AttributeConstraintProvider.cs" />
     <Compile Include="Constraints\CachingConstraintProvider.cs" />
@@ -48,12 +48,13 @@
     <Compile Include="Constraints\IBootstrapConstraint.cs" />
     <Compile Include="Constraints\IBootstrapConstraintContext.cs" />
     <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
+    <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
     <Compile Include="Constraints\NullObjectConstrainProvider.cs" />
     <Compile Include="HierarchicalBootstrapper.cs" />
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTaskRegistry.cs" />
     <Compile Include="IBootstrapTask.cs" />
-    <Compile Include="IgnoreAutomaticConstraintAttribute.cs" />
+    <Compile Include="Constraints\IgnoreAutomaticConstraintAttribute.cs" />
     <Compile Include="ManualBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
