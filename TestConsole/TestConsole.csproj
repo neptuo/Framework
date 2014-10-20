@@ -60,6 +60,7 @@
     <Compile Include="Commands\CreateProductCommand.cs" />
     <Compile Include="Commands\CreateProductCommandHandler.cs" />
     <Compile Include="Commands\TestCommands.cs" />
+    <Compile Include="Compilers\TestCompiler.cs" />
     <Compile Include="Configuration\StaticConfigurationScope.cs" />
     <Compile Include="Configuration\TestConfiguration.cs" />
     <Compile Include="Data\Category.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
     <Compile Include="PresentationModels\TestPresentationModels.cs" />
+    <Compile Include="Compilers\ProgramTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\TestEntity.cs" />

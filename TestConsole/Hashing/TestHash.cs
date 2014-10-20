@@ -11,8 +11,8 @@ namespace TestConsole.Hashing
     {
         public static void Test()
         {
-            Console.WriteLine(HashService.Sha1("Hello, World!"));
-            Console.WriteLine(HashService.Sha256("Hello, World!"));
+            Console.WriteLine(HashProvider.Sha1("Hello, World!"));
+            Console.WriteLine(HashProvider.Sha256("Hello, World!"));
         }
     }
 }
