@@ -126,8 +126,8 @@
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
     <Compile Include="ComponentModel\SequenceGuidProvider.cs" />
+    <Compile Include="Security\Cryptography\HashFunc.cs" />
     <Compile Include="Security\Cryptography\HashProvider.cs" />
-    <Compile Include="Security\Cryptography\HashService.cs" />
     <Compile Include="StateMachines\IStateMachineState.cs" />
     <Compile Include="StateMachines\IStringState.cs" />
     <Compile Include="StateMachines\StateMachine.cs" />
