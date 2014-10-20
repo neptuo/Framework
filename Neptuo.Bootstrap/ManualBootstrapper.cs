@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public class ManualBootstrapper : BaseBootstraper, IBootstrapper, IBootstrapTaskRegistry
+    public class ManualBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
     {
         public ManualBootstrapper(Func<Type, IBootstrapTask> factory)
             : base(factory)

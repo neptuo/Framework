@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public class AutomaticBootstrapper : BaseBootstraper, IBootstrapper
+    public class AutomaticBootstrapper : BootstrapperBase, IBootstrapper
     {
         private IEnumerable<Type> types;
 

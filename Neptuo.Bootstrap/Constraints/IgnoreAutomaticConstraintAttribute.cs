@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap
+namespace Neptuo.Bootstrap.Constraints
 {
     public class IgnoreAutomaticConstraintAttribute : ConstraintAttribute, IBootstrapConstraint
     {
