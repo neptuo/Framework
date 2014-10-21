@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Collections.ObjectModel
 {
+    [Obsolete]
     public interface IITemsSource : IEnumerable
     {
         int Count { get; }
