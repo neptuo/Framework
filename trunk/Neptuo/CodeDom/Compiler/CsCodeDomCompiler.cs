@@ -38,6 +38,11 @@ namespace Neptuo.CodeDom.Compiler
         }
 
         /// <summary>
+        /// Whether compiler should do optimizations.
+        /// </summary>
+        public bool IsOptimized { get; set; }
+
+        /// <summary>
         /// Whether should compiler generate PDB debug file.
         /// </summary>
         public bool IsDebugInformationIncluded
@@ -83,6 +88,11 @@ namespace Neptuo.CodeDom.Compiler
                     output = fileName.Replace(".cs", ".dll");
             }
 
+            if (IsOptimized)
+                compilerParameters.CompilerOptions = "/optimize";
+            else
+                compilerParameters.CompilerOptions = null;
+
             compilerParameters.OutputAssembly = output;
             return provider.CompileAssemblyFromFile(compilerParameters, fileName);
         }
@@ -101,6 +111,11 @@ namespace Neptuo.CodeDom.Compiler
             Guard.NotNullOrEmpty(source, "source");
             if (output == null && !IsGeneratedInMemory)
                 throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
+
+            if (IsOptimized)
+                compilerParameters.CompilerOptions = "/optimize";
+            else
+                compilerParameters.CompilerOptions = null;
 
             compilerParameters.GenerateExecutable = output == null;
             compilerParameters.OutputAssembly = output;
@@ -121,6 +136,11 @@ namespace Neptuo.CodeDom.Compiler
             Guard.NotNull(unit, "unit");
             if (output == null && !IsGeneratedInMemory)
                 throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
+
+            if (IsOptimized)
+                compilerParameters.CompilerOptions = "/optimize";
+            else
+                compilerParameters.CompilerOptions = null;
 
             compilerParameters.OutputAssembly = output;
             return provider.CompileAssemblyFromDom(compilerParameters, unit);

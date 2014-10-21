@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestConsole.BootstrapTasks;
 using TestConsole.Commands;
 using TestConsole.Compilers;
 using TestConsole.Configuration;
@@ -34,8 +35,9 @@ namespace TestConsole
             //TestResources.Test();
             //TestWebServices.Test();
             //TestDelegates.Test();
-            TestCompiler.Test();
+            //TestCompiler.Test();
             //TestHash.Test();
+            TestBootstrap.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);

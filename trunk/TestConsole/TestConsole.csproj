@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootstrapTasks\TestBootstrap.cs" />
     <Compile Include="Commands\CreateProductCommand.cs" />
     <Compile Include="Commands\CreateProductCommandHandler.cs" />
     <Compile Include="Commands\TestCommands.cs" />

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Collections.ObjectModel
 {
+    [Obsolete]
     public class DictionaryStringValueProvider : IStringValueProvider<IDictionary<string, string>>
     {
         public string GetValue(IDictionary<string, string> model, string key)
