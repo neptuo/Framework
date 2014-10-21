@@ -1,4 +1,5 @@
 ﻿using Neptuo.Bootstrap.Constraints;
+using Neptuo.Bootstrap.Constraints.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,10 +34,10 @@ namespace Neptuo.Bootstrap
             return factory(typeof(T));
         }
 
-        protected bool SatisfiesConstraints(Type taskType)
+        protected bool AreConstraintsSatisfied(IBootstrapTask task)
         {
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
-            return provider.GetConstraints(taskType).Satisfies(context);
+            return provider.GetConstraints(task.GetType()).IsSatisfied(task, context);
         }
 
         public virtual void Initialize()
@@ -44,7 +45,7 @@ namespace Neptuo.Bootstrap
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
             foreach (IBootstrapTask task in Tasks)
             {
-                if (provider.GetConstraints(task.GetType()).Satisfies(context))
+                if (provider.GetConstraints(task.GetType()).IsSatisfied(task, context))
                     InitializeTask(task);
             }
         }

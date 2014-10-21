@@ -29,8 +29,9 @@ namespace Neptuo.Bootstrap
 
             foreach (Type type in types)
             {
-                if (SatisfiesConstraints(type))
-                Tasks.Add(CreateInstance(type));
+                IBootstrapTask instance = CreateInstance(type);
+                if (AreConstraintsSatisfied(instance))
+                    Tasks.Add(instance);
             }
 
             foreach (IBootstrapTask task in Tasks)
