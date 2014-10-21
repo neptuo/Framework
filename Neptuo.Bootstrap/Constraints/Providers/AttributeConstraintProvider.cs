@@ -4,14 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Constraints
+namespace Neptuo.Bootstrap.Constraints.Providers
 {
+    /// <summary>
+    /// Implmentation of <see cref="IBootstrapConstraintProvider"/> that reads <see cref="ConstraintAttribute"/> from bootstrap task type.
+    /// </summary>
     public class AttributeConstraintProvider : IBootstrapConstraintProvider
     {
-        private Func<Type, IBootstrapConstraint> factory;
+        private readonly Func<Type, IBootstrapConstraint> factory;
 
         public AttributeConstraintProvider(Func<Type, IBootstrapConstraint> factory)
         {
+            Guard.NotNull(factory, "factory");
             this.factory = factory;
         }
 

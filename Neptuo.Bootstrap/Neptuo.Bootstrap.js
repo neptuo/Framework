@@ -53,8 +53,9 @@ var Neptuo$Bootstrap$AutomaticBootstrapper = {
             var $it1 = this.types.GetEnumerator();
             while ($it1.MoveNext()){
                 var type = $it1.get_Current();
-                if (this.SatisfiesConstraints(type))
-                    this.get_Tasks().Add(this.CreateInstance$$Type(type));
+                var instance = this.CreateInstance$$Type(type);
+                if (this.AreConstraintsSatisfied(instance))
+                    this.get_Tasks().Add(instance);
             }
             var $it2 = this.get_Tasks().GetEnumerator();
             while ($it2.MoveNext()){
@@ -117,7 +118,7 @@ var Neptuo$Bootstrap$BootstrapperBase = {
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
             this.factory = factory;
-            this.provider = (provider != null ? provider : new Neptuo.Bootstrap.Constraints.NullObjectConstrainProvider.ctor());
+            this.provider = (provider != null ? provider : new Neptuo.Bootstrap.Constraints.Providers.NullObjectConstrainProvider.ctor());
             this.set_Tasks(new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.IBootstrapTask.ctor));
         },
         Tasks$$: "System.Collections.Generic.List`1[[Neptuo.Bootstrap.IBootstrapTask]]",
@@ -133,16 +134,16 @@ var Neptuo$Bootstrap$BootstrapperBase = {
         CreateInstance$1: function (T){
             return this.factory(Typeof(T));
         },
-        SatisfiesConstraints: function (taskType){
+        AreConstraintsSatisfied: function (task){
             var context = new Neptuo.Bootstrap.Constraints.DefaultBootstrapConstraintContext.ctor(this);
-            return Neptuo.Bootstrap.Constraints.IEnumerableConstraintExtensions.Satisfies(this.provider.GetConstraints(taskType), context);
+            return Neptuo.Bootstrap.Constraints.IEnumerableConstraintExtensions.IsSatisfied(this.provider.GetConstraints(task.GetType()), task, context);
         },
         Initialize: function (){
             var context = new Neptuo.Bootstrap.Constraints.DefaultBootstrapConstraintContext.ctor(this);
             var $it5 = this.get_Tasks().GetEnumerator();
             while ($it5.MoveNext()){
                 var task = $it5.get_Current();
-                if (Neptuo.Bootstrap.Constraints.IEnumerableConstraintExtensions.Satisfies(this.provider.GetConstraints(task.GetType()), context))
+                if (Neptuo.Bootstrap.Constraints.IEnumerableConstraintExtensions.IsSatisfied(this.provider.GetConstraints(task.GetType()), task, context))
                     this.InitializeTask(task);
             }
         },
@@ -158,8 +159,8 @@ var Neptuo$Bootstrap$BootstrapperBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Bootstrap$BootstrapperBase);
-var Neptuo$Bootstrap$ConstraintAttribute = {
-    fullname: "Neptuo.Bootstrap.ConstraintAttribute",
+var Neptuo$Bootstrap$Constraints$ConstraintAttribute = {
+    fullname: "Neptuo.Bootstrap.Constraints.ConstraintAttribute",
     baseTypeName: "System.Attribute",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Class",
@@ -196,9 +197,9 @@ var Neptuo$Bootstrap$ConstraintAttribute = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$ConstraintAttribute);
-var Neptuo$Bootstrap$Constraints$AttributeConstraintProvider = {
-    fullname: "Neptuo.Bootstrap.Constraints.AttributeConstraintProvider",
+JsTypes.push(Neptuo$Bootstrap$Constraints$ConstraintAttribute);
+var Neptuo$Bootstrap$Constraints$Providers$AttributeConstraintProvider = {
+    fullname: "Neptuo.Bootstrap.Constraints.Providers.AttributeConstraintProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     interfaceNames: ["Neptuo.Bootstrap.Constraints.IBootstrapConstraintProvider"],
@@ -207,6 +208,7 @@ var Neptuo$Bootstrap$Constraints$AttributeConstraintProvider = {
         ctor: function (factory){
             this.factory = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
             this.factory = factory;
         },
         GetConstraints: function (bootstrapTask){
@@ -214,12 +216,12 @@ var Neptuo$Bootstrap$Constraints$AttributeConstraintProvider = {
             var $it6 = bootstrapTask.GetCustomAttributes$$Boolean(true).GetEnumerator();
             while ($it6.MoveNext()){
                 var attribute = $it6.get_Current();
-                if (Is(attribute, Neptuo.Bootstrap.ConstraintAttribute.ctor)){
+                if (Is(attribute, Neptuo.Bootstrap.Constraints.ConstraintAttribute.ctor)){
                     var constraint = null;
                     if (Is(attribute, Neptuo.Bootstrap.Constraints.IBootstrapConstraint.ctor))
                         constraint = Cast(attribute, Neptuo.Bootstrap.Constraints.IBootstrapConstraint.ctor);
                     else
-                        constraint = this.CreateInstance((Cast(attribute, Neptuo.Bootstrap.ConstraintAttribute.ctor)).GetConstraintType());
+                        constraint = this.CreateInstance((Cast(attribute, Neptuo.Bootstrap.Constraints.ConstraintAttribute.ctor)).GetConstraintType());
                     if (constraint != null)
                         result.Add(constraint);
                 }
@@ -237,9 +239,9 @@ var Neptuo$Bootstrap$Constraints$AttributeConstraintProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Constraints$AttributeConstraintProvider);
-var Neptuo$Bootstrap$Constraints$CachingConstraintProvider = {
-    fullname: "Neptuo.Bootstrap.Constraints.CachingConstraintProvider",
+JsTypes.push(Neptuo$Bootstrap$Constraints$Providers$AttributeConstraintProvider);
+var Neptuo$Bootstrap$Constraints$Providers$CachingConstraintProvider = {
+    fullname: "Neptuo.Bootstrap.Constraints.Providers.CachingConstraintProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     interfaceNames: ["Neptuo.Bootstrap.Constraints.IBootstrapConstraintProvider"],
@@ -249,6 +251,7 @@ var Neptuo$Bootstrap$Constraints$CachingConstraintProvider = {
             this.cache = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.IEnumerable$1.ctor);
             this.provider = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(provider, "provider");
             this.provider = provider;
         },
         GetConstraints: function (bootstrapTask){
@@ -269,7 +272,7 @@ var Neptuo$Bootstrap$Constraints$CachingConstraintProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Constraints$CachingConstraintProvider);
+JsTypes.push(Neptuo$Bootstrap$Constraints$Providers$CachingConstraintProvider);
 var Neptuo$Bootstrap$Constraints$DefaultBootstrapConstraintContext = {
     fullname: "Neptuo.Bootstrap.Constraints.DefaultBootstrapConstraintContext",
     baseTypeName: "System.Object",
@@ -280,6 +283,7 @@ var Neptuo$Bootstrap$Constraints$DefaultBootstrapConstraintContext = {
         ctor: function (bootstrapper){
             this._Bootstrapper = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(bootstrapper, "bootstrapper");
             this.set_Bootstrapper(bootstrapper);
         },
         Bootstrapper$$: "Neptuo.Bootstrap.IBootstrapper",
@@ -329,11 +333,11 @@ var Neptuo$Bootstrap$Constraints$IEnumerableConstraintExtensions = {
     fullname: "Neptuo.Bootstrap.Constraints.IEnumerableConstraintExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        Satisfies: function (constraints, context){
+        IsSatisfied: function (constraints, bootstrapTask, context){
             var $it7 = constraints.GetEnumerator();
             while ($it7.MoveNext()){
                 var constraint = $it7.get_Current();
-                if (!constraint.Satisfies(context))
+                if (!constraint.IsSatisfied(bootstrapTask, context))
                     return false;
             }
             return true;
@@ -350,8 +354,8 @@ var Neptuo$Bootstrap$Constraints$IEnumerableConstraintExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Bootstrap$Constraints$IEnumerableConstraintExtensions);
-var Neptuo$Bootstrap$Constraints$NullObjectConstrainProvider = {
-    fullname: "Neptuo.Bootstrap.Constraints.NullObjectConstrainProvider",
+var Neptuo$Bootstrap$Constraints$Providers$NullObjectConstrainProvider = {
+    fullname: "Neptuo.Bootstrap.Constraints.Providers.NullObjectConstrainProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     interfaceNames: ["Neptuo.Bootstrap.Constraints.IBootstrapConstraintProvider"],
@@ -372,7 +376,7 @@ var Neptuo$Bootstrap$Constraints$NullObjectConstrainProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Constraints$NullObjectConstrainProvider);
+JsTypes.push(Neptuo$Bootstrap$Constraints$Providers$NullObjectConstrainProvider);
 var Neptuo$Bootstrap$Dependencies$ExportAttribute = {
     fullname: "Neptuo.Bootstrap.Dependencies.ExportAttribute",
     baseTypeName: "System.Attribute",
@@ -409,11 +413,29 @@ var Neptuo$Bootstrap$Dependencies$ImportAttribute = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$Dependencies$ImportAttribute);
+var Neptuo$Bootstrap$Dependencies$ITaskExecutor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.ITaskExecutor",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$Dependencies$ITaskExecutor);
+var Neptuo$Bootstrap$Dependencies$ITaskDescriptor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.ITaskDescriptor",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$Dependencies$ITaskDescriptor);
 var Neptuo$Bootstrap$HierarchicalBootstrapper = {
     fullname: "Neptuo.Bootstrap.HierarchicalBootstrapper",
     baseTypeName: "Neptuo.Bootstrap.BootstrapperBase",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.IBootstrapper", "Neptuo.Bootstrap.IBootstrapTaskRegistry"],
+    interfaceNames: ["Neptuo.Bootstrap.IBootstrapper", "Neptuo.Bootstrap.IBootstrapTaskRegistry", "Neptuo.Bootstrap.Dependencies.ITaskExecutor"],
     Kind: "Class",
     definition: {
         ctor: function (context){
@@ -437,12 +459,16 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
             var $it8 = this.descriptors.GetEnumerator();
             while ($it8.MoveNext()){
                 var descriptor = $it8.get_Current();
-                if (descriptor.get_IsExecuted())
-                    continue;
-                if (this.SatisfiesConstraints(descriptor.get_Type()))
-                    descriptor.get_Instance().Initialize();
-                descriptor.set_IsExecuted(true);
+                this.ExecuteDescriptor(descriptor);
             }
+        },
+        ExecuteDescriptor: function (descriptor){
+            if (descriptor.get_IsExecuted())
+                return;
+            if (this.AreConstraintsSatisfied(descriptor.get_Instance())){
+                descriptor.get_Instance().Initialize();
+            }
+            descriptor.set_IsExecuted(true);
         }
     },
     ctors: [{
@@ -457,6 +483,7 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper$BootstrapTaskDescriptor = {
     fullname: "Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.ITaskDescriptor"],
     Kind: "Class",
     definition: {
         ctor: function (type){
@@ -582,15 +609,15 @@ var Neptuo$Bootstrap$IBootstrapTask = {
 JsTypes.push(Neptuo$Bootstrap$IBootstrapTask);
 var Neptuo$Bootstrap$Constraints$IgnoreAutomaticConstraintAttribute = {
     fullname: "Neptuo.Bootstrap.Constraints.IgnoreAutomaticConstraintAttribute",
-    baseTypeName: "Neptuo.Bootstrap.ConstraintAttribute",
+    baseTypeName: "Neptuo.Bootstrap.Constraints.ConstraintAttribute",
     assemblyName: "Neptuo.Bootstrap",
     interfaceNames: ["Neptuo.Bootstrap.Constraints.IBootstrapConstraint"],
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.Bootstrap.ConstraintAttribute.ctor.call(this);
+            Neptuo.Bootstrap.Constraints.ConstraintAttribute.ctor.call(this);
         },
-        Satisfies: function (context){
+        IsSatisfied: function (task, context){
             return !(Is(context.get_Bootstrapper(), Neptuo.Bootstrap.AutomaticBootstrapper.ctor));
         }
     },

@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Constraints
 {
+    /// <summary>
+    /// Describes context of constraint evaluation.
+    /// </summary>
     public interface IBootstrapConstraintContext
     {
+        /// <summary>
+        /// Current bootstrapper.
+        /// </summary>
         IBootstrapper Bootstrapper { get; }
     }
 }

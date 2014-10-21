@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Constraints
+namespace Neptuo.Bootstrap.Constraints.Providers
 {
+    /// <summary>
+    /// Empty implementation of <see cref="IBootstrapConstraintProvider"/>.
+    /// </summary>
     internal class NullObjectConstrainProvider : IBootstrapConstraintProvider
     {
         private List<IBootstrapConstraint> result = new List<IBootstrapConstraint>();

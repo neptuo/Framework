@@ -4,15 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Constraints
+namespace Neptuo.Bootstrap.Constraints.Providers
 {
+    /// <summary>
+    /// Caches constraints for bootstrap tasks by type.
+    /// </summary>
     public class CachingConstraintProvider : IBootstrapConstraintProvider
     {
-        private Dictionary<Type, IEnumerable<IBootstrapConstraint>> cache = new Dictionary<Type, IEnumerable<IBootstrapConstraint>>();
-        private IBootstrapConstraintProvider provider;
+        private readonly Dictionary<Type, IEnumerable<IBootstrapConstraint>> cache = new Dictionary<Type, IEnumerable<IBootstrapConstraint>>();
+        private readonly IBootstrapConstraintProvider provider;
 
         public CachingConstraintProvider(IBootstrapConstraintProvider provider)
         {
+            Guard.NotNull(provider, "provider");
             this.provider = provider;
         }
 
@@ -26,6 +30,9 @@ namespace Neptuo.Bootstrap.Constraints
             return constraints;
         }
 
+        /// <summary>
+        /// Clears cache of bootstrap tasks constaints.
+        /// </summary>
         public void ClearCache()
         {
             cache.Clear();

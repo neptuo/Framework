@@ -1,4 +1,5 @@
 ﻿using Neptuo.Bootstrap.Constraints;
+using Neptuo.Bootstrap.Dependencies;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Neptuo.Bootstrap
     /// 2) Ti, co X importují i exportují (donaplňují instanci) => co atribut [Building]?
     /// 3) Ti, co jen importují (má se předávat do kontextu/env/container).
     /// </remarks>
-    public class HierarchicalBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
+    public class HierarchicalBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry, ITaskExecutor
     {
         private readonly HierarchicalContext context;
         private readonly List<BootstrapTaskDescriptor> descriptors = new List<BootstrapTaskDescriptor>();
@@ -46,23 +47,48 @@ namespace Neptuo.Bootstrap
         public override void Initialize()
         {
             foreach (BootstrapTaskDescriptor descriptor in descriptors)
+                ExecuteDescriptor(descriptor);
+        }
+
+        private void ExecuteDescriptor(BootstrapTaskDescriptor descriptor)
+        {
+            if (descriptor.IsExecuted)
+                return;
+
+                //Import
+
+            if (AreConstraintsSatisfied(descriptor.Instance))
             {
-                if (descriptor.IsExecuted)
-                    continue;
+                descriptor.Instance.Initialize();
 
-                //context.
-
-                if (SatisfiesConstraints(descriptor.Type))
-                    descriptor.Instance.Initialize();
-
-
-
-                descriptor.IsExecuted = true;
+                //Export
             }
+
+            descriptor.IsExecuted = true;
         }
 
 
-        private class BootstrapTaskDescriptor
+        void ITaskExecutor.Execute(IBootstrapTask task)
+        {
+            Guard.NotNull(task, "task");
+            BootstrapTaskDescriptor descriptor = descriptors.FirstOrDefault(d => d.Instance == task);
+            if (descriptor == null)
+            {
+                Type taskType = task.GetType();
+                descriptor = descriptors.FirstOrDefault(d => d.Type == taskType);
+
+                if (descriptor == null)
+                    descriptors.Add(descriptor = new BootstrapTaskDescriptor(taskType) { Instance = task });
+            }
+
+            ExecuteDescriptor(descriptor);
+        }
+
+
+
+
+
+        private class BootstrapTaskDescriptor : ITaskDescriptor
         {
             public Type Type { get; private set; }
             public IBootstrapTask Instance { get; set; }
