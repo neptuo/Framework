@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,12 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Represents (not updateable) directory in virtual file system.
     /// </summary>
-    public interface IReadOnlyDirectory
+    public interface IReadOnlyDirectory : IDomainModel<IKey>
     {
         /// <summary>
         /// Directory name.
         /// </summary>
         string Name { get; }
-
-        /// <summary>
-        /// Path from root containing this directory name.
-        /// </summary>
-        string FullPath { get; }
 
         /// <summary>
         /// Link to parent directory.

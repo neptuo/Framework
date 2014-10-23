@@ -1449,6 +1449,200 @@ var Neptuo$Diagnostics$DebugHelper = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Diagnostics$DebugHelper);
+var Neptuo$Domain$IDomainModel$1 = {
+    fullname: "Neptuo.Domain.IDomainModel$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$IDomainModel$1);
+var Neptuo$Domain$Int32Key = {
+    fullname: "Neptuo.Domain.Int32Key",
+    baseTypeName: "Neptuo.Domain.KeyBase",
+    staticDefinition: {
+        cctor: function (){
+        },
+        Create: function (id, type){
+            Neptuo.Guard.Positive(id, "id");
+            Neptuo.Guard.NotNullOrEmpty(type, "type");
+            return new Neptuo.Domain.Int32Key.ctor$$Int32$$String(id, type);
+        },
+        Empty: function (type){
+            Neptuo.Guard.NotNullOrEmpty(type, "type");
+            return new Neptuo.Domain.Int32Key.ctor$$String(type);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor$$String: function (type){
+            this._ID = 0;
+            Neptuo.Domain.KeyBase.ctor.call(this, type, true);
+        },
+        ID$$: "System.Int32",
+        get_ID: function (){
+            return this._ID;
+        },
+        set_ID: function (value){
+            this._ID = value;
+        },
+        ctor$$Int32$$String: function (id, type){
+            this._ID = 0;
+            Neptuo.Domain.KeyBase.ctor.call(this, type, false);
+            this.set_ID(id);
+        },
+        Equals$$KeyBase: function (other){
+            var key;
+            if ((function (){
+                var $1 = {
+                    Value: key
+                };
+                var $res = Neptuo.Converts.Try$2$$TSource$$TTarget(Neptuo.Domain.IKey.ctor, Neptuo.Domain.Int32Key.ctor, other, $1);
+                key = $1.Value;
+                return $res;
+            }).call(this))
+                return false;
+            return this.get_ID() == key.get_ID();
+        },
+        CompareValueTo: function (other){
+            var key;
+            if ((function (){
+                var $1 = {
+                    Value: key
+                };
+                var $res = Neptuo.Converts.Try$2$$TSource$$TTarget(Neptuo.Domain.IKey.ctor, Neptuo.Domain.Int32Key.ctor, other, $1);
+                key = $1.Value;
+                return $res;
+            }).call(this))
+                return 1;
+            return this.get_ID().CompareTo$$Int32(key.get_ID());
+        },
+        GetValueHashCode: function (){
+            return this.get_ID().GetHashCode();
+        }
+    },
+    ctors: [{
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$Int32$$String",
+        parameters: ["System.Int32", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Domain$Int32Key);
+var Neptuo$Domain$IValidatableModel = {
+    fullname: "Neptuo.Domain.IValidatableModel",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$IValidatableModel);
+var Neptuo$Domain$IKey = {
+    fullname: "Neptuo.Domain.IKey",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["System.IEquatable$1", "System.IComparable"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$IKey);
+var Neptuo$Domain$IReadOnlyRepository$2 = {
+    fullname: "Neptuo.Domain.IReadOnlyRepository$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$IReadOnlyRepository$2);
+var Neptuo$Domain$IRepository$2 = {
+    fullname: "Neptuo.Domain.IRepository$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$IRepository$2);
+var Neptuo$Domain$KeyBase = {
+    fullname: "Neptuo.Domain.KeyBase",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Domain.KeyBase.hashPrimeNumber = 216613626;
+            Neptuo.Domain.KeyBase.hashPrimeNumberField = 16777619;
+        }
+    },
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Domain.IKey"],
+    Kind: "Class",
+    definition: {
+        ctor: function (type, isEmpty){
+            this._Type = null;
+            this._IsEmpty = false;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(type, "type");
+            this.set_Type(type);
+            this.set_IsEmpty(isEmpty);
+        },
+        Type$$: "System.String",
+        get_Type: function (){
+            return this._Type;
+        },
+        set_Type: function (value){
+            this._Type = value;
+        },
+        IsEmpty$$: "System.Boolean",
+        get_IsEmpty: function (){
+            return this._IsEmpty;
+        },
+        set_IsEmpty: function (value){
+            this._IsEmpty = value;
+        },
+        Equals$$Object: function (obj){
+            return this.Equals$$IKey(As(obj, Neptuo.Domain.IKey.ctor));
+        },
+        Equals$$IKey: function (other){
+            var key = As(other, Neptuo.Domain.KeyBase.ctor);
+            if (key == null)
+                return false;
+            if (this.get_IsEmpty() != key.get_IsEmpty())
+                return false;
+            if (this.get_Type() != key.get_Type())
+                return false;
+            return this.Equals$$KeyBase(key);
+        },
+        CompareTo: function (obj){
+            var key = As(obj, Neptuo.Domain.KeyBase.ctor);
+            if (key == null)
+                return 1;
+            var typeCompare = this.get_Type().CompareTo$$String(key.get_Type());
+            if (typeCompare == 0)
+                return this.CompareValueTo(key);
+            return typeCompare;
+        },
+        GetHashCode: function (){
+            var hash = 216613626;
+            hash = hash * 16777619 ^ this.get_Type().GetHashCode();
+            hash = !this.get_IsEmpty() ? hash * 16777619 ^ this.GetValueHashCode() : hash * 16777619 ^ -1;
+            return hash;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.Boolean"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Domain$KeyBase);
 var Neptuo$Engine = {
     fullname: "Neptuo.Engine",
     baseTypeName: "System.Object",
@@ -2063,6 +2257,7 @@ var Neptuo$FileSystems$IReadOnlyDirectory = {
     fullname: "Neptuo.FileSystems.IReadOnlyDirectory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Domain.IDomainModel$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -2072,6 +2267,7 @@ var Neptuo$FileSystems$IReadOnlyFile = {
     fullname: "Neptuo.FileSystems.IReadOnlyFile",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Domain.IDomainModel$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -2091,10 +2287,12 @@ var Neptuo$FileSystems$LocalDirectory = {
     definition: {
         ctor$$String: function (fullPath){
             this.parent = null;
+            this.key = null;
             this._Name = null;
             this._FullPath = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            this.key = Neptuo.FileSystems.LocalFileSystemKey.Create(fullPath, "LocalDirectory");
             this.SetDirectoryRelatedProperties(fullPath);
         },
         Name$$: "System.String",
@@ -2111,6 +2309,14 @@ var Neptuo$FileSystems$LocalDirectory = {
         set_FullPath: function (value){
             this._FullPath = value;
         },
+        Key$$: "Neptuo.Domain.IKey",
+        get_Key: function (){
+            return this.key;
+        },
+        LocalKey$$: "Neptuo.FileSystems.LocalFileSystemKey",
+        get_LocalKey: function (){
+            return this.key;
+        },
         Parent$$: "Neptuo.FileSystems.IDirectory",
         get_Parent: function (){
             if (this.parent == null)
@@ -2122,13 +2328,12 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         ctor$$IDirectory$$String: function (parent, fullPath){
             this.parent = null;
+            this.key = null;
             this._Name = null;
             this._FullPath = null;
-            System.Object.ctor.call(this);
+            Neptuo.FileSystems.LocalDirectory.ctor$$String.call(this, fullPath);
             Neptuo.Guard.NotNull$$Object$$String(parent, "parent");
-            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
             this.set_Parent(parent);
-            this.SetDirectoryRelatedProperties(fullPath);
         },
         SetDirectoryRelatedProperties: function (fullPath){
             if (!System.IO.Directory.Exists(fullPath))
@@ -2247,11 +2452,14 @@ var Neptuo$FileSystems$LocalFile = {
     definition: {
         ctor$$String: function (fullPath){
             this.parent = null;
+            this.key = null;
             this.fileSize = null;
             this._Name = null;
             this._Extension = null;
             this._FullPath = null;
             System.Object.ctor.call(this);
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            this.key = Neptuo.FileSystems.LocalFileSystemKey.Create(fullPath, "LocalFile");
             this.SetFileRelatedProperties(fullPath);
         },
         Name$$: "System.String",
@@ -2275,6 +2483,14 @@ var Neptuo$FileSystems$LocalFile = {
         set_FullPath: function (value){
             this._FullPath = value;
         },
+        Key$$: "Neptuo.Domain.IKey",
+        get_Key: function (){
+            return this.key;
+        },
+        LocalKey$$: "Neptuo.FileSystems.LocalFileSystemKey",
+        get_LocalKey: function (){
+            return this.key;
+        },
         Parent$$: "Neptuo.FileSystems.IDirectory",
         get_Parent: function (){
             if (this.parent == null)
@@ -2292,15 +2508,14 @@ var Neptuo$FileSystems$LocalFile = {
         },
         ctor$$IDirectory$$String: function (parent, fullPath){
             this.parent = null;
+            this.key = null;
             this.fileSize = null;
             this._Name = null;
             this._Extension = null;
             this._FullPath = null;
-            System.Object.ctor.call(this);
+            Neptuo.FileSystems.LocalFile.ctor$$String.call(this, fullPath);
             Neptuo.Guard.NotNull$$Object$$String(parent, "parent");
-            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
             this.set_Parent(parent);
-            this.SetFileRelatedProperties(fullPath);
         },
         SetFileRelatedProperties: function (fullPath){
             if (!System.IO.File.Exists(fullPath))
@@ -2388,35 +2603,32 @@ var Neptuo$FileSystems$LocalFileSystem = {
         FromFilePath: function (filePath){
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
-                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create static file for path \'{0}\', because is doesn\'t point to existing file.", filePath), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create local file for path \'{0}\', because is doesn\'t point to existing file.", filePath), new Error());
             return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
-                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create static directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create local directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath), new Error());
             return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.FileSystems.IFileSystem"],
+    interfaceNames: ["Neptuo.FileSystems.IFileSystem", "Neptuo.Domain.IReadOnlyRepository$2", "Neptuo.Domain.IReadOnlyRepository$2"],
     Kind: "Class",
     definition: {
         ctor: function (rootPath, isReadOnly){
-            this._RootDirectory = null;
+            this.rootDirectory = null;
             this._IsReadOnly = false;
             System.Object.ctor.call(this);
             if (!System.IO.Path.IsPathRooted(rootPath))
                 throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "rootPath", "Path to file system must be rooted."), new Error());
-            this.set_RootDirectory(new Neptuo.FileSystems.LocalDirectory.ctor$$String(rootPath));
+            this.rootDirectory = new Neptuo.FileSystems.LocalDirectory.ctor$$String(rootPath);
             this.set_IsReadOnly(isReadOnly);
         },
         RootDirectory$$: "Neptuo.FileSystems.IReadOnlyDirectory",
         get_RootDirectory: function (){
-            return this._RootDirectory;
-        },
-        set_RootDirectory: function (value){
-            this._RootDirectory = value;
+            return this.rootDirectory;
         },
         IsReadOnly$$: "System.Boolean",
         get_IsReadOnly: function (){
@@ -2431,7 +2643,7 @@ var Neptuo$FileSystems$LocalFileSystem = {
         AsWriteable: function (directory){
             Neptuo.Guard.NotNull$$Object$$String(directory, "directory");
             if (!this.get_IsReadOnly())
-                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "File system rooted by \'{0}\' is read only.", this.get_RootDirectory().get_FullPath()), new Error());
+                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "File system rooted by \'{0}\' is read only.", this.rootDirectory.get_LocalKey().get_FullPath()), new Error());
             var staticDirectory = As(directory, Neptuo.FileSystems.LocalDirectory.ctor);
             if (staticDirectory == null){
                 throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Passed instance of \'{0}\' into static file system. Static file system operates only on directories of type \'{1}\'.", directory.GetType().get_FullName(), Typeof(Neptuo.FileSystems.LocalDirectory.ctor).get_FullName()), new Error());
@@ -2447,6 +2659,86 @@ var Neptuo$FileSystems$LocalFileSystem = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$FileSystems$LocalFileSystem);
+var Neptuo$FileSystems$LocalFileSystemKey = {
+    fullname: "Neptuo.FileSystems.LocalFileSystemKey",
+    baseTypeName: "Neptuo.Domain.KeyBase",
+    staticDefinition: {
+        cctor: function (){
+        },
+        Create: function (fullPath, type){
+            Neptuo.Guard.NotNullOrEmpty(fullPath, "fullPath");
+            Neptuo.Guard.NotNullOrEmpty(type, "type");
+            if (!System.IO.Path.IsPathRooted(fullPath))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "fullPath", "Path must be rooted."), new Error());
+            if (!System.IO.Directory.Exists(fullPath) && !System.IO.File.Exists(fullPath))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "fullPath", "Provided path must be existing directory."), new Error());
+            return new Neptuo.FileSystems.LocalFileSystemKey.ctor$$String$$String(fullPath, type);
+        },
+        Empty: function (type){
+            Neptuo.Guard.NotNullOrEmpty(type, "type");
+            return new Neptuo.FileSystems.LocalFileSystemKey.ctor$$String(type);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor$$String: function (type){
+            this._FullPath = null;
+            Neptuo.Domain.KeyBase.ctor.call(this, type, true);
+        },
+        FullPath$$: "System.String",
+        get_FullPath: function (){
+            return this._FullPath;
+        },
+        set_FullPath: function (value){
+            this._FullPath = value;
+        },
+        ctor$$String$$String: function (fullPath, type){
+            this._FullPath = null;
+            Neptuo.Domain.KeyBase.ctor.call(this, type, false);
+            this.set_FullPath(fullPath);
+        },
+        Equals$$KeyBase: function (other){
+            var key;
+            if ((function (){
+                var $1 = {
+                    Value: key
+                };
+                var $res = Neptuo.Converts.Try$2$$TSource$$TTarget(Neptuo.Domain.IKey.ctor, Neptuo.FileSystems.LocalFileSystemKey.ctor, other, $1);
+                key = $1.Value;
+                return $res;
+            }).call(this))
+                return false;
+            return this.get_FullPath() == key.get_FullPath();
+        },
+        CompareValueTo: function (other){
+            var key;
+            if ((function (){
+                var $1 = {
+                    Value: key
+                };
+                var $res = Neptuo.Converts.Try$2$$TSource$$TTarget(Neptuo.Domain.IKey.ctor, Neptuo.FileSystems.LocalFileSystemKey.ctor, other, $1);
+                key = $1.Value;
+                return $res;
+            }).call(this))
+                return 1;
+            return this.get_FullPath().CompareTo$$String(key.get_FullPath());
+        },
+        GetValueHashCode: function (){
+            return this.get_FullPath().GetHashCode();
+        }
+    },
+    ctors: [{
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$String",
+        parameters: ["System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$FileSystems$LocalFileSystemKey);
 var Neptuo$FileSystems$_GuardExtensions = {
     fullname: "Neptuo.FileSystems._GuardExtensions",
     baseTypeName: "System.Object",
@@ -4716,8 +5008,14 @@ var Neptuo$Validators$DependencyValidationDispatcher = {
             this.dependencyProvider = dependencyProvider;
         },
         Validate$1$$TModel: function (TModel, model){
+            var validatable = As(model, Neptuo.Domain.IValidatableModel.ctor);
+            if (validatable != null && validatable.get_IsValid())
+                return new Neptuo.Validators.ValidationResultBase.ctor$$Boolean(true);
             var validator = Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validators.IValidationHandler$1.ctor, this.dependencyProvider);
-            return validator.Validate(model);
+            var result = validator.Validate(model);
+            if (validatable != null)
+                validatable.set_IsValid(result.get_IsValid());
+            return result;
         },
         Validate$$Object: function (model){
             Neptuo.Guard.NotNull$$Object$$String(model, "model");

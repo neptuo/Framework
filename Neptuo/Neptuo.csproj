@@ -68,6 +68,13 @@
     <Compile Include="DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
+    <Compile Include="Domain\IDomainModel.cs" />
+    <Compile Include="Domain\Int32Key.cs" />
+    <Compile Include="Domain\IValidatableModel.cs" />
+    <Compile Include="Domain\IKey.cs" />
+    <Compile Include="Domain\IReadOnlyRepository.cs" />
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\KeyBase.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_GuardArgumentExtensions.cs" />
@@ -94,6 +101,7 @@
     <Compile Include="FileSystems\IFile.cs" />
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystem.cs" />
+    <Compile Include="FileSystems\LocalFileSystemKey.cs" />
     <Compile Include="FileSystems\_GuardExtensions.cs" />
     <Compile Include="Guard.cs" />
     <Compile Include="ComponentModel\GuidProvider.cs" />

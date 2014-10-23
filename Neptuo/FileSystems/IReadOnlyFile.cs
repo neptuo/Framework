@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Represents (not updateable) file in virtual file system.
     /// </summary>
-    public interface IReadOnlyFile
+    public interface IReadOnlyFile : IDomainModel<IKey>
     {
         /// <summary>
         /// File name without extension.
@@ -21,11 +22,6 @@ namespace Neptuo.FileSystems
         /// File extension.
         /// </summary>
         string Extension { get; }
-
-        /// <summary>
-        /// Path from root containing this file name and extension.
-        /// </summary>
-        string FullPath { get; }
 
         /// <summary>
         /// Link to parent directory.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,11 +14,22 @@ namespace Neptuo.FileSystems
     public class LocalFile : IFile
     {
         private IDirectory parent;
+        private readonly LocalFileSystemKey key;
         private long? fileSize;
 
         public string Name { get; private set; }
         public string Extension { get; private set; }
         public string FullPath { get; private set; }
+
+        public IKey Key
+        {
+            get { return key; }
+        }
+
+        public LocalFileSystemKey LocalKey
+        {
+            get { return key; }
+        }
 
         public IDirectory Parent
         {
@@ -43,25 +55,26 @@ namespace Neptuo.FileSystems
         }
 
         /// <summary>
-        /// Creates new instance that points to <paramref name="fullPath"/>.
+        /// Creates new instance that points to the <paramref name="fullPath"/>.
         /// </summary>
         /// <param name="fullPath">Standard file system path to file.</param>
         internal LocalFile(string fullPath)
         {
+            Guard.NotNullOrEmpty(fullPath, "fullPath");
+            key = LocalFileSystemKey.Create(fullPath, "LocalFile");
             SetFileRelatedProperties(fullPath);
         }
 
         /// <summary>
-        /// Creates new instance that points to <paramref name="fullPath"/> and uses <paramref name="parent"/> as its parent.
+        /// Creates new instance that points to the <paramref name="fullPath"/> and uses <paramref name="parent"/> as its parent.
         /// </summary>
         /// <param name="parent">Virtual parent directory.</param>
-        /// <param name="fullPath">Standard file system path to file.</param>
+        /// <param name="fullPath">Standard file system path to the file.</param>
         internal LocalFile(IDirectory parent, string fullPath)
+            : this(fullPath)
         {
             Guard.NotNull(parent, "parent");
-            Guard.NotNullOrEmpty(fullPath, "fullPath");
             Parent = parent;
-            SetFileRelatedProperties(fullPath);
         }
 
         /// <summary>

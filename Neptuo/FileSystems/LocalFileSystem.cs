@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,12 +11,17 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system implemented as stadart file system.
     /// </summary>
-    public class LocalFileSystem : IFileSystem
+    public class LocalFileSystem : IFileSystem, IReadOnlyRepository<IReadOnlyFile, IKey>, IReadOnlyRepository<IReadOnlyDirectory, IKey>
     {
+        private readonly LocalDirectory rootDirectory;
+
         /// <summary>
         /// File system root directory.
         /// </summary>
-        public IReadOnlyDirectory RootDirectory { get; private set; }
+        public IReadOnlyDirectory RootDirectory
+        {
+            get { return rootDirectory; }
+        }
 
         public bool IsReadOnly { get; private set; }
 
@@ -28,7 +34,7 @@ namespace Neptuo.FileSystems
             if (!Path.IsPathRooted(rootPath))
                 throw Guard.Exception.Argument("rootPath", "Path to file system must be rooted.");
 
-            RootDirectory = new LocalDirectory(rootPath);
+            rootDirectory = new LocalDirectory(rootPath);
             IsReadOnly = isReadOnly;
         }
 
@@ -42,7 +48,7 @@ namespace Neptuo.FileSystems
             Guard.NotNull(directory, "directory");
 
             if (!IsReadOnly)
-                throw Guard.Exception.FileSystem("File system rooted by '{0}' is read only.", RootDirectory.FullPath);
+                throw Guard.Exception.FileSystem("File system rooted by '{0}' is read only.", rootDirectory.LocalKey.FullPath);
 
             LocalDirectory staticDirectory = directory as LocalDirectory;
             if (staticDirectory == null)
@@ -68,7 +74,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(filePath, "filePath");
 
             if (!File.Exists(filePath))
-                throw Guard.Exception.FileSystem("Can't create static file for path '{0}', because is doesn't point to existing file.", filePath);
+                throw Guard.Exception.FileSystem("Can't create local file for path '{0}', because is doesn't point to existing file.", filePath);
 
             return new LocalFile(filePath);
         }
@@ -84,9 +90,33 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(directoryPath, "directoryPath");
 
             if(!Directory.Exists(directoryPath))
-                throw Guard.Exception.FileSystem("Can't create static directory for path '{0}', because is doesn't point to existing directory.", directoryPath);
+                throw Guard.Exception.FileSystem("Can't create local directory for path '{0}', because is doesn't point to existing directory.", directoryPath);
 
             return new LocalDirectory(directoryPath);
         }
+
+        #region Repositories
+
+        IReadOnlyFile IReadOnlyRepository<IReadOnlyFile, IKey>.Find(IKey key)
+        {
+            LocalFileSystemKey localKey;
+            if (!Converts.Try(key, out localKey))
+                return null;
+
+            //TODO: Only under the current directory;
+            return FromFilePath(localKey.FullPath);
+        }
+
+        IReadOnlyDirectory IReadOnlyRepository<IReadOnlyDirectory, IKey>.Find(IKey key)
+        {
+            LocalFileSystemKey localKey;
+            if (!Converts.Try(key, out localKey))
+                return null;
+
+            //TODO: Only under the current directory;
+            return FromDirectoryPath(localKey.FullPath);
+        }
+
+        #endregion
     }
 }
