@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Domain;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,9 +14,20 @@ namespace Neptuo.FileSystems
     public class LocalDirectory : IDirectory
     {
         private IDirectory parent;
+        private readonly LocalFileSystemKey key;
 
         public string Name { get; private set; }
         public string FullPath { get; private set; }
+
+        public IKey Key
+        {
+            get { return key; }
+        }
+
+        public LocalFileSystemKey LocalKey
+        {
+            get { return key; }
+        }
 
         public IDirectory Parent
         {
@@ -30,21 +42,26 @@ namespace Neptuo.FileSystems
         }
 
         /// <summary>
-        /// Creates new instance that points to <paramref name="fullPath"/>.
+        /// Creates new instance that points to the <paramref name="fullPath"/>.
         /// </summary>
-        /// <param name="fullPath">Standard file system path to directory.</param>
+        /// <param name="fullPath">Standard file system path to the directory.</param>
         internal LocalDirectory(string fullPath)
         {
             Guard.NotNullOrEmpty(fullPath, "fullPath");
+            key = LocalFileSystemKey.Create(fullPath, "LocalDirectory");
             SetDirectoryRelatedProperties(fullPath);
         }
 
+        /// <summary>
+        /// Creates new instance that points to the <paramref name="fullPath"/> and uses <paramref name="parent"/> as its parent.
+        /// </summary>
+        /// <param name="parent">Virtual parent directory.</param>
+        /// <param name="fullPath">Standard file system path to the directory.</param>
         internal LocalDirectory(IDirectory parent, string fullPath)
+            : this(fullPath)
         {
             Guard.NotNull(parent, "parent");
-            Guard.NotNullOrEmpty(fullPath, "fullPath");
             Parent = parent;
-            SetDirectoryRelatedProperties(fullPath);
         }
 
         /// <summary>

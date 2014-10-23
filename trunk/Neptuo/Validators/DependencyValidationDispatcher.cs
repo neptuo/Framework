@@ -1,4 +1,5 @@
-﻿using Neptuo.Linq.Expressions;
+﻿using Neptuo.Domain;
+using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,15 @@ namespace Neptuo.Validators
 {
     /// <summary>
     /// Base implementation of <see cref="IValidationDispatcher"/> using <see cref="IDependencyProvider"/>.
+    /// Before and after validation also uses and sets <see cref="IValidatableModel"/>.
     /// </summary>
     public class DependencyValidationDispatcher : IValidationDispatcher
     {
         /// <summary>
-        /// Name of <see cref="IValidationHandler.Validate"/>.
+        /// Name of the <see cref="IValidationHandler.Validate"/>.
         /// </summary>
         /// <remarks>
-        /// Because of SharpKit can't be defined by <see cref="TypeHelper"/>.
+        /// Because of SharpKit, this can't be defined by <see cref="TypeHelper"/>.
         /// </remarks>
         private static readonly string ValidateMethodName = "Validate"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
 
@@ -38,8 +40,17 @@ namespace Neptuo.Validators
 
         public IValidationResult Validate<TModel>(TModel model)
         {
+            IValidatableModel validatable = model as IValidatableModel;
+            if (validatable != null && validatable.IsValid)
+                return new ValidationResultBase(true);
+
             IValidationHandler<TModel> validator = dependencyProvider.Resolve<IValidationHandler<TModel>>();
-            return validator.Validate(model);
+            IValidationResult result = validator.Validate(model);
+
+            if (validatable != null)
+                validatable.IsValid = result.IsValid;
+
+            return result;
         }
 
         public IValidationResult Validate(object model)
