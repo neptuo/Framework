@@ -726,6 +726,498 @@ var Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Collections$Specialized$ReadOnlyKeyValueCollectionExtensions);
+var Neptuo$Compilers$Compiler = {
+    fullname: "Neptuo.Compilers.Compiler",
+    baseTypeName: "Neptuo.Compilers.CompilerConfigurationWrapper",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.IStaticCompiler", "Neptuo.Compilers.IDynamicCompiler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (configuration){
+            this.provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider$$String("CSharp");
+            Neptuo.Compilers.CompilerConfigurationWrapper.ctor$$CompilerConfiguration.call(this, configuration);
+        },
+        FromSourceCode$$String$$String: function (sourceCode, assemblyFile){
+            Neptuo.Guard.NotNullOrEmpty(sourceCode, "sourceCode");
+            Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            var compilerParameters = this.PrepareCompilerParameters(assemblyFile);
+            var compilerResults = this.provider.CompileAssemblyFromSource(compilerParameters, sourceCode);
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        FromSourceFile$$String$$String: function (sourceFile, assemblyFile){
+            Neptuo.Guard.NotNullOrEmpty(sourceFile, "sourceFile");
+            Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            if (!System.IO.File.Exists(sourceFile))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "sourceFile", sourceFile), new Error());
+            var compilerParameters = this.PrepareCompilerParameters(assemblyFile);
+            var compilerResults = this.provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        FromUnit$$CodeCompileUnit$$String: function (unit, assemblyFile){
+            Neptuo.Guard.NotNull$$Object$$String(unit, "unit");
+            Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            var compilerParameters = this.PrepareCompilerParameters(assemblyFile);
+            var compilerResults = this.provider.CompileAssemblyFromDom(compilerParameters, unit);
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        FromSourceCode$$String$$Assembly: function (sourceCode, outputAssembly){
+            Neptuo.Guard.NotNullOrEmpty(sourceCode, "sourceCode");
+            var compilerParameters = this.PrepareCompilerParameters(null);
+            var compilerResults = this.provider.CompileAssemblyFromSource(compilerParameters, sourceCode);
+            outputAssembly.Value = compilerResults.get_CompiledAssembly();
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        FromSourceFile$$String$$Assembly: function (sourceFile, outputAssembly){
+            Neptuo.Guard.NotNullOrEmpty(sourceFile, "sourceFile");
+            if (!System.IO.File.Exists(sourceFile))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "sourceFile", sourceFile), new Error());
+            var compilerParameters = this.PrepareCompilerParameters(null);
+            var compilerResults = this.provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
+            outputAssembly.Value = compilerResults.get_CompiledAssembly();
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        FromUnit$$CodeCompileUnit$$Assembly: function (unit, outputAssembly){
+            Neptuo.Guard.NotNull$$Object$$String(unit, "unit");
+            var compilerParameters = this.PrepareCompilerParameters(null);
+            var compilerResults = this.provider.CompileAssemblyFromDom(compilerParameters, unit);
+            outputAssembly.Value = compilerResults.get_CompiledAssembly();
+            return this.ProcessCompilerResults(compilerResults);
+        },
+        PrepareCompilerParameters: function (assemblyFile){
+            var compilerParameters = (function (){
+                var $v1 = new System.CodeDom.Compiler.CompilerParameters.ctor();
+                $v1.set_GenerateExecutable(false);
+                $v1.set_IncludeDebugInformation(this.get_IsDebugMode());
+                $v1.set_GenerateInMemory(System.String.IsNullOrEmpty(assemblyFile));
+                return $v1;
+            }).call(this);
+            this.SetupDebugMode(compilerParameters);
+            this.CopyReferences(compilerParameters);
+            this.SetupOutputAseembly(compilerParameters, assemblyFile);
+            return compilerParameters;
+        },
+        SetupDebugMode: function (compilerParameters){
+            if (!this.get_IsDebugMode())
+                compilerParameters.set_CompilerOptions("/optimize");
+        },
+        CopyReferences: function (compilerParameters){
+            var $it5 = this.get_References().get_Directories().GetEnumerator();
+            while ($it5.MoveNext()){
+                var referencedDirectory = $it5.get_Current();
+                if (System.IO.Directory.Exists(referencedDirectory)){
+                    compilerParameters.get_ReferencedAssemblies().AddRange(System.IO.Directory.GetFiles$$String$$String(referencedDirectory, "*.dll"));
+                    compilerParameters.get_ReferencedAssemblies().AddRange(System.IO.Directory.GetFiles$$String$$String(referencedDirectory, "*.exe"));
+                }
+            }
+            var $it6 = this.get_References().get_Assemblies().GetEnumerator();
+            while ($it6.MoveNext()){
+                var referencedAssembly = $it6.get_Current();
+                compilerParameters.get_ReferencedAssemblies().Add(referencedAssembly);
+            }
+        },
+        SetupOutputAseembly: function (compilerParameters, assemblyFile){
+            if (!System.String.IsNullOrEmpty(assemblyFile))
+                compilerParameters.set_OutputAssembly(assemblyFile);
+        },
+        ProcessCompilerResults: function (compilerResults){
+            return new Neptuo.Compilers.CompilerResult.ctor$$IEnumerable$1$IErrorInfo$$StringCollection(System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.CodeDom.Compiler.CompilerError.ctor, Neptuo.ComponentModel.IErrorInfo.ctor, System.Linq.Enumerable.OfType$1(System.CodeDom.Compiler.CompilerError.ctor, compilerResults.get_Errors()), $CreateDelegate(this, this.CompilerErrorMapper)), compilerResults.get_Output());
+        },
+        CompilerErrorMapper: function (error){
+            return new Neptuo.ComponentModel.ErrorInfo.ctor(error.get_Line(), error.get_Column(), error.get_ErrorNumber(), error.get_ErrorText());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Compilers.CompilerConfiguration"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$Compiler);
+var Neptuo$Compilers$CompilerConfiguration = {
+    fullname: "Neptuo.Compilers.CompilerConfiguration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.ICompilerConfiguration"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._References = null;
+            this._IsDebugMode = false;
+            System.Object.ctor.call(this);
+            this.set_References(new Neptuo.Compilers.CompilerReferenceCollection.ctor());
+        },
+        References$$: "Neptuo.Compilers.CompilerReferenceCollection",
+        get_References: function (){
+            return this._References;
+        },
+        set_References: function (value){
+            this._References = value;
+        },
+        IsDebugMode$$: "System.Boolean",
+        get_IsDebugMode: function (){
+            return this._IsDebugMode;
+        },
+        set_IsDebugMode: function (value){
+            this._IsDebugMode = value;
+        },
+        ctor$$CompilerReferenceCollection$$Boolean: function (references, isDebugMode){
+            this._References = null;
+            this._IsDebugMode = false;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(references, "references");
+            this.set_References(new Neptuo.Compilers.CompilerReferenceCollection.ctor$$IEnumerable$1$String$$IEnumerable$1$String(references.get_Assemblies(), references.get_Directories()));
+            this.set_IsDebugMode(isDebugMode);
+        },
+        Copy: function (){
+            return new Neptuo.Compilers.CompilerConfiguration.ctor$$CompilerReferenceCollection$$Boolean(this.get_References(), this.get_IsDebugMode());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$CompilerReferenceCollection$$Boolean",
+        parameters: ["Neptuo.Compilers.CompilerReferenceCollection", "System.Boolean"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$CompilerConfiguration);
+var Neptuo$Compilers$CompilerConfigurationWrapper = {
+    fullname: "Neptuo.Compilers.CompilerConfigurationWrapper",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.ICompilerConfiguration"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Configuration = null;
+            System.Object.ctor.call(this);
+            this.set_Configuration(new Neptuo.Compilers.CompilerConfiguration.ctor());
+        },
+        Configuration$$: "Neptuo.Compilers.CompilerConfiguration",
+        get_Configuration: function (){
+            return this._Configuration;
+        },
+        set_Configuration: function (value){
+            this._Configuration = value;
+        },
+        References$$: "Neptuo.Compilers.CompilerReferenceCollection",
+        get_References: function (){
+            return this.get_Configuration().get_References();
+        },
+        IsDebugMode$$: "System.Boolean",
+        get_IsDebugMode: function (){
+            return this.get_Configuration().get_IsDebugMode();
+        },
+        set_IsDebugMode: function (value){
+            this.get_Configuration().set_IsDebugMode(value);
+        },
+        ctor$$CompilerConfiguration: function (configuration){
+            this._Configuration = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(configuration, "configuration");
+            this.set_Configuration(configuration.Copy());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$CompilerConfiguration",
+        parameters: ["Neptuo.Compilers.CompilerConfiguration"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Compilers$CompilerConfigurationWrapper);
+var Neptuo$Compilers$CompilerFactory = {
+    fullname: "Neptuo.Compilers.CompilerFactory",
+    baseTypeName: "Neptuo.Compilers.CompilerConfigurationWrapper",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Compilers.CompilerConfigurationWrapper.ctor.call(this);
+        },
+        CreateDynamic: function (){
+            return new Neptuo.Compilers.Compiler.ctor(this.get_Configuration());
+        },
+        CreateStatic: function (){
+            return new Neptuo.Compilers.Compiler.ctor(this.get_Configuration());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$CompilerFactory);
+var Neptuo$Compilers$CompilerReferenceCollection = {
+    fullname: "Neptuo.Compilers.CompilerReferenceCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.assemblies = new System.Collections.Generic.List$1.ctor(System.String.ctor);
+            this.directories = new System.Collections.Generic.List$1.ctor(System.String.ctor);
+            System.Object.ctor.call(this);
+        },
+        Assemblies$$: "System.Collections.Generic.IEnumerable`1[[System.String]]",
+        get_Assemblies: function (){
+            return this.assemblies;
+        },
+        Directories$$: "System.Collections.Generic.IEnumerable`1[[System.String]]",
+        get_Directories: function (){
+            return this.directories;
+        },
+        ctor$$IEnumerable$1$String$$IEnumerable$1$String: function (assemblies, directories){
+            this.assemblies = new System.Collections.Generic.List$1.ctor(System.String.ctor);
+            this.directories = new System.Collections.Generic.List$1.ctor(System.String.ctor);
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(assemblies, "assemblies");
+            Neptuo.Guard.NotNull$$Object$$String(directories, "directories");
+            this.assemblies.AddRange(assemblies);
+            this.directories.AddRange(directories);
+        },
+        AddAssembly: function (assemblyFile){
+            Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            if (!System.IO.File.Exists(assemblyFile))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "assemblyFile", "Path \'{0}\' must point to an existing assembly file.", assemblyFile), new Error());
+            this.assemblies.Add(assemblyFile);
+            return this;
+        },
+        AddDirectory: function (directoryPath){
+            Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
+            if (!System.IO.Directory.Exists(directoryPath))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "directoryPath", "Path \'{0}\' must point to an existing directory.", directoryPath), new Error());
+            this.directories.Add(directoryPath);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$IEnumerable$$IEnumerable",
+        parameters: ["System.Collections.Generic.IEnumerable", "System.Collections.Generic.IEnumerable"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$CompilerReferenceCollection);
+var Neptuo$Compilers$CompilerResult = {
+    fullname: "Neptuo.Compilers.CompilerResult",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.ICompilerResult"],
+    Kind: "Class",
+    definition: {
+        ctor$$StringCollection: function (output){
+            this._IsSuccess = false;
+            this._Errors = null;
+            this._Output = null;
+            Neptuo.Compilers.CompilerResult.ctor$$IEnumerable$1$IErrorInfo$$StringCollection.call(this, System.Linq.Enumerable.Empty$1(Neptuo.ComponentModel.IErrorInfo.ctor), output);
+        },
+        IsSuccess$$: "System.Boolean",
+        get_IsSuccess: function (){
+            return this._IsSuccess;
+        },
+        set_IsSuccess: function (value){
+            this._IsSuccess = value;
+        },
+        Errors$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.ComponentModel.IErrorInfo]]",
+        get_Errors: function (){
+            return this._Errors;
+        },
+        set_Errors: function (value){
+            this._Errors = value;
+        },
+        Output$$: "System.Collections.Specialized.StringCollection",
+        get_Output: function (){
+            return this._Output;
+        },
+        set_Output: function (value){
+            this._Output = value;
+        },
+        ctor$$IEnumerable$1$IErrorInfo$$StringCollection: function (errors, output){
+            this._IsSuccess = false;
+            this._Errors = null;
+            this._Output = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(errors, "errors");
+            Neptuo.Guard.NotNull$$Object$$String(output, "output");
+            this.set_Errors(new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.ComponentModel.IErrorInfo.ctor, errors));
+            this.set_IsSuccess(System.Linq.Enumerable.Any$1$$IEnumerable$1(Neptuo.ComponentModel.IErrorInfo.ctor, this.get_Errors()));
+            this.set_Output(output);
+        }
+    },
+    ctors: [{
+        name: "ctor$$StringCollection",
+        parameters: ["System.Collections.Specialized.StringCollection"]
+    }, {
+        name: "ctor$$IEnumerable$$StringCollection",
+        parameters: ["System.Collections.Generic.IEnumerable", "System.Collections.Specialized.StringCollection"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$CompilerResult);
+var Neptuo$Compilers$CompilerService = {
+    fullname: "Neptuo.Compilers.CompilerService",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FromAppDomain: function (appDomain){
+            return new Neptuo.Compilers.CompilerService.ctor(appDomain);
+        },
+        FromCurrentAppDomain: function (){
+            return Neptuo.Compilers.CompilerService.FromAppDomain(System.AppDomain.get_CurrentDomain());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (appDomain){
+            this.appDomain = null;
+            this._Factory = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(appDomain, "appDomain");
+            this.appDomain = appDomain;
+            this.set_Factory(new Neptuo.Compilers.CompilerFactory.ctor());
+        },
+        Factory$$: "Neptuo.Compilers.CompilerFactory",
+        get_Factory: function (){
+            return this._Factory;
+        },
+        set_Factory: function (value){
+            this._Factory = value;
+        },
+        LoadAssembly: function (assemblyFile){
+            Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            if (!System.IO.File.Exists(assemblyFile))
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "assemblyFile", assemblyFile), new Error());
+            var assemblyName = System.Reflection.AssemblyName.GetAssemblyName(assemblyFile);
+            var assembly = this.appDomain.Load$$Byte$Array(System.IO.File.ReadAllBytes(assemblyFile));
+            return assembly;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.AppDomain"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Compilers$CompilerService);
+var Neptuo$Compilers$ICompilerConfiguration = {
+    fullname: "Neptuo.Compilers.ICompilerConfiguration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Compilers$ICompilerConfiguration);
+var Neptuo$Compilers$IDynamicCompiler = {
+    fullname: "Neptuo.Compilers.IDynamicCompiler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.ICompilerConfiguration"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Compilers$IDynamicCompiler);
+var Neptuo$Compilers$ICompilerResult = {
+    fullname: "Neptuo.Compilers.ICompilerResult",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Compilers$ICompilerResult);
+var Neptuo$ComponentModel$ErrorInfo = {
+    fullname: "Neptuo.ComponentModel.ErrorInfo",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.IErrorInfo"],
+    Kind: "Class",
+    definition: {
+        ctor: function (lineNumber, columnIndex, errorNumber, errorText){
+            this._LineNumber = 0;
+            this._ColumnIndex = 0;
+            this._ErrorNumber = null;
+            this._ErrorText = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.PositiveOrZero(lineNumber, "lineNumber");
+            Neptuo.Guard.PositiveOrZero(columnIndex, "columnIndex");
+            Neptuo.Guard.NotNull$$Object$$String(errorText, "errorText");
+            this.set_LineNumber(lineNumber);
+            this.set_ColumnIndex(columnIndex);
+            this.set_ErrorNumber(errorNumber);
+            this.set_ErrorText(errorText);
+        },
+        LineNumber$$: "System.Int32",
+        get_LineNumber: function (){
+            return this._LineNumber;
+        },
+        set_LineNumber: function (value){
+            this._LineNumber = value;
+        },
+        ColumnIndex$$: "System.Int32",
+        get_ColumnIndex: function (){
+            return this._ColumnIndex;
+        },
+        set_ColumnIndex: function (value){
+            this._ColumnIndex = value;
+        },
+        ErrorNumber$$: "System.String",
+        get_ErrorNumber: function (){
+            return this._ErrorNumber;
+        },
+        set_ErrorNumber: function (value){
+            this._ErrorNumber = value;
+        },
+        ErrorText$$: "System.String",
+        get_ErrorText: function (){
+            return this._ErrorText;
+        },
+        set_ErrorText: function (value){
+            this._ErrorText = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Int32", "System.Int32", "System.String", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$ErrorInfo);
+var Neptuo$ComponentModel$IErrorInfo = {
+    fullname: "Neptuo.ComponentModel.IErrorInfo",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$IErrorInfo);
+var Neptuo$Compilers$IStaticCompiler = {
+    fullname: "Neptuo.Compilers.IStaticCompiler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Compilers.ICompilerConfiguration"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Compilers$IStaticCompiler);
 var Neptuo$ComponentModel$Converters$ConverterBase$2 = {
     fullname: "Neptuo.ComponentModel.Converters.ConverterBase$2",
     baseTypeName: "System.Object",
@@ -1848,6 +2340,12 @@ var Neptuo$_GuardArgumentExtensions = {
             Neptuo.Guard.NotNullOrEmpty(argumentName, "argumentName");
             Neptuo.Guard.NotNullOrEmpty(format, "format");
             return new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, System.String.Format$$String$$Object$Array(format, formatParameters));
+        },
+        ArgumentFileNotExist: function (guard, argumentName, path){
+            return Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(guard, argumentName, "Path must point to an existing file, Path \'{0}\' doesn\'t exist.", path);
+        },
+        ArgumentDirectoryNotExist: function (guard, argumentName, path){
+            return Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(guard, argumentName, "Path must point to an existing directory, Path \'{0}\' doesn\'t exist.", path);
         }
     },
     assemblyName: "Neptuo",
@@ -1892,9 +2390,9 @@ var Neptuo$Events$EventManager = {
                 handlerFactories = $1.Value;
                 return $res;
             }).call(this)){
-                var $it5 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
-                while ($it5.MoveNext()){
-                    var handlerFactory = $it5.get_Current();
+                var $it7 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
+                while ($it7.MoveNext()){
+                    var handlerFactory = $it7.get_Current();
                     var handler = handlerFactory.CreateHandler(eventData, this);
                     if (handler != null)
                         handler.Handle(eventData);
@@ -2403,18 +2901,18 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         EnumerateChildDirectories: function (paths){
             var $yield = [];
-            var $it6 = paths.GetEnumerator();
-            while ($it6.MoveNext()){
-                var path = $it6.get_Current();
+            var $it8 = paths.GetEnumerator();
+            while ($it8.MoveNext()){
+                var path = $it8.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
         },
         EnumerateAllDirectories: function (paths){
             var $yield = [];
-            var $it7 = paths.GetEnumerator();
-            while ($it7.MoveNext()){
-                var path = $it7.get_Current();
+            var $it9 = paths.GetEnumerator();
+            while ($it9.MoveNext()){
+                var path = $it9.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$String(path));
             }
             return $yield;
@@ -2437,9 +2935,9 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         EnumerateFiles: function (){
             var $yield = [];
-            var $it8 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
-            while ($it8.MoveNext()){
-                var path = $it8.get_Current();
+            var $it10 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
+            while ($it10.MoveNext()){
+                var path = $it10.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
@@ -2449,16 +2947,16 @@ var Neptuo$FileSystems$LocalDirectory = {
             Neptuo.Guard.NotNullOrEmpty(searchPattern, "searchPattern");
             var paths = System.IO.Directory.GetFiles$$String$$String$$SearchOption(this.get_FullPath(), searchPattern, this.GetSearchOption(inAllDescendants));
             if (!inAllDescendants){
-                var $it9 = paths.GetEnumerator();
-                while ($it9.MoveNext()){
-                    var path = $it9.get_Current();
+                var $it11 = paths.GetEnumerator();
+                while ($it11.MoveNext()){
+                    var path = $it11.get_Current();
                     $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
                 }
             }
             else {
-                var $it10 = paths.GetEnumerator();
-                while ($it10.MoveNext()){
-                    var path = $it10.get_Current();
+                var $it12 = paths.GetEnumerator();
+                while ($it12.MoveNext()){
+                    var path = $it12.get_Current();
                     $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$String(path));
                 }
             }
@@ -2663,13 +3161,13 @@ var Neptuo$FileSystems$LocalFileSystem = {
         FromFilePath: function (filePath){
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
-                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create local file for path \'{0}\', because is doesn\'t point to existing file.", filePath), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "filePath", filePath), new Error());
             return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
-                throw $CreateException(Neptuo.FileSystems._GuardExtensions.FileSystem(Neptuo.Guard.Exception, "Can\'t create local directory for path \'{0}\', because is doesn\'t point to existing directory.", directoryPath), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentDirectoryNotExist(Neptuo.Guard.Exception, "filePath", directoryPath), new Error());
             return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
@@ -3094,9 +3592,9 @@ var Neptuo$Globalization$CultureInfoExtensions = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it11 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it11.MoveNext()){
-                var item = $it11.get_Current();
+            var $it13 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it13.MoveNext()){
+                var item = $it13.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -3437,10 +3935,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.5.5";
+            Neptuo.VersionInfo.Version = "3.6.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.5.5");
+            return new System.Version.ctor$$String("3.6.0");
         }
     },
     assemblyName: "Neptuo",
@@ -3476,9 +3974,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it12 = type.GetProperties().GetEnumerator();
-            while ($it12.MoveNext()){
-                var prop = $it12.get_Current();
+            var $it14 = type.GetProperties().GetEnumerator();
+            while ($it14.MoveNext()){
+                var prop = $it14.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -3558,9 +4056,9 @@ var Neptuo$Security$Cryptography$HashHelper = {
             var hasher = System.Security.Cryptography.SHA1.Create();
             var hash = hasher.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(text));
             var result = new System.Text.StringBuilder.ctor();
-            var $it13 = hash.GetEnumerator();
-            while ($it13.MoveNext()){
-                var hashPart = $it13.get_Current();
+            var $it15 = hash.GetEnumerator();
+            while ($it15.MoveNext()){
+                var hashPart = $it15.get_Current();
                 result.Append$$String(hashPart.ToString$$String("X2"));
             }
             return result.ToString();
@@ -3695,9 +4193,9 @@ var Neptuo$Security$Cryptography$HashProvider = {
             return function (source){
                 var hash = algorithm.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(source));
                 var result = new System.Text.StringBuilder.ctor();
-                var $it14 = hash.GetEnumerator();
-                while ($it14.MoveNext()){
-                    var hashPart = $it14.get_Current();
+                var $it16 = hash.GetEnumerator();
+                while ($it16.MoveNext()){
+                    var hashPart = $it16.get_Current();
                     result.Append$$String(hashPart.ToString$$String("X2"));
                 }
                 return result.ToString();
@@ -3793,9 +4291,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Guard.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it15 = items.GetEnumerator();
-            while ($it15.MoveNext()){
-                var item = $it15.get_Current();
+            var $it17 = items.GetEnumerator();
+            while ($it17.MoveNext()){
+                var item = $it17.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -4225,9 +4723,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it16 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it16.MoveNext()){
-                var defaultAttribute = $it16.get_Current();
+            var $it18 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it18.MoveNext()){
+                var defaultAttribute = $it18.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -4237,9 +4735,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it17 = this.get_Attributes().GetEnumerator();
-            while ($it17.MoveNext()){
-                var attribute = $it17.get_Current();
+            var $it19 = this.get_Attributes().GetEnumerator();
+            while ($it19.MoveNext()){
+                var attribute = $it19.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -4397,9 +4895,9 @@ var Neptuo$Tokens$TokenParser = {
             }));
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
-                var $it18 = results.GetEnumerator();
-                while ($it18.MoveNext()){
-                    var result = $it18.get_Current();
+                var $it20 = results.GetEnumerator();
+                while ($it20.MoveNext()){
+                    var result = $it20.get_Current();
                     this.OnParsedToken(this, new Neptuo.Tokens.TokenEventArgs.ctor(content, result.get_Token(), result.get_StartIndex(), result.get_LastIndex() + 1));
                 }
                 return true;
@@ -4415,13 +4913,13 @@ var Neptuo$Tokens$TokenParser = {
         },
         GetStateMachineConfiguration: function (){
             return (function (){
-                var $v1 = new Neptuo.Tokens.TokenStateMachine.Configuration.ctor();
-                $v1.set_AllowAttributes(this.get_Configuration().get_AllowAttributes());
-                $v1.set_AllowEscapeSequence(this.get_Configuration().get_AllowEscapeSequence());
-                $v1.set_AllowDefaultAttributes(this.get_Configuration().get_AllowDefaultAttributes());
-                $v1.set_AllowMultipleTokens(this.get_Configuration().get_AllowMultipleTokens());
-                $v1.set_AllowTextContent(this.get_Configuration().get_AllowTextContent());
-                return $v1;
+                var $v2 = new Neptuo.Tokens.TokenStateMachine.Configuration.ctor();
+                $v2.set_AllowAttributes(this.get_Configuration().get_AllowAttributes());
+                $v2.set_AllowEscapeSequence(this.get_Configuration().get_AllowEscapeSequence());
+                $v2.set_AllowDefaultAttributes(this.get_Configuration().get_AllowDefaultAttributes());
+                $v2.set_AllowMultipleTokens(this.get_Configuration().get_AllowMultipleTokens());
+                $v2.set_AllowTextContent(this.get_Configuration().get_AllowTextContent());
+                return $v2;
             }).call(this);
         }
     },
@@ -4942,9 +5440,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it19 = this.items.GetEnumerator();
-            while ($it19.MoveNext()){
-                var item = $it19.get_Current();
+            var $it21 = this.items.GetEnumerator();
+            while ($it21.MoveNext()){
+                var item = $it21.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -4954,9 +5452,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it20 = this.items.GetEnumerator();
-            while ($it20.MoveNext()){
-                var item = $it20.get_Current();
+            var $it22 = this.items.GetEnumerator();
+            while ($it22.MoveNext()){
+                var item = $it22.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.Get$$IReadOnlyKeyValueCollection$$String$$String(tokenMapper, item.get_Value(), ""));
                 else
