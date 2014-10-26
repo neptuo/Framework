@@ -74,7 +74,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(filePath, "filePath");
 
             if (!File.Exists(filePath))
-                throw Guard.Exception.ArgumentFileNotExist("filePath", filePath);
+                throw Guard.Exception.ArgumentFileNotExist(filePath, "filePath");
 
             return new LocalFile(filePath);
         }
@@ -90,7 +90,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(directoryPath, "directoryPath");
 
             if (!Directory.Exists(directoryPath))
-                throw Guard.Exception.ArgumentDirectoryNotExist("filePath", directoryPath);
+                throw Guard.Exception.ArgumentDirectoryNotExist(directoryPath, "directoryPath");
 
             return new LocalDirectory(directoryPath);
         }

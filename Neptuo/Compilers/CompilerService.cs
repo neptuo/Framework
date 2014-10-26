@@ -40,7 +40,7 @@ namespace Neptuo.Compilers
         {
             Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
             if (!File.Exists(assemblyFile))
-                throw Guard.Exception.ArgumentFileNotExist("assemblyFile", assemblyFile);
+                throw Guard.Exception.ArgumentFileNotExist(assemblyFile, "assemblyFile");
 
             AssemblyName assemblyName = AssemblyName.GetAssemblyName(assemblyFile);
             Assembly assembly = appDomain.Load(File.ReadAllBytes(assemblyFile));
