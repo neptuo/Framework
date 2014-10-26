@@ -24,5 +24,9 @@ namespace Neptuo.ComponentModel
             ErrorNumber = errorNumber;
             ErrorText = errorText;
         }
+
+        public ErrorInfo(int lineNumber, int columnIndex, string errorText)
+            : this(lineNumber, columnIndex, null, errorText)
+        { }
     }
 }

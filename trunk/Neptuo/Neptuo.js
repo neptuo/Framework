@@ -144,34 +144,6 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var Neptuo$CodeDom$Compiler$CompilerService = {
-    fullname: "Neptuo.CodeDom.Compiler.CompilerService",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (compiler){
-            this.compiler = null;
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.CodeDom.Compiler.ICodeDomCompiler"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$CodeDom$Compiler$CompilerService);
-var Neptuo$CodeDom$Compiler$ICodeDomCompiler = {
-    fullname: "Neptuo.CodeDom.Compiler.ICodeDomCompiler",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$CodeDom$Compiler$ICodeDomCompiler);
 var Neptuo$Collections$Generic$DictionaryExtensions = {
     fullname: "Neptuo.Collections.Generic.DictionaryExtensions",
     baseTypeName: "System.Object",
@@ -823,7 +795,7 @@ var Neptuo$Compilers$Compiler = {
             return new Neptuo.Compilers.CompilerResult.ctor$$IEnumerable$1$IErrorInfo$$StringCollection(System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.CodeDom.Compiler.CompilerError.ctor, Neptuo.ComponentModel.IErrorInfo.ctor, System.Linq.Enumerable.OfType$1(System.CodeDom.Compiler.CompilerError.ctor, compilerResults.get_Errors()), $CreateDelegate(this, this.CompilerErrorMapper)), compilerResults.get_Output());
         },
         CompilerErrorMapper: function (error){
-            return new Neptuo.ComponentModel.ErrorInfo.ctor(error.get_Line(), error.get_Column(), error.get_ErrorNumber(), error.get_ErrorText());
+            return new Neptuo.ComponentModel.ErrorInfo.ctor$$Int32$$Int32$$String$$String(error.get_Line(), error.get_Column(), error.get_ErrorNumber(), error.get_ErrorText());
         }
     },
     ctors: [{
@@ -1148,7 +1120,7 @@ var Neptuo$ComponentModel$ErrorInfo = {
     interfaceNames: ["Neptuo.ComponentModel.IErrorInfo"],
     Kind: "Class",
     definition: {
-        ctor: function (lineNumber, columnIndex, errorNumber, errorText){
+        ctor$$Int32$$Int32$$String$$String: function (lineNumber, columnIndex, errorNumber, errorText){
             this._LineNumber = 0;
             this._ColumnIndex = 0;
             this._ErrorNumber = null;
@@ -1189,11 +1161,21 @@ var Neptuo$ComponentModel$ErrorInfo = {
         },
         set_ErrorText: function (value){
             this._ErrorText = value;
+        },
+        ctor$$Int32$$Int32$$String: function (lineNumber, columnIndex, errorText){
+            this._LineNumber = 0;
+            this._ColumnIndex = 0;
+            this._ErrorNumber = null;
+            this._ErrorText = null;
+            Neptuo.ComponentModel.ErrorInfo.ctor$$Int32$$Int32$$String$$String.call(this, lineNumber, columnIndex, null, errorText);
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$Int32$$Int32$$String$$String",
         parameters: ["System.Int32", "System.Int32", "System.String", "System.String"]
+    }, {
+        name: "ctor$$Int32$$Int32$$String",
+        parameters: ["System.Int32", "System.Int32", "System.String"]
     }
     ],
     IsAbstract: false
@@ -3935,10 +3917,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.6.0";
+            Neptuo.VersionInfo.Version = "3.6.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.6.0");
+            return new System.Version.ctor$$String("3.6.1");
         }
     },
     assemblyName: "Neptuo",
