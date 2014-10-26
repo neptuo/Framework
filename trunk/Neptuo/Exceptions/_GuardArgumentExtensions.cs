@@ -71,11 +71,11 @@ namespace Neptuo
         /// Creates exception <see cref="ArgumentOutOfRangeException"/> with message saying, that file on <paramref name="path"/> doesn't exist.
         /// </summary>
         /// <param name="guard">Exception helper.</param>
-        /// <param name="argumentName">Argument name.</param>
         /// <param name="path">Path to the not existing file.</param>
+        /// <param name="argumentName">Argument name.</param>
         /// <returns><see cref="ArgumentOutOfRangeException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentOutOfRangeException ArgumentFileNotExist(this GuardExceptionHelper guard, string argumentName, string path)
+        public static ArgumentOutOfRangeException ArgumentFileNotExist(this GuardExceptionHelper guard, string path, string argumentName)
         {
             return guard.ArgumentOutOfRange(argumentName, "Path must point to an existing file, Path '{0}' doesn't exist.", path);
         }
@@ -84,11 +84,11 @@ namespace Neptuo
         /// Creates exception <see cref="ArgumentOutOfRangeException"/> with message saying, that directory on <paramref name="path"/> doesn't exist.
         /// </summary>
         /// <param name="guard">Exception helper.</param>
-        /// <param name="argumentName">Argument name.</param>
         /// <param name="path">Path to the not existing directory.</param>
+        /// <param name="argumentName">Argument name.</param>
         /// <returns><see cref="ArgumentOutOfRangeException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentOutOfRangeException ArgumentDirectoryNotExist(this GuardExceptionHelper guard, string argumentName, string path)
+        public static ArgumentOutOfRangeException ArgumentDirectoryNotExist(this GuardExceptionHelper guard, string path, string argumentName)
         {
             return guard.ArgumentOutOfRange(argumentName, "Path must point to an existing directory, Path '{0}' doesn't exist.", path);
         }

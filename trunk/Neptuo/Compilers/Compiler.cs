@@ -43,7 +43,7 @@ namespace Neptuo.Compilers
             Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
 
             if (!File.Exists(sourceFile))
-                throw Guard.Exception.ArgumentFileNotExist("sourceFile", sourceFile);
+                throw Guard.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
@@ -79,7 +79,7 @@ namespace Neptuo.Compilers
             Guard.NotNullOrEmpty(sourceFile, "sourceFile");
 
             if (!File.Exists(sourceFile))
-                throw Guard.Exception.ArgumentFileNotExist("sourceFile", sourceFile);
+                throw Guard.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(null);
             CompilerResults compilerResults = provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
