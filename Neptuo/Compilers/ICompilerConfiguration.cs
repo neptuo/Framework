@@ -19,6 +19,6 @@ namespace Neptuo.Compilers
         /// <summary>
         /// Whether debug mode is enabled.
         /// </summary>
-        bool IsDebugMode { get; }
+        bool IsDebugMode { get; set; }
     }
 }
