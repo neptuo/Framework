@@ -74,7 +74,7 @@ namespace Neptuo.FileSystems
             Guard.NotNullOrEmpty(filePath, "filePath");
 
             if (!File.Exists(filePath))
-                throw Guard.Exception.FileSystem("Can't create local file for path '{0}', because is doesn't point to existing file.", filePath);
+                throw Guard.Exception.ArgumentFileNotExist("filePath", filePath);
 
             return new LocalFile(filePath);
         }
@@ -89,8 +89,8 @@ namespace Neptuo.FileSystems
         {
             Guard.NotNullOrEmpty(directoryPath, "directoryPath");
 
-            if(!Directory.Exists(directoryPath))
-                throw Guard.Exception.FileSystem("Can't create local directory for path '{0}', because is doesn't point to existing directory.", directoryPath);
+            if (!Directory.Exists(directoryPath))
+                throw Guard.Exception.ArgumentDirectoryNotExist("filePath", directoryPath);
 
             return new LocalDirectory(directoryPath);
         }
