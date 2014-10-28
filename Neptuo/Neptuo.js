@@ -720,7 +720,7 @@ var Neptuo$Compilers$Compiler = {
             Neptuo.Guard.NotNullOrEmpty(sourceFile, "sourceFile");
             Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
             if (!System.IO.File.Exists(sourceFile))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "sourceFile", sourceFile), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, sourceFile, "sourceFile"), new Error());
             var compilerParameters = this.PrepareCompilerParameters(assemblyFile);
             var compilerResults = this.provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
             return this.ProcessCompilerResults(compilerResults);
@@ -742,7 +742,7 @@ var Neptuo$Compilers$Compiler = {
         FromSourceFile$$String$$Assembly: function (sourceFile, outputAssembly){
             Neptuo.Guard.NotNullOrEmpty(sourceFile, "sourceFile");
             if (!System.IO.File.Exists(sourceFile))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "sourceFile", sourceFile), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, sourceFile, "sourceFile"), new Error());
             var compilerParameters = this.PrepareCompilerParameters(null);
             var compilerResults = this.provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
             outputAssembly.Value = compilerResults.get_CompiledAssembly();
@@ -1071,7 +1071,7 @@ var Neptuo$Compilers$CompilerService = {
         LoadAssembly: function (assemblyFile){
             Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
             if (!System.IO.File.Exists(assemblyFile))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "assemblyFile", assemblyFile), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, assemblyFile, "assemblyFile"), new Error());
             var assemblyName = System.Reflection.AssemblyName.GetAssemblyName(assemblyFile);
             var assembly = this.appDomain.Load$$Byte$Array(System.IO.File.ReadAllBytes(assemblyFile));
             return assembly;
@@ -2323,10 +2323,10 @@ var Neptuo$_GuardArgumentExtensions = {
             Neptuo.Guard.NotNullOrEmpty(format, "format");
             return new System.ArgumentOutOfRangeException.ctor$$String$$String(argumentName, System.String.Format$$String$$Object$Array(format, formatParameters));
         },
-        ArgumentFileNotExist: function (guard, argumentName, path){
+        ArgumentFileNotExist: function (guard, path, argumentName){
             return Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(guard, argumentName, "Path must point to an existing file, Path \'{0}\' doesn\'t exist.", path);
         },
-        ArgumentDirectoryNotExist: function (guard, argumentName, path){
+        ArgumentDirectoryNotExist: function (guard, path, argumentName){
             return Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(guard, argumentName, "Path must point to an existing directory, Path \'{0}\' doesn\'t exist.", path);
         }
     },
@@ -3143,13 +3143,13 @@ var Neptuo$FileSystems$LocalFileSystem = {
         FromFilePath: function (filePath){
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, "filePath", filePath), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, filePath, "filePath"), new Error());
             return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentDirectoryNotExist(Neptuo.Guard.Exception, "filePath", directoryPath), new Error());
+                throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentDirectoryNotExist(Neptuo.Guard.Exception, directoryPath, "directoryPath"), new Error());
             return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
@@ -3917,10 +3917,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.6.1";
+            Neptuo.VersionInfo.Version = "3.6.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.6.1");
+            return new System.Version.ctor$$String("3.6.2");
         }
     },
     assemblyName: "Neptuo",

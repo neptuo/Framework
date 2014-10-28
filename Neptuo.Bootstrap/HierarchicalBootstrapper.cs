@@ -55,6 +55,8 @@ namespace Neptuo.Bootstrap
             if (descriptor.IsExecuted)
                 return;
 
+            IEnumerable<ITaskDependency> dependencies = context.DependencyProvider.GetDependencies(descriptor.Instance);
+
                 //Import
 
             if (AreConstraintsSatisfied(descriptor.Instance))
