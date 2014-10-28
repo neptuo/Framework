@@ -52,7 +52,10 @@
     <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
     <Compile Include="Dependencies\ExportAttribute.cs" />
     <Compile Include="Dependencies\ImportAttribute.cs" />
+    <Compile Include="Dependencies\ITaskDependency.cs" />
+    <Compile Include="Dependencies\ITaskDependencyProvider.cs" />
     <Compile Include="Dependencies\ITaskExecutor.cs" />
+    <Compile Include="Dependencies\PropertyTaskDependency.cs" />
     <Compile Include="HierarchicalBootstrapper.cs" />
     <Compile Include="HierarchicalContext.cs" />
     <Compile Include="IBootstrapper.cs" />
