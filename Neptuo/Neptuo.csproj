@@ -144,6 +144,7 @@
     <Compile Include="Reflection\IReflectionService.cs" />
     <Compile Include="Reflection\ReflectionFactory.cs" />
     <Compile Include="Reflection\ReflectionHelper.cs" />
+    <Compile Include="Security\Cryptography\HashFactory.cs" />
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
     <Compile Include="ComponentModel\SequenceGuidProvider.cs" />
