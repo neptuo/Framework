@@ -2,6 +2,7 @@
 <Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
     <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
+    <Namespace Target="Neptuo.Threading" Export="False" />
     <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
     <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />
     <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />

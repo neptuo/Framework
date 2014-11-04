@@ -16,6 +16,12 @@ namespace Neptuo.ComponentModel
     {
         public bool IsDisposed { get; private set; }
 
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        protected DisposableBase()
+        { }
+
         ~DisposableBase()
         {
             Dispose(false);
