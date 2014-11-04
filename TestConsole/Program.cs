@@ -17,6 +17,7 @@ using TestConsole.Events;
 using TestConsole.Hashing;
 using TestConsole.PresentationModels;
 using TestConsole.Resources;
+using TestConsole.Threading;
 using TestConsole.Tokens;
 using TestConsole.WebServices;
 
@@ -37,21 +38,29 @@ namespace TestConsole
             //TestWebServices.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
-            TestHash.Test();
+            //TestHash.Test();
             //TestBootstrap.Test();
             //TestKeyValue.Test();
+            TestMultiLockProvider.Test();
 
-            //List<int> list = new List<int>();
-            //list.Insert(0, 1);
-            //list.Insert(1, 2);
 
-            //Console.WriteLine(list[2]);
-            //list.Insert(2, 3);
 
-            //IKeyValueCollection collection = null;
-            //int intValue;
-            //collection.TryGet("Hello", out intValue);
+
             Console.ReadKey(true);
+        }
+
+        static void TestCollection()
+        {
+            List<int> list = new List<int>();
+            list.Insert(0, 1);
+            list.Insert(1, 2);
+
+            Console.WriteLine(list[2]);
+            list.Insert(2, 3);
+
+            IKeyValueCollection collection = null;
+            int intValue;
+            collection.TryGet("Hello", out intValue);
         }
     }
 

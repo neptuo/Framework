@@ -98,6 +98,7 @@
     <Compile Include="Queries\ProductModel.cs" />
     <Compile Include="Queries\TestQueries.cs" />
     <Compile Include="Resources\TestResources.cs" />
+    <Compile Include="Threading\TestMultiLockProvider.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
     <Compile Include="WebServices\ConsoleContext.cs" />
