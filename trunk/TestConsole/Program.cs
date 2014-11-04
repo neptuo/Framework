@@ -37,9 +37,9 @@ namespace TestConsole
             //TestWebServices.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
-            //TestHash.Test();
+            TestHash.Test();
             //TestBootstrap.Test();
-            TestKeyValue.Test();
+            //TestKeyValue.Test();
 
             //List<int> list = new List<int>();
             //list.Insert(0, 1);

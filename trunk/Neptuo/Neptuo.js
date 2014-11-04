@@ -3871,10 +3871,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.6.3";
+            Neptuo.VersionInfo.Version = "3.6.4";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.6.3");
+            return new System.Version.ctor$$String("3.6.4");
         }
     },
     assemblyName: "Neptuo",
@@ -4088,6 +4088,71 @@ var Neptuo$Reflection$ReflectionHelper = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Reflection$ReflectionHelper);
+var Neptuo$Security$Cryptography$HashFactory = {
+    fullname: "Neptuo.Security.Cryptography.HashFactory",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        CreateProvider: function (algorithm){
+            Neptuo.Guard.NotNull$$Object$$String(algorithm, "algorithm");
+            return function (source){
+                var hash = algorithm.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(source));
+                var result = new System.Text.StringBuilder.ctor();
+                var $it16 = hash.GetEnumerator();
+                while ($it16.MoveNext()){
+                    var hashPart = $it16.get_Current();
+                    result.Append$$String(hashPart.ToString$$String("X2"));
+                }
+                return result.ToString();
+            };
+        },
+        CreateSha1: function (){
+            return Neptuo.Security.Cryptography.HashFactory.CreateProvider(System.Security.Cryptography.SHA1.Create());
+        },
+        CreateSha256: function (){
+            return Neptuo.Security.Cryptography.HashFactory.CreateProvider(System.Security.Cryptography.SHA256.Create());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.sha1 = null;
+            this.sha1Lock = new System.Object.ctor();
+            this.sha256 = null;
+            this.sha256Lock = new System.Object.ctor();
+            System.Object.ctor.call(this);
+        },
+        Sha1$$: "Neptuo.Security.Cryptography.HashFunc",
+        get_Sha1: function (){
+            this.EnsureSha1();
+            return this.sha1;
+        },
+        EnsureSha1: function (){
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(this.sha1, null)){
+                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(this.sha1, null))
+                    this.sha1 = Neptuo.Security.Cryptography.HashFactory.CreateSha1();
+            }
+        },
+        Sha256$$: "Neptuo.Security.Cryptography.HashFunc",
+        get_Sha256: function (){
+            this.EnsureSha256();
+            return this.sha256;
+        },
+        EnsureSha256: function (){
+            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(this.sha256, null)){
+                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(this.sha256, null))
+                    this.sha256 = Neptuo.Security.Cryptography.HashFactory.CreateSha256();
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Security$Cryptography$HashFactory);
 var Neptuo$Security$Cryptography$HashHelper = {
     fullname: "Neptuo.Security.Cryptography.HashHelper",
     baseTypeName: "System.Object",
@@ -4096,9 +4161,9 @@ var Neptuo$Security$Cryptography$HashHelper = {
             var hasher = System.Security.Cryptography.SHA1.Create();
             var hash = hasher.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(text));
             var result = new System.Text.StringBuilder.ctor();
-            var $it16 = hash.GetEnumerator();
-            while ($it16.MoveNext()){
-                var hashPart = $it16.get_Current();
+            var $it17 = hash.GetEnumerator();
+            while ($it17.MoveNext()){
+                var hashPart = $it17.get_Current();
                 result.Append$$String(hashPart.ToString$$String("X2"));
             }
             return result.ToString();
@@ -4206,46 +4271,13 @@ var Neptuo$Security$Cryptography$HashProvider = {
     fullname: "Neptuo.Security.Cryptography.HashProvider",
     baseTypeName: "System.Object",
     staticDefinition: {
-        cctor: function (){
-            Neptuo.Security.Cryptography.HashProvider.sha1 = null;
-            Neptuo.Security.Cryptography.HashProvider.sha1Lock = new System.Object.ctor();
-            Neptuo.Security.Cryptography.HashProvider.sha256 = null;
-            Neptuo.Security.Cryptography.HashProvider.sha256Lock = new System.Object.ctor();
-        },
         Sha1$$: "Neptuo.Security.Cryptography.HashFunc",
         get_Sha1: function (){
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashProvider.sha1, null)){
-                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashProvider.sha1, null))
-                    Neptuo.Security.Cryptography.HashProvider.sha1 = Neptuo.Security.Cryptography.HashProvider.CreateSha1();
-            }
-            return Neptuo.Security.Cryptography.HashProvider.sha1;
+            return new Neptuo.Security.Cryptography.HashFactory.ctor().get_Sha1();
         },
         Sha256$$: "Neptuo.Security.Cryptography.HashFunc",
         get_Sha256: function (){
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashProvider.sha256, null)){
-                if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(Neptuo.Security.Cryptography.HashProvider.sha256, null))
-                    Neptuo.Security.Cryptography.HashProvider.sha256 = Neptuo.Security.Cryptography.HashProvider.CreateSha256();
-            }
-            return Neptuo.Security.Cryptography.HashProvider.sha256;
-        },
-        CreateProvider: function (algorithm){
-            Neptuo.Guard.NotNull$$Object$$String(algorithm, "algorithm");
-            return function (source){
-                var hash = algorithm.ComputeHash$$Byte$Array(System.Text.Encoding.get_UTF8().GetBytes$$String(source));
-                var result = new System.Text.StringBuilder.ctor();
-                var $it17 = hash.GetEnumerator();
-                while ($it17.MoveNext()){
-                    var hashPart = $it17.get_Current();
-                    result.Append$$String(hashPart.ToString$$String("X2"));
-                }
-                return result.ToString();
-            };
-        },
-        CreateSha1: function (){
-            return Neptuo.Security.Cryptography.HashProvider.CreateProvider(System.Security.Cryptography.SHA1.Create());
-        },
-        CreateSha256: function (){
-            return Neptuo.Security.Cryptography.HashProvider.CreateProvider(System.Security.Cryptography.SHA256.Create());
+            return new Neptuo.Security.Cryptography.HashFactory.ctor().get_Sha256();
         }
     },
     assemblyName: "Neptuo",
@@ -4255,8 +4287,12 @@ var Neptuo$Security$Cryptography$HashProvider = {
             System.Object.ctor.call(this);
         }
     },
-    ctors: [],
-    IsAbstract: true
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
 };
 JsTypes.push(Neptuo$Security$Cryptography$HashProvider);
 var Neptuo$StateMachines$IStateMachineState$2 = {
