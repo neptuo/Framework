@@ -27,7 +27,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            //TestTokens.Test();
+            TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
             //TestPresentationModel.Test();
@@ -41,7 +41,7 @@ namespace TestConsole
             //TestHash.Test();
             //TestBootstrap.Test();
             //TestKeyValue.Test();
-            TestMultiLockProvider.Test();
+            //TestMultiLockProvider.Test();
 
 
 

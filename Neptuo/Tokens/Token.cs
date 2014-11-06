@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Neptuo.Tokens
     /// Default attributes are in <see cref="Token.DefaultAttributes"/> collection.
     /// Named attributes are in <see cref="Token.Attributes"/> collection.
     /// </summary>
-    public class Token
+    public class Token : ISourceRangeLineInfo
     {
         /// <summary>
         /// Token prefix. <see cref="Token.Fullname"/> part before ':'.
@@ -59,6 +60,11 @@ namespace Neptuo.Tokens
         /// </summary>
         public List<string> DefaultAttributes { get; private set; }
 
+        public int LineIndex { get; private set; }
+        public int EndLineIndex { get; private set; }
+        public int ColumnIndex { get; private set; }
+        public int EndColumnIndex { get; private set; }
+
         /// <summary>
         /// Creates new empty instance.
         /// </summary>
@@ -66,6 +72,21 @@ namespace Neptuo.Tokens
         {
             Attributes = new List<TokenAttribute>();
             DefaultAttributes = new List<string>();
+        }
+
+        /// <summary>
+        /// Updates source line info.
+        /// </summary>
+        /// <param name="lineNumber">Line number.</param>
+        /// <param name="columnIndex">Index at line.</param>
+        /// <param name="endLineNumber">Line number of range end.</param>
+        /// <param name="endColumnIndex">Index at line of range end.</param>
+        public void SetLineInfo(int lineNumber, int columnIndex, int endLineNumber, int endColumnIndex)
+        {
+            LineIndex = lineNumber;
+            ColumnIndex = columnIndex;
+            EndLineIndex = endLineNumber;
+            EndColumnIndex = endColumnIndex;
         }
 
         /// <summary>

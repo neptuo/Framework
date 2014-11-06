@@ -76,6 +76,9 @@ namespace Neptuo.FileSystems
             if (!File.Exists(filePath))
                 throw Guard.Exception.ArgumentFileNotExist(filePath, "filePath");
 
+            if (!Path.IsPathRooted(filePath))
+                filePath = Path.Combine(Environment.CurrentDirectory, filePath);
+
             return new LocalFile(filePath);
         }
 
@@ -91,6 +94,9 @@ namespace Neptuo.FileSystems
 
             if (!Directory.Exists(directoryPath))
                 throw Guard.Exception.ArgumentDirectoryNotExist(directoryPath, "directoryPath");
+
+            if (!Path.IsPathRooted(directoryPath))
+                directoryPath = Path.Combine(Environment.CurrentDirectory, directoryPath);
 
             return new LocalDirectory(directoryPath);
         }

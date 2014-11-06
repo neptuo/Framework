@@ -36,7 +36,7 @@ namespace Neptuo.Compilers
             Guard.NotNull(errors, "errors");
             Guard.NotNull(output, "output");
             Errors = new List<IErrorInfo>(errors);
-            IsSuccess = Errors.Any();
+            IsSuccess = !Errors.Any();
             Output = output;
         }
     }

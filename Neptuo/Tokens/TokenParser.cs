@@ -47,13 +47,51 @@ namespace Neptuo.Tokens
             TokenState finalState = stateMachine.Process(content);
             if (IsSuccessState(finalState))
             {
+                List<int> newLines = GetNewLineIndexes(content);
                 foreach (TokenStateMachine.Result result in results)
+                {
+                    Tuple<int, int> startInfo = GetLineInfo(newLines, result.StartIndex);
+                    Tuple<int, int> endInfo = GetLineInfo(newLines, result.LastIndex + 1);
+                    result.Token.SetLineInfo(startInfo.Item1, startInfo.Item2, endInfo.Item1, endInfo.Item2);
+
                     OnParsedToken(this, new TokenEventArgs(content, result.Token, result.StartIndex, result.LastIndex + 1));
+                }
 
                 return true;
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Return line number and column index of <paramref name="foundIndex"/> in <paramref name="newLines"/>.
+        /// </summary>
+        /// <param name="newLines">List of indexes of new lines.</param>
+        /// <param name="foundIndex">Some index.</param>
+        /// <returns>Line number and column index of <paramref name="foundIndex"/> in <paramref name="newLines"/>.</returns>
+        private Tuple<int, int> GetLineInfo(List<int> newLines, int foundIndex)
+        {
+            int lineNumber = newLines.Where(i => i < foundIndex).Count();
+            int columnIndex = foundIndex - newLines.LastOrDefault(i => i < foundIndex);
+            return new Tuple<int, int>(lineNumber, columnIndex);
+        }
+
+        /// <summary>
+        /// Returns list of indexes where new line character is located in <paramref name="content"/>.
+        /// </summary>
+        /// <param name="content">String value where to look for new line characters.</param>
+        /// <returns>List of indexes where new line character is located</returns>
+        private List<int> GetNewLineIndexes(string content)
+        {
+            List<int> result = new List<int>();
+            int index = content.IndexOf(Environment.NewLine);
+            while (index != -1)
+            {
+                result.Add(index);
+                index = content.IndexOf(Environment.NewLine, index + 1);
+            }
+
+            return result;
         }
 
         /// <summary>
