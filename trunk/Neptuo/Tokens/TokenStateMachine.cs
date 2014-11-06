@@ -44,12 +44,45 @@ namespace Neptuo.Tokens
         protected TokenStateMachine.Configuration Configuration { get; set; }
         protected bool HasToken { get; set; }
 
+        protected bool WasLineStart { get; set; }
+        protected int LineNumber { get; set; }
+        protected int ColumnIndex { get; set; }
+
+        protected int CurrentLineNumber { get; set; }
+        protected int CurrentColumnIndex { get; set; }
+
         protected override TNewState Move<TNewState>()
         {
             TNewState newState = base.Move<TNewState>();
             newState.Configuration = Configuration;
             newState.HasToken = HasToken;
+
+            newState.CurrentLineNumber = CurrentLineNumber;
+            newState.CurrentColumnIndex = CurrentColumnIndex;
+            newState.LineNumber = LineNumber;
+            newState.ColumnIndex = ColumnIndex;
+            
             return newState;
+        }
+
+        // \r\n
+        protected void UpdateCurrentLineInfo(char input, int position)
+        {
+            if (WasLineStart && input == '\n')
+            {
+                WasLineStart = false;
+                CurrentLineNumber++;
+                CurrentColumnIndex = -1;
+                return;
+            }
+
+            if (!WasLineStart && input == '\r')
+            {
+                WasLineStart = true;
+                return;
+            }
+
+            CurrentColumnIndex++;
         }
     }
 
@@ -68,7 +101,11 @@ namespace Neptuo.Tokens
         public override TokenState Accept(char input, int position)
         {
             if (input == '{')
+            {
+                LineNumber = CurrentLineNumber;
+                ColumnIndex = CurrentColumnIndex;
                 return Move<TokenFullnameState>();
+            }
 
             if (!Configuration.AllowTextContent)
                 return Move<TokenErrorState>();

@@ -70,6 +70,8 @@
     <Compile Include="ComponentModel\Disposable.cs" />
     <Compile Include="ComponentModel\DisposableBase.cs" />
     <Compile Include="ComponentModel\Envelope.cs" />
+    <Compile Include="ComponentModel\ISourceLineInfo.cs" />
+    <Compile Include="ComponentModel\ISourceRangeLineInfo.cs" />
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />

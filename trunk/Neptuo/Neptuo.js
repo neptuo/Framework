@@ -1024,7 +1024,7 @@ var Neptuo$Compilers$CompilerResult = {
             Neptuo.Guard.NotNull$$Object$$String(errors, "errors");
             Neptuo.Guard.NotNull$$Object$$String(output, "output");
             this.set_Errors(new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.ComponentModel.IErrorInfo.ctor, errors));
-            this.set_IsSuccess(System.Linq.Enumerable.Any$1$$IEnumerable$1(Neptuo.ComponentModel.IErrorInfo.ctor, this.get_Errors()));
+            this.set_IsSuccess(!System.Linq.Enumerable.Any$1$$IEnumerable$1(Neptuo.ComponentModel.IErrorInfo.ctor, this.get_Errors()));
             this.set_Output(output);
         }
     },
@@ -1585,6 +1585,25 @@ var Neptuo$ComponentModel$Envelope$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Envelope$1);
+var Neptuo$ComponentModel$ISourceLineInfo = {
+    fullname: "Neptuo.ComponentModel.ISourceLineInfo",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$ISourceLineInfo);
+var Neptuo$ComponentModel$ISourceRangeLineInfo = {
+    fullname: "Neptuo.ComponentModel.ISourceRangeLineInfo",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.ISourceLineInfo"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$ISourceRangeLineInfo);
 var Neptuo$ComponentModel$ObservableObject = {
     fullname: "Neptuo.ComponentModel.ObservableObject",
     baseTypeName: "System.Object",
@@ -3098,12 +3117,16 @@ var Neptuo$FileSystems$LocalFileSystem = {
             Neptuo.Guard.NotNullOrEmpty(filePath, "filePath");
             if (!System.IO.File.Exists(filePath))
                 throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentFileNotExist(Neptuo.Guard.Exception, filePath, "filePath"), new Error());
+            if (!System.IO.Path.IsPathRooted(filePath))
+                filePath = System.IO.Path.Combine$$String$$String(System.Environment.get_CurrentDirectory(), filePath);
             return new Neptuo.FileSystems.LocalFile.ctor$$String(filePath);
         },
         FromDirectoryPath: function (directoryPath){
             Neptuo.Guard.NotNullOrEmpty(directoryPath, "directoryPath");
             if (!System.IO.Directory.Exists(directoryPath))
                 throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentDirectoryNotExist(Neptuo.Guard.Exception, directoryPath, "directoryPath"), new Error());
+            if (!System.IO.Path.IsPathRooted(directoryPath))
+                directoryPath = System.IO.Path.Combine$$String$$String(System.Environment.get_CurrentDirectory(), directoryPath);
             return new Neptuo.FileSystems.LocalDirectory.ctor$$String(directoryPath);
         }
     },
@@ -3871,10 +3894,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.7.0";
+            Neptuo.VersionInfo.Version = "3.7.4";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.7.0");
+            return new System.Version.ctor$$String("3.7.4");
         }
     },
     assemblyName: "Neptuo",
@@ -4605,6 +4628,7 @@ var Neptuo$Tokens$Token = {
     fullname: "Neptuo.Tokens.Token",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.ISourceRangeLineInfo"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -4612,6 +4636,10 @@ var Neptuo$Tokens$Token = {
             this._Name = null;
             this._Attributes = null;
             this._DefaultAttributes = null;
+            this._LineIndex = 0;
+            this._EndLineIndex = 0;
+            this._ColumnIndex = 0;
+            this._EndColumnIndex = 0;
             System.Object.ctor.call(this);
             this.set_Attributes(new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenAttribute.ctor));
             this.set_DefaultAttributes(new System.Collections.Generic.List$1.ctor(System.String.ctor));
@@ -4659,6 +4687,40 @@ var Neptuo$Tokens$Token = {
         },
         set_DefaultAttributes: function (value){
             this._DefaultAttributes = value;
+        },
+        LineIndex$$: "System.Int32",
+        get_LineIndex: function (){
+            return this._LineIndex;
+        },
+        set_LineIndex: function (value){
+            this._LineIndex = value;
+        },
+        EndLineIndex$$: "System.Int32",
+        get_EndLineIndex: function (){
+            return this._EndLineIndex;
+        },
+        set_EndLineIndex: function (value){
+            this._EndLineIndex = value;
+        },
+        ColumnIndex$$: "System.Int32",
+        get_ColumnIndex: function (){
+            return this._ColumnIndex;
+        },
+        set_ColumnIndex: function (value){
+            this._ColumnIndex = value;
+        },
+        EndColumnIndex$$: "System.Int32",
+        get_EndColumnIndex: function (){
+            return this._EndColumnIndex;
+        },
+        set_EndColumnIndex: function (value){
+            this._EndColumnIndex = value;
+        },
+        SetLineInfo: function (lineNumber, columnIndex, endLineNumber, endColumnIndex){
+            this.set_LineIndex(lineNumber);
+            this.set_ColumnIndex(columnIndex);
+            this.set_EndLineIndex(endLineNumber);
+            this.set_EndColumnIndex(endColumnIndex);
         },
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
@@ -4835,14 +4897,36 @@ var Neptuo$Tokens$TokenParser = {
             }));
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
+                var newLines = this.GetNewLineIndexes(content);
                 var $it19 = results.GetEnumerator();
                 while ($it19.MoveNext()){
                     var result = $it19.get_Current();
+                    var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
+                    var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
+                    result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
                     this.OnParsedToken(this, new Neptuo.Tokens.TokenEventArgs.ctor(content, result.get_Token(), result.get_StartIndex(), result.get_LastIndex() + 1));
                 }
                 return true;
             }
             return false;
+        },
+        GetLineInfo: function (newLines, foundIndex){
+            var lineNumber = System.Linq.Enumerable.Count$1$$IEnumerable$1(System.Int32.ctor, System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(System.Int32.ctor, newLines, $CreateAnonymousDelegate(this, function (i){
+                return i < foundIndex;
+            })));
+            var columnIndex = foundIndex - System.Linq.Enumerable.LastOrDefault$1$$IEnumerable$1$$Func$2(System.Int32.ctor, newLines, $CreateAnonymousDelegate(this, function (i){
+                return i < foundIndex;
+            }));
+            return new System.Tuple$2.ctor(System.Int32.ctor, System.Int32.ctor, lineNumber, columnIndex);
+        },
+        GetNewLineIndexes: function (content){
+            var result = new System.Collections.Generic.List$1.ctor(System.Int32.ctor);
+            var index = content.IndexOf$$String(System.Environment.get_NewLine());
+            while (index != -1){
+                result.Add(index);
+                index = content.IndexOf$$String$$Int32(System.Environment.get_NewLine(), index + 1);
+            }
+            return result;
         },
         IsSuccessState: function (finalState){
             if (System.Type.op_Equality$$Type$$Type(finalState.GetType(), Typeof(Neptuo.Tokens.TokenDoneState.ctor)))
@@ -5057,6 +5141,11 @@ var Neptuo$Tokens$TokenState = {
         ctor: function (){
             this._Configuration = null;
             this._HasToken = false;
+            this._WasLineStart = false;
+            this._LineNumber = 0;
+            this._ColumnIndex = 0;
+            this._CurrentLineNumber = 0;
+            this._CurrentColumnIndex = 0;
             Neptuo.StateMachines.StringState$2.ctor.call(this, Neptuo.Tokens.TokenStateMachine.Result.ctor, Neptuo.Tokens.TokenState.ctor);
         },
         Configuration$$: "Neptuo.Tokens.TokenStateMachine+Configuration",
@@ -5073,11 +5162,63 @@ var Neptuo$Tokens$TokenState = {
         set_HasToken: function (value){
             this._HasToken = value;
         },
+        WasLineStart$$: "System.Boolean",
+        get_WasLineStart: function (){
+            return this._WasLineStart;
+        },
+        set_WasLineStart: function (value){
+            this._WasLineStart = value;
+        },
+        LineNumber$$: "System.Int32",
+        get_LineNumber: function (){
+            return this._LineNumber;
+        },
+        set_LineNumber: function (value){
+            this._LineNumber = value;
+        },
+        ColumnIndex$$: "System.Int32",
+        get_ColumnIndex: function (){
+            return this._ColumnIndex;
+        },
+        set_ColumnIndex: function (value){
+            this._ColumnIndex = value;
+        },
+        CurrentLineNumber$$: "System.Int32",
+        get_CurrentLineNumber: function (){
+            return this._CurrentLineNumber;
+        },
+        set_CurrentLineNumber: function (value){
+            this._CurrentLineNumber = value;
+        },
+        CurrentColumnIndex$$: "System.Int32",
+        get_CurrentColumnIndex: function (){
+            return this._CurrentColumnIndex;
+        },
+        set_CurrentColumnIndex: function (value){
+            this._CurrentColumnIndex = value;
+        },
         Move$1: function (TNewState){
             var newState = Neptuo.StateMachines.StringState$2.commonPrototype.Move$1.call(TNewState, this);
             newState.set_Configuration(this.get_Configuration());
             newState.set_HasToken(this.get_HasToken());
+            newState.set_CurrentLineNumber(this.get_CurrentLineNumber());
+            newState.set_CurrentColumnIndex(this.get_CurrentColumnIndex());
+            newState.set_LineNumber(this.get_LineNumber());
+            newState.set_ColumnIndex(this.get_ColumnIndex());
             return newState;
+        },
+        UpdateCurrentLineInfo: function (input, position){
+            if (this.get_WasLineStart() && input == "\n"){
+                this.set_WasLineStart(false);
+                this.set_CurrentLineNumber(this.get_CurrentLineNumber() + 1);
+                this.set_CurrentColumnIndex(-1);
+                return;
+            }
+            if (!this.get_WasLineStart() && input == "\r"){
+                this.set_WasLineStart(true);
+                return;
+            }
+            this.set_CurrentColumnIndex(this.get_CurrentColumnIndex() + 1);
         }
     },
     ctors: [{
@@ -5103,8 +5244,11 @@ var Neptuo$Tokens$TokenStartState = {
             this.set_Configuration(configuration);
         },
         Accept: function (input, position){
-            if (input == "{")
+            if (input == "{"){
+                this.set_LineNumber(this.get_CurrentLineNumber());
+                this.set_ColumnIndex(this.get_CurrentColumnIndex());
                 return this.Move$1(Neptuo.Tokens.TokenFullnameState.ctor);
+            }
             if (!this.get_Configuration().get_AllowTextContent())
                 return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
             this.get_Text().Append$$Char(input);

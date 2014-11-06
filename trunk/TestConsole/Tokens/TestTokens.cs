@@ -1,4 +1,5 @@
-﻿using Neptuo.Tokens;
+﻿using Neptuo.ComponentModel;
+using Neptuo.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,10 @@ namespace TestConsole.Tokens
         public static void Test()
         {
             //string template = "{ProductID ID=5, Converter={x:State NullToBool, AppendOnly}}x{DestinationID}";
-            string template = "{ProductID ID=5, Converter={x:State NullToBool, AppendOnly}}{DestinationID}";
+            //string template = "{ProductID ID=5, Converter={x:State NullToBool, AppendOnly}}{DestinationID}";
+            string template = @"asdkja sldkjas ldkajsd lkajsd 
+as
+as{ProductID ID=5} askdh aksjdh alskdj asldkj alskdj.";
             //string template = "http://localhost:60000/{Locale}/{DestinationID}/products/{ProductID}/info";
 
             TokenParser parser = new TokenParser();
@@ -33,9 +37,15 @@ namespace TestConsole.Tokens
         {
             Console.WriteLine("Starting at {0}, to {1}, source.substring: {2}", e.StartPosition, e.EndPosition, e.OriginalContent.Substring(e.StartPosition, e.EndPosition - e.StartPosition + 1));
             Console.WriteLine(e.Token.Fullname);
+            PrintLineInfo(e.Token);
             Console.WriteLine(String.Join(";", e.Token.DefaultAttributes));
             Console.WriteLine(String.Join(";", e.Token.Attributes.Select(a => String.Format("{0}:{1}", a.Name, a.Value))));
             Console.WriteLine("---");
+        }
+
+        static void PrintLineInfo(ISourceRangeLineInfo lineInfo)
+        {
+            Console.WriteLine("{0}:{1} -> {2}:{3}", lineInfo.LineIndex, lineInfo.ColumnIndex, lineInfo.EndLineIndex, lineInfo.EndColumnIndex);
         }
     }
 }
