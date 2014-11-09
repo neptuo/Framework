@@ -12,6 +12,7 @@ namespace Neptuo.CodeDom.Compiler
     /// <summary>
     /// Wraps <see cref="CodeDomProvider"/> and provides some shortcuts in compilation process.
     /// </summary>
+    [Obsolete]
     public class CsCodeDomCompiler
     {
         /// <summary>
