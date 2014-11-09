@@ -3894,10 +3894,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.7.4";
+            Neptuo.VersionInfo.Version = "3.7.5";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.7.4");
+            return new System.Version.ctor$$String("3.7.5");
         }
     },
     assemblyName: "Neptuo",
@@ -4632,17 +4632,17 @@ var Neptuo$Tokens$Token = {
     Kind: "Class",
     definition: {
         ctor: function (){
+            this.attributes = null;
+            this.defaultAttributes = null;
             this._Prefix = null;
             this._Name = null;
-            this._Attributes = null;
-            this._DefaultAttributes = null;
             this._LineIndex = 0;
             this._EndLineIndex = 0;
             this._ColumnIndex = 0;
             this._EndColumnIndex = 0;
             System.Object.ctor.call(this);
-            this.set_Attributes(new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenAttribute.ctor));
-            this.set_DefaultAttributes(new System.Collections.Generic.List$1.ctor(System.String.ctor));
+            this.attributes = new System.Collections.Generic.List$1.ctor(Neptuo.Tokens.TokenAttribute.ctor);
+            this.defaultAttributes = new System.Collections.Generic.List$1.ctor(System.String.ctor);
         },
         Prefix$$: "System.String",
         get_Prefix: function (){
@@ -4674,19 +4674,13 @@ var Neptuo$Tokens$Token = {
                 this.set_Name(value);
             }
         },
-        Attributes$$: "System.Collections.Generic.List`1[[Neptuo.Tokens.TokenAttribute]]",
+        Attributes$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Tokens.TokenAttribute]]",
         get_Attributes: function (){
-            return this._Attributes;
+            return this.attributes;
         },
-        set_Attributes: function (value){
-            this._Attributes = value;
-        },
-        DefaultAttributes$$: "System.Collections.Generic.List`1[[System.String]]",
+        DefaultAttributes$$: "System.Collections.Generic.IEnumerable`1[[System.String]]",
         get_DefaultAttributes: function (){
-            return this._DefaultAttributes;
-        },
-        set_DefaultAttributes: function (value){
-            this._DefaultAttributes = value;
+            return this.defaultAttributes;
         },
         LineIndex$$: "System.Int32",
         get_LineIndex: function (){
@@ -4721,6 +4715,14 @@ var Neptuo$Tokens$Token = {
             this.set_ColumnIndex(columnIndex);
             this.set_EndLineIndex(endLineNumber);
             this.set_EndColumnIndex(endColumnIndex);
+        },
+        AddAttribute: function (attribute){
+            Neptuo.Guard.NotNull$$Object$$String(attribute, "attribute");
+            attribute.set_OwnerToken(this);
+            this.attributes.Add(attribute);
+        },
+        AddDefaultAttribute: function (defaultAttribute){
+            this.defaultAttributes.Add(defaultAttribute);
         },
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
@@ -4768,12 +4770,20 @@ var Neptuo$Tokens$TokenAttribute = {
     Kind: "Class",
     definition: {
         ctor: function (name, value){
+            this._OwnerToken = null;
             this._Name = null;
             this._Value = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNullOrEmpty(name, "name");
             this.set_Name(name);
             this.set_Value(value);
+        },
+        OwnerToken$$: "Neptuo.Tokens.Token",
+        get_OwnerToken: function (){
+            return this._OwnerToken;
+        },
+        set_OwnerToken: function (value){
+            this._OwnerToken = value;
         },
         Name$$: "System.String",
         get_Name: function (){
@@ -5354,11 +5364,11 @@ var Neptuo$Tokens$TokenDefaultAttributesState = {
                 if (input == ","){
                     if (!this.get_Configuration().get_AllowDefaultAttributes())
                         return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
-                    this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
+                    this.get_Context().get_Token().AddDefaultAttribute(this.get_Text().ToString());
                     return this.Move$1(Neptuo.Tokens.TokenDefaultAttributesState.ctor);
                 }
                 if (input == "="){
-                    this.get_Context().get_Token().get_Attributes().Add(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
+                    this.get_Context().get_Token().AddAttribute(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
                     return this.Move$1(Neptuo.Tokens.TokenAttributeValueState.ctor);
                 }
             }
@@ -5367,7 +5377,7 @@ var Neptuo$Tokens$TokenDefaultAttributesState = {
                     return this.Move$1(Neptuo.Tokens.TokenErrorState.ctor);
                 if (this.innerExtensions == 0){
                     this.get_Context().set_LastIndex(position);
-                    this.get_Context().get_Token().get_DefaultAttributes().Add(this.get_Text().ToString());
+                    this.get_Context().get_Token().AddDefaultAttribute(this.get_Text().ToString());
                     return this.Move$1(Neptuo.Tokens.TokenDoneState.ctor);
                 }
                 else {
@@ -5399,7 +5409,7 @@ var Neptuo$Tokens$TokenAttributeNameState = {
         },
         Accept: function (input, position){
             if (input == "="){
-                this.get_Context().get_Token().get_Attributes().Add(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
+                this.get_Context().get_Token().AddAttribute(new Neptuo.Tokens.TokenAttribute.ctor(this.get_Text().ToString(), null));
                 return this.Move$1(Neptuo.Tokens.TokenAttributeValueState.ctor);
             }
             if (input == " " && this.get_Text().get_Length() == 0)

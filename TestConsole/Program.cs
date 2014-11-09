@@ -45,7 +45,6 @@ namespace TestConsole
 
 
 
-
             Console.ReadKey(true);
         }
 
