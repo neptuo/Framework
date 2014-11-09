@@ -11,6 +11,11 @@ namespace Neptuo.Tokens
     public class TokenAttribute
     {
         /// <summary>
+        /// The owner of this attribute.
+        /// </summary>
+        public Token OwnerToken { get; internal set; }
+
+        /// <summary>
         /// Attribute name.
         /// </summary>
         public string Name { get; set; }

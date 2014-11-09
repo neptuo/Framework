@@ -1,6 +1,7 @@
 ﻿using Neptuo.Exceptions.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Exceptions extensions on file systems.
     /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
     public static class _GuardExtensions
     {
         /// <summary>

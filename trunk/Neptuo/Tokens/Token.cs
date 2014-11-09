@@ -13,6 +13,9 @@ namespace Neptuo.Tokens
     /// </summary>
     public class Token : ISourceRangeLineInfo
     {
+        private readonly List<TokenAttribute> attributes;
+        private readonly List<string> defaultAttributes;
+
         /// <summary>
         /// Token prefix. <see cref="Token.Fullname"/> part before ':'.
         /// </summary>
@@ -51,14 +54,20 @@ namespace Neptuo.Tokens
         }
 
         /// <summary>
-        /// Collection of named attributes.
+        /// Enumeration of named attributes.
         /// </summary>
-        public List<TokenAttribute> Attributes { get; private set; }
+        public IEnumerable<TokenAttribute> Attributes
+        {
+            get { return attributes; }
+        }
 
         /// <summary>
-        /// Collection of default (not named) attributes.
+        /// Enumeration of default (not named) attributes.
         /// </summary>
-        public List<string> DefaultAttributes { get; private set; }
+        public IEnumerable<string> DefaultAttributes
+        {
+            get { return defaultAttributes; }
+        }
 
         public int LineIndex { get; private set; }
         public int EndLineIndex { get; private set; }
@@ -70,8 +79,8 @@ namespace Neptuo.Tokens
         /// </summary>
         public Token()
         {
-            Attributes = new List<TokenAttribute>();
-            DefaultAttributes = new List<string>();
+            attributes = new List<TokenAttribute>();
+            defaultAttributes = new List<string>();
         }
 
         /// <summary>
@@ -87,6 +96,26 @@ namespace Neptuo.Tokens
             ColumnIndex = columnIndex;
             EndLineIndex = endLineNumber;
             EndColumnIndex = endColumnIndex;
+        }
+
+        /// <summary>
+        /// Adds named attribute.
+        /// </summary>
+        /// <param name="attribute">New named attribute.</param>
+        public void AddAttribute(TokenAttribute attribute)
+        {
+            Guard.NotNull(attribute, "attribute");
+            attribute.OwnerToken = this;
+            attributes.Add(attribute);
+        }
+
+        /// <summary>
+        /// Adds default (not named) attribute.
+        /// </summary>
+        /// <param name="defaultAttribute">Default (not named) attribute.</param>
+        public void AddDefaultAttribute(string defaultAttribute)
+        {
+            defaultAttributes.Add(defaultAttribute);
         }
 
         /// <summary>

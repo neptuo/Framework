@@ -195,13 +195,13 @@ namespace Neptuo.Tokens
                     if (!Configuration.AllowDefaultAttributes)
                         return Move<TokenErrorState>();
 
-                    Context.Token.DefaultAttributes.Add(Text.ToString());
+                    Context.Token.AddDefaultAttribute(Text.ToString());
                     return Move<TokenDefaultAttributesState>();
                 }
 
                 if (input == '=')
                 {
-                    Context.Token.Attributes.Add(new TokenAttribute(Text.ToString()));
+                    Context.Token.AddAttribute(new TokenAttribute(Text.ToString()));
                     return Move<TokenAttributeValueState>();
                 }
             }
@@ -214,7 +214,7 @@ namespace Neptuo.Tokens
                 if (innerExtensions == 0)
                 {
                     Context.LastIndex = position;
-                    Context.Token.DefaultAttributes.Add(Text.ToString());
+                    Context.Token.AddDefaultAttribute(Text.ToString());
                     return Move<TokenDoneState>();
                 }
                 else
@@ -240,7 +240,7 @@ namespace Neptuo.Tokens
         {
             if (input == '=')
             {
-                Context.Token.Attributes.Add(new TokenAttribute(Text.ToString()));
+                Context.Token.AddAttribute(new TokenAttribute(Text.ToString()));
                 return Move<TokenAttributeValueState>();
             }
 
