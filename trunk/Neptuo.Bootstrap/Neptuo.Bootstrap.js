@@ -377,11 +377,11 @@ var Neptuo$Bootstrap$Constraints$Providers$NullObjectConstrainProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$Constraints$Providers$NullObjectConstrainProvider);
-var Neptuo$Bootstrap$Dependencies$Providers$EmptyExporter = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.EmptyExporter",
+var Neptuo$Bootstrap$Dependencies$Providers$Exporters$EmptyDependencyExporter = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Exporters.EmptyDependencyExporter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyExporter"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -397,12 +397,12 @@ var Neptuo$Bootstrap$Dependencies$Providers$EmptyExporter = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$EmptyExporter);
-var Neptuo$Bootstrap$Dependencies$Providers$EnvironmentExporter = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.EnvironmentExporter",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Exporters$EmptyDependencyExporter);
+var Neptuo$Bootstrap$Dependencies$Providers$Exporters$EnvironmentDependencyExporter = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Exporters.EnvironmentDependencyExporter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyExporter"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -421,7 +421,7 @@ var Neptuo$Bootstrap$Dependencies$Providers$EnvironmentExporter = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$EnvironmentExporter);
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Exporters$EnvironmentDependencyExporter);
 var Neptuo$Bootstrap$Dependencies$ExportAttribute = {
     fullname: "Neptuo.Bootstrap.Dependencies.ExportAttribute",
     baseTypeName: "System.Attribute",
@@ -457,28 +457,28 @@ var Neptuo$Bootstrap$Dependencies$ExportAttribute = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$Dependencies$ExportAttribute);
-var Neptuo$Bootstrap$Dependencies$Providers$ExportAttributeTarget = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ExportAttributeTarget",
+var Neptuo$Bootstrap$Dependencies$Providers$Targets$ExportAttributeTarget = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Targets.ExportAttributeTarget",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget"],
     Kind: "Class",
     definition: {
         ctor: function (propertyInfo, attribute){
-            this._TargetType = null;
+            this._Type = null;
             this._Name = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(propertyInfo, "propertyInfo");
             Neptuo.Guard.NotNull$$Object$$String(attribute, "attribute");
-            this.set_TargetType(propertyInfo.get_PropertyType());
+            this.set_Type(propertyInfo.get_PropertyType());
             this.set_Name(attribute.get_Name());
         },
-        TargetType$$: "System.Type",
-        get_TargetType: function (){
-            return this._TargetType;
+        Type$$: "System.Type",
+        get_Type: function (){
+            return this._Type;
         },
-        set_TargetType: function (value){
-            this._TargetType = value;
+        set_Type: function (value){
+            this._Type = value;
         },
         Name$$: "System.String",
         get_Name: function (){
@@ -487,11 +487,11 @@ var Neptuo$Bootstrap$Dependencies$Providers$ExportAttributeTarget = {
         set_Name: function (value){
             this._Name = value;
         },
-        Equals$$ITaskDependencyTarget: function (other){
-            var target = As(other, Neptuo.Bootstrap.Dependencies.Providers.ImportAttributeTarget.ctor);
+        Equals$$IDependencyTarget: function (other){
+            var target = As(other, Neptuo.Bootstrap.Dependencies.Providers.Targets.ImportAttributeTarget.ctor);
             if (target == null)
                 return false;
-            return System.Type.op_Equality$$Type$$Type(this.get_TargetType(), target.get_TargetType()) && this.get_Name() == target.get_Name();
+            return System.Type.op_Equality$$Type$$Type(this.get_Type(), target.get_Type()) && this.get_Name() == target.get_Name();
         }
     },
     ctors: [{
@@ -501,7 +501,7 @@ var Neptuo$Bootstrap$Dependencies$Providers$ExportAttributeTarget = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ExportAttributeTarget);
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Targets$ExportAttributeTarget);
 var Neptuo$Bootstrap$Dependencies$ImportAttribute = {
     fullname: "Neptuo.Bootstrap.Dependencies.ImportAttribute",
     baseTypeName: "System.Attribute",
@@ -537,28 +537,28 @@ var Neptuo$Bootstrap$Dependencies$ImportAttribute = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$Dependencies$ImportAttribute);
-var Neptuo$Bootstrap$Dependencies$Providers$ImportAttributeTarget = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ImportAttributeTarget",
+var Neptuo$Bootstrap$Dependencies$Providers$Targets$ImportAttributeTarget = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Targets.ImportAttributeTarget",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget"],
     Kind: "Class",
     definition: {
         ctor: function (propertyInfo, attribute){
-            this._TargetType = null;
+            this._Type = null;
             this._Name = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(propertyInfo, "propertyInfo");
             Neptuo.Guard.NotNull$$Object$$String(attribute, "attribute");
-            this.set_TargetType(propertyInfo.get_PropertyType());
+            this.set_Type(propertyInfo.get_PropertyType());
             this.set_Name(attribute.get_Name());
         },
-        TargetType$$: "System.Type",
-        get_TargetType: function (){
-            return this._TargetType;
+        Type$$: "System.Type",
+        get_Type: function (){
+            return this._Type;
         },
-        set_TargetType: function (value){
-            this._TargetType = value;
+        set_Type: function (value){
+            this._Type = value;
         },
         Name$$: "System.String",
         get_Name: function (){
@@ -567,11 +567,11 @@ var Neptuo$Bootstrap$Dependencies$Providers$ImportAttributeTarget = {
         set_Name: function (value){
             this._Name = value;
         },
-        Equals$$ITaskDependencyTarget: function (other){
-            var target = As(other, Neptuo.Bootstrap.Dependencies.Providers.ImportAttributeTarget.ctor);
+        Equals$$IDependencyTarget: function (other){
+            var target = As(other, Neptuo.Bootstrap.Dependencies.Providers.Targets.ImportAttributeTarget.ctor);
             if (target == null)
                 return false;
-            return System.Type.op_Equality$$Type$$Type(this.get_TargetType(), target.get_TargetType()) && this.get_Name() == target.get_Name();
+            return System.Type.op_Equality$$Type$$Type(this.get_Type(), target.get_Type()) && this.get_Name() == target.get_Name();
         }
     },
     ctors: [{
@@ -581,45 +581,45 @@ var Neptuo$Bootstrap$Dependencies$Providers$ImportAttributeTarget = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ImportAttributeTarget);
-var Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyExporter = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyExporter",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Targets$ImportAttributeTarget);
+var Neptuo$Bootstrap$Dependencies$Providers$Exporters$IDependencyExporter = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyExporter);
-var Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyProvider = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyProvider",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Exporters$IDependencyExporter);
+var Neptuo$Bootstrap$Dependencies$Providers$IDependencyDescriptorProvider = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.IDependencyDescriptorProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyProvider);
-var Neptuo$Bootstrap$Dependencies$Providers$ITaskExportDescriptor = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$IDependencyDescriptorProvider);
+var Neptuo$Bootstrap$Dependencies$Providers$IDependencyExportDescriptor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ITaskExportDescriptor);
-var Neptuo$Bootstrap$Dependencies$Providers$ITaskImportDescriptor = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ITaskImportDescriptor",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$IDependencyExportDescriptor);
+var Neptuo$Bootstrap$Dependencies$Providers$IDependencyImportDescriptor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.IDependencyImportDescriptor",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ITaskImportDescriptor);
-var Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyTarget = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$IDependencyImportDescriptor);
+var Neptuo$Bootstrap$Dependencies$Providers$Targets$IDependencyTarget = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     interfaceNames: ["System.IEquatable$1"],
@@ -627,12 +627,12 @@ var Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyTarget = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$ITaskDependencyTarget);
-var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyExportDescriptor = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.TaskPropertyExportDescriptor",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Targets$IDependencyTarget);
+var Neptuo$Bootstrap$Dependencies$Providers$PropertyExportDescriptor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.PropertyExportDescriptor",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor"],
     Kind: "Class",
     definition: {
         ctor: function (target, targetProperty){
@@ -644,7 +644,7 @@ var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyExportDescriptor = {
             this.set_Target(target);
             this.set_TargetProperty(targetProperty);
         },
-        Target$$: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget",
+        Target$$: "Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget",
         get_Target: function (){
             return this._Target;
         },
@@ -664,17 +664,17 @@ var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyExportDescriptor = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget", "System.Reflection.PropertyInfo"]
+        parameters: ["Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget", "System.Reflection.PropertyInfo"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyExportDescriptor);
-var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyImportDescriptor = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.TaskPropertyImportDescriptor",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$PropertyExportDescriptor);
+var Neptuo$Bootstrap$Dependencies$Providers$PropertyImportDescriptor = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.PropertyImportDescriptor",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskImportDescriptor"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.IDependencyImportDescriptor"],
     Kind: "Class",
     definition: {
         ctor: function (target, targetProperty){
@@ -686,7 +686,7 @@ var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyImportDescriptor = {
             this.set_Target(target);
             this.set_TargetProperty(targetProperty);
         },
-        Target$$: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget",
+        Target$$: "Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget",
         get_Target: function (){
             return this._Target;
         },
@@ -706,41 +706,41 @@ var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyImportDescriptor = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyTarget", "System.Reflection.PropertyInfo"]
+        parameters: ["Neptuo.Bootstrap.Dependencies.Providers.Targets.IDependencyTarget", "System.Reflection.PropertyInfo"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyImportDescriptor);
-var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyProvider = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.TaskPropertyProvider",
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$PropertyImportDescriptor);
+var Neptuo$Bootstrap$Dependencies$Providers$PropertyDescriptorProvider = {
+    fullname: "Neptuo.Bootstrap.Dependencies.Providers.PropertyDescriptorProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyProvider"],
+    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.IDependencyDescriptorProvider"],
     Kind: "Class",
     definition: {
         ctor: function (){
             System.Object.ctor.call(this);
         },
         GetImports: function (taskType){
-            var result = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.ITaskImportDescriptor.ctor);
+            var result = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.IDependencyImportDescriptor.ctor);
             var $it8 = taskType.GetProperties().GetEnumerator();
             while ($it8.MoveNext()){
                 var propertyInfo = $it8.get_Current();
                 var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.Bootstrap.Dependencies.ImportAttribute.ctor, propertyInfo);
                 if (attribute != null)
-                    result.Add(new Neptuo.Bootstrap.Dependencies.Providers.TaskPropertyImportDescriptor.ctor(new Neptuo.Bootstrap.Dependencies.Providers.ImportAttributeTarget.ctor(propertyInfo, attribute), propertyInfo));
+                    result.Add(new Neptuo.Bootstrap.Dependencies.Providers.PropertyImportDescriptor.ctor(new Neptuo.Bootstrap.Dependencies.Providers.Targets.ImportAttributeTarget.ctor(propertyInfo, attribute), propertyInfo));
             }
             return result;
         },
         GetExports: function (taskType){
-            var result = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor.ctor);
+            var result = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor.ctor);
             var $it9 = taskType.GetProperties().GetEnumerator();
             while ($it9.MoveNext()){
                 var propertyInfo = $it9.get_Current();
                 var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.Bootstrap.Dependencies.ExportAttribute.ctor, propertyInfo);
                 if (attribute != null)
-                    result.Add(new Neptuo.Bootstrap.Dependencies.Providers.TaskPropertyExportDescriptor.ctor(new Neptuo.Bootstrap.Dependencies.Providers.ExportAttributeTarget.ctor(propertyInfo, attribute), propertyInfo));
+                    result.Add(new Neptuo.Bootstrap.Dependencies.Providers.PropertyExportDescriptor.ctor(new Neptuo.Bootstrap.Dependencies.Providers.Targets.ExportAttributeTarget.ctor(propertyInfo, attribute), propertyInfo));
             }
             return result;
         }
@@ -752,7 +752,7 @@ var Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$TaskPropertyProvider);
+JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$PropertyDescriptorProvider);
 var Neptuo$Bootstrap$HierarchicalBootstrapper = {
     fullname: "Neptuo.Bootstrap.HierarchicalBootstrapper",
     baseTypeName: "Neptuo.Bootstrap.BootstrapperBase",
@@ -762,6 +762,7 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
     definition: {
         ctor: function (context){
             this.context = null;
+            this.currentDescriptors = new System.Collections.Generic.Stack$1.ctor(Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor);
             this.descriptors = new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor);
             Neptuo.Bootstrap.BootstrapperBase.ctor.call(this, context.get_Activator(), context.get_ConstraintProvider());
             Neptuo.Guard.NotNull$$Object$$String(context, "context");
@@ -770,15 +771,15 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
         Register$$IBootstrapTask: function (task){
             Neptuo.Guard.NotNull$$Object$$String(task, "task");
             var descriptor = new Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor(task.GetType());
-            descriptor.get_Imports().AddRange(this.context.get_DependencyProvider().GetImports(descriptor.get_Type()));
-            descriptor.get_Exports().AddRange(this.context.get_DependencyProvider().GetExports(descriptor.get_Type()));
+            descriptor.get_Imports().AddRange(this.context.get_DescriptorProvider().GetImports(descriptor.get_Type()));
+            descriptor.get_Exports().AddRange(this.context.get_DescriptorProvider().GetExports(descriptor.get_Type()));
             descriptor.set_Instance(task);
             this.descriptors.Add(descriptor);
         },
         Register$1: function (T){
             var descriptor = new Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor(Typeof(T));
-            descriptor.get_Imports().AddRange(this.context.get_DependencyProvider().GetImports(descriptor.get_Type()));
-            descriptor.get_Exports().AddRange(this.context.get_DependencyProvider().GetExports(descriptor.get_Type()));
+            descriptor.get_Imports().AddRange(this.context.get_DescriptorProvider().GetImports(descriptor.get_Type()));
+            descriptor.get_Exports().AddRange(this.context.get_DescriptorProvider().GetExports(descriptor.get_Type()));
             descriptor.set_Instance(this.CreateInstance$1(T));
             this.descriptors.Add(descriptor);
         },
@@ -792,12 +793,16 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
         ExecuteDescriptor: function (descriptor){
             if (descriptor.get_IsExecuted())
                 return;
+            if (this.currentDescriptors.Contains(descriptor))
+                throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Found cyclic dependency during bootstrapping of task \'{0}\'.", descriptor.get_Type().get_FullName()), new Error());
+            this.currentDescriptors.Push(descriptor);
             this.ProcessImports(descriptor);
             if (this.AreConstraintsSatisfied(descriptor.get_Instance())){
                 descriptor.get_Instance().Initialize();
                 this.ProcessExports(descriptor, descriptor.get_Instance());
             }
             descriptor.set_IsExecuted(true);
+            this.currentDescriptors.Pop();
         },
         ProcessImports: function (descriptor){
             var $it11 = descriptor.get_Imports().GetEnumerator();
@@ -805,7 +810,7 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
                 var import = $it11.get_Current();
                 var export = this.FindExportDescriptor(import.get_Target());
                 if (export == null)
-                    throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Missing import for type \'{0}\', implement factory or environment import.", import.get_Target().get_TargetType().get_FullName()), new Error());
+                    throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Missing import for type \'{0}\', implement factory or environment import.", import.get_Target().get_Type().get_FullName()), new Error());
                 if (!export.get_Item2().get_IsExecuted())
                     this.ExecuteDescriptor(export.get_Item2());
                 import.SetValue(descriptor.get_Instance(), export.get_Item1().GetValue(export.get_Item2().get_Instance()));
@@ -826,7 +831,7 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper = {
                 while ($it14.MoveNext()){
                     var export = $it14.get_Current();
                     if (export.get_Target().Equals$$T(target))
-                        return new System.Tuple$2.ctor(Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor.ctor, Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor, export, descriptor);
+                        return new System.Tuple$2.ctor(Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor.ctor, Neptuo.Bootstrap.HierarchicalBootstrapper.BootstrapTaskDescriptor.ctor, export, descriptor);
                 }
             }
             return null;
@@ -855,8 +860,8 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper$BootstrapTaskDescriptor = {
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(type, "type");
             this.set_Type(type);
-            this.set_Imports(new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.ITaskImportDescriptor.ctor));
-            this.set_Exports(new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor.ctor));
+            this.set_Imports(new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.IDependencyImportDescriptor.ctor));
+            this.set_Exports(new System.Collections.Generic.List$1.ctor(Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor.ctor));
         },
         Type$$: "System.Type",
         get_Type: function (){
@@ -872,14 +877,14 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper$BootstrapTaskDescriptor = {
         set_Instance: function (value){
             this._Instance = value;
         },
-        Imports$$: "System.Collections.Generic.List`1[[Neptuo.Bootstrap.Dependencies.Providers.ITaskImportDescriptor]]",
+        Imports$$: "System.Collections.Generic.List`1[[Neptuo.Bootstrap.Dependencies.Providers.IDependencyImportDescriptor]]",
         get_Imports: function (){
             return this._Imports;
         },
         set_Imports: function (value){
             this._Imports = value;
         },
-        Exports$$: "System.Collections.Generic.List`1[[Neptuo.Bootstrap.Dependencies.Providers.ITaskExportDescriptor]]",
+        Exports$$: "System.Collections.Generic.List`1[[Neptuo.Bootstrap.Dependencies.Providers.IDependencyExportDescriptor]]",
         get_Exports: function (){
             return this._Exports;
         },
@@ -902,25 +907,104 @@ var Neptuo$Bootstrap$HierarchicalBootstrapper$BootstrapTaskDescriptor = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$HierarchicalBootstrapper$BootstrapTaskDescriptor);
+var Neptuo$Bootstrap$HierarchicalBuilder = {
+    fullname: "Neptuo.Bootstrap.HierarchicalBuilder",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    interfaceNames: ["Neptuo.Bootstrap.IHierarchicalBuilderActivator", "Neptuo.Bootstrap.IHierarchicalBuilderConstraint", "Neptuo.Bootstrap.IHierarchicalBuilderDescriptor", "Neptuo.Bootstrap.IHierarchicalBuilderExporter"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.activator = null;
+            this.constraintProvider = null;
+            this.descriptorProvider = null;
+            System.Object.ctor.call(this);
+        },
+        WithActivator$$IDependencyProvider: function (dependencyProvider){
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.activator = $CreateAnonymousDelegate(this, function (type){
+                return Cast(dependencyProvider.Resolve(type, null), Neptuo.Bootstrap.IBootstrapTask.ctor);
+            });
+            return this;
+        },
+        WithActivator$$Func$2$Type$IBootstrapTask: function (activator){
+            Neptuo.Guard.NotNull$$Object$$String(activator, "activator");
+            this.activator = activator;
+            return this;
+        },
+        WithSystemActivator: function (){
+            this.activator = $CreateAnonymousDelegate(this, function (type){
+                return Cast(System.Activator.CreateInstance$$Type(type), Neptuo.Bootstrap.IBootstrapTask.ctor);
+            });
+            return this;
+        },
+        CreateBootstrapper: function (dependencyExporter){
+            return new Neptuo.Bootstrap.HierarchicalBootstrapper.ctor(new Neptuo.Bootstrap.HierarchicalContext.ctor(this.activator, this.constraintProvider, this.descriptorProvider, dependencyExporter));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Bootstrap$HierarchicalBuilder);
+var Neptuo$Bootstrap$IHierarchicalBuilderActivator = {
+    fullname: "Neptuo.Bootstrap.IHierarchicalBuilderActivator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$IHierarchicalBuilderActivator);
+var Neptuo$Bootstrap$IHierarchicalBuilderConstraint = {
+    fullname: "Neptuo.Bootstrap.IHierarchicalBuilderConstraint",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$IHierarchicalBuilderConstraint);
+var Neptuo$Bootstrap$IHierarchicalBuilderDescriptor = {
+    fullname: "Neptuo.Bootstrap.IHierarchicalBuilderDescriptor",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$IHierarchicalBuilderDescriptor);
+var Neptuo$Bootstrap$IHierarchicalBuilderExporter = {
+    fullname: "Neptuo.Bootstrap.IHierarchicalBuilderExporter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Bootstrap",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Bootstrap$IHierarchicalBuilderExporter);
 var Neptuo$Bootstrap$HierarchicalContext = {
     fullname: "Neptuo.Bootstrap.HierarchicalContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Bootstrap",
     Kind: "Class",
     definition: {
-        ctor: function (activator, constraintProvider, dependencyProvider, dependencyExporter){
+        ctor: function (activator, constraintProvider, descriptorProvider, dependencyExporter){
             this._Activator = null;
             this._ConstraintProvider = null;
-            this._DependencyProvider = null;
+            this._DescriptorProvider = null;
             this._DependencyExporter = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(activator, "activator");
             Neptuo.Guard.NotNull$$Object$$String(constraintProvider, "constraintProvider");
-            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            Neptuo.Guard.NotNull$$Object$$String(descriptorProvider, "dependencyProvider");
             Neptuo.Guard.NotNull$$Object$$String(dependencyExporter, "dependencyExporter");
             this.set_Activator(activator);
             this.set_ConstraintProvider(constraintProvider);
-            this.set_DependencyProvider(dependencyProvider);
+            this.set_DescriptorProvider(descriptorProvider);
             this.set_DependencyExporter(dependencyExporter);
         },
         Activator$$: "System.Func`2[[System.Type],[Neptuo.Bootstrap.IBootstrapTask]]",
@@ -937,14 +1021,14 @@ var Neptuo$Bootstrap$HierarchicalContext = {
         set_ConstraintProvider: function (value){
             this._ConstraintProvider = value;
         },
-        DependencyProvider$$: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyProvider",
-        get_DependencyProvider: function (){
-            return this._DependencyProvider;
+        DescriptorProvider$$: "Neptuo.Bootstrap.Dependencies.Providers.IDependencyDescriptorProvider",
+        get_DescriptorProvider: function (){
+            return this._DescriptorProvider;
         },
-        set_DependencyProvider: function (value){
-            this._DependencyProvider = value;
+        set_DescriptorProvider: function (value){
+            this._DescriptorProvider = value;
         },
-        DependencyExporter$$: "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyExporter",
+        DependencyExporter$$: "Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter",
         get_DependencyExporter: function (){
             return this._DependencyExporter;
         },
@@ -954,7 +1038,7 @@ var Neptuo$Bootstrap$HierarchicalContext = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.Func", "Neptuo.Bootstrap.Constraints.IBootstrapConstraintProvider", "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyProvider", "Neptuo.Bootstrap.Dependencies.Providers.ITaskDependencyExporter"]
+        parameters: ["System.Func", "Neptuo.Bootstrap.Constraints.IBootstrapConstraintProvider", "Neptuo.Bootstrap.Dependencies.Providers.IDependencyDescriptorProvider", "Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter"]
     }
     ],
     IsAbstract: false

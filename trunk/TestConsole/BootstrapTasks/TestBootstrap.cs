@@ -4,6 +4,7 @@ using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Constraints.Providers;
 using Neptuo.Bootstrap.Dependencies;
 using Neptuo.Bootstrap.Dependencies.Providers;
+using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
@@ -47,13 +48,12 @@ namespace TestConsole.BootstrapTasks
 
         private static HelloService Hierarchical()
         {
-            HierarchicalContext context = new HierarchicalContext(
-                type => (IBootstrapTask)Activator.CreateInstance(type),
-                new AttributeConstraintProvider(type => (IBootstrapConstraint)Activator.CreateInstance(type)),
-                new TaskPropertyProvider(),
-                new EnvironmentExporter()
-            );
-            HierarchicalBootstrapper bootstrapper = new HierarchicalBootstrapper(context);
+            HierarchicalBootstrapper bootstrapper = new HierarchicalBuilder()
+                .WithSystemActivator()
+                .WithConstraintProvider(new AttributeConstraintProvider(type => (IBootstrapConstraint)Activator.CreateInstance(type)))
+                .WithPropertyDescriptorProvider()
+                .WithEnvironmentExporter();
+
             bootstrapper.Register(new Hierarchical.HelloBootstrapTask("Hi"));
             bootstrapper.Register(new Hierarchical.WriterBootstrapTask(Console.Out));
             bootstrapper.Initialize();

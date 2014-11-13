@@ -5,28 +5,28 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies.Providers
+namespace Neptuo.Bootstrap.Dependencies.Providers.Targets
 {
-    public class ImportAttributeTarget : ITaskDependencyTarget
+    public class ImportAttributeTarget : IDependencyTarget
     {
-        public Type TargetType { get; private set; }
+        public Type Type { get; private set; }
         public string Name { get; private set; }
 
         public ImportAttributeTarget(PropertyInfo propertyInfo, ImportAttribute attribute)
         {
             Guard.NotNull(propertyInfo, "propertyInfo");
             Guard.NotNull(attribute, "attribute");
-            TargetType = propertyInfo.PropertyType;
+            Type = propertyInfo.PropertyType;
             Name = attribute.Name;
         }
 
-        public bool Equals(ITaskDependencyTarget other)
+        public bool Equals(IDependencyTarget other)
         {
             ImportAttributeTarget target = other as ImportAttributeTarget;
             if (target == null)
                 return false;
 
-            return TargetType == target.TargetType && Name == target.Name;
+            return Type == target.Type && Name == target.Name;
         }
     }
 }
