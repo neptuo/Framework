@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Dependencies.Providers.Targets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Dependencies.Providers
 {
-    public class TaskPropertyExportDescriptor : ITaskExportDescriptor
+    public class PropertyImportDescriptor : IDependencyImportDescriptor
     {
-        public ITaskDependencyTarget Target { get; private set; }
+        public IDependencyTarget Target { get; private set; }
         public PropertyInfo TargetProperty { get; private set; }
 
-        public TaskPropertyExportDescriptor(ITaskDependencyTarget target, PropertyInfo targetProperty)
+        public PropertyImportDescriptor(IDependencyTarget target, PropertyInfo targetProperty)
         {
             Guard.NotNull(target, "target");
             Guard.NotNull(targetProperty, "targetProperty");
@@ -20,9 +21,9 @@ namespace Neptuo.Bootstrap.Dependencies.Providers
             TargetProperty = targetProperty;
         }
 
-        public object GetValue(IBootstrapTask task)
+        public void SetValue(IBootstrapTask task, object dependency)
         {
-            return TargetProperty.GetValue(task);
+            TargetProperty.SetValue(task, dependency);
         }
     }
 }

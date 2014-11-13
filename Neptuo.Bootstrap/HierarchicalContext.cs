@@ -1,6 +1,7 @@
 ﻿using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Dependencies;
 using Neptuo.Bootstrap.Dependencies.Providers;
+using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,18 +14,18 @@ namespace Neptuo.Bootstrap
     {
         public Func<Type, IBootstrapTask> Activator { get; private set; }
         public IBootstrapConstraintProvider ConstraintProvider { get; private set; }
-        public ITaskDependencyProvider DependencyProvider { get; private set; }
-        public ITaskDependencyExporter DependencyExporter { get; private set; }
+        public IDependencyDescriptorProvider DescriptorProvider { get; private set; }
+        public IDependencyExporter DependencyExporter { get; private set; }
 
-        public HierarchicalContext(Func<Type, IBootstrapTask> activator, IBootstrapConstraintProvider constraintProvider, ITaskDependencyProvider dependencyProvider, ITaskDependencyExporter dependencyExporter)
+        public HierarchicalContext(Func<Type, IBootstrapTask> activator, IBootstrapConstraintProvider constraintProvider, IDependencyDescriptorProvider descriptorProvider, IDependencyExporter dependencyExporter)
         {
             Guard.NotNull(activator, "activator");
             Guard.NotNull(constraintProvider, "constraintProvider");
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Guard.NotNull(descriptorProvider, "dependencyProvider");
             Guard.NotNull(dependencyExporter, "dependencyExporter");
             Activator = activator;
             ConstraintProvider = constraintProvider;
-            DependencyProvider = dependencyProvider;
+            DescriptorProvider = descriptorProvider;
             DependencyExporter = dependencyExporter;
         }
     }

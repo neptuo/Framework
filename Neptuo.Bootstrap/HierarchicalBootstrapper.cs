@@ -1,6 +1,7 @@
 ﻿using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Dependencies;
 using Neptuo.Bootstrap.Dependencies.Providers;
+using Neptuo.Bootstrap.Dependencies.Providers.Targets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Neptuo.Bootstrap
     public class HierarchicalBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
     {
         private readonly HierarchicalContext context;
+        private readonly Stack<BootstrapTaskDescriptor> currentDescriptors = new Stack<BootstrapTaskDescriptor>();
         private readonly List<BootstrapTaskDescriptor> descriptors = new List<BootstrapTaskDescriptor>();
 
         public HierarchicalBootstrapper(HierarchicalContext context)
@@ -34,8 +36,8 @@ namespace Neptuo.Bootstrap
         {
             Guard.NotNull(task, "task");
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(task.GetType());
-            descriptor.Imports.AddRange(context.DependencyProvider.GetImports(descriptor.Type));
-            descriptor.Exports.AddRange(context.DependencyProvider.GetExports(descriptor.Type));
+            descriptor.Imports.AddRange(context.DescriptorProvider.GetImports(descriptor.Type));
+            descriptor.Exports.AddRange(context.DescriptorProvider.GetExports(descriptor.Type));
             descriptor.Instance = task;
             descriptors.Add(descriptor);
         }
@@ -44,8 +46,8 @@ namespace Neptuo.Bootstrap
             where T : IBootstrapTask
         {
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(typeof(T));
-            descriptor.Imports.AddRange(context.DependencyProvider.GetImports(descriptor.Type));
-            descriptor.Exports.AddRange(context.DependencyProvider.GetExports(descriptor.Type));
+            descriptor.Imports.AddRange(context.DescriptorProvider.GetImports(descriptor.Type));
+            descriptor.Exports.AddRange(context.DescriptorProvider.GetExports(descriptor.Type));
             descriptor.Instance = CreateInstance<T>();
             descriptors.Add(descriptor);
         }
@@ -61,7 +63,11 @@ namespace Neptuo.Bootstrap
             if (descriptor.IsExecuted)
                 return;
 
-            //TODO: Check cycles! Use stack and check if descriptor is not present on the stack.
+            // Check dependency cycles! Use stack and check if descriptor is not present on the stack.
+            if (currentDescriptors.Contains(descriptor))
+                throw Guard.Exception.InvalidOperation("Found cyclic dependency during bootstrapping of task '{0}'.", descriptor.Type.FullName);
+
+            currentDescriptors.Push(descriptor);
 
             // Import.
             ProcessImports(descriptor);
@@ -78,15 +84,16 @@ namespace Neptuo.Bootstrap
 
             // Mark as exported.
             descriptor.IsExecuted = true;
+            currentDescriptors.Pop();
         }
 
         private void ProcessImports(BootstrapTaskDescriptor descriptor)
         {
-            foreach (ITaskImportDescriptor import in descriptor.Imports)
+            foreach (IDependencyImportDescriptor import in descriptor.Imports)
             {
-                Tuple<ITaskExportDescriptor, BootstrapTaskDescriptor> export = FindExportDescriptor(import.Target);
+                Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> export = FindExportDescriptor(import.Target);
                 if(export == null)
-                    throw Guard.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.TargetType.FullName);
+                    throw Guard.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.Type.FullName);
 
                 if (!export.Item2.IsExecuted)
                     ExecuteDescriptor(export.Item2);
@@ -97,18 +104,18 @@ namespace Neptuo.Bootstrap
 
         private void ProcessExports(BootstrapTaskDescriptor descriptor, IBootstrapTask task)
         {
-            foreach (ITaskExportDescriptor export in descriptor.Exports)
+            foreach (IDependencyExportDescriptor export in descriptor.Exports)
                 context.DependencyExporter.Export(export, export.GetValue(task));
         }
 
-        private Tuple<ITaskExportDescriptor, BootstrapTaskDescriptor> FindExportDescriptor(ITaskDependencyTarget target)
+        private Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> FindExportDescriptor(IDependencyTarget target)
         {
             foreach (BootstrapTaskDescriptor descriptor in descriptors)
             {
-                foreach (ITaskExportDescriptor export in descriptor.Exports)
+                foreach (IDependencyExportDescriptor export in descriptor.Exports)
                 {
                     if (export.Target.Equals(target))
-                        return new Tuple<ITaskExportDescriptor,BootstrapTaskDescriptor>(export, descriptor);
+                        return new Tuple<IDependencyExportDescriptor,BootstrapTaskDescriptor>(export, descriptor);
                 }
             }
 
@@ -141,8 +148,8 @@ namespace Neptuo.Bootstrap
             public Type Type { get; private set; }
             public IBootstrapTask Instance { get; set; }
 
-            public List<ITaskImportDescriptor> Imports { get; private set; }
-            public List<ITaskExportDescriptor> Exports { get; private set; }
+            public List<IDependencyImportDescriptor> Imports { get; private set; }
+            public List<IDependencyExportDescriptor> Exports { get; private set; }
 
             public bool IsExecuted { get; set; }
 
@@ -150,8 +157,8 @@ namespace Neptuo.Bootstrap
             {
                 Guard.NotNull(type, "type");
                 Type = type;
-                Imports = new List<ITaskImportDescriptor>();
-                Exports = new List<ITaskExportDescriptor>();
+                Imports = new List<IDependencyImportDescriptor>();
+                Exports = new List<IDependencyExportDescriptor>();
             }
         }
     }

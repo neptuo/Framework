@@ -6,11 +6,11 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies.Providers
+namespace Neptuo.Bootstrap.Dependencies.Providers.Exporters
 {
-    public class EnvironmentExporter : ITaskDependencyExporter
+    public class EnvironmentDependencyExporter : IDependencyExporter
     {
-        public void Export(ITaskExportDescriptor export, object value)
+        public void Export(IDependencyExportDescriptor export, object value)
         {
             MethodInfo methodInfo = typeof(EngineEnvironment).GetMethod("Use");
             methodInfo = methodInfo.MakeGenericMethod(value.GetType());
