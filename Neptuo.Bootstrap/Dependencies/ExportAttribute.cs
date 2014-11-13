@@ -8,5 +8,16 @@ namespace Neptuo.Bootstrap.Dependencies
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ExportAttribute : Attribute
-    { }
+    {
+        public string Name { get; private set; }
+
+        public ExportAttribute()
+        { }
+
+        public ExportAttribute(string name)
+        {
+            Guard.NotNullOrEmpty(name, "name");
+            Name = name;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Dependencies;
+using Neptuo.Bootstrap.Dependencies.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Neptuo.Bootstrap
     /// 2) Ti, co X importují i exportují (donaplňují instanci) => co atribut [Building]?
     /// 3) Ti, co jen importují (má se předávat do kontextu/env/container).
     /// </remarks>
-    public class HierarchicalBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry, ITaskExecutor
+    public class HierarchicalBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
     {
         private readonly HierarchicalContext context;
         private readonly List<BootstrapTaskDescriptor> descriptors = new List<BootstrapTaskDescriptor>();
@@ -33,13 +34,18 @@ namespace Neptuo.Bootstrap
         {
             Guard.NotNull(task, "task");
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(task.GetType());
+            descriptor.Imports.AddRange(context.DependencyProvider.GetImports(descriptor.Type));
+            descriptor.Exports.AddRange(context.DependencyProvider.GetExports(descriptor.Type));
             descriptor.Instance = task;
+            descriptors.Add(descriptor);
         }
 
         public void Register<T>() 
             where T : IBootstrapTask
         {
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(typeof(T));
+            descriptor.Imports.AddRange(context.DependencyProvider.GetImports(descriptor.Type));
+            descriptor.Exports.AddRange(context.DependencyProvider.GetExports(descriptor.Type));
             descriptor.Instance = CreateInstance<T>();
             descriptors.Add(descriptor);
         }
@@ -55,48 +61,88 @@ namespace Neptuo.Bootstrap
             if (descriptor.IsExecuted)
                 return;
 
-            IEnumerable<ITaskDependency> dependencies = context.DependencyProvider.GetDependencies(descriptor.Instance);
+            //TODO: Check cycles! Use stack and check if descriptor is not present on the stack.
 
-                //Import
+            // Import.
+            ProcessImports(descriptor);
 
+            // Check constraints.
             if (AreConstraintsSatisfied(descriptor.Instance))
             {
+                // Run task.
                 descriptor.Instance.Initialize();
 
-                //Export
+                // Export.
+                ProcessExports(descriptor, descriptor.Instance);
             }
 
+            // Mark as exported.
             descriptor.IsExecuted = true;
         }
 
-
-        void ITaskExecutor.Execute(IBootstrapTask task)
+        private void ProcessImports(BootstrapTaskDescriptor descriptor)
         {
-            Guard.NotNull(task, "task");
-            BootstrapTaskDescriptor descriptor = descriptors.FirstOrDefault(d => d.Instance == task);
-            if (descriptor == null)
+            foreach (ITaskImportDescriptor import in descriptor.Imports)
             {
-                Type taskType = task.GetType();
-                descriptor = descriptors.FirstOrDefault(d => d.Type == taskType);
+                Tuple<ITaskExportDescriptor, BootstrapTaskDescriptor> export = FindExportDescriptor(import.Target);
+                if(export == null)
+                    throw Guard.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.TargetType.FullName);
 
-                if (descriptor == null)
-                    descriptors.Add(descriptor = new BootstrapTaskDescriptor(taskType) { Instance = task });
+                if (!export.Item2.IsExecuted)
+                    ExecuteDescriptor(export.Item2);
+
+                import.SetValue(descriptor.Instance, export.Item1.GetValue(export.Item2.Instance));
+            }
+        }
+
+        private void ProcessExports(BootstrapTaskDescriptor descriptor, IBootstrapTask task)
+        {
+            foreach (ITaskExportDescriptor export in descriptor.Exports)
+                context.DependencyExporter.Export(export, export.GetValue(task));
+        }
+
+        private Tuple<ITaskExportDescriptor, BootstrapTaskDescriptor> FindExportDescriptor(ITaskDependencyTarget target)
+        {
+            foreach (BootstrapTaskDescriptor descriptor in descriptors)
+            {
+                foreach (ITaskExportDescriptor export in descriptor.Exports)
+                {
+                    if (export.Target.Equals(target))
+                        return new Tuple<ITaskExportDescriptor,BootstrapTaskDescriptor>(export, descriptor);
+                }
             }
 
-            ExecuteDescriptor(descriptor);
+            return null;
         }
 
 
+        //void ITaskExecutor.Execute(IBootstrapTask task)
+        //{
+        //    Guard.NotNull(task, "task");
+        //    BootstrapTaskDescriptor descriptor = descriptors.FirstOrDefault(d => d.Instance == task);
+        //    if (descriptor == null)
+        //    {
+        //        Type taskType = task.GetType();
+        //        descriptor = descriptors.FirstOrDefault(d => d.Type == taskType);
+
+        //        if (descriptor == null)
+        //            descriptors.Add(descriptor = new BootstrapTaskDescriptor(taskType) { Instance = task });
+        //    }
+
+        //    ExecuteDescriptor(descriptor);
+        //}
 
 
 
-        private class BootstrapTaskDescriptor : ITaskDescriptor
+
+
+        private class BootstrapTaskDescriptor
         {
             public Type Type { get; private set; }
             public IBootstrapTask Instance { get; set; }
 
-            public List<Type> Imports { get; private set; }
-            public List<Type> Exports { get; private set; }
+            public List<ITaskImportDescriptor> Imports { get; private set; }
+            public List<ITaskExportDescriptor> Exports { get; private set; }
 
             public bool IsExecuted { get; set; }
 
@@ -104,8 +150,8 @@ namespace Neptuo.Bootstrap
             {
                 Guard.NotNull(type, "type");
                 Type = type;
-                Imports = new List<Type>();
-                Exports = new List<Type>();
+                Imports = new List<ITaskImportDescriptor>();
+                Exports = new List<ITaskExportDescriptor>();
             }
         }
     }

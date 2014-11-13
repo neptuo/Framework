@@ -50,12 +50,20 @@
     <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
     <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
     <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
+    <Compile Include="Dependencies\Providers\EmptyExporter.cs" />
+    <Compile Include="Dependencies\Providers\EnvironmentExporter.cs" />
     <Compile Include="Dependencies\ExportAttribute.cs" />
+    <Compile Include="Dependencies\Providers\ExportAttributeTarget.cs" />
     <Compile Include="Dependencies\ImportAttribute.cs" />
-    <Compile Include="Dependencies\ITaskDependency.cs" />
-    <Compile Include="Dependencies\ITaskDependencyProvider.cs" />
-    <Compile Include="Dependencies\ITaskExecutor.cs" />
-    <Compile Include="Dependencies\PropertyTaskDependency.cs" />
+    <Compile Include="Dependencies\Providers\ImportAttributeTarget.cs" />
+    <Compile Include="Dependencies\Providers\ITaskDependencyExporter.cs" />
+    <Compile Include="Dependencies\Providers\ITaskDependencyProvider.cs" />
+    <Compile Include="Dependencies\Providers\ITaskExportDescriptor.cs" />
+    <Compile Include="Dependencies\Providers\ITaskImportDescriptor.cs" />
+    <Compile Include="Dependencies\Providers\ITaskDependencyTarget.cs" />
+    <Compile Include="Dependencies\Providers\TaskPropertyExportDescriptor.cs" />
+    <Compile Include="Dependencies\Providers\TaskPropertyImportDescriptor.cs" />
+    <Compile Include="Dependencies\Providers\TaskPropertyProvider.cs" />
     <Compile Include="HierarchicalBootstrapper.cs" />
     <Compile Include="HierarchicalContext.cs" />
     <Compile Include="IBootstrapper.cs" />
@@ -83,6 +91,7 @@
       <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
 </Project>

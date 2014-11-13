@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies
+namespace Neptuo.Bootstrap.Dependencies.Providers
 {
-    public interface ITaskDependency
+    public interface ITaskDependencyTarget : IEquatable<ITaskDependencyTarget>
     {
         Type TargetType { get; }
     }
