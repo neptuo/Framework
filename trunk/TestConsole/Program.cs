@@ -13,6 +13,7 @@ using TestConsole.Compilers;
 using TestConsole.Configuration;
 using TestConsole.Data;
 using TestConsole.Delegates;
+using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
 using TestConsole.PresentationModels;
@@ -42,6 +43,7 @@ namespace TestConsole
             //TestBootstrap.Test();
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
+            TestDependency.Test();
 
 
 
