@@ -28,7 +28,7 @@ namespace TestConsole
     {
         static void Main(string[] args)
         {
-            TestTokens.Test();
+            //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
             //TestPresentationModel.Test();
@@ -40,10 +40,10 @@ namespace TestConsole
             //TestDelegates.Test();
             //TestCompiler.Test();
             //TestHash.Test();
-            //TestBootstrap.Test();
+            TestBootstrap.Test();
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
-            TestDependency.Test();
+            //TestDependency.Test();
 
 
 

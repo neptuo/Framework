@@ -8,5 +8,16 @@ namespace Neptuo.Bootstrap.Dependencies
 {
     [AttributeUsage(AttributeTargets.Property)]
     public class ImportAttribute : Attribute
-    { }
+    {
+        public string Name { get; private set; }
+
+        public ImportAttribute()
+        { }
+
+        public ImportAttribute(string name)
+        {
+            Guard.NotNullOrEmpty(name, "name");
+            Name = name;
+        }
+    }
 }
