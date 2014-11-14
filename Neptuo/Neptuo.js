@@ -250,6 +250,16 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2.call(this, System.String.ctor, System.Object.ctor, source);
         },
+        ctor$$NameValueCollection: function (collection){
+            this._IsReadOnly = false;
+            System.Collections.Generic.Dictionary$2.ctor.call(this, System.String.ctor, System.Object.ctor);
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            var $it2 = collection.get_AllKeys().GetEnumerator();
+            while ($it2.MoveNext()){
+                var key = $it2.get_Current();
+                this.Add(key, collection.get_Item$$String(key));
+            }
+        },
         Set: function (key, value){
             if (this.get_IsReadOnly())
                 throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Collection is in read-only mode."), new Error());
@@ -308,6 +318,9 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
     }, {
         name: "ctor$$IDictionary",
         parameters: ["System.Collections.Generic.IDictionary"]
+    }, {
+        name: "ctor$$NameValueCollection",
+        parameters: ["System.Collections.Specialized.NameValueCollection"]
     }
     ],
     IsAbstract: false
@@ -361,9 +374,9 @@ var Neptuo$Collections$Specialized$NameValueDictionary = {
         get_Values: function (){
             if (this.allValues == null){
                 this.allValues = new System.Collections.Generic.List$1.ctor(System.String.ctor);
-                var $it2 = this.source.get_AllKeys().GetEnumerator();
-                while ($it2.MoveNext()){
-                    var key = $it2.get_Current();
+                var $it3 = this.source.get_AllKeys().GetEnumerator();
+                while ($it3.MoveNext()){
+                    var key = $it3.get_Current();
                     this.allValues.Add(this.source.get_Item$$String(key));
                 }
             }
@@ -517,9 +530,9 @@ var Neptuo$Collections$Specialized$NameValueReadOnlyDictionary = {
         get_Values: function (){
             if (this.allValues == null){
                 this.allValues = new System.Collections.Generic.List$1.ctor(System.String.ctor);
-                var $it3 = this.source.get_AllKeys().GetEnumerator();
-                while ($it3.MoveNext()){
-                    var key = $it3.get_Current();
+                var $it4 = this.source.get_AllKeys().GetEnumerator();
+                while ($it4.MoveNext()){
+                    var key = $it4.get_Current();
                     this.allValues.Add(this.source.get_Item$$String(key));
                 }
             }
@@ -580,9 +593,9 @@ var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
         },
         TryGetDefault$1: function (T, key, value){
             Neptuo.Guard.NotNull$$Object$$String(key, "key");
-            var $it4 = System.Linq.Enumerable.Concat$1(Neptuo.OutFunc$3.ctor, this.GetProviders(key), this.GetProviders(System.String.Empty)).GetEnumerator();
-            while ($it4.MoveNext()){
-                var provider = $it4.get_Current();
+            var $it5 = System.Linq.Enumerable.Concat$1(Neptuo.OutFunc$3.ctor, this.GetProviders(key), this.GetProviders(System.String.Empty)).GetEnumerator();
+            while ($it5.MoveNext()){
+                var provider = $it5.get_Current();
                 var valueBase;
                 if ((function (){
                     var $1 = {
@@ -773,17 +786,17 @@ var Neptuo$Compilers$Compiler = {
                 compilerParameters.set_CompilerOptions("/optimize");
         },
         CopyReferences: function (compilerParameters){
-            var $it5 = this.get_References().get_Directories().GetEnumerator();
-            while ($it5.MoveNext()){
-                var referencedDirectory = $it5.get_Current();
+            var $it6 = this.get_References().get_Directories().GetEnumerator();
+            while ($it6.MoveNext()){
+                var referencedDirectory = $it6.get_Current();
                 if (System.IO.Directory.Exists(referencedDirectory)){
                     compilerParameters.get_ReferencedAssemblies().AddRange(System.IO.Directory.GetFiles$$String$$String(referencedDirectory, "*.dll"));
                     compilerParameters.get_ReferencedAssemblies().AddRange(System.IO.Directory.GetFiles$$String$$String(referencedDirectory, "*.exe"));
                 }
             }
-            var $it6 = this.get_References().get_Assemblies().GetEnumerator();
-            while ($it6.MoveNext()){
-                var referencedAssembly = $it6.get_Current();
+            var $it7 = this.get_References().get_Assemblies().GetEnumerator();
+            while ($it7.MoveNext()){
+                var referencedAssembly = $it7.get_Current();
                 compilerParameters.get_ReferencedAssemblies().Add(referencedAssembly);
             }
         },
@@ -2345,9 +2358,9 @@ var Neptuo$Events$EventManager = {
                 handlerFactories = $1.Value;
                 return $res;
             }).call(this)){
-                var $it7 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
-                while ($it7.MoveNext()){
-                    var handlerFactory = $it7.get_Current();
+                var $it8 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
+                while ($it8.MoveNext()){
+                    var handlerFactory = $it8.get_Current();
                     var handler = handlerFactory.CreateHandler(eventData, this);
                     if (handler != null)
                         handler.Handle(eventData);
@@ -2856,18 +2869,18 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         EnumerateChildDirectories: function (paths){
             var $yield = [];
-            var $it8 = paths.GetEnumerator();
-            while ($it8.MoveNext()){
-                var path = $it8.get_Current();
+            var $it9 = paths.GetEnumerator();
+            while ($it9.MoveNext()){
+                var path = $it9.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
         },
         EnumerateAllDirectories: function (paths){
             var $yield = [];
-            var $it9 = paths.GetEnumerator();
-            while ($it9.MoveNext()){
-                var path = $it9.get_Current();
+            var $it10 = paths.GetEnumerator();
+            while ($it10.MoveNext()){
+                var path = $it10.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalDirectory.ctor$$String(path));
             }
             return $yield;
@@ -2890,9 +2903,9 @@ var Neptuo$FileSystems$LocalDirectory = {
         },
         EnumerateFiles: function (){
             var $yield = [];
-            var $it10 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
-            while ($it10.MoveNext()){
-                var path = $it10.get_Current();
+            var $it11 = System.IO.Directory.GetFiles$$String(this.get_FullPath()).GetEnumerator();
+            while ($it11.MoveNext()){
+                var path = $it11.get_Current();
                 $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
             }
             return $yield;
@@ -2902,16 +2915,16 @@ var Neptuo$FileSystems$LocalDirectory = {
             Neptuo.Guard.NotNullOrEmpty(searchPattern, "searchPattern");
             var paths = System.IO.Directory.GetFiles$$String$$String$$SearchOption(this.get_FullPath(), searchPattern, this.GetSearchOption(inAllDescendants));
             if (!inAllDescendants){
-                var $it11 = paths.GetEnumerator();
-                while ($it11.MoveNext()){
-                    var path = $it11.get_Current();
+                var $it12 = paths.GetEnumerator();
+                while ($it12.MoveNext()){
+                    var path = $it12.get_Current();
                     $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$IDirectory$$String(this, path));
                 }
             }
             else {
-                var $it12 = paths.GetEnumerator();
-                while ($it12.MoveNext()){
-                    var path = $it12.get_Current();
+                var $it13 = paths.GetEnumerator();
+                while ($it13.MoveNext()){
+                    var path = $it13.get_Current();
                     $yield.push(new Neptuo.FileSystems.LocalFile.ctor$$String(path));
                 }
             }
@@ -3551,9 +3564,9 @@ var Neptuo$Globalization$CultureInfoExtensions = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it13 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it13.MoveNext()){
-                var item = $it13.get_Current();
+            var $it14 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it14.MoveNext()){
+                var item = $it14.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -3894,10 +3907,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.7.6";
+            Neptuo.VersionInfo.Version = "3.7.7";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.7.6");
+            return new System.Version.ctor$$String("3.7.7");
         }
     },
     assemblyName: "Neptuo",
@@ -3966,9 +3979,9 @@ var Neptuo$Reflection$DefaultReflectionService = {
                     searchIn = this.EnumerateAssemblies();
                 }
             }
-            var $it14 = searchIn.GetEnumerator();
-            while ($it14.MoveNext()){
-                var assembly = $it14.get_Current();
+            var $it15 = searchIn.GetEnumerator();
+            while ($it15.MoveNext()){
+                var assembly = $it15.get_Current();
                 var type = assembly.GetType$$String(typeName);
                 if (System.Type.op_Inequality$$Type$$Type(type, null))
                     return type;
@@ -4037,9 +4050,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it15 = type.GetProperties().GetEnumerator();
-            while ($it15.MoveNext()){
-                var prop = $it15.get_Current();
+            var $it16 = type.GetProperties().GetEnumerator();
+            while ($it16.MoveNext()){
+                var prop = $it16.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -4254,9 +4267,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Guard.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it16 = items.GetEnumerator();
-            while ($it16.MoveNext()){
-                var item = $it16.get_Current();
+            var $it17 = items.GetEnumerator();
+            while ($it17.MoveNext()){
+                var item = $it17.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -4727,9 +4740,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it17 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it17.MoveNext()){
-                var defaultAttribute = $it17.get_Current();
+            var $it18 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it18.MoveNext()){
+                var defaultAttribute = $it18.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -4739,9 +4752,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it18 = this.get_Attributes().GetEnumerator();
-            while ($it18.MoveNext()){
-                var attribute = $it18.get_Current();
+            var $it19 = this.get_Attributes().GetEnumerator();
+            while ($it19.MoveNext()){
+                var attribute = $it19.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -4908,9 +4921,9 @@ var Neptuo$Tokens$TokenParser = {
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
                 var newLines = this.GetNewLineIndexes(content);
-                var $it19 = results.GetEnumerator();
-                while ($it19.MoveNext()){
-                    var result = $it19.get_Current();
+                var $it20 = results.GetEnumerator();
+                while ($it20.MoveNext()){
+                    var result = $it20.get_Current();
                     var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
                     var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
                     result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
@@ -5534,9 +5547,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it20 = this.items.GetEnumerator();
-            while ($it20.MoveNext()){
-                var item = $it20.get_Current();
+            var $it21 = this.items.GetEnumerator();
+            while ($it21.MoveNext()){
+                var item = $it21.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -5546,9 +5559,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it21 = this.items.GetEnumerator();
-            while ($it21.MoveNext()){
-                var item = $it21.get_Current();
+            var $it22 = this.items.GetEnumerator();
+            while ($it22.MoveNext()){
+                var item = $it22.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized.ReadOnlyKeyValueCollectionExtensions.Get$$IReadOnlyKeyValueCollection$$String$$String(tokenMapper, item.get_Value(), ""));
                 else

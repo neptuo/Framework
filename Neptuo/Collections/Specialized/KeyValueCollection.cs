@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,14 @@ namespace Neptuo.Collections.Specialized
         public KeyValueCollection(IDictionary<string, object> source)
             : base(source)
         { }
+
+        public KeyValueCollection(NameValueCollection collection)
+        {
+            Guard.NotNull(collection, "collection");
+            
+            foreach (string key in collection.AllKeys)
+                Add(key, collection[key]);
+        }
 
         public IKeyValueCollection Set(string key, object value)
         {
