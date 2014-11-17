@@ -12,6 +12,13 @@ namespace Neptuo.Collections.Specialized
     public interface IReadOnlyKeyValueCollection
     {
         /// <summary>
+        /// Gets enumeration of known key in collection.
+        /// This probably doesn't return all keys that can be found in collection, 
+        /// this fact is caused by possible implementations with 'provider pattern'.
+        /// </summary>
+        IEnumerable<string> Keys { get; }
+
+        /// <summary>
         /// Tries to get value associated with <paramref name="key"/>.
         /// </summary>
         /// <typeparam name="T">Required value type.</typeparam>
