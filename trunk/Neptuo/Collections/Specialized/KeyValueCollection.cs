@@ -17,6 +17,11 @@ namespace Neptuo.Collections.Specialized
         /// </summary>
         public bool IsReadOnly { get; set; }
 
+        public new IEnumerable<string> Keys
+        {
+            get { return Keys; }
+        }
+
         public KeyValueCollection()
         { }
 
@@ -40,7 +45,7 @@ namespace Neptuo.Collections.Specialized
                 Add(key, collection[key]);
         }
 
-        public IKeyValueCollection Set(string key, object value)
+        public virtual IKeyValueCollection Set(string key, object value)
         {
             if (IsReadOnly)
                 throw Guard.Exception.InvalidOperation("Collection is in read-only mode.");
