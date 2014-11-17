@@ -8,6 +8,7 @@ namespace Neptuo.Collections.Specialized
 {
     using Provider = OutFunc<string, object, bool>;
     using Listener = Action<string, object>;
+    using System.Collections.Specialized;
 
     /// <summary>
     /// Extensible <see cref="IKeyValueCollection"/>.
@@ -32,6 +33,29 @@ namespace Neptuo.Collections.Specialized
         /// Backing storage for listeners.
         /// </summary>
         private readonly Dictionary<string, List<Listener>> listenerStorage = new Dictionary<string, List<Listener>>();
+        
+        public ProviderKeyValueCollection()
+        { }
+
+        public ProviderKeyValueCollection(int capacity)
+            : base(capacity)
+        { }
+
+        public ProviderKeyValueCollection(IEqualityComparer<string> comparer)
+            :  base(comparer)
+        { }
+
+        public ProviderKeyValueCollection(IDictionary<string, object> source)
+            : base(source)
+        { }
+
+        public ProviderKeyValueCollection(NameValueCollection collection)
+        {
+            Guard.NotNull(collection, "collection");
+            
+            foreach (string key in collection.AllKeys)
+                Add(key, collection[key]);
+        }
 
         /// <summary>
         /// Adds <paramref name="provider"/> for any key.
