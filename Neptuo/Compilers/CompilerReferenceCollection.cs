@@ -60,7 +60,10 @@ namespace Neptuo.Compilers
         public CompilerReferenceCollection AddAssembly(string assemblyFile)
         {
             Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
-            if (!File.Exists(assemblyFile))
+
+            // Throw exception when file (with path - relative or absolute) doesn't exist.
+            // If assemblyFile is only file name, it could be framework reference.
+            if (Path.GetFileName(assemblyFile) != assemblyFile && !File.Exists(assemblyFile))
                 throw Guard.Exception.ArgumentOutOfRange("assemblyFile", "Path '{0}' must point to an existing assembly file.", assemblyFile);
 
             assemblies.Add(assemblyFile);

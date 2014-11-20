@@ -1090,7 +1090,7 @@ var Neptuo$Compilers$CompilerReferenceCollection = {
         },
         AddAssembly: function (assemblyFile){
             Neptuo.Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
-            if (!System.IO.File.Exists(assemblyFile))
+            if (System.IO.Path.GetFileName(assemblyFile) != assemblyFile && !System.IO.File.Exists(assemblyFile))
                 throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "assemblyFile", "Path \'{0}\' must point to an existing assembly file.", assemblyFile), new Error());
             this.assemblies.Add(assemblyFile);
             return this;
@@ -4026,10 +4026,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.7.11";
+            Neptuo.VersionInfo.Version = "3.7.12";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.7.11");
+            return new System.Version.ctor$$String("3.7.12");
         }
     },
     assemblyName: "Neptuo",
