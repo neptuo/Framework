@@ -13,6 +13,20 @@ namespace Neptuo.Compilers
     public class CompilerFactory : CompilerConfigurationWrapper
     {
         /// <summary>
+        /// Creates new empty instance.
+        /// </summary>
+        public CompilerFactory()
+        { }
+
+        /// <summary>
+        /// Creates new instance and copies initial configuration from <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">Initial configuration.</param>
+        public CompilerFactory(CompilerConfiguration configuration)
+            : base(configuration)
+        { }
+
+        /// <summary>
         /// Creates compiler for in-memory assembly compilation.
         /// </summary>
         /// <returns>In-memory compiler.</returns>
