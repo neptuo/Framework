@@ -1045,6 +1045,9 @@ var Neptuo$Compilers$CompilerFactory = {
         ctor: function (){
             Neptuo.Compilers.CompilerConfigurationWrapper.ctor.call(this);
         },
+        ctor$$CompilerConfiguration: function (configuration){
+            Neptuo.Compilers.CompilerConfigurationWrapper.ctor$$CompilerConfiguration.call(this, configuration);
+        },
         CreateDynamic: function (){
             return new Neptuo.Compilers.Compiler.ctor(this.get_Configuration());
         },
@@ -1055,6 +1058,9 @@ var Neptuo$Compilers$CompilerFactory = {
     ctors: [{
         name: "ctor",
         parameters: []
+    }, {
+        name: "ctor$$CompilerConfiguration",
+        parameters: ["Neptuo.Compilers.CompilerConfiguration"]
     }
     ],
     IsAbstract: false
