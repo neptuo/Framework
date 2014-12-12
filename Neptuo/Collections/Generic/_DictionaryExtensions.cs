@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Collections.Generic
 {
-    public static class DictionaryExtensions
+    public static class _DictionaryExtensions
     {
         public static void AddRange<TKey, TValue>(this Dictionary<TKey, TValue> target, Dictionary<TKey, TValue> source)
         {

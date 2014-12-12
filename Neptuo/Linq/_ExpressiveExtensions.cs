@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Linq
 {
-    public static class ExpressiveExtensions
+    public static class _ExpressiveExtensions
     {
         public static IQueryable<T> WithTranslations<T>(this IQueryable<T> source)
         {
