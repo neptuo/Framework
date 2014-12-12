@@ -10,7 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Extensions for reading and writing file content in sync mode.
     /// </summary>
-    public static class FileContentExtensions
+    public static class _FileContentExtensions
     {
         /// <summary>
         /// Returns file content.

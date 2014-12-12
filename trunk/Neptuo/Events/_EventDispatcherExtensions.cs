@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Events
 {
-    public static class EventDispatcherExtensions
+    public static class _EventDispatcherExtensions
     {
         /// <summary>
         /// Subscribes <typeparamref name="TEventHandler"/> using dependency handler factory.

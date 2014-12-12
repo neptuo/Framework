@@ -9,7 +9,7 @@ namespace Neptuo.Collections.Specialized
     /// <summary>
     /// Some common extensions.
     /// </summary>
-    public static class ReadOnlyKeyValueCollectionExtensions
+    public static class _ReadOnlyKeyValueCollectionExtensions
     {
         /// <summary>
         /// Reads the value of <paramref name="key"/> in <paramref name="collection"/>.

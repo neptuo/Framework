@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Neptuo
 {
-    public static class DependencyProviderExtensions
+    public static class _DependencyProviderExtensions
     {
         public static T Resolve<T>(this IDependencyProvider provider)
         {
@@ -29,7 +29,7 @@ namespace Neptuo
         }
     }
         
-    public static class DependencyContainerExtensions
+    public static class _DependencyContainerExtensions
     {
         public static IDependencyContainer RegisterInstance<T>(this IDependencyContainer container, T instance)
         {

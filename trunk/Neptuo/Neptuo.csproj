@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
-    <Compile Include="Collections\Generic\DictionaryExtensions.cs" />
+    <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
     <Compile Include="Collections\ObjectModel\DictionaryStringValueProvider.cs" />
@@ -50,7 +50,7 @@
     <Compile Include="Collections\Specialized\NameValueEnumerator.cs" />
     <Compile Include="Collections\Specialized\NameValueReadOnlyDictionary.cs" />
     <Compile Include="Collections\Specialized\ProviderKeyValueCollection.cs" />
-    <Compile Include="Collections\Specialized\ReadOnlyKeyValueCollectionExtensions.cs" />
+    <Compile Include="Collections\Specialized\_ReadOnlyKeyValueCollectionExtensions.cs" />
     <Compile Include="Compilers\Compiler.cs" />
     <Compile Include="Compilers\CompilerConfiguration.cs" />
     <Compile Include="Compilers\CompilerConfigurationWrapper.cs" />
@@ -78,7 +78,7 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
-    <Compile Include="DependencyProviderExtensions.cs" />
+    <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
     <Compile Include="Domain\IDomainModel.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_GuardArgumentExtensions.cs" />
     <Compile Include="Events\EventManager.cs" />
-    <Compile Include="Events\EventDispatcherExtensions.cs" />
+    <Compile Include="Events\_EventDispatcherExtensions.cs" />
     <Compile Include="Events\Handlers\ActionEventHandler.cs" />
     <Compile Include="Events\Handlers\DependencyEventHandlerFactory.cs" />
     <Compile Include="Events\Handlers\GetterEventHandlerFactory.cs" />
@@ -104,7 +104,7 @@
     <Compile Include="Events\IEventRegistry.cs" />
     <Compile Include="Exceptions\Helpers\GuardExceptionHelper.cs" />
     <Compile Include="Exceptions\_GuardSystemExtensions.cs" />
-    <Compile Include="FileSystems\FileContentExtensions.cs" />
+    <Compile Include="FileSystems\_FileContentExtensions.cs" />
     <Compile Include="FileSystems\FileSystemException.cs" />
     <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
     <Compile Include="FileSystems\IReadOnlyFile.cs" />
@@ -126,7 +126,7 @@
     <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
     <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
     <Compile Include="Lifetimes\SingletonLifetime.cs" />
-    <Compile Include="Globalization\CultureInfoExtensions.cs" />
+    <Compile Include="Globalization\_CultureInfoExtensions.cs" />
     <Compile Include="IActivator.cs" />
     <Compile Include="IDependencyContainer.cs" />
     <Compile Include="IDependencyProvider.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="Linq\Expressions\DefaultTranslationOf.cs" />
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
     <Compile Include="Linq\Expressions\TranslationMap.cs" />
-    <Compile Include="Linq\ExpressiveExtensions.cs" />
+    <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
