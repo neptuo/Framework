@@ -19,7 +19,7 @@ namespace Neptuo.Collections.Specialized
 
         public new IEnumerable<string> Keys
         {
-            get { return Keys; }
+            get { return base.Keys; }
         }
 
         public KeyValueCollection()
