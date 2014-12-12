@@ -240,7 +240,7 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
         },
         Keys$$: "System.Collections.Generic.IEnumerable`1[[System.String]]",
         get_Keys: function (){
-            return this.get_Keys();
+            return System.Collections.Generic.Dictionary$2.commonPrototype.get_Keys.call(this);
         },
         ctor$$Int32: function (capacity){
             this._IsReadOnly = false;
@@ -4032,10 +4032,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.7.12";
+            Neptuo.VersionInfo.Version = "3.7.14";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.7.12");
+            return new System.Version.ctor$$String("3.7.14");
         }
     },
     assemblyName: "Neptuo",
