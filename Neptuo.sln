@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess", "Neptuo.DataAccess\Neptuo.DataAccess.csproj", "{ECA5CB11-154D-4777-966A-B478BC51BE11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess", "src\Neptuo.DataAccess\Neptuo.DataAccess.csproj", "{ECA5CB11-154D-4777-966A-B478BC51BE11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess.EntityFramework", "Neptuo.DataAccess.EntityFramework\Neptuo.DataAccess.EntityFramework.csproj", "{4E2FF623-5EA8-478E-816E-C4973FCE28D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.DataAccess.EntityFramework", "src\Neptuo.DataAccess.EntityFramework\Neptuo.DataAccess.EntityFramework.csproj", "{4E2FF623-5EA8-478E-816E-C4973FCE28D0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CDC21AD9-2876-487F-8AE3-5FBA18C57858}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,57 +16,57 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CDC21A
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Xml", "Neptuo.Xml\Neptuo.Xml.csproj", "{E77C5A49-E807-4465-8CB1-18F9E3F5934C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Xml", "src\Neptuo.Xml\Neptuo.Xml.csproj", "{E77C5A49-E807-4465-8CB1-18F9E3F5934C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo", "Neptuo\Neptuo.csproj", "{2392ED97-E671-4871-81A4-C85975F33794}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo", "src\Neptuo\Neptuo.csproj", "{2392ED97-E671-4871-81A4-C85975F33794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Migrations", "Neptuo.Migrations\Neptuo.Migrations.csproj", "{70114D0D-B9F1-464F-A068-9840D7FA6798}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Migrations", "src\Neptuo.Migrations\Neptuo.Migrations.csproj", "{70114D0D-B9F1-464F-A068-9840D7FA6798}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Controls", "Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Controls", "src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Unity", "Neptuo.Unity\Neptuo.Unity.csproj", "{952A7BD7-2092-4578-BCF2-9D433C32C1AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Unity", "src\Neptuo.Unity\Neptuo.Unity.csproj", "{952A7BD7-2092-4578-BCF2-9D433C32C1AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Threading", "Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Threading", "src\Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.CodeGenerator", "Neptuo.SharpKit.CodeGenerator\Neptuo.SharpKit.CodeGenerator.csproj", "{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.CodeGenerator", "src\Neptuo.SharpKit.CodeGenerator\Neptuo.SharpKit.CodeGenerator.csproj", "{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web", "Neptuo.Web\Neptuo.Web.csproj", "{14EE3BFD-E7DE-4B55-B1A1-9998BB1C9C77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web", "src\Neptuo.Web\Neptuo.Web.csproj", "{14EE3BFD-E7DE-4B55-B1A1-9998BB1C9C77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "src\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Routing", "Neptuo.Web.Routing\Neptuo.Web.Routing.csproj", "{45C70782-7B22-4CDA-B8E4-9E71182E3A32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Routing", "src\Neptuo.Web.Routing\Neptuo.Web.Routing.csproj", "{45C70782-7B22-4CDA-B8E4-9E71182E3A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "TestMvc4\TestMvc4.csproj", "{662F383E-7768-4A06-A8B9-DA15A73E4D47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "src\TestMvc4\TestMvc4.csproj", "{662F383E-7768-4A06-A8B9-DA15A73E4D47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data", "Neptuo.Data\Neptuo.Data.csproj", "{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data", "src\Neptuo.Data\Neptuo.Data.csproj", "{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data.Entity", "Neptuo.Data.Entity\Neptuo.Data.Entity.csproj", "{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data.Entity", "src\Neptuo.Data.Entity\Neptuo.Data.Entity.csproj", "{FEE06F1E-0063-4D46-85CE-7334CE61AFB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Unity.Web", "Neptuo.Unity.Web\Neptuo.Unity.Web.csproj", "{A3FF1CDA-1E06-4508-BA99-C950E072D4D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Unity.Web", "src\Neptuo.Unity.Web\Neptuo.Unity.Web.csproj", "{A3FF1CDA-1E06-4508-BA99-C950E072D4D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels", "Neptuo.PresentationModels\Neptuo.PresentationModels.csproj", "{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels", "src\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj", "{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels", "Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj", "{13B05164-C374-4E72-B702-96E5D9647265}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels", "src\Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj", "{13B05164-C374-4E72-B702-96E5D9647265}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels.DataAnnotations", "Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj", "{C4909618-FA01-4E6F-B34B-9F1D24239C87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels.DataAnnotations", "src\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj", "{C4909618-FA01-4E6F-B34B-9F1D24239C87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands", "Neptuo.Commands\Neptuo.Commands.csproj", "{F0610126-41FF-4944-AED6-82C851C2A204}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands", "src\Neptuo.Commands\Neptuo.Commands.csproj", "{F0610126-41FF-4944-AED6-82C851C2A204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.BindingConverters", "Neptuo.PresentationModels.BindingConverters\Neptuo.PresentationModels.BindingConverters.csproj", "{471E1120-9720-449E-8EC2-7338B58EAF59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.BindingConverters", "src\Neptuo.PresentationModels.BindingConverters\Neptuo.PresentationModels.BindingConverters.csproj", "{471E1120-9720-449E-8EC2-7338B58EAF59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sharpkit", "Sharpkit", "{C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.Exugin", "Neptuo.SharpKit.Exugin\Neptuo.SharpKit.Exugin.csproj", "{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.Exugin", "src\Neptuo.SharpKit.Exugin\Neptuo.SharpKit.Exugin.csproj", "{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Javascript", "Javascript", "{F14BA51C-5FC3-4154-A167-C8A5DEB754B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.ObjectBuilder.Client", "Neptuo.ObjectBuilder.Client\Neptuo.ObjectBuilder.Client.csproj", "{96A14B62-6F39-4332-8C1E-709BD38D783D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.ObjectBuilder.Client", "src\Neptuo.ObjectBuilder.Client\Neptuo.ObjectBuilder.Client.csproj", "{96A14B62-6F39-4332-8C1E-709BD38D783D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.System.Client", "Neptuo.System.Client\Neptuo.System.Client.csproj", "{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.System.Client", "src\Neptuo.System.Client\Neptuo.System.Client.csproj", "{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit", "TestSharpKit\TestSharpKit.csproj", "{075C9033-F479-4C1F-86AA-B478B95CCDB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit", "src\TestSharpKit\TestSharpKit.csproj", "{075C9033-F479-4C1F-86AA-B478B95CCDB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "src\Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationModels", "PresentationModels", "{5D0CB141-A610-4243-BBDA-7D5A9084FC53}"
 EndProject
@@ -74,17 +74,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{A7CE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{45933E25-016D-477C-964A-029C9FC7724E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Resources", "Neptuo.Web.Resources\Neptuo.Web.Resources.csproj", "{129E1518-E28E-44CB-8834-4B2118EB030C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Resources", "src\Neptuo.Web.Resources\Neptuo.Web.Resources.csproj", "{129E1518-E28E-44CB-8834-4B2118EB030C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Resources.Bundling", "Neptuo.Web.Resources.Bundling\Neptuo.Web.Resources.Bundling.csproj", "{E7759FF6-DAC4-4809-AE06-B7F2EC0E90CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Resources.Bundling", "src\Neptuo.Web.Resources.Bundling\Neptuo.Web.Resources.Bundling.csproj", "{E7759FF6-DAC4-4809-AE06-B7F2EC0E90CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Services", "Neptuo.Web.Services\Neptuo.Web.Services.csproj", "{F4B5A851-F46B-4113-9F32-6290545B8FA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Services", "src\Neptuo.Web.Services\Neptuo.Web.Services.csproj", "{F4B5A851-F46B-4113-9F32-6290545B8FA8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{AA724CB1-03F1-4FF2-A158-2E95524F67BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "TestWpf\TestWpf.csproj", "{834CEB47-4BCD-4895-80FA-44960472C64B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "src\TestWpf\TestWpf.csproj", "{834CEB47-4BCD-4895-80FA-44960472C64B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Services.Hosting.AspNet", "Neptuo.Web.Services.Hosting.AspNet\Neptuo.Web.Services.Hosting.AspNet.csproj", "{C924D0DC-4FBF-42D9-84CD-D6DC7351751C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Services.Hosting.AspNet", "src\Neptuo.Web.Services.Hosting.AspNet\Neptuo.Web.Services.Hosting.AspNet.csproj", "{C924D0DC-4FBF-42D9-84CD-D6DC7351751C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
