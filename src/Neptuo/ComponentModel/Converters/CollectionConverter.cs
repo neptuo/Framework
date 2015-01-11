@@ -11,7 +11,7 @@ namespace Neptuo.ComponentModel.Converters
     /// Converter for converting string value (splitted using defined separator) to one of supported collection types.
     /// </summary>
     /// <typeparam name="TItemTarget">Target collection item value.</typeparam>
-    public class CollectionConverter<string, TItemTarget> : IConverter<string, TItemTarget>, IConverter<string, IEnumerable<TItemTarget>>, IConverter<string, List<TItemTarget>>
+    public class CollectionConverter<TItemTarget> : IConverter<string, TItemTarget>, IConverter<string, IEnumerable<TItemTarget>>, IConverter<string, List<TItemTarget>>
     {
         private readonly string separator;
         private readonly IConverter<string, TItemTarget> itemConverter;

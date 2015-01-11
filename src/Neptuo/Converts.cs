@@ -28,6 +28,13 @@ namespace Neptuo
                     {
                         if (repository == null)
                             repository = new ConverterRepository();
+
+                        repository
+                            .Add(new ConverterBase<string, bool>(Boolean.TryParse))
+                            .Add(new ConverterBase<string, int>(Int32.TryParse))
+                            .Add(new ConverterBase<string, long>(Int64.TryParse))
+                            .Add(new ConverterBase<string, double>(Double.TryParse))
+                            .Add(new ConverterBase<string, decimal>(Decimal.TryParse));
                     }
                 }
                 return repository;
