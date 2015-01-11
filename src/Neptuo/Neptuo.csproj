@@ -60,6 +60,7 @@
     <Compile Include="Compilers\ICompilerConfiguration.cs" />
     <Compile Include="Compilers\IDynamicCompiler.cs" />
     <Compile Include="Compilers\ICompilerResult.cs" />
+    <Compile Include="ComponentModel\Converters\CollectionConverter.cs" />
     <Compile Include="ComponentModel\ErrorInfo.cs" />
     <Compile Include="ComponentModel\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
