@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.ComponentModel.Converters
 {
-    public abstract class ConverterBase<TSource, TTarget> : IConverter<TSource, TTarget>
+    public class ConverterBase<TSource, TTarget> : IConverter<TSource, TTarget>
     {
         protected OutFunc<TSource, TTarget, bool> Converter { get; set; }
 

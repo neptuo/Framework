@@ -8,7 +8,7 @@ namespace Neptuo.ComponentModel.Converters
 {
     public class ConverterRepository : IConverterRepository
     {
-        protected Dictionary<Type, Dictionary<Type, IConverter>> Storage { get; set; }
+        protected Dictionary<Type, Dictionary<Type, IConverter>> Storage { get; private set; }
 
         public ConverterRepository()
             : this(new Dictionary<Type, Dictionary<Type, IConverter>>())
