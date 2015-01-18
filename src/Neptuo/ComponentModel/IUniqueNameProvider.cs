@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace Neptuo.ComponentModel
 {
     /// <summary>
-    /// Provider for unique identifiers.
+    /// Provider for unique names.
     /// </summary>
-    public interface IGuidProvider
+    public interface IUniqueNameProvider
     {
         /// <summary>
-        /// Generates new unique identifier.
+        /// Generates new unique name.
         /// </summary>
-        /// <returns>New unique identifier.</returns>
+        /// <returns>New unique name.</returns>
         string Next();
     }
 }

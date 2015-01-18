@@ -9,7 +9,7 @@ namespace Neptuo.ComponentModel
     /// <summary>
     /// Generates identifiers from <see cref="Guid"/>.
     /// </summary>
-    public class GuidProvider : IGuidProvider
+    public class GuidProvider : IUniqueNameProvider
     {
         public string Next()
         {

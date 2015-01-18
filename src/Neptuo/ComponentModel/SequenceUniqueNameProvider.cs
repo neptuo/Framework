@@ -9,7 +9,7 @@ namespace Neptuo.ComponentModel
     /// <summary>
     /// Generates identifiers using specified prefix and integer sequence.
     /// </summary>
-    public class SequenceGuidProvider : IGuidProvider
+    public class SequenceUniqueNameProvider : IUniqueNameProvider
     {
         /// <summary>
         /// Optional string prefix.
@@ -26,7 +26,7 @@ namespace Neptuo.ComponentModel
         /// </summary>
         /// <param name="prefix">Optional string prefix.</param>
         /// <param name="offset">Optional zero offset.</param>
-        public SequenceGuidProvider(string prefix = null, int offset = 0)
+        public SequenceUniqueNameProvider(string prefix = null, int offset = 0)
         {
             Guard.PositiveOrZero(offset, "offset");
             this.prefix = prefix;
