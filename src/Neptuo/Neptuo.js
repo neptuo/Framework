@@ -1903,7 +1903,7 @@ var Neptuo$Converts = {
         Try$$Type$$Type$$Object$$Object: function (sourceType, targetType, sourceValue, targetValue){
             return Neptuo.Converts.get_Repository().TryConvert$$Type$$Type$$Object$$Object(sourceType, targetType, sourceValue, targetValue);
         },
-        To$2: function (TSource, TTarget, sourceValue){
+        To$2$$TSource: function (TSource, TTarget, sourceValue){
             var targetValue;
             if ((function (){
                 var $1 = {
@@ -1915,6 +1915,20 @@ var Neptuo$Converts = {
             })())
                 return targetValue;
             throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "TTarget", "Target type (\'{0}\') can\'t constructed from value \'{1}\'.", Typeof(TTarget).get_FullName(), sourceValue), new Error());
+        },
+        To$$Type$$Type$$Object: function (sourceType, targetType, sourceValue){
+            var targetValue;
+            if ((function (){
+                var $1 = {
+                    Value: targetValue
+                };
+                var $res = Neptuo.Converts.Try$$Type$$Type$$Object$$Object(sourceType, targetType, sourceValue, $1);
+                targetValue = $1.Value;
+                return $res;
+            })())
+                return targetValue;
+            Neptuo.Guard.NotNull$$Object$$String(targetType, "targetType");
+            throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "TTarget", "Target type (\'{0}\') can\'t constructed from value \'{1}\'.", targetType.get_FullName(), sourceValue), new Error());
         }
     },
     assemblyName: "Neptuo",

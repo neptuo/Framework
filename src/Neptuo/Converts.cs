@@ -83,5 +83,23 @@ namespace Neptuo
 
             throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
         }
+
+        /// <summary>
+        /// Tries to convert <paramref name="sourceValue"/> to target type <paramref name="targetType"/>.
+        /// If conversion is not possible, throws exception <see cref="ArgumentOutOfRangeException"/>.
+        /// </summary>
+        /// <param name="sourceType">Type of source value.</param>
+        /// <param name="targetType">Type of target value.</param>
+        /// <param name="sourceValue">Source value.</param>
+        /// <returns>Value <paramref name="sourceValue" /> converted to type <paramref name="targetType"/>.</returns>
+        public static object To(Type sourceType, Type targetType, object sourceValue)
+        {
+            object targetValue;
+            if (Try(sourceType, targetType, sourceValue, out targetValue))
+                return targetValue;
+
+            Guard.NotNull(targetType, "targetType");
+            throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
+        }
     }
 }
