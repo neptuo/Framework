@@ -4,7 +4,7 @@ namespace Neptuo
 {
     public static class VersionInfo
     {
-        internal const string Version = "3.8.1";
+        internal const string Version = "3.8.2";
 
         public static Version GetVersion()
         {

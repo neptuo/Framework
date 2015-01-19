@@ -1902,6 +1902,19 @@ var Neptuo$Converts = {
         },
         Try$$Type$$Type$$Object$$Object: function (sourceType, targetType, sourceValue, targetValue){
             return Neptuo.Converts.get_Repository().TryConvert$$Type$$Type$$Object$$Object(sourceType, targetType, sourceValue, targetValue);
+        },
+        To$2: function (TSource, TTarget, sourceValue){
+            var targetValue;
+            if ((function (){
+                var $1 = {
+                    Value: targetValue
+                };
+                var $res = Neptuo.Converts.Try$2$$TSource$$TTarget(TSource, TTarget, sourceValue, $1);
+                targetValue = $1.Value;
+                return $res;
+            })())
+                return targetValue;
+            throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "TTarget", "Target type (\'{0}\') can\'t constructed from value \'{1}\'.", Typeof(TTarget).get_FullName(), sourceValue), new Error());
         }
     },
     assemblyName: "Neptuo",
@@ -3559,15 +3572,15 @@ var Neptuo$IDisposable = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$IDisposable);
-var Neptuo$ComponentModel$IGuidProvider = {
-    fullname: "Neptuo.ComponentModel.IGuidProvider",
+var Neptuo$ComponentModel$IUniqueNameProvider = {
+    fullname: "Neptuo.ComponentModel.IUniqueNameProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ComponentModel$IGuidProvider);
+JsTypes.push(Neptuo$ComponentModel$IUniqueNameProvider);
 var Neptuo$INamedActivator$1 = {
     fullname: "Neptuo.INamedActivator$1",
     baseTypeName: "System.Object",
@@ -4141,10 +4154,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.8.0";
+            Neptuo.VersionInfo.Version = "3.8.2";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.8.0");
+            return new System.Version.ctor$$String("3.8.2");
         }
     },
     assemblyName: "Neptuo",
@@ -4402,11 +4415,11 @@ var Neptuo$Linq$Expressions$TypeHelper = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Linq$Expressions$TypeHelper);
-var Neptuo$ComponentModel$SequenceGuidProvider = {
-    fullname: "Neptuo.ComponentModel.SequenceGuidProvider",
+var Neptuo$ComponentModel$SequenceUniqueNameProvider = {
+    fullname: "Neptuo.ComponentModel.SequenceUniqueNameProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.IGuidProvider"],
+    interfaceNames: ["Neptuo.ComponentModel.IUniqueNameProvider"],
     Kind: "Class",
     definition: {
         ctor: function (prefix, offset){
@@ -4428,7 +4441,7 @@ var Neptuo$ComponentModel$SequenceGuidProvider = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ComponentModel$SequenceGuidProvider);
+JsTypes.push(Neptuo$ComponentModel$SequenceUniqueNameProvider);
 var Neptuo$StateMachines$IStateMachineState$2 = {
     fullname: "Neptuo.StateMachines.IStateMachineState$2",
     baseTypeName: "System.Object",

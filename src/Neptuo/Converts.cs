@@ -66,5 +66,22 @@ namespace Neptuo
         {
             return Repository.TryConvert(sourceType, targetType, sourceValue, out targetValue);
         }
+
+        /// <summary>
+        /// Tries to convert <paramref name="sourceValue"/> of type <typeparamref name="TSource"/> to target type <typeparamref name="TTarget"/>.
+        /// If conversion is not possible, throws exception <see cref="ArgumentOutOfRangeException"/>.
+        /// </summary>
+        /// <typeparam name="TSource">Source value type.</typeparam>
+        /// <typeparam name="TTarget">Target value type.</typeparam>
+        /// <param name="sourceValue">Source value.</param>
+        /// <returns>Value <paramref name="sourceValue" /> converted to type <typeparamref name="TTarget" /></returns>
+        public static TTarget To<TSource, TTarget>(TSource sourceValue)
+        {
+            TTarget targetValue;
+            if (Try(sourceValue, out targetValue))
+                return targetValue;
+
+            throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
+        }
     }
 }
