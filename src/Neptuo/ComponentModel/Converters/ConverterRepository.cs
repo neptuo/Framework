@@ -51,6 +51,12 @@ namespace Neptuo.ComponentModel.Converters
 
             if (converter == null)
             {
+                if (sourceValue == null)
+                {
+                    targetValue = default(TTarget);
+                    return true;
+                }
+
                 targetValue = default(TTarget);
                 return false;
             }

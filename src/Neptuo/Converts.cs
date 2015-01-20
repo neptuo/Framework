@@ -95,11 +95,45 @@ namespace Neptuo
         public static object To(Type sourceType, Type targetType, object sourceValue)
         {
             object targetValue;
+            if (targetType.IsAssignableFrom(sourceType))
+                return sourceValue;
+
             if (Try(sourceType, targetType, sourceValue, out targetValue))
                 return targetValue;
 
+            if (sourceValue == null)
+            {
+                if (targetType.IsValueType)
+                    return Activator.CreateInstance(targetType);
+
+                return null;
+            }
+
+            if (targetType == typeof(string))
+                return sourceValue.ToString();
+
             Guard.NotNull(targetType, "targetType");
             throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
+        }
+
+        /// <summary>
+        /// Tries to convert <paramref name="sourceValue"/> to target type <paramref name="targetType"/>.
+        /// If conversion is not possible, throws exception <see cref="ArgumentOutOfRangeException"/>.
+        /// </summary>
+        /// <param name="targetType">Type of target value.</param>
+        /// <param name="sourceValue">Source value.</param>
+        /// <returns>Value <paramref name="sourceValue" /> converted to type <paramref name="targetType"/>.</returns>
+        public static object To(Type targetType, object sourceValue)
+        {
+            if (sourceValue == null)
+            {
+                if (targetType.IsValueType)
+                    return Activator.CreateInstance(targetType);
+
+                return null;
+            }
+
+            return To(sourceValue.GetType(), targetType, sourceValue);
         }
     }
 }

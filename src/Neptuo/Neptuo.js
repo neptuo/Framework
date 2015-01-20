@@ -1509,6 +1509,10 @@ var Neptuo$ComponentModel$Converters$ConverterRepository = {
                     converter = this.OnSearchConverter(sourceType, targetType);
             }
             if (converter == null){
+                if (sourceValue == null){
+                    targetValue.Value = Default(TTarget);
+                    return true;
+                }
                 targetValue.Value = Default(TTarget);
                 return false;
             }
@@ -1918,6 +1922,8 @@ var Neptuo$Converts = {
         },
         To$$Type$$Type$$Object: function (sourceType, targetType, sourceValue){
             var targetValue;
+            if (targetType.IsAssignableFrom(sourceType))
+                return sourceValue;
             if ((function (){
                 var $1 = {
                     Value: targetValue
@@ -1927,8 +1933,23 @@ var Neptuo$Converts = {
                 return $res;
             })())
                 return targetValue;
+            if (sourceValue == null){
+                if (targetType.get_IsValueType())
+                    return System.Activator.CreateInstance$$Type(targetType);
+                return null;
+            }
+            if (System.Type.op_Equality$$Type$$Type(targetType, Typeof(System.String.ctor)))
+                return sourceValue.ToString();
             Neptuo.Guard.NotNull$$Object$$String(targetType, "targetType");
             throw $CreateException(Neptuo._GuardArgumentExtensions.ArgumentOutOfRange(Neptuo.Guard.Exception, "TTarget", "Target type (\'{0}\') can\'t constructed from value \'{1}\'.", targetType.get_FullName(), sourceValue), new Error());
+        },
+        To$$Type$$Object: function (targetType, sourceValue){
+            if (sourceValue == null){
+                if (targetType.get_IsValueType())
+                    return System.Activator.CreateInstance$$Type(targetType);
+                return null;
+            }
+            return Neptuo.Converts.To$$Type$$Type$$Object(sourceValue.GetType(), targetType, sourceValue);
         }
     },
     assemblyName: "Neptuo",
@@ -4168,10 +4189,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.8.2";
+            Neptuo.VersionInfo.Version = "3.8.3";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.8.2");
+            return new System.Version.ctor$$String("3.8.3");
         }
     },
     assemblyName: "Neptuo",
