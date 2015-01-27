@@ -78,11 +78,12 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />
-    <Compile Include="Creators\Building\SingletonDependencyMapping.cs" />
+    <Compile Include="Creators\Building\Lifetimes\SingletonDependencyMapping.cs" />
+    <Compile Include="Creators\Building\SimpleContainer.cs" />
     <Compile Include="Creators\DependencyActivator.cs" />
     <Compile Include="Creators\Building\IDependencyMapping.cs" />
     <Compile Include="Creators\Building\IDependencyMappingContext.cs" />
-    <Compile Include="Creators\Building\IDependencyScopeMetadata.cs" />
+    <Compile Include="Creators\Building\SimpleContainerScopeMetadata.cs" />
     <Compile Include="Creators\_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />

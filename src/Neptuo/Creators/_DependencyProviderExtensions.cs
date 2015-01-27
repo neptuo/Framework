@@ -31,48 +31,48 @@ namespace Neptuo.Creators
         
     public static class _DependencyContainerExtensions
     {
-        public static IDependencyContainer RegisterInstance<T>(this IDependencyContainer container, T instance)
-        {
-            return container.RegisterInstance(typeof(T), null, instance);
-        }
+        //public static IDependencyContainer RegisterInstance<T>(this IDependencyContainer container, T instance)
+        //{
+        //    return container.RegisterInstance(typeof(T), null, instance);
+        //}
 
-        public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container)
-        {
-            return container.RegisterType(typeof(TFrom), typeof(TTo), null, null);
-        }
+        //public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container)
+        //{
+        //    return container.RegisterType(typeof(TFrom), typeof(TTo), null, null);
+        //}
 
-        public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, Type to, string name)
-        {
-            return container.RegisterType(from, to, name, null);
-        }
+        //public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, Type to, string name)
+        //{
+        //    return container.RegisterType(from, to, name, null);
+        //}
 
-        public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, object lifetime)
-        {
-            return container.RegisterType(from, from, null, lifetime);
-        }
+        //public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, object lifetime)
+        //{
+        //    return container.RegisterType(from, from, null, lifetime);
+        //}
 
-        public static IDependencyContainer RegisterType<TFrom>(this IDependencyContainer container, object lifetime)
-        {
-            return container.RegisterType(typeof(TFrom), typeof(TFrom), null, lifetime);
-        }
+        //public static IDependencyContainer RegisterType<TFrom>(this IDependencyContainer container, object lifetime)
+        //{
+        //    return container.RegisterType(typeof(TFrom), typeof(TFrom), null, lifetime);
+        //}
 
-        public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container, object lifetime)
-        {
-            return container.RegisterType(typeof(TFrom), typeof(TTo), null, lifetime);
-        }
+        //public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container, object lifetime)
+        //{
+        //    return container.RegisterType(typeof(TFrom), typeof(TTo), null, lifetime);
+        //}
 
-        #region Register activator
+        //#region Register activator
 
-        public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container)
-        {
-            return container.RegisterType<IActivator<T>, DependencyActivator<T>>();
-        }
+        //public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container)
+        //{
+        //    return container.RegisterType<IActivator<T>, DependencyActivator<T>>();
+        //}
 
-        public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container, object lifetime)
-        {
-            return container.RegisterType<IActivator<T>, DependencyActivator<T>>(lifetime);
-        }
+        //public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container, object lifetime)
+        //{
+        //    return container.RegisterType<IActivator<T>, DependencyActivator<T>>(lifetime);
+        //}
 
-        #endregion
+        //#endregion
     }
 }
