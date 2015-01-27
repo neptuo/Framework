@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo
+namespace Neptuo.Creators
 {
     /// <summary>
-    /// Service locator.
+    /// Service locator with hierarchy support.
     /// </summary>
-    public interface IDependencyProvider
+    public interface IDependencyProvider : IDisposable
     {
         /// <summary>
         /// Creates new child container based on this provider.
         /// </summary>
+        /// <param name="name">Optional name for named scopes.</param>
         /// <returns>New child container based on this provider.</returns>
-        IDependencyContainer CreateChildContainer();
+        IDependencyContainer BeginScope(string name);
 
         /// <summary>
         /// Resolves instance of <paramref name="requiredType"/>.
