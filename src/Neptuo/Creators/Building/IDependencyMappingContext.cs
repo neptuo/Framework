@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Creators
+namespace Neptuo.Creators.Building
 {
     /// <summary>
     /// Context pro mapping dependency.
