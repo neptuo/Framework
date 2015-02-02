@@ -14,6 +14,12 @@ namespace Neptuo.FeatureModels
     {
         private readonly IDictionary<Type, object> features;
 
+        /// <summary>
+        /// Invoked when feature was not found.
+        /// Takes typeof requested feture, should return <c>true</c> to indicate success; otherwise <c>false</c>.
+        /// </summary>
+        private OutFunc<Type, bool, object> onSearchFeature;
+
         public MappingFeatureModel(bool isSingleThread)
         {
             if (isSingleThread)
@@ -31,6 +37,18 @@ namespace Neptuo.FeatureModels
                 this.features = new ConcurrentDictionary<Type, object>(features);
         }
 
+        /// <summary>
+        /// Registers generic handler for providing feature.
+        /// <paramref name="handler"/> takes typeof requested feature 
+        /// and returns <c>true</c> to indicate success; otherwise <c>false</c>.
+        /// </summary>
+        /// <param name="handler">Handler to register.</param>
+        public void AddSearchHandler(OutFunc<Type, bool, object> handler)
+        {
+            Guard.NotNull(handler, "handler");
+            onSearchFeature += handler;
+        }
+
         public bool TryWith<TFeature>(out TFeature feature)
         {
             Type featureType = typeof(TFeature);
@@ -39,6 +57,19 @@ namespace Neptuo.FeatureModels
             {
                 feature = (TFeature)featureBase;
                 return true;
+            }
+
+            if (onSearchFeature != null)
+            {
+                foreach (OutFunc<Type, object, bool> handler in onSearchFeature.GetInvocationList())
+                {
+                    if (handler(typeof(TFeature), out featureBase))
+                    {
+                        feature = (TFeature)featureBase;
+                        return true;
+                    }
+                }
+
             }
 
             feature = default(TFeature);
