@@ -2015,6 +2015,44 @@ var Neptuo$DependencyNamedActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyNamedActivator$1);
+var Neptuo$Pipelines$IMediator = {
+    fullname: "Neptuo.Pipelines.IMediator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$IMediator);
+var Neptuo$Pipelines$IWitResponse$1 = {
+    fullname: "Neptuo.Pipelines.IWitResponse$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$IWitResponse$1);
+var Neptuo$Pipelines$_MediatorExtensions = {
+    fullname: "Neptuo.Pipelines._MediatorExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        Execute$2: function (TInput, TOutput, mediator, request){
+            Neptuo.Guard.NotNull$$Object$$String(mediator, "mediator");
+            return mediator.Execute$2(TInput, TOutput, request);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$_MediatorExtensions);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",

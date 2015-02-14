@@ -80,6 +80,9 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
+    <Compile Include="Pipelines\IMediator.cs" />
+    <Compile Include="Pipelines\IWitResponse.cs" />
+    <Compile Include="Pipelines\_MediatorExtensions.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
