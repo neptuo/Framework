@@ -2033,6 +2033,33 @@ var Neptuo$Pipelines$IWitResponse$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$IWitResponse$1);
+var Neptuo$Pipelines$Queries$IQuery$1 = {
+    fullname: "Neptuo.Pipelines.Queries.IQuery$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Queries$IQuery$1);
+var Neptuo$Pipelines$Queries$IQueryDispatcher = {
+    fullname: "Neptuo.Pipelines.Queries.IQueryDispatcher",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Queries$IQueryDispatcher);
+var Neptuo$Pipelines$Queries$IQueryHandler$2 = {
+    fullname: "Neptuo.Pipelines.Queries.IQueryHandler$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Queries$IQueryHandler$2);
 var Neptuo$Pipelines$_MediatorExtensions = {
     fullname: "Neptuo.Pipelines._MediatorExtensions",
     baseTypeName: "System.Object",

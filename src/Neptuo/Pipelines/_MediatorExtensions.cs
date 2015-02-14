@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Pipelines
 {
+    /// <summary>
+    /// Common extensions for <see cref="IMediator"/>.
+    /// </summary>
     public static class _MediatorExtensions
     {
         /// <summary>
@@ -15,7 +18,7 @@ namespace Neptuo.Pipelines
         /// <typeparam name="TOutput">Type of response.</typeparam>
         /// <param name="request">Request data.</param>
         /// <returns>Response to <paramref name="request"/>.</returns>
-        public static TOutput Execute<TInput, TOutput>(this IMediator mediator, TInput request)
+        public static Task<TOutput> Execute<TInput, TOutput>(this IMediator mediator, TInput request)
             where TInput : IWitResponse<TOutput>
         {
             Guard.NotNull(mediator, "mediator");

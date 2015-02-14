@@ -82,6 +82,9 @@
     <Compile Include="DependencyNamedActivator.cs" />
     <Compile Include="Pipelines\IMediator.cs" />
     <Compile Include="Pipelines\IWitResponse.cs" />
+    <Compile Include="Pipelines\Queries\IQuery.cs" />
+    <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
+    <Compile Include="Pipelines\Queries\IQueryHandler.cs" />
     <Compile Include="Pipelines\_MediatorExtensions.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />

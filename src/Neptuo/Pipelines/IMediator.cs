@@ -18,6 +18,6 @@ namespace Neptuo.Pipelines
         /// <typeparam name="TOutput">Type of response.</typeparam>
         /// <param name="request">Request data.</param>
         /// <returns>Response to <paramref name="request"/>.</returns>
-        TOutput Execute<TInput, TOutput>(TInput request);
+        Task<TOutput> Execute<TInput, TOutput>(TInput request);
     }
 }
