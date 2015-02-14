@@ -80,12 +80,13 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
-    <Compile Include="Pipelines\IMediator.cs" />
-    <Compile Include="Pipelines\IWitResponse.cs" />
+    <Compile Include="Pipelines\IRequestDispatcher.cs" />
+    <Compile Include="Pipelines\IRequest.cs" />
+    <Compile Include="Pipelines\IRequestHandler.cs" />
     <Compile Include="Pipelines\Queries\IQuery.cs" />
     <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
     <Compile Include="Pipelines\Queries\IQueryHandler.cs" />
-    <Compile Include="Pipelines\_MediatorExtensions.cs" />
+    <Compile Include="Pipelines\_RequestDispatcherExtensions.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />

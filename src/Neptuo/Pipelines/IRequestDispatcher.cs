@@ -9,7 +9,7 @@ namespace Neptuo.Pipelines
     /// <summary>
     /// Request-reply pipeline.
     /// </summary>
-    public interface IMediator
+    public interface IRequestDispatcher
     {
         /// <summary>
         /// Executes <paramref name="request"/> and returns its response.

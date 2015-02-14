@@ -10,6 +10,6 @@ namespace Neptuo.Pipelines
     /// Defines response of request object.
     /// </summary>
     /// <typeparam name="TOutput">Type of response.</typeparam>
-    public interface IWitResponse<TOutput>
+    public interface IRequest<TOutput>
     { }
 }
