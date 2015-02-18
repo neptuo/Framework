@@ -52,8 +52,8 @@ namespace TestConsole.Commands
             {
                 CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
 
-                eventManager.Subscribe(new CommandHandlerFactory(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
-                eventManager.Subscribe(new CommandHandlerFactory(command, new DependencyEventHandlerFactory<CommandHandled, CreateProductEventHandler>(DependencyContainer)));
+                eventManager.Subscribe(new CommandEventHandler(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
+                eventManager.Subscribe(new CommandEventHandler(command, new DependencyEventHandlerFactory<CommandHandled, CreateProductEventHandler>(DependencyContainer)));
                 commandDispatcher.Handle(command);
                 GC.Collect();
             }

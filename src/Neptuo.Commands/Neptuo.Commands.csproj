@@ -43,7 +43,7 @@
     <Compile Include="CommandDispatcherException.cs" />
     <Compile Include="CommandException.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />
-    <Compile Include="Events\Handlers\CommandHandlerFactory.cs" />
+    <Compile Include="Events\Handlers\CommandEventHandler.cs" />
     <Compile Include="Execution\IPoolCommandExecutorContext.cs" />
     <Compile Include="Interception\AttributeInterceptorProvider.cs" />
     <Compile Include="Execution\CommandExecutorException.cs" />

@@ -2742,8 +2742,8 @@ var Neptuo$Pipelines$Events$EventManager = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Events$EventManager);
-var Neptuo$Pipelines$Events$_EventDispatcherExtensions = {
-    fullname: "Neptuo.Pipelines.Events._EventDispatcherExtensions",
+var Neptuo$Pipelines$Events$_EventRegistryExtensions = {
+    fullname: "Neptuo.Pipelines.Events._EventRegistryExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         Using$1: function (TEvent, eventRegistry, eventHandler){
@@ -2760,7 +2760,7 @@ var Neptuo$Pipelines$Events$_EventDispatcherExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$Events$_EventDispatcherExtensions);
+JsTypes.push(Neptuo$Pipelines$Events$_EventRegistryExtensions);
 var Neptuo$Pipelines$Events$UsignEventHandlerSubscriber$1 = {
     fullname: "Neptuo.Pipelines.Events.UsignEventHandlerSubscriber$1",
     baseTypeName: "Neptuo.ComponentModel.DisposableBase",
