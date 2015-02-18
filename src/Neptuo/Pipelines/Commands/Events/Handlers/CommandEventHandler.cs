@@ -31,19 +31,21 @@ namespace Neptuo.Pipelines.Commands.Events.Handlers
             this.innerEnvelopeHandler = innerHandler;
         }
 
-        public void Handle(IEventHandlerContext<CommandHandled> context)
+        public Task HandleAsync(IEventHandlerContext<CommandHandled> context)
         {
             if (context.Payload.Body.Command == command)
             {
                 context.Registry.UnSubscribe(this);
 
                 if (innerHandler != null)
-                    innerHandler.Handle(context.Payload.Body);
+                    innerHandler.HandleAsync(context.Payload.Body);
                 else if (innerEnvelopeHandler != null)
-                    innerEnvelopeHandler.Handle(context.Payload);
+                    innerEnvelopeHandler.HandleAsync(context.Payload);
                 else
                     throw Guard.Exception.NotSupported("Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler.");
             }
+
+            return Task.FromResult(true);
         }
     }
 }

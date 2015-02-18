@@ -78,9 +78,9 @@ namespace Neptuo.Pipelines.Commands
             executor.OnCommandHandled -= OnCommandHandled;
             ICommand guidCommand = command as ICommand;
             if (guidCommand != null)
-                eventDispatcher.Publish(new CommandHandled(guidCommand));
+                eventDispatcher.PublishAsync(new CommandHandled(guidCommand));
             else
-                eventDispatcher.Publish(new CommandHandled(command));
+                eventDispatcher.PublishAsync(new CommandHandled(command));
         }
 
         /// <summary>

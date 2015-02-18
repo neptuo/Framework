@@ -27,7 +27,7 @@ namespace TestConsole.Commands
         {
             DependencyContainer = new UnityDependencyContainer();
 
-            EventManager eventManager = new EventManager();
+            DefaultEventManager eventManager = new DefaultEventManager();
 
             ManualInterceptorProvider interceptorProvider = new ManualInterceptorProvider(DependencyContainer);
                 //.AddInterceptorFactory(typeof(CreateProductCommandHandler), provider => new DiscardExceptionAttribute(typeof(NullReferenceException)));
@@ -52,7 +52,7 @@ namespace TestConsole.Commands
             {
                 CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
 
-                eventManager.Subscribe(new CommandEventHandler(command, new ActionEventHandler<CommandHandled>(OnCommandHandled)));
+                eventManager.Subscribe(new CommandEventHandler(command, DelegateEventHandler.FromAction<CommandHandled>(OnCommandHandled)));
                 eventManager.Subscribe(new CommandEventHandler(command, new CreateProductEventHandler()));
                 commandDispatcher.Handle(command);
                 GC.Collect();
@@ -98,10 +98,11 @@ namespace TestConsole.Commands
             Console.WriteLine("Destructing CreateProductEventHandler.");
         }
 
-        public void Handle(CommandHandled payload)
+        public Task HandleAsync(CommandHandled payload)
         {
             CreateProductCommand command = (CreateProductCommand)payload.Command;
             Console.WriteLine("Created product: {0}", command.Name);
+            return Task.FromResult(true);
         }
     }
 

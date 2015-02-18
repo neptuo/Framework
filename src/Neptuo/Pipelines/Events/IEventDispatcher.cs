@@ -16,6 +16,6 @@ namespace Neptuo.Pipelines.Events
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="payload">Instance of event data.</param>
-        void Publish<TEvent>(TEvent payload);
+        Task PublishAsync<TEvent>(TEvent payload);
     }
 }

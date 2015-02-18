@@ -41,7 +41,7 @@ namespace TestConsole.Data
 
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
-            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer, new EventManager());
+            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer, new DefaultEventManager());
 
             //CreateProducts(dependencyContainer);
 

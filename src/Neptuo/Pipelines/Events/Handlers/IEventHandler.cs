@@ -16,6 +16,6 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// Handles event described by <paramref name="payload"/>.
         /// </summary>
         /// <param name="payload">Instance of event data.</param>
-        void Handle(TEvent payload);
+        Task HandleAsync(TEvent payload);
     }
 }

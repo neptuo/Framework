@@ -27,10 +27,10 @@ namespace Neptuo.Pipelines.Events.Handlers
             this.innerHandlerFactory = innerHandlerFactory;
         }
 
-        public void Handle(TEvent payload)
+        public Task HandleAsync(TEvent payload)
         {
             TEventHandler innerHandler = innerHandlerFactory.Create();
-            innerHandler.Handle(payload);
+            return innerHandler.HandleAsync(payload);
         }
     }
 }

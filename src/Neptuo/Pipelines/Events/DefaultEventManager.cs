@@ -10,7 +10,7 @@ namespace Neptuo.Pipelines.Events
     /// <summary>
     /// Default implementation of <see cref="IEventDispatcher"/> and <see cref="IEventRegistry"/>.
     /// </summary>
-    public class EventManager : IEventDispatcher, IEventRegistry
+    public class DefaultEventManager : IEventDispatcher, IEventRegistry
     {
         /// <summary>
         /// Internal storage for registrations.
@@ -20,22 +20,29 @@ namespace Neptuo.Pipelines.Events
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        public EventManager()
+        public DefaultEventManager()
         {
             Registry = new Dictionary<Type, List<object>>();
         }
 
-        public void Publish<TEvent>(TEvent payload)
+        public Task PublishAsync<TEvent>(TEvent payload)
         {
             Guard.NotNull(payload, "payload");
 
             Type eventType = typeof(TEvent);
             List<object> handlers;
+
             if (Registry.TryGetValue(eventType, out handlers))
             {
-                foreach (IEventHandler<TEvent> handler in handlers)
-                    handler.Handle(payload);
+                Task[] tasks = new Task[handlers.Count];
+
+                for (int i = 0; i < handlers.Count; i++)
+                    tasks[i] = ((IEventHandler<TEvent>)handlers[i]).HandleAsync(payload);
+
+                return Task.Factory.ContinueWhenAll(tasks, (items) => Task.FromResult(true));
             }
+
+            return Task.FromResult(false);
         }
 
         public IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler)
