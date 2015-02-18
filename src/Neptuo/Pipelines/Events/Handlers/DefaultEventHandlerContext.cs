@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Pipelines.Events.Handlers
 {
     /// <summary>
-    /// Default implmentation of <see cref="IEventHandlerContext{1}"/>.
+    /// Default implmentation of <see cref="IEventHandlerContext{TEvent}"/>.
     /// </summary>
     /// <typeparam name="TEvent">Type of event data.</typeparam>
     public class DefaultEventHandlerContext<TEvent> : IEventHandlerContext<TEvent>
@@ -18,7 +18,7 @@ namespace Neptuo.Pipelines.Events.Handlers
         public IEventDispatcher Dispatcher { get; private set; }
 
         /// <summary>
-        /// Creates context from event data and wraps it into <see cref="Envelope{1}"/>.
+        /// Creates context from event data and wraps it into <see cref="Envelope{TEvent}"/>.
         /// </summary>
         /// <param name="payload">Event data.</param>
         /// <param name="registry">Current registry of event subscriptions.</param>
