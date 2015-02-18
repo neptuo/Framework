@@ -1,7 +1,7 @@
 ﻿using Neptuo.Commands.Events;
 using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
-using Neptuo.Events;
+using Neptuo.Pipelines.Events;
 using Neptuo.Validators;
 using System;
 using System.Collections.Generic;

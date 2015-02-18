@@ -1,0 +1,66 @@
+﻿using Neptuo.Pipelines.Events.Handlers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Neptuo.Pipelines.Events
+{
+    /// <summary>
+    /// Default implementation of <see cref="IEventManager"/> and <see cref="IEventRegistry"/>.
+    /// </summary>
+    public class EventManager : IEventDispatcher, IEventRegistry
+    {
+        /// <summary>
+        /// Internal storage for registrations.
+        /// </summary>
+        protected Dictionary<Type, List<object>> Registry { get; private set; }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        public EventManager()
+        {
+            Registry = new Dictionary<Type, List<object>>();
+        }
+
+        public void Publish<TEvent>(TEvent eventData)
+        {
+            Guard.NotNull(eventData, "eventData");
+
+            Type eventType = typeof(TEvent);
+            List<object> handlers;
+            if (Registry.TryGetValue(eventType, out handlers))
+            {
+                foreach (IEventHandler<TEvent> handler in handlers)
+                    handler.Handle(eventData);
+            }
+        }
+
+        public void Subscribe<TEvent>(IEventHandler<TEvent> handler)
+        {
+            Guard.NotNull(handler, "factory");
+            Type eventDataType = typeof(TEvent);
+
+            List<object> handlers;
+            if (!Registry.TryGetValue(eventDataType, out handlers))
+            {
+                handlers = new List<object>();
+                Registry.Add(eventDataType, handlers);
+            }
+
+            handlers.Add(handler);
+        }
+
+        public void UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
+        {
+            Guard.NotNull(handler, "factory");
+            Type eventDataType = typeof(TEvent);
+
+            List<object> handlers;
+            if (Registry.TryGetValue(eventDataType, out handlers))
+                handlers.Remove(handler);
+        }
+    }
+}

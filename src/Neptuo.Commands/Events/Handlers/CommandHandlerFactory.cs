@@ -1,5 +1,5 @@
-﻿using Neptuo.Events;
-using Neptuo.Events.Handlers;
+﻿using Neptuo.Pipelines.Events;
+using Neptuo.Pipelines.Events.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

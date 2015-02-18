@@ -21,7 +21,7 @@ using TestConsole.Data.Commands.Handlers;
 using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
 using Neptuo.Validators;
-using Neptuo.Events;
+using Neptuo.Pipelines.Events;
 
 namespace TestConsole.Data
 {

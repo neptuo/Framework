@@ -263,7 +263,7 @@ var Neptuo$Commands$DependencyCommandDispatcher = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.IDependencyProvider", "Neptuo.Events.IEventDispatcher"]
+        parameters: ["Neptuo.IDependencyProvider", "Neptuo.Pipelines.Events.IEventDispatcher"]
     }
     ],
     IsAbstract: false
@@ -273,7 +273,7 @@ var Neptuo$Commands$Events$Handlers$CommandHandlerFactory = {
     fullname: "Neptuo.Commands.Events.Handlers.CommandHandlerFactory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Commands",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory$1"],
     Kind: "Class",
     definition: {
         ctor: function (command, innerFactory){
@@ -295,7 +295,7 @@ var Neptuo$Commands$Events$Handlers$CommandHandlerFactory = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.Object", "Neptuo.Events.Handlers.IEventHandlerFactory"]
+        parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory"]
     }
     ],
     IsAbstract: false

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Events.Handlers
+namespace Neptuo.Pipelines.Events.Handlers
 {
     /// <summary>
     /// Event handler using delegate method.

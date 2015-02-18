@@ -2015,24 +2015,42 @@ var Neptuo$DependencyNamedActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyNamedActivator$1);
-var Neptuo$Pipelines$IMediator = {
-    fullname: "Neptuo.Pipelines.IMediator",
+var Neptuo$Pipelines$Events$IEventRegistry = {
+    fullname: "Neptuo.Pipelines.Events.IEventRegistry",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$IMediator);
-var Neptuo$Pipelines$IWitResponse$1 = {
-    fullname: "Neptuo.Pipelines.IWitResponse$1",
+JsTypes.push(Neptuo$Pipelines$Events$IEventRegistry);
+var Neptuo$Pipelines$IRequestDispatcher = {
+    fullname: "Neptuo.Pipelines.IRequestDispatcher",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$IWitResponse$1);
+JsTypes.push(Neptuo$Pipelines$IRequestDispatcher);
+var Neptuo$Pipelines$IRequest$1 = {
+    fullname: "Neptuo.Pipelines.IRequest$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$IRequest$1);
+var Neptuo$Pipelines$IRequestHandler$2 = {
+    fullname: "Neptuo.Pipelines.IRequestHandler$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$IRequestHandler$2);
 var Neptuo$Pipelines$Queries$IQuery$1 = {
     fullname: "Neptuo.Pipelines.Queries.IQuery$1",
     baseTypeName: "System.Object",
@@ -2060,8 +2078,8 @@ var Neptuo$Pipelines$Queries$IQueryHandler$2 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Queries$IQueryHandler$2);
-var Neptuo$Pipelines$_MediatorExtensions = {
-    fullname: "Neptuo.Pipelines._MediatorExtensions",
+var Neptuo$Pipelines$_RequestDispatcherExtensions = {
+    fullname: "Neptuo.Pipelines._RequestDispatcherExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         Execute$2: function (TInput, TOutput, mediator, request){
@@ -2079,7 +2097,7 @@ var Neptuo$Pipelines$_MediatorExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$_MediatorExtensions);
+JsTypes.push(Neptuo$Pipelines$_RequestDispatcherExtensions);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",
@@ -2646,11 +2664,11 @@ var Neptuo$_GuardArgumentExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$_GuardArgumentExtensions);
-var Neptuo$Events$EventManager = {
-    fullname: "Neptuo.Events.EventManager",
+var Neptuo$Pipelines$Events$EventManager = {
+    fullname: "Neptuo.Pipelines.Events.EventManager",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.IEventManager", "Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
+    interfaceNames: ["Neptuo.Pipelines.Events.IEventDispatcher", "Neptuo.Pipelines.Events.IEventRegistry"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -2668,25 +2686,25 @@ var Neptuo$Events$EventManager = {
         Publish$1: function (TEvent, eventData){
             Neptuo.Guard.NotNull$$Object$$String(eventData, "eventData");
             var eventType = Typeof(TEvent);
-            var handlerFactories;
+            var handlers;
             if ((function (){
                 var $1 = {
-                    Value: handlerFactories
+                    Value: handlers
                 };
                 var $res = this.get_Registry().TryGetValue(eventType, $1);
-                handlerFactories = $1.Value;
+                handlers = $1.Value;
                 return $res;
             }).call(this)){
-                var $it11 = System.Linq.Enumerable.ToList$1(System.Object.ctor, handlerFactories).GetEnumerator();
+                var $it11 = handlers.GetEnumerator();
                 while ($it11.MoveNext()){
-                    var handlerFactory = $it11.get_Current();
-                    var handler = handlerFactory.CreateHandler(eventData, this);
-                    if (handler != null)
-                        handler.Handle(eventData);
+                    var handler = $it11.get_Current();
+                    handler.Handle(eventData);
                 }
             }
         },
-        SubscribeInternal: function (eventDataType, factory){
+        Subscribe$1: function (TEvent, handler){
+            Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
+            var eventDataType = Typeof(TEvent);
             var handlers;
             if (!(function (){
                 var $1 = {
@@ -2699,21 +2717,11 @@ var Neptuo$Events$EventManager = {
                 handlers = new System.Collections.Generic.List$1.ctor(System.Object.ctor);
                 this.get_Registry().Add(eventDataType, handlers);
             }
-            handlers.Add(factory);
+            handlers.Add(handler);
         },
-        Subscribe$1$$IEventHandlerFactory$1: function (TEvent, factory){
-            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+        UnSubscribe$1: function (TEvent, handler){
+            Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
             var eventDataType = Typeof(TEvent);
-            this.SubscribeInternal(eventDataType, factory);
-        },
-        Subscribe$$Type$$IEventHandlerFactory: function (eventDataType, factory){
-            Neptuo.Guard.NotNull$$Object$$String(eventDataType, "eventDataType");
-            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
-            if (!Typeof(Neptuo.Events.Handlers.IEventHandlerFactory$1.ctor).MakeGenericType(eventDataType).IsAssignableFrom(factory.GetType()))
-                throw $CreateException(Neptuo._GuardArgumentExtensions.Argument(Neptuo.Guard.Exception, "factory", "Factory doesn\'t implement IEventHandlerFactory<{0}>", eventDataType.get_FullName()), new Error());
-            this.SubscribeInternal(eventDataType, factory);
-        },
-        UnSubscribeInternal: function (eventDataType, factory){
             var handlers;
             if ((function (){
                 var $1 = {
@@ -2723,17 +2731,7 @@ var Neptuo$Events$EventManager = {
                 handlers = $1.Value;
                 return $res;
             }).call(this))
-                handlers.Remove(factory);
-        },
-        UnSubscribe$1$$IEventHandlerFactory$1: function (TEvent, factory){
-            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
-            var eventDataType = Typeof(TEvent);
-            this.UnSubscribeInternal(eventDataType, factory);
-        },
-        UnSubscribe$$Type$$IEventHandlerFactory: function (eventDataType, factory){
-            Neptuo.Guard.NotNull$$Object$$String(eventDataType, "eventDataType");
-            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
-            this.UnSubscribeInternal(eventDataType, factory);
+                handlers.Remove(handler);
         }
     },
     ctors: [{
@@ -2743,20 +2741,13 @@ var Neptuo$Events$EventManager = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Events$EventManager);
-var Neptuo$Events$_EventDispatcherExtensions = {
-    fullname: "Neptuo.Events._EventDispatcherExtensions",
+JsTypes.push(Neptuo$Pipelines$Events$EventManager);
+var Neptuo$Pipelines$Events$_EventDispatcherExtensions = {
+    fullname: "Neptuo.Pipelines.Events._EventDispatcherExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        SubscribeDependency$2: function (TEvent, TEventHandler, eventRegistry, dependencyProvider){
-            Neptuo.Guard.NotNull$$Object$$String(eventRegistry, "eventRegistry");
-            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
-            var factory = new Neptuo.Events.Handlers.DependencyEventHandlerFactory$2.ctor(TEvent, TEventHandler, dependencyProvider);
-            eventRegistry.Subscribe$1$$IEventHandlerFactory$1(TEvent, factory);
-            return factory;
-        },
         Using$1: function (TEvent, eventRegistry, eventHandler){
-            return new Neptuo.Events.UsignEventHandlerSubscriber$1.ctor(TEvent, eventRegistry, eventHandler);
+            return new Neptuo.Pipelines.Events.UsignEventHandlerSubscriber$1.ctor(TEvent, eventRegistry, eventHandler);
         }
     },
     assemblyName: "Neptuo",
@@ -2769,9 +2760,9 @@ var Neptuo$Events$_EventDispatcherExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Events$_EventDispatcherExtensions);
-var Neptuo$Events$UsignEventHandlerSubscriber$1 = {
-    fullname: "Neptuo.Events.UsignEventHandlerSubscriber$1",
+JsTypes.push(Neptuo$Pipelines$Events$_EventDispatcherExtensions);
+var Neptuo$Pipelines$Events$UsignEventHandlerSubscriber$1 = {
+    fullname: "Neptuo.Pipelines.Events.UsignEventHandlerSubscriber$1",
     baseTypeName: "Neptuo.ComponentModel.DisposableBase",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -2779,30 +2770,30 @@ var Neptuo$Events$UsignEventHandlerSubscriber$1 = {
         ctor: function (TEvent, eventRegistry, eventHandler){
             this.TEvent = TEvent;
             this.eventRegistry = null;
-            this.eventHandlerFactory = null;
+            this.eventHandler = null;
             Neptuo.ComponentModel.DisposableBase.ctor.call(this);
             this.eventRegistry = eventRegistry;
-            this.eventHandlerFactory = new Neptuo.Events.Handlers.SingletonEventHandlerFactory$1.ctor(this.TEvent, eventHandler);
-            eventRegistry.Subscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
+            this.eventHandler = eventHandler;
+            eventRegistry.Subscribe$1(this.TEvent, eventHandler);
         },
         DisposeManagedResources: function (){
             Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
-            this.eventRegistry.UnSubscribe$1$$IEventHandlerFactory$1(this.TEvent, this.eventHandlerFactory);
+            this.eventRegistry.UnSubscribe$1(this.TEvent, this.eventHandler);
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.Events.IEventRegistry", "Neptuo.Events.Handlers.IEventHandler"]
+        parameters: ["Neptuo.Pipelines.Events.IEventRegistry", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Events$UsignEventHandlerSubscriber$1);
-var Neptuo$Events$Handlers$ActionEventHandler$1 = {
-    fullname: "Neptuo.Events.Handlers.ActionEventHandler$1",
+JsTypes.push(Neptuo$Pipelines$Events$UsignEventHandlerSubscriber$1);
+var Neptuo$Pipelines$Events$Handlers$ActionEventHandler$1 = {
+    fullname: "Neptuo.Pipelines.Events.Handlers.ActionEventHandler$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandler$1"],
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandler$1"],
     Kind: "Class",
     definition: {
         ctor: function (TEvent, action){
@@ -2830,156 +2821,25 @@ var Neptuo$Events$Handlers$ActionEventHandler$1 = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Events$Handlers$ActionEventHandler$1);
-var Neptuo$Events$Handlers$DependencyEventHandlerFactory$2 = {
-    fullname: "Neptuo.Events.Handlers.DependencyEventHandlerFactory$2",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
-    Kind: "Class",
-    definition: {
-        ctor: function (TEvent, TEventHandler, dependencyProvider){
-            this.TEvent = TEvent;
-            this.TEventHandler = TEventHandler;
-            this.dependencyProvider = null;
-            System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
-            this.dependencyProvider = dependencyProvider;
-        },
-        CreateHandler: function (eventData, currentManager){
-            return Neptuo._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(this.TEventHandler, this.dependencyProvider);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.IDependencyProvider"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Events$Handlers$DependencyEventHandlerFactory$2);
-var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 = {
-    fullname: "Neptuo.Events.Handlers.GetterEventHandlerFactory$1",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
-    Kind: "Class",
-    definition: {
-        ctor: function (TEvent, getter){
-            this.TEvent = TEvent;
-            this._Getter = null;
-            System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(getter, "getter");
-            this.set_Getter(getter);
-        },
-        Getter$$: "System.Func`1[[Neptuo.Events.Handlers.IEventHandler`1[[`0]]]]",
-        get_Getter: function (){
-            return this._Getter;
-        },
-        set_Getter: function (value){
-            this._Getter = value;
-        },
-        CreateHandler: function (eventData, currentManager){
-            return this.get_Getter()();
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Func"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Events$Handlers$GetterEventHandlerFactory$1);
-var Neptuo$Events$Handlers$IEventHandler$1 = {
-    fullname: "Neptuo.Events.Handlers.IEventHandler$1",
+JsTypes.push(Neptuo$Pipelines$Events$Handlers$ActionEventHandler$1);
+var Neptuo$Pipelines$Events$Handlers$IEventHandler$1 = {
+    fullname: "Neptuo.Pipelines.Events.Handlers.IEventHandler$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Events$Handlers$IEventHandler$1);
-var Neptuo$Events$Handlers$IEventHandlerFactory = {
-    fullname: "Neptuo.Events.Handlers.IEventHandlerFactory",
+JsTypes.push(Neptuo$Pipelines$Events$Handlers$IEventHandler$1);
+var Neptuo$Pipelines$Events$IEventDispatcher = {
+    fullname: "Neptuo.Pipelines.Events.IEventDispatcher",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Events$Handlers$IEventHandlerFactory);
-var Neptuo$Events$Handlers$IEventHandlerFactory$1 = {
-    fullname: "Neptuo.Events.Handlers.IEventHandlerFactory$1",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Events$Handlers$IEventHandlerFactory$1);
-var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 = {
-    fullname: "Neptuo.Events.Handlers.SingletonEventHandlerFactory$1",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
-    Kind: "Class",
-    definition: {
-        ctor: function (TEvent, handler){
-            this.TEvent = TEvent;
-            this._Handler = null;
-            System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
-            this.set_Handler(handler);
-        },
-        Handler$$: "Neptuo.Events.Handlers.IEventHandler`1[[`0]]",
-        get_Handler: function (){
-            return this._Handler;
-        },
-        set_Handler: function (value){
-            this._Handler = value;
-        },
-        CreateHandler: function (eventData, currentManager){
-            return this.get_Handler();
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.Events.Handlers.IEventHandler"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Events$Handlers$SingletonEventHandlerFactory$1);
-var Neptuo$Events$IEventDispatcher = {
-    fullname: "Neptuo.Events.IEventDispatcher",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Events$IEventDispatcher);
-var Neptuo$Events$IEventManager = {
-    fullname: "Neptuo.Events.IEventManager",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Events$IEventManager);
-var Neptuo$Events$IEventRegistry = {
-    fullname: "Neptuo.Events.IEventRegistry",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Events$IEventRegistry);
+JsTypes.push(Neptuo$Pipelines$Events$IEventDispatcher);
 var Neptuo$Exceptions$Helpers$GuardExceptionHelper = {
     fullname: "Neptuo.Exceptions.Helpers.GuardExceptionHelper",
     baseTypeName: "System.Object",
