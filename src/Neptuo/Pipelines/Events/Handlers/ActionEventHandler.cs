@@ -27,9 +27,9 @@ namespace Neptuo.Pipelines.Events.Handlers
             Action = action;
         }
 
-        public void Handle(TEvent eventData)
+        public void Handle(TEvent payload)
         {
-            Action(eventData);
+            Action(payload);
         }
     }
 }

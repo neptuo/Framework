@@ -2683,8 +2683,8 @@ var Neptuo$Pipelines$Events$EventManager = {
         set_Registry: function (value){
             this._Registry = value;
         },
-        Publish$1: function (TEvent, eventData){
-            Neptuo.Guard.NotNull$$Object$$String(eventData, "eventData");
+        Publish$1: function (TEvent, payload){
+            Neptuo.Guard.NotNull$$Object$$String(payload, "payload");
             var eventType = Typeof(TEvent);
             var handlers;
             if ((function (){
@@ -2698,37 +2698,37 @@ var Neptuo$Pipelines$Events$EventManager = {
                 var $it11 = handlers.GetEnumerator();
                 while ($it11.MoveNext()){
                     var handler = $it11.get_Current();
-                    handler.Handle(eventData);
+                    handler.Handle(payload);
                 }
             }
         },
         Subscribe$1: function (TEvent, handler){
             Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
-            var eventDataType = Typeof(TEvent);
+            var eventType = Typeof(TEvent);
             var handlers;
             if (!(function (){
                 var $1 = {
                     Value: handlers
                 };
-                var $res = this.get_Registry().TryGetValue(eventDataType, $1);
+                var $res = this.get_Registry().TryGetValue(eventType, $1);
                 handlers = $1.Value;
                 return $res;
             }).call(this)){
                 handlers = new System.Collections.Generic.List$1.ctor(System.Object.ctor);
-                this.get_Registry().Add(eventDataType, handlers);
+                this.get_Registry().Add(eventType, handlers);
             }
             handlers.Add(handler);
             return this;
         },
         UnSubscribe$1: function (TEvent, handler){
             Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
-            var eventDataType = Typeof(TEvent);
+            var eventType = Typeof(TEvent);
             var handlers;
             if ((function (){
                 var $1 = {
                     Value: handlers
                 };
-                var $res = this.get_Registry().TryGetValue(eventDataType, $1);
+                var $res = this.get_Registry().TryGetValue(eventType, $1);
                 handlers = $1.Value;
                 return $res;
             }).call(this))
@@ -2812,8 +2812,8 @@ var Neptuo$Pipelines$Events$Handlers$ActionEventHandler$1 = {
         set_Action: function (value){
             this._Action = value;
         },
-        Handle: function (eventData){
-            this.get_Action()(eventData);
+        Handle: function (payload){
+            this.get_Action()(payload);
         }
     },
     ctors: [{

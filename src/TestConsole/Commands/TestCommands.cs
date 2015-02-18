@@ -5,6 +5,7 @@ using Neptuo.Commands.Events.Handlers;
 using Neptuo.Commands.Execution;
 using Neptuo.Commands.Handlers;
 using Neptuo.Commands.Interception;
+using Neptuo.ComponentModel;
 using Neptuo.Pipelines.Events;
 using Neptuo.Pipelines.Events.Handlers;
 using Neptuo.Unity;
@@ -63,9 +64,9 @@ namespace TestConsole.Commands
             //TestDirect(count);
         }
 
-        private static void OnCommandHandled(CommandHandled eventData)
+        private static void OnCommandHandled(CommandHandled payload)
         {
-            Console.WriteLine(eventData);
+            Console.WriteLine(payload);
         }
 
         static void TestCommandDispatcher(int count, ICommandDispatcher commandDispatcher)
@@ -85,7 +86,7 @@ namespace TestConsole.Commands
         }
     }
 
-    class CreateProductEventHandler : IEventHandler<CommandHandled>
+    class CreateProductEventHandler : IEventHandler<CommandHandled>, IEventHandler<Envelope<CommandHandled>>
     {
         public CreateProductEventHandler()
         {
@@ -97,10 +98,15 @@ namespace TestConsole.Commands
             Console.WriteLine("Destructing CreateProductEventHandler.");
         }
 
-        public void Handle(CommandHandled eventData)
+        public void Handle(CommandHandled payload)
         {
-            CreateProductCommand command = (CreateProductCommand)eventData.Command;
+            CreateProductCommand command = (CreateProductCommand)payload.Command;
             Console.WriteLine("Crated product: {0}", command.Name);
+        }
+
+        public void Handle(Envelope<CommandHandled> eventData)
+        {
+            throw new NotImplementedException();
         }
     }
 

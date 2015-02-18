@@ -25,29 +25,29 @@ namespace Neptuo.Pipelines.Events
             Registry = new Dictionary<Type, List<object>>();
         }
 
-        public void Publish<TEvent>(TEvent eventData)
+        public void Publish<TEvent>(TEvent payload)
         {
-            Guard.NotNull(eventData, "eventData");
+            Guard.NotNull(payload, "payload");
 
             Type eventType = typeof(TEvent);
             List<object> handlers;
             if (Registry.TryGetValue(eventType, out handlers))
             {
                 foreach (IEventHandler<TEvent> handler in handlers)
-                    handler.Handle(eventData);
+                    handler.Handle(payload);
             }
         }
 
         public IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Guard.NotNull(handler, "factory");
-            Type eventDataType = typeof(TEvent);
+            Type eventType = typeof(TEvent);
 
             List<object> handlers;
-            if (!Registry.TryGetValue(eventDataType, out handlers))
+            if (!Registry.TryGetValue(eventType, out handlers))
             {
                 handlers = new List<object>();
-                Registry.Add(eventDataType, handlers);
+                Registry.Add(eventType, handlers);
             }
 
             handlers.Add(handler);
@@ -57,10 +57,10 @@ namespace Neptuo.Pipelines.Events
         public IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Guard.NotNull(handler, "factory");
-            Type eventDataType = typeof(TEvent);
+            Type eventType = typeof(TEvent);
 
             List<object> handlers;
-            if (Registry.TryGetValue(eventDataType, out handlers))
+            if (Registry.TryGetValue(eventType, out handlers))
                 handlers.Remove(handler);
 
             return this;

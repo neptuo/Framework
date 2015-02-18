@@ -12,10 +12,10 @@ namespace Neptuo.Pipelines.Events
     public interface IEventDispatcher
     {
         /// <summary>
-        /// Publishes <paramref name="eventData"/> to event bus.
+        /// Publishes <paramref name="payload"/> to event bus.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
-        /// <param name="eventData">Instance of event data.</param>
-        void Publish<TEvent>(TEvent eventData);
+        /// <param name="payload">Instance of event data.</param>
+        void Publish<TEvent>(TEvent payload);
     }
 }
