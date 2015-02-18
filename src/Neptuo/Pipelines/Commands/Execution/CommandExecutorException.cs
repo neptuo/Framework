@@ -13,10 +13,12 @@ namespace Neptuo.Pipelines.Commands.Execution
         public CommandExecutorException() 
         { }
         
-        public CommandExecutorException(string message) : base(message) 
+        public CommandExecutorException(string message)
+            : base(message) 
         { }
         
-        public CommandExecutorException(string message, Exception inner) : base(message, inner) 
+        public CommandExecutorException(string message, Exception inner)
+            : base(message, inner) 
         { }
         
         protected CommandExecutorException(SerializationInfo info, StreamingContext context)

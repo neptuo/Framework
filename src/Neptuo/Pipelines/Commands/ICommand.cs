@@ -7,10 +7,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Pipelines.Commands
 {
     /// <summary>
-    /// Optional base 
+    /// Optional base.
     /// </summary>
     public interface ICommand
     {
+        /// <summary>
+        /// Unique command identifier.
+        /// </summary>
         string Guid { get; }
     }
 }
