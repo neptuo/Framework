@@ -1721,7 +1721,7 @@ var Neptuo$ComponentModel$Envelope$1 = {
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor$$T$$TimeSpan$$TimeSpan$$Guid: function (T, body, delay, timeToLive, sourceID){
+        ctor$$T$$TimeSpan$$TimeSpan$$String: function (T, body, delay, timeToLive, sourceID){
             this.T = T;
             this._Body = null;
             this._Delay = new System.TimeSpan.ctor();
@@ -1751,7 +1751,7 @@ var Neptuo$ComponentModel$Envelope$1 = {
         set_TimeToLive: function (value){
             this._TimeToLive = value;
         },
-        SourceID$$: "System.Nullable`1[[System.Guid]]",
+        SourceID$$: "System.String",
         get_SourceID: function (){
             return this._SourceID;
         },
@@ -1773,13 +1773,13 @@ var Neptuo$ComponentModel$Envelope$1 = {
             this.set_TimeToLive(timeToLive);
             this.set_SourceID(null);
         },
-        ctor$$T$$Guid: function (T, body, sourceID){
+        ctor$$T$$String: function (T, body, sourceID){
             this.T = T;
             this._Body = null;
             this._Delay = new System.TimeSpan.ctor();
             this._TimeToLive = new System.TimeSpan.ctor();
             this._SourceID = null;
-            Neptuo.ComponentModel.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan$$Guid.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero, sourceID);
+            Neptuo.ComponentModel.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan$$String.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero, sourceID);
         },
         ctor$$T: function (T, body){
             this.T = T;
@@ -1791,14 +1791,14 @@ var Neptuo$ComponentModel$Envelope$1 = {
         }
     },
     ctors: [{
-        name: "ctor$$T$$TimeSpan$$TimeSpan$$Guid",
-        parameters: ["T", "System.TimeSpan", "System.TimeSpan", "System.Guid"]
+        name: "ctor$$T$$TimeSpan$$TimeSpan$$String",
+        parameters: ["T", "System.TimeSpan", "System.TimeSpan", "System.String"]
     }, {
         name: "ctor$$T$$TimeSpan$$TimeSpan",
         parameters: ["T", "System.TimeSpan", "System.TimeSpan"]
     }, {
-        name: "ctor$$T$$Guid",
-        parameters: ["T", "System.Guid"]
+        name: "ctor$$T$$String",
+        parameters: ["T", "System.String"]
     }, {
         name: "ctor$$T",
         parameters: ["T"]
@@ -2084,7 +2084,7 @@ var Neptuo$Pipelines$_RequestDispatcherExtensions = {
     staticDefinition: {
         Execute$2: function (TInput, TOutput, mediator, request){
             Neptuo.Guard.NotNull$$Object$$String(mediator, "mediator");
-            return mediator.Execute$2(TInput, TOutput, request);
+            return mediator.ExecuteAsync$2(TInput, TOutput, request);
         }
     },
     assemblyName: "Neptuo",

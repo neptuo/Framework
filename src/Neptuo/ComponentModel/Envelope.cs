@@ -49,7 +49,7 @@ namespace Neptuo.ComponentModel
         /// <summary>
         /// The source message/envelope ID.
         /// </summary>
-        public Guid? SourceID { get; private set; }
+        public string SourceID { get; private set; }
 
         /// <summary>
         /// Creates new instance of <see cref="Envelope<>"/> with specified parameters.
@@ -58,7 +58,7 @@ namespace Neptuo.ComponentModel
         /// <param name="delay">The delay for sending, enqueing or processing the body.</param>
         /// <param name="timeToLive">The time to live for the message in the queue.</param>
         /// <param name="sourceID">The source message/envelope ID.</param>
-        public Envelope(T body, TimeSpan delay, TimeSpan timeToLive, Guid sourceID)
+        public Envelope(T body, TimeSpan delay, TimeSpan timeToLive, string sourceID)
             : this(body, delay, timeToLive)
         {
             SourceID = sourceID;
@@ -86,7 +86,7 @@ namespace Neptuo.ComponentModel
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         /// <param name="sourceID">The source message/envelope ID.</param>
-        public Envelope(T body, Guid sourceID)
+        public Envelope(T body, string sourceID)
             : this(body, TimeSpan.Zero, TimeSpan.Zero, sourceID)
         { }
 

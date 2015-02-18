@@ -101,7 +101,7 @@ namespace TestConsole.Commands
         public void Handle(CommandHandled payload)
         {
             CreateProductCommand command = (CreateProductCommand)payload.Command;
-            Console.WriteLine("Crated product: {0}", command.Name);
+            Console.WriteLine("Created product: {0}", command.Name);
         }
 
         public void Handle(Envelope<CommandHandled> eventData)

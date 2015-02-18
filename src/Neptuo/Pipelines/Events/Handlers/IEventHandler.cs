@@ -13,9 +13,9 @@ namespace Neptuo.Pipelines.Events.Handlers
     public interface IEventHandler<TEvent>
     {
         /// <summary>
-        /// Handles event described by <paramref name="eventData"/>.
+        /// Handles event described by <paramref name="payload"/>.
         /// </summary>
-        /// <param name="eventData">Instance of event data.</param>
+        /// <param name="payload">Instance of event data.</param>
         void Handle(TEvent payload);
     }
 }
