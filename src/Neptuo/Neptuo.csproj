@@ -80,6 +80,33 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
+    <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
+    <Compile Include="Pipelines\Commands\CommandException.cs" />
+    <Compile Include="Pipelines\Commands\DependencyCommandDispatcher.cs" />
+    <Compile Include="Pipelines\Commands\Events\CommandHandled.cs" />
+    <Compile Include="Pipelines\Commands\Events\Handlers\CommandEventHandler.cs" />
+    <Compile Include="Pipelines\Commands\Execution\CommandExecutorException.cs" />
+    <Compile Include="Pipelines\Commands\Execution\DependencyCommandExecutor.cs" />
+    <Compile Include="Pipelines\Commands\Execution\DependencyCommandExecutorFactory.cs" />
+    <Compile Include="Pipelines\Commands\Execution\DispatchingCommandExecutorFactory.cs" />
+    <Compile Include="Pipelines\Commands\Execution\ICommandExecutor.cs" />
+    <Compile Include="Pipelines\Commands\Execution\ICommandExecutorFactory.cs" />
+    <Compile Include="Pipelines\Commands\Execution\ICommandHandlerAware.cs" />
+    <Compile Include="Pipelines\Commands\Execution\InterceptorExectionContext.cs" />
+    <Compile Include="Pipelines\Commands\Execution\IPoolCommandExecutorContext.cs" />
+    <Compile Include="Pipelines\Commands\Execution\PoolCommandExecutor.cs" />
+    <Compile Include="Pipelines\Commands\Execution\PoolCommandExecutorFactory.cs" />
+    <Compile Include="Pipelines\Commands\Execution\ThreadPoolCommandExecutor.cs" />
+    <Compile Include="Pipelines\Commands\Execution\ThreadPoolCommandExecutorFactory.cs" />
+    <Compile Include="Pipelines\Commands\Handlers\ICommandHandler.cs" />
+    <Compile Include="Pipelines\Commands\ICommand.cs" />
+    <Compile Include="Pipelines\Commands\ICommandDispatcher.cs" />
+    <Compile Include="Pipelines\Commands\Interception\AttributeInterceptorProvider.cs" />
+    <Compile Include="Pipelines\Commands\Interception\DiscardExceptionAttribute.cs" />
+    <Compile Include="Pipelines\Commands\Interception\IDecoratedInvoke.cs" />
+    <Compile Include="Pipelines\Commands\Interception\IDecoratedInvokeContext.cs" />
+    <Compile Include="Pipelines\Commands\Interception\IInterceptorProvider.cs" />
+    <Compile Include="Pipelines\Commands\Interception\ManualInterceptorProvider.cs" />
     <Compile Include="Pipelines\Events\Handlers\ActivatorEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandlerContext.cs" />
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
@@ -201,9 +228,7 @@
       <InProject>false</InProject>
     </SkcPlugin>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Pipelines\Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
   <PropertyGroup>

@@ -1,10 +1,10 @@
 ﻿using Neptuo;
-using Neptuo.Commands;
-using Neptuo.Commands.Events;
-using Neptuo.Commands.Events.Handlers;
-using Neptuo.Commands.Execution;
-using Neptuo.Commands.Handlers;
-using Neptuo.Commands.Interception;
+using Neptuo.Pipelines.Commands;
+using Neptuo.Pipelines.Commands.Events;
+using Neptuo.Pipelines.Commands.Events.Handlers;
+using Neptuo.Pipelines.Commands.Execution;
+using Neptuo.Pipelines.Commands.Handlers;
+using Neptuo.Pipelines.Commands.Interception;
 using Neptuo.ComponentModel;
 using Neptuo.Pipelines.Events;
 using Neptuo.Pipelines.Events.Handlers;

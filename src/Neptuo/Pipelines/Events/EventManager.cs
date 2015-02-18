@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Pipelines.Events
 {
     /// <summary>
-    /// Default implementation of <see cref="IEventManager"/> and <see cref="IEventRegistry"/>.
+    /// Default implementation of <see cref="IEventDispatcher"/> and <see cref="IEventRegistry"/>.
     /// </summary>
     public class EventManager : IEventDispatcher, IEventRegistry
     {

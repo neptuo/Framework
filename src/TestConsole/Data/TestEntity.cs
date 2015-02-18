@@ -1,7 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Data;
-using Neptuo.Commands;
-using Neptuo.Commands.Handlers;
+using Neptuo.Pipelines.Commands;
+using Neptuo.Pipelines.Commands.Handlers;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;
