@@ -22,7 +22,7 @@ namespace Neptuo.Pipelines
             where TInput : IRequest<TOutput>
         {
             Guard.NotNull(mediator, "mediator");
-            return mediator.Execute<TInput, TOutput>(request);
+            return mediator.ExecuteAsync<TInput, TOutput>(request);
         }
     }
 }

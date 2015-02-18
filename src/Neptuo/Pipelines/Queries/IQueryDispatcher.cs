@@ -17,6 +17,6 @@ namespace Neptuo.Pipelines.Queries
         /// <typeparam name="TOutput"></typeparam>
         /// <param name="query"></param>
         /// <returns></returns>
-        Task<TOutput> Query<TOutput>(IQuery<TOutput> query);
+        Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query);
     }
 }

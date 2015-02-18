@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines.Queries
+namespace Neptuo.Pipelines.Queries.Handlers
 {
     /// <summary>
     /// Handler for query of type <typeparamref name="TQuery"/>.
@@ -19,6 +19,6 @@ namespace Neptuo.Pipelines.Queries
         /// </summary>
         /// <param name="query">Query parameters.</param>
         /// <returns>Result to <paramref name="query"/>.</returns>
-        Task<TResult> HandleQuery(TQuery query);
+        Task<TResult> HandleAsync(TQuery query);
     }
 }

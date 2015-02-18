@@ -18,6 +18,6 @@ namespace Neptuo.Pipelines
         /// </summary>
         /// <param name="request">Request parameters.</param>
         /// <returns>Response to <paramref name="request"/>.</returns>
-        Task<TOutput> HandleQuery(TInput request);
+        Task<TOutput> HandleAsync(TInput request);
     }
 }
