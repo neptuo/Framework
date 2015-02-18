@@ -2718,6 +2718,7 @@ var Neptuo$Pipelines$Events$EventManager = {
                 this.get_Registry().Add(eventDataType, handlers);
             }
             handlers.Add(handler);
+            return this;
         },
         UnSubscribe$1: function (TEvent, handler){
             Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
@@ -2732,6 +2733,7 @@ var Neptuo$Pipelines$Events$EventManager = {
                 return $res;
             }).call(this))
                 handlers.Remove(handler);
+            return this;
         }
     },
     ctors: [{

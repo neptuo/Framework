@@ -38,7 +38,7 @@ namespace Neptuo.Pipelines.Events
             }
         }
 
-        public void Subscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Guard.NotNull(handler, "factory");
             Type eventDataType = typeof(TEvent);
@@ -51,9 +51,10 @@ namespace Neptuo.Pipelines.Events
             }
 
             handlers.Add(handler);
+            return this;
         }
 
-        public void UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Guard.NotNull(handler, "factory");
             Type eventDataType = typeof(TEvent);
@@ -61,6 +62,8 @@ namespace Neptuo.Pipelines.Events
             List<object> handlers;
             if (Registry.TryGetValue(eventDataType, out handlers))
                 handlers.Remove(handler);
+
+            return this;
         }
     }
 }

@@ -13,17 +13,17 @@ namespace Neptuo.Pipelines.Events
     public interface IEventRegistry
     {
         /// <summary>
-        /// Subscribes event handle factor for events of type <typeparamref name="TEvent"/>.
+        /// Subscribes <paramref name="handler"/> for events of type <typeparamref name="TEvent"/>.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        void Subscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler);
 
         /// <summary>
-        /// Unsubscribes event handle factor from events of type <typeparamref name="TEvent"/>.
+        /// Unsubscribes <paramref name="handler"/> from events of type <typeparamref name="TEvent"/>.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        void UnSubscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler);
     }
 }
