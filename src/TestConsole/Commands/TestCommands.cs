@@ -86,7 +86,7 @@ namespace TestConsole.Commands
         }
     }
 
-    class CreateProductEventHandler : IEventHandler<CommandHandled>, IEventHandler<Envelope<CommandHandled>>
+    class CreateProductEventHandler : IEventHandler<CommandHandled>
     {
         public CreateProductEventHandler()
         {
@@ -102,11 +102,6 @@ namespace TestConsole.Commands
         {
             CreateProductCommand command = (CreateProductCommand)payload.Command;
             Console.WriteLine("Created product: {0}", command.Name);
-        }
-
-        public void Handle(Envelope<CommandHandled> eventData)
-        {
-            throw new NotImplementedException();
         }
     }
 

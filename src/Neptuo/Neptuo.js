@@ -2015,6 +2015,15 @@ var Neptuo$DependencyNamedActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyNamedActivator$1);
+var Neptuo$Pipelines$Events$Handlers$IEventHandlerContext$1 = {
+    fullname: "Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Events$Handlers$IEventHandlerContext$1);
 var Neptuo$Pipelines$Events$IEventRegistry = {
     fullname: "Neptuo.Pipelines.Events.IEventRegistry",
     baseTypeName: "System.Object",

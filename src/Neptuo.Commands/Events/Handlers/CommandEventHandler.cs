@@ -1,4 +1,5 @@
-﻿using Neptuo.Pipelines.Events;
+﻿using Neptuo.ComponentModel;
+using Neptuo.Pipelines.Events;
 using Neptuo.Pipelines.Events.Handlers;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Commands.Events.Handlers
 {
-    public class CommandEventHandler : IEventHandler<CommandHandled>
+    public class CommandEventHandler : IEventHandler<IEventHandlerContext<CommandHandled>>
     {
         private readonly object command;
         private readonly IEventHandler<CommandHandled> innerHandler;
+        private readonly IEventHandler<Envelope<CommandHandled>> innerEnvelopeHandler;
 
         public CommandEventHandler(object command, IEventHandler<CommandHandled> innerHandler)
         {
@@ -21,13 +23,26 @@ namespace Neptuo.Commands.Events.Handlers
             this.innerHandler = innerHandler;
         }
 
-        public void Handle(CommandHandled eventData)
+        public CommandEventHandler(object command, IEventHandler<Envelope<CommandHandled>> innerHandler)
         {
-            if (eventData.Command == command)
+            Guard.NotNull(command, "command");
+            Guard.NotNull(innerHandler, "innerHandler");
+            this.command = command;
+            this.innerEnvelopeHandler = innerHandler;
+        }
+
+        public void Handle(IEventHandlerContext<CommandHandled> context)
+        {
+            if (context.Payload.Body.Command == command)
             {
-                //TODO: Unsubscribe.
-                //currentManager.UnSubscribe(this);
-                innerHandler.Handle(eventData);
+                context.Registry.UnSubscribe(this);
+
+                if (innerHandler != null)
+                    innerHandler.Handle(context.Payload.Body);
+                else if (innerEnvelopeHandler != null)
+                    innerEnvelopeHandler.Handle(context.Payload);
+                else
+                    throw Guard.Exception.NotSupported("Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler.");
             }
         }
     }

@@ -276,23 +276,43 @@ var Neptuo$Commands$Events$Handlers$CommandEventHandler = {
     interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandler$1"],
     Kind: "Class",
     definition: {
-        ctor: function (command, innerHandler){
+        ctor$$Object$$IEventHandler$1$CommandHandled: function (command, innerHandler){
             this.command = null;
             this.innerHandler = null;
+            this.innerEnvelopeHandler = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(command, "command");
             Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
             this.command = command;
             this.innerHandler = innerHandler;
         },
-        Handle: function (eventData){
-            if (eventData.get_Command() == this.command){
-                this.innerHandler.Handle(eventData);
+        ctor$$Object$$IEventHandler$1: function (command, innerHandler){
+            this.command = null;
+            this.innerHandler = null;
+            this.innerEnvelopeHandler = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(command, "command");
+            Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
+            this.command = command;
+            this.innerEnvelopeHandler = innerHandler;
+        },
+        Handle: function (context){
+            if (context.get_Payload().get_Body().get_Command() == this.command){
+                context.get_Registry().UnSubscribe$1(Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1.ctor, this);
+                if (this.innerHandler != null)
+                    this.innerHandler.Handle(context.get_Payload().get_Body());
+                else if (this.innerEnvelopeHandler != null)
+                    this.innerEnvelopeHandler.Handle(context.get_Payload());
+                else
+                    throw $CreateException(Neptuo._GuardSystemExtensions.NotSupported(Neptuo.Guard.Exception, "Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler."), new Error());
             }
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$Object$$IEventHandler",
+        parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
+    }, {
+        name: "ctor$$Object$$IEventHandler",
         parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
     }
     ],
