@@ -31,8 +31,8 @@ namespace TestConsole
             //TestEntity.Test();
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
-            //TestCommands.Test();
-            TestEvents.Test();
+            TestCommands.Test();
+            //TestEvents.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
             //TestHash.Test();
