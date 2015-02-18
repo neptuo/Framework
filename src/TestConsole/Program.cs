@@ -17,10 +17,8 @@ using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
 using TestConsole.PresentationModels;
-using TestConsole.Resources;
 using TestConsole.Threading;
 using TestConsole.Tokens;
-using TestConsole.WebServices;
 
 namespace TestConsole
 {
@@ -34,13 +32,11 @@ namespace TestConsole
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
-            //TestEvents.Test();
-            //TestResources.Test();
-            //TestWebServices.Test();
+            TestEvents.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
             //TestHash.Test();
-            TestBootstrap.Test();
+            //TestBootstrap.Test();
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
             //TestDependency.Test();

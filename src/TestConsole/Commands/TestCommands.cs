@@ -38,7 +38,6 @@ namespace TestConsole.Commands
 
             DependencyContainer
                 .RegisterInstance<IEventDispatcher>(eventManager)
-                .RegisterInstance<IEventManager>(eventManager)
                 .RegisterInstance<IEventRegistry>(eventManager)
 
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
@@ -52,8 +51,8 @@ namespace TestConsole.Commands
             {
                 CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
 
-                eventManager.Subscribe(new CommandEventHandler(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
-                eventManager.Subscribe(new CommandEventHandler(command, new DependencyEventHandlerFactory<CommandHandled, CreateProductEventHandler>(DependencyContainer)));
+                eventManager.Subscribe(new CommandEventHandler(command, new ActionEventHandler<CommandHandled>(OnCommandHandled)));
+                eventManager.Subscribe(new CommandEventHandler(command, new CreateProductEventHandler()));
                 commandDispatcher.Handle(command);
                 GC.Collect();
             }

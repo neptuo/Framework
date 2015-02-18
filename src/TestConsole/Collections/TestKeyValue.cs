@@ -17,7 +17,8 @@ namespace TestConsole.Collections
 
             DebugIteration("Read id", 10000000, () =>
             {
-                collection.Get("id", 1);
+                int? defaultValue = 1;
+                collection.Get("id", defaultValue);
             });
 
             Dictionary<string, object> storage = new Dictionary<string, object>();

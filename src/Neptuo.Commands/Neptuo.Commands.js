@@ -227,7 +227,7 @@ var Neptuo$Commands$DependencyCommandDispatcher = {
         HandleInternal: function (command, handleException){
             var executor = null;
             try{
-                var executorFactory = Neptuo.DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Commands.Execution.ICommandExecutorFactory.ctor, this.dependencyProvider);
+                var executorFactory = Neptuo._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Commands.Execution.ICommandExecutorFactory.ctor, this.dependencyProvider);
                 executor = executorFactory.CreateExecutor(command);
                 executor.add_OnCommandHandled($CreateDelegate(this, this.OnCommandHandled));
                 executor.Handle(command);
@@ -269,38 +269,36 @@ var Neptuo$Commands$DependencyCommandDispatcher = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Commands$DependencyCommandDispatcher);
-var Neptuo$Commands$Events$Handlers$CommandHandlerFactory = {
-    fullname: "Neptuo.Commands.Events.Handlers.CommandHandlerFactory",
+var Neptuo$Commands$Events$Handlers$CommandEventHandler = {
+    fullname: "Neptuo.Commands.Events.Handlers.CommandEventHandler",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.Commands",
-    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory$1"],
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandler$1"],
     Kind: "Class",
     definition: {
-        ctor: function (command, innerFactory){
+        ctor: function (command, innerHandler){
             this.command = null;
-            this.innerFactory = null;
+            this.innerHandler = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(command, "command");
-            Neptuo.Guard.NotNull$$Object$$String(innerFactory, "innerFactory");
+            Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
             this.command = command;
-            this.innerFactory = innerFactory;
+            this.innerHandler = innerHandler;
         },
-        CreateHandler: function (eventData, currentManager){
+        Handle: function (eventData){
             if (eventData.get_Command() == this.command){
-                currentManager.UnSubscribe$1$$IEventHandlerFactory$1(Neptuo.Commands.Events.CommandHandled.ctor, this);
-                return this.innerFactory.CreateHandler(eventData, currentManager);
+                this.innerHandler.Handle(eventData);
             }
-            return null;
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory"]
+        parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Commands$Events$Handlers$CommandHandlerFactory);
+JsTypes.push(Neptuo$Commands$Events$Handlers$CommandEventHandler);
 var Neptuo$Commands$Execution$IPoolCommandExecutorContext = {
     fullname: "Neptuo.Commands.Execution.IPoolCommandExecutorContext",
     baseTypeName: "System.Object",
@@ -972,7 +970,7 @@ var Neptuo$Commands$Interception$ManualInterceptorProvider = {
             Neptuo.Guard.NotNull$$Object$$String(commandHandlerType, "commandHandlerType");
             Neptuo.Guard.NotNull$$Object$$String(interceptorType, "interceptorType");
             return this.AddInterceptorFactory(commandHandlerType, $CreateAnonymousDelegate(this, function (provider){
-                return Cast(Neptuo.DependencyProviderExtensions.Resolve$$IDependencyProvider$$Type(provider, interceptorType), Neptuo.Commands.Interception.IDecoratedInvoke.ctor);
+                return Cast(Neptuo._DependencyProviderExtensions.Resolve$$IDependencyProvider$$Type(provider, interceptorType), Neptuo.Commands.Interception.IDecoratedInvoke.ctor);
             }));
         },
         AddInterceptorFactory: function (commandHandlerType, factory){

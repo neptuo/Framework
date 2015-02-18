@@ -26,7 +26,7 @@ namespace Neptuo.Commands.Events.Handlers
             if (eventData.Command == command)
             {
                 //TODO: Unsubscribe.
-                currentManager.UnSubscribe(this);
+                //currentManager.UnSubscribe(this);
                 innerHandler.Handle(eventData);
             }
         }
