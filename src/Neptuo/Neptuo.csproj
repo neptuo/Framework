@@ -80,6 +80,7 @@
     <Compile Include="Converts.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
+    <Compile Include="Pipelines\Events\Handlers\ActivatorEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandlerContext.cs" />
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
     <Compile Include="Pipelines\IRequestDispatcher.cs" />
