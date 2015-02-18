@@ -1737,10 +1737,12 @@ var Neptuo$Pipelines$Commands$DependencyCommandDispatcher = {
         OnCommandHandled: function (executor, command){
             executor.remove_OnCommandHandled($CreateDelegate(this, this.OnCommandHandled));
             var guidCommand = As(command, Neptuo.Pipelines.Commands.ICommand.ctor);
+            var envelope;
             if (guidCommand != null)
-                this.eventDispatcher.PublishAsync$1(Neptuo.Pipelines.Commands.Events.CommandHandled.ctor, new Neptuo.Pipelines.Commands.Events.CommandHandled.ctor$$ICommand(guidCommand));
+                envelope = new Neptuo.ComponentModel.Envelope$1.ctor$$T$$String(Neptuo.Pipelines.Commands.Events.CommandHandled.ctor, new Neptuo.Pipelines.Commands.Events.CommandHandled.ctor(guidCommand), guidCommand.get_Guid());
             else
-                this.eventDispatcher.PublishAsync$1(Neptuo.Pipelines.Commands.Events.CommandHandled.ctor, new Neptuo.Pipelines.Commands.Events.CommandHandled.ctor$$Object(command));
+                envelope = Neptuo.ComponentModel.Envelope.Create$1(Neptuo.Pipelines.Commands.Events.CommandHandled.ctor, new Neptuo.Pipelines.Commands.Events.CommandHandled.ctor(command));
+            this.eventDispatcher.PublishAsync$1(Neptuo.ComponentModel.Envelope$1.ctor, envelope);
         },
         HandleException: function (exception){
             Neptuo.Guard.NotNull$$Object$$String(exception, "exception");
@@ -1761,21 +1763,11 @@ var Neptuo$Pipelines$Commands$Events$CommandHandled = {
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor$$String$$Object: function (commandGuid, command){
-            this._CommandGuid = null;
+        ctor: function (command){
             this._Command = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNullOrEmpty(commandGuid, "commandGuid");
             Neptuo.Guard.NotNull$$Object$$String(command, "command");
-            this.set_CommandGuid(commandGuid);
             this.set_Command(command);
-        },
-        CommandGuid$$: "System.String",
-        get_CommandGuid: function (){
-            return this._CommandGuid;
-        },
-        set_CommandGuid: function (value){
-            this._CommandGuid = value;
         },
         Command$$: "System.Object",
         get_Command: function (){
@@ -1783,32 +1775,11 @@ var Neptuo$Pipelines$Commands$Events$CommandHandled = {
         },
         set_Command: function (value){
             this._Command = value;
-        },
-        ctor$$Object: function (command){
-            this._CommandGuid = null;
-            this._Command = null;
-            System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(command, "command");
-            this.set_Command(command);
-        },
-        ctor$$ICommand: function (command){
-            this._CommandGuid = null;
-            this._Command = null;
-            System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(command, "command");
-            this.set_CommandGuid(command.get_Guid());
-            this.set_Command(command);
         }
     },
     ctors: [{
-        name: "ctor$$String$$Object",
-        parameters: ["System.String", "System.Object"]
-    }, {
-        name: "ctor$$Object",
+        name: "ctor",
         parameters: ["System.Object"]
-    }, {
-        name: "ctor$$ICommand",
-        parameters: ["Neptuo.Pipelines.Commands.ICommand"]
     }
     ],
     IsAbstract: false

@@ -1,4 +1,5 @@
-﻿using Neptuo.Pipelines.Commands.Events;
+﻿using Neptuo.ComponentModel;
+using Neptuo.Pipelines.Commands.Events;
 using Neptuo.Pipelines.Commands.Execution;
 using Neptuo.Pipelines.Commands.Handlers;
 using Neptuo.Pipelines.Events;
@@ -77,10 +78,13 @@ namespace Neptuo.Pipelines.Commands
         {
             executor.OnCommandHandled -= OnCommandHandled;
             ICommand guidCommand = command as ICommand;
+            Envelope<CommandHandled> envelope;
             if (guidCommand != null)
-                eventDispatcher.PublishAsync(new CommandHandled(guidCommand));
+                envelope = new Envelope<CommandHandled>(new CommandHandled(guidCommand), guidCommand.Guid);
             else
-                eventDispatcher.PublishAsync(new CommandHandled(command));
+                envelope = Envelope.Create(new CommandHandled(command));
+
+            eventDispatcher.PublishAsync(envelope);
         }
 
         /// <summary>
