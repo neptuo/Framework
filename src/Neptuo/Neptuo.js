@@ -2553,6 +2553,66 @@ var Neptuo$Pipelines$Events$Handlers$ActivatorEventHandler$2 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Events$Handlers$ActivatorEventHandler$2);
+var Neptuo$Pipelines$Events$Handlers$DefaultEventHandlerContext$1 = {
+    fullname: "Neptuo.Pipelines.Events.Handlers.DefaultEventHandlerContext$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1"],
+    Kind: "Class",
+    definition: {
+        ctor$$TEvent$$IEventRegistry$$IEventDispatcher: function (TEvent, payload, registry, dispatcher){
+            this.TEvent = TEvent;
+            this._Payload = null;
+            this._Registry = null;
+            this._Dispatcher = null;
+            Neptuo.Pipelines.Events.Handlers.DefaultEventHandlerContext$1.ctor$$Envelope$1$$IEventRegistry$$IEventDispatcher.call(this, this.TEvent, Neptuo.ComponentModel.Envelope.Create$1(this.TEvent, payload), registry, dispatcher);
+        },
+        Payload$$: "Neptuo.ComponentModel.Envelope`1[[`0]]",
+        get_Payload: function (){
+            return this._Payload;
+        },
+        set_Payload: function (value){
+            this._Payload = value;
+        },
+        Registry$$: "Neptuo.Pipelines.Events.IEventRegistry",
+        get_Registry: function (){
+            return this._Registry;
+        },
+        set_Registry: function (value){
+            this._Registry = value;
+        },
+        Dispatcher$$: "Neptuo.Pipelines.Events.IEventDispatcher",
+        get_Dispatcher: function (){
+            return this._Dispatcher;
+        },
+        set_Dispatcher: function (value){
+            this._Dispatcher = value;
+        },
+        ctor$$Envelope$1$$IEventRegistry$$IEventDispatcher: function (TEvent, payload, registry, dispatcher){
+            this.TEvent = TEvent;
+            this._Payload = null;
+            this._Registry = null;
+            this._Dispatcher = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(payload, "payload");
+            Neptuo.Guard.NotNull$$Object$$String(registry, "registry");
+            Neptuo.Guard.NotNull$$Object$$String(dispatcher, "dispatcher");
+            this.set_Payload(payload);
+            this.set_Registry(registry);
+            this.set_Dispatcher(dispatcher);
+        }
+    },
+    ctors: [{
+        name: "ctor$$TEvent$$IEventRegistry$$IEventDispatcher",
+        parameters: ["TEvent", "Neptuo.Pipelines.Events.IEventRegistry", "Neptuo.Pipelines.Events.IEventDispatcher"]
+    }, {
+        name: "ctor$$Envelope$$IEventRegistry$$IEventDispatcher",
+        parameters: ["Neptuo.ComponentModel.Envelope", "Neptuo.Pipelines.Events.IEventRegistry", "Neptuo.Pipelines.Events.IEventDispatcher"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Events$Handlers$DefaultEventHandlerContext$1);
 var Neptuo$Pipelines$Events$Handlers$IEventHandlerContext$1 = {
     fullname: "Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1",
     baseTypeName: "System.Object",
