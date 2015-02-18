@@ -110,6 +110,7 @@
     <Compile Include="Pipelines\Events\Handlers\ActivatorEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\DefaultEventHandlerContext.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandlerContext.cs" />
+    <Compile Include="Pipelines\Events\Handlers\WeakEventHandler.cs" />
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
     <Compile Include="Pipelines\IRequestDispatcher.cs" />
     <Compile Include="Pipelines\IRequest.cs" />

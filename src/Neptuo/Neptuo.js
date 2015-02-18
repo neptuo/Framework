@@ -2623,6 +2623,44 @@ var Neptuo$Pipelines$Events$Handlers$IEventHandlerContext$1 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Events$Handlers$IEventHandlerContext$1);
+var Neptuo$Pipelines$Events$Handlers$WeakEventHandler$1 = {
+    fullname: "Neptuo.Pipelines.Events.Handlers.WeakEventHandler$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandler$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (TEvent, innerHandler){
+            this.TEvent = TEvent;
+            this.innerHandler = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
+            this.innerHandler = new System.WeakReference$1.ctor$$T(Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor, innerHandler);
+        },
+        HandleAsync: function (context){
+            var target;
+            if ((function (){
+                var $1 = {
+                    Value: target
+                };
+                var $res = this.innerHandler.TryGetTarget($1);
+                target = $1.Value;
+                return $res;
+            }).call(this))
+                return target.HandleAsync(context.get_Payload().get_Body());
+            else
+                context.get_Registry().UnSubscribe$1(Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1.ctor, this);
+            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, false);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Pipelines.Events.Handlers.IEventHandler"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Events$Handlers$WeakEventHandler$1);
 var Neptuo$Pipelines$Events$IEventRegistry = {
     fullname: "Neptuo.Pipelines.Events.IEventRegistry",
     baseTypeName: "System.Object",
