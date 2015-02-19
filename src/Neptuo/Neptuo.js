@@ -1794,31 +1794,35 @@ var Neptuo$Pipelines$Commands$Events$Handlers$CommandEventHandler = {
     definition: {
         ctor$$Object$$IEventHandler$1$CommandHandled: function (command, innerHandler){
             this.command = null;
-            this.innerHandler = null;
+            this.innerDirectHandler = null;
             this.innerEnvelopeHandler = null;
+            this.innerContextHandler = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(command, "command");
             Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
             this.command = command;
-            this.innerHandler = innerHandler;
+            this.innerDirectHandler = innerHandler;
         },
         ctor$$Object$$IEventHandler$1: function (command, innerHandler){
             this.command = null;
-            this.innerHandler = null;
+            this.innerDirectHandler = null;
             this.innerEnvelopeHandler = null;
+            this.innerContextHandler = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(command, "command");
             Neptuo.Guard.NotNull$$Object$$String(innerHandler, "innerHandler");
             this.command = command;
-            this.innerEnvelopeHandler = innerHandler;
+            this.innerContextHandler = innerHandler;
         },
         HandleAsync: function (context){
             if (context.get_Payload().get_Body().get_Command() == this.command){
                 context.get_Registry().UnSubscribe$1(Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1.ctor, this);
-                if (this.innerHandler != null)
-                    this.innerHandler.HandleAsync(context.get_Payload().get_Body());
+                if (this.innerDirectHandler != null)
+                    this.innerDirectHandler.HandleAsync(context.get_Payload().get_Body());
                 else if (this.innerEnvelopeHandler != null)
                     this.innerEnvelopeHandler.HandleAsync(context.get_Payload());
+                else if (this.innerContextHandler != null)
+                    this.innerContextHandler.HandleAsync(context);
                 else
                     throw $CreateException(Neptuo._GuardSystemExtensions.NotSupported(Neptuo.Guard.Exception, "Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler."), new Error());
             }
@@ -1826,6 +1830,9 @@ var Neptuo$Pipelines$Commands$Events$Handlers$CommandEventHandler = {
         }
     },
     ctors: [{
+        name: "ctor$$Object$$IEventHandler",
+        parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
+    }, {
         name: "ctor$$Object$$IEventHandler",
         parameters: ["System.Object", "Neptuo.Pipelines.Events.Handlers.IEventHandler"]
     }, {
@@ -2641,6 +2648,184 @@ var Neptuo$Pipelines$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Events$IEventRegistry);
+var Neptuo$Pipelines$Internals$EventManagerStorage = {
+    fullname: "Neptuo.Pipelines.Internals.EventManagerStorage",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.directHandlers = null;
+            this.envelopeHandlers = null;
+            this.contextHandlers = null;
+            System.Object.ctor.call(this);
+        },
+        AddHandlerInternal: function (eventType, storage, handler){
+            var handlers;
+            if (!(function (){
+                var $1 = {
+                    Value: handlers
+                };
+                var $res = storage.TryGetValue(eventType, $1);
+                handlers = $1.Value;
+                return $res;
+            }).call(this))
+                storage.set_Item$$TKey(eventType, handlers = new System.Collections.Generic.List$1.ctor(System.Object.ctor));
+            handlers.Add(handler);
+        },
+        AddDirectHandler: function (eventType, handler){
+            if (this.directHandlers == null)
+                this.directHandlers = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.List$1.ctor);
+            this.AddHandlerInternal(eventType, this.directHandlers, handler);
+        },
+        AddEnvelopeHandler: function (eventType, handler){
+            if (this.envelopeHandlers == null)
+                this.envelopeHandlers = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.List$1.ctor);
+            this.AddHandlerInternal(eventType, this.envelopeHandlers, handler);
+        },
+        AddContextHandler: function (eventType, handler){
+            if (this.contextHandlers == null)
+                this.contextHandlers = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.List$1.ctor);
+            this.AddHandlerInternal(eventType, this.contextHandlers, handler);
+        },
+        RemoveHandlerInternal: function (eventType, storage, handler){
+            if (storage != null){
+                var handlers;
+                if ((function (){
+                    var $1 = {
+                        Value: handlers
+                    };
+                    var $res = storage.TryGetValue(eventType, $1);
+                    handlers = $1.Value;
+                    return $res;
+                }).call(this))
+                    handlers.Remove(handler);
+            }
+        },
+        RemoveDirectHandler: function (eventType, handler){
+            this.RemoveHandlerInternal(eventType, this.directHandlers, handler);
+        },
+        RemoveEnvelopeHandler: function (eventType, handler){
+            this.RemoveHandlerInternal(eventType, this.envelopeHandlers, handler);
+        },
+        RemoveContextHandler: function (eventType, handler){
+            this.RemoveHandlerInternal(eventType, this.contextHandlers, handler);
+        },
+        GetHandlersInternal: function (eventType, storage, includeSubTypes){
+            if (storage != null){
+                var handlers;
+                if ((function (){
+                    var $1 = {
+                        Value: handlers
+                    };
+                    var $res = storage.TryGetValue(eventType, $1);
+                    handlers = $1.Value;
+                    return $res;
+                }).call(this))
+                    return handlers;
+            }
+            return System.Linq.Enumerable.Empty$1(System.Object.ctor);
+        },
+        GetDirectHandlers: function (eventType){
+            return System.Linq.Enumerable.ToArray$1(System.Object.ctor, this.GetHandlersInternal(eventType, this.directHandlers, true));
+        },
+        GetEnvelopeHandlers: function (eventType){
+            return System.Linq.Enumerable.ToArray$1(System.Object.ctor, this.GetHandlersInternal(eventType, this.envelopeHandlers, true));
+        },
+        GetContextHandlers: function (eventType){
+            return System.Linq.Enumerable.ToArray$1(System.Object.ctor, this.GetHandlersInternal(eventType, this.contextHandlers, true));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Internals$EventManagerStorage);
+var Neptuo$Pipelines$Internals$TypeResolver = {
+    fullname: "Neptuo.Pipelines.Internals.TypeResolver",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (contextType){
+            this.contextType = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(contextType, "contextType");
+            this.contextType = contextType;
+        },
+        Resolve: function (targetType){
+            Neptuo.Guard.NotNull$$Object$$String(targetType, "targetType");
+            return new Neptuo.Pipelines.Internals.TypeResolverResult.ctor(this.contextType, targetType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Internals$TypeResolver);
+var Neptuo$Pipelines$Internals$TypeResolverResult = {
+    fullname: "Neptuo.Pipelines.Internals.TypeResolverResult",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (contextType, targetType){
+            this.contextType = null;
+            this.targetType = null;
+            this._IsContext = false;
+            this._IsEnvelope = false;
+            this._DataType = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(contextType, "contextType");
+            Neptuo.Guard.NotNull$$Object$$String(targetType, "targetType");
+            this.contextType = contextType;
+            this.targetType = targetType;
+            if (targetType.get_IsGenericType()){
+                var genericType = targetType.GetGenericTypeDefinition();
+                this.set_IsContext(contextType.IsAssignableFrom(genericType));
+                this.set_IsEnvelope(Typeof(Neptuo.ComponentModel.Envelope$1.ctor).IsAssignableFrom(genericType));
+                this.set_DataType(System.Linq.Enumerable.First$1$$IEnumerable$1(System.Type.ctor, targetType.GetGenericArguments()));
+            }
+            else {
+                this.set_DataType(targetType);
+            }
+        },
+        IsContext$$: "System.Boolean",
+        get_IsContext: function (){
+            return this._IsContext;
+        },
+        set_IsContext: function (value){
+            this._IsContext = value;
+        },
+        IsEnvelope$$: "System.Boolean",
+        get_IsEnvelope: function (){
+            return this._IsEnvelope;
+        },
+        set_IsEnvelope: function (value){
+            this._IsEnvelope = value;
+        },
+        DataType$$: "System.Type",
+        get_DataType: function (){
+            return this._DataType;
+        },
+        set_DataType: function (value){
+            this._DataType = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Type", "System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Internals$TypeResolverResult);
 var Neptuo$Pipelines$IRequestDispatcher = {
     fullname: "Neptuo.Pipelines.IRequestDispatcher",
     baseTypeName: "System.Object",
@@ -3289,69 +3474,66 @@ var Neptuo$Pipelines$Events$DefaultEventManager = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._Registry = null;
+            this.eventTypeResolver = null;
+            this.registry = null;
             System.Object.ctor.call(this);
-            this.set_Registry(new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.List$1.ctor));
-        },
-        Registry$$: "System.Collections.Generic.Dictionary`2[[System.Type],[System.Collections.Generic.List`1[[System.Object]]]]",
-        get_Registry: function (){
-            return this._Registry;
-        },
-        set_Registry: function (value){
-            this._Registry = value;
+            this.eventTypeResolver = new Neptuo.Pipelines.Internals.TypeResolver.ctor(Typeof(Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1.ctor));
+            this.registry = new Neptuo.Pipelines.Internals.EventManagerStorage.ctor();
         },
         PublishAsync$1: function (TEvent, payload){
             Neptuo.Guard.NotNull$$Object$$String(payload, "payload");
             var eventType = Typeof(TEvent);
-            var handlers;
-            if ((function (){
-                var $1 = {
-                    Value: handlers
-                };
-                var $res = this.get_Registry().TryGetValue(eventType, $1);
-                handlers = $1.Value;
-                return $res;
-            }).call(this)){
-                var tasks = new Array(handlers.get_Count());
-                for (var i = 0; i < handlers.get_Count(); i++)
-                    tasks[i] = (Cast(handlers.get_Item$$Int32(i), Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(payload);
-                return System.Threading.Tasks.Task.get_Factory().ContinueWhenAll$1$$Task$Array$$Func$2(System.Threading.Tasks.Task$1.ctor, tasks, $CreateAnonymousDelegate(this, function (items){
-                    return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
-                }));
+            var eventTypeDescriptor = this.eventTypeResolver.Resolve(eventType);
+            if (eventTypeDescriptor.get_IsContext())
+                throw $CreateException(Neptuo._GuardSystemExtensions.NotSupported(Neptuo.Guard.Exception, "Event manager can publish event context."), new Error());
+            if (eventTypeDescriptor.get_IsEnvelope()){
+                var contextType = Typeof(Neptuo.Pipelines.Events.Handlers.DefaultEventHandlerContext$1.ctor).MakeGenericType(eventTypeDescriptor.get_DataType());
+                var context = System.Activator.CreateInstance$$Type$$Object$Array(contextType, payload, this, this);
+                var publishInternalMethod = Typeof(Neptuo.Pipelines.Events.DefaultEventManager.ctor).GetMethod$$String$$BindingFlags("PublishInternalAsyc", 36);
+                if (System.Reflection.MethodInfo.op_Equality$$MethodInfo$$MethodInfo(publishInternalMethod, null))
+                    throw $CreateException(Neptuo._GuardSystemExtensions.NotImplemented(Neptuo.Guard.Exception, "Bug in implementation of DefaultEventManager. Unnable to find publishing method."), new Error());
+                return Cast(publishInternalMethod.MakeGenericMethod(eventTypeDescriptor.get_DataType()).Invoke$$Object$$Object$Array(this, [context]), System.Threading.Tasks.Task.ctor);
             }
-            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, false);
+            return this.PublishInternalAsyc$1(TEvent, new Neptuo.Pipelines.Events.Handlers.DefaultEventHandlerContext$1.ctor$$TEvent$$IEventRegistry$$IEventDispatcher(TEvent, payload, this, this));
+        },
+        PublishInternalAsyc$1: function (TEvent, context){
+            var eventType = Typeof(TEvent);
+            var contextHandlers = this.registry.GetContextHandlers(eventType);
+            var envelopeHandlers = this.registry.GetEnvelopeHandlers(eventType);
+            var directHandlers = this.registry.GetDirectHandlers(eventType);
+            var tasks = new Array(contextHandlers.get_Length() + envelopeHandlers.get_Length() + directHandlers.get_Length());
+            for (var i = 0; i < contextHandlers.get_Length(); i++)
+                tasks[i] = (Cast(contextHandlers[i], Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(context);
+            for (var i = 0; i < envelopeHandlers.get_Length(); i++)
+                tasks[contextHandlers.get_Length() + i] = (Cast(envelopeHandlers[i], Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(context.get_Payload());
+            for (var i = 0; i < directHandlers.get_Length(); i++)
+                tasks[contextHandlers.get_Length() + envelopeHandlers.get_Length() + i] = (Cast(directHandlers[i], Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(context.get_Payload().get_Body());
+            return System.Threading.Tasks.Task.get_Factory().ContinueWhenAll$1$$Task$Array$$Func$2(System.Threading.Tasks.Task$1.ctor, tasks, $CreateAnonymousDelegate(this, function (items){
+                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
+            }));
         },
         Subscribe$1: function (TEvent, handler){
-            Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
             var eventType = Typeof(TEvent);
-            var handlers;
-            if (!(function (){
-                var $1 = {
-                    Value: handlers
-                };
-                var $res = this.get_Registry().TryGetValue(eventType, $1);
-                handlers = $1.Value;
-                return $res;
-            }).call(this)){
-                handlers = new System.Collections.Generic.List$1.ctor(System.Object.ctor);
-                this.get_Registry().Add(eventType, handlers);
-            }
-            handlers.Add(handler);
+            var eventTypeDescriptor = this.eventTypeResolver.Resolve(eventType);
+            if (eventTypeDescriptor.get_IsContext())
+                this.registry.AddContextHandler(eventTypeDescriptor.get_DataType(), handler);
+            else if (eventTypeDescriptor.get_IsEnvelope())
+                this.registry.AddEnvelopeHandler(eventTypeDescriptor.get_DataType(), handler);
+            else
+                this.registry.AddDirectHandler(eventTypeDescriptor.get_DataType(), handler);
             return this;
         },
         UnSubscribe$1: function (TEvent, handler){
-            Neptuo.Guard.NotNull$$Object$$String(handler, "factory");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
             var eventType = Typeof(TEvent);
-            var handlers;
-            if ((function (){
-                var $1 = {
-                    Value: handlers
-                };
-                var $res = this.get_Registry().TryGetValue(eventType, $1);
-                handlers = $1.Value;
-                return $res;
-            }).call(this))
-                handlers.Remove(handler);
+            var eventTypeDescriptor = this.eventTypeResolver.Resolve(eventType);
+            if (eventTypeDescriptor.get_IsContext())
+                this.registry.RemoveContextHandler(eventTypeDescriptor.get_DataType(), handler);
+            else if (eventTypeDescriptor.get_IsEnvelope())
+                this.registry.RemoveEnvelopeHandler(eventTypeDescriptor.get_DataType(), handler);
+            else
+                this.registry.RemoveDirectHandler(eventTypeDescriptor.get_DataType(), handler);
             return this;
         }
     },
