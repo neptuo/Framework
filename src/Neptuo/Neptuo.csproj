@@ -114,6 +114,8 @@
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
     <Compile Include="Pipelines\Internals\ThreeBranchStorage.cs" />
     <Compile Include="Pipelines\Internals\TypeResolver.cs" />
+    <Compile Include="Pipelines\Queries\DependencyQueryDispatcher.cs" />
+    <Compile Include="Pipelines\Replying\DependencyRequestDispatcher.cs" />
     <Compile Include="Pipelines\Replying\IRequestDispatcher.cs" />
     <Compile Include="Pipelines\Replying\IRequest.cs" />
     <Compile Include="Pipelines\Replying\Handlers\IRequestHandler.cs" />

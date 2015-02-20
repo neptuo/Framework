@@ -2648,8 +2648,8 @@ var Neptuo$Pipelines$Events$IEventRegistry = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Events$IEventRegistry);
-var Neptuo$Pipelines$Internals$EventManagerStorage = {
-    fullname: "Neptuo.Pipelines.Internals.EventManagerStorage",
+var Neptuo$Pipelines$Internals$ThreeBranchStorage = {
+    fullname: "Neptuo.Pipelines.Internals.ThreeBranchStorage",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -2743,7 +2743,7 @@ var Neptuo$Pipelines$Internals$EventManagerStorage = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Pipelines$Internals$EventManagerStorage);
+JsTypes.push(Neptuo$Pipelines$Internals$ThreeBranchStorage);
 var Neptuo$Pipelines$Internals$TypeResolver = {
     fullname: "Neptuo.Pipelines.Internals.TypeResolver",
     baseTypeName: "System.Object",
@@ -2826,6 +2826,32 @@ var Neptuo$Pipelines$Internals$TypeResolverResult = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Internals$TypeResolverResult);
+var Neptuo$Pipelines$Replying$DependencyRequestDispatcher = {
+    fullname: "Neptuo.Pipelines.Replying.DependencyRequestDispatcher",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Pipelines.Replying.IRequestDispatcher"],
+    Kind: "Class",
+    definition: {
+        ctor: function (dependencyProvider){
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        ExecuteAsync$2: function (TInput, TOutput, request){
+            var handler = Neptuo._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Pipelines.Replying.Handlers.IRequestHandler$2.ctor, this.dependencyProvider);
+            return handler.HandleAsync(request);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Replying$DependencyRequestDispatcher);
 var Neptuo$Pipelines$Replying$IRequestDispatcher = {
     fullname: "Neptuo.Pipelines.Replying.IRequestDispatcher",
     baseTypeName: "System.Object",
@@ -3478,7 +3504,7 @@ var Neptuo$Pipelines$Events$DefaultEventManager = {
             this.registry = null;
             System.Object.ctor.call(this);
             this.eventTypeResolver = new Neptuo.Pipelines.Internals.TypeResolver.ctor(Typeof(Neptuo.Pipelines.Events.Handlers.IEventHandlerContext$1.ctor));
-            this.registry = new Neptuo.Pipelines.Internals.EventManagerStorage.ctor();
+            this.registry = new Neptuo.Pipelines.Internals.ThreeBranchStorage.ctor();
         },
         PublishAsync$1: function (TEvent, payload){
             Neptuo.Guard.NotNull$$Object$$String(payload, "payload");

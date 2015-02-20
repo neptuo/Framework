@@ -11,5 +11,6 @@
     <Type Target="Neptuo.ComponentModel.GuidProvider" Export="False" />
     <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
     <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />
-    <Type Target="Neptuo.Pipelines.Commands.Execution.DependencyCommandExecutor" Export="false" />
+    <Type Target="Neptuo.Pipelines.Commands.Execution.DependencyCommandExecutor" Export="False" />
+    <Type Target="Neptuo.Pipelines.Queries.DependencyQueryDispatcher" Export="False" />
 </Exugin>
