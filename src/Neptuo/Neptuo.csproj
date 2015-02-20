@@ -112,7 +112,7 @@
     <Compile Include="Pipelines\Events\Handlers\IEventHandlerContext.cs" />
     <Compile Include="Pipelines\Events\Handlers\WeakEventHandler.cs" />
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
-    <Compile Include="Pipelines\Internals\EventManagerStorage.cs" />
+    <Compile Include="Pipelines\Internals\ThreeBranchStorage.cs" />
     <Compile Include="Pipelines\Internals\TypeResolver.cs" />
     <Compile Include="Pipelines\Replying\IRequestDispatcher.cs" />
     <Compile Include="Pipelines\Replying\IRequest.cs" />

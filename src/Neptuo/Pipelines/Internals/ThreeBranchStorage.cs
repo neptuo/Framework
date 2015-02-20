@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Pipelines.Internals
 {
-    internal class EventManagerStorage
+    internal class ThreeBranchStorage
     {
         private Dictionary<Type, List<object>> directHandlers;
         private Dictionary<Type, List<object>> envelopeHandlers;

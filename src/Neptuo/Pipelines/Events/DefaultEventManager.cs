@@ -16,7 +16,7 @@ namespace Neptuo.Pipelines.Events
     public class DefaultEventManager : IEventDispatcher, IEventRegistry
     {
         private readonly TypeResolver eventTypeResolver;
-        private readonly EventManagerStorage registry;
+        private readonly ThreeBranchStorage registry;
 
         /// <summary>
         /// Creates new instance.
@@ -24,7 +24,7 @@ namespace Neptuo.Pipelines.Events
         public DefaultEventManager()
         {
             eventTypeResolver = new TypeResolver(typeof(IEventHandlerContext<>));
-            registry = new EventManagerStorage();
+            registry = new ThreeBranchStorage();
         }
 
         public Task PublishAsync<TEvent>(TEvent payload)
