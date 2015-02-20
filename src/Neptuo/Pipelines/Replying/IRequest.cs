@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines
+namespace Neptuo.Pipelines.Replying
 {
     /// <summary>
     /// Defines response of request object.

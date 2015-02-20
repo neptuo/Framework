@@ -114,13 +114,13 @@
     <Compile Include="Pipelines\Events\IEventRegistry.cs" />
     <Compile Include="Pipelines\Internals\EventManagerStorage.cs" />
     <Compile Include="Pipelines\Internals\TypeResolver.cs" />
-    <Compile Include="Pipelines\IRequestDispatcher.cs" />
-    <Compile Include="Pipelines\IRequest.cs" />
-    <Compile Include="Pipelines\IRequestHandler.cs" />
+    <Compile Include="Pipelines\Replying\IRequestDispatcher.cs" />
+    <Compile Include="Pipelines\Replying\IRequest.cs" />
+    <Compile Include="Pipelines\Replying\Handlers\IRequestHandler.cs" />
     <Compile Include="Pipelines\Queries\IQuery.cs" />
     <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
-    <Compile Include="Pipelines\_RequestDispatcherExtensions.cs" />
+    <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />

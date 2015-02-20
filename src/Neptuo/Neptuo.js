@@ -2826,33 +2826,33 @@ var Neptuo$Pipelines$Internals$TypeResolverResult = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Internals$TypeResolverResult);
-var Neptuo$Pipelines$IRequestDispatcher = {
-    fullname: "Neptuo.Pipelines.IRequestDispatcher",
+var Neptuo$Pipelines$Replying$IRequestDispatcher = {
+    fullname: "Neptuo.Pipelines.Replying.IRequestDispatcher",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$IRequestDispatcher);
-var Neptuo$Pipelines$IRequest$1 = {
-    fullname: "Neptuo.Pipelines.IRequest$1",
+JsTypes.push(Neptuo$Pipelines$Replying$IRequestDispatcher);
+var Neptuo$Pipelines$Replying$IRequest$1 = {
+    fullname: "Neptuo.Pipelines.Replying.IRequest$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$IRequest$1);
-var Neptuo$Pipelines$IRequestHandler$2 = {
-    fullname: "Neptuo.Pipelines.IRequestHandler$2",
+JsTypes.push(Neptuo$Pipelines$Replying$IRequest$1);
+var Neptuo$Pipelines$Replying$Handlers$IRequestHandler$2 = {
+    fullname: "Neptuo.Pipelines.Replying.Handlers.IRequestHandler$2",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$IRequestHandler$2);
+JsTypes.push(Neptuo$Pipelines$Replying$Handlers$IRequestHandler$2);
 var Neptuo$Pipelines$Queries$IQuery$1 = {
     fullname: "Neptuo.Pipelines.Queries.IQuery$1",
     baseTypeName: "System.Object",
@@ -2880,8 +2880,8 @@ var Neptuo$Pipelines$Queries$Handlers$IQueryHandler$2 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Queries$Handlers$IQueryHandler$2);
-var Neptuo$Pipelines$_RequestDispatcherExtensions = {
-    fullname: "Neptuo.Pipelines._RequestDispatcherExtensions",
+var Neptuo$Pipelines$Replying$_RequestDispatcherExtensions = {
+    fullname: "Neptuo.Pipelines.Replying._RequestDispatcherExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         Execute$2: function (TInput, TOutput, mediator, request){
@@ -2899,7 +2899,7 @@ var Neptuo$Pipelines$_RequestDispatcherExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Pipelines$_RequestDispatcherExtensions);
+JsTypes.push(Neptuo$Pipelines$Replying$_RequestDispatcherExtensions);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",
