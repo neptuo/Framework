@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Domain
+namespace Neptuo.DomainModels
 {
     /// <summary>
     /// Decribes model that contains information if the model is in valid state.

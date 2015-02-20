@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Domain
+namespace Neptuo.DomainModels
 {
     /// <summary>
     /// Describes contract for getting domain models by its key.
