@@ -34,18 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -98,15 +100,9 @@
     <Compile Include="Data\TestEntity.cs" />
     <Compile Include="Queries\ProductModel.cs" />
     <Compile Include="Queries\TestQueries.cs" />
-    <Compile Include="Resources\TestResources.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
-    <Compile Include="WebServices\ConsoleContext.cs" />
-    <Compile Include="WebServices\GetHello.cs" />
-    <Compile Include="WebServices\GetHelloFactory.cs" />
-    <Compile Include="WebServices\GetHelloPipeline.cs" />
-    <Compile Include="WebServices\TestWebServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -116,10 +112,6 @@
     <ProjectReference Include="..\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj">
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj">
-      <Project>{f0610126-41ff-4944-aed6-82c851c2a204}</Project>
-      <Name>Neptuo.Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Configuration\Neptuo.Configuration.csproj">
       <Project>{b21273f3-6326-4e7b-8d1c-13d4db440801}</Project>
