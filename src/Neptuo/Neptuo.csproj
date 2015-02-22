@@ -123,6 +123,7 @@
     <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
+    <Compile Include="Timers\IBackgroundService.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
