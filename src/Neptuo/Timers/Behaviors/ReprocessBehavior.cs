@@ -18,6 +18,7 @@ namespace Neptuo.Timers.Behaviors
 
         private Task ExecuteAsync(object handler, IBehaviorContext context, int remaingCount)
         {
+            IBehaviorContext contextState = context.Clone();
             try
             {
                 return context.NextAsync();
@@ -26,7 +27,7 @@ namespace Neptuo.Timers.Behaviors
             {
                 remaingCount--;
                 if (remaingCount > 0)
-                    return ExecuteAsync(handler, context, remaingCount);
+                    return ExecuteAsync(handler, contextState, remaingCount);
                 else
                     throw e;
             }

@@ -864,6 +864,67 @@ var Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase);
+var Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehaviorContext"],
+    Kind: "Class",
+    definition: {
+        ctor$$IEnumerable$1$$T: function (T, behaviors, handler){
+            this.T = T;
+            this.behaviors = null;
+            this.behaviorEnumerator = null;
+            this.handler = null;
+            this.customValues = null;
+            Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32.call(this, this.T, behaviors, handler, 0);
+        },
+        CustomValues$$: "Neptuo.Collections.Specialized.IKeyValueCollection",
+        get_CustomValues: function (){
+            if (this.customValues != null)
+                this.customValues = new Neptuo.Collections.Specialized.KeyValueCollection.ctor();
+            return this.customValues;
+        },
+        ctor$$IEnumerable$1$$T$$Int32: function (T, behaviors, handler, behaviorStartOffset){
+            this.T = T;
+            this.behaviors = null;
+            this.behaviorEnumerator = null;
+            this.handler = null;
+            this.customValues = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(behaviors, "behaviors");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
+            Neptuo.Guard.PositiveOrZero(behaviorStartOffset, "behaviorStartOffset");
+            this.behaviors = behaviors;
+            this.behaviorEnumerator = behaviors.GetEnumerator();
+            this.handler = handler;
+            if (behaviorStartOffset > 0){
+                for (var i = 0; i < behaviorStartOffset; i++){
+                    if (!this.behaviorEnumerator.MoveNext())
+                        break;
+                }
+            }
+        },
+        NextAsync: function (){
+            if (this.behaviorEnumerator.MoveNext())
+                return this.behaviorEnumerator.get_Current().ExecuteAsync(this.handler, this);
+            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, false);
+        },
+        Clone: function (){
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T(this.T, new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, this.behaviors), this.handler);
+        }
+    },
+    ctors: [{
+        name: "ctor$$IEnumerable$$T",
+        parameters: ["System.Collections.Generic.IEnumerable", "T"]
+    }, {
+        name: "ctor$$IEnumerable$$T$$Int32",
+        parameters: ["System.Collections.Generic.IEnumerable", "T", "System.Int32"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1);
 var Neptuo$ComponentModel$Behaviors$Processing$_EnvironmentExtensions = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions",
     baseTypeName: "System.Object",
@@ -936,6 +997,7 @@ var Neptuo$ComponentModel$Behaviors$IBehaviorContext = {
     fullname: "Neptuo.ComponentModel.Behaviors.IBehaviorContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ICloneable$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1187,21 +1249,20 @@ var Neptuo$ComponentModel$Behaviors$Processing$PipelineBase$1 = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehaviorContext"],
     Kind: "Class",
     definition: {
         ctor: function (T){
             this.T = T;
-            this.behaviorEnumerator = null;
-            this.handler = null;
-            this.customValues = null;
             System.Object.ctor.call(this);
         },
+        GetBehaviorContext: function (behaviors, handler){
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T(this.T, behaviors, handler);
+        },
         ExecutePipeline: function (){
+            var behaviors = this.GetBehaviors();
             var handlerFactory = this.GetHandlerFactory();
-            this.handler = handlerFactory.Create();
-            this.behaviorEnumerator = this.GetBehaviors().GetEnumerator();
-            var context = this;
+            var handler = handlerFactory.Create();
+            var context = this.GetBehaviorContext(behaviors, handler);
             return context.NextAsync();
         }
     },
@@ -2324,6 +2385,15 @@ var Neptuo$DependencyNamedActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyNamedActivator$1);
+var Neptuo$ICloneable$1 = {
+    fullname: "Neptuo.ICloneable$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ICloneable$1);
 var Neptuo$Pipelines$Commands$CommandDispatcherException = {
     fullname: "Neptuo.Pipelines.Commands.CommandDispatcherException",
     baseTypeName: "Neptuo.Pipelines.Commands.CommandException",
@@ -3651,13 +3721,14 @@ var Neptuo$Timers$Behaviors$ReprocessBehavior = {
             return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, context, this.get_Count());
         },
         ExecuteAsync$$Object$$IBehaviorContext$$Int32: function (handler, context, remaingCount){
+            var contextState = context.Clone();
             try{
                 return context.NextAsync();
             }
             catch(e){
                 remaingCount--;
                 if (remaingCount > 0)
-                    return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, context, remaingCount);
+                    return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, contextState, remaingCount);
                 else
                     throw $CreateException(e, new Error());
             }

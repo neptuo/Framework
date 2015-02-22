@@ -21,7 +21,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// Behavior collection.
         /// </summary>
         private IBehaviorCollection collection;
-
+        
         /// <summary>
         /// Creates new instance.
         /// </summary>

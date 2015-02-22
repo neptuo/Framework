@@ -61,6 +61,7 @@
     <Compile Include="Compilers\IDynamicCompiler.cs" />
     <Compile Include="Compilers\ICompilerResult.cs" />
     <Compile Include="ComponentModel\Behaviors\BehaviorCollectionBase.cs" />
+    <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
     <Compile Include="ComponentModel\Behaviors\_EnvironmentExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehavior.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorCollection.cs" />
