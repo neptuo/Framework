@@ -994,8 +994,8 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineConfig
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineConfiguration);
-var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactoryBase$1 = {
-    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactoryBase$1",
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactory$1 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactory$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.IActivator$1"],
@@ -1007,7 +1007,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactor
             this.generatedFactory = null;
             this.behaviorCollection = null;
             this.configuration = null;
-            Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactoryBase$1.ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration.call(this, this.T, handlerType, Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithBehaviors(Neptuo.Engine.get_Environment()), Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithCodeDomConfiguration(Neptuo.Engine.get_Environment()));
+            Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactory$1.ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration.call(this, this.T, handlerType, Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithBehaviors(Neptuo.Engine.get_Environment()), Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithCodeDomConfiguration(Neptuo.Engine.get_Environment()));
         },
         ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration: function (T, handlerType, behaviorCollection, configuration){
             this.T = T;
@@ -1050,7 +1050,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactor
     ],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactoryBase$1);
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactory$1);
 var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenerator = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineGenerator",
     baseTypeName: "System.Object",
@@ -1285,8 +1285,8 @@ var Neptuo$ComponentModel$Behaviors$Processing$PipelineFactoryException = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$PipelineFactoryException);
-var Neptuo$ComponentModel$Behaviors$Processing$DefaultReflectionPipeline$1 = {
-    fullname: "Neptuo.ComponentModel.Behaviors.Processing.DefaultReflectionPipeline$1",
+var Neptuo$ComponentModel$Behaviors$Processing$DefaultPipeline$1 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.DefaultPipeline$1",
     baseTypeName: "Neptuo.ComponentModel.Behaviors.Processing.DefaultPipelineBase$1",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -1316,7 +1316,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$DefaultReflectionPipeline$1 = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$DefaultReflectionPipeline$1);
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$DefaultPipeline$1);
 var Neptuo$ComponentModel$Behaviors$Providers$AttributeBehaviorProvider = {
     fullname: "Neptuo.ComponentModel.Behaviors.Providers.AttributeBehaviorProvider",
     baseTypeName: "Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase",
