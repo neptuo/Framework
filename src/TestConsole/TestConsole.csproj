@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
+    <Compile Include="Cloning\TestCloning.cs" />
     <Compile Include="Collections\TestKeyValue.cs" />
     <Compile Include="Commands\CreateProductCommand.cs" />
     <Compile Include="Commands\CreateProductCommandHandler.cs" />

@@ -3629,6 +3629,48 @@ var Neptuo$Timers$Behaviors$INextScheduleAware = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Timers$Behaviors$INextScheduleAware);
+var Neptuo$Timers$Behaviors$ReprocessBehavior = {
+    fullname: "Neptuo.Timers.Behaviors.ReprocessBehavior",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Count = 0;
+            System.Object.ctor.call(this);
+        },
+        Count$$: "System.Int32",
+        get_Count: function (){
+            return this._Count;
+        },
+        set_Count: function (value){
+            this._Count = value;
+        },
+        ExecuteAsync$$Object$$IBehaviorContext: function (handler, context){
+            return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, context, this.get_Count());
+        },
+        ExecuteAsync$$Object$$IBehaviorContext$$Int32: function (handler, context, remaingCount){
+            try{
+                return context.NextAsync();
+            }
+            catch(e){
+                remaingCount--;
+                if (remaingCount > 0)
+                    return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, context, remaingCount);
+                else
+                    throw $CreateException(e, new Error());
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Timers$Behaviors$ReprocessBehavior);
 var Neptuo$Timers$Handlers$IBackgroundHandler = {
     fullname: "Neptuo.Timers.Handlers.IBackgroundHandler",
     baseTypeName: "System.Object",

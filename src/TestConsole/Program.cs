@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestConsole.BootstrapTasks;
+using TestConsole.Cloning;
 using TestConsole.Collections;
 using TestConsole.Commands;
 using TestConsole.Compilers;
@@ -41,7 +42,8 @@ namespace TestConsole
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
             //TestDependency.Test();
-            TestTimers.Test();
+            //TestTimers.Test();
+            TestCloning.Test();
 
 
             Console.ReadKey(true);

@@ -144,6 +144,7 @@
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
     <Compile Include="Timers\Behaviors\INextScheduleAware.cs" />
+    <Compile Include="Timers\Behaviors\ReprocessBehavior.cs" />
     <Compile Include="Timers\Handlers\IBackgroundHandler.cs" />
     <Compile Include="Timers\TimerManager.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
