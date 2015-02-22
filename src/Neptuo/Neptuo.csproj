@@ -100,6 +100,7 @@
     <Compile Include="DefaultActivator.cs" />
     <Compile Include="DependencyActivator.cs" />
     <Compile Include="DependencyNamedActivator.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
     <Compile Include="Pipelines\Commands\CommandException.cs" />
     <Compile Include="Pipelines\Commands\DependencyCommandDispatcher.cs" />
