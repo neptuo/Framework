@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppServices\IServiceDescriptor.cs" />
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
@@ -151,12 +152,12 @@
     <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
-    <Compile Include="Timers\Behaviors\INextScheduleAware.cs" />
-    <Compile Include="Timers\Behaviors\ReprocessAttribute.cs" />
-    <Compile Include="Timers\Hosting\Behaviors\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
-    <Compile Include="Timers\Hosting\Behaviors\ReprocessBehavior.cs" />
-    <Compile Include="Timers\Handlers\IBackgroundHandler.cs" />
-    <Compile Include="Timers\TimerManager.cs" />
+    <Compile Include="AppServices\Behaviors\INextScheduleAware.cs" />
+    <Compile Include="AppServices\Behaviors\ReprocessAttribute.cs" />
+    <Compile Include="AppServices\Hosting\Behaviors\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
+    <Compile Include="AppServices\Hosting\Behaviors\ReprocessBehavior.cs" />
+    <Compile Include="AppServices\Handlers\IBackgroundHandler.cs" />
+    <Compile Include="AppServices\IServiceCollection.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />

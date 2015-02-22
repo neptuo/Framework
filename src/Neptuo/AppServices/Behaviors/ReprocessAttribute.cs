@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Timers.Behaviors
+namespace Neptuo.AppServices.Behaviors
 {
     public class ReprocessAttribute : Attribute
     {

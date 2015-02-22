@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Timers.Behaviors.Hosting
+namespace Neptuo.AppServices.Behaviors.Hosting
 {
     public class ReprocessBehavior : IBehavior<object>
     {

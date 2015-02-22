@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Timers.Handlers
+namespace Neptuo.AppServices.Handlers
 {
     /// <summary>
     /// Base contract for invokable service running in background.

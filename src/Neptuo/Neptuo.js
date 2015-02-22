@@ -3872,7 +3872,7 @@ var Neptuo$Pipelines$Replying$_RequestDispatcherExtensions = {
 };
 JsTypes.push(Neptuo$Pipelines$Replying$_RequestDispatcherExtensions);
 var Neptuo$Timers$Behaviors$INextScheduleAware = {
-    fullname: "Neptuo.Timers.Behaviors.INextScheduleAware",
+    fullname: "Neptuo.AppServices.Behaviors.INextScheduleAware",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -3881,7 +3881,7 @@ var Neptuo$Timers$Behaviors$INextScheduleAware = {
 };
 JsTypes.push(Neptuo$Timers$Behaviors$INextScheduleAware);
 var Neptuo$Timers$Behaviors$ReprocessAttribute = {
-    fullname: "Neptuo.Timers.Behaviors.ReprocessAttribute",
+    fullname: "Neptuo.AppServices.Behaviors.ReprocessAttribute",
     baseTypeName: "System.Attribute",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -3909,7 +3909,7 @@ var Neptuo$Timers$Behaviors$ReprocessAttribute = {
 };
 JsTypes.push(Neptuo$Timers$Behaviors$ReprocessAttribute);
 var Neptuo$Timers$Hosting$Behaviors$Compilation$CodeDomReprocessBehaviorInstanceGenerator = {
-    fullname: "Neptuo.Timers.Hosting.Behaviors.Compilation.CodeDomReprocessBehaviorInstanceGenerator",
+    fullname: "Neptuo.AppServices.Hosting.Behaviors.Compilation.CodeDomReprocessBehaviorInstanceGenerator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator"],
@@ -3919,12 +3919,12 @@ var Neptuo$Timers$Hosting$Behaviors$Compilation$CodeDomReprocessBehaviorInstance
             System.Object.ctor.call(this);
         },
         TryGenerate: function (context, behaviorType){
-            if (System.Type.op_Inequality$$Type$$Type(behaviorType, Typeof(Neptuo.Timers.Behaviors.Hosting.ReprocessBehavior.ctor)))
+            if (System.Type.op_Inequality$$Type$$Type(behaviorType, Typeof(Neptuo.AppServices.Behaviors.Hosting.ReprocessBehavior.ctor)))
                 return null;
-            var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.Timers.Behaviors.ReprocessAttribute.ctor, context.get_HandlerType());
+            var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.AppServices.Behaviors.ReprocessAttribute.ctor, context.get_HandlerType());
             if (attribute == null)
                 return null;
-            return new System.CodeDom.CodeObjectCreateExpression.ctor$$CodeTypeReference$$CodeExpression$Array(new System.CodeDom.CodeTypeReference.ctor$$Type(Typeof(Neptuo.Timers.Behaviors.Hosting.ReprocessBehavior.ctor)), new System.CodeDom.CodePrimitiveExpression.ctor$$Object(attribute.get_Count()));
+            return new System.CodeDom.CodeObjectCreateExpression.ctor$$CodeTypeReference$$CodeExpression$Array(new System.CodeDom.CodeTypeReference.ctor$$Type(Typeof(Neptuo.AppServices.Behaviors.Hosting.ReprocessBehavior.ctor)), new System.CodeDom.CodePrimitiveExpression.ctor$$Object(attribute.get_Count()));
         }
     },
     ctors: [{
@@ -3936,7 +3936,7 @@ var Neptuo$Timers$Hosting$Behaviors$Compilation$CodeDomReprocessBehaviorInstance
 };
 JsTypes.push(Neptuo$Timers$Hosting$Behaviors$Compilation$CodeDomReprocessBehaviorInstanceGenerator);
 var Neptuo$Timers$Behaviors$Hosting$ReprocessBehavior = {
-    fullname: "Neptuo.Timers.Behaviors.Hosting.ReprocessBehavior",
+    fullname: "Neptuo.AppServices.Behaviors.Hosting.ReprocessBehavior",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
@@ -3974,7 +3974,7 @@ var Neptuo$Timers$Behaviors$Hosting$ReprocessBehavior = {
 };
 JsTypes.push(Neptuo$Timers$Behaviors$Hosting$ReprocessBehavior);
 var Neptuo$Timers$Handlers$IBackgroundHandler = {
-    fullname: "Neptuo.Timers.Handlers.IBackgroundHandler",
+    fullname: "Neptuo.AppServices.Handlers.IBackgroundHandler",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -3983,7 +3983,7 @@ var Neptuo$Timers$Handlers$IBackgroundHandler = {
 };
 JsTypes.push(Neptuo$Timers$Handlers$IBackgroundHandler);
 var Neptuo$Timers$TimerManager = {
-    fullname: "Neptuo.Timers.TimerManager",
+    fullname: "Neptuo.AppServices.TimerManager",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Class",

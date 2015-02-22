@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Timers
+namespace Neptuo.AppServices
 {
-    public class TimerManager
+    /// <summary>
+    /// Describes service.
+    /// </summary>
+    public interface IServiceDescriptor
     {
-        //Timer
     }
 }
