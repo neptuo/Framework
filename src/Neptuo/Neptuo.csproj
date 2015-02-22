@@ -37,7 +37,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppServices\IServiceDescriptor.cs" />
+    <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
+    <Compile Include="AppServices\Handlers\Registries\ServiceHandlerRegistry.cs" />
+    <Compile Include="AppServices\DefaultServiceContainer.cs" />
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
@@ -157,7 +159,6 @@
     <Compile Include="AppServices\Hosting\Behaviors\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
     <Compile Include="AppServices\Hosting\Behaviors\ReprocessBehavior.cs" />
     <Compile Include="AppServices\Handlers\IBackgroundHandler.cs" />
-    <Compile Include="AppServices\IServiceCollection.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
