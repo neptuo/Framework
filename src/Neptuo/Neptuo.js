@@ -3620,6 +3620,15 @@ var Neptuo$Pipelines$Replying$_RequestDispatcherExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Replying$_RequestDispatcherExtensions);
+var Neptuo$Timers$IBackgroundService = {
+    fullname: "Neptuo.Timers.IBackgroundService",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Timers$IBackgroundService);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",
