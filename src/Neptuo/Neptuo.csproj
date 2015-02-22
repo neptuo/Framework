@@ -62,6 +62,12 @@
     <Compile Include="Compilers\ICompilerResult.cs" />
     <Compile Include="ComponentModel\Behaviors\BehaviorCollectionBase.cs" />
     <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\FuncList.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\Registries\CodeDomBehaviorInstanceRegistry.cs" />
     <Compile Include="ComponentModel\Behaviors\_EnvironmentExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehavior.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorCollection.cs" />
@@ -146,7 +152,9 @@
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
     <Compile Include="Timers\Behaviors\INextScheduleAware.cs" />
-    <Compile Include="Timers\Behaviors\ReprocessBehavior.cs" />
+    <Compile Include="Timers\Behaviors\ReprocessAttribute.cs" />
+    <Compile Include="Timers\Hosting\Behaviors\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
+    <Compile Include="Timers\Hosting\Behaviors\ReprocessBehavior.cs" />
     <Compile Include="Timers\Handlers\IBackgroundHandler.cs" />
     <Compile Include="Timers\TimerManager.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />

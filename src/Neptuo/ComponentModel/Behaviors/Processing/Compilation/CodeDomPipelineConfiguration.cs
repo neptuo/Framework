@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
 {
     /// <summary>
-    /// Configuration <see cref="CodeDomPipelineFactory"/>.
+    /// Configuration <see cref="CodeDomPipelineFactory{T}"/>.
     /// </summary>
     public class CodeDomPipelineConfiguration : CompilerConfiguration
     {
@@ -22,6 +22,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// Required pipeline base type.
         /// </summary>
         public Type BaseType { get; private set; }
+
+        /// <summary>
+        /// Registry for behavior instance generators.
+        /// </summary>
+        public CodeDomBehaviorInstanceRegistry BehaviorInstance { get; private set; }
 
         /// <summary>
         /// Creates new instance of configuration class.
@@ -44,6 +49,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             Guard.NotNullOrEmpty(tempDirectory, "tempDirectory");
             BaseType = baseType;
             TempDirectory = tempDirectory;
+            BehaviorInstance = new CodeDomBehaviorInstanceRegistry();
 
             if (!Directory.Exists(TempDirectory))
                 Directory.CreateDirectory(TempDirectory);

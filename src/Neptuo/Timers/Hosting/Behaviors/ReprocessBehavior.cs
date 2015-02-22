@@ -5,15 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Timers.Behaviors
+namespace Neptuo.Timers.Behaviors.Hosting
 {
     public class ReprocessBehavior : IBehavior<object>
     {
-        public int Count { get; set; }
+        private readonly int count;
+
+        public ReprocessBehavior(int count)
+        {
+            Guard.PositiveOrZero(count, "count");
+            this.count = count;
+        }
 
         public Task ExecuteAsync(object handler, IBehaviorContext context)
         {
-            return ExecuteAsync(handler, context, Count);
+            return ExecuteAsync(handler, context, count);
         }
 
         private Task ExecuteAsync(object handler, IBehaviorContext context, int remaingCount)
