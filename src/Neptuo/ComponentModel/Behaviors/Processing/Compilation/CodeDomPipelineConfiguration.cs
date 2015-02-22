@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
 {
     /// <summary>
-    /// Configuration <see cref="CodeDomPipelineFactoryBase"/>.
+    /// Configuration <see cref="CodeDomPipelineFactory"/>.
     /// </summary>
     public class CodeDomPipelineConfiguration : CompilerConfiguration
     {
@@ -35,7 +35,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Creates new instance of configuration class.
         /// </summary>
-        /// <param name="baseType">Custom base type (extending <see cref="DefaultPipelineBase{1}"/>).</param>
+        /// <param name="baseType">Custom base type (extending <see cref="DefaultPipelineBase{T}"/>).</param>
         /// <param name="tempDirectory">Path to temp directory.</param>
         /// <param name="binDirectories">List of bin directories to add as references.</param>
         public CodeDomPipelineConfiguration(Type baseType, string tempDirectory, params string[] binDirectories)

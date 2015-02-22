@@ -55,6 +55,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
+        /// <param name="configuration">Generator configuration.</param>
         public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
             Guard.NotNull(handlerType, "handlerType");
@@ -106,7 +107,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         }
 
         /// <summary>
-        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase<>"/>.
+        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase{T}"/>.
         /// </summary>
         /// <returns>Empty pipeline type.</returns>
         private CodeTypeDeclaration CreateType()
