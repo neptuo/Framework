@@ -18,6 +18,7 @@ using TestConsole.Events;
 using TestConsole.Hashing;
 using TestConsole.PresentationModels;
 using TestConsole.Threading;
+using TestConsole.Timers;
 using TestConsole.Tokens;
 
 namespace TestConsole
@@ -31,7 +32,7 @@ namespace TestConsole
             //TestEntity.Test();
             //TestPresentationModel.Test();
             //TestConfiguration.Test();
-            TestCommands.Test();
+            //TestCommands.Test();
             //TestEvents.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
@@ -40,7 +41,7 @@ namespace TestConsole
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
             //TestDependency.Test();
-
+            TestTimers.Test();
 
 
             Console.ReadKey(true);

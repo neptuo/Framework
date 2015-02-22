@@ -3620,15 +3620,42 @@ var Neptuo$Pipelines$Replying$_RequestDispatcherExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Replying$_RequestDispatcherExtensions);
-var Neptuo$Timers$IBackgroundService = {
-    fullname: "Neptuo.Timers.IBackgroundService",
+var Neptuo$Timers$Behaviors$INextScheduleAware = {
+    fullname: "Neptuo.Timers.Behaviors.INextScheduleAware",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Timers$IBackgroundService);
+JsTypes.push(Neptuo$Timers$Behaviors$INextScheduleAware);
+var Neptuo$Timers$Handlers$IBackgroundHandler = {
+    fullname: "Neptuo.Timers.Handlers.IBackgroundHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Timers$Handlers$IBackgroundHandler);
+var Neptuo$Timers$TimerManager = {
+    fullname: "Neptuo.Timers.TimerManager",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Timers$TimerManager);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",

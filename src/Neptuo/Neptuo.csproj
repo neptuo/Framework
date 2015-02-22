@@ -145,6 +145,7 @@
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
     <Compile Include="Timers\Behaviors\INextScheduleAware.cs" />
     <Compile Include="Timers\Handlers\IBackgroundHandler.cs" />
+    <Compile Include="Timers\TimerManager.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />

@@ -18,5 +18,5 @@ namespace Neptuo.Timers.Behaviors
         /// <param name="nextSchedule">Date time of next schedule.</param>
         /// <returns><c>true</c> to say 'Yes, schedule me for next execution'; <c>false</c> to say 'I'm finished', next schedule is not needed.</returns>
         bool NextSchedule(DateTime now, out DateTime nextSchedule);
-    }l
+    }
 }
