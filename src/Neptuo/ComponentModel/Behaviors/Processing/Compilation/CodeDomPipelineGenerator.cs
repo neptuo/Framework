@@ -46,6 +46,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         private readonly string tempDirectory;
 
         /// <summary>
+        /// Base type generated pipeline.
+        /// </summary>
+        private readonly Type baseType;
+
+        /// <summary>
         /// Creates new instance for <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
@@ -59,6 +64,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             this.behaviorCollection = behaviorCollection;
             this.compilerFactory = new CompilerFactory(configuration);
             this.tempDirectory = configuration.TempDirectory;
+            this.baseType = configuration.BaseType;
         }
 
         /// <summary>
@@ -108,7 +114,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             CodeTypeDeclaration type = new CodeTypeDeclaration(FormatPipelineTypeName());
 
             if (handlerType.GetConstructor(new Type[0]) != null)
-                type.BaseTypes.Add(typeof(DefaultPipelineBase<>).MakeGenericType(handlerType));
+                type.BaseTypes.Add(baseType.MakeGenericType(handlerType));
             else
                 throw new NotSupportedException("Currently supported only parameterless behavior constructors.");
 

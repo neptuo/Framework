@@ -12,7 +12,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
     /// Generates pipeline using <see cref="System.CodeDom"/>.
     /// </summary>
     /// <typeparam name="T">Base type (or required interface) of generated type.</typeparam>
-    public abstract class CodeDomPipelineFactoryBase<T>
+    public abstract class CodeDomPipelineFactory<T> : IActivator<T>
     {
         /// <summary>
         /// Handler type.
@@ -38,7 +38,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// Creates new instance for handler of type <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Handler type.</param>
-        public CodeDomPipelineFactoryBase(Type handlerType)
+        public CodeDomPipelineFactory(Type handlerType)
             : this(handlerType, Engine.Environment.WithBehaviors(), Engine.Environment.WithCodeDomConfiguration())
         { }
 
@@ -48,7 +48,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="handlerType">Handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineFactoryBase(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
+        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
             Guard.NotNull(handlerType, "handlerType");
             Guard.NotNull(behaviorCollection, "behaviorCollection");
@@ -58,13 +58,15 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             this.configuration = configuration;
         }
 
-        protected T CreateInstance()
-
-        public async Task<IHttpResponse> TryHandleAsync(IHttpRequest httpRequest)
+        /// <summary>
+        /// Cretes instance of generated pipeline.
+        /// </summary>
+        /// <returns>Instance of generated pipeline.</returns>
+        public T Create()
         {
             EnsurePipelineFactory();
-            IRequestHandler pipeline = generatedFactory();
-            return await pipeline.TryHandleAsync(httpRequest);
+            T pipeline = generatedFactory();
+            return pipeline;
         }
 
         /// <summary>

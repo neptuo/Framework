@@ -14,7 +14,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     /// Handler must have parameterless construtor.
     /// </summary>
     /// <typeparam name="T">Type of handler.</typeparam>
-    public class ReflectionPipeline<T> : DefaultPipelineBase<T>
+    public class DefaultPipeline<T> : DefaultPipelineBase<T>
         where T : new()
     {
         /// <summary>
@@ -26,7 +26,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// Creates new instance.
         /// </summary>
         /// <param name="collection">Behavior collection.</param>
-        public ReflectionPipeline(IBehaviorCollection collection)
+        public DefaultPipeline(IBehaviorCollection collection)
         {
             Guard.NotNull(collection, "collection");
             this.collection = collection;

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.ComponentModel.Behaviors.Providers
 {
-    /// <summary>
-    /// <see cref="InterfaceBehaviorProvider"/> extensions for mapping http methods.
-    /// </summary>
-    public static class InterfaceBehaviorProviderExtensions
+    public static class _InterfaceBehaviorProviderExtensions
     {
         /// <summary>
         /// Adds mapping with <typeparamref name="TBehaviorContract"/> as contract and <typeparamref name="TBehaviorImplementation"/> as implementation type.

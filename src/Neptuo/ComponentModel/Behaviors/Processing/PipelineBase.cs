@@ -1,6 +1,4 @@
-﻿using Neptuo.WebStack;
-using Neptuo.WebStack.Http;
-using Neptuo.ComponentModel.Behaviors;
+﻿using Neptuo.ComponentModel.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +30,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// </summary>
         private IKeyValueCollection customValues;
 
-        public IKeyValueCollection CustomValues
+        IKeyValueCollection IBehaviorContext.CustomValues
         {
             get
             {
@@ -56,23 +54,23 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         protected abstract IEnumerable<IBehavior<T>> GetBehaviors();
 
         /// <summary>
-        /// Creates instance of handler and using <see cref="IBehavior"/> executes action.
+        /// Executed behavior list.
         /// </summary>
-        /// <returns>Response for the current HTTP request.</returns>
-        public Task TryHandleAsync()
+        protected Task ExecutePipeline()
         {
             IActivator<T> handlerFactory = GetHandlerFactory();
             this.handler = handlerFactory.Create();
 
             behaviorEnumerator = GetBehaviors().GetEnumerator();
-            return NextAsync();
+
+            IBehaviorContext context = this;
+            return context.NextAsync();
         }
 
         /// <summary>
         /// Moves to next processing to next behavior.
         /// </summary>
-        /// <param name="httpRequest">Current HTTP request.</param>
-        public Task NextAsync()
+        Task IBehaviorContext.NextAsync()
         {
             // Try to call next behavior in pipeline.
             if (behaviorEnumerator.MoveNext())
