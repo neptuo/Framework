@@ -16,9 +16,9 @@ namespace Neptuo.AppServices
         private readonly List<IServiceHandler> services = new List<IServiceHandler>();
 
         /// <summary>
-        /// Adds service described by <paramref name="service"/>.
+        /// Adds service.
         /// </summary>
-        /// <param name="service">Descriptor of service to add.</param>
+        /// <param name="service">Service to add.</param>
         /// <returns>Self (for fluency).</returns>
         public ServiceHandlerCollection Add(IServiceHandler service)
         {

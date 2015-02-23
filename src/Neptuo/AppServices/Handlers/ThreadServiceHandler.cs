@@ -17,10 +17,17 @@ namespace Neptuo.AppServices.Handlers
         private readonly TimeSpan stopTimeout;
         private Thread thread;
 
+        /// <summary>
+        /// Creates new instance, which waits for one minute to shutdown its thread.
+        /// </summary>
         public ThreadServiceHandler()
             : this(TimeSpan.FromMinutes(1))
         { }
 
+        /// <summary>
+        /// Creates new instance with <paramref name="stopTimeout"/> to wait for shutdown its thread.
+        /// </summary>
+        /// <param name="stopTimeout">Amount of time to wait for shutdown its thread.</param>
         public ThreadServiceHandler(TimeSpan stopTimeout)
         {
             this.stopTimeout = stopTimeout;
@@ -30,17 +37,17 @@ namespace Neptuo.AppServices.Handlers
         /// Implementation should do it's work on custom thread.
         /// </summary>
         /// <param name="shutdownHandle"></param>
-        protected abstract void OnExecute(WaitHandle shutdownHandle);
+        protected abstract void OnInvoke(WaitHandle shutdownHandle);
+
+        private void OnInvokeInternal()
+        {
+            OnInvoke(shutDownEvent);
+        }
 
         protected override void OnStart()
         {
-            thread = new Thread(OnStartThread);
+            thread = new Thread(OnInvokeInternal);
             thread.Start();
-        }
-
-        private void OnStartThread()
-        {
-            OnExecute(shutDownEvent);
         }
 
         protected override void OnStop()

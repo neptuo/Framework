@@ -29,7 +29,7 @@ namespace TestConsole.AppServices
 
         protected override void OnStart()
         {
-            timer.Change(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(5));
+            timer.Change(TimeSpan.Zero, TimeSpan.FromSeconds(5));
         }
 
         protected override void OnStop()
@@ -46,7 +46,7 @@ namespace TestConsole.AppServices
 
     class Temp2CheckServiceHandler : ThreadServiceHandler
     {
-        protected override void OnExecute(WaitHandle shutdownHandle)
+        protected override void OnInvoke(WaitHandle shutdownHandle)
         {
             while (true)
             {
@@ -61,5 +61,18 @@ namespace TestConsole.AppServices
             }
         }
     }
+
+    class TempCheckWorkerHandler : IBackgroundHandler
+    {
+        public void Invoke()
+        {
+            Console.WriteLine(
+                "Last write to 'C:/Temp': {0}; ThreadID: {1}",
+                Directory.GetLastWriteTime(@"C:\Temp"),
+                Thread.CurrentThread.ManagedThreadId
+            );
+        }
+    }
+
 
 }

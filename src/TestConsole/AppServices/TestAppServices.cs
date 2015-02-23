@@ -21,7 +21,11 @@ namespace TestConsole.AppServices
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
-            collection.Add(new TempCheckServiceHandler());
+            //collection.Add(new TempCheckServiceHandler());
+            collection.Add(
+                new WorkerServiceCollection()
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TempCheckWorkerHandler())
+            );
             //collection.Add(new Temp2CheckServiceHandler());
 
 

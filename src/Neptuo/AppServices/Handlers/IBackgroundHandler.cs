@@ -14,6 +14,6 @@ namespace Neptuo.AppServices.Handlers
         /// <summary>
         /// Should to it's stuff.
         /// </summary>
-        Task InvokeAsync();
+        void Invoke();
     }
 }
