@@ -273,6 +273,55 @@ var Neptuo$AppServices$Handlers$ServiceHandlerBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$AppServices$Handlers$ServiceHandlerBase);
+var Neptuo$AppServices$Handlers$ThreadServiceHandler = {
+    fullname: "Neptuo.AppServices.Handlers.ThreadServiceHandler",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.shutDownEvent = new System.Threading.ManualResetEvent.ctor(false);
+            this.stopTimeout = new System.TimeSpan.ctor();
+            this.thread = null;
+            Neptuo.AppServices.Handlers.ThreadServiceHandler.ctor$$TimeSpan.call(this, System.TimeSpan.FromMinutes(1));
+        },
+        ctor$$TimeSpan: function (stopTimeout){
+            this.shutDownEvent = new System.Threading.ManualResetEvent.ctor(false);
+            this.stopTimeout = new System.TimeSpan.ctor();
+            this.thread = null;
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+            this.stopTimeout = stopTimeout;
+        },
+        OnStart: function (){
+            this.thread = new System.Threading.Thread.ctor$$ThreadStart($CreateDelegate(this, this.OnStartThread));
+            this.thread.Start();
+        },
+        OnStartThread: function (){
+            this.OnExecute(this.shutDownEvent);
+        },
+        OnStop: function (){
+            this.shutDownEvent.Set();
+            try{
+                if (!this.thread.Join$$TimeSpan(this.stopTimeout))
+                    this.thread.Abort();
+            }
+            finally{
+                this.thread = null;
+                this.shutDownEvent.Reset();
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$TimeSpan",
+        parameters: ["System.TimeSpan"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$ThreadServiceHandler);
 var Neptuo$AppServices$WorkerServiceContainer = {
     fullname: "Neptuo.AppServices.WorkerServiceContainer",
     baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",

@@ -18,8 +18,11 @@ namespace TestConsole.AppServices
 
         private static void TestServices()
         {
+            Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
+
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             collection.Add(new TempCheckServiceHandler());
+            //collection.Add(new Temp2CheckServiceHandler());
 
 
             Console.WriteLine("Starting services...");

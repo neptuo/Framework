@@ -41,6 +41,7 @@
     <Compile Include="AppServices\ServiceHandlerCollection.cs" />
     <Compile Include="AppServices\DefaultServiceContainer.cs" />
     <Compile Include="AppServices\Handlers\ServiceHandlerBase.cs" />
+    <Compile Include="AppServices\Handlers\ThreadServiceHandler.cs" />
     <Compile Include="AppServices\WorkerServiceContainer.cs" />
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />

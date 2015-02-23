@@ -20,7 +20,11 @@ namespace TestConsole.AppServices
 
         private void OnTime(object state)
         {
-            Console.WriteLine("Last write to C:/Temp {0}", Directory.GetLastWriteTime(@"C:\Temp"));
+            Console.WriteLine(
+                "Last write to 'C:/Temp': {0}; ThreadID: {1}",
+                Directory.GetLastWriteTime(@"C:\Temp"),
+                Thread.CurrentThread.ManagedThreadId
+            );
         }
 
         protected override void OnStart()
@@ -39,4 +43,23 @@ namespace TestConsole.AppServices
             timer.Dispose();
         }
     }
+
+    class Temp2CheckServiceHandler : ThreadServiceHandler
+    {
+        protected override void OnExecute(WaitHandle shutdownHandle)
+        {
+            while (true)
+            {
+                if (shutdownHandle.WaitOne(TimeSpan.FromSeconds(2)))
+                    break;
+
+                Console.WriteLine(
+                    "Last write to 'C:/Temp': {0}; ThreadID: {1}", 
+                    Directory.GetLastWriteTime(@"C:\Temp"), 
+                    Thread.CurrentThread.ManagedThreadId
+                );
+            }
+        }
+    }
+
 }
