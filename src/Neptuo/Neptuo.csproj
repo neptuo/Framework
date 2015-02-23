@@ -38,8 +38,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
-    <Compile Include="AppServices\Handlers\Registries\ServiceHandlerRegistry.cs" />
+    <Compile Include="AppServices\ServiceHandlerCollection.cs" />
     <Compile Include="AppServices\DefaultServiceContainer.cs" />
+    <Compile Include="AppServices\Handlers\ServiceHandlerBase.cs" />
+    <Compile Include="AppServices\WorkerServiceContainer.cs" />
     <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />

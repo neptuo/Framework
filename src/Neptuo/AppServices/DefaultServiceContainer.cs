@@ -11,7 +11,7 @@ namespace Neptuo.AppServices
     /// <summary>
     /// Describes container for application services.
     /// </summary>
-    public class DefaultServiceContainer : DisposableBase, IServiceHandler
+    public class DefaultServiceContainer : ServiceHandlerBase
     {
         private readonly IServiceHandler service;
 
@@ -25,24 +25,14 @@ namespace Neptuo.AppServices
             this.service = service;
         }
 
-        public bool IsRunning { get; private set; }
-
-        public void Start()
+        protected override void OnStart()
         {
-            if (!IsRunning)
-            {
-                IsRunning = true;
-                service.Start();
-            }
+            service.Start();
         }
 
-        public void Stop()
+        protected override void OnStop()
         {
-            if (IsRunning)
-            {
-                IsRunning = false;
-                service.Stop();
-            }
+            service.Stop();
         }
     }
 }

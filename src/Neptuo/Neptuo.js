@@ -154,48 +154,33 @@ var Neptuo$AppServices$Handlers$IServiceHandler = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$AppServices$Handlers$IServiceHandler);
-var Neptuo$AppServices$Handlers$ServiceHandlerRegistry = {
-    fullname: "Neptuo.AppServices.Handlers.ServiceHandlerRegistry",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+var Neptuo$AppServices$ServiceHandlerCollection = {
+    fullname: "Neptuo.AppServices.ServiceHandlerCollection",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.AppServices.Handlers.IServiceHandler"],
     Kind: "Class",
     definition: {
         ctor: function (){
             this.services = new System.Collections.Generic.List$1.ctor(Neptuo.AppServices.Handlers.IServiceHandler.ctor);
-            this._IsRunning = false;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
-        },
-        IsRunning$$: "System.Boolean",
-        get_IsRunning: function (){
-            return this._IsRunning;
-        },
-        set_IsRunning: function (value){
-            this._IsRunning = value;
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
         },
         Add: function (service){
             Neptuo.Guard.NotNull$$Object$$String(service, "service");
             this.services.Add(service);
             return this;
         },
-        Start: function (){
-            if (!this.get_IsRunning()){
-                this.set_IsRunning(true);
-                var $it1 = this.services.GetEnumerator();
-                while ($it1.MoveNext()){
-                    var service = $it1.get_Current();
-                    service.Start();
-                }
+        OnStart: function (){
+            var $it1 = this.services.GetEnumerator();
+            while ($it1.MoveNext()){
+                var service = $it1.get_Current();
+                service.Start();
             }
         },
-        Stop: function (){
-            if (this.get_IsRunning()){
-                this.set_IsRunning(false);
-                var $it2 = this.services.GetEnumerator();
-                while ($it2.MoveNext()){
-                    var service = $it2.get_Current();
-                    service.Stop();
-                }
+        OnStop: function (){
+            var $it2 = this.services.GetEnumerator();
+            while ($it2.MoveNext()){
+                var service = $it2.get_Current();
+                service.Stop();
             }
         },
         DisposeManagedResources: function (){
@@ -221,39 +206,24 @@ var Neptuo$AppServices$Handlers$ServiceHandlerRegistry = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$AppServices$Handlers$ServiceHandlerRegistry);
+JsTypes.push(Neptuo$AppServices$ServiceHandlerCollection);
 var Neptuo$AppServices$DefaultServiceContainer = {
     fullname: "Neptuo.AppServices.DefaultServiceContainer",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.AppServices.Handlers.IServiceHandler"],
     Kind: "Class",
     definition: {
         ctor: function (service){
             this.service = null;
-            this._IsRunning = false;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(service, "service");
             this.service = service;
         },
-        IsRunning$$: "System.Boolean",
-        get_IsRunning: function (){
-            return this._IsRunning;
+        OnStart: function (){
+            this.service.Start();
         },
-        set_IsRunning: function (value){
-            this._IsRunning = value;
-        },
-        Start: function (){
-            if (!this.get_IsRunning()){
-                this.set_IsRunning(true);
-                this.service.Start();
-            }
-        },
-        Stop: function (){
-            if (this.get_IsRunning()){
-                this.set_IsRunning(false);
-                this.service.Stop();
-            }
+        OnStop: function (){
+            this.service.Stop();
         }
     },
     ctors: [{
@@ -264,6 +234,69 @@ var Neptuo$AppServices$DefaultServiceContainer = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$AppServices$DefaultServiceContainer);
+var Neptuo$AppServices$Handlers$ServiceHandlerBase = {
+    fullname: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.AppServices.Handlers.IServiceHandler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._IsRunning = false;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+        },
+        IsRunning$$: "System.Boolean",
+        get_IsRunning: function (){
+            return this._IsRunning;
+        },
+        set_IsRunning: function (value){
+            this._IsRunning = value;
+        },
+        Start: function (){
+            if (!this.get_IsDisposed() && !this.get_IsRunning()){
+                this.OnStart();
+                this.set_IsRunning(true);
+            }
+        },
+        Stop: function (){
+            if (!this.get_IsDisposed() && this.get_IsRunning()){
+                this.OnStop();
+                this.set_IsRunning(false);
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$ServiceHandlerBase);
+var Neptuo$AppServices$WorkerServiceContainer = {
+    fullname: "Neptuo.AppServices.WorkerServiceContainer",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+        },
+        OnStart: function (){
+            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        },
+        OnStop: function (){
+            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$WorkerServiceContainer);
 var Neptuo$Collections$Generic$_DictionaryExtensions = {
     fullname: "Neptuo.Collections.Generic._DictionaryExtensions",
     baseTypeName: "System.Object",

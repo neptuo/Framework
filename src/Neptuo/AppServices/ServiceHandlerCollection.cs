@@ -1,53 +1,42 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.AppServices.Handlers;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Handlers
+namespace Neptuo.AppServices
 {
     /// <summary>
     /// Registry for <see cref="IServiceHandler"/>.
     /// </summary>
-    public class ServiceHandlerRegistry : DisposableBase, IServiceHandler
+    public class ServiceHandlerCollection : ServiceHandlerBase
     {
         private readonly List<IServiceHandler> services = new List<IServiceHandler>();
-
-        public bool IsRunning { get; private set; }
 
         /// <summary>
         /// Adds service described by <paramref name="service"/>.
         /// </summary>
         /// <param name="service">Descriptor of service to add.</param>
         /// <returns>Self (for fluency).</returns>
-        public ServiceHandlerRegistry Add(IServiceHandler service)
+        public ServiceHandlerCollection Add(IServiceHandler service)
         {
             Guard.NotNull(service, "service");
             services.Add(service);
             return this;
         }
 
-        public void Start()
+        protected override void OnStart()
         {
-            if (!IsRunning)
-            {
-                IsRunning = true;
-
-                foreach (IServiceHandler service in services)
-                    service.Start();
-            }
+            foreach (IServiceHandler service in services)
+                service.Start();
         }
 
-        public void Stop()
+        protected override void OnStop()
         {
-            if (IsRunning)
-            {
-                IsRunning = false;
-
-                foreach (IServiceHandler service in services)
-                    service.Stop();
-            }
+            foreach (IServiceHandler service in services)
+                service.Stop();
         }
 
         protected override void DisposeManagedResources()
