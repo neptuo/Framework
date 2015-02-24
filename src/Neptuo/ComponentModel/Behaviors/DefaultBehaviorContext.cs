@@ -121,7 +121,8 @@ namespace Neptuo.ComponentModel.Behaviors
 
         public virtual IBehaviorContext Clone()
         {
-            return new DefaultBehaviorContext<T>(Behaviors.ToList(), Handler, NextBehaviorIndex - 1);
+            return new DefaultBehaviorContext<T>(Behaviors.ToList(), Handler, NextBehaviorIndex - 1)
+                .SetCustomValues(CustomValues);
         }
     }
 }

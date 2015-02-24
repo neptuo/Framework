@@ -1459,7 +1459,7 @@ var Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1 = {
             return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, false);
         },
         Clone: function (){
-            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32(this.T, System.Linq.Enumerable.ToList$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, this.get_Behaviors()), this.get_Handler(), this.get_NextBehaviorIndex() - 1);
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32(this.T, System.Linq.Enumerable.ToList$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, this.get_Behaviors()), this.get_Handler(), this.get_NextBehaviorIndex() - 1).SetCustomValues(this.get_CustomValues());
         }
     },
     ctors: [{
@@ -1473,76 +1473,6 @@ var Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1);
-var Neptuo$ComponentModel$Behaviors$MethodInfoBehaviorContext$1 = {
-    fullname: "Neptuo.ComponentModel.Behaviors.MethodInfoBehaviorContext$1",
-    baseTypeName: "Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1",
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor$$IEnumerable$1$$T$$MethodInfo: function (T, behaviors, handler, method){
-            this.T = T;
-            Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T.call(this, this.T, behaviors, handler);
-            Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetMethod(this, method);
-        },
-        ctor$$IEnumerable$1$$T$$MethodInfo$$Int32: function (T, behaviors, handler, method, behaviorStartOffset){
-            this.T = T;
-            Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32.call(this, this.T, behaviors, handler, behaviorStartOffset);
-            Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetMethod(this, method);
-        },
-        ctor$$IEnumerable$1$$T$$Int32: function (T, behaviors, handler, behaviorStartOffset){
-            this.T = T;
-            Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32.call(this, this.T, behaviors, handler, behaviorStartOffset);
-        },
-        NextAsyncWhenNoMoreBehaviors: function (){
-            var method;
-            var parameters;
-            if ((function (){
-                var $1 = {
-                    Value: method
-                };
-                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetMethod(this, $1);
-                method = $1.Value;
-                return $res;
-            }).call(this) && (function (){
-                var $1 = {
-                    Value: parameters
-                };
-                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetParameters(this, $1);
-                parameters = $1.Value;
-                return $res;
-            }).call(this)){
-                var result = method.Invoke$$Object$$Object$Array(this.get_Handler(), parameters.ToArray());
-                var taskResult = As(result, System.Threading.Tasks.Task.ctor);
-                if (taskResult != null){
-                    throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-                }
-                if (System.Type.op_Inequality$$Type$$Type(Typeof(System.Void.ctor), method.get_ReturnType())){
-                    Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(this, result);
-                    return System.Threading.Tasks.Task.FromResult$1(System.Object.ctor, result);
-                }
-                Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(this, null);
-                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
-            }
-            return Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.commonPrototype.NextAsyncWhenNoMoreBehaviors.call(this);
-        },
-        Clone: function (){
-            return new Neptuo.ComponentModel.Behaviors.MethodInfoBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32(this.T, System.Linq.Enumerable.ToList$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, this.get_Behaviors()), this.get_Handler(), this.get_NextBehaviorIndex() - 1).SetCustomValues(new Neptuo.Collections.Specialized.KeyValueCollection.ctor$$IReadOnlyKeyValueCollection(this.get_CustomValues()));
-        }
-    },
-    ctors: [{
-        name: "ctor$$IEnumerable$$T$$MethodInfo",
-        parameters: ["System.Collections.Generic.IEnumerable", "T", "System.Reflection.MethodInfo"]
-    }, {
-        name: "ctor$$IEnumerable$$T$$MethodInfo$$Int32",
-        parameters: ["System.Collections.Generic.IEnumerable", "T", "System.Reflection.MethodInfo", "System.Int32"]
-    }, {
-        name: "ctor$$IEnumerable$$T$$Int32",
-        parameters: ["System.Collections.Generic.IEnumerable", "T", "System.Int32"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$ComponentModel$Behaviors$MethodInfoBehaviorContext$1);
 var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomDefaultBehaviorInstanceGenerator = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomDefaultBehaviorInstanceGenerator",
     baseTypeName: "System.Object",
@@ -1729,12 +1659,15 @@ var Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$2 = {
             Neptuo.Guard.NotNullOrEmpty(methodName, "methodName");
             this.methodName = methodName;
         },
+        GetBehaviorContext: function (behaviors, handler){
+            return Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1.commonPrototype.GetBehaviorContext.call(this, System.Linq.Enumerable.Concat$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, behaviors, [new Neptuo.ComponentModel.Behaviors.Processing.MethodInvokePipeline.InvokeBehavior$2.ctor(this.THandler, this.TOutput)]), handler);
+        },
         ExecuteAsync: function (parameters){
             Neptuo.Guard.NotNull$$Object$$String(parameters, "parameters");
             var behaviors = this.GetBehaviors();
             var handlerFactory = this.GetHandlerFactory();
             var handler = handlerFactory.Create();
-            var context = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetParameters(Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetMethod(new Neptuo.ComponentModel.Behaviors.MethodInfoBehaviorContext$1.ctor$$IEnumerable$1$$T$$MethodInfo(this.THandler, behaviors, handler, this.GetMethodInfo()), this.GetMethodInfo()), System.Linq.Enumerable.ToList$1(System.Object.ctor, parameters));
+            var context = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetParameters(Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetMethod(this.GetBehaviorContext(behaviors, handler), this.GetMethodInfo()), System.Linq.Enumerable.ToList$1(System.Object.ctor, parameters));
             void;
             var output;
             if (!(function (){
@@ -1760,6 +1693,59 @@ var Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$2 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$2);
+var Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$InvokeBehavior$2 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.MethodInvokePipeline.InvokeBehavior$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (THandler, TOutput){
+            this.THandler = THandler;
+            this.TOutput = TOutput;
+            System.Object.ctor.call(this);
+        },
+        ExecuteAsync: function (handler, context){
+            var method;
+            var parameters;
+            if ((function (){
+                var $1 = {
+                    Value: method
+                };
+                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetMethod(context, $1);
+                method = $1.Value;
+                return $res;
+            }).call(this) && (function (){
+                var $1 = {
+                    Value: parameters
+                };
+                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetParameters(context, $1);
+                parameters = $1.Value;
+                return $res;
+            }).call(this)){
+                var result = method.Invoke$$Object$$Object$Array(handler, parameters.ToArray());
+                var taskResult = As(result, System.Threading.Tasks.Task.ctor);
+                if (taskResult != null){
+                    throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+                }
+                if (System.Type.op_Inequality$$Type$$Type(Typeof(System.Void.ctor), method.get_ReturnType())){
+                    Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(context, result);
+                    return System.Threading.Tasks.Task.FromResult$1(System.Object.ctor, result);
+                }
+                Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(context, null);
+                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
+            }
+            return context.NextAsync();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$InvokeBehavior$2);
 var Neptuo$ComponentModel$Behaviors$Processing$Reflection$DefaultReflectionBehaviorInstanceProvider = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.DefaultReflectionBehaviorInstanceProvider",
     baseTypeName: "System.Object",

@@ -75,7 +75,6 @@
     <Compile Include="Compilers\ICompilerResult.cs" />
     <Compile Include="ComponentModel\Behaviors\BehaviorProviderCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
-    <Compile Include="ComponentModel\Behaviors\MethodInfoBehaviorContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\FuncList.cs" />

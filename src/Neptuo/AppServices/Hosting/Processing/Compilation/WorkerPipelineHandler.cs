@@ -44,6 +44,5 @@ namespace Neptuo.AppServices.Hosting.Processing.Compilation
                 return Task.FromResult(true);
             }
         }
-
     }
 }
