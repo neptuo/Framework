@@ -36,7 +36,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
             Guard.NotNull(environment, "environment");
             Guard.NotNull(providers, "providers");
 
-            IBehaviorCollection collection = new BehaviorCollectionBase();
+            IBehaviorCollection collection = new BehaviorProviderCollection();
             foreach (IBehaviorProvider provider in providers)
                 collection.Add(provider);
 

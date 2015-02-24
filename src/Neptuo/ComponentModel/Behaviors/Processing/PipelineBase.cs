@@ -41,7 +41,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// <summary>
         /// Executed behavior list.
         /// </summary>
-        protected Task ExecutePipeline()
+        protected Task ExecutePipelineAsync()
         {
             IEnumerable<IBehavior<T>> behaviors = GetBehaviors();
             IActivator<T> handlerFactory = GetHandlerFactory();

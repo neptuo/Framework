@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppServices\TempCheckServiceHandler.cs" />
+    <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
     <Compile Include="Cloning\TestCloning.cs" />
     <Compile Include="Collections\TestKeyValue.cs" />

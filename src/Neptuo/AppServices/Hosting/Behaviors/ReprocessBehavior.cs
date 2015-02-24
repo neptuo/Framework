@@ -11,6 +11,10 @@ namespace Neptuo.AppServices.Behaviors.Hosting
     {
         private readonly int count;
 
+        public ReprocessBehavior()
+            : this(3)
+        { }
+
         public ReprocessBehavior(int count)
         {
             Guard.PositiveOrZero(count, "count");
@@ -33,7 +37,11 @@ namespace Neptuo.AppServices.Behaviors.Hosting
             {
                 remaingCount--;
                 if (remaingCount > 0)
-                    return ExecuteAsync(handler, contextState, remaingCount);
+                {
+                    Task result = ExecuteAsync(handler, contextState, remaingCount);
+                    context.CustomValues = contextState.CustomValues;
+                    return result;
+                }
                 else
                     throw e;
             }

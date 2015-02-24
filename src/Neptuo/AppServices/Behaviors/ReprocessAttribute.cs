@@ -10,6 +10,10 @@ namespace Neptuo.AppServices.Behaviors
     {
         public int Count { get; private set; }
 
+        public ReprocessAttribute()
+            : this(3)
+        { }
+
         public ReprocessAttribute(int count)
         {
             Guard.PositiveOrZero(count, "count");

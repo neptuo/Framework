@@ -15,7 +15,7 @@ namespace Neptuo.ComponentModel.Behaviors
         /// <summary>
         /// Collection of custom context values.
         /// </summary>
-        IKeyValueCollection CustomValues { get; }
+        IKeyValueCollection CustomValues { get; set; }
 
         /// <summary>
         /// Promotes execution to next behavior in pipeline.
