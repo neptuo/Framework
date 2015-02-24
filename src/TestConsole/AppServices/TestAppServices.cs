@@ -1,4 +1,13 @@
 ﻿using Neptuo.AppServices;
+using Neptuo.AppServices.Behaviors;
+using Neptuo.AppServices.Behaviors.Hosting;
+using Neptuo.AppServices.Handlers;
+using Neptuo.AppServices.Hosting.Behaviors.Compilation;
+using Neptuo.AppServices.Hosting.Processing;
+using Neptuo.AppServices.Hosting.Processing.Compilation;
+using Neptuo.ComponentModel.Behaviors;
+using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
+using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +29,24 @@ namespace TestConsole.AppServices
         {
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
+            // Behaviors.
+            IBehaviorCollection behaviorCollection = new BehaviorProviderCollection()
+                .Add(
+                    new AttributeBehaviorProvider()
+                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+                );
+
+            // Compilation configuration
+            CodeDomPipelineConfiguration configuration = new CodeDomPipelineConfiguration(typeof(WorkerPipelineHandler<>), @"C:\Temp\Pipelines", Environment.CurrentDirectory);
+            configuration.BehaviorInstance
+                .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
+
+
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
                 new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TempCheckWorkerHandler())
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TransientBackgroundHandler(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(TempCheckWorkerHandler), behaviorCollection, configuration)))
             );
             //collection.Add(new Temp2CheckServiceHandler());
 

@@ -12,7 +12,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
     /// Generates pipeline using <see cref="System.CodeDom"/>.
     /// </summary>
     /// <typeparam name="T">Base type (or required interface) of generated type.</typeparam>
-    public abstract class CodeDomPipelineFactory<T> : IActivator<T>
+    public class CodeDomPipelineFactory<T> : IActivator<T>
     {
         /// <summary>
         /// Handler type.

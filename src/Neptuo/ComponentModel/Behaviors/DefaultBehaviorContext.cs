@@ -43,6 +43,11 @@ namespace Neptuo.ComponentModel.Behaviors
         /// </summary>
         protected int NextBehaviorIndex { get; private set; }
 
+        /// <summary>
+        /// Optional delegate, called when no more behaviors are available and NextAsync is called.
+        /// </summary>
+        protected Func<Task> OnNextAsyncWhenNoMoreBehaviors { get; private set; }
+
         public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
             : this(behaviors, handler, 0)
         { }
@@ -79,6 +84,17 @@ namespace Neptuo.ComponentModel.Behaviors
             return this;
         }
 
+        /// <summary>
+        /// Sets optional delegate, called when no more behaviors are available and NextAsync is called.
+        /// </summary>
+        /// <param name="nextAsyncWhenNoMoreBehaviors">Delegate to be execute when no more behaviors are available.</param>
+        /// <returns>Self (for fluency).</returns>
+        public DefaultBehaviorContext<T> SetNextAsyncWhenNoMoreBehaviors(Func<Task> nextAsyncWhenNoMoreBehaviors)
+        {
+            OnNextAsyncWhenNoMoreBehaviors = nextAsyncWhenNoMoreBehaviors;
+            return this;
+        }
+
         public Task NextAsync()
         {
             // Move to next behavior.
@@ -93,10 +109,13 @@ namespace Neptuo.ComponentModel.Behaviors
         }
 
         /// <summary>
-        /// Called when <see cref="IBehaviorContext.NextAsync"/> is called, but non behavior exists.
+        /// Called when <see cref="IBehaviorContext.NextAsync"/> is called, but no more behaviors are available.
         /// </summary>
         protected virtual Task NextAsyncWhenNoMoreBehaviors()
         {
+            if (OnNextAsyncWhenNoMoreBehaviors != null)
+                return OnNextAsyncWhenNoMoreBehaviors();
+
             return Task.FromResult(false);
         }
 

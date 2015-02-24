@@ -1,4 +1,5 @@
-﻿using Neptuo.AppServices.Handlers;
+﻿using Neptuo.AppServices.Behaviors;
+using Neptuo.AppServices.Handlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -62,10 +63,20 @@ namespace TestConsole.AppServices
         }
     }
 
-    class TempCheckWorkerHandler : IBackgroundHandler
+    [Reprocess]
+    public class TempCheckWorkerHandler : IBackgroundHandler
     {
+        bool isFirst = true;
+
         public void Invoke()
         {
+            if (isFirst)
+            {
+                isFirst = false;
+                Console.WriteLine("Not supported...");
+                throw new NotSupportedException();
+            }
+
             Console.WriteLine(
                 "Last write to 'C:/Temp': {0}; ThreadID: {1}",
                 Directory.GetLastWriteTime(@"C:\Temp"),

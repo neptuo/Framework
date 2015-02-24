@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
+namespace Neptuo.ComponentModel.Behaviors.Processing
 {
     internal class FuncList<TInput, TOutput>
     {

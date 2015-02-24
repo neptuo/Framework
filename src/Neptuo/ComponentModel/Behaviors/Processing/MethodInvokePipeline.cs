@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,8 +14,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     {
         private readonly string methodName;
 
-        public MethodInvokePipeline(IBehaviorCollection collection, string methodName)
-            : base(collection)
+        public MethodInvokePipeline(IBehaviorCollection collection, IReflectionBehaviorInstanceProvider behaviorInstance, string methodName)
+            : base(collection, behaviorInstance)
         {
             Guard.NotNullOrEmpty(methodName, "methodName");
             this.methodName = methodName;

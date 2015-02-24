@@ -1,6 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing;
+using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,19 +18,20 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     public class DefaultPipeline<T> : DefaultPipelineBase<T>
         where T : new()
     {
-        /// <summary>
-        /// Behavior collection.
-        /// </summary>
-        private IBehaviorCollection collection;
+        private readonly IBehaviorCollection collection;
+        private readonly IReflectionBehaviorInstanceProvider behaviorInstance;
         
         /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="collection">Behavior collection.</param>
-        public DefaultPipeline(IBehaviorCollection collection)
+        /// <param name="behaviorInstance">Behavior instance provider.</param>
+        public DefaultPipeline(IBehaviorCollection collection, IReflectionBehaviorInstanceProvider behaviorInstance)
         {
             Guard.NotNull(collection, "collection");
+            Guard.NotNull(behaviorInstance, "behaviorInstance");
             this.collection = collection;
+            this.behaviorInstance = behaviorInstance;
         }
 
         /// <summary>
@@ -39,9 +41,10 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// <returns>Enumeration of haviors for <typeparamref name="T"/>.</returns>
         protected override IEnumerable<IBehavior<T>> GetBehaviors()
         {
+            IReflectionContext context = new DefaultReflectionContext(typeof(T));
             IEnumerable<Type> behaviorTypes = collection.GetBehaviors(typeof(T));
             foreach (Type behaviorType in behaviorTypes)
-                yield return (IBehavior<T>)Activator.CreateInstance(behaviorType);
+                yield return (IBehavior<T>)behaviorInstance.TryProvide(context, behaviorType);
         }
     }
 }
