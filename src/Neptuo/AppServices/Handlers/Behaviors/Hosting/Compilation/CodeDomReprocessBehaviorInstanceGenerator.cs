@@ -1,6 +1,4 @@
 ﻿using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
-using Neptuo.AppServices.Behaviors;
-using Neptuo.AppServices.Behaviors.Hosting;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -9,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Hosting.Behaviors.Compilation
+namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation
 {
     /// <summary>
     /// Code generator for <see cref="ReprocessAttribute"/> and <see cref="ReprocessBehavior"/>.

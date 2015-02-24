@@ -1,4 +1,4 @@
-﻿using Neptuo.AppServices.Behaviors;
+﻿using Neptuo.AppServices.Handlers.Behaviors;
 using Neptuo.AppServices.Handlers;
 using System;
 using System.Collections.Generic;

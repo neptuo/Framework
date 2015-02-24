@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Behaviors
+namespace Neptuo.AppServices.Handlers.Behaviors
 {
     /// <summary>
     /// Behavior attribute for action reprocessing.

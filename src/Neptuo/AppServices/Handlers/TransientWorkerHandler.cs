@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Hosting.Processing
+namespace Neptuo.AppServices.Handlers
 {
     /// <summary>
     /// Wrapper which for each call to <see cref="IBackgroundHandler.Invoke"/> creates new instance of inner handler.
     /// </summary>
-    public class TransientBackgroundHandler : IBackgroundHandler
+    public class TransientWorkerHandler : IBackgroundHandler
     {
         private readonly IActivator<IBackgroundHandler> activator;
 
@@ -19,7 +19,7 @@ namespace Neptuo.AppServices.Hosting.Processing
         /// creates new instance of inner handler using <paramref name="activator"/>.
         /// </summary>
         /// <param name="activator">Activator for inner handler instances.</param>
-        public TransientBackgroundHandler(IActivator<IBackgroundHandler> activator)
+        public TransientWorkerHandler(IActivator<IBackgroundHandler> activator)
         {
             Guard.NotNull(activator, "activator");
             this.activator = activator;

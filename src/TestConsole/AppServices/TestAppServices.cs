@@ -1,10 +1,11 @@
-﻿using Neptuo.AppServices;
-using Neptuo.AppServices.Behaviors;
-using Neptuo.AppServices.Behaviors.Hosting;
+﻿using Neptuo;
+using Neptuo.AppServices;
 using Neptuo.AppServices.Handlers;
-using Neptuo.AppServices.Hosting.Behaviors.Compilation;
-using Neptuo.AppServices.Hosting.Processing;
-using Neptuo.AppServices.Hosting.Processing.Compilation;
+using Neptuo.AppServices.Handlers.Behaviors;
+using Neptuo.AppServices.Handlers.Behaviors.Hosting;
+using Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation;
+using Neptuo.AppServices.Handlers.Behaviors.Processing;
+using Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
 using Neptuo.ComponentModel.Behaviors.Providers;
@@ -29,16 +30,23 @@ namespace TestConsole.AppServices
         {
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
-            // Behaviors.
-            IBehaviorCollection behaviorCollection = new BehaviorProviderCollection()
-                .Add(
-                    new AttributeBehaviorProvider()
-                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+            Engine.Environment.UseAppServices()
+                .UseBehaviors(
+                    new BehaviorProviderCollection()
+                        .Add(
+                            new AttributeBehaviorProvider()
+                                .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+                        )
+                )
+                .UseCodeDomConfiguration(
+                    typeof(WorkerPipelineHandler<>), 
+                    @"C:\Temp\Pipelines", 
+                    Environment.CurrentDirectory
                 );
 
+
             // Compilation configuration
-            CodeDomPipelineConfiguration configuration = new CodeDomPipelineConfiguration(typeof(WorkerPipelineHandler<>), @"C:\Temp\Pipelines", Environment.CurrentDirectory);
-            configuration.BehaviorInstance
+            Engine.Environment.WithAppServices().WithCodeDomConfiguration().BehaviorInstance
                 .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
 
 
@@ -46,7 +54,7 @@ namespace TestConsole.AppServices
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
                 new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TransientBackgroundHandler(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(TempCheckWorkerHandler), behaviorCollection, configuration)))
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>())
             );
             //collection.Add(new Temp2CheckServiceHandler());
 

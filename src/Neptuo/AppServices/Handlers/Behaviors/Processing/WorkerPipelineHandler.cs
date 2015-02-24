@@ -8,8 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Hosting.Processing.Compilation
+namespace Neptuo.AppServices.Handlers.Behaviors.Processing
 {
+    /// <summary>
+    /// Base class for behaviors processing integration.
+    /// </summary>
+    /// <typeparam name="T">Type of inner handler.</typeparam>
     public abstract class WorkerPipelineHandler<T> : PipelineBase<T>, IBackgroundHandler
         where T : IBackgroundHandler, new()
     {

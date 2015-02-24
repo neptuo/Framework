@@ -1,6 +1,6 @@
-﻿using Neptuo.AppServices.Behaviors;
-using Neptuo.AppServices.Behaviors.Hosting;
-using Neptuo.AppServices.Hosting.Behaviors.Reflection;
+﻿using Neptuo.AppServices.Handlers.Behaviors;
+using Neptuo.AppServices.Handlers.Behaviors.Hosting;
+using Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection;
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing;
 using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
@@ -46,7 +46,6 @@ namespace TestConsole.Behaviors
                 isFirst = false;
                 throw new NotSupportedException();
             }
-
             
             return "Hello!";
         }

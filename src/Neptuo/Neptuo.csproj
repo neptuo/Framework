@@ -37,11 +37,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />
-    <Compile Include="AppServices\Hosting\Behaviors\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
-    <Compile Include="AppServices\Hosting\Processing\TransientBackgroundHandler.cs" />
-    <Compile Include="AppServices\Hosting\Processing\Compilation\WorkerPipelineHandler.cs" />
+    <Compile Include="AppServices\Handlers\Behaviors\Hosting\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
+    <Compile Include="AppServices\Handlers\TransientWorkerHandler.cs" />
+    <Compile Include="AppServices\Handlers\Behaviors\Processing\WorkerPipelineHandler.cs" />
     <Compile Include="AppServices\ServiceHandlerCollection.cs" />
     <Compile Include="AppServices\DefaultServiceContainer.cs" />
     <Compile Include="AppServices\Handlers\ServiceHandlerBase.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="ComponentModel\Behaviors\Processing\Reflection\DefaultReflectionContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Reflection\Registries\ReflectionBehaviorInstanceRegistry.cs" />
     <Compile Include="ComponentModel\Behaviors\_BehaviorContextExtensions.cs" />
-    <Compile Include="ComponentModel\Behaviors\_EnvironmentExtensions.cs" />
+    <Compile Include="AppServices\_EnvironmentExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehavior.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorContext.cs" />
@@ -172,10 +173,9 @@
     <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
     <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
     <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
-    <Compile Include="AppServices\Behaviors\INextScheduleAware.cs" />
-    <Compile Include="AppServices\Behaviors\ReprocessAttribute.cs" />
-    <Compile Include="AppServices\Hosting\Behaviors\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
-    <Compile Include="AppServices\Hosting\Behaviors\ReprocessBehavior.cs" />
+    <Compile Include="AppServices\Handlers\Behaviors\ReprocessAttribute.cs" />
+    <Compile Include="AppServices\Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
+    <Compile Include="AppServices\Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
     <Compile Include="AppServices\Handlers\IBackgroundHandler.cs" />
     <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />

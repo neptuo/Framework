@@ -38,14 +38,6 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// Creates new instance for handler of type <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Handler type.</param>
-        public CodeDomPipelineFactory(Type handlerType)
-            : this(handlerType, Engine.Environment.WithBehaviors(), Engine.Environment.WithCodeDomConfiguration())
-        { }
-
-        /// <summary>
-        /// Creates new instance for handler of type <paramref name="handlerType"/>.
-        /// </summary>
-        /// <param name="handlerType">Handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
         public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
