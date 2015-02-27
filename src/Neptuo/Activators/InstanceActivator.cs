@@ -7,25 +7,45 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Singleton instance activator.
+    /// Singleton activator with support for creating singleton from function (on first call).
     /// </summary>
-    /// <typeparam name="T">Type of service to wrap.</typeparam>
+    /// <typeparam name="T">Type of service to create.</typeparam>
     public class InstanceActivator<T> : IActivator<T>
     {
-        private readonly T instance;
+        private T instance;
+        private readonly Func<T> instanceGetter;
 
         /// <summary>
-        /// Creates new instance for singleton value <paramref name="instance"/>.
+        /// Create new instance from already created singleton object.
         /// </summary>
-        /// <param name="instance">Instance to wrap.</param>
+        /// <param name="instance">Singleton object.</param>
         public InstanceActivator(T instance)
         {
             Guard.NotNull(instance, "instance");
             this.instance = instance;
         }
 
+        /// <summary>
+        /// Creates new instance from <paramref name="innerGetter"/>.
+        /// </summary>
+        /// <param name="instanceGetter">Function to access singleton object.</param>
+        public InstanceActivator(Func<T> instanceGetter)
+        {
+            Guard.NotNull(instanceGetter, "instanceGetter");
+            this.instanceGetter = instanceGetter;
+        }
+
         public T Create()
         {
+            if (instance == null)
+            {
+                lock (instanceGetter)
+                {
+                    if (instance == null)
+                        instance = instanceGetter();
+                }
+            }
+
             return instance;
         }
     }

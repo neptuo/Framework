@@ -3369,28 +3369,6 @@ var Neptuo$Converts = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Converts);
-var Neptuo$Activators$Building$Lifetimes$SingletonDependencyMapping = {
-    fullname: "Neptuo.Activators.Building.Lifetimes.SingletonDependencyMapping",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.Building.IDependencyMapping"],
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        },
-        Create: function (context){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: []
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Activators$Building$Lifetimes$SingletonDependencyMapping);
 var Neptuo$Activators$DefaultActivator$1 = {
     fullname: "Neptuo.Activators.DefaultActivator$1",
     baseTypeName: "System.Object",
@@ -3414,41 +3392,6 @@ var Neptuo$Activators$DefaultActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DefaultActivator$1);
-var Neptuo$Activators$Building$SimpleContainer = {
-    fullname: "Neptuo.Activators.Building.SimpleContainer",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.IDependencyContainer"],
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            this.mappings = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.Activators.Building.IDependencyMapping.ctor);
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
-        },
-        RegisterMapping: function (requiredType, mapping){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        },
-        BeginScope: function (name){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        },
-        Resolve: function (requiredType, name){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        },
-        ResolveAll: function (requiredType){
-            throw $CreateException(new System.NotImplementedException.ctor(), new Error());
-        },
-        DisposeManagedResources: function (){
-            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: []
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Activators$Building$SimpleContainer);
 var Neptuo$Activators$DependencyActivator$1 = {
     fullname: "Neptuo.Activators.DependencyActivator$1",
     baseTypeName: "System.Object",
@@ -3475,59 +3418,15 @@ var Neptuo$Activators$DependencyActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyActivator$1);
-var Neptuo$Activators$Building$IDependencyMapping = {
-    fullname: "Neptuo.Activators.Building.IDependencyMapping",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.IActivator$2"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$Building$IDependencyMapping);
-var Neptuo$Activators$Building$IDependencyMappingContext = {
-    fullname: "Neptuo.Activators.Building.IDependencyMappingContext",
+var Neptuo$Activators$Building$IDependencyActivatorContext = {
+    fullname: "Neptuo.Activators.Building.IDependencyActivatorContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$Building$IDependencyMappingContext);
-var Neptuo$Activators$Building$SimpleContainerScopeMetadata = {
-    fullname: "Neptuo.Activators.Building.SimpleContainerScopeMetadata",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (isRegistrationSingleThread, isResolvingSingleThread){
-            this._IsRegistrationSingleThread = false;
-            this._IsResolvingSingleThread = false;
-            System.Object.ctor.call(this);
-        },
-        IsRegistrationSingleThread$$: "System.Boolean",
-        get_IsRegistrationSingleThread: function (){
-            return this._IsRegistrationSingleThread;
-        },
-        set_IsRegistrationSingleThread: function (value){
-            this._IsRegistrationSingleThread = value;
-        },
-        IsResolvingSingleThread$$: "System.Boolean",
-        get_IsResolvingSingleThread: function (){
-            return this._IsResolvingSingleThread;
-        },
-        set_IsResolvingSingleThread: function (value){
-            this._IsResolvingSingleThread = value;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Boolean", "System.Boolean"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Activators$Building$SimpleContainerScopeMetadata);
+JsTypes.push(Neptuo$Activators$Building$IDependencyActivatorContext);
 var Neptuo$Activators$_DependencyProviderExtensions = {
     fullname: "Neptuo.Activators._DependencyProviderExtensions",
     baseTypeName: "System.Object",
@@ -3587,20 +3486,36 @@ var Neptuo$Activators$InstanceActivator$1 = {
     interfaceNames: ["Neptuo.Activators.IActivator$1"],
     Kind: "Class",
     definition: {
-        ctor: function (T, instance){
+        ctor$$T: function (T, instance){
             this.T = T;
             this.instance = null;
+            this.instanceGetter = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(instance, "instance");
             this.instance = instance;
         },
+        ctor$$Func$1: function (T, instanceGetter){
+            this.T = T;
+            this.instance = null;
+            this.instanceGetter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(instanceGetter, "instanceGetter");
+            this.instanceGetter = instanceGetter;
+        },
         Create: function (){
+            if (this.instance == null){
+                if (this.instance == null)
+                    this.instance = this.instanceGetter();
+            }
             return this.instance;
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$T",
         parameters: ["T"]
+    }, {
+        name: "ctor$$Func",
+        parameters: ["System.Func"]
     }
     ],
     IsAbstract: false

@@ -9,11 +9,16 @@ namespace Neptuo.Activators.Building
     /// <summary>
     /// Context pro mapping dependency.
     /// </summary>
-    public interface IDependencyMappingContext
+    public interface IDependencyActivatorContext
     {
         /// <summary>
         /// Calling dependency provider.
         /// </summary>
         IDependencyProvider CurrentProvider { get; }
+
+        /// <summary>
+        /// Required service.
+        /// </summary>
+        Type ServiceType { get; }
     }
 }

@@ -1,17 +1,24 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.Activators.Building;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Activators.Building
+namespace Neptuo.Activators
 {
     public class SimpleContainer : DisposableBase, IDependencyContainer
     {
-        private readonly Dictionary<Type, IDependencyMapping> mappings = new Dictionary<Type, IDependencyMapping>();
+        private readonly Dictionary<Type, IActivator<object>> mappings = new Dictionary<Type, IActivator<object>>();
+        private readonly Dictionary<Type, IActivator<object, IDependencyActivatorContext>> mappingsWithContext = new Dictionary<Type, IActivator<object, IDependencyActivatorContext>>();
 
-        public IDependencyContainer RegisterMapping(Type requiredType, IDependencyMapping mapping)
+        public IDependencyContainer RegisterMapping(Type requiredType, IActivator<object> activator)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDependencyContainer RegisterMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator)
         {
             throw new NotImplementedException();
         }
@@ -35,5 +42,6 @@ namespace Neptuo.Activators.Building
         {
             base.DisposeManagedResources();
         }
+
     }
 }
