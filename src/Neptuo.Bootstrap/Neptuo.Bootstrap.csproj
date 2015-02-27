@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Neptuo.Bootstrap.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -95,4 +96,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir $(SolutionDir)\artifacts\$(ConfigurationName)
+copy $(TargetDir)$(TargetName).* $(SolutionDir)\artifacts\$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

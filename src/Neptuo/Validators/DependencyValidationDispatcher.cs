@@ -1,5 +1,5 @@
 ﻿using Neptuo.Activators;
-using Neptuo.Domain;
+using Neptuo.DomainModels;
 using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;

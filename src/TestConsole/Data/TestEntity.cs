@@ -1,7 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Data;
-using Neptuo.Commands;
-using Neptuo.Commands.Handlers;
+using Neptuo.Pipelines.Commands;
+using Neptuo.Pipelines.Commands.Handlers;
 using Neptuo.Data.Entity;
 using Neptuo.Data.Entity.Queries;
 using Neptuo.Data.Queries;
@@ -21,7 +21,7 @@ using TestConsole.Data.Commands.Handlers;
 using TestConsole.Data.Commands.Validation;
 using TestConsole.Data.Queries;
 using Neptuo.Validators;
-using Neptuo.Events;
+using Neptuo.Pipelines.Events;
 
 namespace TestConsole.Data
 {
@@ -41,7 +41,7 @@ namespace TestConsole.Data
 
             //.RegisterType<ICommandValidator<CreateProductCommand, IValidationResult>, CreateProductValidator>();
 
-            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer, new EventManager());
+            ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(dependencyContainer, new DefaultEventManager());
 
             //CreateProducts(dependencyContainer);
 

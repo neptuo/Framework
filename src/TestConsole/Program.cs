@@ -6,7 +6,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestConsole.AppServices;
+using TestConsole.Behaviors;
 using TestConsole.BootstrapTasks;
+using TestConsole.Cloning;
 using TestConsole.Collections;
 using TestConsole.Commands;
 using TestConsole.Compilers;
@@ -16,11 +19,10 @@ using TestConsole.Delegates;
 using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
+using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
-using TestConsole.Resources;
 using TestConsole.Threading;
 using TestConsole.Tokens;
-using TestConsole.WebServices;
 
 namespace TestConsole
 {
@@ -35,16 +37,17 @@ namespace TestConsole
             //TestConfiguration.Test();
             //TestCommands.Test();
             //TestEvents.Test();
-            //TestResources.Test();
-            //TestWebServices.Test();
             //TestDelegates.Test();
             //TestCompiler.Test();
             //TestHash.Test();
-            TestBootstrap.Test();
+            //TestBootstrap.Test();
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
             //TestDependency.Test();
-
+            //TestAppServices.Test();
+            //TestCloning.Test();
+            //TestBehaviors.Test();
+            TestObjectSize.Test();
 
 
             Console.ReadKey(true);

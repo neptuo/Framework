@@ -34,18 +34,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -57,7 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppServices\TempCheckServiceHandler.cs" />
+    <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
+    <Compile Include="Cloning\TestCloning.cs" />
     <Compile Include="Collections\TestKeyValue.cs" />
     <Compile Include="Commands\CreateProductCommand.cs" />
     <Compile Include="Commands\CreateProductCommandHandler.cs" />
@@ -88,6 +93,7 @@
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
+    <Compile Include="ObjectSizes\TestObjectSize.cs" />
     <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
@@ -98,15 +104,10 @@
     <Compile Include="Data\TestEntity.cs" />
     <Compile Include="Queries\ProductModel.cs" />
     <Compile Include="Queries\TestQueries.cs" />
-    <Compile Include="Resources\TestResources.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
+    <Compile Include="AppServices\TestAppServices.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
-    <Compile Include="WebServices\ConsoleContext.cs" />
-    <Compile Include="WebServices\GetHello.cs" />
-    <Compile Include="WebServices\GetHelloFactory.cs" />
-    <Compile Include="WebServices\GetHelloPipeline.cs" />
-    <Compile Include="WebServices\TestWebServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -116,10 +117,6 @@
     <ProjectReference Include="..\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj">
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj">
-      <Project>{f0610126-41ff-4944-aed6-82c851c2a204}</Project>
-      <Name>Neptuo.Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Configuration\Neptuo.Configuration.csproj">
       <Project>{b21273f3-6326-4e7b-8d1c-13d4db440801}</Project>
@@ -156,18 +153,6 @@
     <ProjectReference Include="..\Neptuo.Unity\Neptuo.Unity.csproj">
       <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>
       <Name>Neptuo.Unity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web.Resources.Bundling\Neptuo.Web.Resources.Bundling.csproj">
-      <Project>{e7759ff6-dac4-4809-ae06-b7f2ec0e90cf}</Project>
-      <Name>Neptuo.Web.Resources.Bundling</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web.Resources\Neptuo.Web.Resources.csproj">
-      <Project>{129e1518-e28e-44cb-8834-4b2118eb030c}</Project>
-      <Name>Neptuo.Web.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web.Services\Neptuo.Web.Services.csproj">
-      <Project>{f4b5a851-f46b-4113-9f32-6290545b8fa8}</Project>
-      <Name>Neptuo.Web.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
       <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>

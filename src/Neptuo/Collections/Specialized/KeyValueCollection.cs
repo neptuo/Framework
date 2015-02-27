@@ -12,6 +12,8 @@ namespace Neptuo.Collections.Specialized
     /// </summary>
     public class KeyValueCollection : Dictionary<string, object>, IKeyValueCollection
     {
+        private readonly IReadOnlyKeyValueCollection parentCollection;
+
         /// <summary>
         /// Whether this collection can be modified.
         /// </summary>
@@ -36,6 +38,12 @@ namespace Neptuo.Collections.Specialized
         public KeyValueCollection(IDictionary<string, object> source)
             : base(source)
         { }
+
+        public KeyValueCollection(IReadOnlyKeyValueCollection parentCollection)
+        {
+            Guard.NotNull(parentCollection, "parentCollection");
+            this.parentCollection = parentCollection;
+        }
 
         public KeyValueCollection(NameValueCollection collection)
         {
@@ -62,6 +70,12 @@ namespace Neptuo.Collections.Specialized
             object sourceValue;
             if (TryGetValue(key, out sourceValue) && sourceValue != null)
                 return ConvertTo(sourceValue, out value);
+
+            if (parentCollection != null)
+            {
+                if (parentCollection.TryGet<T>(key, out value))
+                    return true;
+            }
 
             return TryGetDefault(key, out value);
         }

@@ -116,7 +116,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Handlers\GetHello.cs" />
     <Compile Include="Models\LocaleRouteParameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -152,14 +151,6 @@
     <ProjectReference Include="..\Neptuo.Web.Routing\Neptuo.Web.Routing.csproj">
       <Project>{45c70782-7b22-4cda-b8e4-9e71182e3a32}</Project>
       <Name>Neptuo.Web.Routing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web.Services.Hosting.AspNet\Neptuo.Web.Services.Hosting.AspNet.csproj">
-      <Project>{c924d0dc-4fbf-42d9-84cd-d6dc7351751c}</Project>
-      <Name>Neptuo.Web.Services.Hosting.AspNet</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web.Services\Neptuo.Web.Services.csproj">
-      <Project>{f4b5a851-f46b-4113-9f32-6290545b8fa8}</Project>
-      <Name>Neptuo.Web.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
       <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>

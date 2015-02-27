@@ -1,12 +1,13 @@
 ﻿using Neptuo;
-using Neptuo.Commands;
-using Neptuo.Commands.Events;
-using Neptuo.Commands.Events.Handlers;
-using Neptuo.Commands.Execution;
-using Neptuo.Commands.Handlers;
-using Neptuo.Commands.Interception;
-using Neptuo.Events;
-using Neptuo.Events.Handlers;
+using Neptuo.Pipelines.Commands;
+using Neptuo.Pipelines.Commands.Events;
+using Neptuo.Pipelines.Commands.Events.Handlers;
+using Neptuo.Pipelines.Commands.Execution;
+using Neptuo.Pipelines.Commands.Handlers;
+using Neptuo.Pipelines.Commands.Interception;
+using Neptuo.ComponentModel;
+using Neptuo.Pipelines.Events;
+using Neptuo.Pipelines.Events.Handlers;
 using Neptuo.Unity;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace TestConsole.Commands
         {
             DependencyContainer = new UnityDependencyContainer();
 
-            EventManager eventManager = new EventManager();
+            DefaultEventManager eventManager = new DefaultEventManager();
 
             ManualInterceptorProvider interceptorProvider = new ManualInterceptorProvider(DependencyContainer);
                 //.AddInterceptorFactory(typeof(CreateProductCommandHandler), provider => new DiscardExceptionAttribute(typeof(NullReferenceException)));
@@ -38,7 +39,6 @@ namespace TestConsole.Commands
 
             DependencyContainer
                 .RegisterInstance<IEventDispatcher>(eventManager)
-                .RegisterInstance<IEventManager>(eventManager)
                 .RegisterInstance<IEventRegistry>(eventManager)
 
                 .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
@@ -52,8 +52,8 @@ namespace TestConsole.Commands
             {
                 CreateProductCommand command = new CreateProductCommand("Pen", 5.0);
 
-                eventManager.Subscribe(new CommandHandlerFactory(command, new SingletonEventHandlerFactory<CommandHandled>(new ActionEventHandler<CommandHandled>(OnCommandHandled))));
-                eventManager.Subscribe(new CommandHandlerFactory(command, new DependencyEventHandlerFactory<CommandHandled, CreateProductEventHandler>(DependencyContainer)));
+                eventManager.Subscribe(new CommandEventHandler(command, DelegateEventHandler.FromAction<CommandHandled>(OnCommandHandled)));
+                eventManager.Subscribe(new CommandEventHandler(command, new WeakEventHandler<CommandHandled>(new CreateProductEventHandler())));
                 commandDispatcher.Handle(command);
                 GC.Collect();
             }
@@ -64,9 +64,9 @@ namespace TestConsole.Commands
             //TestDirect(count);
         }
 
-        private static void OnCommandHandled(CommandHandled eventData)
+        private static void OnCommandHandled(CommandHandled payload)
         {
-            Console.WriteLine(eventData);
+            Console.WriteLine(payload);
         }
 
         static void TestCommandDispatcher(int count, ICommandDispatcher commandDispatcher)
@@ -98,10 +98,11 @@ namespace TestConsole.Commands
             Console.WriteLine("Destructing CreateProductEventHandler.");
         }
 
-        public void Handle(CommandHandled eventData)
+        public Task HandleAsync(CommandHandled payload)
         {
-            CreateProductCommand command = (CreateProductCommand)eventData.Command;
-            Console.WriteLine("Crated product: {0}", command.Name);
+            CreateProductCommand command = (CreateProductCommand)payload.Command;
+            Console.WriteLine("Created product: {0}", command.Name);
+            return Task.FromResult(true);
         }
     }
 

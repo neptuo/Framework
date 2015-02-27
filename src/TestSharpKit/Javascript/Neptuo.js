@@ -241,10 +241,10 @@ var Neptuo$DependencyContainerExtensions =
 JsTypes.push(Neptuo$DependencyContainerExtensions);
 var Neptuo$Events$EventDispatcher =
 {
-    fullname: "Neptuo.Events.EventDispatcher",
+    fullname: "Neptuo.Pipelines.Events.EventDispatcher",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.IEventDispatcher", "Neptuo.Events.IEventRegistry"],
+    interfaceNames: ["Neptuo.Pipelines.Events.IEventDispatcher", "Neptuo.Pipelines.Events.IEventRegistry"],
     Kind: "Class",
     definition:
     {
@@ -322,10 +322,10 @@ var Neptuo$Events$EventDispatcher =
 JsTypes.push(Neptuo$Events$EventDispatcher);
 var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 =
 {
-    fullname: "Neptuo.Events.Handlers.GetterEventHandlerFactory$1",
+    fullname: "Neptuo.Pipelines.Events.Handlers.GetterEventHandlerFactory$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory$1"],
     Kind: "Class",
     definition:
     {
@@ -338,7 +338,7 @@ var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 =
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("getter"), new Error());
             this.set_Getter(getter);
         },
-        Getter$$: "System.Func`1[[Neptuo.Events.Handlers.IEventHandler`1[[`0]]]]",
+        Getter$$: "System.Func`1[[Neptuo.Pipelines.Events.Handlers.IEventHandler`1[[`0]]]]",
         get_Getter: function ()
         {
             return this._Getter;
@@ -356,16 +356,16 @@ var Neptuo$Events$Handlers$GetterEventHandlerFactory$1 =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Events$Handlers$GetterEventHandlerFactory$1);
-var Neptuo$Events$Handlers$IEventHandler$1 = {fullname: "Neptuo.Events.Handlers.IEventHandler$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Events$Handlers$IEventHandler$1 = {fullname: "Neptuo.Pipelines.Events.Handlers.IEventHandler$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$Handlers$IEventHandler$1);
-var Neptuo$Events$Handlers$IEventHandlerFactory$1 = {fullname: "Neptuo.Events.Handlers.IEventHandlerFactory$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Events$Handlers$IEventHandlerFactory$1 = {fullname: "Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$Handlers$IEventHandlerFactory$1);
 var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 =
 {
-    fullname: "Neptuo.Events.Handlers.SingletonEventHandlerFactory$1",
+    fullname: "Neptuo.Pipelines.Events.Handlers.SingletonEventHandlerFactory$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Events.Handlers.IEventHandlerFactory$1"],
+    interfaceNames: ["Neptuo.Pipelines.Events.Handlers.IEventHandlerFactory$1"],
     Kind: "Class",
     definition:
     {
@@ -378,7 +378,7 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 =
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("handler"), new Error());
             this.set_Handler(handler);
         },
-        Handler$$: "Neptuo.Events.Handlers.IEventHandler`1[[`0]]",
+        Handler$$: "Neptuo.Pipelines.Events.Handlers.IEventHandler`1[[`0]]",
         get_Handler: function ()
         {
             return this._Handler;
@@ -392,13 +392,13 @@ var Neptuo$Events$Handlers$SingletonEventHandlerFactory$1 =
             return this.get_Handler();
         }
     },
-    ctors: [ {name: "ctor", parameters: ["Neptuo.Events.Handlers.IEventHandler"]}],
+    ctors: [ {name: "ctor", parameters: ["Neptuo.Pipelines.Events.Handlers.IEventHandler"]}],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Events$Handlers$SingletonEventHandlerFactory$1);
-var Neptuo$Events$IEventDispatcher = {fullname: "Neptuo.Events.IEventDispatcher", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Events$IEventDispatcher = {fullname: "Neptuo.Pipelines.Events.IEventDispatcher", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$IEventDispatcher);
-var Neptuo$Events$IEventRegistry = {fullname: "Neptuo.Events.IEventRegistry", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Events$IEventRegistry = {fullname: "Neptuo.Pipelines.Events.IEventRegistry", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Events$IEventRegistry);
 var Neptuo$Lifetimes$Mapping$ILifetimeMapping$1 = {fullname: "Neptuo.Lifetimes.Mapping.ILifetimeMapping$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Lifetimes$Mapping$ILifetimeMapping$1);
