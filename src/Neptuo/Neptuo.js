@@ -3418,15 +3418,15 @@ var Neptuo$Activators$DependencyActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyActivator$1);
-var Neptuo$Activators$Building$IDependencyActivatorContext = {
-    fullname: "Neptuo.Activators.Building.IDependencyActivatorContext",
+var Neptuo$Activators$Building$IDependencyContext = {
+    fullname: "Neptuo.Activators.Building.IDependencyContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$Building$IDependencyActivatorContext);
+JsTypes.push(Neptuo$Activators$Building$IDependencyContext);
 var Neptuo$Activators$_DependencyProviderExtensions = {
     fullname: "Neptuo.Activators._DependencyProviderExtensions",
     baseTypeName: "System.Object",

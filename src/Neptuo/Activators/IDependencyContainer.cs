@@ -17,7 +17,7 @@ namespace Neptuo.Activators
         /// <param name="requiredType">Required type.</param>
         /// <param name="activator">Activator for providing instance.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator);
+        IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyContext> activator);
 
         /// <summary>
         /// Registers mapping from <paramref name="requiredType"/> to <paramref name="activator"/>

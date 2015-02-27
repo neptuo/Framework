@@ -37,6 +37,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activators\Building\IDependencyConfiguration.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
-    <Compile Include="Activators\Building\IDependencyActivatorContext.cs" />
+    <Compile Include="Activators\Building\IDependencyContext.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />

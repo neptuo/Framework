@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Building
 {
-    public class SimpleDefaultActivator : IActivator<object, IDependencyActivatorContext>
+    public class SimpleDefaultActivator : IActivator<object, IDependencyContext>
     {
-        public object Create(IDependencyActivatorContext context)
+        public object Create(IDependencyContext context)
         {
             if (!IsInstantiable(context.ServiceType))
                 return null;
