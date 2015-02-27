@@ -1,10 +1,10 @@
-﻿using Neptuo.Creators.Building;
+﻿using Neptuo.Activators.Building;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.Creators
+namespace Neptuo.Activators
 {
     /// <summary>
     /// Service locator with ability to register services.

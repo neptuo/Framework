@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Creators.Building.Lifetimes
+namespace Neptuo.Activators.Building.Lifetimes
 {
     public class SingletonDependencyMapping : IDependencyMapping
     {

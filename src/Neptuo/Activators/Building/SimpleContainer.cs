@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Creators.Building
+namespace Neptuo.Activators.Building
 {
     public class SimpleContainer : DisposableBase, IDependencyContainer
     {

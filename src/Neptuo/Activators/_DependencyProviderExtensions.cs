@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.Creators
+namespace Neptuo.Activators
 {
     public static class _DependencyProviderExtensions
     {

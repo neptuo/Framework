@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Creators.Building
+namespace Neptuo.Activators.Building
 {
     /// <summary>
     /// Instance provider for dependency container.
