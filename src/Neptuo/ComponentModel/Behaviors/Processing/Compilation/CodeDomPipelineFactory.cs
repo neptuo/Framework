@@ -12,7 +12,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
     /// Generates pipeline using <see cref="System.CodeDom"/>.
     /// </summary>
     /// <typeparam name="T">Base type (or required interface) of generated type.</typeparam>
-    public abstract class CodeDomPipelineFactory<T> : IActivator<T>
+    public class CodeDomPipelineFactory<T> : IActivator<T>
     {
         /// <summary>
         /// Handler type.
@@ -33,14 +33,6 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// Generator configuration.
         /// </summary>
         private readonly CodeDomPipelineConfiguration configuration;
-
-        /// <summary>
-        /// Creates new instance for handler of type <paramref name="handlerType"/>.
-        /// </summary>
-        /// <param name="handlerType">Handler type.</param>
-        public CodeDomPipelineFactory(Type handlerType)
-            : this(handlerType, Engine.Environment.WithBehaviors(), Engine.Environment.WithCodeDomConfiguration())
-        { }
 
         /// <summary>
         /// Creates new instance for handler of type <paramref name="handlerType"/>.

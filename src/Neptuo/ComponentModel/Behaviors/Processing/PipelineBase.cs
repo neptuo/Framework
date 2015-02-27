@@ -13,34 +13,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     /// Integrates execution of behaviors during handler execution.
     /// </summary>
     /// <typeparam name="T">Type of handler.</typeparam>
-    public abstract class PipelineBase<T> : IBehaviorContext
+    public abstract class PipelineBase<T>
     {
-        /// <summary>
-        /// Enumerator for behaviors for type <typeparamref name="T" />
-        /// </summary>
-        private IEnumerator<IBehavior<T>> behaviorEnumerator;
-
-        /// <summary>
-        /// Instance of handler to execute.
-        /// </summary>
-        private T handler;
-
-        /// <summary>
-        /// Backing storage for <see cref="CustomValues"/>.
-        /// </summary>
-        private IKeyValueCollection customValues;
-
-        IKeyValueCollection IBehaviorContext.CustomValues
-        {
-            get
-            {
-                if (customValues == null)
-                    customValues = new KeyValueCollection();
-
-                return customValues;
-            }
-        }
-
         /// <summary>
         /// Gets factory for handlers of type <typeparamref name="T"/>.
         /// </summary>
@@ -54,30 +28,27 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         protected abstract IEnumerable<IBehavior<T>> GetBehaviors();
 
         /// <summary>
-        /// Executed behavior list.
+        /// Should create instance of <see cref="IBehaviorContext"/> for <paramref name="behaviors"/> and <paramref name="handler"/>.
         /// </summary>
-        protected Task ExecutePipeline()
+        /// <param name="behaviors">Enumeration of behaviors for current handler.</param>
+        /// <param name="handler">Inner handler of current pipeline.</param>
+        /// <returns></returns>
+        protected virtual IBehaviorContext GetBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
         {
-            IActivator<T> handlerFactory = GetHandlerFactory();
-            this.handler = handlerFactory.Create();
-
-            behaviorEnumerator = GetBehaviors().GetEnumerator();
-
-            IBehaviorContext context = this;
-            return context.NextAsync();
+            return new DefaultBehaviorContext<T>(behaviors, handler);
         }
 
         /// <summary>
-        /// Moves to next processing to next behavior.
+        /// Executed behavior list.
         /// </summary>
-        Task IBehaviorContext.NextAsync()
+        protected Task ExecutePipelineAsync()
         {
-            // Try to call next behavior in pipeline.
-            if (behaviorEnumerator.MoveNext())
-                return behaviorEnumerator.Current.ExecuteAsync(handler, this);
+            IEnumerable<IBehavior<T>> behaviors = GetBehaviors();
+            IActivator<T> handlerFactory = GetHandlerFactory();
+            T handler = handlerFactory.Create();
 
-            // No more behaviors equal to inability process request this way.
-            return Task.FromResult(false);
+            IBehaviorContext context = GetBehaviorContext(behaviors, handler);
+            return context.NextAsync();
         }
     }
 }

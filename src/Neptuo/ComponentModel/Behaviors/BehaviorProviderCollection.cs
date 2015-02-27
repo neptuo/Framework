@@ -10,7 +10,7 @@ namespace Neptuo.ComponentModel.Behaviors
     /// <summary>
     /// Base implementation using list of providers.
     /// </summary>
-    public class BehaviorCollectionBase : IBehaviorCollection
+    public class BehaviorProviderCollection : IBehaviorCollection
     {
         /// <summary>
         /// List of registered behavior providers.

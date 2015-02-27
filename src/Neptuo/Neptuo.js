@@ -14,20 +14,6 @@ if (typeof($CreateException)=='undefined')
     }
 }
 
-if (typeof ($CreateAnonymousDelegate) == 'undefined') {
-    var $CreateAnonymousDelegate = function (target, func) {
-        if (target == null || func == null)
-            return func;
-        var delegate = function () {
-            return func.apply(target, arguments);
-        };
-        delegate.func = func;
-        delegate.target = target;
-        delegate.isDelegate = true;
-        return delegate;
-    }
-}
-
 function $CombineDelegates(del1,del2)
 {
     if(del1 == null)
@@ -112,6 +98,20 @@ function $RemoveDelegate(delOriginal,delToRemove)
     }
 };
 
+if (typeof ($CreateAnonymousDelegate) == 'undefined') {
+    var $CreateAnonymousDelegate = function (target, func) {
+        if (target == null || func == null)
+            return func;
+        var delegate = function () {
+            return func.apply(target, arguments);
+        };
+        delegate.func = func;
+        delegate.target = target;
+        delegate.isDelegate = true;
+        return delegate;
+    }
+}
+
 if (typeof($CreateDelegate)=='undefined'){
     if(typeof($iKey)=='undefined') var $iKey = 0;
     if(typeof($pKey)=='undefined') var $pKey = String.fromCharCode(1);
@@ -144,14 +144,519 @@ if (typeof($CreateDelegate)=='undefined'){
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var Neptuo$AppServices$Handlers$Behaviors$Processing$Compilation$CodeDomWorkerPipelineHandler$1 = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation.CodeDomWorkerPipelineHandler$1",
+    baseTypeName: "Neptuo.AppServices.Handlers.TransientWorkerHandler",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor$$IBehaviorCollection$$CodeDomPipelineConfiguration: function (T, behaviorCollection, configuration){
+            this.T = T;
+            Neptuo.AppServices.Handlers.TransientWorkerHandler.ctor.call(this, new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactory$1.ctor(Neptuo.AppServices.Handlers.IBackgroundHandler.ctor, Typeof(this.T), behaviorCollection, configuration));
+        },
+        ctor: function (T){
+            this.T = T;
+            Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation.CodeDomWorkerPipelineHandler$1.ctor$$IBehaviorCollection$$CodeDomPipelineConfiguration.call(this, this.T, Neptuo.AppServices._EnvironmentExtensions.WithBehaviors(Neptuo.AppServices._EnvironmentExtensions.WithAppServices(Neptuo.Engine.get_Environment())), Neptuo.AppServices._EnvironmentExtensions.WithCodeDomConfiguration(Neptuo.AppServices._EnvironmentExtensions.WithAppServices(Neptuo.Engine.get_Environment())));
+        }
+    },
+    ctors: [{
+        name: "ctor$$IBehaviorCollection$$CodeDomPipelineConfiguration",
+        parameters: ["Neptuo.ComponentModel.Behaviors.IBehaviorCollection", "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration"]
+    }, {
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Processing$Compilation$CodeDomWorkerPipelineHandler$1);
+var Neptuo$AppServices$Handlers$IServiceHandler = {
+    fullname: "Neptuo.AppServices.Handlers.IServiceHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IDisposable"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$IServiceHandler);
+var Neptuo$AppServices$Handlers$TimerServiceHandler = {
+    fullname: "Neptuo.AppServices.Handlers.TimerServiceHandler",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor$$TimeSpan: function (interval){
+            this.timer = null;
+            this.startDelay = new System.TimeSpan.ctor();
+            this.interval = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.TimerServiceHandler.ctor$$TimeSpan$$TimeSpan.call(this, System.TimeSpan.Zero, interval);
+        },
+        ctor$$TimeSpan$$TimeSpan: function (startDelay, interval){
+            this.timer = null;
+            this.startDelay = new System.TimeSpan.ctor();
+            this.interval = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+            this.timer = new System.Threading.Timer.ctor$$TimerCallback$$Object$$Int32$$Int32($CreateDelegate(this, this.OnInvokeInternal), null, -1, -1);
+            this.startDelay = startDelay;
+            this.interval = interval;
+        },
+        OnInvokeInternal: function (state){
+            this.OnInvoke();
+        },
+        OnStart: function (){
+            this.timer.Change$$TimeSpan$$TimeSpan(this.startDelay, this.interval);
+        },
+        OnStop: function (){
+            this.timer.Change$$Int32$$Int32(-1, -1);
+        },
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            this.timer.Dispose();
+        }
+    },
+    ctors: [{
+        name: "ctor$$TimeSpan",
+        parameters: ["System.TimeSpan"]
+    }, {
+        name: "ctor$$TimeSpan$$TimeSpan",
+        parameters: ["System.TimeSpan", "System.TimeSpan"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$TimerServiceHandler);
+var Neptuo$AppServices$Handlers$Behaviors$Hosting$Reflection$ReflectionReprocessBehaviorInstanceProvider = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection.ReflectionReprocessBehaviorInstanceProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        TryProvide: function (context, behaviorType){
+            if (System.Type.op_Inequality$$Type$$Type(behaviorType, Typeof(Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor)))
+                return null;
+            var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute.ctor, context.get_HandlerType());
+            if (attribute == null)
+                return null;
+            var delay = attribute.get_DelayBeforeReprocess();
+            if (System.TimeSpan.op_Inequality(delay, System.TimeSpan.Zero))
+                return new Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor$$Int32$$TimeSpan(attribute.get_Count(), delay);
+            return new Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor$$Int32(attribute.get_Count());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Hosting$Reflection$ReflectionReprocessBehaviorInstanceProvider);
+var Neptuo$AppServices$Handlers$TransientWorkerHandler = {
+    fullname: "Neptuo.AppServices.Handlers.TransientWorkerHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.AppServices.Handlers.IBackgroundHandler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (activator){
+            this.activator = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(activator, "activator");
+            this.activator = activator;
+        },
+        Invoke: function (){
+            this.activator.Create().Invoke();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.IActivator"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$TransientWorkerHandler);
+var Neptuo$AppServices$Handlers$Behaviors$Processing$WorkerPipelineHandler$1 = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Processing.WorkerPipelineHandler$1",
+    baseTypeName: "Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.AppServices.Handlers.IBackgroundHandler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T){
+            this.T = T;
+            Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1.ctor.call(this, this.T);
+        },
+        GetHandlerFactory: function (){
+            return new Neptuo.DefaultActivator$1.ctor(this.T);
+        },
+        GetBehaviorContext: function (behaviors, handler){
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T(this.T, System.Linq.Enumerable.Concat$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, behaviors, [new Neptuo.AppServices.Handlers.Behaviors.Processing.WorkerPipelineHandler.InvokeBehavior$1.ctor(this.T)]), handler);
+        },
+        Invoke: function (){
+            var result = this.ExecutePipelineAsync();
+            if (!result.get_IsCompleted())
+                result.RunSynchronously();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Processing$WorkerPipelineHandler$1);
+var Neptuo$AppServices$Handlers$Behaviors$Processing$WorkerPipelineHandler$InvokeBehavior$1 = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Processing.WorkerPipelineHandler.InvokeBehavior$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T){
+            this.T = T;
+            System.Object.ctor.call(this);
+        },
+        ExecuteAsync: function (handler, context){
+            handler.Invoke();
+            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Processing$WorkerPipelineHandler$InvokeBehavior$1);
+var Neptuo$AppServices$ServiceHandlerCollection = {
+    fullname: "Neptuo.AppServices.ServiceHandlerCollection",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.services = new System.Collections.Generic.List$1.ctor(Neptuo.AppServices.Handlers.IServiceHandler.ctor);
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+        },
+        Add: function (service){
+            Neptuo.Guard.NotNull$$Object$$String(service, "service");
+            this.services.Add(service);
+            return this;
+        },
+        OnStart: function (){
+            var $it1 = this.services.GetEnumerator();
+            while ($it1.MoveNext()){
+                var service = $it1.get_Current();
+                service.Start();
+            }
+        },
+        OnStop: function (){
+            var $it2 = this.services.GetEnumerator();
+            while ($it2.MoveNext()){
+                var service = $it2.get_Current();
+                service.Stop();
+            }
+        },
+        DisposeManagedResources: function (){
+            var wasRunning = this.get_IsRunning();
+            if (wasRunning)
+                this.Stop();
+            var $it3 = this.services.GetEnumerator();
+            while ($it3.MoveNext()){
+                var service = $it3.get_Current();
+                if (wasRunning)
+                    service.Stop();
+                var disposableService = As(service, Neptuo.IDisposable.ctor);
+                if (disposableService != null)
+                    disposableService.Dispose();
+            }
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$ServiceHandlerCollection);
+var Neptuo$AppServices$DefaultServiceContainer = {
+    fullname: "Neptuo.AppServices.DefaultServiceContainer",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (service){
+            this.service = null;
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(service, "service");
+            this.service = service;
+        },
+        OnStart: function (){
+            this.service.Start();
+        },
+        OnStop: function (){
+            this.service.Stop();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.AppServices.Handlers.IServiceHandler"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$DefaultServiceContainer);
+var Neptuo$AppServices$Handlers$ServiceHandlerBase = {
+    fullname: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.AppServices.Handlers.IServiceHandler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._IsRunning = false;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+        },
+        IsRunning$$: "System.Boolean",
+        get_IsRunning: function (){
+            return this._IsRunning;
+        },
+        set_IsRunning: function (value){
+            this._IsRunning = value;
+        },
+        Start: function (){
+            if (!this.get_IsDisposed() && !this.get_IsRunning()){
+                this.OnStart();
+                this.set_IsRunning(true);
+            }
+        },
+        Stop: function (){
+            if (!this.get_IsDisposed() && this.get_IsRunning()){
+                this.OnStop();
+                this.set_IsRunning(false);
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$ServiceHandlerBase);
+var Neptuo$AppServices$Handlers$ThreadServiceHandler = {
+    fullname: "Neptuo.AppServices.Handlers.ThreadServiceHandler",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.shutDownEvent = new System.Threading.ManualResetEvent.ctor(false);
+            this.stopTimeout = new System.TimeSpan.ctor();
+            this.thread = null;
+            Neptuo.AppServices.Handlers.ThreadServiceHandler.ctor$$TimeSpan.call(this, System.TimeSpan.FromMinutes(1));
+        },
+        ctor$$TimeSpan: function (stopTimeout){
+            this.shutDownEvent = new System.Threading.ManualResetEvent.ctor(false);
+            this.stopTimeout = new System.TimeSpan.ctor();
+            this.thread = null;
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+            this.stopTimeout = stopTimeout;
+        },
+        OnInvokeInternal: function (){
+            this.OnInvoke(this.shutDownEvent);
+        },
+        OnStart: function (){
+            this.thread = new System.Threading.Thread.ctor$$ThreadStart($CreateDelegate(this, this.OnInvokeInternal));
+            this.thread.Start();
+        },
+        OnStop: function (){
+            this.shutDownEvent.Set();
+            try{
+                if (!this.thread.Join$$TimeSpan(this.stopTimeout))
+                    this.thread.Abort();
+            }
+            finally{
+                this.thread = null;
+                this.shutDownEvent.Reset();
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$TimeSpan",
+        parameters: ["System.TimeSpan"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$ThreadServiceHandler);
+var Neptuo$AppServices$Triggers$IServiceTrigger = {
+    fullname: "Neptuo.AppServices.Triggers.IServiceTrigger",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Triggers$IServiceTrigger);
+var Neptuo$AppServices$Triggers$TimerServiceTrigger = {
+    fullname: "Neptuo.AppServices.Triggers.TimerServiceTrigger",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.AppServices.Triggers.IServiceTrigger"],
+    Kind: "Class",
+    definition: {
+        ctor$$TimeSpan: function (interval){
+            this.timer = null;
+            this.startDelay = new System.TimeSpan.ctor();
+            this.interval = new System.TimeSpan.ctor();
+            this.OnTrigger = null;
+            Neptuo.AppServices.Triggers.TimerServiceTrigger.ctor$$TimeSpan$$TimeSpan.call(this, System.TimeSpan.Zero, interval);
+        },
+        add_OnTrigger: function (value){
+            this.OnTrigger = $CombineDelegates(this.OnTrigger, value);
+        },
+        remove_OnTrigger: function (value){
+            this.OnTrigger = $RemoveDelegate(this.OnTrigger, value);
+        },
+        ctor$$TimeSpan$$TimeSpan: function (startDelay, interval){
+            this.timer = null;
+            this.startDelay = new System.TimeSpan.ctor();
+            this.interval = new System.TimeSpan.ctor();
+            this.OnTrigger = null;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            this.timer = new System.Threading.Timer.ctor$$TimerCallback$$Object$$Int32$$Int32($CreateDelegate(this, this.OnTriggerInternal), null, -1, -1);
+            this.startDelay = startDelay;
+            this.interval = interval;
+        },
+        OnTriggerInternal: function (state){
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.OnTrigger, null))
+                this.OnTrigger();
+        },
+        Start: function (){
+            this.timer.Change$$TimeSpan$$TimeSpan(System.TimeSpan.Zero, this.interval);
+        },
+        Stop: function (){
+            this.timer.Change$$Int32$$Int32(-1, -1);
+        },
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            this.timer.Dispose();
+        }
+    },
+    ctors: [{
+        name: "ctor$$TimeSpan",
+        parameters: ["System.TimeSpan"]
+    }, {
+        name: "ctor$$TimeSpan$$TimeSpan",
+        parameters: ["System.TimeSpan", "System.TimeSpan"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Triggers$TimerServiceTrigger);
+var Neptuo$AppServices$WorkerServiceCollection = {
+    fullname: "Neptuo.AppServices.WorkerServiceCollection",
+    baseTypeName: "Neptuo.AppServices.Handlers.ServiceHandlerBase",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.handlers = new System.Collections.Generic.List$1.ctor(System.Collections.Generic.KeyValuePair$2.ctor);
+            Neptuo.AppServices.Handlers.ServiceHandlerBase.ctor.call(this);
+        },
+        AddHandler: function (trigger, worker){
+            Neptuo.Guard.NotNull$$Object$$String(trigger, "trigger");
+            Neptuo.Guard.NotNull$$Object$$String(worker, "worker");
+            this.handlers.Add(new System.Collections.Generic.KeyValuePair$2.ctor$$TKey$$TValue(Neptuo.AppServices.Triggers.IServiceTrigger.ctor, Neptuo.AppServices.Handlers.IBackgroundHandler.ctor, trigger, worker));
+            return this;
+        },
+        OnStart: function (){
+            var $it4 = this.handlers.GetEnumerator();
+            while ($it4.MoveNext()){
+                var handler = $it4.get_Current();
+                handler.get_Key().add_OnTrigger($CreateDelegate(handler.get_Value(), handler.get_Value().Invoke));
+                handler.get_Key().Start();
+            }
+        },
+        OnStop: function (){
+            var $it5 = this.handlers.GetEnumerator();
+            while ($it5.MoveNext()){
+                var handler = $it5.get_Current();
+                handler.get_Key().remove_OnTrigger($CreateDelegate(handler.get_Value(), handler.get_Value().Invoke));
+                handler.get_Key().Stop();
+            }
+        },
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            var $it6 = this.handlers.GetEnumerator();
+            while ($it6.MoveNext()){
+                var handler = $it6.get_Current();
+                var disposableKey = As(handler.get_Key(), Neptuo.IDisposable.ctor);
+                if (disposableKey != null)
+                    disposableKey.Dispose();
+                var disposableValue = As(handler.get_Value(), Neptuo.IDisposable.ctor);
+                if (disposableValue != null)
+                    disposableValue.Dispose();
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$WorkerServiceCollection);
+var Neptuo$AppServices$_WorkerServiceCollectionExtensions = {
+    fullname: "Neptuo.AppServices._WorkerServiceCollectionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddIntervalHandler: function (collection, interval, handler){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
+            return collection.AddHandler(new Neptuo.AppServices.Triggers.TimerServiceTrigger.ctor$$TimeSpan(interval), handler);
+        },
+        AddIntervalDelayedHandler: function (collection, startDelay, interval, handler){
+            Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
+            return collection.AddHandler(new Neptuo.AppServices.Triggers.TimerServiceTrigger.ctor$$TimeSpan$$TimeSpan(startDelay, interval), handler);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$_WorkerServiceCollectionExtensions);
 var Neptuo$Collections$Generic$_DictionaryExtensions = {
     fullname: "Neptuo.Collections.Generic._DictionaryExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         AddRange$2: function (TKey, TValue, target, source){
-            var $it1 = source.GetEnumerator();
-            while ($it1.MoveNext()){
-                var item = $it1.get_Current();
+            var $it7 = source.GetEnumerator();
+            while ($it7.MoveNext()){
+                var item = $it7.get_Current();
                 target.set_Item$$TKey(item.get_Key(), item.get_Value());
             }
         }
@@ -228,6 +733,7 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
     Kind: "Class",
     definition: {
         ctor: function (){
+            this.parentCollection = null;
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor.call(this, System.String.ctor, System.Object.ctor);
         },
@@ -243,24 +749,35 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
             return System.Collections.Generic.Dictionary$2.commonPrototype.get_Keys.call(this);
         },
         ctor$$Int32: function (capacity){
+            this.parentCollection = null;
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor$$Int32.call(this, System.String.ctor, System.Object.ctor, capacity);
         },
         ctor$$IEqualityComparer$1$String: function (comparer){
+            this.parentCollection = null;
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor$$IEqualityComparer$1.call(this, System.String.ctor, System.Object.ctor, comparer);
         },
         ctor$$IDictionary$2$String$Object: function (source){
+            this.parentCollection = null;
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2.call(this, System.String.ctor, System.Object.ctor, source);
         },
+        ctor$$IReadOnlyKeyValueCollection: function (parentCollection){
+            this.parentCollection = null;
+            this._IsReadOnly = false;
+            System.Collections.Generic.Dictionary$2.ctor.call(this, System.String.ctor, System.Object.ctor);
+            Neptuo.Guard.NotNull$$Object$$String(parentCollection, "parentCollection");
+            this.parentCollection = parentCollection;
+        },
         ctor$$NameValueCollection: function (collection){
+            this.parentCollection = null;
             this._IsReadOnly = false;
             System.Collections.Generic.Dictionary$2.ctor.call(this, System.String.ctor, System.Object.ctor);
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
-            var $it2 = collection.get_AllKeys().GetEnumerator();
-            while ($it2.MoveNext()){
-                var key = $it2.get_Current();
+            var $it8 = collection.get_AllKeys().GetEnumerator();
+            while ($it8.MoveNext()){
+                var key = $it8.get_Current();
                 this.Add(key, collection.get_Item$$String(key));
             }
         },
@@ -283,6 +800,10 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
                 return $res;
             }).call(this) && sourceValue != null)
                 return this.ConvertTo$1(T, sourceValue, value);
+            if (this.parentCollection != null){
+                if (this.parentCollection.TryGet$1(T, key, value))
+                    return true;
+            }
             return this.TryGetDefault$1(T, key, value);
         },
         TryGetDefault$1: function (T, key, value){
@@ -322,6 +843,9 @@ var Neptuo$Collections$Specialized$KeyValueCollection = {
     }, {
         name: "ctor$$IDictionary",
         parameters: ["System.Collections.Generic.IDictionary"]
+    }, {
+        name: "ctor$$IReadOnlyKeyValueCollection",
+        parameters: ["Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection"]
     }, {
         name: "ctor$$NameValueCollection",
         parameters: ["System.Collections.Specialized.NameValueCollection"]
@@ -378,9 +902,9 @@ var Neptuo$Collections$Specialized$NameValueDictionary = {
         get_Values: function (){
             if (this.allValues == null){
                 this.allValues = new System.Collections.Generic.List$1.ctor(System.String.ctor);
-                var $it3 = this.source.get_AllKeys().GetEnumerator();
-                while ($it3.MoveNext()){
-                    var key = $it3.get_Current();
+                var $it9 = this.source.get_AllKeys().GetEnumerator();
+                while ($it9.MoveNext()){
+                    var key = $it9.get_Current();
                     this.allValues.Add(this.source.get_Item$$String(key));
                 }
             }
@@ -534,9 +1058,9 @@ var Neptuo$Collections$Specialized$NameValueReadOnlyDictionary = {
         get_Values: function (){
             if (this.allValues == null){
                 this.allValues = new System.Collections.Generic.List$1.ctor(System.String.ctor);
-                var $it4 = this.source.get_AllKeys().GetEnumerator();
-                while ($it4.MoveNext()){
-                    var key = $it4.get_Current();
+                var $it10 = this.source.get_AllKeys().GetEnumerator();
+                while ($it10.MoveNext()){
+                    var key = $it10.get_Current();
                     this.allValues.Add(this.source.get_Item$$String(key));
                 }
             }
@@ -594,9 +1118,9 @@ var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
             this.listenerStorage = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.List$1.ctor);
             Neptuo.Collections.Specialized.KeyValueCollection.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
-            var $it5 = collection.get_AllKeys().GetEnumerator();
-            while ($it5.MoveNext()){
-                var key = $it5.get_Current();
+            var $it11 = collection.get_AllKeys().GetEnumerator();
+            while ($it11.MoveNext()){
+                var key = $it11.get_Current();
                 this.Add(key, collection.get_Item$$String(key));
             }
         },
@@ -646,18 +1170,18 @@ var Neptuo$Collections$Specialized$ProviderKeyValueCollection = {
         },
         Set: function (key, value){
             var result = Neptuo.Collections.Specialized.KeyValueCollection.commonPrototype.Set.call(this, key, value);
-            var $it6 = System.Linq.Enumerable.Concat$1(System.Action$2.ctor, this.GetListeners(key), this.GetListeners(System.String.Empty)).GetEnumerator();
-            while ($it6.MoveNext()){
-                var listener = $it6.get_Current();
+            var $it12 = System.Linq.Enumerable.Concat$1(System.Action$2.ctor, this.GetListeners(key), this.GetListeners(System.String.Empty)).GetEnumerator();
+            while ($it12.MoveNext()){
+                var listener = $it12.get_Current();
                 listener(key, value);
             }
             return result;
         },
         TryGetDefault$1: function (T, key, value){
             Neptuo.Guard.NotNull$$Object$$String(key, "key");
-            var $it7 = System.Linq.Enumerable.Concat$1(Neptuo.OutFunc$3.ctor, this.GetProviders(key), this.GetProviders(System.String.Empty)).GetEnumerator();
-            while ($it7.MoveNext()){
-                var provider = $it7.get_Current();
+            var $it13 = System.Linq.Enumerable.Concat$1(Neptuo.OutFunc$3.ctor, this.GetProviders(key), this.GetProviders(System.String.Empty)).GetEnumerator();
+            while ($it13.MoveNext()){
+                var provider = $it13.get_Current();
                 var valueBase;
                 if ((function (){
                     var $1 = {
@@ -830,8 +1354,8 @@ var Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions);
-var Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase = {
-    fullname: "Neptuo.ComponentModel.Behaviors.BehaviorCollectionBase",
+var Neptuo$ComponentModel$Behaviors$BehaviorProviderCollection = {
+    fullname: "Neptuo.ComponentModel.Behaviors.BehaviorProviderCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehaviorCollection"],
@@ -848,9 +1372,9 @@ var Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase = {
         },
         GetBehaviors: function (handlerType){
             var result = System.Linq.Enumerable.Empty$1(System.Type.ctor);
-            var $it8 = this.providers.GetEnumerator();
-            while ($it8.MoveNext()){
-                var provider = $it8.get_Current();
+            var $it14 = this.providers.GetEnumerator();
+            while ($it14.MoveNext()){
+                var provider = $it14.get_Current();
                 result = System.Linq.Enumerable.Concat$1(System.Type.ctor, result, provider.GetBehaviors(handlerType));
             }
             return result;
@@ -863,44 +1387,537 @@ var Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$ComponentModel$Behaviors$BehaviorCollectionBase);
-var Neptuo$ComponentModel$Behaviors$Processing$_EnvironmentExtensions = {
-    fullname: "Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions",
+JsTypes.push(Neptuo$ComponentModel$Behaviors$BehaviorProviderCollection);
+var Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehaviorContext"],
+    Kind: "Class",
+    definition: {
+        ctor$$IEnumerable$1$$T: function (T, behaviors, handler){
+            this.T = T;
+            this.behaviorEnumerator = null;
+            this.customValues = null;
+            this._Handler = null;
+            this._Behaviors = null;
+            this._NextBehaviorIndex = 0;
+            this._OnNextAsyncWhenNoMoreBehaviors = null;
+            Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32.call(this, this.T, behaviors, handler, 0);
+        },
+        CustomValues$$: "Neptuo.Collections.Specialized.IKeyValueCollection",
+        get_CustomValues: function (){
+            if (this.customValues == null)
+                this.customValues = new Neptuo.Collections.Specialized.KeyValueCollection.ctor();
+            return this.customValues;
+        },
+        set_CustomValues: function (value){
+            this.customValues = value;
+        },
+        Handler$$: "`0",
+        get_Handler: function (){
+            return this._Handler;
+        },
+        set_Handler: function (value){
+            this._Handler = value;
+        },
+        Behaviors$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.ComponentModel.Behaviors.IBehavior`1[[`0]]]]",
+        get_Behaviors: function (){
+            return this._Behaviors;
+        },
+        set_Behaviors: function (value){
+            this._Behaviors = value;
+        },
+        NextBehaviorIndex$$: "System.Int32",
+        get_NextBehaviorIndex: function (){
+            return this._NextBehaviorIndex;
+        },
+        set_NextBehaviorIndex: function (value){
+            this._NextBehaviorIndex = value;
+        },
+        OnNextAsyncWhenNoMoreBehaviors$$: "System.Func`1[[System.Threading.Tasks.Task]]",
+        get_OnNextAsyncWhenNoMoreBehaviors: function (){
+            return this._OnNextAsyncWhenNoMoreBehaviors;
+        },
+        set_OnNextAsyncWhenNoMoreBehaviors: function (value){
+            this._OnNextAsyncWhenNoMoreBehaviors = value;
+        },
+        ctor$$IEnumerable$1$$T$$Int32: function (T, behaviors, handler, behaviorStartOffset){
+            this.T = T;
+            this.behaviorEnumerator = null;
+            this.customValues = null;
+            this._Handler = null;
+            this._Behaviors = null;
+            this._NextBehaviorIndex = 0;
+            this._OnNextAsyncWhenNoMoreBehaviors = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(behaviors, "behaviors");
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
+            Neptuo.Guard.PositiveOrZero(behaviorStartOffset, "behaviorStartOffset");
+            this.set_Handler(handler);
+            this.set_Behaviors(behaviors);
+            this.behaviorEnumerator = behaviors.GetEnumerator();
+            this.set_NextBehaviorIndex(behaviorStartOffset + 1);
+            if (behaviorStartOffset > 0){
+                for (var i = 0; i < behaviorStartOffset; i++){
+                    if (!this.behaviorEnumerator.MoveNext())
+                        break;
+                }
+            }
+        },
+        SetCustomValues: function (customValues){
+            this.customValues = customValues;
+            return this;
+        },
+        SetNextAsyncWhenNoMoreBehaviors: function (nextAsyncWhenNoMoreBehaviors){
+            this.set_OnNextAsyncWhenNoMoreBehaviors(nextAsyncWhenNoMoreBehaviors);
+            return this;
+        },
+        NextAsync: function (){
+            this.set_NextBehaviorIndex(this.get_NextBehaviorIndex() + 1);
+            if (this.behaviorEnumerator.MoveNext())
+                return this.behaviorEnumerator.get_Current().ExecuteAsync(this.get_Handler(), this);
+            return this.NextAsyncWhenNoMoreBehaviors();
+        },
+        NextAsyncWhenNoMoreBehaviors: function (){
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.get_OnNextAsyncWhenNoMoreBehaviors(), null))
+                return this.get_OnNextAsyncWhenNoMoreBehaviors()();
+            return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, false);
+        },
+        Clone: function (){
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T$$Int32(this.T, System.Linq.Enumerable.ToList$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, this.get_Behaviors()), this.get_Handler(), this.get_NextBehaviorIndex() - 1).SetCustomValues(this.get_CustomValues());
+        }
+    },
+    ctors: [{
+        name: "ctor$$IEnumerable$$T",
+        parameters: ["System.Collections.Generic.IEnumerable", "T"]
+    }, {
+        name: "ctor$$IEnumerable$$T$$Int32",
+        parameters: ["System.Collections.Generic.IEnumerable", "T", "System.Int32"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$DefaultBehaviorContext$1);
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomDefaultBehaviorInstanceGenerator = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomDefaultBehaviorInstanceGenerator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        TryGenerate: function (context, behaviorType){
+            if (System.Reflection.ConstructorInfo.op_Equality$$ConstructorInfo$$ConstructorInfo(behaviorType.GetConstructor$$Type$Array(new Array(0)), null))
+                return null;
+            return new System.CodeDom.CodeObjectCreateExpression.ctor$$Type$$CodeExpression$Array(behaviorType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomDefaultBehaviorInstanceGenerator);
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomDefaultContext = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomDefaultContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomContext"],
+    Kind: "Class",
+    definition: {
+        ctor: function (configuration, handlerType){
+            this._Configuration = null;
+            this._HandlerType = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(configuration, "configuration");
+            Neptuo.Guard.NotNull$$Object$$String(handlerType, "handlerType");
+            this.set_Configuration(configuration);
+            this.set_HandlerType(handlerType);
+        },
+        Configuration$$: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration",
+        get_Configuration: function (){
+            return this._Configuration;
+        },
+        set_Configuration: function (value){
+            this._Configuration = value;
+        },
+        HandlerType$$: "System.Type",
+        get_HandlerType: function (){
+            return this._HandlerType;
+        },
+        set_HandlerType: function (value){
+            this._HandlerType = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration", "System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomDefaultContext);
+var Neptuo$ComponentModel$Behaviors$Processing$FuncList$2 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.FuncList$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (TInput, TOutput, handlers){
+            this.TInput = TInput;
+            this.TOutput = TOutput;
+            this.offset = 0;
+            this.delegates = new System.Collections.Generic.List$1.ctor(System.Func$2.ctor);
+            System.Object.ctor.call(this);
+            var $it15 = handlers.GetEnumerator();
+            while ($it15.MoveNext()){
+                var handler = $it15.get_Current();
+                this.delegates.Add(handler);
+                this.offset++;
+            }
+        },
+        Add: function (handler){
+            Neptuo.Guard.NotNull$$Object$$String(handler, "handler");
+            this.delegates.Insert(this.delegates.get_Count() - this.offset, handler);
+            return this;
+        },
+        Execute: function (input){
+            var output;
+            var $it16 = this.delegates.GetEnumerator();
+            while ($it16.MoveNext()){
+                var handler = $it16.get_Current();
+                output = handler(input);
+                if (output != null)
+                    return output;
+            }
+            return Default(this.TOutput);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Func[]"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$FuncList$2);
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$ICodeDomBehaviorInstanceGenerator = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$ICodeDomBehaviorInstanceGenerator);
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$ICodeDomContext = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$ICodeDomContext);
+var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomBehaviorInstanceRegistry = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomBehaviorInstanceRegistry",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.storage = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator.ctor);
+            this.onSearchBuilder = new Neptuo.ComponentModel.Behaviors.Processing.FuncList$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator.ctor, $CreateAnonymousDelegate(this, function (o){
+                return new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomDefaultBehaviorInstanceGenerator.ctor();
+            }));
+            System.Object.ctor.call(this);
+        },
+        AddGenerator: function (behaviorType, generator){
+            Neptuo.Guard.NotNull$$Object$$String(behaviorType, "behaviorType");
+            Neptuo.Guard.NotNull$$Object$$String(generator, "generator");
+            this.storage.set_Item$$TKey(behaviorType, generator);
+            return this;
+        },
+        AddSearchHandler: function (searchHandler){
+            Neptuo.Guard.NotNull$$Object$$String(searchHandler, "searchHandler");
+            this.onSearchBuilder.Add(searchHandler);
+            return this;
+        },
+        TryGenerate: function (context, behaviorType){
+            var generator;
+            if (!(function (){
+                var $1 = {
+                    Value: generator
+                };
+                var $res = this.storage.TryGetValue(behaviorType, $1);
+                generator = $1.Value;
+                return $res;
+            }).call(this))
+                generator = this.onSearchBuilder.Execute(behaviorType);
+            return generator.TryGenerate(context, behaviorType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomBehaviorInstanceRegistry);
+var Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$2 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.MethodInvokePipeline$2",
+    baseTypeName: "Neptuo.ComponentModel.Behaviors.Processing.DefaultPipeline$1",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (THandler, TOutput, collection, behaviorInstance, methodName){
+            this.THandler = THandler;
+            this.TOutput = TOutput;
+            this.methodName = null;
+            Neptuo.ComponentModel.Behaviors.Processing.DefaultPipeline$1.ctor.call(this, this.THandler, collection, behaviorInstance);
+            Neptuo.Guard.NotNullOrEmpty(methodName, "methodName");
+            this.methodName = methodName;
+        },
+        GetBehaviorContext: function (behaviors, handler){
+            return Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1.commonPrototype.GetBehaviorContext.call(this, System.Linq.Enumerable.Concat$1(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor, behaviors, [new Neptuo.ComponentModel.Behaviors.Processing.MethodInvokePipeline.InvokeBehavior$2.ctor(this.THandler, this.TOutput)]), handler);
+        },
+        ExecuteAsync: function (parameters){
+            Neptuo.Guard.NotNull$$Object$$String(parameters, "parameters");
+            var behaviors = this.GetBehaviors();
+            var handlerFactory = this.GetHandlerFactory();
+            var handler = handlerFactory.Create();
+            var context = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetParameters(Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetMethod(this.GetBehaviorContext(behaviors, handler), this.GetMethodInfo()), System.Linq.Enumerable.ToList$1(System.Object.ctor, parameters));
+            void;
+            var output;
+            if (!(function (){
+                var $1 = {
+                    Value: output
+                };
+                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetReturn$1(this.TOutput, context, $1);
+                output = $1.Value;
+                return $res;
+            }).call(this))
+                output = Default(this.TOutput);
+            return output;
+        },
+        GetMethodInfo: function (){
+            return Typeof(this.THandler).GetMethod$$String(this.methodName);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.ComponentModel.Behaviors.IBehaviorCollection", "Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider", "System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$2);
+var Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$InvokeBehavior$2 = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.MethodInvokePipeline.InvokeBehavior$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (THandler, TOutput){
+            this.THandler = THandler;
+            this.TOutput = TOutput;
+            System.Object.ctor.call(this);
+        },
+        ExecuteAsync: function (handler, context){
+            var method;
+            var parameters;
+            if ((function (){
+                var $1 = {
+                    Value: method
+                };
+                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetMethod(context, $1);
+                method = $1.Value;
+                return $res;
+            }).call(this) && (function (){
+                var $1 = {
+                    Value: parameters
+                };
+                var $res = Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.TryGetTargetParameters(context, $1);
+                parameters = $1.Value;
+                return $res;
+            }).call(this)){
+                var result = method.Invoke$$Object$$Object$Array(handler, parameters.ToArray());
+                var taskResult = As(result, System.Threading.Tasks.Task.ctor);
+                if (taskResult != null){
+                    throw $CreateException(new System.NotImplementedException.ctor(), new Error());
+                }
+                if (System.Type.op_Inequality$$Type$$Type(Typeof(System.Void.ctor), method.get_ReturnType())){
+                    Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(context, result);
+                    return System.Threading.Tasks.Task.FromResult$1(System.Object.ctor, result);
+                }
+                Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions.SetTargetReturn(context, null);
+                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
+            }
+            return context.NextAsync();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$MethodInvokePipeline$InvokeBehavior$2);
+var Neptuo$ComponentModel$Behaviors$Processing$Reflection$DefaultReflectionBehaviorInstanceProvider = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.DefaultReflectionBehaviorInstanceProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        TryProvide: function (context, behaviorType){
+            return System.Activator.CreateInstance$$Type(behaviorType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Reflection$DefaultReflectionBehaviorInstanceProvider);
+var Neptuo$ComponentModel$Behaviors$Processing$Reflection$IReflectionBehaviorInstanceProvider = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Reflection$IReflectionBehaviorInstanceProvider);
+var Neptuo$ComponentModel$Behaviors$Processing$Reflection$IReflectionContext = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Reflection$IReflectionContext);
+var Neptuo$ComponentModel$Behaviors$Processing$Reflection$DefaultReflectionContext = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.DefaultReflectionContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionContext"],
+    Kind: "Class",
+    definition: {
+        ctor: function (handlerType){
+            this._HandlerType = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(handlerType, "handlerType");
+            this.set_HandlerType(handlerType);
+        },
+        HandlerType$$: "System.Type",
+        get_HandlerType: function (){
+            return this._HandlerType;
+        },
+        set_HandlerType: function (value){
+            this._HandlerType = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Reflection$DefaultReflectionContext);
+var Neptuo$ComponentModel$Behaviors$Processing$Reflection$ReflectionBehaviorInstanceRegistry = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Processing.Reflection.ReflectionBehaviorInstanceRegistry",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.storage = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider.ctor);
+            this.onSearchBuilder = new Neptuo.ComponentModel.Behaviors.Processing.FuncList$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider.ctor, $CreateAnonymousDelegate(this, function (o){
+                return new Neptuo.ComponentModel.Behaviors.Processing.Reflection.DefaultReflectionBehaviorInstanceProvider.ctor();
+            }));
+            System.Object.ctor.call(this);
+        },
+        AddProvider: function (behaviorType, provider){
+            Neptuo.Guard.NotNull$$Object$$String(behaviorType, "behaviorType");
+            Neptuo.Guard.NotNull$$Object$$String(provider, "provider");
+            this.storage.set_Item$$TKey(behaviorType, provider);
+            return this;
+        },
+        AddSearchHandler: function (searchHandler){
+            Neptuo.Guard.NotNull$$Object$$String(searchHandler, "searchHandler");
+            this.onSearchBuilder.Add(searchHandler);
+            return this;
+        },
+        TryProvide: function (context, behaviorType){
+            var provider;
+            if (!(function (){
+                var $1 = {
+                    Value: provider
+                };
+                var $res = this.storage.TryGetValue(behaviorType, $1);
+                provider = $1.Value;
+                return $res;
+            }).call(this))
+                provider = this.onSearchBuilder.Execute(behaviorType);
+            return provider.TryProvide(context, behaviorType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Reflection$ReflectionBehaviorInstanceRegistry);
+var Neptuo$ComponentModel$Behaviors$_BehaviorContextExtensions = {
+    fullname: "Neptuo.ComponentModel.Behaviors._BehaviorContextExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        UseBehaviors$$EngineEnvironment$$IBehaviorCollection: function (environment, behaviors){
-            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
-            return environment.Use$1(Neptuo.ComponentModel.Behaviors.IBehaviorCollection.ctor, behaviors, null);
+        TryGetTargetMethod: function (context, method){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            return context.get_CustomValues().TryGet$1(System.Reflection.MethodInfo.ctor, "TargetMethod", method);
         },
-        UseBehaviors$$EngineEnvironment$$IBehaviorProvider$Array: function (environment, providers){
-            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
-            Neptuo.Guard.NotNull$$Object$$String(providers, "providers");
-            var collection = new Neptuo.ComponentModel.Behaviors.BehaviorCollectionBase.ctor();
-            var $it9 = providers.GetEnumerator();
-            while ($it9.MoveNext()){
-                var provider = $it9.get_Current();
-                collection.Add(provider);
-            }
-            return Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.UseBehaviors$$EngineEnvironment$$IBehaviorCollection(environment, collection);
+        SetTargetMethod: function (context, method){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            context.get_CustomValues().Set("TargetMethod", method);
+            return context;
         },
-        UseBehaviors$$EngineEnvironment$$Action$1$InterfaceBehaviorProvider: function (environment, mapper){
-            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
-            Neptuo.Guard.NotNull$$Object$$String(mapper, "mapper");
-            var provider = new Neptuo.ComponentModel.Behaviors.Providers.InterfaceBehaviorProvider.ctor();
-            mapper(provider);
-            return Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.UseBehaviors$$EngineEnvironment$$IBehaviorProvider$Array(environment, provider);
+        TryGetTargetParameters: function (context, parameters){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            return context.get_CustomValues().TryGet$1(System.Collections.Generic.List$1.ctor, "TargetParameters", parameters);
         },
-        WithBehaviors: function (environment){
-            return environment.With$1(Neptuo.ComponentModel.Behaviors.IBehaviorCollection.ctor, null);
+        SetTargetParameters: function (context, parameters){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            context.get_CustomValues().Set("TargetParameters", parameters);
+            return context;
         },
-        UseCodeDomConfiguration$$EngineEnvironment$$CodeDomPipelineConfiguration: function (environment, configuration){
-            return environment.Use$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, configuration, null);
+        TryGetTargetReturn$1: function (TOutput, context, output){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            return context.get_CustomValues().TryGet$1(TOutput, "TargetReturn", output);
         },
-        UseCodeDomConfiguration$$EngineEnvironment$$String$$String$Array: function (environment, tempDirectory, bindDirectories){
-            return environment.Use$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor$$String$$String$Array(tempDirectory, bindDirectories), null);
-        },
-        WithCodeDomConfiguration: function (environment){
-            return environment.With$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, null);
+        SetTargetReturn: function (context, output){
+            Neptuo.Guard.NotNull$$Object$$String(context, "context");
+            context.get_CustomValues().Set("TargetReturn", output);
+            return context;
         }
     },
     assemblyName: "Neptuo",
@@ -913,7 +1930,99 @@ var Neptuo$ComponentModel$Behaviors$Processing$_EnvironmentExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$_EnvironmentExtensions);
+JsTypes.push(Neptuo$ComponentModel$Behaviors$_BehaviorContextExtensions);
+var Neptuo$AppServices$_EnvironmentExtensions = {
+    fullname: "Neptuo.AppServices._EnvironmentExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        UseAppServices: function (environment){
+            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
+            return new Neptuo.AppServices._EnvironmentExtensions.AppServiceEngineEnvironment.ctor(environment);
+        },
+        UseBehaviors$$AppServiceEngineEnvironment$$IBehaviorCollection: function (appService, behaviors){
+            Neptuo.Guard.NotNull$$Object$$String(appService, "appService");
+            appService.get_Environment().Use$1(Neptuo.ComponentModel.Behaviors.IBehaviorCollection.ctor, behaviors, "AppService.Behaviors");
+            return appService;
+        },
+        UseBehaviors$$AppServiceEngineEnvironment$$IBehaviorProvider$Array: function (appService, providers){
+            Neptuo.Guard.NotNull$$Object$$String(appService, "appService");
+            Neptuo.Guard.NotNull$$Object$$String(appService, "environment");
+            Neptuo.Guard.NotNull$$Object$$String(providers, "providers");
+            var collection = new Neptuo.ComponentModel.Behaviors.BehaviorProviderCollection.ctor();
+            var $it17 = providers.GetEnumerator();
+            while ($it17.MoveNext()){
+                var provider = $it17.get_Current();
+                collection.Add(provider);
+            }
+            return Neptuo.AppServices._EnvironmentExtensions.UseBehaviors$$AppServiceEngineEnvironment$$IBehaviorCollection(appService, collection);
+        },
+        UseBehaviors$$AppServiceEngineEnvironment$$Action$1$InterfaceBehaviorProvider: function (appService, mapper){
+            Neptuo.Guard.NotNull$$Object$$String(appService, "appService");
+            Neptuo.Guard.NotNull$$Object$$String(appService, "environment");
+            Neptuo.Guard.NotNull$$Object$$String(mapper, "mapper");
+            var provider = new Neptuo.ComponentModel.Behaviors.Providers.InterfaceBehaviorProvider.ctor();
+            mapper(provider);
+            return Neptuo.AppServices._EnvironmentExtensions.UseBehaviors$$AppServiceEngineEnvironment$$IBehaviorProvider$Array(appService, provider);
+        },
+        WithAppServices: function (environment){
+            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
+            return new Neptuo.AppServices._EnvironmentExtensions.AppServiceEngineEnvironment.ctor(environment);
+        },
+        WithBehaviors: function (appService){
+            Neptuo.Guard.NotNull$$Object$$String(appService, "appService");
+            return appService.get_Environment().With$1(Neptuo.ComponentModel.Behaviors.IBehaviorCollection.ctor, "AppService.Behaviors");
+        },
+        UseCodeDomConfiguration$$AppServiceEngineEnvironment$$CodeDomPipelineConfiguration: function (appService, configuration){
+            Neptuo.Guard.NotNull$$Object$$String(appService, "appService");
+            appService.get_Environment().Use$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, configuration, "AppService.CodeDomConfiguration");
+            return appService;
+        },
+        UseCodeDomConfiguration$$AppServiceEngineEnvironment$$Type$$String$$String$Array: function (appService, baseType, tempDirectory, binDirectories){
+            return Neptuo.AppServices._EnvironmentExtensions.UseCodeDomConfiguration$$AppServiceEngineEnvironment$$CodeDomPipelineConfiguration(appService, new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor$$Type$$String$$String$Array(baseType, tempDirectory, binDirectories));
+        },
+        WithCodeDomConfiguration: function (appService){
+            return appService.get_Environment().With$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, null);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$_EnvironmentExtensions);
+var Neptuo$AppServices$_EnvironmentExtensions$AppServiceEngineEnvironment = {
+    fullname: "Neptuo.AppServices._EnvironmentExtensions.AppServiceEngineEnvironment",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (environment){
+            this._Environment = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(environment, "environment");
+            this.set_Environment(environment);
+        },
+        Environment$$: "Neptuo.EngineEnvironment",
+        get_Environment: function (){
+            return this._Environment;
+        },
+        set_Environment: function (value){
+            this._Environment = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.EngineEnvironment"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$_EnvironmentExtensions$AppServiceEngineEnvironment);
 var Neptuo$ComponentModel$Behaviors$IBehavior$1 = {
     fullname: "Neptuo.ComponentModel.Behaviors.IBehavior$1",
     baseTypeName: "System.Object",
@@ -936,6 +2045,7 @@ var Neptuo$ComponentModel$Behaviors$IBehaviorContext = {
     fullname: "Neptuo.ComponentModel.Behaviors.IBehaviorContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ICloneable$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -950,6 +2060,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineConfig
         ctor$$String$$String$Array: function (tempDirectory, binDirectories){
             this._TempDirectory = null;
             this._BaseType = null;
+            this._BehaviorInstance = null;
             Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor$$Type$$String$$String$Array.call(this, Typeof(Neptuo.ComponentModel.Behaviors.Processing.DefaultPipelineBase$1.ctor), tempDirectory, binDirectories);
         },
         TempDirectory$$: "System.String",
@@ -966,19 +2077,28 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineConfig
         set_BaseType: function (value){
             this._BaseType = value;
         },
+        BehaviorInstance$$: "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomBehaviorInstanceRegistry",
+        get_BehaviorInstance: function (){
+            return this._BehaviorInstance;
+        },
+        set_BehaviorInstance: function (value){
+            this._BehaviorInstance = value;
+        },
         ctor$$Type$$String$$String$Array: function (baseType, tempDirectory, binDirectories){
             this._TempDirectory = null;
             this._BaseType = null;
+            this._BehaviorInstance = null;
             Neptuo.Compilers.CompilerConfiguration.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(baseType, "baseType");
             Neptuo.Guard.NotNullOrEmpty(tempDirectory, "tempDirectory");
             this.set_BaseType(baseType);
             this.set_TempDirectory(tempDirectory);
+            this.set_BehaviorInstance(new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomBehaviorInstanceRegistry.ctor());
             if (!System.IO.Directory.Exists(this.get_TempDirectory()))
                 System.IO.Directory.CreateDirectory$$String(this.get_TempDirectory());
-            var $it10 = binDirectories.GetEnumerator();
-            while ($it10.MoveNext()){
-                var binDirectory = $it10.get_Current();
+            var $it18 = binDirectories.GetEnumerator();
+            while ($it18.MoveNext()){
+                var binDirectory = $it18.get_Current();
                 this.get_References().AddDirectory(binDirectory);
             }
         }
@@ -1001,15 +2121,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactor
     interfaceNames: ["Neptuo.IActivator$1"],
     Kind: "Class",
     definition: {
-        ctor$$Type: function (T, handlerType){
-            this.T = T;
-            this.handlerType = null;
-            this.generatedFactory = null;
-            this.behaviorCollection = null;
-            this.configuration = null;
-            Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineFactory$1.ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration.call(this, this.T, handlerType, Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithBehaviors(Neptuo.Engine.get_Environment()), Neptuo.ComponentModel.Behaviors.Processing._EnvironmentExtensions.WithCodeDomConfiguration(Neptuo.Engine.get_Environment()));
-        },
-        ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration: function (T, handlerType, behaviorCollection, configuration){
+        ctor: function (T, handlerType, behaviorCollection, configuration){
             this.T = T;
             this.handlerType = null;
             this.generatedFactory = null;
@@ -1041,14 +2153,11 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactor
         }
     },
     ctors: [{
-        name: "ctor$$Type",
-        parameters: ["System.Type"]
-    }, {
-        name: "ctor$$Type$$IBehaviorCollection$$CodeDomPipelineConfiguration",
+        name: "ctor",
         parameters: ["System.Type", "Neptuo.ComponentModel.Behaviors.IBehaviorCollection", "Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration"]
     }
     ],
-    IsAbstract: true
+    IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineFactory$1);
 var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenerator = {
@@ -1066,8 +2175,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenera
             this.handlerType = null;
             this.behaviorCollection = null;
             this.compilerFactory = null;
-            this.tempDirectory = null;
-            this.baseType = null;
+            this.configuration = null;
             System.Object.ctor.call(this);
             Neptuo.Guard.NotNull$$Object$$String(handlerType, "handlerType");
             Neptuo.Guard.NotNull$$Object$$String(behaviorCollection, "behaviorCollection");
@@ -1075,8 +2183,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenera
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
             this.compilerFactory = new Neptuo.Compilers.CompilerFactory.ctor$$CompilerConfiguration(configuration);
-            this.tempDirectory = configuration.get_TempDirectory();
-            this.baseType = configuration.get_BaseType();
+            this.configuration = configuration;
         },
         GeneratePipeline: function (){
             var unit = this.CreateUnit();
@@ -1100,7 +2207,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenera
         CreateType: function (){
             var type = new System.CodeDom.CodeTypeDeclaration.ctor$$String(this.FormatPipelineTypeName());
             if (System.Reflection.ConstructorInfo.op_Inequality$$ConstructorInfo$$ConstructorInfo(this.handlerType.GetConstructor$$Type$Array(new Array(0)), null))
-                type.get_BaseTypes().Add$$Type(this.baseType.MakeGenericType(this.handlerType));
+                type.get_BaseTypes().Add$$Type(this.configuration.get_BaseType().MakeGenericType(this.handlerType));
             else
                 throw $CreateException(new System.NotSupportedException.ctor$$String("Currently supported only parameterless behavior constructors."), new Error());
             return type;
@@ -1116,22 +2223,23 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenera
             var resultListType = Typeof(System.Collections.Generic.List$1.ctor).MakeGenericType(Typeof(Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor).MakeGenericType(this.handlerType));
             method.get_Statements().Add$$CodeStatement(new System.CodeDom.CodeVariableDeclarationStatement.ctor$$Type$$String$$CodeExpression(resultListType, "result", new System.CodeDom.CodeObjectCreateExpression.ctor$$Type$$CodeExpression$Array(resultListType)));
             var behaviorTypes = this.behaviorCollection.GetBehaviors(this.handlerType);
-            var $it11 = behaviorTypes.GetEnumerator();
-            while ($it11.MoveNext()){
-                var behaviorType = $it11.get_Current();
+            var context = new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomDefaultContext.ctor(this.configuration, this.handlerType);
+            var $it19 = behaviorTypes.GetEnumerator();
+            while ($it19.MoveNext()){
+                var behaviorType = $it19.get_Current();
                 method.get_Statements().Add$$CodeExpression(new System.CodeDom.CodeMethodInvokeExpression.ctor$$CodeExpression$$String$$CodeExpression$Array(new System.CodeDom.CodeVariableReferenceExpression.ctor$$String("result"), Neptuo.Linq.Expressions.TypeHelper.MethodName$2$$Expression$1(System.Collections.Generic.IList$1.ctor, System.Object.ctor, $CreateAnonymousDelegate(this, function (l){
                     return $CreateDelegate(l, l.Add);
-                })), new System.CodeDom.CodeObjectCreateExpression.ctor$$Type$$CodeExpression$Array(behaviorType)));
+                })), (this.configuration.get_BehaviorInstance().TryGenerate(context, behaviorType) != null ? this.configuration.get_BehaviorInstance().TryGenerate(context, behaviorType) : new System.CodeDom.CodeObjectCreateExpression.ctor$$Type$$CodeExpression$Array(behaviorType))));
             }
             method.get_Statements().Add$$CodeStatement(new System.CodeDom.CodeMethodReturnStatement.ctor$$CodeExpression(new System.CodeDom.CodeVariableReferenceExpression.ctor$$String("result")));
         },
         CompileCodeUnit: function (unit){
             var compiler = this.compilerFactory.CreateStatic();
-            var assemblyFilePath = System.IO.Path.Combine$$String$$String(this.tempDirectory, this.FormatAssemblyFileName());
+            var assemblyFilePath = System.IO.Path.Combine$$String$$String(this.configuration.get_TempDirectory(), this.FormatAssemblyFileName());
             var result = compiler.FromUnit(unit, assemblyFilePath);
             if (!result.get_IsSuccess()){
                 var provider = System.CodeDom.Compiler.CodeDomProvider.CreateProvider$$String("CSharp");
-                var sourceCodePath = System.IO.Path.Combine$$String$$String(this.tempDirectory, this.FormatSourceCodeFileName());
+                var sourceCodePath = System.IO.Path.Combine$$String$$String(this.configuration.get_TempDirectory(), this.FormatSourceCodeFileName());
                 var writer = new System.IO.StreamWriter.ctor$$String(sourceCodePath);
                 try{
                     provider.GenerateCodeFromCompileUnit(unit, writer, new System.CodeDom.Compiler.CodeGeneratorOptions.ctor());
@@ -1187,21 +2295,20 @@ var Neptuo$ComponentModel$Behaviors$Processing$PipelineBase$1 = {
     fullname: "Neptuo.ComponentModel.Behaviors.Processing.PipelineBase$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehaviorContext"],
     Kind: "Class",
     definition: {
         ctor: function (T){
             this.T = T;
-            this.behaviorEnumerator = null;
-            this.handler = null;
-            this.customValues = null;
             System.Object.ctor.call(this);
         },
-        ExecutePipeline: function (){
+        GetBehaviorContext: function (behaviors, handler){
+            return new Neptuo.ComponentModel.Behaviors.DefaultBehaviorContext$1.ctor$$IEnumerable$1$$T(this.T, behaviors, handler);
+        },
+        ExecutePipelineAsync: function (){
+            var behaviors = this.GetBehaviors();
             var handlerFactory = this.GetHandlerFactory();
-            this.handler = handlerFactory.Create();
-            this.behaviorEnumerator = this.GetBehaviors().GetEnumerator();
-            var context = this;
+            var handler = handlerFactory.Create();
+            var context = this.GetBehaviorContext(behaviors, handler);
             return context.NextAsync();
         }
     },
@@ -1291,27 +2398,31 @@ var Neptuo$ComponentModel$Behaviors$Processing$DefaultPipeline$1 = {
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
-        ctor: function (T, collection){
+        ctor: function (T, collection, behaviorInstance){
             this.T = T;
             this.collection = null;
+            this.behaviorInstance = null;
             Neptuo.ComponentModel.Behaviors.Processing.DefaultPipelineBase$1.ctor.call(this, this.T);
             Neptuo.Guard.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Guard.NotNull$$Object$$String(behaviorInstance, "behaviorInstance");
             this.collection = collection;
+            this.behaviorInstance = behaviorInstance;
         },
         GetBehaviors: function (){
             var $yield = [];
+            var context = new Neptuo.ComponentModel.Behaviors.Processing.Reflection.DefaultReflectionContext.ctor(Typeof(this.T));
             var behaviorTypes = this.collection.GetBehaviors(Typeof(this.T));
-            var $it12 = behaviorTypes.GetEnumerator();
-            while ($it12.MoveNext()){
-                var behaviorType = $it12.get_Current();
-                $yield.push(Cast(System.Activator.CreateInstance$$Type(behaviorType), Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor));
+            var $it20 = behaviorTypes.GetEnumerator();
+            while ($it20.MoveNext()){
+                var behaviorType = $it20.get_Current();
+                $yield.push(Cast(this.behaviorInstance.TryProvide(context, behaviorType), Neptuo.ComponentModel.Behaviors.IBehavior$1.ctor));
             }
             return $yield;
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.ComponentModel.Behaviors.IBehaviorCollection"]
+        parameters: ["Neptuo.ComponentModel.Behaviors.IBehaviorCollection", "Neptuo.ComponentModel.Behaviors.Processing.Reflection.IReflectionBehaviorInstanceProvider"]
     }
     ],
     IsAbstract: false
@@ -1325,6 +2436,15 @@ var Neptuo$ComponentModel$Behaviors$Providers$AttributeBehaviorProvider = {
     definition: {
         ctor: function (){
             Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.ctor.call(this);
+        },
+        AddMapping: function (behaviorContract, behaviorImplementation){
+            this.AddMappingInternal(behaviorContract, behaviorImplementation);
+            return this;
+        },
+        FindBehaviors: function (handlerType){
+            return System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.Object.ctor, System.Type.ctor, handlerType.GetCustomAttributes$$Boolean(true), $CreateAnonymousDelegate(this, function (a){
+                return a.GetType();
+            }));
         }
     },
     ctors: [{
@@ -1368,9 +2488,9 @@ var Neptuo$ComponentModel$Behaviors$Providers$InterfaceBehaviorProvider = {
         GetBehaviorInternal: function (handlerType, storage){
             var $yield = [];
             var behaviorImplementation;
-            var $it13 = handlerType.GetInterfaces().GetEnumerator();
-            while ($it13.MoveNext()){
-                var interfaceType = $it13.get_Current();
+            var $it21 = handlerType.GetInterfaces().GetEnumerator();
+            while ($it21.MoveNext()){
+                var interfaceType = $it21.get_Current();
                 if ((function (){
                     var $1 = {
                         Value: behaviorImplementation
@@ -1527,9 +2647,9 @@ var Neptuo$ComponentModel$Converters$CollectionConverter$1 = {
             var hasError = false;
             var result = new System.Collections.Generic.List$1.ctor(this.TItemTarget);
             var sourceValues = this.SplitSourceValue(sourceValue);
-            var $it14 = sourceValues.GetEnumerator();
-            while ($it14.MoveNext()){
-                var itemValue = $it14.get_Current();
+            var $it22 = sourceValues.GetEnumerator();
+            while ($it22.MoveNext()){
+                var itemValue = $it22.get_Current();
                 var item;
                 if ((function (){
                     var $1 = {
@@ -2324,6 +3444,41 @@ var Neptuo$DependencyNamedActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$DependencyNamedActivator$1);
+var Neptuo$ICloneable$1 = {
+    fullname: "Neptuo.ICloneable$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ICloneable$1);
+var Neptuo$InstanceActivator$1 = {
+    fullname: "Neptuo.InstanceActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, instance){
+            this.T = T;
+            this.instance = null;
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(instance, "instance");
+            this.instance = instance;
+        },
+        Create: function (){
+            return this.instance;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["T"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$InstanceActivator$1);
 var Neptuo$Pipelines$Commands$CommandDispatcherException = {
     fullname: "Neptuo.Pipelines.Commands.CommandDispatcherException",
     baseTypeName: "Neptuo.Pipelines.Commands.CommandException",
@@ -3046,9 +4201,9 @@ var Neptuo$Pipelines$Commands$Interception$AttributeInterceptorProvider = {
             return result;
         },
         AppendInterceptors: function (source, result){
-            var $it15 = source.GetCustomAttributes$$Boolean(true).GetEnumerator();
-            while ($it15.MoveNext()){
-                var attribute = $it15.get_Current();
+            var $it23 = source.GetCustomAttributes$$Boolean(true).GetEnumerator();
+            while ($it23.MoveNext()){
+                var attribute = $it23.get_Current();
                 var interceptor = As(attribute, Neptuo.Pipelines.Commands.Interception.IDecoratedInvoke.ctor);
                 if (interceptor != null)
                     result.Add(interceptor);
@@ -3182,9 +4337,9 @@ var Neptuo$Pipelines$Commands$Interception$ManualInterceptorProvider = {
             }).call(this))
                 interceptorFactories = new System.Collections.Generic.List$1.ctor(System.Func$2.ctor);
             var result = new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Commands.Interception.IDecoratedInvoke.ctor);
-            var $it16 = interceptorFactories.GetEnumerator();
-            while ($it16.MoveNext()){
-                var interceptorFactory = $it16.get_Current();
+            var $it24 = interceptorFactories.GetEnumerator();
+            while ($it24.MoveNext()){
+                var interceptorFactory = $it24.get_Current();
                 result.Add(interceptorFactory(this.dependencyProvider));
             }
             return result;
@@ -3620,6 +4775,170 @@ var Neptuo$Pipelines$Replying$_RequestDispatcherExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Pipelines$Replying$_RequestDispatcherExtensions);
+var Neptuo$AppServices$Handlers$Behaviors$ReprocessAttribute = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute",
+    baseTypeName: "System.Attribute",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute.DefaultReprocessCount = 3;
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Count = 0;
+            this._DelayBeforeReprocess = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute.ctor$$Int32.call(this, 3);
+        },
+        Count$$: "System.Int32",
+        get_Count: function (){
+            return this._Count;
+        },
+        set_Count: function (value){
+            this._Count = value;
+        },
+        DelayBeforeReprocess$$: "System.TimeSpan",
+        get_DelayBeforeReprocess: function (){
+            return this._DelayBeforeReprocess;
+        },
+        set_DelayBeforeReprocess: function (value){
+            this._DelayBeforeReprocess = value;
+        },
+        ctor$$Int32: function (count){
+            this._Count = 0;
+            this._DelayBeforeReprocess = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute.ctor$$Int32$$Double.call(this, count, 0);
+        },
+        ctor$$Int32$$Double: function (count, delayBeforeReprocess){
+            this._Count = 0;
+            this._DelayBeforeReprocess = new System.TimeSpan.ctor();
+            System.Attribute.ctor.call(this);
+            Neptuo.Guard.PositiveOrZero(count, "count");
+            this.set_Count(count);
+            this.set_DelayBeforeReprocess(System.TimeSpan.FromMilliseconds(delayBeforeReprocess));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Int32",
+        parameters: ["System.Int32"]
+    }, {
+        name: "ctor$$Int32$$Double",
+        parameters: ["System.Int32", "System.Double"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$ReprocessAttribute);
+var Neptuo$AppServices$Handlers$Behaviors$Hosting$Compilation$CodeDomReprocessBehaviorInstanceGenerator = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation.CodeDomReprocessBehaviorInstanceGenerator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.Processing.Compilation.ICodeDomBehaviorInstanceGenerator"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        TryGenerate: function (context, behaviorType){
+            if (System.Type.op_Inequality$$Type$$Type(behaviorType, Typeof(Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor)))
+                return null;
+            var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute$1$$MemberInfo(Neptuo.AppServices.Handlers.Behaviors.ReprocessAttribute.ctor, context.get_HandlerType());
+            if (attribute == null)
+                return null;
+            var delay = attribute.get_DelayBeforeReprocess().get_TotalMilliseconds();
+            if (delay > 0){
+                return new System.CodeDom.CodeObjectCreateExpression.ctor$$CodeTypeReference$$CodeExpression$Array(new System.CodeDom.CodeTypeReference.ctor$$Type(Typeof(Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor)), new System.CodeDom.CodePrimitiveExpression.ctor$$Object(attribute.get_Count()), new System.CodeDom.CodeMethodInvokeExpression.ctor$$CodeExpression$$String$$CodeExpression$Array(new System.CodeDom.CodeTypeReferenceExpression.ctor$$Type(Typeof(System.TimeSpan.ctor)), "FromMilliseconds", new System.CodeDom.CodePrimitiveExpression.ctor$$Object(delay)));
+            }
+            return new System.CodeDom.CodeObjectCreateExpression.ctor$$CodeTypeReference$$CodeExpression$Array(new System.CodeDom.CodeTypeReference.ctor$$Type(Typeof(Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor)), new System.CodeDom.CodePrimitiveExpression.ctor$$Object(attribute.get_Count()));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Hosting$Compilation$CodeDomReprocessBehaviorInstanceGenerator);
+var Neptuo$AppServices$Handlers$Behaviors$Hosting$ReprocessBehavior = {
+    fullname: "Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.DefaultReprocessCount = 3;
+        }
+    },
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.Behaviors.IBehavior$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.count = 0;
+            this.deplayBeforeReprocess = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor$$Int32.call(this, 3);
+        },
+        ctor$$Int32: function (count){
+            this.count = 0;
+            this.deplayBeforeReprocess = new System.TimeSpan.ctor();
+            Neptuo.AppServices.Handlers.Behaviors.Hosting.ReprocessBehavior.ctor$$Int32$$TimeSpan.call(this, count, System.TimeSpan.Zero);
+        },
+        ctor$$Int32$$TimeSpan: function (count, deplayBeforeReprocess){
+            this.count = 0;
+            this.deplayBeforeReprocess = new System.TimeSpan.ctor();
+            System.Object.ctor.call(this);
+            Neptuo.Guard.PositiveOrZero(count, "count");
+            this.count = count;
+            this.deplayBeforeReprocess = deplayBeforeReprocess;
+        },
+        ExecuteAsync$$Object$$IBehaviorContext: function (handler, context){
+            return this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, context, this.count);
+        },
+        ExecuteAsync$$Object$$IBehaviorContext$$Int32: function (handler, context, remaingCount){
+            var contextState = context.Clone();
+            try{
+                return context.NextAsync();
+            }
+            catch(e){
+                remaingCount--;
+                if (remaingCount > 0){
+                    var delay = Cast(this.deplayBeforeReprocess.get_TotalMilliseconds(), System.Int32.ctor);
+                    if (delay > 0)
+                        System.Threading.Thread.Sleep$$Int32(delay);
+                    var result = this.ExecuteAsync$$Object$$IBehaviorContext$$Int32(handler, contextState, remaingCount);
+                    context.set_CustomValues(contextState.get_CustomValues());
+                    return result;
+                }
+                throw $CreateException(e, new Error());
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Int32",
+        parameters: ["System.Int32"]
+    }, {
+        name: "ctor$$Int32$$TimeSpan",
+        parameters: ["System.Int32", "System.TimeSpan"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$AppServices$Handlers$Behaviors$Hosting$ReprocessBehavior);
+var Neptuo$AppServices$Handlers$IBackgroundHandler = {
+    fullname: "Neptuo.AppServices.Handlers.IBackgroundHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$AppServices$Handlers$IBackgroundHandler);
 var Neptuo$_DependencyProviderExtensions = {
     fullname: "Neptuo._DependencyProviderExtensions",
     baseTypeName: "System.Object",
@@ -4707,9 +6026,9 @@ var Neptuo$Globalization$CultureInfoExtensions = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it17 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it17.MoveNext()){
-                var item = $it17.get_Current();
+            var $it25 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it25.MoveNext()){
+                var item = $it25.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -5150,9 +6469,9 @@ var Neptuo$Reflection$DefaultReflectionService = {
                     searchIn = this.EnumerateAssemblies();
                 }
             }
-            var $it18 = searchIn.GetEnumerator();
-            while ($it18.MoveNext()){
-                var assembly = $it18.get_Current();
+            var $it26 = searchIn.GetEnumerator();
+            while ($it26.MoveNext()){
+                var assembly = $it26.get_Current();
                 var type = assembly.GetType$$String(typeName);
                 if (System.Type.op_Inequality$$Type$$Type(type, null))
                     return type;
@@ -5221,9 +6540,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it19 = type.GetProperties().GetEnumerator();
-            while ($it19.MoveNext()){
-                var prop = $it19.get_Current();
+            var $it27 = type.GetProperties().GetEnumerator();
+            while ($it27.MoveNext()){
+                var prop = $it27.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -5438,9 +6757,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Guard.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it20 = items.GetEnumerator();
-            while ($it20.MoveNext()){
-                var item = $it20.get_Current();
+            var $it28 = items.GetEnumerator();
+            while ($it28.MoveNext()){
+                var item = $it28.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -5911,9 +7230,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it21 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it21.MoveNext()){
-                var defaultAttribute = $it21.get_Current();
+            var $it29 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it29.MoveNext()){
+                var defaultAttribute = $it29.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -5923,9 +7242,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it22 = this.get_Attributes().GetEnumerator();
-            while ($it22.MoveNext()){
-                var attribute = $it22.get_Current();
+            var $it30 = this.get_Attributes().GetEnumerator();
+            while ($it30.MoveNext()){
+                var attribute = $it30.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -6092,9 +7411,9 @@ var Neptuo$Tokens$TokenParser = {
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
                 var newLines = this.GetNewLineIndexes(content);
-                var $it23 = results.GetEnumerator();
-                while ($it23.MoveNext()){
-                    var result = $it23.get_Current();
+                var $it31 = results.GetEnumerator();
+                while ($it31.MoveNext()){
+                    var result = $it31.get_Current();
                     var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
                     var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
                     result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
@@ -6718,9 +8037,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it24 = this.items.GetEnumerator();
-            while ($it24.MoveNext()){
-                var item = $it24.get_Current();
+            var $it32 = this.items.GetEnumerator();
+            while ($it32.MoveNext()){
+                var item = $it32.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -6730,9 +8049,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it25 = this.items.GetEnumerator();
-            while ($it25.MoveNext()){
-                var item = $it25.get_Current();
+            var $it33 = this.items.GetEnumerator();
+            while ($it33.MoveNext()){
+                var item = $it33.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$$IReadOnlyKeyValueCollection$$String$$String(tokenMapper, item.get_Value(), ""));
                 else

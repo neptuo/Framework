@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
 {
     /// <summary>
-    /// Configuration <see cref="CodeDomPipelineFactoryBase"/>.
+    /// Configuration <see cref="CodeDomPipelineFactory{T}"/>.
     /// </summary>
     public class CodeDomPipelineConfiguration : CompilerConfiguration
     {
@@ -24,6 +24,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         public Type BaseType { get; private set; }
 
         /// <summary>
+        /// Registry for behavior instance generators.
+        /// </summary>
+        public CodeDomBehaviorInstanceRegistry BehaviorInstance { get; private set; }
+
+        /// <summary>
         /// Creates new instance of configuration class.
         /// </summary>
         /// <param name="tempDirectory">Path to temp directory.</param>
@@ -35,7 +40,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Creates new instance of configuration class.
         /// </summary>
-        /// <param name="baseType">Custom base type (extending <see cref="DefaultPipelineBase{1}"/>).</param>
+        /// <param name="baseType">Custom base type (extending <see cref="DefaultPipelineBase{T}"/>).</param>
         /// <param name="tempDirectory">Path to temp directory.</param>
         /// <param name="binDirectories">List of bin directories to add as references.</param>
         public CodeDomPipelineConfiguration(Type baseType, string tempDirectory, params string[] binDirectories)
@@ -44,6 +49,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             Guard.NotNullOrEmpty(tempDirectory, "tempDirectory");
             BaseType = baseType;
             TempDirectory = tempDirectory;
+            BehaviorInstance = new CodeDomBehaviorInstanceRegistry();
 
             if (!Directory.Exists(TempDirectory))
                 Directory.CreateDirectory(TempDirectory);

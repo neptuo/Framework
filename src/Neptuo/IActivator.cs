@@ -10,7 +10,7 @@ namespace Neptuo
     /// Activator for <typeparamref name="T"/>
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
-    public interface IActivator<T>
+    public interface IActivator<out T>
     {
         /// <summary>
         /// Creates service of type <typeparamref name="T"/>.

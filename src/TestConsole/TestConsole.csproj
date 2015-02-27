@@ -59,7 +59,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppServices\TempCheckServiceHandler.cs" />
+    <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
+    <Compile Include="Cloning\TestCloning.cs" />
     <Compile Include="Collections\TestKeyValue.cs" />
     <Compile Include="Commands\CreateProductCommand.cs" />
     <Compile Include="Commands\CreateProductCommandHandler.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
+    <Compile Include="ObjectSizes\TestObjectSize.cs" />
     <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
     <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
@@ -101,6 +105,7 @@
     <Compile Include="Queries\ProductModel.cs" />
     <Compile Include="Queries\TestQueries.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
+    <Compile Include="AppServices\TestAppServices.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
   </ItemGroup>

@@ -10,12 +10,12 @@ namespace Neptuo.ComponentModel.Behaviors
     /// <summary>
     /// Provides access to currently executing pipeline.
     /// </summary>
-    public interface IBehaviorContext
+    public interface IBehaviorContext : ICloneable<IBehaviorContext>
     {
         /// <summary>
         /// Collection of custom context values.
         /// </summary>
-        IKeyValueCollection CustomValues { get; }
+        IKeyValueCollection CustomValues { get; set; }
 
         /// <summary>
         /// Promotes execution to next behavior in pipeline.

@@ -28,33 +28,29 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Target handler type.
         /// </summary>
-        private Type handlerType;
+        private readonly Type handlerType;
 
         /// <summary>
         /// Behavior collection.
         /// </summary>
-        private IBehaviorCollection behaviorCollection;
+        private readonly IBehaviorCollection behaviorCollection;
 
         /// <summary>
         /// Factory for code compilers.
         /// </summary>
-        private CompilerFactory compilerFactory;
+        private readonly CompilerFactory compilerFactory;
 
         /// <summary>
-        /// Directory for storing temp compilation files.
+        /// Configuration.
         /// </summary>
-        private readonly string tempDirectory;
-
-        /// <summary>
-        /// Base type generated pipeline.
-        /// </summary>
-        private readonly Type baseType;
+        private readonly CodeDomPipelineConfiguration configuration;
 
         /// <summary>
         /// Creates new instance for <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
+        /// <param name="configuration">Generator configuration.</param>
         public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
             Guard.NotNull(handlerType, "handlerType");
@@ -63,8 +59,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
             this.compilerFactory = new CompilerFactory(configuration);
-            this.tempDirectory = configuration.TempDirectory;
-            this.baseType = configuration.BaseType;
+            this.configuration = configuration;
         }
 
         /// <summary>
@@ -106,7 +101,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         }
 
         /// <summary>
-        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase<>"/>.
+        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase{T}"/>.
         /// </summary>
         /// <returns>Empty pipeline type.</returns>
         private CodeTypeDeclaration CreateType()
@@ -114,7 +109,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             CodeTypeDeclaration type = new CodeTypeDeclaration(FormatPipelineTypeName());
 
             if (handlerType.GetConstructor(new Type[0]) != null)
-                type.BaseTypes.Add(baseType.MakeGenericType(handlerType));
+                type.BaseTypes.Add(configuration.BaseType.MakeGenericType(handlerType));
             else
                 throw new NotSupportedException("Currently supported only parameterless behavior constructors.");
 
@@ -148,12 +143,13 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             ));
 
             IEnumerable<Type> behaviorTypes = behaviorCollection.GetBehaviors(handlerType);
+            ICodeDomContext context = new CodeDomDefaultContext(configuration, handlerType);
             foreach (Type behaviorType in behaviorTypes)
             {
                 method.Statements.Add(new CodeMethodInvokeExpression(
                     new CodeVariableReferenceExpression(resultListName),
                     TypeHelper.MethodName<IList<object>, object>(l => l.Add),
-                    new CodeObjectCreateExpression(behaviorType)
+                    configuration.BehaviorInstance.TryGenerate(context, behaviorType) ?? new CodeObjectCreateExpression(behaviorType)
                 ));
             }
 
@@ -171,14 +167,14 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         {
             IStaticCompiler compiler = compilerFactory.CreateStatic();
 
-            string assemblyFilePath = Path.Combine(tempDirectory, FormatAssemblyFileName());
+            string assemblyFilePath = Path.Combine(configuration.TempDirectory, FormatAssemblyFileName());
             ICompilerResult result = compiler.FromUnit(unit, assemblyFilePath);
             if (!result.IsSuccess)
             {
                 // Save source code if compilation was not successfull.
 
                 CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                string sourceCodePath = Path.Combine(tempDirectory, FormatSourceCodeFileName());
+                string sourceCodePath = Path.Combine(configuration.TempDirectory, FormatSourceCodeFileName());
 
                 using (StreamWriter writer = new StreamWriter(sourceCodePath))
                 {
