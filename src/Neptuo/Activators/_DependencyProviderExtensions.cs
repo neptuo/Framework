@@ -9,13 +9,13 @@ namespace Neptuo.Activators
     {
         public static T Resolve<T>(this IDependencyProvider provider)
         {
-            return (T)provider.Resolve(typeof(T), null);
+            return (T)provider.TryResolve(typeof(T), null);
         }
 
         public static T Resolve<T>(this IDependencyProvider provider, string name)
         {
             Guard.NotNullOrEmpty(name, "name");
-            return (T)provider.Resolve(typeof(T), name);
+            return (T)provider.TryResolve(typeof(T), name);
         }
 
         public static IEnumerable<T> ResolveAll<T>(this IDependencyProvider provider)
@@ -25,7 +25,7 @@ namespace Neptuo.Activators
 
         public static object Resolve(this IDependencyProvider provider, Type type)
         {
-            return provider.Resolve(type, null);
+            return provider.TryResolve(type, null);
         }
     }
         

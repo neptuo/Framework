@@ -3432,17 +3432,17 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
     baseTypeName: "System.Object",
     staticDefinition: {
         Resolve$1$$IDependencyProvider: function (T, provider){
-            return Cast(provider.Resolve(Typeof(T), null), T);
+            return Cast(provider.TryResolve(Typeof(T), null), T);
         },
         Resolve$1$$IDependencyProvider$$String: function (T, provider, name){
             Neptuo.Guard.NotNullOrEmpty(name, "name");
-            return Cast(provider.Resolve(Typeof(T), name), T);
+            return Cast(provider.TryResolve(Typeof(T), name), T);
         },
         ResolveAll$1: function (T, provider){
             return Cast(provider.ResolveAll(Typeof(T)), System.Collections.Generic.IEnumerable$1.ctor);
         },
         Resolve$$IDependencyProvider$$Type: function (provider, type){
-            return provider.Resolve(type, null);
+            return provider.TryResolve(type, null);
         }
     },
     assemblyName: "Neptuo",

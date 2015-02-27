@@ -12,13 +12,14 @@ namespace Neptuo.Activators
     {
         private readonly Dictionary<Type, IActivator<object>> mappings = new Dictionary<Type, IActivator<object>>();
         private readonly Dictionary<Type, IActivator<object, IDependencyActivatorContext>> mappingsWithContext = new Dictionary<Type, IActivator<object, IDependencyActivatorContext>>();
+        private readonly IActivator<object, IDependencyActivatorContext> defaultActivator = new SimpleDefaultActivator();
 
-        public IDependencyContainer RegisterMapping(Type requiredType, IActivator<object> activator)
+        public IDependencyContainer AddMapping(Type requiredType, IActivator<object> activator)
         {
             throw new NotImplementedException();
         }
 
-        public IDependencyContainer RegisterMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator)
+        public IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator)
         {
             throw new NotImplementedException();
         }
@@ -28,9 +29,23 @@ namespace Neptuo.Activators
             throw new NotImplementedException();
         }
 
-        public object Resolve(Type requiredType, string name)
+        public object TryResolve(Type requiredType, string name)
         {
-            throw new NotImplementedException();
+            IActivator<object> activator;
+            if (mappings.TryGetValue(requiredType, out activator))
+                return activator.Create();
+
+            IDependencyActivatorContext context = CreateContext(requiredType, name);
+            IActivator<object, IDependencyActivatorContext> activatorWithContext;
+            if (!mappingsWithContext.TryGetValue(requiredType, out activatorWithContext))
+                activatorWithContext = defaultActivator;
+
+            return activatorWithContext.Create(context);
+        }
+
+        private IDependencyActivatorContext CreateContext(Type requiredType, string name)
+        {
+            throw Guard.Exception.NotImplemented();
         }
 
         public IEnumerable<object> ResolveAll(Type requiredType)

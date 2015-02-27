@@ -69,7 +69,7 @@ namespace Neptuo.ObjectBuilder
             return new DependencyContainer(new DependencyRegistry(Registry.CopyRegistries()), LifetimeMapping);
         }
 
-        public object Resolve(Type t, string name)
+        public object TryResolve(Type t, string name)
         {
             string key = GetKey(t);
             DependencyRegistryItem item = Registry.GetByKey(key, name);
@@ -113,7 +113,7 @@ namespace Neptuo.ObjectBuilder
             ParameterInfo[] parameterDefinitions = item.Constructor.GetParameters();
             object[] parameters = new object[parameterDefinitions.Length];
             for (int i = 0; i < parameterDefinitions.Length; i++)
-                parameters[i] = Resolve(parameterDefinitions[i].ParameterType, null);
+                parameters[i] = TryResolve(parameterDefinitions[i].ParameterType, null);
 
             instance = item.Constructor.Invoke(parameters);
             item.LifetimeManager.SetValue(instance);

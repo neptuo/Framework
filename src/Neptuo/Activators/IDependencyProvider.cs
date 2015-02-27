@@ -21,9 +21,9 @@ namespace Neptuo.Activators
         /// Resolves instance of <paramref name="requiredType"/>.
         /// </summary>
         /// <param name="requiredType">Required type.</param>
-        /// <param name="name">Optional type.</param>
-        /// <returns>Instance of <paramref name="requiredType"/>.</returns>
-        object Resolve(Type requiredType, string name);
+        /// <param name="name">Optional name.</param>
+        /// <returns>Instance of <paramref name="requiredType"/>; if it's not possible to create instance, return <c>null</c>.</returns>
+        object TryResolve(Type requiredType, string name);
 
         /// <summary>
         /// Resolves all instances of <paramref name="requiredType"/>.

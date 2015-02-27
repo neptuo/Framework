@@ -38,7 +38,7 @@ namespace TestConsole.BootstrapTasks
                 .RegisterInstance(Console.Out)
                 .RegisterInstance(Engine.Environment);
 
-            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => (IBootstrapTask)dependencyContainer.Resolve(task));
+            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => (IBootstrapTask)dependencyContainer.TryResolve(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
             bootstrapper.Register<Sequence.HelloBootstrapTask>();
             bootstrapper.Initialize();

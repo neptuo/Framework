@@ -15,14 +15,16 @@ namespace Neptuo.Activators
         /// Registers mapping from <paramref name="requiredType"/> to <paramref name="activator"/>
         /// </summary>
         /// <param name="requiredType">Required type.</param>
+        /// <param name="activator">Activator for providing instance.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer RegisterMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator);
+        IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyActivatorContext> activator);
 
         /// <summary>
         /// Registers mapping from <paramref name="requiredType"/> to <paramref name="activator"/>
         /// </summary>
         /// <param name="requiredType">Required type.</param>
+        /// <param name="activator">Activator for providing instance.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer RegisterMapping(Type requiredType, IActivator<object> activator);
+        IDependencyContainer AddMapping(Type requiredType, IActivator<object> activator);
     }
 }

@@ -59,7 +59,7 @@ namespace Neptuo.Unity
             return new UnityDependencyContainer(UnityContainer.CreateChildContainer(), LifetimeMapping);
         }
 
-        public object Resolve(Type t, string name)
+        public object TryResolve(Type t, string name)
         {
             return UnityContainer.Resolve(t, name);
         }
