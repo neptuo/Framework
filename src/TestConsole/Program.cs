@@ -19,6 +19,7 @@ using TestConsole.Delegates;
 using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
+using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
 using TestConsole.Threading;
 using TestConsole.Tokens;
@@ -45,7 +46,8 @@ namespace TestConsole
             //TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
-            TestBehaviors.Test();
+            //TestBehaviors.Test();
+            TestObjectSize.Test();
 
 
             Console.ReadKey(true);
