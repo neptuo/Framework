@@ -126,7 +126,7 @@
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\Building\Lifetimes\SingletonDependencyMapping.cs" />
-    <Compile Include="DefaultActivator.cs" />
+    <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\Building\SimpleContainer.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\Building\IDependencyMapping.cs" />
@@ -134,7 +134,7 @@
     <Compile Include="Activators\Building\SimpleContainerScopeMetadata.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="ICloneable.cs" />
-    <Compile Include="InstanceActivator.cs" />
+    <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
     <Compile Include="Pipelines\Commands\CommandException.cs" />
     <Compile Include="Pipelines\Commands\DependencyCommandDispatcher.cs" />

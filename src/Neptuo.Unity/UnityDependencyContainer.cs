@@ -1,4 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
+using Neptuo.Activators;
+using Neptuo.ComponentModel;
 using Neptuo.Lifetimes;
 using Neptuo.Lifetimes.Mapping;
 using System;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Unity
 {
-    public class UnityDependencyContainer : IDependencyContainer, ILifetimeMapping<LifetimeManager>
+    public class UnityDependencyContainer : DisposableBase, IDependencyContainer, ILifetimeMapping<LifetimeManager>
     {
         protected bool IsChildMappingCreated { get; set; }
         protected IUnityContainer UnityContainer { get; private set; }
@@ -83,6 +85,12 @@ namespace Neptuo.Unity
         void ILifetimeMapping<LifetimeManager>.Map(Type lifetimeType, ILifetimeMapper<LifetimeManager> mapper)
         {
             Map(lifetimeType, mapper);
+        }
+
+        protected override void DisposeManagedResources()
+        {
+            base.DisposeManagedResources();
+            UnityContainer.Dispose();
         }
     }
 

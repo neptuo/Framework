@@ -1,4 +1,5 @@
-﻿using Neptuo.Linq.Expressions;
+﻿using Neptuo.Activators;
+using Neptuo.Linq.Expressions;
 using Neptuo.Pipelines.Queries.Handlers;
 using System;
 using System.Collections.Generic;

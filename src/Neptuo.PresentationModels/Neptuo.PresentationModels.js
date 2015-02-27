@@ -1191,7 +1191,7 @@ var Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory = {
     fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.IActivator$1"],
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo
+namespace Neptuo.Activators
 {
     /// <summary>
     /// Implementation of <see cref="IActivator{T}"/> for types with parameterless constructor.

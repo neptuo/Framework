@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Collections.Specialized;
+using Neptuo.Activators;
 
 namespace Neptuo.ComponentModel.Behaviors.Processing
 {
