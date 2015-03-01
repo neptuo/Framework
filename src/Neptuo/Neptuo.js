@@ -144,6 +144,16 @@ if (typeof($CreateDelegate)=='undefined'){
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var Neptuo$Activators$Building$IDependencyConfiguration = {
+    fullname: "Neptuo.Activators.Building.IDependencyConfiguration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$Building$IDependencyConfiguration);
 var Neptuo$AppServices$Handlers$Behaviors$Processing$Compilation$CodeDomWorkerPipelineHandler$1 = {
     fullname: "Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation.CodeDomWorkerPipelineHandler$1",
     baseTypeName: "Neptuo.AppServices.Handlers.TransientWorkerHandler",

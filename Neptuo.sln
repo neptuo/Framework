@@ -78,7 +78,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "src\TestWpf\Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FeatureModels", "src\Neptuo.FeatureModels\Neptuo.FeatureModels.csproj", "{0120DA88-14CE-4213-8339-97F796248B32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", "Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj", "{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", "src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj", "{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
