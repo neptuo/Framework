@@ -12,19 +12,12 @@ namespace Neptuo.Activators
     public interface IDependencyContainer : IDependencyProvider
     {
         /// <summary>
-        /// Registers mapping from <paramref name="requiredType"/> to <paramref name="activator"/>
+        /// Registers mapping from <paramref name="requiredType"/> to <paramref name="target"/>
         /// </summary>
         /// <param name="requiredType">Required type.</param>
-        /// <param name="activator">Activator for providing instance.</param>
+        /// <param name="lifetime">Lifetime of created instance.</param>
+        /// <param name="target">Any supported target object.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyContext> activator);
-
-        /// <summary>
-        /// Registers mapping from <paramref name="requiredType"/> to <paramref name="activator"/>
-        /// </summary>
-        /// <param name="requiredType">Required type.</param>
-        /// <param name="activator">Activator for providing instance.</param>
-        /// <returns>Self (fluently).</returns>
-        IDependencyContainer AddMapping(Type requiredType, IActivator<object> activator);
+        IDependencyContainer AddMapping(Type requiredType, DependencyLifetime lifetime, object target);
     }
 }

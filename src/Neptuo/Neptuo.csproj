@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activators\Building\IDependencyConfiguration.cs" />
+    <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />

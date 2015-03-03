@@ -80,6 +80,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FeatureModels", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", "src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj", "{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Unity", "src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj", "{A9D02667-9762-4C91-A403-41DE7B8A4EFE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -202,6 +204,10 @@ Global
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

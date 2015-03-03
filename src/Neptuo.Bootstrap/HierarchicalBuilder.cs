@@ -22,7 +22,7 @@ namespace Neptuo.Bootstrap
         public IHierarchicalBuilderConstraint WithActivator(IDependencyProvider dependencyProvider)
         {
             Guard.NotNull(dependencyProvider, "dependencyProvider");
-            activator = type => (IBootstrapTask)dependencyProvider.TryResolve(type, null);
+            activator = type => (IBootstrapTask)dependencyProvider.Resolve(type, null);
             return this;
         }
 

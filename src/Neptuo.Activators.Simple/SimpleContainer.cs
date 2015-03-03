@@ -24,7 +24,7 @@ namespace Neptuo.Activators
             throw new NotImplementedException();
         }
 
-        public IDependencyContainer BeginScope(string name)
+        public IDependencyContainer Scope(string name)
         {
             throw new NotImplementedException();
         }
