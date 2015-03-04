@@ -221,9 +221,12 @@ var Neptuo$Activators$_DependencyContainerExtensions = {
             Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
             return mapping.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
         },
-        ToType: function (mapping, targetType){
+        ToType$$IDependencyTargetMapping$$Type: function (mapping, targetType){
             Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
             return mapping.To(targetType);
+        },
+        ToType$1$$IDependencyTargetMapping: function (TTarget, mapping){
+            return Neptuo.Activators._DependencyContainerExtensions.ToType$$IDependencyTargetMapping$$Type(mapping, Typeof(TTarget));
         },
         ToActivator$1: function (TTarget, mapping, activator){
             Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
@@ -281,6 +284,9 @@ var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
         },
         To: function (target){
             return this.dependencyContainer.AddMapping(this.requiredType, this.lifetime, target);
+        },
+        ToSelf: function (){
+            return this.To(this.requiredType);
         }
     },
     ctors: [{

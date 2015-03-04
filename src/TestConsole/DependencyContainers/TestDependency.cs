@@ -20,7 +20,9 @@ namespace TestConsole.DependencyContainers
         private static void TestUnity()
         {
             IDependencyContainer container = new UnityDependencyContainer()
-                .AddMapping();
+                .Add<IHelloService>().InTransient().ToType<HiService>()
+                .Add<IMessageWriter>().InNamedScope("Root").ToType<ConsoleWriter>()
+                .Add<Presenter>().InTransient().ToSelf();
         }
 
         static void TestPerf()

@@ -16,6 +16,7 @@ namespace Neptuo.Activators
         public interface IDependencyTargetMapping
         {
             IDependencyContainer To(object target);
+            IDependencyContainer ToSelf();
         }
 
         internal class DependencyRegistration : IDependencyScopeMapping, IDependencyTargetMapping
@@ -40,6 +41,11 @@ namespace Neptuo.Activators
             public IDependencyContainer To(object target)
             {
                 return dependencyContainer.AddMapping(requiredType, lifetime, target);
+            }
+
+            public IDependencyContainer ToSelf()
+            {
+                return To(requiredType);
             }
         }
 
@@ -85,6 +91,11 @@ namespace Neptuo.Activators
         {
             Guard.NotNull(mapping, "mapping");
             return mapping.To(targetType);
+        }
+
+        public static IDependencyContainer ToType<TTarget>(this IDependencyTargetMapping mapping)
+        {
+            return ToType(mapping, typeof(TTarget));
         }
 
         public static IDependencyContainer ToActivator<TTarget>(this IDependencyTargetMapping mapping, IActivator<TTarget> activator)
