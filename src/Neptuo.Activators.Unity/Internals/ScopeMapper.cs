@@ -14,9 +14,6 @@ namespace Neptuo.Activators.Internals
             if (lifetime.IsTransient)
                 return new TransientLifetimeManager();
 
-            if (lifetime.IsSingleton)
-                return new SingletonLifetimeManager();   
-
             if (lifetime.IsScoped)
                 return new HierarchicalLifetimeManager();
 

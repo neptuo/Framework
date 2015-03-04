@@ -12,7 +12,7 @@ namespace Neptuo.Activators.Internals
         public SingletonLifetimeManager()
         { }
 
-        public SingletonLifetimeManager(T instance)
+        public SingletonLifetimeManager(object instance)
         {
             SetValue(instance);
         }
