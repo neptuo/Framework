@@ -199,6 +199,98 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
+var Neptuo$Activators$_DependencyContainerExtensions = {
+    fullname: "Neptuo.Activators._DependencyContainerExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        Add$$IDependencyContainer$$Type: function (dependencyContainer, requiredType){
+            return new Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration.ctor(dependencyContainer, requiredType);
+        },
+        Add$1$$IDependencyContainer: function (TRequired, dependencyContainer){
+            return Neptuo.Activators._DependencyContainerExtensions.Add$$IDependencyContainer$$Type(dependencyContainer, Typeof(TRequired));
+        },
+        InTransient: function (mapping){
+            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
+            return mapping.In(Neptuo.Activators.DependencyLifetime.Transient);
+        },
+        InAnyScope: function (mapping){
+            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
+            return mapping.In(Neptuo.Activators.DependencyLifetime.AnyScope);
+        },
+        InNamedScope: function (mapping, scopeName){
+            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
+            return mapping.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
+        },
+        ToType: function (mapping, targetType){
+            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
+            return mapping.To(targetType);
+        },
+        ToActivator$1: function (TTarget, mapping, activator){
+            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
+            return mapping.To(activator);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions);
+var Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping = {
+    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping);
+var Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping = {
+    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping);
+var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
+    fullname: "Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping", "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping"],
+    Kind: "Class",
+    definition: {
+        ctor: function (dependencyContainer, requiredType){
+            this.dependencyContainer = null;
+            this.requiredType = null;
+            this.lifetime = new Neptuo.Activators.DependencyLifetime.ctor();
+            System.Object.ctor.call(this);
+            Neptuo.Guard.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            this.dependencyContainer = dependencyContainer;
+            this.requiredType = requiredType;
+        },
+        In: function (lifetime){
+            this.lifetime = lifetime;
+            return this;
+        },
+        To: function (target){
+            return this.dependencyContainer.AddMapping(this.requiredType, this.lifetime, target);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Activators.IDependencyContainer", "System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration);
 var Neptuo$AppServices$Handlers$Behaviors$Processing$Compilation$CodeDomWorkerPipelineHandler$1 = {
     fullname: "Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation.CodeDomWorkerPipelineHandler$1",
     baseTypeName: "Neptuo.AppServices.Handlers.TransientWorkerHandler",
@@ -3462,7 +3554,7 @@ var Neptuo$Activators$DependencyActivator$1 = {
             this.dependencyProvider = dependencyProvider;
         },
         Create: function (){
-            return Neptuo.Activators._DependencyProviderExtensions.Resolve$1(this.T, this.dependencyProvider);
+            return Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(this.T, this.dependencyProvider);
         }
     },
     ctors: [{
@@ -3486,8 +3578,13 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
     fullname: "Neptuo.Activators._DependencyProviderExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        Resolve$1: function (T, provider){
-            return Cast(provider.Resolve(Typeof(T)), T);
+        Resolve$1$$IDependencyProvider: function (T, dependencyProvider){
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            return Cast(dependencyProvider.Resolve(Typeof(T)), T);
+        },
+        Resolve$1$$IDependencyProvider$$Type: function (T, dependencyProvider, requiredType){
+            Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            return Cast(dependencyProvider.Resolve(requiredType), T);
         }
     },
     assemblyName: "Neptuo",
@@ -3501,20 +3598,6 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$_DependencyProviderExtensions);
-var Neptuo$Activators$_DependencyContainerExtensions = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions);
 var Neptuo$ICloneable$1 = {
     fullname: "Neptuo.ICloneable$1",
     baseTypeName: "System.Object",
@@ -3649,7 +3732,7 @@ var Neptuo$Pipelines$Commands$DependencyCommandDispatcher = {
         HandleInternal: function (command, handleException){
             var executor = null;
             try{
-                var executorFactory = Neptuo.Activators._DependencyProviderExtensions.Resolve$1(Neptuo.Pipelines.Commands.Execution.ICommandExecutorFactory.ctor, this.dependencyProvider);
+                var executorFactory = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Pipelines.Commands.Execution.ICommandExecutorFactory.ctor, this.dependencyProvider);
                 executor = executorFactory.CreateExecutor(command);
                 executor.add_OnCommandHandled($CreateDelegate(this, this.OnCommandHandled));
                 executor.Handle(command);
@@ -4776,7 +4859,7 @@ var Neptuo$Pipelines$Replying$DependencyRequestDispatcher = {
             this.dependencyProvider = dependencyProvider;
         },
         ExecuteAsync$2: function (TInput, TOutput, request){
-            var handler = Neptuo.Activators._DependencyProviderExtensions.Resolve$1(Neptuo.Pipelines.Replying.Handlers.IRequestHandler$2.ctor, this.dependencyProvider);
+            var handler = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Pipelines.Replying.Handlers.IRequestHandler$2.ctor, this.dependencyProvider);
             return handler.HandleAsync(request);
         }
     },
@@ -8176,7 +8259,7 @@ var Neptuo$Validators$DependencyValidationDispatcher = {
             var validatable = As(model, Neptuo.DomainModels.IValidatableModel.ctor);
             if (validatable != null && validatable.get_IsValid())
                 return new Neptuo.Validators.ValidationResultBase.ctor$$Boolean(true);
-            var validator = Neptuo.Activators._DependencyProviderExtensions.Resolve$1(Neptuo.Validators.IValidationHandler$1.ctor, this.dependencyProvider);
+            var validator = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validators.IValidationHandler$1.ctor, this.dependencyProvider);
             var result = validator.Validate(model);
             if (validatable != null)
                 validatable.set_IsValid(result.get_IsValid());

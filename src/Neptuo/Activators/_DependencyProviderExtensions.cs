@@ -7,56 +7,16 @@ namespace Neptuo.Activators
 {
     public static class _DependencyProviderExtensions
     {
-        public static T Resolve<T>(this IDependencyProvider provider)
+        public static T Resolve<T>(this IDependencyProvider dependencyProvider)
         {
-            return (T)provider.Resolve(typeof(T));
+            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            return (T)dependencyProvider.Resolve(typeof(T));
         }
-    }
-        
-    public static class _DependencyContainerExtensions
-    {
-        //public static IDependencyContainer RegisterInstance<T>(this IDependencyContainer container, T instance)
-        //{
-        //    return container.RegisterInstance(typeof(T), null, instance);
-        //}
 
-        //public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container)
-        //{
-        //    return container.RegisterType(typeof(TFrom), typeof(TTo), null, null);
-        //}
-
-        //public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, Type to, string name)
-        //{
-        //    return container.RegisterType(from, to, name, null);
-        //}
-
-        //public static IDependencyContainer RegisterType(this IDependencyContainer container, Type from, object lifetime)
-        //{
-        //    return container.RegisterType(from, from, null, lifetime);
-        //}
-
-        //public static IDependencyContainer RegisterType<TFrom>(this IDependencyContainer container, object lifetime)
-        //{
-        //    return container.RegisterType(typeof(TFrom), typeof(TFrom), null, lifetime);
-        //}
-
-        //public static IDependencyContainer RegisterType<TFrom, TTo>(this IDependencyContainer container, object lifetime)
-        //{
-        //    return container.RegisterType(typeof(TFrom), typeof(TTo), null, lifetime);
-        //}
-
-        //#region Register activator
-
-        //public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container)
-        //{
-        //    return container.RegisterType<IActivator<T>, DependencyActivator<T>>();
-        //}
-
-        //public static IDependencyContainer RegisterActivator<T>(this IDependencyContainer container, object lifetime)
-        //{
-        //    return container.RegisterType<IActivator<T>, DependencyActivator<T>>(lifetime);
-        //}
-
-        //#endregion
+        public static T Resolve<T>(this IDependencyProvider dependencyProvider, Type requiredType)
+        {
+            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            return (T)dependencyProvider.Resolve(requiredType);
+        }
     }
 }
