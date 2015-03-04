@@ -20,14 +20,21 @@ namespace TestConsole.DependencyContainers
         private static void TestUnity()
         {
             IDependencyContainer container = new UnityDependencyContainer()
-                .Add<IHelloService>().InTransient().ToType<HiService>()
+                .Add<IHelloService>().InAnyScope().ToType<HiService>()
                 .Add<IMessageWriter>().InNamedScope("Root").ToActivator(new ConsoleWriterActivator())
+                //TODO: Transient can't be resolved from parent containers => break resolving for inner dependencies.
                 .Add<Presenter>().InTransient().ToSelf();
 
             using (IDependencyProvider provider = container.Scope("Request"))
             {
                 Presenter presenter = provider.Resolve<Presenter>();
                 presenter.Execute();
+
+                using (IDependencyProvider provider2 = provider.Scope("Sub"))
+                {
+                    presenter = provider.Resolve<Presenter>();
+                    presenter.Execute();
+                }
             }
             container.Dispose();
         }

@@ -16,6 +16,11 @@ namespace TestConsole.DependencyContainers
 
     public class HiService : IHelloService
     {
+        public HiService()
+        {
+            Console.WriteLine("ctor:HiService");
+        }
+
         public string SayHello(string name)
         {
             return String.Format("Hi, {0}!", name);
@@ -35,6 +40,8 @@ namespace TestConsole.DependencyContainers
         {
             Guard.NotNull(output, "output");
             this.output = output;
+
+            Console.WriteLine("ctor:TextMessageWriter");
         }
 
         public void Write(string message)
@@ -65,6 +72,7 @@ namespace TestConsole.DependencyContainers
             this.writer = writer;
             this.helloService = helloService;
 
+            Console.WriteLine("ctor:Presenter");
         }
 
         public void Execute()
