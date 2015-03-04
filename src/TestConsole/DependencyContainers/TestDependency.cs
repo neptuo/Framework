@@ -21,7 +21,7 @@ namespace TestConsole.DependencyContainers
         {
             IDependencyContainer container = new UnityDependencyContainer()
                 .Add<IHelloService>().InTransient().ToType<HiService>()
-                .Add<IMessageWriter>().InNamedScope("Root").ToType<ConsoleWriter>()
+                .Add<IMessageWriter>().InNamedScope("Root").ToActivator(new ConsoleWriterActivator())
                 .Add<Presenter>().InTransient().ToSelf();
         }
 

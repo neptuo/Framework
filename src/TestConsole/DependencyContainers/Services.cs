@@ -1,6 +1,8 @@
 ﻿using Neptuo;
+using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,13 +27,31 @@ namespace TestConsole.DependencyContainers
         void Write(string message);
     }
 
-    public class ConsoleWriter : IMessageWriter
+    public class TextMessageWriter : IMessageWriter
     {
+        private readonly TextWriter output;
+
+        public TextMessageWriter(TextWriter output)
+        {
+            Guard.NotNull(output, "output");
+            this.output = output;
+        }
+
         public void Write(string message)
         {
-            Console.WriteLine(message);
+            output.WriteLine(message);
         }
     }
+
+    public class ConsoleWriterActivator : IActivator<TextMessageWriter>
+    {
+        public TextMessageWriter Create()
+        {
+            return new TextMessageWriter(Console.Out);
+        }
+    }
+
+
 
     public class Presenter
     {
