@@ -14,11 +14,14 @@ namespace Neptuo.Activators.Internals
             if (lifetime.IsTransient)
                 return new TransientLifetimeManager();
 
+            if (lifetime.IsNamed)
+                return new SingletonLifetimeManager();
+
             if (lifetime.IsScoped)
                 return new HierarchicalLifetimeManager();
 
-            //TODO: Create lifetime manager for named scopes.
-            throw Guard.Exception.NotImplemented();
+            // Not supported lifetime.
+            throw Guard.Exception.NotSupported(lifetime.ToString());
         }
     }
 }

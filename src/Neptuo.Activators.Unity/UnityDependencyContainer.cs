@@ -11,6 +11,8 @@ namespace Neptuo.Activators
 {
     public class UnityDependencyContainer : DisposableBase, IDependencyContainer
     {
+        public const string RootScopeName = "Root";
+
         private readonly string scopeName;
         private readonly MappingCollection mappings;
         private readonly IUnityContainer unityContainer;
@@ -26,6 +28,7 @@ namespace Neptuo.Activators
         {
             Guard.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
+            this.scopeName = RootScopeName;
             this.mappings = new MappingCollection();
             this.scopeMapper = new ScopeMapper();
             this.targetMapper = new TargetMapper();

@@ -23,6 +23,13 @@ namespace TestConsole.DependencyContainers
                 .Add<IHelloService>().InTransient().ToType<HiService>()
                 .Add<IMessageWriter>().InNamedScope("Root").ToActivator(new ConsoleWriterActivator())
                 .Add<Presenter>().InTransient().ToSelf();
+
+            using (IDependencyProvider provider = container.Scope("Request"))
+            {
+                Presenter presenter = provider.Resolve<Presenter>();
+                presenter.Execute();
+            }
+            container.Dispose();
         }
 
         static void TestPerf()

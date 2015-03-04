@@ -18,7 +18,13 @@ namespace Neptuo.Activators.Internals
                 return;
             }
 
-
+            //TODO: Implement using registered features...
+            IActivator<object> targetActivator = target as IActivator<object>;
+            if (targetActivator != null)
+            {
+                unityContainer.RegisterInstance(requiredType, targetActivator.Create());
+                return;
+            }
         }
     }
 }

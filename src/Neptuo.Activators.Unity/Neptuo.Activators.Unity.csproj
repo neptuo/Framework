@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internals\ContainerScope.cs" />
     <Compile Include="Internals\Mapping.cs" />
     <Compile Include="Internals\MappingCollection.cs" />
     <Compile Include="Internals\ScopeMapper.cs" />
