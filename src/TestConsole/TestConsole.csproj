@@ -89,6 +89,7 @@
     <Compile Include="Data\ProductRepository.cs" />
     <Compile Include="Data\Queries\ProductFilter.cs" />
     <Compile Include="Delegates\TestDelegates.cs" />
+    <Compile Include="DependencyContainers\SimpleDependencyContainer.cs" />
     <Compile Include="DependencyContainers\TestDependency.cs" />
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />

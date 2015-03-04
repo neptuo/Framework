@@ -43,11 +43,11 @@ namespace TestConsole
             //TestBootstrap.Test();
             //TestKeyValue.Test();
             //TestMultiLockProvider.Test();
-            //TestDependency.Test();
+            TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
             //TestBehaviors.Test();
-            TestObjectSize.Test();
+            //TestObjectSize.Test();
 
 
             Console.ReadKey(true);
