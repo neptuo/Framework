@@ -1,5 +1,5 @@
 ﻿using Neptuo;
-using Neptuo.Unity;
+using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace TestConsole.Delegates
         public static void Test()
         {
             IDependencyContainer dependencyContainer = new UnityDependencyContainer()
-                .RegisterInstance<ResolveUrl>(ResolveUrl);
+                .AddMapping(typeof(ResolveUrl), DependencyLifetime.AnyScope, new ResolveUrl(ResolveUrl));
 
 
             ResolveUrl resolveUrl = dependencyContainer.Resolve<ResolveUrl>();

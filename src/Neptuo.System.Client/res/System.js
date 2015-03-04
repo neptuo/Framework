@@ -18,6 +18,739 @@ if (typeof($CreateException)=='undefined')
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var System$Collection$Generic$IEqualityComparer = {
+    fullname: "System.Collection.Generic.IEqualityComparer",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.System.Client",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(System$Collection$Generic$IEqualityComparer);
+var System$IComparar$1 = {
+    fullname: "System.IComparar$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.System.Client",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(System$IComparar$1);
+
+var AfterCompilationFunctions =  [];
+var BeforeCompilationFunctions =  [];
+var IsCompiled = false;
+function RemoveDelegate(delOriginal, delToRemove){
+    if (delToRemove == null || delOriginal == null)
+        return delOriginal;
+    if (delOriginal.isMulticastDelegate){
+        if (delToRemove.isMulticastDelegate)
+            throw $CreateException(new System.NotImplementedException.ctor$$String("Multicast to multicast delegate removal is not implemented yet"), new Error());
+        var del = CreateMulticastDelegateFunction();
+        for (var i = 0; i < delOriginal.delegates.length; i++){
+            var del2 = delOriginal.delegates[i];
+            if (del2 != delToRemove){
+                if (del.delegates == null)
+                    del.delegates =  [];
+                del.delegates.push(del2);
+            }
+        }
+        if (del.delegates == null)
+            return null;
+        if (del.delegates.length == 1)
+            return del.delegates[0];
+        return del;
+    }
+    else {
+        if (delToRemove.isMulticastDelegate)
+            throw $CreateException(new System.NotImplementedException.ctor$$String("single to multicast delegate removal is not supported"), new Error());
+        if (delOriginal == delToRemove)
+            return null;
+        return delOriginal;
+    }
+};
+function CombineDelegates(del1, del2){
+    if (del1 == null)
+        return del2;
+    if (del2 == null)
+        return del1;
+    var del = CreateMulticastDelegateFunction();
+    del.delegates =  [];
+    if (del1.isMulticastDelegate){
+        for (var i = 0; i < del1.delegates.length; i++)
+            del.delegates.push(del1.delegates[i]);
+    }
+    else {
+        del.delegates.push(del1);
+    }
+    if (del2.isMulticastDelegate){
+        for (var i = 0; i < del2.delegates.length; i++)
+            del.delegates.push(del2.delegates[i]);
+    }
+    else {
+        del.delegates.push(del2);
+    }
+    return del;
+};
+function CreateMulticastDelegateFunction(){
+    var del2 = null;
+    var del = function (){
+        var x = undefined;
+        for (var i = 0; i < del2.delegates.length; i++){
+            var del3 = del2.delegates[i];
+            x = del3.apply(null, arguments);
+        }
+        return x;
+    };
+    del.isMulticastDelegate = true;
+    del2 = del;
+    return del;
+};
+function CreateClrDelegate(type, genericArgs, target, func){
+    return JsTypeHelper.GetDelegate(target, func);
+};
+function Typeof(jsTypeOrName){
+    if (jsTypeOrName == null)
+        throw $CreateException(new Error("Unknown type."), new Error());
+    if (typeof(jsTypeOrName) == "function"){
+        jsTypeOrName = JsTypeHelper.GetType(jsTypeOrName);
+    }
+    if (typeof(jsTypeOrName) == "string")
+        return System.Type.GetType$$String$$Boolean(jsTypeOrName, true);
+    return System.Type._TypeOf(jsTypeOrName);
+};
+function JsTypeof(typeName){
+    return JsTypeHelper.GetType(typeName, false);
+};
+function New(typeName, args){
+    var type = JsTypeHelper.GetType(typeName, true);
+    if (args == null || args.length == 0){
+        var obj = JsCompiler.NewByFunc(type.ctor);
+        return obj;
+    }
+    else {
+        var obj = JsCompiler.NewByFuncArgs(type.ctor, args);
+        return obj;
+    }
+};
+function NewWithInitializer(type, json){
+    var obj = JsCompiler.NewByFunc(type.ctor);
+    if (typeof(json) == "array"){
+        throw $CreateException(new System.Exception.ctor$$String("not implemented"), new Error());
+    }
+    else {
+        for (var p in json){
+            var setter = obj["set_" + p];
+            if (typeof(setter) == "function")
+                setter.call(obj, json[p]);
+            else
+                obj[p] = json[p];
+        }
+    }
+    return obj;
+};
+function As(obj, typeOrName){
+    if (obj == null)
+        return obj;
+    var type = JsTypeHelper.GetType(typeOrName, true);
+    if (Is(obj, type))
+        return obj;
+    return null;
+};
+function Cast(obj, typeOrName){
+    if (obj == null)
+        return obj;
+    var type = JsTypeHelper.GetType(typeOrName, true);
+    if (Is(obj, type))
+        return obj;
+    var converted = TryImplicitConvert(obj, type);
+    if (converted != null)
+        return converted;
+    var objTypeName = typeof(obj);
+    if (typeof(obj.getTypeName) == "function"){
+        objTypeName = obj.getTypeName();
+    }
+    var msg = new Array("InvalidCastException: Cannot cast ", objTypeName, " to ", type.fullname, "Exception generated by JsRuntime").join("");
+    throw $CreateException(new Error(msg), new Error());
+};
+function _TestTypeInterfacesIs(testType, iface, testedInterfaces){
+    if (testedInterfaces[iface.name])
+        return false;
+    for (var i = 0; i < testType.interfaces.length; i++){
+        var testIface = testType.interfaces[i];
+        if (testIface == iface)
+            return true;
+        testedInterfaces[testIface.name] = true;
+        if (_TestTypeInterfacesIs(testIface, iface, testedInterfaces))
+            return true;
+    }
+    return false;
+};
+function TypeIs(objType, type){
+    if (objType == type)
+        return true;
+    if (type.Kind == "Interface"){
+        var testedInterfaces = new Object();
+        while (objType != null){
+            if (objType == type)
+                return true;
+            if (_TestTypeInterfacesIs(objType, type, testedInterfaces))
+                return true;
+            objType = objType.baseType;
+        }
+        return false;
+    }
+    if (type.Kind == "Delegate" && objType.fullname == "System.Delegate"){
+        return true;
+    }
+    if (objType.fullname == "System.Int32"){
+        if (type.fullname == "System.Decimal")
+            return true;
+        if (type.fullname == "System.Double")
+            return true;
+        if (type.fullname == "System.Single")
+            return true;
+        if (type.fullname == "System.Nullable$1")
+            return true;
+    }
+    var t = objType.baseType;
+    while (t != null){
+        if (t == type)
+            return true;
+        t = t.baseType;
+    }
+    return false;
+};
+function Is(obj, typeOrName){
+    if (obj == null){
+        return false;
+    }
+    var type = JsTypeHelper.GetType(typeOrName, true);
+    if (type == null){
+        if (type == null && typeof(typeOrName) == "function"){
+            var ctor = typeOrName;
+            var i = 0;
+            while (ctor != null && i < 20){
+                if (obj instanceof ctor)
+                    return true;
+                ctor = ctor["$baseCtor"];
+                i++;
+            }
+            return false;
+        }
+        throw $CreateException(new Error("type expected"), new Error());
+    }
+    var objType = GetObjectType(obj);
+    if (objType == null)
+        return false;
+    var isIt = TypeIs(objType, type);
+    return isIt;
+};
+function Default(T){
+    return null;
+};
+function GetObjectType(obj){
+    	var objType;	
+	if(
+			obj.constructor==null ||  //IE
+			obj instanceof Node || //FireFox
+			obj.constructor==HTMLImageElement || obj.constructor==HTMLInputElement ||								//IE & Firefox
+			obj.constructor.name=='HTMLImageElement' || obj.constructor.name=='HTMLInputElement' 		//IE & Safari
+		 )
+	{
+		var objTypeName = SharpKit.Html4.HtmlDom.GetTypeNameFromHtmlNode(obj);
+		if(objTypeName==null)
+			throw new Error();
+		objType = JsTypeHelper.GetType(objTypeName, true);
+	}
+	else
+	{
+		objType = obj.constructor._type;
+	}
+	return objType === undefined ? null : objType;
+
+};
+function TryImplicitConvert(obj, type){
+    	if (obj instanceof Error)
+	{
+		if (obj._Exception != null)
+		{
+			if(Is(obj._Exception, type))
+				return obj._Exception;
+			else
+				return null;
+		}
+		else if (type.get_FullName() == 'System.Exception')
+		{
+			obj._Exception = new Exception(obj.message);
+			return obj._Exception;
+		}
+	}
+	return null;
+};
+function Compile(){
+    JsCompiler.Compile_Direct();
+};
+function AfterCompilation(func){
+    if (IsCompiled)
+        func();
+    else
+        AfterCompilationFunctions.push(func);
+};
+function AfterNextCompilation(func){
+    AfterCompilationFunctions.push(func);
+};
+function BeforeCompilation(func){
+    BeforeCompilationFunctions.push(func);
+};
+var JsCompiler = function (){
+};
+JsCompiler._NewJsTypes =  [];
+JsCompiler.NewTypes =  [];
+JsCompiler.AfterCompile =  [];
+JsCompiler.__LastException = null;
+JsCompiler.Types = new Object();
+JsCompiler._hashKeyIndex = 0;
+JsCompiler._hashKeyPrefix = String.fromCharCode(1);
+JsCompiler.Compile_Direct = function (){
+    JsCompiler.Compile_Phase1();
+    JsCompiler.Compile_Phase2();
+    JsCompiler.Compile_Phase3();
+};
+JsCompiler.Compile_Phase1 = function (){
+    for (var $i2 = 0,$l2 = BeforeCompilationFunctions.length,action = BeforeCompilationFunctions[$i2]; $i2 < $l2; $i2++, action = BeforeCompilationFunctions[$i2])
+        action();
+    BeforeCompilationFunctions =  [];
+    for (var $i3 = 0,$l3 = JsTypes.length,jsType = JsTypes[$i3]; $i3 < $l3; $i3++, jsType = JsTypes[$i3]){
+        var fullName = jsType.fullname;
+        var type = JsCompiler.Types[fullName];
+        if (type == null){
+            JsCompiler.Types[fullName] = jsType;
+        }
+        else {
+            jsType.isPartial = true;
+            jsType.realType = type;
+        }
+        if (jsType.derivedTypes == null)
+            jsType.derivedTypes =  [];
+        if (jsType.interfaces == null)
+            jsType.interfaces =  [];
+        if (jsType.definition == null)
+            jsType.definition = new Object();
+        var index = fullName.lastIndexOf(".");
+        if (index == -1){
+            jsType.name = fullName;
+        }
+        else {
+            jsType.name = fullName.substring(index + 1);
+            jsType.ns = fullName.substring(0, index);
+        }
+        if (jsType.Kind == "Enum"){
+            if (jsType.baseTypeName == null)
+                jsType.baseTypeName = "System.Object";
+            if (jsType.definition["toString"] ==  Object.prototype.toString)
+                jsType.definition["toString"] = new Function("return this._Name;");
+        }
+        else if (jsType.Kind == "Struct"){
+            if (jsType.baseTypeName == null)
+                jsType.baseTypeName = "System.ValueType";
+        }
+    }
+};
+JsCompiler.Compile_Phase2 = function (){
+    JsCompiler._NewJsTypes =  [];
+    for (var i = 0; i < JsTypes.length; i++){
+        var jsType = JsTypes[i];
+        JsCompiler.Compile_Phase2_TmpType(jsType);
+    }
+    for (var $i4 = 0,$l4 = JsTypes.length,ce = JsTypes[$i4]; $i4 < $l4; $i4++, ce = JsTypes[$i4]){
+        if (ce.cctor != null)
+            ce.cctor();
+    }
+    JsTypes =  [];
+    JsCompiler.NewTypes =  [];
+    for (var $i5 = 0,$t5 = JsCompiler._NewJsTypes,$l5 = $t5.length,jsType = $t5[$i5]; $i5 < $l5; $i5++, jsType = $t5[$i5])
+        JsCompiler.NewTypes.push(System.Type.GetType$$String(jsType.fullname));
+};
+JsCompiler.Compile_Phase2_TmpType = function (tmpType){
+    var p = tmpType.fullname;
+    var type = null;
+    type = JsCompiler.CompileType(tmpType);
+    if (type != null){
+        var result = JsCompiler.CopyMemberIfNotDefined(type, type.fullname, window);
+        if (result)
+            JsCompiler._NewJsTypes.push(type);
+    }
+    if (type.ns != null){
+        var ns = JsCompiler.ResolveNamespace(type.ns);
+        if (type != null)
+            ns[type.name] = type;
+    }
+};
+JsCompiler.Compile_Phase3 = function (){
+    var funcs = AfterCompilationFunctions;
+    AfterCompilationFunctions =  [];
+    for (var $i6 = 0,$l6 = funcs.length,action = funcs[$i6]; $i6 < $l6; $i6++, action = funcs[$i6])
+        action();
+    IsCompiled = true;
+    for (var i = 0; i < JsCompiler.AfterCompile.length; i++)
+        JsCompiler.AfterCompile[i]();
+};
+JsCompiler.CopyMemberIfNotDefined = function (source, name, target){
+    if(target[name]===undefined) { target[name] = source; return true; } else { return false; }
+};
+JsCompiler._CopyObject = function (source, target){
+    for(var p in source)
+		target[p] = source[p];
+	if(source.toString!=Object.prototype.toString && target.toString==Object.prototype.toString)
+		target.toString = source.toString;
+};
+JsCompiler._SafeCopyObject = function (source, target){
+    	for(var p in source)
+	{
+		if(typeof(target[p])!='undefined')
+		{
+			//TODO: Alon - unmark this. throw new Error(p+' is already defined on target object');
+		}
+		else
+			target[p] = source[p];
+	}
+	if(source.toString!=Object.prototype.toString)
+	{//TODO: commented out by dan-el
+		//if(target.toString!=Object.prototype.toString)
+			//throw new Error('toString is already defined on target object');
+	}
+};
+JsCompiler._EnumTryParse = function (name){
+    return this.staticDefintion[name];
+};
+JsCompiler.NewByFunc = function (ctor){
+    return new ctor();
+};
+JsCompiler.NewByFuncArgs = function (ctor, args){
+    return new ctor.apply(null, args);
+};
+JsCompiler.GetNativeToStringFunction = function (){
+    return Object.prototype.toString;
+};
+JsCompiler.Throw = function (exception){
+    __LastException = exception || __LastException;
+			var error = new Error(exception.ToString());
+			error['_Exception'] = exception;
+			throw error;
+};
+JsCompiler.CreateEmptyCtor = function (){
+    return function(){};
+};
+JsCompiler.CreateBaseCtor = function (type){
+    return function(){this.construct(type);};
+};
+if(typeof(Node)=='undefined')
+	Node = function(){};
+
+JsCompiler.ResolveNamespace = function (nsText){
+    var ns = window;
+    var tokens = nsText.split(".");
+    for (var i = 0; i < tokens.length; i++){
+        var token = tokens[i];
+        if (typeof(ns[token]) == "undefined")
+            ns[token] = {};
+        ns[token].name = tokens.slice(0, i).join(".");
+        ns = ns[token];
+    }
+    return ns;
+};
+JsCompiler.ResolveBaseType = function (type, currentType){
+    var baseType = JsTypeHelper.GetType(type.baseTypeName);
+    if (baseType == null)
+        baseType = JsTypeHelper.GetTypeIgnoreNamespace(type.baseTypeName, true);
+    if (!baseType.isCompiled)
+        JsCompiler.CompileType(baseType);
+    currentType.baseType = baseType;
+    baseType.derivedTypes.push(currentType);
+};
+JsCompiler.ResolveInterfaces = function (type, currentType){
+    if (type.interfaceNames == null)
+        return;
+    for (var i = 0; i < type.interfaceNames.length; i++){
+        var iName = type.interfaceNames[i];
+        var iface = JsTypeHelper.GetType(iName);
+        if (iface == null)
+            iface = JsTypeHelper.GetTypeIgnoreNamespace(iName, true);
+        if (!iface.isCompiled)
+            JsCompiler.CompileType(iface);
+        currentType.interfaces.push(iface);
+    }
+};
+JsCompiler.CompileType = function (type){
+    var currentType = (JsCompiler.Types[type.fullname] != null ? JsCompiler.Types[type.fullname] : type);
+    if (currentType.ctors == null)
+        currentType.ctors = new Object();
+    if (!type.isCompiled){
+        var baseTypeResolved = false;
+        if (currentType.baseType == null && currentType.baseTypeName != null){
+            JsCompiler.ResolveBaseType(type, currentType);
+            if (currentType.baseType != null)
+                baseTypeResolved = true;
+        }
+        JsCompiler.ResolveInterfaces(type, currentType);
+        for (var p in type.definition){
+            if (p.search("ctor") == 0){
+                currentType[p] = type.definition[p];
+                delete type.definition[p];
+                if (typeof(currentType.commonPrototype) == "undefined")
+                    currentType.commonPrototype = currentType[p].prototype;
+                else
+                    currentType[p].prototype = currentType.commonPrototype;
+                currentType.ctors[p] = currentType[p];
+            }
+            if (p == "cctor")
+                currentType.cctor = p;
+        }
+        if (currentType.ctor == null){
+            if (currentType.ns == null || currentType.ns == ""){
+                var jsCtor = window[currentType.name];
+                currentType.ctor = jsCtor;
+            }
+            if (currentType.ctor == null && currentType.ctors != null){
+                if (currentType.baseType != null)
+                    currentType.ctor = JsCompiler.CreateBaseCtor(currentType);
+                else
+                    currentType.ctor = JsCompiler.CreateEmptyCtor();
+            }
+            if (currentType.ctor != null){
+                currentType.ctors["ctor"] = currentType.ctor;
+                if (typeof(currentType.commonPrototype) == "undefined")
+                    currentType.commonPrototype = currentType.ctor.prototype;
+                else
+                    currentType.ctor.prototype = currentType.commonPrototype;
+            }
+        }
+        for (var p in currentType.ctors){
+            var ctor = currentType.ctors[p];
+            if (ctor._type == null)
+                ctor._type = currentType;
+        }
+        if (baseTypeResolved){
+            JsCompiler._CopyObject(currentType.baseType.commonPrototype, currentType.commonPrototype);
+        }
+        for (var p in type.definition){
+            var member = type.definition[p];
+            currentType.commonPrototype[p] = member;
+            if (typeof(member) == "function"){
+                member._name = p;
+                member._type = currentType;
+            }
+        }
+        if (type.definition.toString != Object.prototype.toString){
+            currentType.commonPrototype.toString = type.definition.toString;
+            currentType.commonPrototype.toString._type = currentType;
+        }
+        for (var p in type.staticDefinition){
+            var member = type.staticDefinition[p];
+            currentType[p] = member;
+            if (typeof(member) == "function"){
+                member._name = p;
+                member._type = currentType;
+            }
+        }
+        type.isCompiled = true;
+    }
+    JsCompiler.CompileEnum(currentType);
+    if (currentType != type && type.customAttributes != null){
+        if (currentType.customAttributes != null){
+            for (var i = 0; i < type.customAttributes.length; i++){
+                currentType.customAttributes.push(type.customAttributes[i]);
+            }
+        }
+        else {
+            currentType.customAttributes = type.customAttributes;
+        }
+    }
+    return currentType;
+};
+JsCompiler.CompileEnum = function (currentType){
+    if (currentType.Kind == "Enum"){
+        currentType.tryParse = JsCompiler._EnumTryParse;
+        for (var p in currentType.staticDefinition){
+            if (typeof(currentType.staticDefinition[p]) == "string"){
+                var x = JsCompiler.NewByFunc(currentType.ctor);
+                x["_Name"] = p;
+                currentType.staticDefinition[p] = x;
+                currentType[p] = x;
+            }
+        }
+    }
+};
+JsCompiler.GetHashKey = function (obj){
+    if (obj == undefined)
+        return "undefined";
+    if (obj == null)
+        return "null";
+    if (obj.valueOf)
+        obj = obj.valueOf();
+    var type = typeof(obj);
+    if (type == "string")
+        return obj;
+    if (type == "object" || type == "function"){
+        if (obj._hashKey == null){
+            obj._hashKey = JsCompiler._hashKeyPrefix + JsCompiler._hashKeyIndex;
+            JsCompiler._hashKeyIndex++;
+        }
+        return obj._hashKey;
+    }
+    return obj.toString();
+};
+var JsTypeHelper = function (){
+};
+JsTypeHelper.GetTypeIgnoreNamespaceCache = null;
+JsTypeHelper.GetTypeIgnoreNamespace = function (name, throwIfNotFound){
+    var type = null;
+    var cache = JsTypeHelper.GetTypeIgnoreNamespaceCache;
+    if (cache != null){
+        type = cache[name];
+        if (typeof(type) != "undefined"){
+            if (throwIfNotFound && type == null)
+                throw $CreateException(new Error("type " + name + " was not found with (with IgnoreNamespace)."), new Error());
+            return type;
+        }
+    }
+    if (name.search(".") > -1){
+        var tokens = name.split(".");
+        name = tokens[tokens.length - 1];
+    }
+    type = JsCompiler.Types[name];
+    var nameAfterNs = "." + name;
+    if (type == null){
+        for (var p in JsCompiler.Types){
+            if (p == name || p.endsWith(nameAfterNs)){
+                type = JsCompiler.Types[p];
+                break;
+            }
+        }
+    }
+    if (throwIfNotFound && type == null)
+        throw $CreateException(new Error("type " + name + " was not found with (with IgnoreNamespace)."), new Error());
+    if (cache != null)
+        cache[name] = (type != null ? type : null);
+    return type;
+};
+JsTypeHelper._HasTypeArguments = function (typeName){
+    return typeName.indexOf("[") > -1;
+};
+JsTypeHelper._GetTypeWithArguments = function (typeName, throwIfNotFound){
+    var name = typeName;
+    var gti = name.indexOf("`");
+    if (gti != -1 && name.indexOf("[") > -1){
+        var args = JsTypeHelper._ParseTypeNameArgs(name);
+        if (args == null)
+            return null;
+        var type = JsTypeHelper.GetType(args[0], throwIfNotFound);
+        if (type == null)
+            return null;
+        var res = new Array(0);
+        res.push(type);
+        var typeArgs = new Array(0);
+        for (var i = 0; i < args[1].length; i++){
+            var typeArg = JsTypeHelper.GetType(args[1][i][0], throwIfNotFound);
+            if (typeArg == null)
+                return null;
+            typeArgs.push(typeArg);
+        }
+        res.push(typeArgs);
+        return res;
+    }
+    return null;
+};
+JsTypeHelper._ParseTypeNameArgs = function (name){
+    	var code = name.replace(/, [a-zA-Z0-9, =.]+\]/g, ']'); //remove all the ', mscorlib, Version=1.0.0.0, publicKeyToken=xxxxxxxxx
+	code = code.replace(/`([0-9])/g, '$$$1,'); //remove the `2 and replace to $2, (the comma is for array to compile)
+	code = '[' + code + ']';
+try
+{
+	var args = eval(code);
+return args;
+}
+catch(e)
+{
+  //ERROR
+  return null;
+}
+	
+};
+JsTypeHelper.GetType = function (typeOrNameOrCtor, throwIfNotFound){
+    if (typeof(typeOrNameOrCtor) != "string"){
+        if (typeof(typeOrNameOrCtor) == "function")
+            return typeOrNameOrCtor._type;
+        return typeOrNameOrCtor;
+    }
+    var name = typeOrNameOrCtor;
+    var gti = name.indexOf("`");
+    if (gti != -1){
+        name = name.substr(0, gti + 2).replace("`", "$");
+    }
+    var type = JsCompiler.Types[name];
+    if (type == null){
+        if (throwIfNotFound)
+            throw $CreateException(new Error("JsType " + name + " was not found"), new Error());
+        return null;
+    }
+    return type;
+};
+JsTypeHelper.FindType = function (name, throwIfNotFound){
+    var type = JsTypeHelper.GetType(name, false);
+    if (type == null)
+        type = JsTypeHelper.GetTypeIgnoreNamespace(name, throwIfNotFound);
+    return type;
+};
+JsTypeHelper.GetAssemblyQualifiedName = function (type){
+    if (type._AssemblyQualifiedName == null){
+        var name = type.fullname;
+        if (type.assemblyName != null)
+            name += ", " + type.assemblyName;
+        type._AssemblyQualifiedName = name;
+    }
+    return type._AssemblyQualifiedName;
+};
+JsTypeHelper.GetName = function (type){
+    return type.name;
+};
+JsTypeHelper.getMemberTypeName = function (instance, memberName){
+    var signature = instance[memberName + "$$"];
+    if (signature == null)
+        return null;
+    var tokens = signature.split(" ");
+    var memberTypeName = tokens[tokens.length - 1];
+    return memberTypeName;
+};
+JsTypeHelper.GetDelegate = function (obj, func){
+    var target = obj;
+    if (target == null)
+        return func;
+    if (typeof(func) == "string")
+        func = target[func];
+    var cache = target.__delegateCache;
+    if (cache == null){
+        cache = new Object();
+        target.__delegateCache = cache;
+    }
+    var key = JsCompiler.GetHashKey(func);
+    var del = cache[key];
+    if (del == null){
+        del = function (){
+            var del2 = arguments.callee;
+            return del2.func.apply(del.target, arguments);
+        };
+        del.func = func;
+        del.target = target;
+        del.isDelegate = true;
+        cache[key] = del;
+    }
+    return del;
+};
+
+if (typeof(JsTypes) == "undefined")
+    var JsTypes = [];
 var System$Activator = {
     fullname: "System.Activator",
     baseTypeName: "System.Object",
@@ -2293,3 +3026,808 @@ JsRuntime.Start = function (){
     Compile();
 };
 
+//kernel.js
+var isIE = navigator.userAgent.toLowerCase().indexOf("msie") > -1;
+var isMoz = document.implementation && document.implementation.createDocument;
+var isWebkit = navigator.userAgent.indexOf("WebKit") > -1; //navigator.vendor == "Apple Computer, Inc.";
+//TODO: Add all the rest, or find another way
+if (!isMoz) {
+	HTMLImageElement = null;
+	HTMLInputElement = null;
+}
+String.Format = function (format, varargs) {
+    return String.format.apply(String, arguments);
+}
+String.prototype.startsWith = function (str) {
+	return this.indexOf(str) == 0;
+}
+String.prototype.endsWith = function (str) {
+	return this.substr(this.length - str.length, str.length) == str;
+}
+Object.ctor = Object;
+Array.ctor = Array;
+Date.ctor = Date;
+Function.ctor = Function;
+if (typeof (ActiveXObject) != "undefined")
+	ActiveXObject.ctor$$String = ActiveXObject;
+Number.prototype.get_Value = function () //nullable support
+{
+    return Number(this);
+}
+Number.prototype.CompareTo$$Int32 = function (other) {
+    return this < other ? -1 : (this == other ? 0 : 1);
+}
+Number.prototype.ToString$$String = function (format) {
+	var s = this.toString();
+	for (var i = 0; i < format.length; i++) {
+		var ch = format.charAt(i);
+		if (ch == "0") {
+			if (s.length < i + 1)
+				s = "0" + s;
+		}
+		else
+			throw new Error("not implemented");
+	}
+	return s;
+}
+//whether to wrap functions with profiler functions
+var ENABLE_PROFILER = typeof (appConfig) == "object" ? appConfig.enableProfiler : false;
+//can be changed in runtime - whether to profile functions that are running
+var ENABLE_PROFILING = typeof (appConfig) == "object" ? appConfig.enableProfiling : false;
+if (ENABLE_PROFILER) {
+	BeforeCompilation(function () { Profiler.Initialize(); });
+}
+var envDebugFunction = (typeof (Debug) != "undefined" && Debug != null && Debug.writeln) ||
+											 (typeof (console) != "undefined" && console != null && console.log) ||
+											 function (t) { };
+if (typeof (Debug) != "undefined")
+	var Debug = { writeln: envDebugFunction }
+
+Array.parse = function (value) {
+	return eval('(' + value + ')');
+}
+JsTypes.push(
+{ fullname: "System.Object", definition:
+{
+	ctor: function () {
+	},
+	toString: function () {
+		return "{" + this.constructor._type.fullname + "}";
+	},
+	construct: function (type) {
+		//		arguments.callee.caller._type.baseType.ctor.apply(this, arguments);
+		type.baseType.ctor.apply(this, arguments);
+	},
+	GetType: function () {
+		return System.Type._TypeOf(this.constructor._type);
+	},
+	getType: function () {
+		return this.constructor._type;
+	},
+	getTypeName: function () {
+		return this.constructor._type.name;
+	},
+	MemberwiseClone: function () {
+	    var result = System.Activator.CreateInstance$$Type(this.GetType());
+	    for (var i in this) {
+	        result[i] = this[i];
+	    }
+	    result._hashKey = null; //kvuli GetHashKey
+	    return result;
+	},
+	base: function () {
+		//TODO: remove use of callee/caller!
+		return arguments.callee.caller._type.baseType.ctor.prototype[arguments.callee.caller._name].apply(this, arguments);
+	},
+	callBase: function (methodName) {
+		//TODO: remove use of callee/caller!
+		return arguments.callee.caller._type.baseType.ctor.prototype[methodName].apply(this, Arguments.from(arguments, 1));
+	}
+}, staticDefinition:
+{
+	Equals$$Object$$Object: function (x, y) {
+		//TODO: check value types for valueOf()
+		return x == y;
+	}
+}
+});
+
+JsTypes.push({ fullname: "Object" });
+
+JsTypes.push({ fullname: "Array", baseTypeName: "Object", definition:
+{
+	GetEnumerator: function () {
+		return new ArrayEnumerator.ctor(this);
+	},
+	getItem: function (index) {
+		return this[index];
+	},
+	getCount: function () {
+		return this.length;
+	},
+	get_Count: function () {
+		return this.length;
+	},
+	///
+	/// returns an array that contains the values of the specified 
+	/// property name from each item
+	///
+	selectSingle: function (propName) {
+		var result = [];
+		for (var i = 0; i < this.length; i++) {
+			var item = this[i];
+			var value = item[propName]; //TODO: support getValue
+			if (value === undefined) //array cannot contain undefined.
+				value = null;
+			result.push(value);
+		}
+		return result;
+	},
+	Clone: function () {
+		return this.concat();
+	},
+	toArray: function () {
+		return this;
+	},
+	Add: function (item) {
+		this.push(item);
+	},
+	AddRange: function (items) {
+		var length = items.length;
+		var thisLength = this.length;
+		for (var i = 0; i < length; i++) {
+			this[thisLength] = items[i]; //Keep order
+			thisLength++;
+		}
+	},
+	Clear: function () {
+		if (this.length > 0) {
+			this.splice(0, this.length);
+		}
+	},
+	clone: function () {
+		return this.slice(0);
+	},
+	contains: function (item) {
+		var index = this.indexOf(item);
+		return (index >= 0);
+	},
+	Contains$$Object: function (item) {
+		return Contains(item);
+	},
+	Contains: function (item) {
+		var index = this.indexOf(item);
+		return (index >= 0);
+	},
+	dequeue: function () {
+		return this.shift();
+	},
+	indexOf: function (item, startFrom) {
+		if (startFrom == null)
+			startFrom = 0;
+		var length = this.length;
+		if (length != 0) {
+			for (var index = startFrom; index < length; index++) {
+				if (this[index] == item) {
+					return index;
+				}
+			}
+		}
+		return -1;
+	},
+	insert: function (index, item) {
+		this.splice(index, 0, item);
+	},
+	addAt: function (index, item) {
+		this.splice(index, 0, item);
+	},
+	queue: function (item) {
+		this.push(item);
+	},
+	Remove$$Object: function (item) {
+		return this.Remove(item);
+	},
+	Remove: function (item) {
+		var index = this.indexOf(item);
+		if (index >= 0) {
+			this.splice(index, 1);
+		}
+		return index;
+	},
+	RemoveAt: function (index) {
+		this.splice(index, 1);
+	},
+	copyTo: function (target, startIndex) {
+		for (var i = startIndex; i < this.length; i++) {
+			target.push(this[i]);
+		}
+	},
+	filter: function (pred) {
+		var item, i = 0;
+		for (var i = 0, j = this.length; i < j; i++) {
+			item = this[i];
+			if (!pred(item)) {
+				this.splice(i, 1);
+				i--; //prevent increase
+				j--; //length is decreased
+			}
+		}
+		return this;
+	},
+	filterOut: function (pred) {
+		return this.filter(function (item) { return !pred(item); });
+	},
+	apply: function (modifier) {
+		for (var i = 0, j = this.length; i < j; i++) {
+			this[i] = modifier(this[i]);
+		}
+		return this;
+	},
+	findFirst: function (pred) {
+		var item;
+		for (var i = 0, j = this.length; i < j; i++) {
+			item = this[i];
+			if (pred(item))
+				return item;
+		}
+		return null;
+	},
+	ToArray: function () {
+		return this;
+	},
+	peek: function () {
+		return this[this.length - 1];
+	},
+	getLast: function () {
+		return this[this.length - 1];
+	},
+	getIterator: function () {
+		return new ArrayIterator(this);
+	},
+	get_Length: function () {
+		return this.length;
+	},
+	get_Item: function (index) {
+		return this[index];
+	},
+	get_Item$$Int32: function (index) {
+		return this[index];
+	}
+}
+});
+JsTypes.push({ fullname: "ArrayEnumerator", baseTypeName: "System.Object", definition: //TODO: implement IEnumerator
+{
+ctor: function (array) {
+	this._array = array;
+	this._idx = -1;
+},
+Reset: function () {
+	this._idx = -1;
+},
+get_Current: function () {
+	return this._array[this._idx];
+},
+MoveNext: function () {
+	this._idx++;
+	return this._array.length > this._idx;
+},
+Dispose: function () {
+	//TODO
+}
+}
+});
+AfterCompilation(function () {
+    if (window["System.DateTime"] != null) {
+        var minDate = new Date(0);
+        minDate.setUTCFullYear(1, 0, 1);
+        var minDateTime = new System.DateTime.ctor$$Date(minDate);
+        System.DateTime.MinValue = minDateTime;
+        System.DateTime.commonPrototype.MinValue = minDateTime;
+
+        var maxDateTime = new System.DateTime.ctor$$Date(new Date(9999, 11, 31, 23, 59, 59, 999));
+        System.DateTime.MaxValue = maxDateTime;
+        System.DateTime.commonPrototype.MaxValue = maxDateTime;
+    }
+
+    System.Int32.MinValue = -2147483648;
+    System.Int32.MaxValue = 2147483647;
+    if (!System.Int64)
+        System.Int64 = {};
+    System.Int64.MinValue = -9223372036854775808;
+    System.Int64.MaxValue = 9223372036854775807;
+
+    Function._type = System.Delegate;
+});
+JsTypes.push({ fullname: "System.Boolean", baseTypeName: "System.ValueType", definition:
+{
+	ctor: Boolean,
+	toString: function () {
+		return this == true ? "true" : "false";
+	}
+}, staticDefinition:
+{
+	tryParse: function (s) {
+		if (s == null)
+			return false;
+		return s.toLowerCase().trim() == "true";
+	},
+    Parse: function (s) {
+        if (s == null)
+            return false;
+        return s.toLowerCase().trim() == "true";
+    },
+    TryParse: function (s, value) {
+        if (s == "true" || s == "True") {
+            value.Value = true;
+            return true;
+        } else if (s == "false" || s == "False") {
+            value.Value = false;
+            return true;
+        } else {
+            value.Value = false;
+            return false;
+        }
+    }
+}
+});
+JsTypes.push({ fullname: "System.Int32", baseTypeName: "System.ValueType", definition:
+{
+	ctor: Number,
+	toString: Number.prototype.toString //avoid toString override by compiler (toString(radix) won't work if overriden)
+}, staticDefinition:
+{
+	tryParse: function (s) {
+	    return parseInt(s, 10);
+	},
+	Parse$$String: function (s) {
+	    return parseInt(s, 10);
+	},
+	TryParse$$String$$Int32: function (s, value) {
+	    var val = parseInt(s, 10);
+	    if (val.toString() == "NaN") {
+	        value.Value = 0;
+	        return false;
+	    }
+
+	    value.Value = val;
+	    return true;
+	}
+}
+});
+JsTypes.push({ fullname: "System.Decimal", baseTypeName: "System.ValueType", definition:
+{
+	ctor: function (x) { return new Number(x); },
+	toString: function () {
+		return this.toString();
+	}
+}, staticDefinition:
+{
+    Parse$$String: function (s) {
+        return parseFloat(s);
+    },
+	tryParse: function (s) {
+		return parseFloat(s);
+	}
+}
+});
+
+JsTypes.push({ fullname: "System.Double", baseTypeName: "System.ValueType", definition:
+{
+	ctor: function (x) { return new Number(x); }
+},
+	staticDefinition:
+{
+    Parse$$String: function (s) {
+        return parseFloat(s);
+    },
+	tryParse: function (s) {
+		return parseFloat(s);
+	},
+	IsNaN: isNaN,
+	PositiveInfinity: Number.POSITIVE_INFINITY,
+	NegativeInfinity: Number.NEGATIVE_INFINITY
+}
+});
+
+String.prototype._toString = String.prototype.toString;
+JsTypes.push({ fullname: "System.String", baseTypeName: "System.Object", definition:
+{
+	ctor: String,
+	GetEnumerator: function () {
+		return new System.CharEnumerator.ctor$$String(this);
+	},
+	GetType: function () {
+		return Typeof(System.String);
+	},
+	Insert$$Int32$$String: function (startIndex, str) {
+		var sub1 = this.substring(0, startIndex);
+		var sub2 = this.substring(startIndex);
+		return sub1 + str + sub2;
+	},
+	Split$$Char$Array: function (varargs) {
+		if (arguments.length != 1) {
+			var re = "[";
+			for (var i = 0; i < arguments.length; i++) {
+				re += arguments[i];
+			}
+			re += "]";
+			var regExp = new RegExp(re);
+			var arr = this.split(regExp);
+			////////////////////// Fix for FireFox
+			if (isMoz) {
+				var arr2 = [];
+				for (var i = 0, j = arr.length; i < j; i++) {
+					if (arr[i].length > 0)
+						arr2.push(arr[i]);
+				}
+				arr = arr2;
+			}
+			////////////////////////
+			return arr;
+		}
+		var firstArg = varargs;
+		var result = this.split(firstArg);
+		if (result.length == 1 && result[0] == '')
+		    return [];
+
+		return result; //TODO: escape new value?
+	},
+	ReplaceFirst: function (find, replace) {
+		return this.replace(find, replace);
+	},
+	Replace$$Char$$Char: function (oldValue, newValue) {
+		return this.Replace(oldValue, newValue);
+	},
+	Replace$$String$$String: function (oldValue, newValue) {
+		return this.Replace(oldValue, newValue);
+	},
+	Replace: function (oldValue, newValue) {
+	    var index;
+	    var lastIndex = 0;
+	    var result = "";
+	    while ((index = this.IndexOf(oldValue, lastIndex)) >= 0) {
+	        result += this.substr(lastIndex, index - lastIndex);
+	        result += newValue;
+	        lastIndex = index + oldValue.length;
+	    }
+	    result += this.substr(lastIndex, this.length);
+	    return result;
+	},
+	Substring$$Int32: function (startIndex) {
+		return this.substr(startIndex);
+	},
+	Substring$$Int32$$Int32: function (startIndex, length) {
+		return this.substr(startIndex, length);
+	},
+	Substring: function (startIndex, length) {
+		return this.substr(startIndex, length);
+	},
+	ToLower$$: function () {
+		return this.toLowerCase();
+	},
+	ToLower: function () {
+	    return this.toLowerCase();
+	},
+	ToLowerInvariant: function () {
+	    return this.toLowerCase();
+	},
+	ToUpper: function () {
+		return this.toUpperCase();
+	},
+	getItem: function (index) {
+		return this.charAt(index);
+	},
+	IndexOf$$String: function (s) {
+		return this.indexOf(s);
+	},
+	IndexOf$$Char: function (ch) {
+		return this.indexOf(ch);
+	},
+	Split$$Char$Array$$StringSplitOptions: function (charArray, stringSplitOptions) {
+		if (stringSplitOptions == System.StringSplitOptions.None)
+			throw new Error("Not Implemented");
+		return this.Split$$Char$Array.apply(this, charArray);
+	},
+	IndexOfAny$$Char$Array: function (charArray) {
+		//TODO: Convert to RegExp
+		var s = charArray.join("");
+		for (var i = 0; i < this.length; i++) {
+			var ch = this.charAt(i);
+			if (s.search(ch) >= 0)
+				return i;
+		}
+		return -1;
+	},
+	IndexOf: function (value, startIndex) {
+		return this.indexOf.apply(this, arguments);
+	},
+	LastIndexOf: function (value, startIndex) {
+		return this.lastIndexOf.apply(this, arguments);
+	},
+	LastIndexOf$$Char: function (ch) {
+		return this.lastIndexOf(ch);
+	},
+	LastIndexOf$$String: function (s) {
+		return this.lastIndexOf(s);
+	},
+	Remove$$Int32$$Int32: function (start, count) {
+		return this.substr(0, start) + this.substr(start + count);
+	},
+	StartsWith$$String: function (str) {
+		if (str == null)
+			throw new System.ArgumentNullException.ctor();
+		return this.indexOf(str) == 0;
+	},
+	EndsWith$$String: function (str) {
+		return this.lastIndexOf(str) == this.length - str.length;
+	},
+	Contains: function (s) {
+		return this.indexOf(s) != -1;
+	},
+	toString: function () {
+		return this._toString();
+	},
+	getLength: function () {
+		return this.length;
+	},
+	get_Chars$$Int32: String.prototype.charAt,
+	get_Chars: String.prototype.charAt,
+	get_Length: function () {
+		return this.length;
+	},
+	trim: function () {
+		return this.replace(/^\s+|\s+$/g, "");
+	},
+	Trim: function () {
+		return this.replace(/^\s+|\s+$/g, "");
+	},
+	ltrim: function () {
+		return this.replace(/^\s+/, "");
+	},
+	rtrim: function () {
+		return this.replace(/\s+$/, "");
+	},
+	FormatObject$$String$$Object$Array: function (formatStr, object) {
+		var r = /{[A-Za-z]+}/g;
+		var s = formatStr;
+		var matches = s.match(r);
+		for (var i = 0, j = matches.length; i < j; i++) {
+			var m = matches[i];
+			var n = m.substring(1, m.length - 1);
+			var v = dataObject["get" + n]();
+			s = s.split(m).join(v);
+		}
+		return s;
+    },
+    // The CRC32 calculation of a string seems like as good a hashcode as anything else to me. -- Yvan
+    // http://noteslog.com/post/crc32-for-javascript/
+    GetHashCode: function () { 
+        var table = "00000000 77073096 EE0E612C 990951BA 076DC419 706AF48F E963A535 9E6495A3 0EDB8832 79DCB8A4 E0D5E91E 97D2D988 09B64C2B 7EB17CBD E7B82D07 90BF1D91 1DB71064 6AB020F2 F3B97148 84BE41DE 1ADAD47D 6DDDE4EB F4D4B551 83D385C7 136C9856 646BA8C0 FD62F97A 8A65C9EC 14015C4F 63066CD9 FA0F3D63 8D080DF5 3B6E20C8 4C69105E D56041E4 A2677172 3C03E4D1 4B04D447 D20D85FD A50AB56B 35B5A8FA 42B2986C DBBBC9D6 ACBCF940 32D86CE3 45DF5C75 DCD60DCF ABD13D59 26D930AC 51DE003A C8D75180 BFD06116 21B4F4B5 56B3C423 CFBA9599 B8BDA50F 2802B89E 5F058808 C60CD9B2 B10BE924 2F6F7C87 58684C11 C1611DAB B6662D3D 76DC4190 01DB7106 98D220BC EFD5102A 71B18589 06B6B51F 9FBFE4A5 E8B8D433 7807C9A2 0F00F934 9609A88E E10E9818 7F6A0DBB 086D3D2D 91646C97 E6635C01 6B6B51F4 1C6C6162 856530D8 F262004E 6C0695ED 1B01A57B 8208F4C1 F50FC457 65B0D9C6 12B7E950 8BBEB8EA FCB9887C 62DD1DDF 15DA2D49 8CD37CF3 FBD44C65 4DB26158 3AB551CE A3BC0074 D4BB30E2 4ADFA541 3DD895D7 A4D1C46D D3D6F4FB 4369E96A 346ED9FC AD678846 DA60B8D0 44042D73 33031DE5 AA0A4C5F DD0D7CC9 5005713C 270241AA BE0B1010 C90C2086 5768B525 206F85B3 B966D409 CE61E49F 5EDEF90E 29D9C998 B0D09822 C7D7A8B4 59B33D17 2EB40D81 B7BD5C3B C0BA6CAD EDB88320 9ABFB3B6 03B6E20C 74B1D29A EAD54739 9DD277AF 04DB2615 73DC1683 E3630B12 94643B84 0D6D6A3E 7A6A5AA8 E40ECF0B 9309FF9D 0A00AE27 7D079EB1 F00F9344 8708A3D2 1E01F268 6906C2FE F762575D 806567CB 196C3671 6E6B06E7 FED41B76 89D32BE0 10DA7A5A 67DD4ACC F9B9DF6F 8EBEEFF9 17B7BE43 60B08ED5 D6D6A3E8 A1D1937E 38D8C2C4 4FDFF252 D1BB67F1 A6BC5767 3FB506DD 48B2364B D80D2BDA AF0A1B4C 36034AF6 41047A60 DF60EFC3 A867DF55 316E8EEF 4669BE79 CB61B38C BC66831A 256FD2A0 5268E236 CC0C7795 BB0B4703 220216B9 5505262F C5BA3BBE B2BD0B28 2BB45A92 5CB36A04 C2D7FFA7 B5D0CF31 2CD99E8B 5BDEAE1D 9B64C2B0 EC63F226 756AA39C 026D930A 9C0906A9 EB0E363F 72076785 05005713 95BF4A82 E2B87A14 7BB12BAE 0CB61B38 92D28E9B E5D5BE0D 7CDCEFB7 0BDBDF21 86D3D2D4 F1D4E242 68DDB3F8 1FDA836E 81BE16CD F6B9265B 6FB077E1 18B74777 88085AE6 FF0F6A70 66063BCA 11010B5C 8F659EFF F862AE69 616BFFD3 166CCF45 A00AE278 D70DD2EE 4E048354 3903B3C2 A7672661 D06016F7 4969474D 3E6E77DB AED16A4A D9D65ADC 40DF0B66 37D83BF0 A9BCAE53 DEBB9EC5 47B2CF7F 30B5FFE9 BDBDF21C CABAC28A 53B39330 24B4A3A6 BAD03605 CDD70693 54DE5729 23D967BF B3667A2E C4614AB8 5D681B02 2A6F2B94 B40BBE37 C30C8EA1 5A05DF1B 2D02EF8D";     
+ 
+        var str = this.toString();
+        var crc = 0; 
+        var n = 0; //a number between 0 and 255 
+        var x = 0; //an hex number 
+ 
+        crc = crc ^ (-1); 
+        for( var i = 0, iTop = str.length; i < iTop; i++ ) { 
+            n = ( crc ^ str.charCodeAt( i ) ) & 0xFF; 
+            x = "0x" + table.substr( n * 9, 8 ); 
+            crc = ( crc >>> 8 ) ^ x; 
+        } 
+        return crc ^ (-1); 
+    },
+}, staticDefinition:
+{
+	Empty: "",
+	FormatCache: [],
+	Format: function (format, varargs) {
+	    var cache = System.String.FormatCache;
+	    var format = arguments[0];
+	    for (var i = 0; i < arguments[1].length; i++) {
+	        var re = cache[i];
+	        if (re == null) {
+	            re = new RegExp('\\{' + i + '\\}', 'gm');
+	            cache.push(re);
+	        }
+	        var arg = arguments[1][i];
+	        if (arg == null) arg = "";
+	        format = format.replace(re, arg);
+	    }
+	    return format;
+	},
+	Format$$String$$Object$Array: function (format, varargs) {
+	    return System.String.Format.apply(null, arguments); //TODO: make native
+	},
+	Format$$String$$Object$$Object$$Object: function (s, obj1, obj2, obj3) {
+	    return this.Format(s, [obj1, obj2, obj3]);
+	},
+	Format$$String$$Object$$Object: function (s, obj1, obj2) {
+	    return this.Format(s, [obj1, obj2]);
+	},
+	Format$$String$$Object: function (s, obj1) {
+	    return this.Format(s, [obj1]);
+	},
+	Compare$$String$$String$$Boolean: function (s1, s2, ignoreCase) {
+		if (ignoreCase) {
+			s1 = s1.toLowerCase();
+			s2 = s2.toLowerCase();
+		}
+		if (s1 > s2)
+			return 1;
+		else if (s1 < s2)
+			return -1;
+		else
+			return 0;
+	},
+	Join$$String$$IEnumerable$1$String: function (seraparator, varargs) {
+	    if (varargs == null)
+	        return null;
+
+	    var values = [];
+	    var it = varargs.GetEnumerator();
+	    while (it.MoveNext()) {
+	        var local = it.get_Current();
+	        values.push(local);
+	    }
+
+	    return values.join(seraparator);
+	},
+	IsNullOrEmpty: function (s) {
+		return s == null || s.length == 0;
+	}
+}
+});
+var Arguments = function () {
+}
+//TODO: this method doesn't work good when argsObject contains undefineds
+Arguments.from = function (argsObject, start) {
+	//1;
+	return Array.prototype.slice.call(argsObject, start);
+	//	var end = argsObject.length;
+	//	var list = new Array();
+	//	for(var i=start;i<end;i++)
+	//	{
+	//		list.push(argsObject[i] || null);
+	//	}
+	//	return list;
+}
+Arguments.Range = function (argsObject, start, end) {
+	if (end == null)
+		end = argsObject.length - 1;
+	var list = new Array();
+	for (var i = start; i <= end; i++) {
+		list.push(argsObject[i]);
+	}
+	return list;
+}
+Arguments.Contains = function (args, object) {
+	for (var i = 0; i < args.length; i++) {
+		if (args[i] == object)
+			return true;
+	}
+	return false;
+}
+JsTypes.push({ fullname: "Date", definition:
+{
+	removeTime: function () {
+		return new Date(this.getFullYear(), this.getMonth(), this.getDate());
+	},
+	getStartMonthDayOfWeek: function () {
+		return new Date(this.getFullYear(), this.getMonth(), 1).getDay();
+	},
+	getShortDayOfWeek: function () {
+		return Date.shortDays[this.getDay()];
+	},
+	addMonths: function (months) {
+		return new Date(this.getFullYear(), this.getMonth() + months, this.getDate(), this.getHours(), this.getMinutes(), this.getSeconds(), this.getMilliseconds());
+	},
+	addDays: function (days) {
+		return new Date(this.getFullYear(), this.getMonth(), this.getDate() + days, this.getHours(), this.getMinutes(), this.getSeconds(), this.getMilliseconds());
+	},
+	isInMonth: function (date) {
+		return this.getFullYear() == date.getFullYear() && this.getMonth() == date.getMonth();
+	}
+}, staticDefinition:
+{
+	shortDays: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+	getNow: function () {
+		return new Date();
+	},
+	getToday: function () {
+		return new Date().removeTime();
+	}
+}
+});
+//THIS file is for backward compatability and should be deprecated
+JsTypes.push({ fullname: "VM", definition:
+{
+}, staticDefinition:
+{
+	tryParse: function (text, ctor) {
+		if (ctor == null)
+			return null;
+		var type = ctor._type;
+		return this._TryParse(text, type);
+	},
+	TryParse: function (text, type) {
+		if (typeof (type) == "string")
+			type = Typeof(type);
+		if (type == null)
+			return null;
+		return this._TryParse(text, type._JsType);
+	},
+	_TryParse: function (text, jsType) {
+		if (jsType == null)
+			return null;
+		if (typeof (jsType) == "string") {
+			jsType = this.getType(jsType);
+			if (jsType == null)
+				return null;
+		}
+		if (jsType.tryParse == null)
+			return null;
+		return jsType.tryParse(text);
+	},
+	PropertyIs: function (object, propertyName, typeName) {
+		var propertyCtor = VM.getPropertyType(object, propertyName);
+		if (propertyCtor != null)//TODO: recieved ctor
+		{
+			var propertyType = propertyCtor._type;
+			var type = Type.GetType(typeName, true);
+			return TypeIs(propertyType, type);
+		}
+		return false;
+	}
+}
+});
+JsTypes.push({ fullname: "SharpKit.DataModel.NotifyCollectionChangedEventArgs", baseTypeName: "System.Object", definition:
+{
+	ctor: function (action, changedItem) {
+		if (arguments.length == 0)
+			return; //TODO: Support serialization constructors
+		this._Action = action;
+		if (action == "Add") {
+			this._NewItems = [changedItem];
+		}
+		else if (action == "Remove") {
+			this._OldItems = [changedItem];
+		}
+		else
+			throw new Error("Not implemented");
+	},
+	get_OldItems: function () {
+		return this._OldItems;
+	},
+	get_NewItems: function () {
+		return this._NewItems;
+	},
+	get_Action: function () {
+		return this._Action;
+	}
+}
+});
+JsTypes.push({
+    fullname: "System.Convert",
+    baseTypeName: "System.Object",
+    staticDefinition:
+    {
+        ToDecimal: function (value) {
+            return value;
+        },
+        ToDecimal$$Object: function (value) {
+            return value;
+        },
+        ToInt64$$Object: function (value) {
+            return value;
+        }
+    }
+});
+JsTypes.push({
+    fullname: "System.Void",
+    definition:
+    {
+        ctor: function () {
+        }
+    }
+});

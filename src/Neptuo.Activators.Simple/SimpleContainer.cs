@@ -14,12 +14,7 @@ namespace Neptuo.Activators
         private readonly Dictionary<Type, IActivator<object, IDependencyContext>> mappingsWithContext = new Dictionary<Type, IActivator<object, IDependencyContext>>();
         private readonly IActivator<object, IDependencyContext> defaultActivator = new SimpleDefaultActivator();
 
-        public IDependencyContainer AddMapping(Type requiredType, IActivator<object> activator)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IDependencyContainer AddMapping(Type requiredType, IActivator<object, IDependencyContext> activator)
+        public IDependencyContainer AddMapping(Type requiredType, DependencyLifetime lifetime, object target)
         {
             throw new NotImplementedException();
         }
@@ -29,13 +24,13 @@ namespace Neptuo.Activators
             throw new NotImplementedException();
         }
 
-        public object TryResolve(Type requiredType, string name)
+        public object Resolve(Type requiredType)
         {
             IActivator<object> activator;
             if (mappings.TryGetValue(requiredType, out activator))
                 return activator.Create();
 
-            IDependencyContext context = CreateContext(requiredType, name);
+            IDependencyContext context = CreateContext(requiredType);
             IActivator<object, IDependencyContext> activatorWithContext;
             if (!mappingsWithContext.TryGetValue(requiredType, out activatorWithContext))
                 activatorWithContext = defaultActivator;
@@ -43,20 +38,14 @@ namespace Neptuo.Activators
             return activatorWithContext.Create(context);
         }
 
-        private IDependencyContext CreateContext(Type requiredType, string name)
+        private IDependencyContext CreateContext(Type requiredType)
         {
             throw Guard.Exception.NotImplemented();
-        }
-
-        public IEnumerable<object> ResolveAll(Type requiredType)
-        {
-            throw new NotImplementedException();
         }
 
         protected override void DisposeManagedResources()
         {
             base.DisposeManagedResources();
         }
-
     }
 }

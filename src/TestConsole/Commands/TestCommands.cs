@@ -8,7 +8,7 @@ using Neptuo.Pipelines.Commands.Interception;
 using Neptuo.ComponentModel;
 using Neptuo.Pipelines.Events;
 using Neptuo.Pipelines.Events.Handlers;
-using Neptuo.Unity;
+using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -38,11 +38,11 @@ namespace TestConsole.Commands
             commandExecutorFactory.OnSearchFactory += OnSearchFactory;
 
             DependencyContainer
-                .RegisterInstance<IEventDispatcher>(eventManager)
-                .RegisterInstance<IEventRegistry>(eventManager)
+                .AddMapping(typeof(IEventDispatcher), DependencyLifetime.AnyScope, eventManager)
+                .AddMapping(typeof(IEventRegistry), DependencyLifetime.AnyScope, eventManager)
 
-                .RegisterType<ICommandHandler<CreateProductCommand>, CreateProductCommandHandler>()
-                .RegisterInstance<ICommandExecutorFactory>(commandExecutorFactory);
+                .AddMapping(typeof(ICommandHandler<CreateProductCommand>), DependencyLifetime.Transient, typeof(CreateProductCommandHandler))
+                .AddMapping(typeof(ICommandExecutorFactory), DependencyLifetime.AnyScope, commandExecutorFactory);
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(DependencyContainer, eventManager);
 

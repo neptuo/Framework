@@ -1,5 +1,6 @@
 ﻿using Neptuo;
-using Neptuo.Unity;
+using Neptuo.Activators;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace TestConsole.DependencyContainers
         { }
     }
 
-    public class DependencyProvider : IDependencyProvider, IObjectFactoryContext
+    public class DependencyProvider : DisposableBase, IDependencyProvider, IObjectFactoryContext
     {
         private Dictionary<Type, IObjectFactory<object>> factories = new Dictionary<Type, IObjectFactory<object>>();
         private Stack<Type> parentTypes = new Stack<Type>();
@@ -44,19 +45,14 @@ namespace TestConsole.DependencyContainers
             factories[typeof(Saver)] = new Factory_Saver();
         }
 
-        public IDependencyContainer CreateChildContainer()
+        public IDependencyContainer Scope(string scopeName)
         {
             throw new NotImplementedException();
         }
 
-        public object Resolve(Type targetType, string name)
+        public object Resolve(Type targetType)
         {
             return Build(targetType);
-        }
-
-        public IEnumerable<object> ResolveAll(Type requiredType)
-        {
-            throw new NotImplementedException();
         }
 
         private IObjectFactory<object> GetFactory(Type targetType)

@@ -114,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj">
+      <Project>{a9d02667-9762-4c91-a403-41de7b8a4efe}</Project>
+      <Name>Neptuo.Activators.Unity</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj">
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
@@ -149,10 +153,6 @@
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Unity\Neptuo.Unity.csproj">
-      <Project>{952a7bd7-2092-4578-bcf2-9d433c32c1ac}</Project>
-      <Name>Neptuo.Unity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
       <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>
