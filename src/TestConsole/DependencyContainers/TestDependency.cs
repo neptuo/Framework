@@ -1,4 +1,5 @@
-﻿using Neptuo;
+﻿using Microsoft.Practices.Unity;
+using Neptuo;
 using Neptuo.Activators;
 using Neptuo.ComponentModel;
 using System;
@@ -15,27 +16,79 @@ namespace TestConsole.DependencyContainers
         {
             TestUnity();
             //TestPerf();
+			//TestUnityContainer();
         }
+		
+		static void TestUnityContainer() 
+		{
+			IUnityContainer container = new UnityContainer();
+			container.RegisterType<IHelloService, HiService>();
+			
+			using (IUnityContainer child = container.CreateChildContainer())
+			{
+				child.RegisterType<IMessageWriter, TextMessageWriter>();
+				PrintRegistrations(container);
+                PrintRegistrations(child);
+            }
+            PrintRegistrations(container);
+			
+			container.Dispose();
+		}
+		
+		static void PrintRegistrations(IUnityContainer container) 
+		{
+		    Console.WriteLine("Count: {0}", container.Registrations.Count());
+			//foreach (var )
+		}
 
         private static void TestUnity()
         {
             IDependencyContainer container = new UnityDependencyContainer()
                 .Add<IHelloService>().InAnyScope().ToType<HiService>()
-                .Add<IMessageWriter>().InNamedScope("Root").ToActivator(new ConsoleWriterActivator())
+                .Add<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
                 //TODO: Transient can't be resolved from parent containers => break resolving for inner dependencies.
                 .Add<Presenter>().InTransient().ToSelf();
 
             using (IDependencyProvider provider = container.Scope("Request"))
             {
-                Presenter presenter = provider.Resolve<Presenter>();
-                presenter.Execute();
+                Presenter presenter;
 
                 using (IDependencyProvider provider2 = provider.Scope("Sub"))
                 {
-                    presenter = provider.Resolve<Presenter>();
+                    presenter = provider2.Resolve<Presenter>();
                     presenter.Execute();
                 }
+
+                using (IDependencyProvider provider2 = provider.Scope("Sub"))
+                {
+                    presenter = provider2.Resolve<Presenter>();
+                    presenter.Execute();
+                }
+
+                presenter = provider.Resolve<Presenter>();
+                presenter.Execute();
             }
+
+            using (IDependencyProvider provider = container.Scope("Request"))
+            {
+                Presenter presenter;
+
+                using (IDependencyProvider provider2 = provider.Scope("Sub"))
+                {
+                    presenter = provider2.Resolve<Presenter>();
+                    presenter.Execute();
+                }
+
+                using (IDependencyProvider provider2 = provider.Scope("Sub"))
+                {
+                    presenter = provider2.Resolve<Presenter>();
+                    presenter.Execute();
+                }
+
+                presenter = provider.Resolve<Presenter>();
+                presenter.Execute();
+            }
+
             container.Dispose();
         }
 

@@ -34,13 +34,14 @@ namespace Neptuo.Activators
             this.targetMapper = new TargetMapper();
         }
 
-        private UnityDependencyContainer(string scopeName, MappingCollection parentMappings, UnityDependencyContainer parentContainer)
+        private UnityDependencyContainer(string scopeName, MappingCollection parentMappings, IUnityContainer unityContainer)
             : this()
         {
             this.scopeName = scopeName;
             this.mappings = new MappingCollection(parentMappings);
-            this.parentContainer = parentContainer;
-            AddScopeMappings(parentMappings, String.Empty);
+			this.unityContainer = unityContainer;
+            //this.parentContainer = parentContainer;
+            //AddScopeMappings(parentMappings, String.Empty);
             AddScopeMappings(parentMappings, scopeName);
         }
 
@@ -74,7 +75,7 @@ namespace Neptuo.Activators
 
         public IDependencyContainer Scope(string name)
         {
-            return new UnityDependencyContainer(name, mappings, this);
+            return new UnityDependencyContainer(name, mappings, unityContainer.CreateChildContainer());
         }
 
         public object Resolve(Type requiredType)
@@ -84,8 +85,8 @@ namespace Neptuo.Activators
 				return unityContainer.Resolve(requiredType);
 
             // Look in parent container.
-            if (parentContainer != null)
-                return parentContainer.Resolve(requiredType);
+            //if (parentContainer != null)
+            //    return parentContainer.Resolve(requiredType);
 
             // Just try it any way...
             return unityContainer.Resolve(requiredType);
