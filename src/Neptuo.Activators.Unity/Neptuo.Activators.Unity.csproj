@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Internals\Mapping.cs" />
     <Compile Include="Internals\MappingCollection.cs" />
+    <Compile Include="Internals\RegistrationMapper.cs" />
     <Compile Include="Internals\ScopeMapper.cs" />
     <Compile Include="Internals\SingletonLifetimeManager.cs" />
     <Compile Include="Internals\TargetMapper.cs" />

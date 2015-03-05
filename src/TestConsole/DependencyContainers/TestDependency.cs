@@ -46,7 +46,6 @@ namespace TestConsole.DependencyContainers
             IDependencyContainer container = new UnityDependencyContainer()
                 .Add<IHelloService>().InAnyScope().ToType<HiService>()
                 .Add<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
-                //TODO: Transient can't be resolved from parent containers => break resolving for inner dependencies.
                 .Add<Presenter>().InTransient().ToSelf();
 
             using (IDependencyProvider provider = container.Scope("Request"))

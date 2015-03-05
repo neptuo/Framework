@@ -14,35 +14,29 @@ namespace Neptuo.Activators
         public const string RootScopeName = "Root";
 
         private readonly string scopeName;
-        private readonly MappingCollection mappings;
+        
         private readonly IUnityContainer unityContainer;
-        private readonly UnityDependencyContainer parentContainer;
-        private readonly ScopeMapper scopeMapper;
-        private readonly TargetMapper targetMapper;
+        private readonly RegistrationMapper mapper;
 
         public UnityDependencyContainer()
             : this(new UnityContainer())
         { }
 
         public UnityDependencyContainer(IUnityContainer unityContainer)
+            : this(RootScopeName, new RegistrationMapper(unityContainer, new MappingCollection(), RootScopeName), unityContainer)
         {
             Guard.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
             this.scopeName = RootScopeName;
-            this.mappings = new MappingCollection();
-            this.scopeMapper = new ScopeMapper();
-            this.targetMapper = new TargetMapper();
+            this.mapper = new RegistrationMapper(unityContainer, new MappingCollection(), scopeName);
         }
 
-        private UnityDependencyContainer(string scopeName, MappingCollection parentMappings, IUnityContainer unityContainer)
-            : this()
+        private UnityDependencyContainer(string scopeName, RegistrationMapper mapper, IUnityContainer unityContainer)
         {
+            this.unityContainer = unityContainer;
             this.scopeName = scopeName;
-            this.mappings = new MappingCollection(parentMappings);
-			this.unityContainer = unityContainer;
-            //this.parentContainer = parentContainer;
-            //AddScopeMappings(parentMappings, String.Empty);
-            AddScopeMappings(parentMappings, scopeName);
+            this.mapper = mapper;
+            AddScopeMappings(mappings, scopeName);
         }
 
         private void AddScopeMappings(MappingCollection mappings, string scopeName)
@@ -63,32 +57,19 @@ namespace Neptuo.Activators
 
         private void AddMapping(Mapping mapping)
         {
-            if (!mapping.Lifetime.IsNamed || mapping.Lifetime.Name == scopeName)
-            {
-                LifetimeManager lifetimeManager = scopeMapper.CreateLifetimeManager(mapping.Lifetime);
-                targetMapper.Register(unityContainer, mapping.RequiredType, lifetimeManager, mapping.Target);
-            }
-
-            if (!mapping.Lifetime.IsTransient)
-                mappings.AddMapping(mapping);
         }
 
-        public IDependencyContainer Scope(string name)
+        public IDependencyContainer Scope(string scopeName)
         {
-            return new UnityDependencyContainer(name, mappings, unityContainer.CreateChildContainer());
+            return new UnityDependencyContainer(
+                scopeName, 
+                new MappingCollection(mappings), 
+                unityContainer.CreateChildContainer()
+            );
         }
 
         public object Resolve(Type requiredType)
         {
-            // Try to resolve by this container.
-		    if (unityContainer.IsRegistered(requiredType))
-				return unityContainer.Resolve(requiredType);
-
-            // Look in parent container.
-            //if (parentContainer != null)
-            //    return parentContainer.Resolve(requiredType);
-
-            // Just try it any way...
             return unityContainer.Resolve(requiredType);
         }
 
