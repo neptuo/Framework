@@ -13,8 +13,6 @@ namespace Neptuo.Activators
     {
         public const string RootScopeName = "Root";
 
-        private readonly string scopeName;
-        
         private readonly IUnityContainer unityContainer;
         private readonly RegistrationMapper mapper;
 
@@ -23,47 +21,27 @@ namespace Neptuo.Activators
         { }
 
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(RootScopeName, new RegistrationMapper(unityContainer, new MappingCollection(), RootScopeName), unityContainer)
+            : this(RootScopeName, new MappingCollection(), unityContainer)
+        { }
+
+        private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
         {
             Guard.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
-            this.scopeName = RootScopeName;
-            this.mapper = new RegistrationMapper(unityContainer, new MappingCollection(), scopeName);
+            this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
         }
 
-        private UnityDependencyContainer(string scopeName, RegistrationMapper mapper, IUnityContainer unityContainer)
+        public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            this.unityContainer = unityContainer;
-            this.scopeName = scopeName;
-            this.mapper = mapper;
-            AddScopeMappings(mappings, scopeName);
-        }
-
-        private void AddScopeMappings(MappingCollection mappings, string scopeName)
-        {
-            IEnumerable<Mapping> scopeMappings;
-            if (mappings.TryGet(scopeName, out scopeMappings))
-            {
-                foreach (Mapping mapping in scopeMappings)
-                    AddMapping(mapping);
-            }
-        }
-
-        public IDependencyContainer AddMapping(Type requiredType, DependencyLifetime lifetime, object target)
-        {
-            AddMapping(new Mapping(requiredType, lifetime, target));
+            mapper.Map(new Mapping(requiredType, lifetime, target));
             return this;
-        }
-
-        private void AddMapping(Mapping mapping)
-        {
         }
 
         public IDependencyContainer Scope(string scopeName)
         {
             return new UnityDependencyContainer(
-                scopeName, 
-                new MappingCollection(mappings), 
+                scopeName,
+                mapper.Mappings, 
                 unityContainer.CreateChildContainer()
             );
         }

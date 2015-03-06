@@ -44,9 +44,9 @@ namespace TestConsole.DependencyContainers
         private static void TestUnity()
         {
             IDependencyContainer container = new UnityDependencyContainer()
-                .Add<IHelloService>().InAnyScope().ToType<HiService>()
-                .Add<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
-                .Add<Presenter>().InTransient().ToSelf();
+                .Map<IHelloService>().InAnyScope().ToType<HiService>()
+                .Map<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
+                .Map<Presenter>().InTransient().ToSelf();
 
             using (IDependencyProvider provider = container.Scope("Request"))
             {
@@ -54,6 +54,9 @@ namespace TestConsole.DependencyContainers
 
                 using (IDependencyProvider provider2 = provider.Scope("Sub"))
                 {
+                    presenter = provider2.Resolve<Presenter>();
+                    presenter.Execute();
+
                     presenter = provider2.Resolve<Presenter>();
                     presenter.Execute();
                 }

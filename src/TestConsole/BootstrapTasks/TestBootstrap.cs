@@ -1,11 +1,11 @@
 ﻿using Neptuo;
+using Neptuo.Activators;
 using Neptuo.Bootstrap;
 using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Constraints.Providers;
 using Neptuo.Bootstrap.Dependencies;
 using Neptuo.Bootstrap.Dependencies.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
-using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,11 +34,11 @@ namespace TestConsole.BootstrapTasks
         {
             UnityDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer
-                .AddMapping(typeof(string), DependencyLifetime.AnyScope, "Hi")
-                .AddMapping(typeof(TextWriter), DependencyLifetime.AnyScope, Console.Out)
-                .AddMapping(typeof(EngineEnvironment), DependencyLifetime.AnyScope, Engine.Environment);
+                .Map(typeof(string), DependencyLifetime.AnyScope, "Hi")
+                .Map(typeof(TextWriter), DependencyLifetime.AnyScope, Console.Out)
+                .Map(typeof(EngineEnvironment), DependencyLifetime.AnyScope, Engine.Environment);
 
-            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => (IBootstrapTask)dependencyContainer.Resolve(task));
+            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
             bootstrapper.Register<Sequence.HelloBootstrapTask>();
             bootstrapper.Initialize();

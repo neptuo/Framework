@@ -14,7 +14,7 @@ namespace Neptuo.Activators
         private readonly Dictionary<Type, IActivator<object, IDependencyContext>> mappingsWithContext = new Dictionary<Type, IActivator<object, IDependencyContext>>();
         private readonly IActivator<object, IDependencyContext> defaultActivator = new SimpleDefaultActivator();
 
-        public IDependencyContainer AddMapping(Type requiredType, DependencyLifetime lifetime, object target)
+        public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)
         {
             throw new NotImplementedException();
         }

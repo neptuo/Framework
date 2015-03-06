@@ -13,14 +13,38 @@ namespace Neptuo.Activators.Internals
         private readonly MappingCollection mappings;
         private readonly string scopeName;
 
-        public RegistrationMapper(IUnityContainer unityContainer, MappingCollection mappings, string scopeName)
+        public MappingCollection Mappings
+        {
+            get { return mappings; }
+        }
+
+        public RegistrationMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
         {
             Guard.NotNull(unityContainer, "unityContainer");
-            Guard.NotNull(mappings, "mappings");
-            Guard.NotNull(scopeName, "scopeName");
+            Guard.NotNullOrEmpty(scopeName, "scopeName");
             this.unityContainer = unityContainer;
-            this.mappings = mappings;
             this.scopeName = scopeName;
+
+            if (parentMappings == null)
+            {
+                this.mappings = new MappingCollection();
+            }
+            else
+            {
+                this.mappings = new MappingCollection(parentMappings);
+                MapScope(parentMappings, scopeName);
+            }
+
+        }
+
+        private void MapScope(MappingCollection mappings, string scopeName)
+        {
+            IEnumerable<Mapping> scopeMappings;
+            if (mappings.TryGet(scopeName, out scopeMappings))
+            {
+                foreach (Mapping mapping in scopeMappings)
+                    Map(mapping);
+            }
         }
 
         public RegistrationMapper Map(Mapping model)

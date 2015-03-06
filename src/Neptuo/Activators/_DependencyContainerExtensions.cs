@@ -40,7 +40,7 @@ namespace Neptuo.Activators
 
             public IDependencyContainer To(object target)
             {
-                return dependencyContainer.AddMapping(requiredType, lifetime, target);
+                return dependencyContainer.Map(requiredType, lifetime, target);
             }
 
             public IDependencyContainer ToSelf()
@@ -49,16 +49,16 @@ namespace Neptuo.Activators
             }
         }
 
-        #region 'Add' extensions
+        #region 'Map' extensions
 
-        public static IDependencyScopeMapping Add(this IDependencyContainer dependencyContainer, Type requiredType)
+        public static IDependencyScopeMapping Map(this IDependencyContainer dependencyContainer, Type requiredType)
         {
             return new DependencyRegistration(dependencyContainer, requiredType);
         }
 
-        public static IDependencyScopeMapping Add<TRequired>(this IDependencyContainer dependencyContainer)
+        public static IDependencyScopeMapping Map<TRequired>(this IDependencyContainer dependencyContainer)
         {
-            return Add(dependencyContainer, typeof(TRequired));
+            return Map(dependencyContainer, typeof(TRequired));
         }
 
         #endregion
@@ -81,6 +81,12 @@ namespace Neptuo.Activators
         {
             Guard.NotNull(mapping, "mapping");
             return mapping.In(DependencyLifetime.NamedScope(scopeName));
+        }
+
+        public static IDependencyTargetMapping InRootScope(this IDependencyScopeMapping mapping)
+        {
+            Guard.NotNull(mapping, "mapping");
+            return mapping.In(DependencyLifetime.NamedScope("Root"));
         }
 
         #endregion

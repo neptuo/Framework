@@ -19,7 +19,7 @@ namespace TestConsole.Delegates
         public static void Test()
         {
             IDependencyContainer dependencyContainer = new UnityDependencyContainer()
-                .AddMapping(typeof(ResolveUrl), DependencyLifetime.AnyScope, new ResolveUrl(ResolveUrl));
+                .Map<ResolveUrl>().InRootScope().To(new ResolveUrl(ResolveUrl));
 
 
             ResolveUrl resolveUrl = dependencyContainer.Resolve<ResolveUrl>();

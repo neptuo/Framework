@@ -18,6 +18,6 @@ namespace Neptuo.Activators
         /// <param name="lifetime">Lifetime of created instance.</param>
         /// <param name="target">Any supported target object.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer AddMapping(Type requiredType, DependencyLifetime lifetime, object target);
+        IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target);
     }
 }
