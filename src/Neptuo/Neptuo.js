@@ -209,32 +209,28 @@ var Neptuo$Activators$_DependencyContainerExtensions = {
         Map$1$$IDependencyContainer: function (TRequired, dependencyContainer){
             return Neptuo.Activators._DependencyContainerExtensions.Map$$IDependencyContainer$$Type(dependencyContainer, Typeof(TRequired));
         },
-        InTransient: function (mapping){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.In(Neptuo.Activators.DependencyLifetime.Transient);
+        InTransient: function (model){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            return model.In(Neptuo.Activators.DependencyLifetime.Transient);
         },
-        InAnyScope: function (mapping){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.In(Neptuo.Activators.DependencyLifetime.AnyScope);
+        InAnyScope: function (model){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            return model.In(Neptuo.Activators.DependencyLifetime.AnyScope);
         },
-        InNamedScope: function (mapping, scopeName){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
+        InNamedScope: function (model, scopeName){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            return model.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
         },
-        InRootScope: function (mapping){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.In(Neptuo.Activators.DependencyLifetime.NamedScope("Root"));
+        ToType$$IDependencyTargetMapping$$Type: function (model, targetType){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            return model.To(targetType);
         },
-        ToType$$IDependencyTargetMapping$$Type: function (mapping, targetType){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.To(targetType);
+        ToType$1$$IDependencyTargetMapping: function (TTarget, model){
+            return Neptuo.Activators._DependencyContainerExtensions.ToType$$IDependencyTargetMapping$$Type(model, Typeof(TTarget));
         },
-        ToType$1$$IDependencyTargetMapping: function (TTarget, mapping){
-            return Neptuo.Activators._DependencyContainerExtensions.ToType$$IDependencyTargetMapping$$Type(mapping, Typeof(TTarget));
-        },
-        ToActivator$1: function (TTarget, mapping, activator){
-            Neptuo.Guard.NotNull$$Object$$String(mapping, "mapping");
-            return mapping.To(activator);
+        ToActivator$1: function (TTarget, model, activator){
+            Neptuo.Guard.NotNull$$Object$$String(model, "model");
+            return model.To(activator);
         }
     },
     assemblyName: "Neptuo",
@@ -285,6 +281,9 @@ var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
         In: function (lifetime){
             this.lifetime = lifetime;
             return this;
+        },
+        InCurrentScope: function (){
+            return this.In(Neptuo.Activators.DependencyLifetime.NamedScope(this.dependencyContainer.get_ScopeName()));
         },
         To: function (target){
             return this.dependencyContainer.Map(this.requiredType, this.lifetime, target);

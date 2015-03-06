@@ -16,6 +16,11 @@ namespace Neptuo.Activators
         private readonly IUnityContainer unityContainer;
         private readonly RegistrationMapper mapper;
 
+        public string ScopeName
+        {
+            get { return mapper.ScopeName; }
+        }
+
         public UnityDependencyContainer()
             : this(new UnityContainer())
         { }
@@ -33,7 +38,7 @@ namespace Neptuo.Activators
 
         public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            mapper.Map(new Mapping(requiredType, lifetime, target));
+            mapper.Map(new MappingModel(requiredType, lifetime, target));
             return this;
         }
 

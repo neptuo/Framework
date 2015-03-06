@@ -13,6 +13,11 @@ namespace TestConsole.DependencyContainers
         private Dictionary<Type, IObjectFactory<object>> factories = new Dictionary<Type, IObjectFactory<object>>();
         private Stack<Type> parentTypes = new Stack<Type>();
 
+        public string ScopeName
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public SimpleDependencyProvider()
         {
             factories[typeof(Service)] = new Factory_Service();

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class Mapping
+    internal class MappingModel
     {
         public Type RequiredType { get; private set; }
         public DependencyLifetime Lifetime { get; private set; }
         public object Target { get; private set; }
 
-        public Mapping(Type requiredType, DependencyLifetime lifetime, object target)
+        public MappingModel(Type requiredType, DependencyLifetime lifetime, object target)
         {
             Guard.NotNull(requiredType, "requiredType");
             Guard.NotNull(target, "target");

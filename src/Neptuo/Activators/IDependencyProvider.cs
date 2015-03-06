@@ -11,6 +11,11 @@ namespace Neptuo.Activators
     public interface IDependencyProvider : IDisposable
     {
         /// <summary>
+        /// Returns name of the current scope.
+        /// </summary>
+        string ScopeName { get; }
+
+        /// <summary>
         /// Creates new child container based on this provider.
         /// </summary>
         /// <param name="name">Optional name for named scopes.</param>

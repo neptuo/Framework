@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Neptuo.Activators.Internals
     internal class MappingCollection
     {
         private readonly MappingCollection parentCollection;
-        private readonly Dictionary<string, List<Mapping>> storage = new Dictionary<string, List<Mapping>>();
+        private readonly ConcurrentDictionary<string, List<MappingModel>> storage = new ConcurrentDictionary<string, List<MappingModel>>();
 
         public MappingCollection()
         { }
@@ -22,10 +23,10 @@ namespace Neptuo.Activators.Internals
 
         public MappingCollection AddMapping(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            return AddMapping(new Mapping(requiredType, lifetime, target));
+            return AddMapping(new MappingModel(requiredType, lifetime, target));
         }
 
-        public MappingCollection AddMapping(Mapping model)
+        public MappingCollection AddMapping(MappingModel model)
         {
             string scopeName;
             if (model.Lifetime.IsNamed)
@@ -33,24 +34,24 @@ namespace Neptuo.Activators.Internals
             else if (model.Lifetime.IsScoped)
                 scopeName = String.Empty;
             else
-                throw Guard.Exception.InvalidOperation("MappingCollection supports only scoped or named scope registrations.");
+                throw Guard.Exception.InvalidOperation("MappingCollection supports only scoped or name-scoped registrations.");
 
-            List<Mapping> models;
+            List<MappingModel> models;
             if (!storage.TryGetValue(scopeName, out models))
-                storage[scopeName] = models = new List<Mapping>();
+                storage[scopeName] = models = new List<MappingModel>();
 
             models.Add(model);
             return this;
         }
 
-        public bool TryGet(string scopeName, out IEnumerable<Mapping> models)
+        public bool TryGet(string scopeName, out IEnumerable<MappingModel> models)
         {
-            List<Mapping> result;
+            List<MappingModel> result;
             if (storage.TryGetValue(scopeName, out result))
             {
                 models = result;
 
-                IEnumerable<Mapping> parentResult;
+                IEnumerable<MappingModel> parentResult;
                 if (parentCollection != null && parentCollection.TryGet(scopeName, out parentResult))
                     models = Enumerable.Concat(result, parentResult);
 

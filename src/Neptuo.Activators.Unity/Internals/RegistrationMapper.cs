@@ -13,6 +13,11 @@ namespace Neptuo.Activators.Internals
         private readonly MappingCollection mappings;
         private readonly string scopeName;
 
+        public string ScopeName
+        {
+            get { return scopeName; }
+        }
+
         public MappingCollection Mappings
         {
             get { return mappings; }
@@ -39,15 +44,15 @@ namespace Neptuo.Activators.Internals
 
         private void MapScope(MappingCollection mappings, string scopeName)
         {
-            IEnumerable<Mapping> scopeMappings;
+            IEnumerable<MappingModel> scopeMappings;
             if (mappings.TryGet(scopeName, out scopeMappings))
             {
-                foreach (Mapping mapping in scopeMappings)
-                    Map(mapping);
+                foreach (MappingModel model in scopeMappings)
+                    Map(model);
             }
         }
 
-        public RegistrationMapper Map(Mapping model)
+        public RegistrationMapper Map(MappingModel model)
         {
             if (!model.Lifetime.IsNamed || model.Lifetime.Name == scopeName)
             {

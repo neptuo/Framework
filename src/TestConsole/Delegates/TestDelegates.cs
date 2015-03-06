@@ -19,7 +19,7 @@ namespace TestConsole.Delegates
         public static void Test()
         {
             IDependencyContainer dependencyContainer = new UnityDependencyContainer()
-                .Map<ResolveUrl>().InRootScope().To(new ResolveUrl(ResolveUrl));
+                .Map<ResolveUrl>().InCurrentScope().To(new ResolveUrl(ResolveUrl));
 
 
             ResolveUrl resolveUrl = dependencyContainer.Resolve<ResolveUrl>();
