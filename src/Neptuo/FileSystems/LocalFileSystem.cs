@@ -26,9 +26,10 @@ namespace Neptuo.FileSystems
         public bool IsReadOnly { get; private set; }
 
         /// <summary>
-        /// Creates new instance with <paramref name="rootPaht"/> as root directory.
+        /// Creates new instance with <paramref name="rootPath"/> as root directory.
         /// </summary>
         /// <param name="rootPath">Path to root directory.</param>
+        /// <param name="isReadOnly">Whether file system should be read-only.</param>
         public LocalFileSystem(string rootPath, bool isReadOnly)
         {
             if (!Path.IsPathRooted(rootPath))

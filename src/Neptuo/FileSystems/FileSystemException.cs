@@ -25,9 +25,9 @@ namespace Neptuo.FileSystems
         /// and <paramref name="innerException"/> as inner exception that is the cause of this exception.
         /// </summary>
         /// <param name="message">Context information.</param>
-        /// <param name="innerExceptio">Inner exception that is the cause of this exception.</param>
-        public FileSystemException(string message, Exception innerExceptio)
-            : base(message, innerExceptio)
+        /// <param name="innerException">Inner exception that is the cause of this exception.</param>
+        public FileSystemException(string message, Exception innerException)
+            : base(message, innerException)
         { }
 
         protected FileSystemException(SerializationInfo info, StreamingContext context)

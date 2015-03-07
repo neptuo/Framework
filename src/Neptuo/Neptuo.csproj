@@ -37,7 +37,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activators\Building\IDependencyConfiguration.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="Activators\_DependencyContainerExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
@@ -130,7 +129,6 @@
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
-    <Compile Include="Activators\Building\IDependencyContext.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
@@ -267,7 +265,7 @@
     <Compile Include="Validators\DependencyValidationDispatcher.cs" />
     <Compile Include="Validators\IValidationResult.cs" />
     <Compile Include="Validators\IValidationMessage.cs" />
-    <Compile Include="Validators\IValidationHandler.cs" />
+    <Compile Include="Validators\Handlers\IValidationHandler.cs" />
     <Compile Include="Validators\IValidationDispatcher.cs" />
     <Compile Include="Validators\PropertyEqualMessage.cs" />
     <Compile Include="Validators\PropertyValidationMessageBase.cs" />

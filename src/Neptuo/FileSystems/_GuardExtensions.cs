@@ -16,11 +16,10 @@ namespace Neptuo.FileSystems
     public static class _GuardExtensions
     {
         /// <summary>
-        /// Creates exception <see cref="FileSystemException"/> for argument <paramref name="argumentName"/> 
+        /// Creates exception <see cref="FileSystemException"/> 
         /// and message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
         /// </summary>
         /// <param name="guard"></param>
-        /// <param name="argumentName"></param>
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="FileSystemException"/>.</returns>

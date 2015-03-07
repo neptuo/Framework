@@ -46,7 +46,7 @@ namespace Neptuo.Pipelines.Commands.Interception
         /// Registers interceptor factory <paramref name="factory"/> for <paramref name="commandHandlerType"/>.
         /// </summary>
         /// <param name="commandHandlerType">Command handler type.</param>
-        /// <param name="interceptorType">Interceptor factory.</param>
+        /// <param name="factory">Interceptor factory.</param>
         /// <rereturns>This (fluently).</rereturns>
         public ManualInterceptorProvider AddInterceptorFactory(Type commandHandlerType, Func<IDependencyProvider, IDecoratedInvoke> factory)
         {

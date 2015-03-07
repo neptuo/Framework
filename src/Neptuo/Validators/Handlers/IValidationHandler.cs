@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validators
+namespace Neptuo.Validators.Handlers
 {
     /// <summary>
     /// Validator for instances of <typeparamref name="TModel"/>.
@@ -17,6 +17,6 @@ namespace Neptuo.Validators
         /// </summary>
         /// <param name="model">Model instance to validate.</param>
         /// <returns><see cref="IValidationResult"/> describing succes or validation failure.</returns>
-        IValidationResult Validate(TModel model);
+        IValidationResult Handle(TModel model);
     }
 }

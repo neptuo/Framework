@@ -57,7 +57,7 @@ namespace TestConsole.PresentationModels
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
             IModelValidationHandler modelValidator = new MetadataModelValidator(modelDefinition, validators);
-            IValidationResult validationResult = Debug("Validate user", () => modelValidator.Validate(valueProvider));
+            IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(valueProvider));
             Console.WriteLine(validationResult);
         }
     }

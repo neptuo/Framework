@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Internals\ActivatorLifetimeManager.cs" />
     <Compile Include="Internals\MappingModel.cs" />
     <Compile Include="Internals\MappingCollection.cs" />
     <Compile Include="Internals\RegistrationMapper.cs" />

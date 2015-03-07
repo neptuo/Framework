@@ -94,7 +94,7 @@ namespace Neptuo.Activators.Internals
             IActivator<object> targetActivator = target as IActivator<object>;
             if (targetActivator != null)
             {
-                unityContainer.RegisterInstance(requiredType, targetActivator.Create());
+                unityContainer.RegisterType(requiredType, new ActivatorLifetimeManager(targetActivator, lifetimeManager));
                 return;
             }
         }

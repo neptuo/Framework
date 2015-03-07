@@ -10,7 +10,7 @@ namespace Neptuo.ComponentModel
     /// Base class for implementing <see cref="IDisposable"/>.
     /// Provides posibility to distinguish between disposiing managed and unmanaged resources.
     /// Provides flag to see if object is already disposed.
-    /// Once object is dispose, calling <see cref="IDisposable.Disponse"/> has no effect.
+    /// Once object is disposed, calling <see cref="IDisposable.Disponse"/> has no effect.
     /// </summary>
     public abstract class DisposableBase : IDisposable
     {

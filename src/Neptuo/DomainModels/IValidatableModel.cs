@@ -8,7 +8,7 @@ namespace Neptuo.DomainModels
 {
     /// <summary>
     /// Decribes model that contains information if the model is in valid state.
-    /// This information is mostly set from <see cref="IValidationDispatcher"/>.
+    /// This information is mostly set from <see cref="Validators.IValidationDispatcher"/>.
     /// </summary>
     public interface IValidatableModel
     {

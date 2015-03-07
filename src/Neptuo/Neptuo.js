@@ -144,16 +144,6 @@ if (typeof($CreateDelegate)=='undefined'){
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var Neptuo$Activators$Building$IDependencyConfiguration = {
-    fullname: "Neptuo.Activators.Building.IDependencyConfiguration",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$Building$IDependencyConfiguration);
 var Neptuo$Activators$DependencyLifetime = {
     fullname: "Neptuo.Activators.DependencyLifetime",
     baseTypeName: "System.ValueType",
@@ -3574,15 +3564,6 @@ var Neptuo$Activators$DependencyActivator$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyActivator$1);
-var Neptuo$Activators$Building$IDependencyContext = {
-    fullname: "Neptuo.Activators.Building.IDependencyContext",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$Building$IDependencyContext);
 var Neptuo$Activators$_DependencyProviderExtensions = {
     fullname: "Neptuo.Activators._DependencyProviderExtensions",
     baseTypeName: "System.Object",

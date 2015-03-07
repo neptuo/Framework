@@ -6,11 +6,29 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators
 {
+    /// <summary>
+    /// Describes lifetime of object in dependency container.
+    /// </summary>
     public struct DependencyLifetime
     {
+        /// <summary>
+        /// Returns <c>true</c> if lifetime is transient.
+        /// </summary>
         public readonly bool IsTransient;
+
+        /// <summary>
+        /// Returns <c>true</c> if lifetime is scoped (named or any).
+        /// </summary>
         public readonly bool IsScoped;
+
+        /// <summary>
+        /// Returns <c>true</c> if lifetime is scoped and named.
+        /// </summary>
         public readonly bool IsNamed;
+
+        /// <summary>
+        /// Returns name of the scope.
+        /// </summary>
         public readonly string Name; 
 
         private DependencyLifetime(bool isScoped, string name)
@@ -21,9 +39,21 @@ namespace Neptuo.Activators
             Name = name;
         }
 
+        /// <summary>
+        /// Transient lifetime.
+        /// </summary>
         public static readonly DependencyLifetime Transient = new DependencyLifetime(false, null);
+
+        /// <summary>
+        /// Scoped lifetime.
+        /// </summary>
         public static readonly DependencyLifetime AnyScope = new DependencyLifetime(true, null);
         
+        /// <summary>
+        /// Name-scoped lifetime.
+        /// </summary>
+        /// <param name="name">The name of the scope.</param>
+        /// <returns>Name-scoped lifetime.</returns>
         public static DependencyLifetime NamedScope(string name)
         {
             return new DependencyLifetime(true, name);
