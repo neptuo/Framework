@@ -80,8 +80,10 @@ namespace Neptuo.Activators.Internals
             throw Guard.Exception.NotSupported(lifetime.ToString());
         }
 
+        //TODO: Implement using registered features...
         private void Register(IUnityContainer unityContainer, Type requiredType, LifetimeManager lifetimeManager, object target)
         {
+            // Target is type to map to.
             Type targetType = target as Type;
             if (targetType != null)
             {
@@ -89,13 +91,24 @@ namespace Neptuo.Activators.Internals
                 return;
             }
 
-            //TODO: Implement using registered features...
+            // Target is activator.
             IActivator<object> targetActivator = target as IActivator<object>;
             if (targetActivator != null)
             {
                 unityContainer.RegisterType(requiredType, new ActivatorLifetimeManager(targetActivator, lifetimeManager));
                 return;
             }
+
+            // Target is instance of required type.
+            targetType = target.GetType();
+            if (requiredType.IsAssignableFrom(targetType))
+            {
+                unityContainer.RegisterInstance(requiredType, target);
+                return;
+            }
+
+            // Nothing else is supported.
+            throw Guard.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
         }
     }
 }

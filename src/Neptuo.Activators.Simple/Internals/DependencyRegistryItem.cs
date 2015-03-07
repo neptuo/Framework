@@ -9,16 +9,27 @@ namespace Neptuo.Activators.Internals
 {
     internal class DependencyRegistryItem
     {
-        public Type RequiredType { get; set; }
-        public DependencyLifetime Lifetime { get; set; }
-        public ConstructorInfo Constructor { get; set; }
-        //public List<FactorySubRegistry> Properties { get; set; }
-    }
+        public Type RequiredType { get; private set; }
+        public DependencyLifetime Lifetime { get; private set; }
+        public ConstructorInfo ConstructorInfo { get; private set; }
 
-    //internal class FactorySubRegistry
-    //{
-    //    public PropertyInfo Property { get; set; }
-    //    public Type Target { get; set; }
-    //    public string Name { get; set; }
-    //}
+        public bool HasConstructorInfo
+        {
+            get { return ConstructorInfo != null; }
+        }
+
+        public DependencyRegistryItem(Type requiredType, DependencyLifetime lifetime)
+        {
+            Guard.NotNull(requiredType, "requiredType");
+            RequiredType = requiredType;
+            Lifetime = lifetime;
+        }
+
+        public DependencyRegistryItem(Type requiredType, DependencyLifetime lifetime, ConstructorInfo constructorInfo)
+            : this(requiredType, lifetime)
+        {
+            Guard.NotNull(constructorInfo, "constructorInfo");
+            ConstructorInfo = constructorInfo;
+        }
+    }
 }
