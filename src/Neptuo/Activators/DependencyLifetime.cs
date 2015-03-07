@@ -12,6 +12,11 @@ namespace Neptuo.Activators
     public struct DependencyLifetime
     {
         /// <summary>
+        /// Name of the root scope.
+        /// </summary>
+        public const string RootScopeName = "Root";
+
+        /// <summary>
         /// Returns <c>true</c> if lifetime is transient.
         /// </summary>
         public readonly bool IsTransient;

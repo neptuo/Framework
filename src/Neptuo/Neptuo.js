@@ -149,6 +149,7 @@ var Neptuo$Activators$DependencyLifetime = {
     baseTypeName: "System.ValueType",
     staticDefinition: {
         cctor: function (){
+            Neptuo.Activators.DependencyLifetime.RootScopeName = "Root";
             Neptuo.Activators.DependencyLifetime.Transient = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(false, null);
             Neptuo.Activators.DependencyLifetime.AnyScope = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, null);
         },

@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators
 {
+    /// <summary>
+    /// Implementation of <see cref="IDependencyContainer"/> with Unity container.
+    /// </summary>
     public class UnityDependencyContainer : DisposableBase, IDependencyContainer
     {
-        public const string RootScopeName = "Root";
-
         private readonly IUnityContainer unityContainer;
         private readonly RegistrationMapper mapper;
 
@@ -21,12 +22,19 @@ namespace Neptuo.Activators
             get { return mapper.ScopeName; }
         }
 
+        /// <summary>
+        /// Creates container with new instance of Unity container.
+        /// </summary>
         public UnityDependencyContainer()
             : this(new UnityContainer())
         { }
 
+        /// <summary>
+        /// Creates instance from <paramref name="unityContainer"/>.
+        /// </summary>
+        /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(RootScopeName, new MappingCollection(), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new MappingCollection(), unityContainer)
         { }
 
         private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
