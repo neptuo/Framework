@@ -14,16 +14,23 @@ namespace Neptuo.Activators
     public class UnityActivator<T> : IActivator<T>
     {
         private readonly IUnityContainer unityContainer;
+        private readonly string name;
 
-        public UnityActivator(IUnityContainer unityContainer)
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="unityContainer">Unity container to use for instance creation.</param>
+        /// <param name="name">Optional registration name.</param>
+        public UnityActivator(IUnityContainer unityContainer, string name = null)
         {
             Guard.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
+            this.name = name;
         }
 
         public T Create()
         {
-            return unityContainer.Resolve<T>();
+            return unityContainer.Resolve<T>(name);
         }
     }
 }
