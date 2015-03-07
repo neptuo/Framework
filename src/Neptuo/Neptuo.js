@@ -8249,8 +8249,8 @@ var Neptuo$Validators$DependencyValidationDispatcher = {
             var validatable = As(model, Neptuo.DomainModels.IValidatableModel.ctor);
             if (validatable != null && validatable.get_IsValid())
                 return new Neptuo.Validators.ValidationResultBase.ctor$$Boolean(true);
-            var validator = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validators.IValidationHandler$1.ctor, this.dependencyProvider);
-            var result = validator.Validate(model);
+            var validator = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Validators.Handlers.IValidationHandler$1.ctor, this.dependencyProvider);
+            var result = validator.Handle(model);
             if (validatable != null)
                 validatable.set_IsValid(result.get_IsValid());
             return result;
@@ -8258,7 +8258,7 @@ var Neptuo$Validators$DependencyValidationDispatcher = {
         Validate$$Object: function (model){
             Neptuo.Guard.NotNull$$Object$$String(model, "model");
             var modelType = model.GetType();
-            var validatorType = Typeof(Neptuo.Validators.IValidationHandler$1.ctor).MakeGenericType(modelType);
+            var validatorType = Typeof(Neptuo.Validators.Handlers.IValidationHandler$1.ctor).MakeGenericType(modelType);
             var validateMethod = validatorType.GetMethod$$String(Neptuo.Validators.DependencyValidationDispatcher.ValidateMethodName);
             var validator = this.dependencyProvider.Resolve(validatorType);
             var validationResult = validateMethod.Invoke$$Object$$Object$Array(validator, [model]);
@@ -8291,15 +8291,15 @@ var Neptuo$Validators$IValidationMessage = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Validators$IValidationMessage);
-var Neptuo$Validators$IValidationHandler$1 = {
-    fullname: "Neptuo.Validators.IValidationHandler$1",
+var Neptuo$Validators$Handlers$IValidationHandler$1 = {
+    fullname: "Neptuo.Validators.Handlers.IValidationHandler$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Validators$IValidationHandler$1);
+JsTypes.push(Neptuo$Validators$Handlers$IValidationHandler$1);
 var Neptuo$Validators$IValidationDispatcher = {
     fullname: "Neptuo.Validators.IValidationDispatcher",
     baseTypeName: "System.Object",
