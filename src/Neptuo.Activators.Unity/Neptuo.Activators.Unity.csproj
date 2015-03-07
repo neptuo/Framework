@@ -56,6 +56,7 @@
     <Compile Include="Internals\MappingCollection.cs" />
     <Compile Include="Internals\RegistrationMapper.cs" />
     <Compile Include="Internals\SingletonLifetimeManager.cs" />
+    <Compile Include="UnityActivator.cs" />
     <Compile Include="UnityDependencyContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
