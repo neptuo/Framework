@@ -40,11 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Building\SimpleDefaultActivator.cs" />
+    <Compile Include="Internals\DependencyException.cs" />
+    <Compile Include="Internals\DependencyRegistry.cs" />
+    <Compile Include="Internals\DependencyRegistryItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="SimpleContainer.cs" />
-    <Compile Include="Building\SimpleContainerScopeMetadata.cs" />
+    <Compile Include="SimpleDependencyContainer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

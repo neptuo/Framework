@@ -39,7 +39,6 @@ namespace Neptuo.Activators.Internals
                 this.mappings = new MappingCollection(parentMappings);
                 MapScope(parentMappings, scopeName);
             }
-
         }
 
         private void MapScope(MappingCollection mappings, string scopeName)
