@@ -3231,10 +3231,11 @@ var Neptuo$ComponentModel$DisposableBase = {
         Dispose$$Boolean: function (disposing){
             if (this.get_IsDisposed())
                 return;
+            else
+                this.set_IsDisposed(true);
             if (disposing)
                 this.DisposeManagedResources();
             this.DisposeUnmanagedResources();
-            this.set_IsDisposed(true);
         },
         DisposeManagedResources: function (){
         },
@@ -6185,10 +6186,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "3.11.0";
+            Neptuo.VersionInfo.Version = "3.12.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("3.11.0");
+            return new System.Version.ctor$$String("3.12.0");
         }
     },
     assemblyName: "Neptuo",
