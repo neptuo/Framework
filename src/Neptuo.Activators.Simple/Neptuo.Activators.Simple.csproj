@@ -60,6 +60,7 @@
     </SkcPlugin>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Neptuo.Activators.Simple.js" />
     <Content Include="Neptuo.Activators.Simple.xml">
       <SubType>Designer</SubType>
     </Content>
