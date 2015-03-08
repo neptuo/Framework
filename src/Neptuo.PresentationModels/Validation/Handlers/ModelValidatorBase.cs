@@ -1,4 +1,5 @@
 ﻿using Neptuo.Validators;
+using Neptuo.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Neptuo.PresentationModels.Validators
     /// Base for <see cref="IModelValidationHandler"/>.
     /// Validator result built from validation of all fields.
     /// </summary>
-    public abstract class ModelValidatorBase : IModelValidationHandler
+    public abstract class ModelValidatorBase : IValidationHandler<IModelValueGetter>
     {
         /// <summary>
         /// Model definition to validate.
@@ -33,7 +34,7 @@ namespace Neptuo.PresentationModels.Validators
             return new ModelValidationBuilder();
         }
 
-        public virtual IValidationResult Validate(IModelValueGetter getter)
+        public virtual IValidationResult Handle(IModelValueGetter getter)
         {
             IModelValidationBuilder resultBuilder = CreateResultBuilder();
             foreach (IFieldDefinition fieldDefinition in ModelDefinition.Fields)

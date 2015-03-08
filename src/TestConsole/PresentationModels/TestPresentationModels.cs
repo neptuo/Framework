@@ -6,6 +6,7 @@ using Neptuo.PresentationModels.TypeModels.DataAnnotations;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators;
 using Neptuo.PresentationModels.Validators;
 using Neptuo.Validators;
+using Neptuo.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,7 +57,7 @@ namespace TestConsole.PresentationModels
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
-            IModelValidationHandler modelValidator = new MetadataModelValidator(modelDefinition, validators);
+            IValidationHandler<IModelValueGetter> modelValidator = new MetadataModelValidator(modelDefinition, validators);
             IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(valueProvider));
             Console.WriteLine(validationResult);
         }

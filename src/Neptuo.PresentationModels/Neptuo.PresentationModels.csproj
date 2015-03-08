@@ -75,11 +75,10 @@
     <Compile Include="Validation\IFieldMetadataValidatorFactory.cs" />
     <Compile Include="Validation\IMetadataValidatorCollection.cs" />
     <Compile Include="Validation\IModelValidationBuilder.cs" />
-    <Compile Include="Validation\IModelValidationHandler.cs" />
     <Compile Include="Validation\MetadataModelValidator.cs" />
     <Compile Include="Validation\MetadataValidatorCollection.cs" />
     <Compile Include="Validation\ModelValidationBuilder.cs" />
-    <Compile Include="Validation\ModelValidatorBase.cs" />
+    <Compile Include="Validation\Handlers\ModelValidatorBase.cs" />
     <Compile Include="Validation\SingletonFieldMetadataValidatorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
