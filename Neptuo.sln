@@ -28,11 +28,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Threading", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.CodeGenerator", "src\Neptuo.SharpKit.CodeGenerator\Neptuo.SharpKit.CodeGenerator.csproj", "{7BBDBC0C-BE77-4F02-BEAA-D2E1CE947365}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "src\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "test\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Web.Routing", "src\Neptuo.Web.Routing\Neptuo.Web.Routing.csproj", "{45C70782-7B22-4CDA-B8E4-9E71182E3A32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "src\TestMvc4\TestMvc4.csproj", "{662F383E-7768-4A06-A8B9-DA15A73E4D47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMvc4", "test\TestMvc4\TestMvc4.csproj", "{662F383E-7768-4A06-A8B9-DA15A73E4D47}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data", "src\Neptuo.Data\Neptuo.Data.csproj", "{304C75B0-88B0-4470-BD2D-FD7DB582BEBF}"
 EndProject
@@ -54,7 +54,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Javascript", "Javascript", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.System.Client", "src\Neptuo.System.Client\Neptuo.System.Client.csproj", "{6D3D1615-E3E5-460C-9797-9F232D9B5B5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit", "src\TestSharpKit\TestSharpKit.csproj", "{075C9033-F479-4C1F-86AA-B478B95CCDB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit", "test\TestSharpKit\TestSharpKit.csproj", "{075C9033-F479-4C1F-86AA-B478B95CCDB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "src\Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
 EndProject
@@ -66,7 +66,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{45933E25-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{AA724CB1-03F1-4FF2-A158-2E95524F67BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "src\TestWpf\TestWpf.csproj", "{834CEB47-4BCD-4895-80FA-44960472C64B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "test\TestWpf\TestWpf.csproj", "{834CEB47-4BCD-4895-80FA-44960472C64B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", "src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj", "{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}"
 EndProject
