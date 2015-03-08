@@ -70,8 +70,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{AA724CB1-03F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWpf", "src\TestWpf\TestWpf.csproj", "{834CEB47-4BCD-4895-80FA-44960472C64B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FeatureModels", "src\Neptuo.FeatureModels\Neptuo.FeatureModels.csproj", "{0120DA88-14CE-4213-8339-97F796248B32}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", "src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj", "{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Unity", "src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj", "{A9D02667-9762-4C91-A403-41DE7B8A4EFE}"
@@ -178,10 +176,6 @@ Global
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0120DA88-14CE-4213-8339-97F796248B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0120DA88-14CE-4213-8339-97F796248B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0120DA88-14CE-4213-8339-97F796248B32}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0120DA88-14CE-4213-8339-97F796248B32}.Release|Any CPU.Build.0 = Release|Any CPU
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563}.Release|Any CPU.ActiveCfg = Release|Any CPU

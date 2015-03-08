@@ -131,6 +131,10 @@
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
+    <Compile Include="FeatureModels\IFeatureModel.cs" />
+    <Compile Include="FeatureModels\MappingFeatureModel.cs" />
+    <Compile Include="FeatureModels\ObjectFeatureModel.cs" />
+    <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
