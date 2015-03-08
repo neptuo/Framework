@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.ComponentModel.Converters
 {
+    /// <summary>
+    /// Registration extensions for <see cref="IConverterRepository"/>.
+    /// </summary>
     public static class _ConverterRepositoryExtensions
     {
         /// <summary>
-        /// Registers <paramref name="converter"/> for conversion from <paramref name="sourceType"/> to <paramref name="targetType"/>.
+        /// Registers <paramref name="converter"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>

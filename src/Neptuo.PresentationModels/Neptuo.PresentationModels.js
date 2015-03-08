@@ -1191,7 +1191,7 @@ var Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory = {
     fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.IActivator$1"],
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -1215,16 +1215,6 @@ var Neptuo$PresentationModels$Validators$IModelValidationBuilder = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$Validators$IModelValidationBuilder);
-var Neptuo$PresentationModels$Validators$IModelValidationHandler = {
-    fullname: "Neptuo.PresentationModels.Validators.IModelValidationHandler",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Validators.IValidationHandler$1"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$IModelValidationHandler);
 var Neptuo$PresentationModels$Validators$MetadataModelValidator = {
     fullname: "Neptuo.PresentationModels.Validators.MetadataModelValidator",
     baseTypeName: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
@@ -1442,7 +1432,7 @@ var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
     fullname: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.Validators.IModelValidationHandler"],
+    interfaceNames: ["Neptuo.Validators.Handlers.IValidationHandler$1"],
     Kind: "Class",
     definition: {
         ctor: function (modelDefinition){
@@ -1461,7 +1451,7 @@ var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
         CreateResultBuilder: function (){
             return new Neptuo.PresentationModels.Validators.ModelValidationBuilder.ctor();
         },
-        Validate: function (getter){
+        Handle: function (getter){
             var resultBuilder = this.CreateResultBuilder();
             var $it8 = this.get_ModelDefinition().get_Fields().GetEnumerator();
             while ($it8.MoveNext()){

@@ -47,7 +47,7 @@ namespace Neptuo.StateMachines
         }
 
         /// <summary>
-        /// Factory method for context object used in <see cref="StringState.Move"/>
+        /// Factory method for context object used in <see cref="StringState{TContext,TState}.Move"/>
         /// </summary>
         /// <returns></returns>
         protected virtual TContext GetContextForNewState()

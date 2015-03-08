@@ -1,4 +1,5 @@
-﻿using Neptuo.Bootstrap.Constraints;
+﻿using Neptuo.Activators;
+using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Constraints.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
@@ -21,7 +22,7 @@ namespace Neptuo.Bootstrap
         public IHierarchicalBuilderConstraint WithActivator(IDependencyProvider dependencyProvider)
         {
             Guard.NotNull(dependencyProvider, "dependencyProvider");
-            activator = type => (IBootstrapTask)dependencyProvider.Resolve(type, null);
+            activator = type => (IBootstrapTask)dependencyProvider.Resolve(type);
             return this;
         }
 

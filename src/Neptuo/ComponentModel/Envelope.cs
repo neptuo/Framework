@@ -12,11 +12,11 @@ namespace Neptuo.ComponentModel
     public static class Envelope
     {
         /// <summary>
-        /// Creates new instance of <see cref="Envelope<>"/> with body.
+        /// Creates new instance of <see cref="Envelope{T}"/> with body.
         /// </summary>
         /// <typeparam name="T">Type of the body.</typeparam>
         /// <param name="body">The body of the evelope.</param>
-        /// <returns>New instance of <see cref="Envelope<>"/> with <paramref name="body"/>.</returns>
+        /// <returns>New instance of <see cref="Envelope{T}"/> with <paramref name="body"/>.</returns>
         public static Envelope<T> Create<T>(T body)
         {
             return new Envelope<T>(body);
@@ -52,7 +52,7 @@ namespace Neptuo.ComponentModel
         public string SourceID { get; private set; }
 
         /// <summary>
-        /// Creates new instance of <see cref="Envelope<>"/> with specified parameters.
+        /// Creates new instance of <see cref="Envelope{T}"/> with specified parameters.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         /// <param name="delay">The delay for sending, enqueing or processing the body.</param>
@@ -65,7 +65,7 @@ namespace Neptuo.ComponentModel
         }
 
         /// <summary>
-        /// Creates new instance of <see cref="Envelope<>"/> with specified parameters.
+        /// Creates new instance of <see cref="Envelope{T}"/> with specified parameters.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         /// <param name="delay">The delay for sending, enqueing or processing the body.</param>
@@ -82,7 +82,7 @@ namespace Neptuo.ComponentModel
         }
 
         /// <summary>
-        /// Creates new instance of <see cref="Envelope<>"/> with body and source ID.
+        /// Creates new instance of <see cref="Envelope{T}"/> with body and source ID.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         /// <param name="sourceID">The source message/envelope ID.</param>
@@ -91,7 +91,7 @@ namespace Neptuo.ComponentModel
         { }
 
         /// <summary>
-        /// Creates new instance of <see cref="Envelope<>"/> with body.
+        /// Creates new instance of <see cref="Envelope{T}"/> with body.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         public Envelope(T body)

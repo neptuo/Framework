@@ -40,7 +40,7 @@ namespace Neptuo.StateMachines
         }
 
         /// <summary>
-        /// Adds <paramref name="handler"/> to listening on event <see cref="StateMachine.OnEnterState"/> if entered state is of type <typeparamref name="TConcreteState"/>.
+        /// Adds <paramref name="handler"/> to listening on event <see cref="StateMachine{TContext,TState}.OnEnterState"/> if entered state is of type <typeparamref name="TConcreteState"/>.
         /// </summary>
         /// <param name="handler">Handler for processing event.</param>
         public void OnEnterConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)
@@ -55,7 +55,7 @@ namespace Neptuo.StateMachines
         }
 
         /// <summary>
-        /// Adds <paramref name="handler"/> to listening on event <see cref="StateMachine.OnLeaveState"/> if left state is of type <typeparamref name="TConcreteState"/>.
+        /// Adds <paramref name="handler"/> to listening on event <see cref="StateMachine{TContext,TState}.OnLeaveState"/> if left state is of type <typeparamref name="TConcreteState"/>.
         /// </summary>
         /// <param name="handler">Handler for processing event.</param>
         public void OnLeaveConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)

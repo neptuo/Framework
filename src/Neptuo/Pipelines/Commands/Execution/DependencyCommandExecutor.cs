@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Activators;
 
 namespace Neptuo.Pipelines.Commands.Execution
 {
@@ -17,7 +18,7 @@ namespace Neptuo.Pipelines.Commands.Execution
     public class DependencyCommandExecutor : ICommandExecutor, IDecoratedInvoke
     {
         /// <summary>
-        /// Name of <see cref="ICommandHandler<>.Handle"/>.
+        /// Name of <see cref="ICommandHandler{TCommand}.Handle"/>.
         /// </summary>
         private static readonly string handleMethodName = TypeHelper.MethodName<ICommandHandler<object>, object>(h => h.Handle);
 

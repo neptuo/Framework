@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.StateMachines
 {
     /// <summary>
-    /// Describes context of <see cref="StateMachine.OnEnter"/> or <see cref="StateMachine.OnLeave" /> event.
+    /// Describes context of <see cref="StateMachine{TContext,TState}.OnEnterState"/> or <see cref="StateMachine{TContext,TState}.OnLeaveState" /> event.
     /// </summary>
     /// <typeparam name="TState">Type of target state.</typeparam>
     public class StateMachineEventArgs<TState>

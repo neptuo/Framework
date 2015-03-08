@@ -1,5 +1,7 @@
-﻿using Neptuo.DomainModels;
+﻿using Neptuo.Activators;
+using Neptuo.DomainModels;
 using Neptuo.Linq.Expressions;
+using Neptuo.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +18,7 @@ namespace Neptuo.Validators
     public class DependencyValidationDispatcher : IValidationDispatcher
     {
         /// <summary>
-        /// Name of the <see cref="IValidationHandler.Validate"/>.
+        /// Name of the <see cref="Handlers.IValidationHandler{T}.Handle"/>.
         /// </summary>
         /// <remarks>
         /// Because of SharpKit, this can't be defined by <see cref="TypeHelper"/>.
@@ -45,7 +47,7 @@ namespace Neptuo.Validators
                 return new ValidationResultBase(true);
 
             IValidationHandler<TModel> validator = dependencyProvider.Resolve<IValidationHandler<TModel>>();
-            IValidationResult result = validator.Validate(model);
+            IValidationResult result = validator.Handle(model);
 
             if (validatable != null)
                 validatable.IsValid = result.IsValid;

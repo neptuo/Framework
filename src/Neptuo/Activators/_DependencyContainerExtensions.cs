@@ -1,0 +1,196 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Neptuo.Activators
+{
+    public static class _DependencyContainerExtensions
+    {
+        #region Fluent interfaces and classes
+
+        /// <summary>
+        /// Provides ability to map <see cref="DependencyLifetime"/>.
+        /// </summary>
+        public interface IDependencyScopeMapping
+        {
+            /// <summary>
+            /// Maps <see cref="DependencyLifetime"/> for <paramref name="model" />.
+            /// </summary>
+            /// <param name="lifetime">Chosen object life time.</param>
+            /// <returns>Component for mapping target.</returns>
+            IDependencyTargetMapping In(DependencyLifetime lifetime);
+
+            /// <summary>
+            /// Maps <paramref name="model" /> to have instance in scopes that are named same as the current scope 
+            /// (= if any child scope will have different name, <paramref name="model" /> will produce singleton).
+            /// </summary>
+            /// <returns>Component for mapping target.</returns>
+            IDependencyTargetMapping InCurrentScope();
+        }
+
+        /// <summary>
+        /// Provides ability to map <paramref name="model" /> target.
+        /// </summary>
+        public interface IDependencyTargetMapping
+        {
+            /// <summary>
+            /// Maps target of <paramref name="model" />.
+            /// Can by any supported type, see container target feature configuration.
+            /// </summary>
+            /// <param name="target">Object to provide target.</param>
+            /// <returns>Current cotainer to execute next actions.</returns>
+            IDependencyContainer To(object target);
+
+            /// <summary>
+            /// Maps target of <paramref name="model" /> to self type (type set in the first step of the registration).
+            /// </summary>
+            /// <returns>Current cotainer to execute next actions.</returns>
+            IDependencyContainer ToSelf();
+        }
+
+        /// <summary>
+        /// Internal implementation of <see cref="IDependencyScopeMapping"/> and <see cref="IDependencyTargetMapping"/>.
+        /// </summary>
+        internal class DependencyRegistration : IDependencyScopeMapping, IDependencyTargetMapping
+        {
+            private readonly IDependencyContainer dependencyContainer;
+            private readonly Type requiredType;
+            private DependencyLifetime lifetime;
+
+            public DependencyRegistration(IDependencyContainer dependencyContainer, Type requiredType)
+            {
+                Guard.NotNull(dependencyContainer, "dependencyContainer");
+                this.dependencyContainer = dependencyContainer;
+                this.requiredType = requiredType;
+            }
+
+            public IDependencyTargetMapping In(DependencyLifetime lifetime)
+            {
+                this.lifetime = lifetime;
+                return this;
+            }
+            public IDependencyTargetMapping InCurrentScope()
+            {
+                return In(DependencyLifetime.NamedScope(dependencyContainer.ScopeName));
+            }
+
+            public IDependencyContainer To(object target)
+            {
+                return dependencyContainer.Map(requiredType, lifetime, target);
+            }
+
+            public IDependencyContainer ToSelf()
+            {
+                return To(requiredType);
+            }
+        }
+
+        #endregion
+
+        #region 'Map' extensions
+
+        /// <summary>
+        /// Starts fluent registration for <paramref name="requiredType"/>.
+        /// </summary>
+        /// <param name="dependencyContainer">Container to register type in.</param>
+        /// <param name="requiredType">Source type for this registration.</param>
+        /// <returns>Component for mapping object lifetime.</returns>
+        public static IDependencyScopeMapping Map(this IDependencyContainer dependencyContainer, Type requiredType)
+        {
+            return new DependencyRegistration(dependencyContainer, requiredType);
+        }
+
+        /// <summary>
+        /// Starts fluent registration for <typeparamref name="TRequired"/>
+        /// </summary>
+        /// <typeparam name="TRequired">Source type for this registration.</typeparam>
+        /// <param name="dependencyContainer">Container to register type in.</param>
+        /// <returns>Component for mapping object lifetime.</returns>
+        public static IDependencyScopeMapping Map<TRequired>(this IDependencyContainer dependencyContainer)
+        {
+            return Map(dependencyContainer, typeof(TRequired));
+        }
+
+        #endregion
+
+        #region 'In' extensions
+
+        /// <summary>
+        /// Maps <paramref name="model" /> to have transient life time (= new instance for every resolution).
+        /// </summary>
+        /// <param name="model">Current registration.</param>
+        /// <returns>Component for mapping target.</returns>
+        public static IDependencyTargetMapping InTransient(this IDependencyScopeMapping model)
+        {
+            Guard.NotNull(model, "model");
+            return model.In(DependencyLifetime.Transient);
+        }
+
+        /// <summary>
+        /// Maps <paramref name="model" /> to have per scope life time (= new instance in every container scope).
+        /// </summary>
+        /// <param name="model">Current registration.</param>
+        /// <returns>Component for mapping target.</returns>
+        public static IDependencyTargetMapping InAnyScope(this IDependencyScopeMapping model)
+        {
+            Guard.NotNull(model, "model");
+            return model.In(DependencyLifetime.AnyScope);
+        }
+
+        /// <summary>
+        /// Maps <paramref name="model" /> to have per concrete names scope life time (= new instance every scope named <paramref name="scopeName"/>).
+        /// </summary>
+        /// <param name="model">Current registration.</param>
+        /// <param name="scopeName">Name of the scope.</param>
+        /// <returns>Component for mapping target.</returns>
+        public static IDependencyTargetMapping InNamedScope(this IDependencyScopeMapping model, string scopeName)
+        {
+            Guard.NotNull(model, "model");
+            return model.In(DependencyLifetime.NamedScope(scopeName));
+        }
+
+        #endregion
+
+        #region 'To' extensions
+
+        /// <summary>
+        /// Maps <paramref name="model"/> to target type (= required type will be mapped to instance of <paramref name="targetType"/>).
+        /// </summary>
+        /// <param name="model">Current registration.</param>
+        /// <param name="targetType">Target mapped type.</param>
+        /// <returns>Current cotainer to execute next actions.</returns>
+        public static IDependencyContainer ToType(this IDependencyTargetMapping model, Type targetType)
+        {
+            Guard.NotNull(model, "model");
+            return model.To(targetType);
+        }
+
+        /// <summary>
+        /// Maps <paramref name="model"/> to target type (= required type will be mapped to instance of <typeparamref name="TTarget"/>).
+        /// </summary>
+        /// <typeparam name="TTarget">Target mapped type.</typeparam>
+        /// <param name="model">Current registration.</param>
+        /// <returns>Current cotainer to execute next actions.</returns>
+        public static IDependencyContainer ToType<TTarget>(this IDependencyTargetMapping model)
+        {
+            return ToType(model, typeof(TTarget));
+        }
+
+        /// <summary>
+        /// Maps <paramref name="model"/> to activator (= instance will be created using <paramref name="activator"/>).
+        /// </summary>
+        /// <typeparam name="TTarget">Type, that is provided by the <paramref name="activator"/>.</typeparam>
+        /// <param name="model">Current registration.</param>
+        /// <param name="activator">Activator to creates instances by, in this registration.</param>
+        /// <returns>Current cotainer to execute next actions.</returns>
+        public static IDependencyContainer ToActivator<TTarget>(this IDependencyTargetMapping model, IActivator<TTarget> activator)
+        {
+            Guard.NotNull(model, "model");
+            return model.To(activator);
+        }
+
+        #endregion
+    }
+}

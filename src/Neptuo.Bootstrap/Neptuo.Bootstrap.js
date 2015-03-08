@@ -923,7 +923,7 @@ var Neptuo$Bootstrap$HierarchicalBuilder = {
         WithActivator$$IDependencyProvider: function (dependencyProvider){
             Neptuo.Guard.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
             this.activator = $CreateAnonymousDelegate(this, function (type){
-                return Cast(dependencyProvider.Resolve(type, null), Neptuo.Bootstrap.IBootstrapTask.ctor);
+                return Cast(dependencyProvider.Resolve(type), Neptuo.Bootstrap.IBootstrapTask.ctor);
             });
             return this;
         },

@@ -37,6 +37,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activators\DependencyLifetime.cs" />
+    <Compile Include="Activators\_DependencyContainerExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />
@@ -125,11 +127,11 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
     <Compile Include="Converts.cs" />
-    <Compile Include="DefaultActivator.cs" />
-    <Compile Include="DependencyActivator.cs" />
-    <Compile Include="DependencyNamedActivator.cs" />
+    <Compile Include="Activators\DefaultActivator.cs" />
+    <Compile Include="Activators\DependencyActivator.cs" />
+    <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="ICloneable.cs" />
-    <Compile Include="InstanceActivator.cs" />
+    <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
     <Compile Include="Pipelines\Commands\CommandException.cs" />
     <Compile Include="Pipelines\Commands\DependencyCommandDispatcher.cs" />
@@ -177,7 +179,6 @@
     <Compile Include="AppServices\Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
     <Compile Include="AppServices\Handlers\IBackgroundHandler.cs" />
-    <Compile Include="_DependencyProviderExtensions.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
     <Compile Include="DomainModels\IDomainModel.cs" />
@@ -213,20 +214,10 @@
     <Compile Include="ComponentModel\GuidProvider.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="ComponentModel\IUniqueNameProvider.cs" />
-    <Compile Include="INamedActivator.cs" />
-    <Compile Include="IParametrizedActivator.cs" />
-    <Compile Include="Lifetimes\HierarchicalLifetime.cs" />
-    <Compile Include="Lifetimes\Mapping\ILifetimeMapping.cs" />
-    <Compile Include="Lifetimes\Mapping\LifetimeMappingExtensions.cs" />
-    <Compile Include="Lifetimes\SingletonLifetime.cs" />
     <Compile Include="Globalization\_CultureInfoExtensions.cs" />
-    <Compile Include="IActivator.cs" />
-    <Compile Include="IDependencyContainer.cs" />
-    <Compile Include="IDependencyProvider.cs" />
-    <Compile Include="Lifetimes\GetterLifetime.cs" />
-    <Compile Include="Lifetimes\Mapping\ILifetimeMapper.cs" />
-    <Compile Include="Lifetimes\Mapping\LifetimeMapperBase.cs" />
-    <Compile Include="Lifetimes\Mapping\LifetimeMapping.cs" />
+    <Compile Include="Activators\IActivator.cs" />
+    <Compile Include="Activators\IDependencyContainer.cs" />
+    <Compile Include="Activators\IDependencyProvider.cs" />
     <Compile Include="Linq\Expressions\CompiledExpression.cs" />
     <Compile Include="Linq\Expressions\DefaultTranslationOf.cs" />
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
@@ -266,7 +257,7 @@
     <Compile Include="Validators\DependencyValidationDispatcher.cs" />
     <Compile Include="Validators\IValidationResult.cs" />
     <Compile Include="Validators\IValidationMessage.cs" />
-    <Compile Include="Validators\IValidationHandler.cs" />
+    <Compile Include="Validators\Handlers\IValidationHandler.cs" />
     <Compile Include="Validators\IValidationDispatcher.cs" />
     <Compile Include="Validators\PropertyEqualMessage.cs" />
     <Compile Include="Validators\PropertyValidationMessageBase.cs" />
