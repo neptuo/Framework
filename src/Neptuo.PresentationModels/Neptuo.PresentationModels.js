@@ -1389,9 +1389,9 @@ var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
         ctor: function (){
             this._MessageList = null;
             System.Object.ctor.call(this);
-            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.IValidationMessage.ctor));
+            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.Messages.IValidationMessage.ctor));
         },
-        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Pipelines.Validators.IValidationMessage]]",
+        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Pipelines.Validators.Messages.IValidationMessage]]",
         get_MessageList: function (){
             return this._MessageList;
         },
@@ -1402,7 +1402,7 @@ var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
         get_IsValid: function (){
             return this.get_MessageList().get_Count() == 0;
         },
-        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Pipelines.Validators.IValidationMessage]]",
+        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Pipelines.Validators.Messages.IValidationMessage]]",
         get_Messages: function (){
             return this.get_MessageList();
         },

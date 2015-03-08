@@ -75,7 +75,7 @@
     <Compile Include="Data\CategoryRepository.cs" />
     <Compile Include="Data\Commands\CreateProductCommand.cs" />
     <Compile Include="Data\Commands\Handlers\CreateProductCommandHandler.cs" />
-    <Compile Include="Data\Commands\Validation\CreateProductValidator.cs" />
+    <Compile Include="Data\Commands\Validators\Handlers\CreateProductValidator.cs" />
     <Compile Include="Data\Queries\CategoryFilter.cs" />
     <Compile Include="Data\Queries\ICategoryFilter.cs" />
     <Compile Include="Data\Queries\IProductFilter.cs" />

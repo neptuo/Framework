@@ -18,7 +18,7 @@
 //using TestConsole.Data;
 //using TestConsole.Data.Commands;
 //using TestConsole.Data.Commands.Handlers;
-//using TestConsole.Data.Commands.Validation;
+//using TestConsole.Data.Commands.Validators.Handlers;
 //using TestConsole.Data.Queries;
 //using Neptuo.Pipelines.Validators;
 //using Neptuo.Pipelines.Events;

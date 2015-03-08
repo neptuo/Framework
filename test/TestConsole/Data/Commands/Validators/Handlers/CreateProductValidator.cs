@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestConsole.Data.Commands.Validation
+namespace TestConsole.Data.Commands.Validators.Handlers
 {
     public class CreateProductValidator : IValidationHandler<CreateProductCommand>
     {
