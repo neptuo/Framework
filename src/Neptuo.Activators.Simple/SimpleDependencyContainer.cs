@@ -119,31 +119,32 @@ namespace Neptuo.Activators
 
         private object Build(DependencyRegistryItem item)
         {
-            if (item == null)
-                return null;
+            throw new NotImplementedException();
+            //if (item == null)
+            //    return null;
 
-            if (item.Lifetime.IsTransient)
-            {
-                if (item.HasConstructorInfo)
-                    return CreateInstance(item.ConstructorInfo);
+            //if (item.Lifetime.IsTransient)
+            //{
+            //    if (item.HasConstructorInfo)
+            //        return CreateInstance(item.ConstructorInfo);
 
-                IActivator<object> activator = instances.TryGetActivator(GetKey(item.RequiredType));
-                if (activator != null)
-                    return activator.Create();
+            //    IActivator<object> activator = instances.TryGetActivator(GetKey(item.RequiredType));
+            //    if (activator != null)
+            //        return activator.Create();
 
-                //TODO: What now?
-            }
+            //    //TODO: What now?
+            //}
 
-            object instance = item.Lifetime.GetValue();
-            if (instance != null)
-                return instance;
+            //object instance = item.Lifetime.GetValue();
+            //if (instance != null)
+            //    return instance;
 
-            if (item.ConstructorInfo == null)
-                throw new DependencyException("Missing constructor.");
+            //if (item.ConstructorInfo == null)
+            //    throw new DependencyException("Missing constructor.");
 
             
-            item.Lifetime.SetValue(instance);
-            return instance;
+            //item.Lifetime.SetValue(instance);
+            //return instance;
         }
 
         private object CreateInstance(ConstructorInfo constructorInfo)
