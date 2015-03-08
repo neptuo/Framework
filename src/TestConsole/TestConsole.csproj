@@ -156,10 +156,6 @@
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Web\Neptuo.Web.csproj">
-      <Project>{14ee3bfd-e7de-4b55-b1a1-9998bb1c9c77}</Project>
-      <Name>Neptuo.Web</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj">
       <Project>{0a82625a-bb41-48ce-b3ad-0141dd3cb779}</Project>
       <Name>Neptuo.Windows.Controls</Name>
