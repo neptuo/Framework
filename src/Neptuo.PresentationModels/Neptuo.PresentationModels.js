@@ -1383,15 +1383,15 @@ var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
     fullname: "Neptuo.PresentationModels.Validators.ModelValidationBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Validators.IValidationResult", "Neptuo.PresentationModels.Validators.IModelValidationBuilder"],
+    interfaceNames: ["Neptuo.Pipelines.Validators.IValidationResult", "Neptuo.PresentationModels.Validators.IModelValidationBuilder"],
     Kind: "Class",
     definition: {
         ctor: function (){
             this._MessageList = null;
             System.Object.ctor.call(this);
-            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Validators.IValidationMessage.ctor));
+            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.IValidationMessage.ctor));
         },
-        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Validators.IValidationMessage]]",
+        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Pipelines.Validators.IValidationMessage]]",
         get_MessageList: function (){
             return this._MessageList;
         },
@@ -1402,7 +1402,7 @@ var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
         get_IsValid: function (){
             return this.get_MessageList().get_Count() == 0;
         },
-        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Validators.IValidationMessage]]",
+        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Pipelines.Validators.IValidationMessage]]",
         get_Messages: function (){
             return this.get_MessageList();
         },
@@ -1432,7 +1432,7 @@ var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
     fullname: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Validators.Handlers.IValidationHandler$1"],
+    interfaceNames: ["Neptuo.Pipelines.Validators.Handlers.IValidationHandler$1"],
     Kind: "Class",
     definition: {
         ctor: function (modelDefinition){

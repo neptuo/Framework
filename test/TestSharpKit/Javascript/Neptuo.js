@@ -1466,18 +1466,18 @@ var Neptuo$StateMachines$StringStateMachine$1 =
     IsAbstract: false
 };
 JsTypes.push(Neptuo$StateMachines$StringStateMachine$1);
-var Neptuo$Validation$IValidationResult = {fullname: "Neptuo.Validators.IValidationResult", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Validation$IValidationResult = {fullname: "Neptuo.Pipelines.Validators.IValidationResult", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Validation$IValidationResult);
-var Neptuo$Validation$IValidationMessage = {fullname: "Neptuo.Validators.IValidationMessage", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Validation$IValidationMessage = {fullname: "Neptuo.Pipelines.Validators.IValidationMessage", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Validation$IValidationMessage);
-var Neptuo$Validation$IValidator$1 = {fullname: "Neptuo.Validators.IValidator$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
+var Neptuo$Validation$IValidator$1 = {fullname: "Neptuo.Pipelines.Validators.IValidator$1", baseTypeName: "System.Object", assemblyName: "Neptuo", Kind: "Interface", ctors: [], IsAbstract: true};
 JsTypes.push(Neptuo$Validation$IValidator$1);
 var Neptuo$Validation$TextValidationMessage =
 {
-    fullname: "Neptuo.Validators.TextValidationMessage",
+    fullname: "Neptuo.Pipelines.Validators.TextValidationMessage",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Validators.IValidationMessage"],
+    interfaceNames: ["Neptuo.Pipelines.Validators.IValidationMessage"],
     Kind: "Class",
     definition:
     {

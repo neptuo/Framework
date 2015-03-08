@@ -4,7 +4,7 @@ using Neptuo.Pipelines.Commands.Events;
 using Neptuo.Pipelines.Commands.Execution;
 using Neptuo.Pipelines.Commands.Handlers;
 using Neptuo.Pipelines.Events;
-using Neptuo.Validators;
+using Neptuo.Pipelines.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;

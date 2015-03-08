@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Validators;
-using Neptuo.Validators;
+using Neptuo.Pipelines.Validators;
 
 namespace TestConsole.PresentationModels
 {

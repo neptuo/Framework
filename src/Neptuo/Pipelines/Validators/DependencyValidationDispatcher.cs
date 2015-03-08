@@ -1,7 +1,7 @@
 ﻿using Neptuo.Activators;
 using Neptuo.DomainModels;
 using Neptuo.Linq.Expressions;
-using Neptuo.Validators.Handlers;
+using Neptuo.Pipelines.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Validators
+namespace Neptuo.Pipelines.Validators
 {
     /// <summary>
     /// Base implementation of <see cref="IValidationDispatcher"/> using <see cref="IDependencyProvider"/>.
