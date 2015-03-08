@@ -22,7 +22,7 @@ namespace Neptuo.Pipelines.Commands.Events
         /// <param name="command">Executed command.</param>
         public CommandHandled(object command)
         {
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
             Command = command;
         }
     }

@@ -22,7 +22,7 @@ namespace Neptuo.AppServices
         /// <returns>Self (for fluency).</returns>
         public ServiceHandlerCollection Add(IServiceHandler service)
         {
-            Guard.NotNull(service, "service");
+            Ensure.NotNull(service, "service");
             services.Add(service);
             return this;
         }

@@ -18,8 +18,8 @@ namespace Neptuo.ComponentModel.Converters
 
         public CollectionConverter(string separator, IConverter<string, TItemTarget> itemConverter)
         {
-            Guard.NotNullOrEmpty(separator, "separator");
-            Guard.NotNull(itemConverter, "itemConverter");
+            Ensure.NotNullOrEmpty(separator, "separator");
+            Ensure.NotNull(itemConverter, "itemConverter");
             this.separator = separator;
             this.itemConverter = itemConverter;
         }

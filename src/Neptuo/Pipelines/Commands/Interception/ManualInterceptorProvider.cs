@@ -23,7 +23,7 @@ namespace Neptuo.Pipelines.Commands.Interception
 
         public ManualInterceptorProvider(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
 
             Storage = new Dictionary<Type, List<Func<IDependencyProvider, IDecoratedInvoke>>>();
@@ -37,8 +37,8 @@ namespace Neptuo.Pipelines.Commands.Interception
         /// <rereturns>This (fluently).</rereturns>
         public ManualInterceptorProvider AddInterceptorType(Type commandHandlerType, Type interceptorType)
         {
-            Guard.NotNull(commandHandlerType, "commandHandlerType");
-            Guard.NotNull(interceptorType, "interceptorType");
+            Ensure.NotNull(commandHandlerType, "commandHandlerType");
+            Ensure.NotNull(interceptorType, "interceptorType");
             return AddInterceptorFactory(commandHandlerType, provider => (IDecoratedInvoke)provider.Resolve(interceptorType));
         }
 
@@ -50,8 +50,8 @@ namespace Neptuo.Pipelines.Commands.Interception
         /// <rereturns>This (fluently).</rereturns>
         public ManualInterceptorProvider AddInterceptorFactory(Type commandHandlerType, Func<IDependencyProvider, IDecoratedInvoke> factory)
         {
-            Guard.NotNull(commandHandlerType, "commandHandlerType");
-            Guard.NotNull(factory, "factory");
+            Ensure.NotNull(commandHandlerType, "commandHandlerType");
+            Ensure.NotNull(factory, "factory");
 
             List<Func<IDependencyProvider, IDecoratedInvoke>> interceptorTypes;
             if (!Storage.TryGetValue(commandHandlerType, out interceptorTypes))
@@ -63,7 +63,7 @@ namespace Neptuo.Pipelines.Commands.Interception
 
         public IEnumerable<IDecoratedInvoke> GetInterceptors(object commandHandler, object command, MethodInfo commandHandlerMethod)
         {
-            Guard.NotNull(commandHandler, "commandHandler");
+            Ensure.NotNull(commandHandler, "commandHandler");
             Type commandHandlerType = commandHandler.GetType();
 
             List<Func<IDependencyProvider, IDecoratedInvoke>> interceptorFactories;

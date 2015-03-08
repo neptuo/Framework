@@ -53,9 +53,9 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="configuration">Generator configuration.</param>
         public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
         {
-            Guard.NotNull(handlerType, "handlerType");
-            Guard.NotNull(behaviorCollection, "behaviorCollection");
-            Guard.NotNull(configuration, "configuration");
+            Ensure.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(behaviorCollection, "behaviorCollection");
+            Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
             this.compilerFactory = new CompilerFactory(configuration);

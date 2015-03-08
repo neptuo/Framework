@@ -48,11 +48,11 @@ var Neptuo$Activators$Internals$DependencyRegistry = {
         ctor$$Dictionary$2$String$DependencyRegistryItem: function (registries){
             this.registries = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(registries, "registries");
+            Neptuo.Ensure.NotNull$$Object$$String(registries, "registries");
             this.registries = registries;
         },
         GetByKey: function (key){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
             var item;
             if ((function (){
                 var $1 = {
@@ -66,8 +66,8 @@ var Neptuo$Activators$Internals$DependencyRegistry = {
             return null;
         },
         Add: function (key, item){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
-            Neptuo.Guard.NotNull$$Object$$String(item, "item");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNull$$Object$$String(item, "item");
             this.registries.set_Item$$TKey(key, item);
         },
         CopyRegistries: function (){
@@ -102,7 +102,7 @@ var Neptuo$Activators$Internals$DependencyRegistryItem = {
             this._Lifetime = new Neptuo.Activators.DependencyLifetime.ctor();
             this._ConstructorInfo = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(requiredType, "requiredType");
+            Neptuo.Ensure.NotNull$$Object$$String(requiredType, "requiredType");
             this.set_RequiredType(requiredType);
             this.set_Lifetime(lifetime);
         },
@@ -136,7 +136,7 @@ var Neptuo$Activators$Internals$DependencyRegistryItem = {
             this._Lifetime = new Neptuo.Activators.DependencyLifetime.ctor();
             this._ConstructorInfo = null;
             Neptuo.Activators.Internals.DependencyRegistryItem.ctor$$Type$$DependencyLifetime.call(this, requiredType, lifetime);
-            Neptuo.Guard.NotNull$$Object$$String(constructorInfo, "constructorInfo");
+            Neptuo.Ensure.NotNull$$Object$$String(constructorInfo, "constructorInfo");
             this.set_ConstructorInfo(constructorInfo);
         }
     },
@@ -166,29 +166,29 @@ var Neptuo$Activators$Internals$InstanceStorage = {
             this.objectStorage = null;
             this.activatorStorage = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(storage, "storage");
-            Neptuo.Guard.NotNull$$Object$$String(activatorStorage, "activatorStorage");
+            Neptuo.Ensure.NotNull$$Object$$String(storage, "storage");
+            Neptuo.Ensure.NotNull$$Object$$String(activatorStorage, "activatorStorage");
             this.objectStorage = storage;
             this.activatorStorage = activatorStorage;
         },
         AddObject: function (key, instance){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
-            Neptuo.Guard.NotNull$$Object$$String(instance, "instance");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNull$$Object$$String(instance, "instance");
             this.objectStorage.set_Item$$TKey(key, instance);
             return this;
         },
         AddActivator: function (key, activator){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
-            Neptuo.Guard.NotNull$$Object$$String(activator, "activator");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNull$$Object$$String(activator, "activator");
             this.activatorStorage.set_Item$$TKey(key, activator);
             return this;
         },
         TryGetObject: function (key){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
             return this.objectStorage.get_Item$$TKey(key);
         },
         TryGetActivator: function (key){
-            Neptuo.Guard.NotNullOrEmpty(key, "key");
+            Neptuo.Ensure.NotNullOrEmpty(key, "key");
             return this.activatorStorage.get_Item$$TKey(key);
         },
         CopyObjects: function (keysToSkip){
@@ -267,9 +267,9 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             this.instances = null;
             this.scopeName = null;
             Neptuo.ComponentModel.DisposableBase.ctor.call(this);
-            Neptuo.Guard.NotNullOrEmpty(scopeName, "scopeName");
-            Neptuo.Guard.NotNull$$Object$$String(registry, "registry");
-            Neptuo.Guard.NotNull$$Object$$String(instances, "instances");
+            Neptuo.Ensure.NotNullOrEmpty(scopeName, "scopeName");
+            Neptuo.Ensure.NotNull$$Object$$String(registry, "registry");
+            Neptuo.Ensure.NotNull$$Object$$String(instances, "instances");
             this.scopeName = scopeName;
             this.registry = registry;
             this.instances = instances;
@@ -298,7 +298,7 @@ var Neptuo$Activators$SimpleDependencyContainer = {
                 this.registry.Add(this.GetKey(requiredType), new Neptuo.Activators.Internals.DependencyRegistryItem.ctor$$Type$$DependencyLifetime(requiredType, lifetime));
                 return this;
             }
-            throw $CreateException(Neptuo._GuardSystemExtensions.InvalidOperation(Neptuo.Guard.Exception, "Not supported target type \'{0}\'.", target.GetType().get_FullName()), new Error());
+            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Not supported target type \'{0}\'.", target.GetType().get_FullName()), new Error());
         },
         Scope: function (scopeName){
             return new Neptuo.Activators.SimpleDependencyContainer.ctor$$String$$DependencyRegistry$$InstanceStorage(scopeName, new Neptuo.Activators.Internals.DependencyRegistry.ctor$$Dictionary$2$String$DependencyRegistryItem(this.registry.CopyRegistries()), new Neptuo.Activators.Internals.InstanceStorage.ctor$$Dictionary$2$String$Object$$Dictionary$2(this.instances.CopyObjects(new System.Collections.Generic.List$1.ctor(System.String.ctor)), this.instances.CopyActivators(new System.Collections.Generic.List$1.ctor(System.String.ctor))));
@@ -319,7 +319,7 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
         },
         CreateInstance: function (constructorInfo){
-            Neptuo.Guard.NotNull$$Object$$String(constructorInfo, "constructorInfo");
+            Neptuo.Ensure.NotNull$$Object$$String(constructorInfo, "constructorInfo");
             var instance;
             var parameterDefinitions = constructorInfo.GetParameters();
             var parameters = new Array(parameterDefinitions.get_Length());

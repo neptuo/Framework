@@ -13,7 +13,7 @@ namespace Neptuo
     /// Extensions for system exceptions.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class _GuardSystemExtensions
+    public static class _EnsureSystemExtensions
     {
         /// <summary>
         /// Creates exception <see cref="NotImplementedException"/> for argument <paramref name="argumentName"/> 
@@ -25,9 +25,9 @@ namespace Neptuo
         /// <param name="formatParameters"></param>
         /// <returns><see cref="NotImplementedException"/>.</returns>
         [DebuggerStepThrough]
-        public static NotImplementedException NotImplemented(this GuardExceptionHelper guard, string format = null, params object[] formatParameters)
+        public static NotImplementedException NotImplemented(this EnsureExceptionHelper guard, string format = null, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
+            Ensure.NotNull(guard, "guard");
 
             if (String.IsNullOrEmpty(format))
                 return new NotImplementedException();
@@ -45,9 +45,9 @@ namespace Neptuo
         /// <param name="formatParameters"></param>
         /// <returns><see cref="NotSupportedException"/>.</returns>
         [DebuggerStepThrough]
-        public static NotSupportedException NotSupported(this GuardExceptionHelper guard, string format = null, params object[] formatParameters)
+        public static NotSupportedException NotSupported(this EnsureExceptionHelper guard, string format = null, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
+            Ensure.NotNull(guard, "guard");
 
             if (String.IsNullOrEmpty(format))
                 return new NotSupportedException();
@@ -64,10 +64,10 @@ namespace Neptuo
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="InvalidOperationException"/>.</returns>
-        public static InvalidOperationException InvalidOperation(this GuardExceptionHelper guard, string format, params object[] formatParameters)
+        public static InvalidOperationException InvalidOperation(this EnsureExceptionHelper guard, string format, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
-            Guard.NotNullOrEmpty(format, "format");
+            Ensure.NotNull(guard, "guard");
+            Ensure.NotNullOrEmpty(format, "format");
             return new InvalidOperationException(String.Format(format, formatParameters));
         }
     }

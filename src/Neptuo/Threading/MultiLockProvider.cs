@@ -32,7 +32,7 @@ namespace Neptuo.Threading
         /// <param name="keyMapper">Function which transforms input key to keys, which are used internally.</param>
         public MultiLockProvider(Func<object, object> keyMapper)
         {
-            Guard.NotNull(keyMapper, "keyMapper");
+            Ensure.NotNull(keyMapper, "keyMapper");
             this.keyMapper = keyMapper;
         }
 
@@ -43,7 +43,7 @@ namespace Neptuo.Threading
         /// <returns>Object which is used to exit lock when disposed.</returns>
         public IDisposable Lock(object key)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
 
             if (keyMapper != null)
                 key = keyMapper(key);

@@ -14,8 +14,8 @@ namespace Neptuo.Bootstrap.Dependencies.Providers.Targets
 
         public ImportAttributeTarget(PropertyInfo propertyInfo, ImportAttribute attribute)
         {
-            Guard.NotNull(propertyInfo, "propertyInfo");
-            Guard.NotNull(attribute, "attribute");
+            Ensure.NotNull(propertyInfo, "propertyInfo");
+            Ensure.NotNull(attribute, "attribute");
             Type = propertyInfo.PropertyType;
             Name = attribute.Name;
         }

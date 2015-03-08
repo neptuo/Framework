@@ -36,7 +36,7 @@ namespace Neptuo.Validators
         /// <param name="dependencyProvider">Resolver of validation handlers.</param>
         public DependencyValidationDispatcher(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 
@@ -57,7 +57,7 @@ namespace Neptuo.Validators
 
         public IValidationResult Validate(object model)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             Type modelType = model.GetType();
             Type validatorType = typeof(IValidationHandler<>).MakeGenericType(modelType);
             MethodInfo validateMethod = validatorType.GetMethod(ValidateMethodName);

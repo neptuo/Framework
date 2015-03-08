@@ -15,9 +15,9 @@ namespace Neptuo.ComponentModel
 
         public ErrorInfo(int lineNumber, int columnIndex, string errorNumber, string errorText)
         {
-            Guard.PositiveOrZero(lineNumber, "lineNumber");
-            Guard.PositiveOrZero(columnIndex, "columnIndex");
-            Guard.NotNull(errorText, "errorText");
+            Ensure.PositiveOrZero(lineNumber, "lineNumber");
+            Ensure.PositiveOrZero(columnIndex, "columnIndex");
+            Ensure.NotNull(errorText, "errorText");
 
             LineNumber = lineNumber;
             ColumnIndex = columnIndex;

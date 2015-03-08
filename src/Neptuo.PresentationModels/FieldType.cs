@@ -22,7 +22,7 @@ namespace Neptuo.PresentationModels
         /// <param name="type">Source field type.</param>
         public FieldType(Type type)
         {
-            Guard.NotNull(type, "type");
+            Ensure.NotNull(type, "type");
             Type = type;
         }
 

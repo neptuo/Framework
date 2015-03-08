@@ -20,8 +20,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
         /// </summary>
         public ReflectionBehaviorInstanceRegistry AddProvider(Type behaviorType, IReflectionBehaviorInstanceProvider provider)
         {
-            Guard.NotNull(behaviorType, "behaviorType");
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(behaviorType, "behaviorType");
+            Ensure.NotNull(provider, "provider");
             storage[behaviorType] = provider;
             return this;
         }
@@ -33,7 +33,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
         /// <param name="searchHandler">Generator provider method.</param>
         public ReflectionBehaviorInstanceRegistry AddSearchHandler(Func<Type, IReflectionBehaviorInstanceProvider> searchHandler)
         {
-            Guard.NotNull(searchHandler, "searchHandler");
+            Ensure.NotNull(searchHandler, "searchHandler");
             onSearchBuilder.Add(searchHandler);
             return this;
         }

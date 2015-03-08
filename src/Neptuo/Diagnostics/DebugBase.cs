@@ -42,7 +42,7 @@ namespace Neptuo.Diagnostics
         /// <param name="innerWriter">Writer for measurements.</param>
         public DebugBase(DebugMessageWriter innerWriter)
         {
-            Guard.NotNull(innerWriter, "innerWriter");
+            Ensure.NotNull(innerWriter, "innerWriter");
             InnerWriter = innerWriter;
         }
 
@@ -52,7 +52,7 @@ namespace Neptuo.Diagnostics
         /// <param name="innerWriter">Writer for measurements.</param>
         public DebugBase(TextWriter innerWriter)
         {
-            Guard.NotNull(innerWriter, "innerWriter");
+            Ensure.NotNull(innerWriter, "innerWriter");
             InnerWriter = innerWriter.WriteLine;
         }
 
@@ -63,8 +63,8 @@ namespace Neptuo.Diagnostics
         /// <param name="action">Action to execute in stopwatch.</param>
         protected internal void Debug(string title, Action action)
         {
-            Guard.NotNull(title, "title");
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(title, "title");
+            Ensure.NotNull(action, "action");
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -83,9 +83,9 @@ namespace Neptuo.Diagnostics
         /// <param name="action">Action to execute in stopwatch.</param>
         protected internal void DebugIteration(string title, int count, Action action)
         {
-            Guard.NotNull(title, "title");
-            Guard.PositiveOrZero(count, "count");
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(title, "title");
+            Ensure.PositiveOrZero(count, "count");
+            Ensure.NotNull(action, "action");
 
             Debug(title, () =>
             {
@@ -103,8 +103,8 @@ namespace Neptuo.Diagnostics
         /// <rereturns>Returns result from <paramref name="action"/>.</rereturns>
         protected internal T Debug<T>(string title, Func<T> action)
         {
-            Guard.NotNull(title, "title");
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(title, "title");
+            Ensure.NotNull(action, "action");
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -126,9 +126,9 @@ namespace Neptuo.Diagnostics
         /// <rereturns>Returns result from <paramref name="action"/>.</rereturns>
         protected internal List<T> DebugIteration<T>(string title, int count, Func<T> action)
         {
-            Guard.NotNull(title, "title");
-            Guard.PositiveOrZero(count, "count");
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(title, "title");
+            Ensure.PositiveOrZero(count, "count");
+            Ensure.NotNull(action, "action");
 
             return Debug(title, () =>
             {

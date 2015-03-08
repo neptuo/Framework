@@ -45,8 +45,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="binDirectories">List of bin directories to add as references.</param>
         public CodeDomPipelineConfiguration(Type baseType, string tempDirectory, params string[] binDirectories)
         {
-            Guard.NotNull(baseType, "baseType");
-            Guard.NotNullOrEmpty(tempDirectory, "tempDirectory");
+            Ensure.NotNull(baseType, "baseType");
+            Ensure.NotNullOrEmpty(tempDirectory, "tempDirectory");
             BaseType = baseType;
             TempDirectory = tempDirectory;
             BehaviorInstance = new CodeDomBehaviorInstanceRegistry();

@@ -17,7 +17,7 @@ namespace Neptuo.Bootstrap
 
         public BootstrapperBase(Func<Type, IBootstrapTask> factory, IBootstrapConstraintProvider provider = null)
         {
-            Guard.NotNull(factory, "factory");
+            Ensure.NotNull(factory, "factory");
             this.factory = factory;
             this.provider = provider ?? new NullObjectConstrainProvider();
             Tasks = new List<IBootstrapTask>();

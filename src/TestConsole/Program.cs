@@ -49,7 +49,6 @@ namespace TestConsole
             //TestBehaviors.Test();
             //TestObjectSize.Test();
 
-
             Console.ReadKey(true);
         }
 

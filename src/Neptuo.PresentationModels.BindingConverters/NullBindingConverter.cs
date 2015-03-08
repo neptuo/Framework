@@ -13,7 +13,7 @@ namespace Neptuo.PresentationModels.BindingConverters
 
         public NullBindingConverter(BindingConverterBase<T> converter)
         {
-            Guard.NotNull(converter, "converter");
+            Ensure.NotNull(converter, "converter");
             Converter = converter;
         }
 

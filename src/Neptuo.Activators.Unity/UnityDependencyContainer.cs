@@ -39,7 +39,7 @@ namespace Neptuo.Activators
 
         private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
         {
-            Guard.NotNull(unityContainer, "unityContainer");
+            Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
             this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
 

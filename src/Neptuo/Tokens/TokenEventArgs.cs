@@ -39,13 +39,13 @@ namespace Neptuo.Tokens
         /// <param name="endPosition">Token last characted index in <paramref name="originalContent"/>.</param>
         public TokenEventArgs(string originalContent, Token token, int startPosition, int endPosition)
         {
-            Guard.NotNullOrEmpty(originalContent, "originalContent");
-            Guard.NotNull(token, "token");
-            Guard.PositiveOrZero(startPosition, "startPosition");
-            Guard.Positive(endPosition, "endPosition");
+            Ensure.NotNullOrEmpty(originalContent, "originalContent");
+            Ensure.NotNull(token, "token");
+            Ensure.PositiveOrZero(startPosition, "startPosition");
+            Ensure.Positive(endPosition, "endPosition");
 
             if (endPosition <= startPosition)
-                Guard.Exception.ArgumentOutOfRange("endPosition", "End position index must be greater that start position index");
+                Ensure.Exception.ArgumentOutOfRange("endPosition", "End position index must be greater that start position index");
 
             OriginalContent = originalContent;
             Token = token;

@@ -16,7 +16,7 @@ namespace Neptuo.Activators
 
         public DependencyActivator(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 

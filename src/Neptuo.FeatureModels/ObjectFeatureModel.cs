@@ -19,7 +19,7 @@ namespace Neptuo.FeatureModels
         /// <param name="instance">Object instance to retrieve feature from.</param>
         public ObjectFeatureModel(object instance)
         {
-            Guard.NotNull(instance, "instance");
+            Ensure.NotNull(instance, "instance");
             this.instance = instance;
         }
 

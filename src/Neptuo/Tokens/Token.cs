@@ -104,7 +104,7 @@ namespace Neptuo.Tokens
         /// <param name="attribute">New named attribute.</param>
         public void AddAttribute(TokenAttribute attribute)
         {
-            Guard.NotNull(attribute, "attribute");
+            Ensure.NotNull(attribute, "attribute");
             attribute.OwnerToken = this;
             attributes.Add(attribute);
         }

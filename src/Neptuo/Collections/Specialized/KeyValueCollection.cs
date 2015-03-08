@@ -41,13 +41,13 @@ namespace Neptuo.Collections.Specialized
 
         public KeyValueCollection(IReadOnlyKeyValueCollection parentCollection)
         {
-            Guard.NotNull(parentCollection, "parentCollection");
+            Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
         }
 
         public KeyValueCollection(NameValueCollection collection)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
             
             foreach (string key in collection.AllKeys)
                 Add(key, collection[key]);
@@ -56,16 +56,16 @@ namespace Neptuo.Collections.Specialized
         public virtual IKeyValueCollection Set(string key, object value)
         {
             if (IsReadOnly)
-                throw Guard.Exception.InvalidOperation("Collection is in read-only mode.");
+                throw Ensure.Exception.InvalidOperation("Collection is in read-only mode.");
 
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             this[key] = value;
             return this;
         }
 
         public bool TryGet<T>(string key, out T value)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
 
             object sourceValue;
             if (TryGetValue(key, out sourceValue) && sourceValue != null)

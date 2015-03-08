@@ -45,9 +45,9 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="command">Command to handle.</param>
         public InterceptorExectionContext(IEnumerable<IDecoratedInvoke> interceptors, object commandHandler, object command)
         {
-            Guard.NotNull(interceptors, "interceptors");
-            Guard.NotNull(commandHandler, "commandHandler");
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(interceptors, "interceptors");
+            Ensure.NotNull(commandHandler, "commandHandler");
+            Ensure.NotNull(command, "command");
             Interceptors = interceptors;
             InterceptorEnumerator = interceptors.GetEnumerator();
             CommandHandler = commandHandler;

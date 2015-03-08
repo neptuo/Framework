@@ -36,7 +36,7 @@ namespace Neptuo.Compilers
         /// <param name="isDebugMode">Whether debug mode is enabled.</param>
         protected CompilerConfiguration(CompilerReferenceCollection references, bool isDebugMode)
         {
-            Guard.NotNull(references, "references");
+            Ensure.NotNull(references, "references");
             References = new CompilerReferenceCollection(references.Assemblies, references.Directories);
             IsDebugMode = isDebugMode;
         }

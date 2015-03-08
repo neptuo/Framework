@@ -21,7 +21,7 @@ namespace Neptuo.Pipelines.Replying
         public static Task<TOutput> Execute<TInput, TOutput>(this IRequestDispatcher mediator, TInput request)
             where TInput : IRequest<TOutput>
         {
-            Guard.NotNull(mediator, "mediator");
+            Ensure.NotNull(mediator, "mediator");
             return mediator.ExecuteAsync<TInput, TOutput>(request);
         }
     }

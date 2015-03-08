@@ -33,7 +33,7 @@ namespace Neptuo.DomainModels
         /// <param name="isEmpty">Whether this key is empty.</param>
         protected KeyBase(string type, bool isEmpty)
         {
-            Guard.NotNullOrEmpty(type, "type");
+            Ensure.NotNullOrEmpty(type, "type");
             Type = type;
             IsEmpty = isEmpty;
         }

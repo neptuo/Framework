@@ -60,8 +60,8 @@ var Neptuo$PresentationModels$Binding$BindingConverterCollection = {
             this._Storage = value;
         },
         Add: function (fieldType, converter){
-            Neptuo.Guard.NotNull$$Object$$String(fieldType, "fieldType");
-            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            Neptuo.Ensure.NotNull$$Object$$String(fieldType, "fieldType");
+            Neptuo.Ensure.NotNull$$Object$$String(converter, "converter");
             var key = this.GetKey(fieldType);
             var list;
             if (!(function (){
@@ -223,7 +223,7 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
         ctor: function (modelDefinition){
             this._ModelDefinition = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
@@ -314,9 +314,9 @@ var Neptuo$PresentationModels$FieldDefinition = {
             this._FieldType = null;
             this._Metadata = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(identifier, "identifier");
-            Neptuo.Guard.NotNull$$Object$$String(fieldType, "fieldType");
-            Neptuo.Guard.NotNull$$Object$$String(metadata, "metadata");
+            Neptuo.Ensure.NotNull$$Object$$String(identifier, "identifier");
+            Neptuo.Ensure.NotNull$$Object$$String(fieldType, "fieldType");
+            Neptuo.Ensure.NotNull$$Object$$String(metadata, "metadata");
             this.set_Identifier(identifier);
             this.set_FieldType(fieldType);
             this.set_Metadata(metadata);
@@ -848,9 +848,9 @@ var Neptuo$PresentationModels$ModelDefinition = {
             this._Fields = null;
             this._Metadata = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(identifier, "identifier");
-            Neptuo.Guard.NotNull$$Object$$String(fields, "fields");
-            Neptuo.Guard.NotNull$$Object$$String(metadata, "metadata");
+            Neptuo.Ensure.NotNull$$Object$$String(identifier, "identifier");
+            Neptuo.Ensure.NotNull$$Object$$String(fields, "fields");
+            Neptuo.Ensure.NotNull$$Object$$String(metadata, "metadata");
             this.set_Identifier(identifier);
             this.set_Fields(new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.PresentationModels.IFieldDefinition.ctor, fields));
             this.set_Metadata(metadata);
@@ -894,7 +894,7 @@ var Neptuo$PresentationModels$ProxyModelDefinition = {
         ctor: function (modelDefinition){
             this._ModelDefinition = null;
             Neptuo.PresentationModels.ProxyModelDefinitionBase.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
@@ -992,7 +992,7 @@ var Neptuo$PresentationModels$FieldType = {
         ctor: function (type){
             this._Type = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(type, "type");
+            Neptuo.Ensure.NotNull$$Object$$String(type, "type");
             this.set_Type(type);
         },
         Type$$: "System.Type",
@@ -1042,7 +1042,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2 = {
             this.TFieldValue = TFieldValue;
             this._MetadataKey = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNullOrEmpty(metadataKey, "metadataKey");
+            Neptuo.Ensure.NotNullOrEmpty(metadataKey, "metadataKey");
             this.set_MetadataKey(metadataKey);
         },
         MetadataKey$$: "System.String",
@@ -1053,9 +1053,9 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2 = {
             this._MetadataKey = value;
         },
         Validate$$IFieldDefinition$$IModelValueGetter$$IModelValidationBuilder: function (fieldDefinition, getter, resultBuilder){
-            Neptuo.Guard.NotNull$$Object$$String(fieldDefinition, "fieldDefinition");
-            Neptuo.Guard.NotNull$$Object$$String(getter, "getter");
-            Neptuo.Guard.NotNull$$Object$$String(resultBuilder, "resultBuilder");
+            Neptuo.Ensure.NotNull$$Object$$String(fieldDefinition, "fieldDefinition");
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            Neptuo.Ensure.NotNull$$Object$$String(resultBuilder, "resultBuilder");
             var metadataValue;
             if (!(function (){
                 var $1 = {
@@ -1090,9 +1090,9 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
             this._Getter = null;
             this._ResultBuilder = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(fieldDefinition, "fieldDefinition");
-            Neptuo.Guard.NotNull$$Object$$String(getter, "getter");
-            Neptuo.Guard.NotNull$$Object$$String(resultBuilder, "resultBuilder");
+            Neptuo.Ensure.NotNull$$Object$$String(fieldDefinition, "fieldDefinition");
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            Neptuo.Ensure.NotNull$$Object$$String(resultBuilder, "resultBuilder");
             this.set_FieldDefinition(fieldDefinition);
             this.set_Getter(getter);
             this.set_ResultBuilder(resultBuilder);
@@ -1138,7 +1138,7 @@ var Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory$1 = {
             this.TValidator = TValidator;
             this._Factory = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(factory, "factory");
+            Neptuo.Ensure.NotNull$$Object$$String(factory, "factory");
             this.set_Factory(factory);
         },
         Factory$$: "System.Func`1[[`0]]",
@@ -1224,7 +1224,7 @@ var Neptuo$PresentationModels$Validators$MetadataModelValidator = {
         ctor: function (modelDefinition, validators){
             this._Validators = null;
             Neptuo.PresentationModels.Validators.ModelValidatorBase.ctor.call(this, modelDefinition);
-            Neptuo.Guard.NotNull$$Object$$String(validators, "validators");
+            Neptuo.Ensure.NotNull$$Object$$String(validators, "validators");
             this.set_Validators(validators);
         },
         Validators$$: "Neptuo.PresentationModels.Validators.IMetadataValidatorCollection",
@@ -1407,12 +1407,12 @@ var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
             return this.get_MessageList();
         },
         AddMessage: function (message){
-            Neptuo.Guard.NotNull$$Object$$String(message, "message");
+            Neptuo.Ensure.NotNull$$Object$$String(message, "message");
             this.get_MessageList().Add(message);
             return this;
         },
         AddMessages: function (messages){
-            Neptuo.Guard.NotNull$$Object$$String(messages, "messages");
+            Neptuo.Ensure.NotNull$$Object$$String(messages, "messages");
             this.get_MessageList().AddRange(messages);
             return this;
         },
@@ -1438,7 +1438,7 @@ var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
         ctor: function (modelDefinition){
             this._ModelDefinition = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
@@ -1479,7 +1479,7 @@ var Neptuo$PresentationModels$Validators$SingletonFieldMetadataValidatorFactory 
         ctor: function (validator){
             this._Validator = null;
             System.Object.ctor.call(this);
-            Neptuo.Guard.NotNull$$Object$$String(validator, "validator");
+            Neptuo.Ensure.NotNull$$Object$$String(validator, "validator");
             this.set_Validator(validator);
         },
         Validator$$: "Neptuo.PresentationModels.Validators.IFieldMetadataValidator",

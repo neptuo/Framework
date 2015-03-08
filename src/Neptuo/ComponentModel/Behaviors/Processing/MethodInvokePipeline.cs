@@ -18,7 +18,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         public MethodInvokePipeline(IBehaviorCollection collection, IReflectionBehaviorInstanceProvider behaviorInstance, string methodName)
             : base(collection, behaviorInstance)
         {
-            Guard.NotNullOrEmpty(methodName, "methodName");
+            Ensure.NotNullOrEmpty(methodName, "methodName");
             this.methodName = methodName;
         }
 
@@ -35,7 +35,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
 
         public async Task<TOutput> ExecuteAsync(params object[] parameters)
         {
-            Guard.NotNull(parameters, "parameters");
+            Ensure.NotNull(parameters, "parameters");
 
             IEnumerable<IBehavior<THandler>> behaviors = GetBehaviors();
             IActivator<THandler> handlerFactory = GetHandlerFactory();

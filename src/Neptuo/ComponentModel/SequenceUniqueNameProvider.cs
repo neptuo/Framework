@@ -28,7 +28,7 @@ namespace Neptuo.ComponentModel
         /// <param name="offset">Optional zero offset.</param>
         public SequenceUniqueNameProvider(string prefix = null, int offset = 0)
         {
-            Guard.PositiveOrZero(offset, "offset");
+            Ensure.PositiveOrZero(offset, "offset");
             this.prefix = prefix;
             this.offset = offset;
         }

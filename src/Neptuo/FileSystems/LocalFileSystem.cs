@@ -33,7 +33,7 @@ namespace Neptuo.FileSystems
         public LocalFileSystem(string rootPath, bool isReadOnly)
         {
             if (!Path.IsPathRooted(rootPath))
-                throw Guard.Exception.Argument("rootPath", "Path to file system must be rooted.");
+                throw Ensure.Exception.Argument("rootPath", "Path to file system must be rooted.");
 
             rootDirectory = new LocalDirectory(rootPath);
             IsReadOnly = isReadOnly;
@@ -46,15 +46,15 @@ namespace Neptuo.FileSystems
 
         public IDirectory AsWriteable(IReadOnlyDirectory directory)
         {
-            Guard.NotNull(directory, "directory");
+            Ensure.NotNull(directory, "directory");
 
             if (!IsReadOnly)
-                throw Guard.Exception.FileSystem("File system rooted by '{0}' is read only.", rootDirectory.LocalKey.FullPath);
+                throw Ensure.Exception.FileSystem("File system rooted by '{0}' is read only.", rootDirectory.LocalKey.FullPath);
 
             LocalDirectory staticDirectory = directory as LocalDirectory;
             if (staticDirectory == null)
             {
-                throw Guard.Exception.FileSystem(
+                throw Ensure.Exception.FileSystem(
                     "Passed instance of '{0}' into static file system. Static file system operates only on directories of type '{1}'.", 
                     directory.GetType().FullName, 
                     typeof(LocalDirectory).FullName
@@ -72,10 +72,10 @@ namespace Neptuo.FileSystems
         /// <exception cref="FileSystemException">When <paramref name="filePath"/> doesn't point to existing file.</exception>
         public static IReadOnlyFile FromFilePath(string filePath)
         {
-            Guard.NotNullOrEmpty(filePath, "filePath");
+            Ensure.NotNullOrEmpty(filePath, "filePath");
 
             if (!File.Exists(filePath))
-                throw Guard.Exception.ArgumentFileNotExist(filePath, "filePath");
+                throw Ensure.Exception.ArgumentFileNotExist(filePath, "filePath");
 
             if (!Path.IsPathRooted(filePath))
                 filePath = Path.Combine(Environment.CurrentDirectory, filePath);
@@ -91,10 +91,10 @@ namespace Neptuo.FileSystems
         /// <exception cref="FileSystemException">When <paramref name="directoryPath"/> doesn't point to existing directory.</exception>
         public static IReadOnlyDirectory FromDirectoryPath(string directoryPath)
         {
-            Guard.NotNullOrEmpty(directoryPath, "directoryPath");
+            Ensure.NotNullOrEmpty(directoryPath, "directoryPath");
 
             if (!Directory.Exists(directoryPath))
-                throw Guard.Exception.ArgumentDirectoryNotExist(directoryPath, "directoryPath");
+                throw Ensure.Exception.ArgumentDirectoryNotExist(directoryPath, "directoryPath");
 
             if (!Path.IsPathRooted(directoryPath))
                 directoryPath = Path.Combine(Environment.CurrentDirectory, directoryPath);

@@ -18,13 +18,13 @@ namespace Neptuo.FeatureModels
         /// <exception cref="NotSupportedException">If <paramref name="model"/> doesn't support feature of type <typeparamref name="TFeature"/>.</exception>
         public static TFeature With<TFeature>(this IFeatureModel model)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
 
             TFeature feature;
             if (model.TryWith(out feature))
                 return feature;
 
-            throw Guard.Exception.NotSupported(
+            throw Ensure.Exception.NotSupported(
                 "Feature model '{0}' doesn't support feature '{1}'.", 
                 model.GetType().FullName, 
                 typeof(TFeature).FullName

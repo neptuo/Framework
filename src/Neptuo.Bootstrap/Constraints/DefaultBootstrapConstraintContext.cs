@@ -15,7 +15,7 @@ namespace Neptuo.Bootstrap.Constraints
 
         public DefaultBootstrapConstraintContext(IBootstrapper bootstrapper)
         {
-            Guard.NotNull(bootstrapper, "bootstrapper");
+            Ensure.NotNull(bootstrapper, "bootstrapper");
             Bootstrapper = bootstrapper;
         }
     }

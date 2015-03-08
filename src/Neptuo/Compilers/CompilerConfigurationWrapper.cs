@@ -47,7 +47,7 @@ namespace Neptuo.Compilers
         /// <param name="configuration">Configuration to copy values from.</param>
         protected CompilerConfigurationWrapper(CompilerConfiguration configuration)
         {
-            Guard.NotNull(configuration, "configuration");
+            Ensure.NotNull(configuration, "configuration");
             Configuration = configuration.Copy();
         }
     }

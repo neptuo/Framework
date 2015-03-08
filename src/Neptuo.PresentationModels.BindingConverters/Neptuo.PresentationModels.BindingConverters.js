@@ -194,8 +194,8 @@ var Neptuo$PresentationModels$BindingConverters$ListBindingConverter$1 = {
             this._Separator = null;
             this._Converter = null;
             Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.Collections.Generic.IEnumerable$1.ctor);
-            Neptuo.Guard.NotNullOrEmpty(separator, "separator");
-            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            Neptuo.Ensure.NotNullOrEmpty(separator, "separator");
+            Neptuo.Ensure.NotNull$$Object$$String(converter, "converter");
             this.set_Separator(separator);
             this.set_Converter(converter);
         },
@@ -256,7 +256,7 @@ var Neptuo$PresentationModels$BindingConverters$NullBindingConverter$1 = {
             this.T = T;
             this._Converter = null;
             Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.Nullable$1.ctor);
-            Neptuo.Guard.NotNull$$Object$$String(converter, "converter");
+            Neptuo.Ensure.NotNull$$Object$$String(converter, "converter");
             this.set_Converter(converter);
         },
         Converter$$: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase`1[[`0]]",

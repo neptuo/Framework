@@ -33,8 +33,8 @@ namespace Neptuo.Compilers
         /// <param name="output">Raw compiler output.</param>
         public CompilerResult(IEnumerable<IErrorInfo> errors, StringCollection output)
         {
-            Guard.NotNull(errors, "errors");
-            Guard.NotNull(output, "output");
+            Ensure.NotNull(errors, "errors");
+            Ensure.NotNull(output, "output");
             Errors = new List<IErrorInfo>(errors);
             IsSuccess = !Errors.Any();
             Output = output;

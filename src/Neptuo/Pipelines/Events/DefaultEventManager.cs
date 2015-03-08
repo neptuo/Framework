@@ -29,14 +29,14 @@ namespace Neptuo.Pipelines.Events
 
         public Task PublishAsync<TEvent>(TEvent payload)
         {
-            Guard.NotNull(payload, "payload");
+            Ensure.NotNull(payload, "payload");
 
             Type eventType = typeof(TEvent);
             TypeResolverResult eventTypeDescriptor = eventTypeResolver.Resolve(eventType);
 
             // Throw, because passing in context is not supported.
             if (eventTypeDescriptor.IsContext)
-                throw Guard.Exception.NotSupported("Event manager can publish event context.");
+                throw Ensure.Exception.NotSupported("Event manager can publish event context.");
 
             // Unwrap envelope, create context and invoke.
             if(eventTypeDescriptor.IsEnvelope)
@@ -47,7 +47,7 @@ namespace Neptuo.Pipelines.Events
                 // Get publishing method and make it generic for current event.
                 MethodInfo publishInternalMethod = typeof(DefaultEventManager).GetMethod("PublishInternalAsyc", BindingFlags.NonPublic | BindingFlags.Instance);
                 if (publishInternalMethod == null)
-                    throw Guard.Exception.NotImplemented("Bug in implementation of DefaultEventManager. Unnable to find publishing method.");
+                    throw Ensure.Exception.NotImplemented("Bug in implementation of DefaultEventManager. Unnable to find publishing method.");
 
                 return (Task)publishInternalMethod.MakeGenericMethod(eventTypeDescriptor.DataType).Invoke(this, new object[] { context });
             }
@@ -84,7 +84,7 @@ namespace Neptuo.Pipelines.Events
 
         public IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler)
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
 
             Type eventType = typeof(TEvent);
             TypeResolverResult eventTypeDescriptor = eventTypeResolver.Resolve(eventType);
@@ -101,7 +101,7 @@ namespace Neptuo.Pipelines.Events
 
         public IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
 
             Type eventType = typeof(TEvent);
             TypeResolverResult eventTypeDescriptor = eventTypeResolver.Resolve(eventType);

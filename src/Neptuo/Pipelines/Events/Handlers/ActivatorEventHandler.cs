@@ -24,7 +24,7 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// <param name="innerHandlerFactory">Instance provider for inner handler of type <typeparamref name="TEventHandler"/>.</param>
         public ActivatorEventHandler(IActivator<TEventHandler> innerHandlerFactory)
         {
-            Guard.NotNull(innerHandlerFactory, "innerHandlerFactory");
+            Ensure.NotNull(innerHandlerFactory, "innerHandlerFactory");
             this.innerHandlerFactory = innerHandlerFactory;
         }
 

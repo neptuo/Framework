@@ -35,7 +35,7 @@ namespace Neptuo.StateMachines
         /// <param name="initialState">First state of state machine.</param>
         public StateMachine(TState initialState)
         {
-            Guard.NotNull(initialState, "initialState");
+            Ensure.NotNull(initialState, "initialState");
             InitialState = initialState;
         }
 
@@ -46,7 +46,7 @@ namespace Neptuo.StateMachines
         public void OnEnterConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)
             where TConcreteState : TState
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
             OnEnterState += (sender, e) =>
             {
                 if (e.State.GetType() == typeof(TConcreteState))
@@ -61,7 +61,7 @@ namespace Neptuo.StateMachines
         public void OnLeaveConcreteState<TConcreteState>(EventHandler<StateMachineEventArgs<TConcreteState>> handler)
             where TConcreteState : TState
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
             OnLeaveState += (sender, e) =>
             {
                 if (e.State.GetType() == typeof(TConcreteState))
@@ -76,14 +76,14 @@ namespace Neptuo.StateMachines
         /// <returns>State, in which state machine remains after processing whole input.</returns>
         public TState Process(IEnumerable<TItem> items)
         {
-            Guard.NotNull(items, "items");
+            Ensure.NotNull(items, "items");
             TState currentState = InitialState;
             int index = 0;
             foreach (TItem item in items)
             {
                 TState newState = currentState.Accept(item, index);
                 if (newState == null)
-                    throw Guard.Exception.InvalidOperation("StateMachine in invalid state, got null new state.");
+                    throw Ensure.Exception.InvalidOperation("StateMachine in invalid state, got null new state.");
 
                 if (newState != currentState)
                 {

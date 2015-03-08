@@ -17,7 +17,7 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// <param name="action">Degate for handling events.</param>
         public static IEventHandler<TEvent> FromAction<TEvent>(Action<TEvent> action)
         {
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(action, "action");
             return new EventHandler<TEvent>((payload) =>
             {
                 action(payload);
@@ -31,7 +31,7 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// <param name="func">Delegate for handling (possibly asynchronously) events.</param>
         public static IEventHandler<TEvent> FromFunc<TEvent>(Func<TEvent, Task> func)
         {
-            Guard.NotNull(func, "func");
+            Ensure.NotNull(func, "func");
             return new EventHandler<TEvent>(func);
         }
 

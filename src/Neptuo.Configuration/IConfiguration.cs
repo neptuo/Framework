@@ -22,8 +22,8 @@ namespace Neptuo.Configuration
 
         public ConfigurationBase(IConfigurationScopeRegistry scopeRegistry, IConfigurationScope defaultScope)
         {
-            Guard.NotNull(scopeRegistry, "scopeRegistry");
-            Guard.NotNull(defaultScope, "defaultScope");
+            Ensure.NotNull(scopeRegistry, "scopeRegistry");
+            Ensure.NotNull(defaultScope, "defaultScope");
             this.scopeRegistry = scopeRegistry;
             this.defaultScope = defaultScope;
             this.properties = new HashSet<Type>();

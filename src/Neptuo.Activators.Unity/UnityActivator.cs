@@ -23,7 +23,7 @@ namespace Neptuo.Activators
         /// <param name="name">Optional registration name.</param>
         public UnityActivator(IUnityContainer unityContainer, string name = null)
         {
-            Guard.NotNull(unityContainer, "unityContainer");
+            Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
             this.name = name;
         }

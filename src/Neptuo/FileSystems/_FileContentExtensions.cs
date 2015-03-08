@@ -18,7 +18,7 @@ namespace Neptuo.FileSystems
         /// <returns>File content.</returns>
         public static string GetContent(this IReadOnlyFile file)
         {
-            Guard.NotNull(file, "file");
+            Ensure.NotNull(file, "file");
             return file.GetContentAsync().Result;
         }
 
@@ -28,7 +28,7 @@ namespace Neptuo.FileSystems
         /// <returns>File content as byte array.</returns>
         public static byte[] GetContentAsByteArray(this IReadOnlyFile file)
         {
-            Guard.NotNull(file, "file");
+            Ensure.NotNull(file, "file");
             return file.GetContentAsByteArrayAsync().Result;
         }
 
@@ -38,7 +38,7 @@ namespace Neptuo.FileSystems
         /// <returns>File content as stream.</returns>
         public static Stream GetContentAsStream(this IReadOnlyFile file)
         {
-            Guard.NotNull(file, "file");
+            Ensure.NotNull(file, "file");
             return file.GetContentAsStreamAsync().Result;
         }
 

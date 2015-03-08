@@ -22,13 +22,13 @@ namespace Neptuo.Collections.Specialized
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static T Get<T>(this IReadOnlyKeyValueCollection collection, string key)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             T value;
             if (collection.TryGet(key, out value))
                 return value;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Neptuo.Collections.Specialized
         public static T Get<T>(this IReadOnlyKeyValueCollection collection, string key, T? defaultValue)
             where T : struct
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             T value;
             if (collection.TryGet(key, out value))
@@ -52,7 +52,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace Neptuo.Collections.Specialized
         public static T Get<T>(this IReadOnlyKeyValueCollection collection, string key, T defaultValue)
             where T : class
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             T value;
             if (collection.TryGet(key, out value))
@@ -76,7 +76,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type '{0}' with key '{1}'.", typeof(T), key);
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Neptuo.Collections.Specialized
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static int Get(this IReadOnlyKeyValueCollection collection, string key, int? defaultValue)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             int intValue;
             if (collection.TryGet(key, out intValue))
@@ -99,7 +99,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type int with key '{0}'.", key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type int with key '{0}'.", key);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Neptuo.Collections.Specialized
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static string Get(this IReadOnlyKeyValueCollection collection, string key, string defaultValue)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             string stringValue;
             if (collection.TryGet(key, out stringValue))
@@ -122,7 +122,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type string with key '{0}'.", key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type string with key '{0}'.", key);
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Neptuo.Collections.Specialized
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
         public static bool Get(this IReadOnlyKeyValueCollection collection, string key, bool? defaultValue)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
 
             bool boolValue;
             if (collection.TryGet(key, out boolValue))
@@ -145,7 +145,7 @@ namespace Neptuo.Collections.Specialized
             if (defaultValue != null)
                 return defaultValue.Value;
 
-            throw Guard.Exception.InvalidOperation("Collection doesn't contain value of type bool with key '{0}'.", key);
+            throw Ensure.Exception.InvalidOperation("Collection doesn't contain value of type bool with key '{0}'.", key);
         }
     }
 }

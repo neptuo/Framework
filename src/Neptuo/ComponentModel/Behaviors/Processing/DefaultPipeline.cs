@@ -28,8 +28,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// <param name="behaviorInstance">Behavior instance provider.</param>
         public DefaultPipeline(IBehaviorCollection collection, IReflectionBehaviorInstanceProvider behaviorInstance)
         {
-            Guard.NotNull(collection, "collection");
-            Guard.NotNull(behaviorInstance, "behaviorInstance");
+            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(behaviorInstance, "behaviorInstance");
             this.collection = collection;
             this.behaviorInstance = behaviorInstance;
         }

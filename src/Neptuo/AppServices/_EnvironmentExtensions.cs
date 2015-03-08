@@ -20,7 +20,7 @@ namespace Neptuo.AppServices
 
             public AppServiceEngineEnvironment(EngineEnvironment environment)
             {
-                Guard.NotNull(environment, "environment");
+                Ensure.NotNull(environment, "environment");
                 Environment = environment;
             }
         }
@@ -31,7 +31,7 @@ namespace Neptuo.AppServices
         /// <param name="environment">Engine environment.</param>
         public static AppServiceEngineEnvironment UseAppServices(this EngineEnvironment environment)
         {
-            Guard.NotNull(environment, "environment");
+            Ensure.NotNull(environment, "environment");
             return new AppServiceEngineEnvironment(environment);
         }
 
@@ -43,7 +43,7 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, IBehaviorCollection behaviors)
         {
-            Guard.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "appService");
             appService.Environment.Use<IBehaviorCollection>(behaviors, "AppService.Behaviors");
             return appService;
         }
@@ -56,9 +56,9 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, params IBehaviorProvider[] providers)
         {
-            Guard.NotNull(appService, "appService");
-            Guard.NotNull(appService, "environment");
-            Guard.NotNull(providers, "providers");
+            Ensure.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "environment");
+            Ensure.NotNull(providers, "providers");
 
             IBehaviorCollection collection = new BehaviorProviderCollection();
             foreach (IBehaviorProvider provider in providers)
@@ -75,9 +75,9 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, Action<InterfaceBehaviorProvider> mapper)
         {
-            Guard.NotNull(appService, "appService");
-            Guard.NotNull(appService, "environment");
-            Guard.NotNull(mapper, "mapper");
+            Ensure.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "environment");
+            Ensure.NotNull(mapper, "mapper");
 
             InterfaceBehaviorProvider provider = new InterfaceBehaviorProvider();
             mapper(provider);
@@ -90,7 +90,7 @@ namespace Neptuo.AppServices
         /// <param name="environment">Engine environment.</param>
         public static AppServiceEngineEnvironment WithAppServices(this EngineEnvironment environment)
         {
-            Guard.NotNull(environment, "environment");
+            Ensure.NotNull(environment, "environment");
             return new AppServiceEngineEnvironment(environment);
         }
 
@@ -101,7 +101,7 @@ namespace Neptuo.AppServices
         /// <returns>Registered behaviors collection.</returns>
         public static IBehaviorCollection WithBehaviors(this AppServiceEngineEnvironment appService)
         {
-            Guard.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "appService");
             return appService.Environment.With<IBehaviorCollection>("AppService.Behaviors");
         }
 
@@ -113,7 +113,7 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, CodeDomPipelineConfiguration configuration)
         {
-            Guard.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "appService");
             appService.Environment.Use<CodeDomPipelineConfiguration>(configuration, "AppService.CodeDomConfiguration");
             return appService;
         }

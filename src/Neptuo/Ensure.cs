@@ -11,7 +11,7 @@ namespace Neptuo
     /// <summary>
     /// Helper for throwing exceptions.
     /// </summary>
-    public static class Guard
+    public static class Ensure
     {
         /// <summary>
         /// Throws <see cref="ArgumentNullException"/> if <paramref name="argument"/> is <code>null</code>.
@@ -117,6 +117,6 @@ namespace Neptuo
         /// <summary>
         /// Helper for throwing exceptions.
         /// </summary>
-        public static readonly GuardExceptionHelper Exception = new GuardExceptionHelper();
+        public static readonly EnsureExceptionHelper Exception = new EnsureExceptionHelper();
     }
 }

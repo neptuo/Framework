@@ -30,7 +30,7 @@ namespace Neptuo.FeatureModels
 
         public MappingFeatureModel(bool isSingleThread, IDictionary<Type, object> features)
         {
-            Guard.NotNull(features, "features");
+            Ensure.NotNull(features, "features");
             if (isSingleThread)
                 this.features = new Dictionary<Type, object>(features);
             else
@@ -45,7 +45,7 @@ namespace Neptuo.FeatureModels
         /// <param name="handler">Handler to register.</param>
         public void AddSearchHandler(OutFunc<Type, bool, object> handler)
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
             onSearchFeature += handler;
         }
 

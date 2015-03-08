@@ -61,7 +61,7 @@ namespace Neptuo.Activators
 
             public DependencyRegistration(IDependencyContainer dependencyContainer, Type requiredType)
             {
-                Guard.NotNull(dependencyContainer, "dependencyContainer");
+                Ensure.NotNull(dependencyContainer, "dependencyContainer");
                 this.dependencyContainer = dependencyContainer;
                 this.requiredType = requiredType;
             }
@@ -124,7 +124,7 @@ namespace Neptuo.Activators
         /// <returns>Component for mapping target.</returns>
         public static IDependencyTargetMapping InTransient(this IDependencyScopeMapping model)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             return model.In(DependencyLifetime.Transient);
         }
 
@@ -135,7 +135,7 @@ namespace Neptuo.Activators
         /// <returns>Component for mapping target.</returns>
         public static IDependencyTargetMapping InAnyScope(this IDependencyScopeMapping model)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             return model.In(DependencyLifetime.AnyScope);
         }
 
@@ -147,7 +147,7 @@ namespace Neptuo.Activators
         /// <returns>Component for mapping target.</returns>
         public static IDependencyTargetMapping InNamedScope(this IDependencyScopeMapping model, string scopeName)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             return model.In(DependencyLifetime.NamedScope(scopeName));
         }
 
@@ -163,7 +163,7 @@ namespace Neptuo.Activators
         /// <returns>Current cotainer to execute next actions.</returns>
         public static IDependencyContainer ToType(this IDependencyTargetMapping model, Type targetType)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             return model.To(targetType);
         }
 
@@ -187,7 +187,7 @@ namespace Neptuo.Activators
         /// <returns>Current cotainer to execute next actions.</returns>
         public static IDependencyContainer ToActivator<TTarget>(this IDependencyTargetMapping model, IActivator<TTarget> activator)
         {
-            Guard.NotNull(model, "model");
+            Ensure.NotNull(model, "model");
             return model.To(activator);
         }
 

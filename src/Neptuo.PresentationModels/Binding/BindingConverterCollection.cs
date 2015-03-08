@@ -19,8 +19,8 @@ namespace Neptuo.PresentationModels.Binding
 
         public BindingConverterCollection Add(IFieldType fieldType, IBindingConverter converter)
         {
-            Guard.NotNull(fieldType, "fieldType");
-            Guard.NotNull(converter, "converter");
+            Ensure.NotNull(fieldType, "fieldType");
+            Ensure.NotNull(converter, "converter");
 
             string key = GetKey(fieldType); 
             List<IBindingConverter> list;

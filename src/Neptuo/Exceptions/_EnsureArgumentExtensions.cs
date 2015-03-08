@@ -13,7 +13,7 @@ namespace Neptuo
     /// Extensions for argument exceptions.
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class _GuardArgumentExtensions
+    public static class _EnsureArgumentExtensions
     {
         /// <summary>
         /// Creates exception <see cref="ArgumentException"/> for argument <paramref name="argumentName"/> 
@@ -25,11 +25,11 @@ namespace Neptuo
         /// <param name="formatParameters"></param>
         /// <returns><see cref="ArgumentException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentException Argument(this GuardExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
+        public static ArgumentException Argument(this EnsureExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
-            Guard.NotNullOrEmpty(argumentName, "argumentName");
-            Guard.NotNullOrEmpty(format, "format");
+            Ensure.NotNull(guard, "guard");
+            Ensure.NotNullOrEmpty(argumentName, "argumentName");
+            Ensure.NotNullOrEmpty(format, "format");
             return new ArgumentException(argumentName, String.Format(format, formatParameters));
         }
         
@@ -43,11 +43,11 @@ namespace Neptuo
         /// <param name="formatParameters">Optional format string parameters.</param>
         /// <returns><see cref="ArgumentNullException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentNullException ArgumentNull(this GuardExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
+        public static ArgumentNullException ArgumentNull(this EnsureExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
-            Guard.NotNullOrEmpty(argumentName, "argumentName");
-            Guard.NotNullOrEmpty(format, "format");
+            Ensure.NotNull(guard, "guard");
+            Ensure.NotNullOrEmpty(argumentName, "argumentName");
+            Ensure.NotNullOrEmpty(format, "format");
             return new ArgumentNullException(argumentName, String.Format(format, formatParameters));
         }
 
@@ -61,11 +61,11 @@ namespace Neptuo
         /// <param name="formatParameters">Optional format string parameters.</param>
         /// <returns><see cref="ArgumentOutOfRangeException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentOutOfRangeException ArgumentOutOfRange(this GuardExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
+        public static ArgumentOutOfRangeException ArgumentOutOfRange(this EnsureExceptionHelper guard, string argumentName, string format, params object[] formatParameters)
         {
-            Guard.NotNull(guard, "guard");
-            Guard.NotNullOrEmpty(argumentName, "argumentName");
-            Guard.NotNullOrEmpty(format, "format");
+            Ensure.NotNull(guard, "guard");
+            Ensure.NotNullOrEmpty(argumentName, "argumentName");
+            Ensure.NotNullOrEmpty(format, "format");
             return new ArgumentOutOfRangeException(argumentName, String.Format(format, formatParameters));
         }
 
@@ -77,7 +77,7 @@ namespace Neptuo
         /// <param name="argumentName">Argument name.</param>
         /// <returns><see cref="ArgumentOutOfRangeException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentOutOfRangeException ArgumentFileNotExist(this GuardExceptionHelper guard, string path, string argumentName)
+        public static ArgumentOutOfRangeException ArgumentFileNotExist(this EnsureExceptionHelper guard, string path, string argumentName)
         {
             return guard.ArgumentOutOfRange(argumentName, "Path must point to an existing file, Path '{0}' doesn't exist.", path);
         }
@@ -90,7 +90,7 @@ namespace Neptuo
         /// <param name="argumentName">Argument name.</param>
         /// <returns><see cref="ArgumentOutOfRangeException"/>.</returns>
         [DebuggerStepThrough]
-        public static ArgumentOutOfRangeException ArgumentDirectoryNotExist(this GuardExceptionHelper guard, string path, string argumentName)
+        public static ArgumentOutOfRangeException ArgumentDirectoryNotExist(this EnsureExceptionHelper guard, string path, string argumentName)
         {
             return guard.ArgumentOutOfRange(argumentName, "Path must point to an existing directory, Path '{0}' doesn't exist.", path);
         }

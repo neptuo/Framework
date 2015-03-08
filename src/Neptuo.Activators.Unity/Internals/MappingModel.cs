@@ -14,8 +14,8 @@ namespace Neptuo.Activators.Internals
 
         public MappingModel(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            Guard.NotNull(requiredType, "requiredType");
-            Guard.NotNull(target, "target");
+            Ensure.NotNull(requiredType, "requiredType");
+            Ensure.NotNull(target, "target");
             RequiredType = requiredType;
             Lifetime = lifetime;
             Target = target;

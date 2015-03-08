@@ -81,7 +81,7 @@ namespace Neptuo
             if (Try(sourceValue, out targetValue))
                 return targetValue;
 
-            throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
+            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
         }
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace Neptuo
             if (targetType == typeof(string))
                 return sourceValue.ToString();
 
-            Guard.NotNull(targetType, "targetType");
-            throw Guard.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
+            Ensure.NotNull(targetType, "targetType");
+            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
         }
 
         /// <summary>

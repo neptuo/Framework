@@ -21,7 +21,7 @@ namespace Neptuo.PresentationModels.Validators
 
         public ModelValidatorBase(IModelDefinition modelDefinition)
         {
-            Guard.NotNull(modelDefinition, "modelDefinition");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

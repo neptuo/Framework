@@ -34,8 +34,8 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="interceptorProvider">Interceptor provider.</param>
         public DependencyCommandExecutorFactory(IDependencyProvider dependencyProvider, IInterceptorProvider interceptorProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
-            Guard.NotNull(interceptorProvider, "interceptorProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(interceptorProvider, "interceptorProvider");
             this.dependencyProvider = dependencyProvider;
             this.interceptorProvider = interceptorProvider;
         }

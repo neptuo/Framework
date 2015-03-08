@@ -14,8 +14,8 @@ namespace Neptuo.Activators.Internals
 
         public ActivatorLifetimeManager(IActivator<object> activator, LifetimeManager innerLifetime)
         {
-            Guard.NotNull(activator, "activator");
-            Guard.NotNull(innerLifetime, "innerLifetime");
+            Ensure.NotNull(activator, "activator");
+            Ensure.NotNull(innerLifetime, "innerLifetime");
             this.activator = activator;
             this.innerLifetime = innerLifetime;
         }

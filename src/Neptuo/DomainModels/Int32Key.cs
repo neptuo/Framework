@@ -10,14 +10,14 @@ namespace Neptuo.DomainModels
     {
         public static Int32Key Create(int id, string type)
         {
-            Guard.Positive(id, "id");
-            Guard.NotNullOrEmpty(type, "type");
+            Ensure.Positive(id, "id");
+            Ensure.NotNullOrEmpty(type, "type");
             return new Int32Key(id, type);
         }
 
         public static Int32Key Empty(string type)
         {
-            Guard.NotNullOrEmpty(type, "type");
+            Ensure.NotNullOrEmpty(type, "type");
             return new Int32Key(type);
         }
 

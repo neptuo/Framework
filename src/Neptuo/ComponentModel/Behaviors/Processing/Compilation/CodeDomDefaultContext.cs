@@ -16,8 +16,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
 
         public CodeDomDefaultContext(CodeDomPipelineConfiguration configuration, Type handlerType)
         {
-            Guard.NotNull(configuration, "configuration");
-            Guard.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(configuration, "configuration");
+            Ensure.NotNull(handlerType, "handlerType");
             Configuration = configuration;
             HandlerType = handlerType;
         }

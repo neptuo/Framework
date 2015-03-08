@@ -24,8 +24,8 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <param name="behaviorImplementation">Behavior contract implementor.</param>
         public InterfaceBehaviorProvider(Type behaviorContract, Type behaviorImplementation)
         {
-            Guard.NotNull(behaviorContract, "behaviorContract");
-            Guard.NotNull(behaviorImplementation, "behaviorImplementation");
+            Ensure.NotNull(behaviorContract, "behaviorContract");
+            Ensure.NotNull(behaviorImplementation, "behaviorImplementation");
             AddMapping(behaviorContract, behaviorImplementation);
         }
 
@@ -37,8 +37,8 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <returns>Self (for fluency).</returns>
         public InterfaceBehaviorProvider AddMapping(Type behaviorContract, Type behaviorImplementation)
         {
-            Guard.NotNull(behaviorContract, "behaviorContract");
-            Guard.NotNull(behaviorImplementation, "behaviorImplementation");
+            Ensure.NotNull(behaviorContract, "behaviorContract");
+            Ensure.NotNull(behaviorImplementation, "behaviorImplementation");
             base.AddMappingInternal(behaviorContract, behaviorImplementation);
             return this;
         }

@@ -20,7 +20,7 @@ namespace Neptuo.Validators
         /// <param name="result">Result of validation process.</param>
         public ValidationException(IValidationResult result)
         {
-            Guard.NotNull(result, "result");
+            Ensure.NotNull(result, "result");
             Result = result;
         }
     }

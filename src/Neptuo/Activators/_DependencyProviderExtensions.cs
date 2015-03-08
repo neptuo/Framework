@@ -9,13 +9,13 @@ namespace Neptuo.Activators
     {
         public static T Resolve<T>(this IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             return (T)dependencyProvider.Resolve(typeof(T));
         }
 
         public static T Resolve<T>(this IDependencyProvider dependencyProvider, Type requiredType)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             return (T)dependencyProvider.Resolve(requiredType);
         }
     }

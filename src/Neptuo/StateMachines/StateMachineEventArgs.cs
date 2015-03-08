@@ -23,7 +23,7 @@ namespace Neptuo.StateMachines
         /// <param name="state">Current state of state machine.</param>
         public StateMachineEventArgs(TState state)
         {
-            Guard.NotNull(state, "state");
+            Ensure.NotNull(state, "state");
             State = state;
         }
     }

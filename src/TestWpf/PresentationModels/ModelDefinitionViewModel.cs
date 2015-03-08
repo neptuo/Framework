@@ -17,7 +17,7 @@ namespace TestWpf.PresentationModels
 
         public ModelDefinitionViewModel(IModelDefinition modelDefinition)
         {
-            Guard.NotNull(modelDefinition, "modelDefinition");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
             Fields = new ObservableCollection<FieldDefinitionViewModel>(modelDefinition.Fields.Select(f => new FieldDefinitionViewModel(f)));
         }

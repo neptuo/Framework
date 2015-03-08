@@ -21,7 +21,7 @@ namespace Neptuo.Data.Entity.Queries
 
         public MappingEntityQuery(IQueryable<TEntity> items)
         {
-            Guard.NotNull(items, "items");
+            Ensure.NotNull(items, "items");
             Items = items;
         }
 

@@ -31,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Neptuo.XML</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -190,14 +191,14 @@
     <Compile Include="DomainModels\KeyBase.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
-    <Compile Include="Exceptions\_GuardArgumentExtensions.cs" />
+    <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
     <Compile Include="Pipelines\Events\DefaultEventManager.cs" />
     <Compile Include="Pipelines\Events\_EventRegistryExtensions.cs" />
     <Compile Include="Pipelines\Events\Handlers\DelegateEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandler.cs" />
     <Compile Include="Pipelines\Events\IEventDispatcher.cs" />
-    <Compile Include="Exceptions\Helpers\GuardExceptionHelper.cs" />
-    <Compile Include="Exceptions\_GuardSystemExtensions.cs" />
+    <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
+    <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
     <Compile Include="FileSystems\_FileContentExtensions.cs" />
     <Compile Include="FileSystems\FileSystemException.cs" />
     <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
@@ -209,8 +210,8 @@
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystemKey.cs" />
-    <Compile Include="FileSystems\_GuardExtensions.cs" />
-    <Compile Include="Guard.cs" />
+    <Compile Include="FileSystems\_EnsureExtensions.cs" />
+    <Compile Include="Ensure.cs" />
     <Compile Include="ComponentModel\GuidProvider.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="ComponentModel\IUniqueNameProvider.cs" />

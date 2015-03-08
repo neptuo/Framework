@@ -23,7 +23,7 @@ namespace Neptuo.PresentationModels
         /// <param name="modelDefinition">Model definition.</param>
         public CopyModelValueProvider(IModelDefinition modelDefinition)
         {
-            Guard.NotNull(modelDefinition, "modelDefinition");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

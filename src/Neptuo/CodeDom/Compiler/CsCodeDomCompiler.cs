@@ -58,7 +58,7 @@ namespace Neptuo.CodeDom.Compiler
         /// <param name="path">Paths to add as references.</param>
         public void AddReferencedAssemblies(params string[] path)
         {
-            Guard.NotNull(path, "path");
+            Ensure.NotNull(path, "path");
             foreach (string item in path)
                 compilerParameters.ReferencedAssemblies.Add(item);
         }
@@ -69,7 +69,7 @@ namespace Neptuo.CodeDom.Compiler
         /// <param name="path">Path where to look for executables and dll files.</param>
         public void AddReferencedFolder(string path)
         {
-            Guard.NotNullOrEmpty(path, "path");
+            Ensure.NotNullOrEmpty(path, "path");
             AddReferencedAssemblies(Directory.GetFiles(path, "*.dll"));
             AddReferencedAssemblies(Directory.GetFiles(path, "*.exe"));
         }
@@ -82,7 +82,7 @@ namespace Neptuo.CodeDom.Compiler
         /// <returns>Compiler resutls.</returns>
         public CompilerResults CompileAssemblyFromFile(string fileName, string output = null)
         {
-            Guard.NotNullOrEmpty(fileName, "fileName");
+            Ensure.NotNullOrEmpty(fileName, "fileName");
             if (output == null && !IsGeneratedInMemory)
             {
                 if (fileName.EndsWith(".cs"))
@@ -109,9 +109,9 @@ namespace Neptuo.CodeDom.Compiler
         /// <returns>Compiler resutls.</returns>
         public CompilerResults CompileAssemblyFromSource(string source, string output = null)
         {
-            Guard.NotNullOrEmpty(source, "source");
+            Ensure.NotNullOrEmpty(source, "source");
             if (output == null && !IsGeneratedInMemory)
-                throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
+                throw Ensure.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
 
             if (IsOptimized)
                 compilerParameters.CompilerOptions = "/optimize";
@@ -134,9 +134,9 @@ namespace Neptuo.CodeDom.Compiler
         /// <returns>Compiler results.</returns>
         public CompilerResults CompileAssemblyFromUnit(CodeCompileUnit unit, string output)
         {
-            Guard.NotNull(unit, "unit");
+            Ensure.NotNull(unit, "unit");
             if (output == null && !IsGeneratedInMemory)
-                throw Guard.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
+                throw Ensure.Exception.ArgumentOutOfRange("output", "Output path must be provided or IsGeneratedInMemory must be set to true.");
 
             if (IsOptimized)
                 compilerParameters.CompilerOptions = "/optimize";

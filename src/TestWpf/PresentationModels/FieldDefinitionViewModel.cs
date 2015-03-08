@@ -17,7 +17,7 @@ namespace TestWpf.PresentationModels
 
         public FieldDefinitionViewModel(IFieldDefinition fieldDefinition)
         {
-            Guard.NotNull(fieldDefinition, "fieldDefinition");
+            Ensure.NotNull(fieldDefinition, "fieldDefinition");
             FieldDefinition = fieldDefinition;
         }
 

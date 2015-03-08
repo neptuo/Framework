@@ -18,7 +18,7 @@ namespace TestConsole.Commands
         public void Handle(CreateProductCommand command)
         {
             //throw new NullReferenceException();
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
 
             Console.WriteLine("Handler ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
             //Thread.Sleep(5000);

@@ -38,7 +38,7 @@ namespace TestConsole.DependencyContainers
 
         public TextMessageWriter(TextWriter output)
         {
-            Guard.NotNull(output, "output");
+            Ensure.NotNull(output, "output");
             this.output = output;
 
             Console.WriteLine("ctor:TextMessageWriter");
@@ -67,8 +67,8 @@ namespace TestConsole.DependencyContainers
 
         public Presenter(IMessageWriter writer, IHelloService helloService)
         {
-            Guard.NotNull(writer, "writer");
-            Guard.NotNull(helloService, "helloService");
+            Ensure.NotNull(writer, "writer");
+            Ensure.NotNull(helloService, "helloService");
             this.writer = writer;
             this.helloService = helloService;
 

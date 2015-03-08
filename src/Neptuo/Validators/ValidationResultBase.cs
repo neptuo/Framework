@@ -31,7 +31,7 @@ namespace Neptuo.Validators
         /// <param name="messages">Collection of validation messages.</param>
         public ValidationResultBase(bool isValid, IEnumerable<IValidationMessage> messages)
         {
-            Guard.NotNull(messages, "messages");
+            Ensure.NotNull(messages, "messages");
             IsValid = isValid;
             Messages = messages;
         }

@@ -29,8 +29,8 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromSourceCode(string sourceCode, string assemblyFile)
         {
-            Guard.NotNullOrEmpty(sourceCode, "sourceCode");
-            Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            Ensure.NotNullOrEmpty(sourceCode, "sourceCode");
+            Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromSource(compilerParameters, sourceCode);
@@ -39,11 +39,11 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromSourceFile(string sourceFile, string assemblyFile)
         {
-            Guard.NotNullOrEmpty(sourceFile, "sourceFile");
-            Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            Ensure.NotNullOrEmpty(sourceFile, "sourceFile");
+            Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
 
             if (!File.Exists(sourceFile))
-                throw Guard.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
+                throw Ensure.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
@@ -52,8 +52,8 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromUnit(CodeCompileUnit unit, string assemblyFile)
         {
-            Guard.NotNull(unit, "unit");
-            Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            Ensure.NotNull(unit, "unit");
+            Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromDom(compilerParameters, unit);
@@ -66,7 +66,7 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromSourceCode(string sourceCode, out Assembly outputAssembly)
         {
-            Guard.NotNullOrEmpty(sourceCode, "sourceCode");
+            Ensure.NotNullOrEmpty(sourceCode, "sourceCode");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(null);
             CompilerResults compilerResults = provider.CompileAssemblyFromSource(compilerParameters, sourceCode);
@@ -76,10 +76,10 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromSourceFile(string sourceFile, out Assembly outputAssembly)
         {
-            Guard.NotNullOrEmpty(sourceFile, "sourceFile");
+            Ensure.NotNullOrEmpty(sourceFile, "sourceFile");
 
             if (!File.Exists(sourceFile))
-                throw Guard.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
+                throw Ensure.Exception.ArgumentFileNotExist(sourceFile, "sourceFile");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(null);
             CompilerResults compilerResults = provider.CompileAssemblyFromFile(compilerParameters, sourceFile);
@@ -89,7 +89,7 @@ namespace Neptuo.Compilers
 
         public ICompilerResult FromUnit(CodeCompileUnit unit, out Assembly outputAssembly)
         {
-            Guard.NotNull(unit, "unit");
+            Ensure.NotNull(unit, "unit");
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(null);
             CompilerResults compilerResults = provider.CompileAssemblyFromDom(compilerParameters, unit);

@@ -22,7 +22,7 @@ namespace Neptuo.AppServices.Handlers
         /// <param name="activator">Activator for inner handler instances.</param>
         public TransientWorkerHandler(IActivator<IBackgroundHandler> activator)
         {
-            Guard.NotNull(activator, "activator");
+            Ensure.NotNull(activator, "activator");
             this.activator = activator;
         }
 

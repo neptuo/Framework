@@ -16,7 +16,7 @@ namespace Neptuo.Bootstrap.Constraints.Providers
 
         public CachingConstraintProvider(IBootstrapConstraintProvider provider)
         {
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(provider, "provider");
             this.provider = provider;
         }
 

@@ -18,24 +18,24 @@ namespace Neptuo.Pipelines.Commands.Events.Handlers
 
         public CommandEventHandler(object command, IEventHandler<CommandHandled> innerHandler)
         {
-            Guard.NotNull(command, "command");
-            Guard.NotNull(innerHandler, "innerHandler");
+            Ensure.NotNull(command, "command");
+            Ensure.NotNull(innerHandler, "innerHandler");
             this.command = command;
             this.innerDirectHandler = innerHandler;
         }
 
         public CommandEventHandler(object command, IEventHandler<Envelope<CommandHandled>> innerHandler)
         {
-            Guard.NotNull(command, "command");
-            Guard.NotNull(innerHandler, "innerHandler");
+            Ensure.NotNull(command, "command");
+            Ensure.NotNull(innerHandler, "innerHandler");
             this.command = command;
             this.innerEnvelopeHandler = innerHandler;
         }
 
         public CommandEventHandler(object command, IEventHandler<IEventHandlerContext<CommandHandled>> innerHandler)
         {
-            Guard.NotNull(command, "command");
-            Guard.NotNull(innerHandler, "innerHandler");
+            Ensure.NotNull(command, "command");
+            Ensure.NotNull(innerHandler, "innerHandler");
             this.command = command;
             this.innerContextHandler = innerHandler;
         }
@@ -53,7 +53,7 @@ namespace Neptuo.Pipelines.Commands.Events.Handlers
                 else if (innerContextHandler != null)
                     innerContextHandler.HandleAsync(context);
                 else
-                    throw Guard.Exception.NotSupported("Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler.");
+                    throw Ensure.Exception.NotSupported("Invalid object state. Pass in CommandHandled or Envelope<CommandHandled> event handler.");
             }
 
             return Task.FromResult(true);

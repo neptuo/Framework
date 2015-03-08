@@ -35,9 +35,9 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// <param name="dispatcher">Current event dispatcher.</param>
         public DefaultEventHandlerContext(Envelope<TEvent> payload, IEventRegistry registry, IEventDispatcher dispatcher)
         {
-            Guard.NotNull(payload, "payload");
-            Guard.NotNull(registry, "registry");
-            Guard.NotNull(dispatcher, "dispatcher");
+            Ensure.NotNull(payload, "payload");
+            Ensure.NotNull(registry, "registry");
+            Ensure.NotNull(dispatcher, "dispatcher");
             Payload = payload;
             Registry = registry;
             Dispatcher = dispatcher;

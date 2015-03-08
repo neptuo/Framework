@@ -51,7 +51,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="isUseLocking">Whether runs in multithreaded context.</param>
         public PoolCommandExecutorFactory(ICommandExecutorFactory innerFactory, bool isUseLocking = true)
         {
-            Guard.NotNull(innerFactory, "innerFactory");
+            Ensure.NotNull(innerFactory, "innerFactory");
             PoolSize = null;
             InnerFactory = innerFactory;
             CommandQueue = new Queue<object>();
@@ -68,7 +68,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         public PoolCommandExecutorFactory(int poolSize, ICommandExecutorFactory innerFactory, bool isUseLocking = true)
             : this(innerFactory, isUseLocking)
         {
-            Guard.Positive(poolSize, "poolSize");
+            Ensure.Positive(poolSize, "poolSize");
             PoolSize = poolSize;
         }
 
@@ -116,7 +116,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="command">Command to enqueue.</param>
         public void AddCommand(object command)
         {
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
             CommandQueue.Enqueue(command);
         }
 
@@ -160,7 +160,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="action">Action to run.</param>
         public void ExecuteLocked(Action action)
         {
-            Guard.NotNull(action, "action");
+            Ensure.NotNull(action, "action");
             if (IsUseLocking)
             {
                 lock (CommandQueue)
