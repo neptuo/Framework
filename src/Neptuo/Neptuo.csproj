@@ -54,11 +54,9 @@
     <Compile Include="AppServices\Triggers\TimerServiceTrigger.cs" />
     <Compile Include="AppServices\WorkerServiceCollection.cs" />
     <Compile Include="AppServices\_WorkerServiceCollectionExtensions.cs" />
-    <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
-    <Compile Include="Collections\ObjectModel\DictionaryStringValueProvider.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="Collections\Specialized\IKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\IReadOnlyKeyValueCollection.cs" />
@@ -248,7 +246,6 @@
     <Compile Include="StateMachines\StateMachine.cs" />
     <Compile Include="StateMachines\StateMachineEventArgs.cs" />
     <Compile Include="StateMachines\StringState.cs" />
-    <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
     <Compile Include="Threading\DisposableLock.cs" />
     <Compile Include="Threading\LockProvider.cs" />
