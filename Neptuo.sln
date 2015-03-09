@@ -72,6 +72,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Simple", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Activators.Unity", "src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj", "{A9D02667-9762-4C91-A403-41DE7B8A4EFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Compilers.SharpKit", "src\Neptuo.Compilers.SharpKit\Neptuo.Compilers.SharpKit.csproj", "{2E14DD4A-AFA7-4754-A126-CE0CAB103B14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,10 @@ Global
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,6 +204,7 @@ Global
 		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9} = {C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}
 		{6D3D1615-E3E5-460C-9797-9F232D9B5B5E} = {F14BA51C-5FC3-4154-A167-C8A5DEB754B3}
 		{075C9033-F479-4C1F-86AA-B478B95CCDB9} = {F14BA51C-5FC3-4154-A167-C8A5DEB754B3}
+		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14} = {C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

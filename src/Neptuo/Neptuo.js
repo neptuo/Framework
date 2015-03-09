@@ -6038,8 +6038,8 @@ var Neptuo$ComponentModel$IUniqueNameProvider = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$IUniqueNameProvider);
-var Neptuo$Globalization$CultureInfoExtensions = {
-    fullname: "Neptuo.Globalization.CultureInfoExtensions",
+var Neptuo$Globalization$CultureInfoParser = {
+    fullname: "Neptuo.Globalization.CultureInfoParser",
     baseTypeName: "System.Object",
     staticDefinition: {
         TryParse: function (value, cultureInfo){
@@ -6069,7 +6069,7 @@ var Neptuo$Globalization$CultureInfoExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Globalization$CultureInfoExtensions);
+JsTypes.push(Neptuo$Globalization$CultureInfoParser);
 var Neptuo$Activators$IActivator$1 = {
     fullname: "Neptuo.Activators.IActivator$1",
     baseTypeName: "System.Object",

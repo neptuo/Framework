@@ -43,5 +43,14 @@ namespace Neptuo.Compilers
         {
             return new Compiler(Configuration);
         }
+
+        /// <summary>
+        /// Returns copy of current configuration.
+        /// </summary>
+        /// <returns>Copy of current configuration.</returns>
+        public CompilerConfiguration CopyConfiguration()
+        {
+            return Configuration.Copy();
+        }
     }
 }
