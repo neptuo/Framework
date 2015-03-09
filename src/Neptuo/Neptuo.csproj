@@ -217,7 +217,7 @@
     <Compile Include="ComponentModel\GuidProvider.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="ComponentModel\IUniqueNameProvider.cs" />
-    <Compile Include="Globalization\_CultureInfoExtensions.cs" />
+    <Compile Include="Globalization\CultureInfoParser.cs" />
     <Compile Include="Activators\IActivator.cs" />
     <Compile Include="Activators\IDependencyContainer.cs" />
     <Compile Include="Activators\IDependencyProvider.cs" />

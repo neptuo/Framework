@@ -34,15 +34,15 @@ namespace TestMvc4.Models
             CultureInfo culfureInfo = null;
             if (context.OriginalUrl.Length >= 5)
             {
-                if (!CultureInfoExtensions.TryParse(context.OriginalUrl.Substring(0, 5), out culfureInfo))
+                if (!CultureInfoParser.TryParse(context.OriginalUrl.Substring(0, 5), out culfureInfo))
                 {
-                    CultureInfoExtensions.TryParse(context.OriginalUrl.Substring(0, 2), out culfureInfo);
+                    CultureInfoParser.TryParse(context.OriginalUrl.Substring(0, 2), out culfureInfo);
                     length = 2;
                 }
             }
             else if (context.OriginalUrl.Length >= 2)
             {
-                CultureInfoExtensions.TryParse(context.OriginalUrl.Substring(0, 2), out culfureInfo);
+                CultureInfoParser.TryParse(context.OriginalUrl.Substring(0, 2), out culfureInfo);
                 length = 2;
             }
 
