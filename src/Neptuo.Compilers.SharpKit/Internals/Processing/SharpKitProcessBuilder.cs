@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.Compilers.SharpKit.Internals.Processing
+namespace Neptuo.Compilers.Internals.Processing
 {
     internal class SharpKitProcessBuilder
     {
@@ -25,6 +25,11 @@ namespace Neptuo.Compilers.SharpKit.Internals.Processing
         }
 
         public SharpKitProcessBuilder AddPlugin(params string[] plugins)
+        {
+            return AddPlugin((IEnumerable<string>)plugins);
+        }
+
+        public SharpKitProcessBuilder AddPlugin(IEnumerable<string> plugins)
         {
             foreach (string plugin in plugins)
                 arguments.AppendFormat("/plugin:\"{0}\" ", plugin);
