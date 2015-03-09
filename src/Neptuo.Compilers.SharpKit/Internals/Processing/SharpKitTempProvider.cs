@@ -76,8 +76,8 @@ namespace Neptuo.Compilers.Internals.Processing
             base.DisposeManagedResources();
 
             // Delete current temp directory (one for each compilation).
-            if (Directory.Exists(TempDirectory))
-                Directory.Delete(TempDirectory);
+            //if (Directory.Exists(TempDirectory))
+            //    Directory.Delete(TempDirectory, true);
         }
 
         public bool TryCopyOutputJs(TextWriter output)

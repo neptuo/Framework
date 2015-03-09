@@ -138,7 +138,7 @@ namespace Neptuo.AppServices
         /// <returns>Registered code dom pipeline configuration.</returns>
         public static CodeDomPipelineConfiguration WithCodeDomConfiguration(this AppServiceEngineEnvironment appService)
         {
-            return appService.Environment.With<CodeDomPipelineConfiguration>();
+            return appService.Environment.With<CodeDomPipelineConfiguration>("AppService.CodeDomConfiguration");
         }
     }
 }

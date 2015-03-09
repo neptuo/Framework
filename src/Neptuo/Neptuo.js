@@ -2104,7 +2104,7 @@ var Neptuo$AppServices$_EnvironmentExtensions = {
             return Neptuo.AppServices._EnvironmentExtensions.UseCodeDomConfiguration$$AppServiceEngineEnvironment$$CodeDomPipelineConfiguration(appService, new Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor$$Type$$String$$String$Array(baseType, tempDirectory, binDirectories));
         },
         WithCodeDomConfiguration: function (appService){
-            return appService.get_Environment().With$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, null);
+            return appService.get_Environment().With$1(Neptuo.ComponentModel.Behaviors.Processing.Compilation.CodeDomPipelineConfiguration.ctor, "AppService.CodeDomConfiguration");
         }
     },
     assemblyName: "Neptuo",
@@ -6019,6 +6019,28 @@ var Neptuo$Ensure = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Ensure);
+var Neptuo$ComponentModel$GuidUniqueNameProvider = {
+    fullname: "Neptuo.ComponentModel.GuidUniqueNameProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.ComponentModel.IUniqueNameProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        Next: function (){
+            return System.Guid.NewGuid().ToString();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$GuidUniqueNameProvider);
 var Neptuo$IDisposable = {
     fullname: "Neptuo.IDisposable",
     baseTypeName: "System.Object",

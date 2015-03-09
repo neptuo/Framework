@@ -16,9 +16,9 @@ namespace Neptuo.Compilers.Internals.Processing
             return this;
         }
 
-        public SharpKitProcessBuilder AddReference(params string[] referencePath)
+        public SharpKitProcessBuilder AddReference(IEnumerable<string> references)
         {
-            foreach (string reference in referencePath)
+            foreach (string reference in references)
                 arguments.AppendFormat("/reference:\"{0}\" ", reference);
 
             return this;

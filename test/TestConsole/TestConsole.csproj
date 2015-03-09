@@ -106,6 +106,7 @@
     <Compile Include="Data\TestEntity.cs" />
     <Compile Include="Queries\ProductModel.cs" />
     <Compile Include="Queries\TestQueries.cs" />
+    <Compile Include="SharpKitCompilers\TestSharpKitCompiler.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
     <Compile Include="AppServices\TestAppServices.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
@@ -123,6 +124,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj">
       <Project>{c7a28a56-c534-4f93-a62c-0bb2d290bba0}</Project>
       <Name>Neptuo.Bootstrap</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Compilers.SharpKit\Neptuo.Compilers.SharpKit.csproj">
+      <Project>{2e14dd4a-afa7-4754-a126-ce0cab103b14}</Project>
+      <Name>Neptuo.Compilers.SharpKit</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Configuration\Neptuo.Configuration.csproj">
       <Project>{b21273f3-6326-4e7b-8d1c-13d4db440801}</Project>

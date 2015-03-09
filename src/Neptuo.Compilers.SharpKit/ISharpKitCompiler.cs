@@ -10,7 +10,7 @@ namespace Neptuo.Compilers
     /// <summary>
     /// Javascript generator using SharpKit.
     /// </summary>
-    public interface ISharpKitCompiler
+    public interface ISharpKitCompiler : ISharpKitCompilerConfiguration
     {
         ICompilerResult FromSourceCode(string sourceCode, string javascriptFile);
 

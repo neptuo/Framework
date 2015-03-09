@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neptuo.Compilers.Internals.Processing;
+using Neptuo.ComponentModel;
+using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
@@ -9,15 +11,23 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Compilers.Internals
 {
-    internal class SharpKitCompiler : CompilerConfigurationWrapper, ISharpKitCompiler
+    internal class SharpKitCompiler : SharpKitCompilerConfigurationWrapper, ISharpKitCompiler
     {
-        public SharpKitCompiler(CompilerConfiguration configuration)
+        public SharpKitCompiler(SharpKitCompilerConfiguration configuration)
             : base(configuration)
         { }
 
         public ICompilerResult FromSourceCode(string sourceCode, string javascriptFile)
         {
-            throw new NotImplementedException();
+            using (StreamWriter writer = new StreamWriter(javascriptFile))
+            {
+                return SharpKitGenerator.Generate(
+                    new GuidUniqueNameProvider(), 
+                    Configuration, 
+                    new StringReader(sourceCode), 
+                    writer
+                );
+            }
         }
 
         public ICompilerResult FromSourceFile(string sourceFile, string javascriptFile)

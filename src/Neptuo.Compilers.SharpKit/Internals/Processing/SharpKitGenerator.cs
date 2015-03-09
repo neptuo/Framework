@@ -12,6 +12,8 @@ namespace Neptuo.Compilers.Internals.Processing
 {
     internal class SharpKitGenerator
     {
+        private static List<string> installationFolders = new List<string> { SkInstallation, CsInstallation };
+
         public const string SkInstallation = @"C:\Program Files (x86)\SharpKit\5\Assemblies\v4.0\";
         public const string CsInstallation = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319";
 
@@ -37,19 +39,9 @@ namespace Neptuo.Compilers.Internals.Processing
                     .ManifestFile(tempProvider.ManifestFileName)
                     .AddSourceFile(tempProvider.InputCsFileName)
                     .AddPlugin(configuration.Plugins)
-                    .AddReference(References.ToArray());
-
-                SharpKitProcessBuilder cscBuilder = new SharpKitProcessBuilder()
-                    .AddReference(References.ToArray());
+                    .AddReference(CopyReferences(configuration));
 
                 ICompilerResult result;
-
-                if (configuration.IsCscCompilation)
-                {
-                    string cscArgs = tempProvider.CscProcessArguments(cscBuilder.Arguments());
-                    if (!TryExecuteProcess(tempProvider, CscPath, cscArgs, out result))
-                        return result;
-                }
 
                 if (!TryExecuteProcess(tempProvider, SkcPath, skBuilder.Arguments(), out result))
                     return result;
@@ -67,6 +59,42 @@ namespace Neptuo.Compilers.Internals.Processing
 
                 return new CompilerResult();
             }
+        }
+        
+        private static IEnumerable<string> CopyReferences(ISharpKitCompilerConfiguration configuration)
+        {
+            List<string> references = new List<string>();
+            foreach (string referencedDirectory in configuration.References.Directories)
+            {
+                if (Directory.Exists(referencedDirectory))
+                {
+                    references.AddRange(Directory.GetFiles(referencedDirectory, "*.dll"));
+                    references.AddRange(Directory.GetFiles(referencedDirectory, "*.exe"));
+                }
+            }
+
+            foreach (string referencedAssembly in configuration.References.Assemblies)
+            {
+                string referencePath = ResolveReferencePath(referencedAssembly);
+                references.Add(referencePath);
+            }
+
+            return references;
+        }
+
+        private static string ResolveReferencePath(string path)
+        {
+            if (Path.IsPathRooted(path))
+                return path;
+
+            foreach (string folder in installationFolders)
+            {
+                string folderPath = Path.Combine(folder, path);
+                if (File.Exists(folderPath))
+                    return folderPath;
+            }
+            
+            throw Ensure.Exception.ArgumentOutOfRange("path", "Unnable to find reference '{0}' int '{1}'", path, String.Join(",", installationFolders));
         }
 
         private static bool TryExecuteProcess(SharpKitTempProvider tempProvider, string exePath, string args, out ICompilerResult result)

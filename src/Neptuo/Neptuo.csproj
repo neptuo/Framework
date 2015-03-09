@@ -214,7 +214,7 @@
     <Compile Include="FileSystems\LocalFileSystemKey.cs" />
     <Compile Include="FileSystems\_EnsureExtensions.cs" />
     <Compile Include="Ensure.cs" />
-    <Compile Include="ComponentModel\GuidProvider.cs" />
+    <Compile Include="ComponentModel\GuidUniqueNameProvider.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="ComponentModel\IUniqueNameProvider.cs" />
     <Compile Include="Globalization\CultureInfoParser.cs" />
