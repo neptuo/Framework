@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Compilers.Internals
 {
-    internal class SharpKitCompilerConfigurationWrapper : CompilerConfigurationWrapper, ISharpKitCompilerConfiguration
+    internal class SharpKitCompilerConfigurationWrapper : ISharpKitCompilerConfiguration
     {
         protected SharpKitCompilerConfiguration Configuration { get; private set; }
+
+        public bool IsDebugMode
+        {
+            get { return Configuration.IsDebugMode; }
+            set { Configuration.IsDebugMode = value; }
+        }
+
+        public CompilerReferenceCollection References
+        {
+            get { return Configuration.References; }
+        }
 
         public string TempDirectory
         {
