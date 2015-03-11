@@ -161,10 +161,6 @@
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.SharpKit.CodeGenerator\Neptuo.SharpKit.CodeGenerator.csproj">
-      <Project>{7bbdbc0c-be77-4f02-beaa-d2e1ce947365}</Project>
-      <Name>Neptuo.SharpKit.CodeGenerator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj">
       <Project>{0a82625a-bb41-48ce-b3ad-0141dd3cb779}</Project>
       <Name>Neptuo.Windows.Controls</Name>
