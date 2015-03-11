@@ -54,7 +54,7 @@ namespace Neptuo.Tokens
             foreach (TokenWriterItem item in items)
             {
                 if (item.IsToken)
-                    result.Append(tokenMapper.GetString(item.Value, ""));
+                    result.Append(tokenMapper.Get(item.Value, ""));
                 else
                     result.Append(item.Value);
             }

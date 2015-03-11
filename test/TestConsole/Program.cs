@@ -42,14 +42,14 @@ namespace TestConsole
             //TestCompiler.Test();
             //TestHash.Test();
             //TestBootstrap.Test();
-            //TestKeyValue.Test();
+            TestKeyValue.Test();
             //TestMultiLockProvider.Test();
             //TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
             //TestBehaviors.Test();
             //TestObjectSize.Test();
-            TestSharpKitCompiler.Test();
+            //TestSharpKitCompiler.Test();
 
             Console.ReadKey(true);
         }

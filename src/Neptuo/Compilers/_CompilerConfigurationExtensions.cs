@@ -58,7 +58,7 @@ namespace Neptuo.Compilers
         public static bool IsDebugMode(this ICompilerConfiguration configuration)
         {
             Ensure.NotNull(configuration, "configuration");
-            return configuration.GetBool("IsDebugMode", false);
+            return configuration.Get("IsDebugMode", false);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Neptuo.Compilers
         public static string TempDirectory(this ICompilerConfiguration configuration)
         {
             Ensure.NotNull(configuration, "configuration");
-            return configuration.GetString("TempDirectory", Path.GetTempPath());
+            return configuration.Get("TempDirectory", Path.GetTempPath());
         }
 
         /// <summary>

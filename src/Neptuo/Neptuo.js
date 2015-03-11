@@ -1385,22 +1385,6 @@ var Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions = {
                 return value;
             throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key), new Error());
         },
-        Get$1$$IReadOnlyKeyValueCollection$$String$$Nullable$1: function (T, collection, key, defaultValue){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
-            var value;
-            if ((function (){
-                var $1 = {
-                    Value: value
-                };
-                var $res = collection.TryGet$1(T, key, $1);
-                value = $1.Value;
-                return $res;
-            })())
-                return value;
-            if (defaultValue != null)
-                return defaultValue.get_Value();
-            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key), new Error());
-        },
         Get$1$$IReadOnlyKeyValueCollection$$String$$T: function (T, collection, key, defaultValue){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             var value;
@@ -1413,57 +1397,7 @@ var Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions = {
                 return $res;
             })())
                 return value;
-            if (defaultValue != null)
-                return defaultValue;
-            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type \'{0}\' with key \'{1}\'.", Typeof(T), key), new Error());
-        },
-        GetInt: function (collection, key, defaultValue){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
-            var intValue;
-            if ((function (){
-                var $1 = {
-                    Value: intValue
-                };
-                var $res = collection.TryGet$1(System.Int32.ctor, key, $1);
-                intValue = $1.Value;
-                return $res;
-            })())
-                return intValue;
-            if (defaultValue != null)
-                return defaultValue.get_Value();
-            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type int with key \'{0}\'.", key), new Error());
-        },
-        GetString: function (collection, key, defaultValue){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
-            var stringValue;
-            if ((function (){
-                var $1 = {
-                    Value: stringValue
-                };
-                var $res = collection.TryGet$1(System.String.ctor, key, $1);
-                stringValue = $1.Value;
-                return $res;
-            })())
-                return stringValue;
-            if (defaultValue != null)
-                return defaultValue;
-            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type string with key \'{0}\'.", key), new Error());
-        },
-        GetBool: function (collection, key, defaultValue){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
-            var boolValue;
-            if ((function (){
-                var $1 = {
-                    Value: boolValue
-                };
-                var $res = collection.TryGet$1(System.Boolean.ctor, key, $1);
-                boolValue = $1.Value;
-                return $res;
-            })())
-                return boolValue;
-            if (defaultValue != null)
-                return defaultValue.get_Value();
-            throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Collection doesn\'t contain value of type bool with key \'{0}\'.", key), new Error());
+            return defaultValue;
         }
     },
     assemblyName: "Neptuo",
@@ -7749,7 +7683,7 @@ var Neptuo$Tokens$TokenWriter = {
             while ($it33.MoveNext()){
                 var item = $it33.get_Current();
                 if (item.get_IsToken())
-                    result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.GetString(tokenMapper, item.get_Value(), ""));
+                    result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, tokenMapper, item.get_Value(), ""));
                 else
                     result.Append$$String(item.get_Value());
             }
