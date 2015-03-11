@@ -1,6 +1,5 @@
 ﻿using Neptuo.Compilers;
 using Neptuo.ComponentModel;
-using Neptuo.SharpKit.CodeGenerator;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -59,39 +58,6 @@ namespace TestConsole.SharpKitCompilers
                         errorInfo.ErrorText
                     );
                 }
-            }
-        }
-
-        static void TestOld()
-        {
-            string replaceClassDefinition = "[SharpKit.JavaScript.JsType(SharpKit.JavaScript.JsMode.Clr)] public sealed class ";
-            string replacedSourceCode = File.ReadAllText(@"D:\Development\Neptuo\Common\test\TestConsole\SharpKitCompilers\TestClass.cs").Replace("public sealed class ", replaceClassDefinition);
-
-            StringWriter output = new StringWriter();
-            StringReader input = new StringReader(replacedSourceCode);
-
-            SharpKitCompiler sharpKitGenerator = new SharpKitCompiler();
-            sharpKitGenerator.AddReference("mscorlib.dll");
-            sharpKitGenerator.AddReference("SharpKit.JavaScript.dll", "SharpKit.Html.dll", "SharpKit.jQuery.dll");
-            //sharpKitGenerator.AddPlugin("Neptuo.SharpKit.Exugin", "Neptuo.SharpKit.Exugin.ExuginPlugin");
-
-            sharpKitGenerator.AddReferenceFolder(Environment.CurrentDirectory);
-
-            sharpKitGenerator.RemoveReference("System.Web.dll");
-
-            sharpKitGenerator.TempDirectory = Environment.CurrentDirectory;
-
-            try
-            {
-                sharpKitGenerator.Generate(new SharpKitCompilerContext(input, output));
-                Console.WriteLine(output.ToString());
-            }
-            catch (SharpKitCompilerException e)
-            {
-                Console.WriteLine("Error.");
-
-                foreach (string line in e.ExecuteResult.Output)
-                    Console.WriteLine(line);
             }
         }
     }
