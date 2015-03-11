@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Neptuo.Compilers.SharpKit.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -43,15 +44,13 @@
     <Compile Include="Internals\Processing\SharpKitTempProvider.cs" />
     <Compile Include="Internals\Processing\SharpKitGenerator.cs" />
     <Compile Include="Internals\Processing\SharpKitProcessBuilder.cs" />
-    <Compile Include="Internals\SharpKitCompilerConfiguration.cs" />
-    <Compile Include="Internals\SharpKitCompilerConfigurationWrapper.cs" />
     <Compile Include="ISharpKitCompiler.cs" />
-    <Compile Include="ISharpKitCompilerConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Internals\SharpKitCompiler.cs" />
     <Compile Include="SharpKitPluginCollection.cs" />
     <Compile Include="_CompilerFactoryExtensions.cs" />
+    <Compile Include="_SharpKitCompilerConfigurationExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
@@ -60,6 +59,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir $(SolutionDir)\artifacts\$(ConfigurationName)
+copy $(TargetDir)$(TargetName).* $(SolutionDir)\artifacts\$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -20,7 +20,7 @@ namespace Neptuo.Compilers.Internals.Processing
         public const string CscPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe";
         public const string SkcPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\SharpKit\5\skc5.exe";
 
-        public static ICompilerResult Generate(IUniqueNameProvider tempNameProvider, ISharpKitCompilerConfiguration configuration, TextReader input, TextWriter output)
+        public static ICompilerResult Generate(IUniqueNameProvider tempNameProvider, ICompilerConfiguration configuration, TextReader input, TextWriter output)
         {
             Ensure.NotNull(tempNameProvider, "tempNameProvider");
             Ensure.NotNull(configuration, "configuration");
@@ -38,7 +38,7 @@ namespace Neptuo.Compilers.Internals.Processing
                     .OutputGeneratedJsFile(tempProvider.OutputJsFilePath)
                     .ManifestFile(tempProvider.ManifestFileName)
                     .AddSourceFile(tempProvider.InputCsFileName)
-                    .AddPlugin(configuration.Plugins)
+                    .AddPlugin(configuration.Plugins())
                     .AddReference(CopyReferences(configuration));
 
                 ICompilerResult result;
@@ -61,10 +61,10 @@ namespace Neptuo.Compilers.Internals.Processing
             }
         }
         
-        private static IEnumerable<string> CopyReferences(ISharpKitCompilerConfiguration configuration)
+        private static IEnumerable<string> CopyReferences(ICompilerConfiguration configuration)
         {
             List<string> references = new List<string>();
-            foreach (string referencedDirectory in configuration.References.Directories)
+            foreach (string referencedDirectory in configuration.References().Directories)
             {
                 if (Directory.Exists(referencedDirectory))
                 {
@@ -73,7 +73,7 @@ namespace Neptuo.Compilers.Internals.Processing
                 }
             }
 
-            foreach (string referencedAssembly in configuration.References.Assemblies)
+            foreach (string referencedAssembly in configuration.References().Assemblies)
             {
                 string referencePath = ResolveReferencePath(referencedAssembly);
                 references.Add(referencePath);

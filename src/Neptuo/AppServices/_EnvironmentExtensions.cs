@@ -1,4 +1,5 @@
-﻿using Neptuo.ComponentModel.Behaviors;
+﻿using Neptuo.Compilers;
+using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
 using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
@@ -111,10 +112,10 @@ namespace Neptuo.AppServices
         /// <param name="appService">Engine environment.</param>
         /// <param name="configuration">Code dom pipeline configuration.</param>
         /// <returns><paramref name="appService"/>.</returns>
-        public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, CodeDomPipelineConfiguration configuration)
+        public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, ICompilerConfiguration configuration)
         {
             Ensure.NotNull(appService, "appService");
-            appService.Environment.Use<CodeDomPipelineConfiguration>(configuration, "AppService.CodeDomConfiguration");
+            appService.Environment.Use<ICompilerConfiguration>(configuration, "AppService.CodeDomConfiguration");
             return appService;
         }
 
@@ -128,7 +129,15 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, Type baseType, string tempDirectory, params string[] binDirectories)
         {
-            return appService.UseCodeDomConfiguration(new CodeDomPipelineConfiguration(baseType, tempDirectory, binDirectories));
+            ICompilerConfiguration configuration = new CompilerConfiguration()
+                .BaseType(baseType)
+                .TempDirectory(tempDirectory);
+
+            configuration
+                .References()
+                .AddDirectories(binDirectories);
+
+            return appService.UseCodeDomConfiguration(configuration);
         }
 
         /// <summary>
@@ -136,9 +145,9 @@ namespace Neptuo.AppServices
         /// </summary>
         /// <param name="environment">Engine environment.</param>
         /// <returns>Registered code dom pipeline configuration.</returns>
-        public static CodeDomPipelineConfiguration WithCodeDomConfiguration(this AppServiceEngineEnvironment appService)
+        public static ICompilerConfiguration WithCodeDomConfiguration(this AppServiceEngineEnvironment appService)
         {
-            return appService.Environment.With<CodeDomPipelineConfiguration>("AppService.CodeDomConfiguration");
+            return appService.Environment.With<ICompilerConfiguration>("AppService.CodeDomConfiguration");
         }
     }
 }

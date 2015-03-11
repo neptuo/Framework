@@ -10,7 +10,7 @@ namespace Neptuo.Compilers
     /// <summary>
     /// Collection of compiler references.
     /// </summary>
-    public class CompilerReferenceCollection
+    public class CompilerReferenceCollection : ICloneable<CompilerReferenceCollection>
     {
         /// <summary>
         /// List of referenced assemblies.
@@ -78,6 +78,11 @@ namespace Neptuo.Compilers
 
             directories.Add(directoryPath);
             return this;
+        }
+
+        public CompilerReferenceCollection Clone()
+        {
+            return new CompilerReferenceCollection(Assemblies, Directories);
         }
     }
 }

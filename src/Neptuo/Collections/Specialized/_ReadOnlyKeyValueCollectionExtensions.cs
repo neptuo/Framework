@@ -88,7 +88,7 @@ namespace Neptuo.Collections.Specialized
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
-        public static int Get(this IReadOnlyKeyValueCollection collection, string key, int? defaultValue)
+        public static int GetInt(this IReadOnlyKeyValueCollection collection, string key, int? defaultValue)
         {
             Ensure.NotNull(collection, "collection");
 
@@ -111,7 +111,7 @@ namespace Neptuo.Collections.Specialized
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
-        public static string Get(this IReadOnlyKeyValueCollection collection, string key, string defaultValue)
+        public static string GetString(this IReadOnlyKeyValueCollection collection, string key, string defaultValue)
         {
             Ensure.NotNull(collection, "collection");
 
@@ -134,7 +134,7 @@ namespace Neptuo.Collections.Specialized
         /// <param name="key">Requested key.</param>
         /// <param name="defaultValue">Optional default value if is not found or not convertible.</param>
         /// <returns>Value of <paramref name="key"/> in <paramref name="collection"/>.</returns>
-        public static bool Get(this IReadOnlyKeyValueCollection collection, string key, bool? defaultValue)
+        public static bool GetBool(this IReadOnlyKeyValueCollection collection, string key, bool? defaultValue)
         {
             Ensure.NotNull(collection, "collection");
 

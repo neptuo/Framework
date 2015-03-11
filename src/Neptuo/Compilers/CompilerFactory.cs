@@ -22,7 +22,7 @@ namespace Neptuo.Compilers
         /// Creates new instance and copies initial configuration from <paramref name="configuration"/>.
         /// </summary>
         /// <param name="configuration">Initial configuration.</param>
-        public CompilerFactory(CompilerConfiguration configuration)
+        public CompilerFactory(ICompilerConfiguration configuration)
             : base(configuration)
         { }
 
@@ -48,9 +48,9 @@ namespace Neptuo.Compilers
         /// Returns copy of current configuration.
         /// </summary>
         /// <returns>Copy of current configuration.</returns>
-        public CompilerConfiguration CopyConfiguration()
+        public ICompilerConfiguration CopyConfiguration()
         {
-            return Configuration.Copy();
+            return Configuration.Clone();
         }
     }
 }

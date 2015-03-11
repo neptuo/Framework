@@ -46,7 +46,7 @@ namespace TestConsole.AppServices
 
 
             // Compilation configuration
-            Engine.Environment.WithAppServices().WithCodeDomConfiguration().BehaviorInstance
+            Engine.Environment.WithAppServices().WithCodeDomConfiguration().BehaviorInstance()
                 .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
 
 

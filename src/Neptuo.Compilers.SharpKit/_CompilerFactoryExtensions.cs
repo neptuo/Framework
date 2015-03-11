@@ -19,7 +19,7 @@ namespace Neptuo.Compilers
         public static ISharpKitCompiler CreateSharpKit(this CompilerFactory factory)
         {
             Ensure.NotNull(factory, "factory");
-            return new SharpKitCompiler(new SharpKitCompilerConfiguration(factory.CopyConfiguration()));
+            return new SharpKitCompiler(factory.CopyConfiguration());
         }
     }
 }

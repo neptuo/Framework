@@ -24,12 +24,12 @@ namespace Neptuo.Compilers.Internals.Processing
         public string OutputDllFilePath { get; private set; }
         public string OutputDllFileName { get; private set; }
 
-        public SharpKitTempProvider(IUniqueNameProvider tempNameProvider, ISharpKitCompilerConfiguration configuration)
+        public SharpKitTempProvider(IUniqueNameProvider tempNameProvider, ICompilerConfiguration configuration)
         {
-            if (!Directory.Exists(configuration.TempDirectory))
-                Directory.CreateDirectory(configuration.TempDirectory);
+            if (!Directory.Exists(configuration.TempDirectory()))
+                Directory.CreateDirectory(configuration.TempDirectory());
 
-            TempDirectory = Path.Combine(configuration.TempDirectory, tempNameProvider.Next());
+            TempDirectory = Path.Combine(configuration.TempDirectory(), tempNameProvider.Next());
             if (!Directory.Exists(TempDirectory))
                 Directory.CreateDirectory(TempDirectory);
 

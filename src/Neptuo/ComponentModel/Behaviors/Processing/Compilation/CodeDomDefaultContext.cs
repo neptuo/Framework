@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Compilers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +12,10 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
     /// </summary>
     public class CodeDomDefaultContext : ICodeDomContext
     {
-        public CodeDomPipelineConfiguration Configuration { get; private set; }
+        public ICompilerConfiguration Configuration { get; private set; }
         public Type HandlerType { get; private set; }
 
-        public CodeDomDefaultContext(CodeDomPipelineConfiguration configuration, Type handlerType)
+        public CodeDomDefaultContext(ICompilerConfiguration configuration, Type handlerType)
         {
             Ensure.NotNull(configuration, "configuration");
             Ensure.NotNull(handlerType, "handlerType");

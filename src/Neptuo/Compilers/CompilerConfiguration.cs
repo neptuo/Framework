@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,37 +10,21 @@ namespace Neptuo.Compilers
     /// <summary>
     /// Configuration of the compiler.
     /// </summary>
-    public class CompilerConfiguration : ICompilerConfiguration
+    public class CompilerConfiguration : KeyValueCollection, ICompilerConfiguration
     {
         /// <summary>
-        /// Collection of references.
-        /// </summary>
-        public CompilerReferenceCollection References { get; private set; }
-
-        /// <summary>
-        /// Whether debug mode is enabled.
-        /// </summary>
-        public bool IsDebugMode { get; set; }
-
-        /// <summary>
-        /// Creates empty instance.
+        /// Creates empty configuration.
         /// </summary>
         public CompilerConfiguration()
-        {
-            References = new CompilerReferenceCollection();
-        }
+        { }
 
         /// <summary>
-        /// Creates instance for copying from the another.
+        /// Creates new instance from <paramref name="parentConfiguration"/>.
         /// </summary>
-        /// <param name="references">Collection of references.</param>
-        /// <param name="isDebugMode">Whether debug mode is enabled.</param>
-        protected CompilerConfiguration(CompilerReferenceCollection references, bool isDebugMode)
-        {
-            Ensure.NotNull(references, "references");
-            References = new CompilerReferenceCollection(references.Assemblies, references.Directories);
-            IsDebugMode = isDebugMode;
-        }
+        /// <param name="parentConfiguration">Source configuration values.</param>
+        public CompilerConfiguration(ICompilerConfiguration parentConfiguration)
+            : base(parentConfiguration)
+        { }
 
         /// <summary>
         /// Creates deep copy of this instance.
@@ -47,7 +32,25 @@ namespace Neptuo.Compilers
         /// <returns>New instance with values copied from this instance.</returns>
         public CompilerConfiguration Copy()
         {
-            return new CompilerConfiguration(References, IsDebugMode);
+            return new CompilerConfiguration(this);
+        }
+
+        public ICompilerConfiguration Clone()
+        {
+            CompilerConfiguration result = new CompilerConfiguration();
+
+            IEnumerable<string> keys = Keys;
+            foreach (string key in keys)
+            {
+                object value = this.Get<object>(key);
+                ICloneable<object> cloneable = value as ICloneable<object>;
+                if (cloneable != null)
+                    result.Set(key, cloneable.Clone());
+                else
+                    result.Set(key, value);
+            }
+
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,16 +10,7 @@ namespace Neptuo.Compilers
     /// <summary>
     /// Compiler configurable settings.
     /// </summary>
-    public interface ICompilerConfiguration
+    public interface ICompilerConfiguration : IKeyValueCollection, ICloneable<ICompilerConfiguration>
     {
-        /// <summary>
-        /// Collection of references.
-        /// </summary>
-        CompilerReferenceCollection References { get; }
-        
-        /// <summary>
-        /// Whether debug mode is enabled.
-        /// </summary>
-        bool IsDebugMode { get; set; }
     }
 }

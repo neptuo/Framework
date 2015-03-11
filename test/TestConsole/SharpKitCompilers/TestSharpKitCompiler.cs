@@ -22,13 +22,20 @@ namespace TestConsole.SharpKitCompilers
         {
             CompilerFactory compilerFactory = new CompilerFactory();
 
+            compilerFactory
+                .TempDirectory(@"C:\Temp\SharpKit")
+                .Plugins()
+                    .Add("Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin");
+
+            compilerFactory
+                .References()
+                    .AddDirectory(Environment.CurrentDirectory)
+                    .AddAssembly("SharpKit.JavaScript.dll")
+                    .AddAssembly("SharpKit.Html.dll")
+                    .AddAssembly("SharpKit.jQuery.dll");
+
             ISharpKitCompiler compiler = compilerFactory.CreateSharpKit();
-            compiler.TempDirectory = @"C:\Temp\SharpKit";
-            compiler.References.AddDirectory(Environment.CurrentDirectory);
-            compiler.References.AddAssembly("SharpKit.JavaScript.dll");
-            compiler.References.AddAssembly("SharpKit.Html.dll");
-            compiler.References.AddAssembly("SharpKit.jQuery.dll");
-            compiler.Plugins.Add("Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin");
+
 
             string javascriptFilePath = Path.Combine(Environment.CurrentDirectory, "TestClass.js");
             ICompilerResult result = compiler.FromSourceFile(@"D:\Development\Neptuo\Common\test\TestConsole\SharpKitCompilers\TestClass.cs", javascriptFilePath);

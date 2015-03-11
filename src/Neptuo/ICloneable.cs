@@ -10,7 +10,7 @@ namespace Neptuo
     /// Provides ability to clone object or clone to instance of another type.
     /// </summary>
     /// <typeparam name="T">Target object type.</typeparam>
-    public interface ICloneable<T>
+    public interface ICloneable<out T>
     {
         /// <summary>
         /// Creates new instance of type <typeparamref name="T"/> based on state of current object.

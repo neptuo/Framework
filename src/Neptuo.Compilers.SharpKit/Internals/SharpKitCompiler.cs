@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Compilers.Internals
 {
-    internal class SharpKitCompiler : SharpKitCompilerConfigurationWrapper, ISharpKitCompiler
+    internal class SharpKitCompiler : CompilerConfigurationWrapper, ISharpKitCompiler
     {
-        public SharpKitCompiler(SharpKitCompilerConfiguration configuration)
+        public SharpKitCompiler(ICompilerConfiguration configuration)
             : base(configuration)
         { }
 

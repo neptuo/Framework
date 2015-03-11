@@ -21,7 +21,7 @@ namespace Neptuo.Compilers
         /// </summary>
         private CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
 
-        internal Compiler(CompilerConfiguration configuration)
+        internal Compiler(ICompilerConfiguration configuration)
             : base(configuration)
         { }
 
@@ -106,7 +106,7 @@ namespace Neptuo.Compilers
             CompilerParameters compilerParameters = new CompilerParameters
             {
                 GenerateExecutable = false,
-                IncludeDebugInformation = IsDebugMode,
+                IncludeDebugInformation = Configuration.IsDebugMode(),
                 GenerateInMemory = String.IsNullOrEmpty(assemblyFile)
             };
 
@@ -118,13 +118,13 @@ namespace Neptuo.Compilers
 
         private void SetupDebugMode(CompilerParameters compilerParameters)
         {
-            if (!IsDebugMode)
+            if (!Configuration.IsDebugMode())
                 compilerParameters.CompilerOptions = "/optimize";
         }
 
         private void CopyReferences(CompilerParameters compilerParameters)
         {
-            foreach (string referencedDirectory in References.Directories)
+            foreach (string referencedDirectory in Configuration.References().Directories)
             {
                 if (Directory.Exists(referencedDirectory))
                 {
@@ -133,7 +133,7 @@ namespace Neptuo.Compilers
                 }
             }
 
-            foreach (string referencedAssembly in References.Assemblies)
+            foreach (string referencedAssembly in Configuration.References().Assemblies)
                 compilerParameters.ReferencedAssemblies.Add(referencedAssembly);
         }
 

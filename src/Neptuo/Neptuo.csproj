@@ -75,10 +75,13 @@
     <Compile Include="Compilers\ICompilerConfiguration.cs" />
     <Compile Include="Compilers\IDynamicCompiler.cs" />
     <Compile Include="Compilers\ICompilerResult.cs" />
+    <Compile Include="Compilers\_CompilerConfigurationExtensions.cs" />
+    <Compile Include="Compilers\_CompilerReferenceCollectionExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\BehaviorProviderCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\_CodeDomPipelineConfigurationExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\FuncList.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomContext.cs" />
@@ -94,7 +97,6 @@
     <Compile Include="ComponentModel\Behaviors\IBehavior.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorContext.cs" />
-    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineFactory.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\DefaultPipelineBase.cs" />

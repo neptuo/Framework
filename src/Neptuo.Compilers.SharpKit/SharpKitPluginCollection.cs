@@ -11,9 +11,27 @@ namespace Neptuo.Compilers
     /// <summary>
     /// Collection of SharpKit plugins.
     /// </summary>
-    public class SharpKitPluginCollection : IEnumerable<string>
+    public class SharpKitPluginCollection : IEnumerable<string>, ICloneable<SharpKitPluginCollection>
     {
-        private readonly List<string> storage = new List<string>();
+        private readonly List<string> storage;
+
+        /// <summary>
+        /// Creates new empty instance.
+        /// </summary>
+        public SharpKitPluginCollection()
+        {
+            storage = new List<string>();
+        }
+
+        /// <summary>
+        /// Creates new instance with initial enumeration of plugins.
+        /// </summary>
+        /// <param name="plugins">Initial enumeration of plugins.</param>
+        public SharpKitPluginCollection(IEnumerable<string> plugins)
+            : this()
+        {
+            storage.AddRange(plugins);
+        }
 
         /// <summary>
         /// Adds SharpKit plugin to the configuration.
@@ -35,6 +53,11 @@ namespace Neptuo.Compilers
         IEnumerator IEnumerable.GetEnumerator()
         {
             return storage.GetEnumerator();
+        }
+
+        public SharpKitPluginCollection Clone()
+        {
+            return new SharpKitPluginCollection(storage);
         }
     }
 }
