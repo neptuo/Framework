@@ -20,19 +20,21 @@ namespace TestConsole.SharpKitCompilers
 
         static void TestNew()
         {
-            CompilerFactory compilerFactory = new CompilerFactory();
-
-            compilerFactory
-                .TempDirectory(@"C:\Temp\SharpKit")
-                .Plugins()
-                    .Add("Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin");
-
-            compilerFactory
-                .References()
-                    .AddDirectory(Environment.CurrentDirectory)
-                    .AddAssembly("SharpKit.JavaScript.dll")
-                    .AddAssembly("SharpKit.Html.dll")
-                    .AddAssembly("SharpKit.jQuery.dll");
+            CompilerFactory compilerFactory = new CompilerFactory(
+                new CompilerConfiguration()
+                    .TempDirectory(@"C:\Temp\SharpKit")
+                    .Plugins(
+                        new SharpKitPluginCollection()
+                            .Add("Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin")
+                    )
+                    .References(
+                        new CompilerReferenceCollection()
+                            .AddDirectory(Environment.CurrentDirectory)
+                            .AddAssembly("SharpKit.JavaScript.dll")
+                            .AddAssembly("SharpKit.Html.dll")
+                            .AddAssembly("SharpKit.jQuery.dll")
+                    )
+            );
 
             ISharpKitCompiler compiler = compilerFactory.CreateSharpKit();
 

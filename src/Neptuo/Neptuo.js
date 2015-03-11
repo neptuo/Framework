@@ -2141,7 +2141,7 @@ var Neptuo$AppServices$_EnvironmentExtensions = {
         },
         UseCodeDomConfiguration$$AppServiceEngineEnvironment$$Type$$String$$String$Array: function (appService, baseType, tempDirectory, binDirectories){
             var configuration = Neptuo.Compilers._CompilerConfigurationExtensions.TempDirectory$$ICompilerConfiguration$$String(Neptuo.ComponentModel.Behaviors.Processing.Compilation._CodeDomPipelineConfigurationExtensions.BaseType$$ICompilerConfiguration$$Type(new Neptuo.Compilers.CompilerConfiguration.ctor(), baseType), tempDirectory);
-            Neptuo.Compilers._CompilerReferenceCollectionExtensions.AddDirectories(Neptuo.Compilers._CompilerConfigurationExtensions.References(configuration), binDirectories);
+            Neptuo.Compilers._CompilerReferenceCollectionExtensions.AddDirectories(Neptuo.Compilers._CompilerConfigurationExtensions.References$$ICompilerConfiguration(configuration), binDirectories);
             return Neptuo.AppServices._EnvironmentExtensions.UseCodeDomConfiguration$$AppServiceEngineEnvironment$$ICompilerConfiguration(appService, configuration);
         },
         WithCodeDomConfiguration: function (appService){

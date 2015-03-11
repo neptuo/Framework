@@ -13,6 +13,8 @@ namespace Neptuo.Compilers
     /// </summary>
     public static class _CompilerConfigurationExtensions
     {
+        #region References
+
         /// <summary>
         /// Returns collection of references.
         /// </summary>
@@ -23,11 +25,28 @@ namespace Neptuo.Compilers
             Ensure.NotNull(configuration, "configuration");
 
             CompilerReferenceCollection references;
-            if(!configuration.TryGet("References", out references))
+            if (!configuration.TryGet("References", out references))
                 configuration.Set("References", references = new CompilerReferenceCollection());
 
             return references;
         }
+
+        /// <summary>
+        /// Sets collection of references.
+        /// </summary>
+        /// <param name="configuration">Compiler configuration.</param>
+        /// <param name="references">Collection of references.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static ICompilerConfiguration References(this ICompilerConfiguration configuration, CompilerReferenceCollection references)
+        {
+            Ensure.NotNull(configuration, "configuration");
+            Ensure.NotNull(references, "references");
+
+            configuration.Set("References", references);
+            return configuration;
+        }
+
+        #endregion
 
         #region IsDebugMode
 
@@ -84,7 +103,5 @@ namespace Neptuo.Compilers
         }
 
         #endregion
-
-
     }
 }
