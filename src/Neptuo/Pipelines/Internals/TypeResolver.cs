@@ -13,13 +13,13 @@ namespace Neptuo.Pipelines.Internals
 
         public TypeResolver(Type contextType)
         {
-            Guard.NotNull(contextType, "contextType");
+            Ensure.NotNull(contextType, "contextType");
             this.contextType = contextType;
         }
 
         public TypeResolverResult Resolve(Type targetType)
         {
-            Guard.NotNull(targetType, "targetType");
+            Ensure.NotNull(targetType, "targetType");
             return new TypeResolverResult(contextType, targetType);
         }
     }
@@ -36,8 +36,8 @@ namespace Neptuo.Pipelines.Internals
 
         public TypeResolverResult(Type contextType, Type targetType)
         {
-            Guard.NotNull(contextType, "contextType");
-            Guard.NotNull(targetType, "targetType");
+            Ensure.NotNull(contextType, "contextType");
+            Ensure.NotNull(targetType, "targetType");
             this.contextType = contextType;
             this.targetType = targetType;
 

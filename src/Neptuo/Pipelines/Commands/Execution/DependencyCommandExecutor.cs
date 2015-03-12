@@ -43,8 +43,8 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="dependencyProvider">Source for registrations.</param>
         public DependencyCommandExecutor(IDependencyProvider dependencyProvider, IInterceptorProvider interceptorProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
-            Guard.NotNull(interceptorProvider, "interceptorProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(interceptorProvider, "interceptorProvider");
             this.dependencyProvider = dependencyProvider;
             this.interceptorProvider = interceptorProvider;
         }
@@ -55,7 +55,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <param name="command">Command to handle.</param>
         public void Handle(object command)
         {
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
             Type commandType = command.GetType();
 
             Type genericHandlerType = typeof(ICommandHandler<>);

@@ -16,7 +16,7 @@ namespace Neptuo.Bootstrap.Dependencies
 
         public ImportAttribute(string name)
         {
-            Guard.NotNullOrEmpty(name, "name");
+            Ensure.NotNullOrEmpty(name, "name");
             Name = name;
         }
     }

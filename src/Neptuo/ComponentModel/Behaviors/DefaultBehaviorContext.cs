@@ -54,9 +54,9 @@ namespace Neptuo.ComponentModel.Behaviors
 
         public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler, int behaviorStartOffset)
         {
-            Guard.NotNull(behaviors, "behaviors");
-            Guard.NotNull(handler, "handler");
-            Guard.PositiveOrZero(behaviorStartOffset, "behaviorStartOffset");
+            Ensure.NotNull(behaviors, "behaviors");
+            Ensure.NotNull(handler, "handler");
+            Ensure.PositiveOrZero(behaviorStartOffset, "behaviorStartOffset");
             Handler = handler;
             Behaviors = behaviors;
             this.behaviorEnumerator = behaviors.GetEnumerator();

@@ -22,7 +22,7 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         public static IBehaviorCollection Add<TContract, TImplementation>(this IBehaviorCollection collection)
             where TImplementation : IBehavior<TContract>
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
             collection.Add(new InterfaceBehaviorProvider(typeof(TContract), typeof(TImplementation)));
             return collection;
         }

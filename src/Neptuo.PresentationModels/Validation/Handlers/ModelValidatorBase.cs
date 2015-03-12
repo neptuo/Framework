@@ -1,5 +1,5 @@
-﻿using Neptuo.Validators;
-using Neptuo.Validators.Handlers;
+﻿using Neptuo.Pipelines.Validators;
+using Neptuo.Pipelines.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Neptuo.PresentationModels.Validators
 
         public ModelValidatorBase(IModelDefinition modelDefinition)
         {
-            Guard.NotNull(modelDefinition, "modelDefinition");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

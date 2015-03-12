@@ -15,8 +15,8 @@ namespace Neptuo.Bootstrap.Dependencies.Providers
 
         public PropertyImportDescriptor(IDependencyTarget target, PropertyInfo targetProperty)
         {
-            Guard.NotNull(target, "target");
-            Guard.NotNull(targetProperty, "targetProperty");
+            Ensure.NotNull(target, "target");
+            Ensure.NotNull(targetProperty, "targetProperty");
             Target = target;
             TargetProperty = targetProperty;
         }

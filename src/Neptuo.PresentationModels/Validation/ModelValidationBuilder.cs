@@ -1,4 +1,5 @@
-﻿using Neptuo.Validators;
+﻿using Neptuo.Pipelines.Validators;
+using Neptuo.Pipelines.Validators.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,14 +36,14 @@ namespace Neptuo.PresentationModels.Validators
 
         public IModelValidationBuilder AddMessage(IValidationMessage message)
         {
-            Guard.NotNull(message, "message");
+            Ensure.NotNull(message, "message");
             MessageList.Add(message);
             return this;
         }
 
         public IModelValidationBuilder AddMessages(IEnumerable<IValidationMessage> messages)
         {
-            Guard.NotNull(messages, "messages");
+            Ensure.NotNull(messages, "messages");
             MessageList.AddRange(messages);
             return this;
         }

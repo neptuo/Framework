@@ -21,7 +21,7 @@ namespace Neptuo.Pipelines.Events.Handlers
         /// <param name="innerHandler">Event handler to handle events of type <typeparamref name="TEvent"/>.</param>
         public WeakEventHandler(IEventHandler<TEvent> innerHandler)
         {
-            Guard.NotNull(innerHandler, "innerHandler");
+            Ensure.NotNull(innerHandler, "innerHandler");
             this.innerHandler = new WeakReference<IEventHandler<TEvent>>(innerHandler);
         }
 

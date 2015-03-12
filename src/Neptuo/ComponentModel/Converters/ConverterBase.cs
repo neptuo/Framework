@@ -15,7 +15,7 @@ namespace Neptuo.ComponentModel.Converters
 
         public ConverterBase(OutFunc<TSource, TTarget, bool> converter)
         {
-            Guard.NotNull(converter, "converter");
+            Ensure.NotNull(converter, "converter");
             Converter = converter;
         }
 
@@ -24,7 +24,7 @@ namespace Neptuo.ComponentModel.Converters
             if (Converter != null)
                 return Converter(sourceValue, out targetValue);
 
-            throw Guard.Exception.InvalidOperation("Override TryConvert method or provider Converter function.");
+            throw Ensure.Exception.InvalidOperation("Override TryConvert method or provider Converter function.");
         }
 
         public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)

@@ -28,13 +28,13 @@ namespace Neptuo.Bootstrap
         public HierarchicalBootstrapper(HierarchicalContext context)
             : base(context.Activator, context.ConstraintProvider)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             this.context = context;
         }
 
         public void Register(IBootstrapTask task)
         {
-            Guard.NotNull(task, "task");
+            Ensure.NotNull(task, "task");
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(task.GetType());
             descriptor.Imports.AddRange(context.DescriptorProvider.GetImports(descriptor.Type));
             descriptor.Exports.AddRange(context.DescriptorProvider.GetExports(descriptor.Type));
@@ -65,7 +65,7 @@ namespace Neptuo.Bootstrap
 
             // Check dependency cycles! Use stack and check if descriptor is not present on the stack.
             if (currentDescriptors.Contains(descriptor))
-                throw Guard.Exception.InvalidOperation("Found cyclic dependency during bootstrapping of task '{0}'.", descriptor.Type.FullName);
+                throw Ensure.Exception.InvalidOperation("Found cyclic dependency during bootstrapping of task '{0}'.", descriptor.Type.FullName);
 
             currentDescriptors.Push(descriptor);
 
@@ -93,7 +93,7 @@ namespace Neptuo.Bootstrap
             {
                 Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> export = FindExportDescriptor(import.Target);
                 if(export == null)
-                    throw Guard.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.Type.FullName);
+                    throw Ensure.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.Type.FullName);
 
                 if (!export.Item2.IsExecuted)
                     ExecuteDescriptor(export.Item2);
@@ -125,7 +125,7 @@ namespace Neptuo.Bootstrap
 
         //void ITaskExecutor.Execute(IBootstrapTask task)
         //{
-        //    Guard.NotNull(task, "task");
+        //    Ensure.NotNull(task, "task");
         //    BootstrapTaskDescriptor descriptor = descriptors.FirstOrDefault(d => d.Instance == task);
         //    if (descriptor == null)
         //    {
@@ -155,7 +155,7 @@ namespace Neptuo.Bootstrap
 
             public BootstrapTaskDescriptor(Type type)
             {
-                Guard.NotNull(type, "type");
+                Ensure.NotNull(type, "type");
                 Type = type;
                 Imports = new List<IDependencyImportDescriptor>();
                 Exports = new List<IDependencyExportDescriptor>();

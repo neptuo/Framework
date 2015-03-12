@@ -16,15 +16,15 @@ namespace Neptuo.ComponentModel.Converters
 
         public ConverterRepository(Dictionary<Type, Dictionary<Type, IConverter>> storage)
         {
-            Guard.NotNull(storage, "storage");
+            Ensure.NotNull(storage, "storage");
             Storage = storage;
         }
 
         public IConverterRepository Add(Type sourceType, Type targetType, IConverter converter)
         {
-            Guard.NotNull(sourceType, "sourceType");
-            Guard.NotNull(targetType, "targetType");
-            Guard.NotNull(converter, "converter");
+            Ensure.NotNull(sourceType, "sourceType");
+            Ensure.NotNull(targetType, "targetType");
+            Ensure.NotNull(converter, "converter");
 
             Dictionary<Type, IConverter> storage;
             if (!Storage.TryGetValue(sourceType, out storage))

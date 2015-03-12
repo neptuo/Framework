@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,24 +15,7 @@ namespace Neptuo.Compilers
         /// <summary>
         /// Compiler configuration.
         /// </summary>
-        protected CompilerConfiguration Configuration { get; private set; }
-
-        /// <summary>
-        /// Collection of references.
-        /// </summary>
-        public CompilerReferenceCollection References
-        {
-            get { return Configuration.References; }
-        }
-
-        /// <summary>
-        /// Whether debug mode is enabled.
-        /// </summary>
-        public bool IsDebugMode
-        {
-            get { return Configuration.IsDebugMode; }
-            set { Configuration.IsDebugMode = value; }
-        }
+        protected ICompilerConfiguration Configuration { get; private set; }
 
         /// <summary>
         /// Creates empty instance with empty configuration.
@@ -45,10 +29,35 @@ namespace Neptuo.Compilers
         /// Creates instance and copies configuration from <paramref name="configuration"/>.
         /// </summary>
         /// <param name="configuration">Configuration to copy values from.</param>
-        protected CompilerConfigurationWrapper(CompilerConfiguration configuration)
+        protected CompilerConfigurationWrapper(ICompilerConfiguration configuration)
         {
-            Guard.NotNull(configuration, "configuration");
-            Configuration = configuration.Copy();
+            Ensure.NotNull(configuration, "configuration");
+            Configuration = configuration;
         }
+
+        #region ICompilerConfiguration
+
+        public IKeyValueCollection Set(string key, object value)
+        {
+            Configuration.Set(key, value);
+            return this;
+        }
+
+        public IEnumerable<string> Keys
+        {
+            get { return Configuration.Keys; }
+        }
+
+        public bool TryGet<T>(string key, out T value)
+        {
+            return Configuration.TryGet(key, out value);
+        }
+
+        public ICompilerConfiguration Clone()
+        {
+            return Configuration.Clone();
+        }
+
+        #endregion
     }
 }

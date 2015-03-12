@@ -17,7 +17,7 @@ namespace Neptuo.Activators.Internals
 
         public MappingCollection(MappingCollection parentCollection)
         {
-            Guard.NotNull(parentCollection, "parentCollection");
+            Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
         }
 
@@ -34,7 +34,7 @@ namespace Neptuo.Activators.Internals
             else if (model.Lifetime.IsScoped)
                 scopeName = String.Empty;
             else
-                throw Guard.Exception.InvalidOperation("MappingCollection supports only scoped or name-scoped registrations.");
+                throw Ensure.Exception.InvalidOperation("MappingCollection supports only scoped or name-scoped registrations.");
 
             List<MappingModel> models;
             if (!storage.TryGetValue(scopeName, out models))

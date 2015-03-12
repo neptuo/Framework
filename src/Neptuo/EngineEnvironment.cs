@@ -25,7 +25,7 @@ namespace Neptuo
         /// <returns>Self (for fluency).</returns>
         public EngineEnvironment Use<T>(T service, string name = null)
         {
-            Guard.NotNull(service, "instance");
+            Ensure.NotNull(service, "instance");
 
             if (name == null)
                 name = String.Empty;
@@ -53,11 +53,11 @@ namespace Neptuo
             Type serviceType = typeof(T);
             Dictionary<string, object> innerStorage;
             if (!storage.TryGetValue(serviceType, out innerStorage))
-                throw Guard.Exception.InvalidOperation("Service of type '{0}' is not registered.", serviceType.FullName);
+                throw Ensure.Exception.InvalidOperation("Service of type '{0}' is not registered.", serviceType.FullName);
 
             object service;
             if(!innerStorage.TryGetValue(name, out service))
-                throw Guard.Exception.InvalidOperation("Service of type '{0}' is not registered under name '{1}'.", serviceType.FullName, name);
+                throw Ensure.Exception.InvalidOperation("Service of type '{0}' is not registered under name '{1}'.", serviceType.FullName, name);
 
             return (T)service;
         }

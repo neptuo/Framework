@@ -31,6 +31,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Neptuo.XML</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -53,11 +54,9 @@
     <Compile Include="AppServices\Triggers\TimerServiceTrigger.cs" />
     <Compile Include="AppServices\WorkerServiceCollection.cs" />
     <Compile Include="AppServices\_WorkerServiceCollectionExtensions.cs" />
-    <Compile Include="CodeDom\Compiler\CsCodeDomCompiler.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
-    <Compile Include="Collections\ObjectModel\DictionaryStringValueProvider.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
     <Compile Include="Collections\Specialized\IKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\IReadOnlyKeyValueCollection.cs" />
@@ -76,10 +75,13 @@
     <Compile Include="Compilers\ICompilerConfiguration.cs" />
     <Compile Include="Compilers\IDynamicCompiler.cs" />
     <Compile Include="Compilers\ICompilerResult.cs" />
+    <Compile Include="Compilers\_CompilerConfigurationExtensions.cs" />
+    <Compile Include="Compilers\_CompilerReferenceCollectionExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\BehaviorProviderCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\_CodeDomPipelineConfigurationExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\FuncList.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomContext.cs" />
@@ -95,7 +97,6 @@
     <Compile Include="ComponentModel\Behaviors\IBehavior.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorCollection.cs" />
     <Compile Include="ComponentModel\Behaviors\IBehaviorContext.cs" />
-    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineFactory.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\DefaultPipelineBase.cs" />
@@ -130,6 +131,10 @@
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
+    <Compile Include="FeatureModels\IFeatureModel.cs" />
+    <Compile Include="FeatureModels\MappingFeatureModel.cs" />
+    <Compile Include="FeatureModels\ObjectFeatureModel.cs" />
+    <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
@@ -190,14 +195,14 @@
     <Compile Include="DomainModels\KeyBase.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
-    <Compile Include="Exceptions\_GuardArgumentExtensions.cs" />
+    <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
     <Compile Include="Pipelines\Events\DefaultEventManager.cs" />
     <Compile Include="Pipelines\Events\_EventRegistryExtensions.cs" />
     <Compile Include="Pipelines\Events\Handlers\DelegateEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandler.cs" />
     <Compile Include="Pipelines\Events\IEventDispatcher.cs" />
-    <Compile Include="Exceptions\Helpers\GuardExceptionHelper.cs" />
-    <Compile Include="Exceptions\_GuardSystemExtensions.cs" />
+    <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
+    <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
     <Compile Include="FileSystems\_FileContentExtensions.cs" />
     <Compile Include="FileSystems\FileSystemException.cs" />
     <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
@@ -209,12 +214,12 @@
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystemKey.cs" />
-    <Compile Include="FileSystems\_GuardExtensions.cs" />
-    <Compile Include="Guard.cs" />
-    <Compile Include="ComponentModel\GuidProvider.cs" />
+    <Compile Include="FileSystems\_EnsureExtensions.cs" />
+    <Compile Include="Ensure.cs" />
+    <Compile Include="ComponentModel\GuidUniqueNameProvider.cs" />
     <Compile Include="IDisposable.cs" />
     <Compile Include="ComponentModel\IUniqueNameProvider.cs" />
-    <Compile Include="Globalization\_CultureInfoExtensions.cs" />
+    <Compile Include="Globalization\CultureInfoParser.cs" />
     <Compile Include="Activators\IActivator.cs" />
     <Compile Include="Activators\IDependencyContainer.cs" />
     <Compile Include="Activators\IDependencyProvider.cs" />
@@ -225,6 +230,7 @@
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
+    <Compile Include="Pipelines\Validators\ValidationResultBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Reflection\DefaultReflectionService.cs" />
@@ -242,7 +248,6 @@
     <Compile Include="StateMachines\StateMachine.cs" />
     <Compile Include="StateMachines\StateMachineEventArgs.cs" />
     <Compile Include="StateMachines\StringState.cs" />
-    <Compile Include="StringConvert.cs" />
     <Compile Include="StateMachines\StringStateMachine.cs" />
     <Compile Include="Threading\DisposableLock.cs" />
     <Compile Include="Threading\LockProvider.cs" />
@@ -254,19 +259,19 @@
     <Compile Include="Tokens\TokenParserConfiguration.cs" />
     <Compile Include="Tokens\TokenStateMachine.cs" />
     <Compile Include="Tokens\TokenWriter.cs" />
-    <Compile Include="Validators\DependencyValidationDispatcher.cs" />
-    <Compile Include="Validators\IValidationResult.cs" />
-    <Compile Include="Validators\IValidationMessage.cs" />
-    <Compile Include="Validators\Handlers\IValidationHandler.cs" />
-    <Compile Include="Validators\IValidationDispatcher.cs" />
-    <Compile Include="Validators\PropertyEqualMessage.cs" />
-    <Compile Include="Validators\PropertyValidationMessageBase.cs" />
-    <Compile Include="Validators\StringLengthMessage.cs" />
-    <Compile Include="Validators\StringNullOrEmptyMessage.cs" />
-    <Compile Include="Validators\TextValidationMessage.cs" />
-    <Compile Include="Validators\ValidationException.cs" />
-    <Compile Include="Validators\ValidationMessageBase.cs" />
-    <Compile Include="Validators\ValidationResultBase.cs" />
+    <Compile Include="Pipelines\Validators\DependencyValidationDispatcher.cs" />
+    <Compile Include="Pipelines\Validators\IValidationResult.cs" />
+    <Compile Include="Pipelines\Validators\Messages\IValidationMessage.cs" />
+    <Compile Include="Pipelines\Validators\Handlers\IValidationHandler.cs" />
+    <Compile Include="Pipelines\Validators\IValidationDispatcher.cs" />
+    <Compile Include="Pipelines\Validators\Messages\PropertyEqualMessage.cs" />
+    <Compile Include="Pipelines\Validators\Messages\PropertyValidationMessageBase.cs" />
+    <Compile Include="Pipelines\Validators\Messages\StringLengthMessage.cs" />
+    <Compile Include="Pipelines\Validators\Messages\StringNullOrEmptyMessage.cs" />
+    <Compile Include="Pipelines\Validators\Messages\TextValidationMessage.cs" />
+    <Compile Include="Pipelines\Validators\ValidationException.cs" />
+    <Compile Include="Pipelines\Validators\Messages\ValidationMessageBase.cs" />
+    <Compile Include="Pipelines\Validators\ValidationResultBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Neptuo.js" />

@@ -58,12 +58,12 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$Validators$RequiredMeta
         },
         Validate$$Object$$Boolean$$FieldMetadataValidatorContext: function (fieldValue, metadataValue, context){
             if (fieldValue == null){
-                context.get_ResultBuilder().AddMessage(new Neptuo.Validators.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.PresentationModels.MetadataCollectionExtensions.GetOrDefault$1$$IFieldMetadataCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
+                context.get_ResultBuilder().AddMessage(new Neptuo.Pipelines.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.PresentationModels.MetadataCollectionExtensions.GetOrDefault$1$$IFieldMetadataCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
                 return false;
             }
             var targetValue = fieldValue.ToString();
             if (!Neptuo.PresentationModels.MetadataCollectionExtensions.GetOrDefault$1$$IFieldMetadataCollection$$String$$T(System.Boolean.ctor, context.get_FieldDefinition().get_Metadata(), "Required.AllowEmptyStrings", false) && System.String.IsNullOrEmpty(targetValue)){
-                context.get_ResultBuilder().AddMessage(new Neptuo.Validators.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.PresentationModels.MetadataCollectionExtensions.GetOrDefault$1$$IFieldMetadataCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
+                context.get_ResultBuilder().AddMessage(new Neptuo.Pipelines.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.PresentationModels.MetadataCollectionExtensions.GetOrDefault$1$$IFieldMetadataCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
                 return false;
             }
             return true;

@@ -22,8 +22,8 @@ namespace Neptuo.AppServices
         /// <returns>Self (for fluency).</returns>
         public static WorkerServiceCollection AddIntervalHandler(this WorkerServiceCollection collection, TimeSpan interval, IBackgroundHandler handler)
         {
-            Guard.NotNull(collection, "collection");
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(handler, "handler");
             return collection.AddHandler(new TimerServiceTrigger(interval), handler);
         }
 
@@ -37,8 +37,8 @@ namespace Neptuo.AppServices
         /// <returns>Self (for fluency).</returns>
         public static WorkerServiceCollection AddIntervalDelayedHandler(this WorkerServiceCollection collection, TimeSpan startDelay, TimeSpan interval, IBackgroundHandler handler)
         {
-            Guard.NotNull(collection, "collection");
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(handler, "handler");
             return collection.AddHandler(new TimerServiceTrigger(startDelay, interval), handler);
         }
     }

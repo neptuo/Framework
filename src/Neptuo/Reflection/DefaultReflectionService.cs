@@ -21,7 +21,7 @@ namespace Neptuo.Reflection
         /// <param name="appDomain">Application domain for loading assemblies into.</param>
         internal DefaultReflectionService(AppDomain appDomain)
         {
-            Guard.NotNull(appDomain, "appDomain");
+            Ensure.NotNull(appDomain, "appDomain");
             AppDomain = appDomain;
         }
 
@@ -32,9 +32,9 @@ namespace Neptuo.Reflection
 
         public Assembly LoadAssembly(string assemblyFile)
         {
-            Guard.NotNullOrEmpty(assemblyFile, "assemblyFile");
+            Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
             if (!File.Exists(assemblyFile))
-                throw Guard.Exception.ArgumentFileNotExist(assemblyFile, "assemblyFile");
+                throw Ensure.Exception.ArgumentFileNotExist(assemblyFile, "assemblyFile");
 
             Assembly assembly = AppDomain.Load(File.ReadAllBytes(assemblyFile));
             return assembly;
@@ -42,7 +42,7 @@ namespace Neptuo.Reflection
 
         public Type LoadType(string typeAssemblyName)
         {
-            Guard.NotNullOrEmpty(typeAssemblyName, "typeAssemblyName");
+            Ensure.NotNullOrEmpty(typeAssemblyName, "typeAssemblyName");
             string[] parts = typeAssemblyName.Split(',');
             string typeName = parts[0].Trim();
             string assemblyName = null;

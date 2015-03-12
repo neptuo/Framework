@@ -26,7 +26,7 @@ namespace Neptuo.PresentationModels.Validators
         /// <param name="metadataKey">Meta data name (key) to validate.</param>
         public FieldMetadataValidatorBase(string metadataKey)
         {
-            Guard.NotNullOrEmpty(metadataKey, "metadataKey");
+            Ensure.NotNullOrEmpty(metadataKey, "metadataKey");
             MetadataKey = metadataKey;
         }
 
@@ -41,9 +41,9 @@ namespace Neptuo.PresentationModels.Validators
         /// <returns><c>true</c> if field is valid; false otherwise.</returns>
         public bool Validate(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder)
         {
-            Guard.NotNull(fieldDefinition, "fieldDefinition");
-            Guard.NotNull(getter, "getter");
-            Guard.NotNull(resultBuilder, "resultBuilder");
+            Ensure.NotNull(fieldDefinition, "fieldDefinition");
+            Ensure.NotNull(getter, "getter");
+            Ensure.NotNull(resultBuilder, "resultBuilder");
 
             object metadataValue;
             if (!fieldDefinition.Metadata.TryGet(MetadataKey, out metadataValue))

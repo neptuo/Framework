@@ -37,8 +37,8 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <returns>This (fluently).</returns>
         public DispatchingCommandExecutorFactory AddFactory(Type commandType, ICommandExecutorFactory factory)
         {
-            Guard.NotNull(commandType, "commandType");
-            Guard.NotNull(factory, "factory");
+            Ensure.NotNull(commandType, "commandType");
+            Ensure.NotNull(factory, "factory");
             Factories[commandType] = factory;
             return this;
         }
@@ -51,7 +51,7 @@ namespace Neptuo.Pipelines.Commands.Execution
         /// <exception cref="CommandExecutorException">When factory lookup failed.</exception>
         public ICommandExecutor CreateExecutor(object command)
         {
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
             Type commandType = command.GetType();
             ICommandExecutorFactory factory;
 

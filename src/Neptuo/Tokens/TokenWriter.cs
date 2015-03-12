@@ -20,7 +20,7 @@ namespace Neptuo.Tokens
         /// <param name="format">Format string.</param>
         public TokenWriter(string format)
         {
-            Guard.NotNullOrEmpty(format, "format");
+            Ensure.NotNullOrEmpty(format, "format");
             TokenFormatHelper.Parse(format, items);
         }
 
@@ -90,7 +90,7 @@ namespace Neptuo.Tokens
             };
 
             if (!parser.Parse(format))
-                throw Guard.Exception.ArgumentOutOfRange("format", "Format string '{0}' doesn't contain valid token format string.", format);
+                throw Ensure.Exception.ArgumentOutOfRange("format", "Format string '{0}' doesn't contain valid token format string.", format);
 
             if (lastTokenEndIndex < format.Length)
                 items.Add(new TokenWriterItem(false, format.Substring(lastTokenEndIndex)));

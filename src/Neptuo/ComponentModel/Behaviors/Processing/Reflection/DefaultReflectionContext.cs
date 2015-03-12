@@ -15,7 +15,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
 
         public DefaultReflectionContext(Type handlerType)
         {
-            Guard.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(handlerType, "handlerType");
             HandlerType = handlerType;
         }
     }

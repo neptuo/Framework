@@ -21,14 +21,14 @@ namespace Neptuo.Bootstrap
 
         public IHierarchicalBuilderConstraint WithActivator(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             activator = type => (IBootstrapTask)dependencyProvider.Resolve(type);
             return this;
         }
 
         public IHierarchicalBuilderConstraint WithActivator(Func<Type, IBootstrapTask> activator)
         {
-            Guard.NotNull(activator, "activator");
+            Ensure.NotNull(activator, "activator");
             this.activator = activator;
             return this;
         }
@@ -45,7 +45,7 @@ namespace Neptuo.Bootstrap
 
         IHierarchicalBuilderDescriptor IHierarchicalBuilderConstraint.WithConstraintProvider(IBootstrapConstraintProvider constraintProvider)
         {
-            Guard.NotNull(constraintProvider, "constraintProvider");
+            Ensure.NotNull(constraintProvider, "constraintProvider");
             this.constraintProvider = constraintProvider;
             return this;
         }
@@ -62,7 +62,7 @@ namespace Neptuo.Bootstrap
 
         IHierarchicalBuilderExporter IHierarchicalBuilderDescriptor.WithDescriptorProvider(IDependencyDescriptorProvider descriptorProvider)
         {
-            Guard.NotNull(descriptorProvider, "descriptorProvider");
+            Ensure.NotNull(descriptorProvider, "descriptorProvider");
             this.descriptorProvider = descriptorProvider;
             return this;
         }
@@ -79,7 +79,7 @@ namespace Neptuo.Bootstrap
 
         HierarchicalBootstrapper IHierarchicalBuilderExporter.WithExporter(IDependencyExporter dependencyExporter)
         {
-            Guard.NotNull(dependencyExporter, "export");
+            Ensure.NotNull(dependencyExporter, "export");
             return CreateBootstrapper(dependencyExporter);
         }
 

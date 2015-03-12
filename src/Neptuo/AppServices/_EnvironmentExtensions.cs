@@ -1,4 +1,5 @@
-﻿using Neptuo.ComponentModel.Behaviors;
+﻿using Neptuo.Compilers;
+using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
 using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
@@ -20,7 +21,7 @@ namespace Neptuo.AppServices
 
             public AppServiceEngineEnvironment(EngineEnvironment environment)
             {
-                Guard.NotNull(environment, "environment");
+                Ensure.NotNull(environment, "environment");
                 Environment = environment;
             }
         }
@@ -31,7 +32,7 @@ namespace Neptuo.AppServices
         /// <param name="environment">Engine environment.</param>
         public static AppServiceEngineEnvironment UseAppServices(this EngineEnvironment environment)
         {
-            Guard.NotNull(environment, "environment");
+            Ensure.NotNull(environment, "environment");
             return new AppServiceEngineEnvironment(environment);
         }
 
@@ -43,7 +44,7 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, IBehaviorCollection behaviors)
         {
-            Guard.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "appService");
             appService.Environment.Use<IBehaviorCollection>(behaviors, "AppService.Behaviors");
             return appService;
         }
@@ -56,9 +57,9 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, params IBehaviorProvider[] providers)
         {
-            Guard.NotNull(appService, "appService");
-            Guard.NotNull(appService, "environment");
-            Guard.NotNull(providers, "providers");
+            Ensure.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "environment");
+            Ensure.NotNull(providers, "providers");
 
             IBehaviorCollection collection = new BehaviorProviderCollection();
             foreach (IBehaviorProvider provider in providers)
@@ -75,9 +76,9 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseBehaviors(this AppServiceEngineEnvironment appService, Action<InterfaceBehaviorProvider> mapper)
         {
-            Guard.NotNull(appService, "appService");
-            Guard.NotNull(appService, "environment");
-            Guard.NotNull(mapper, "mapper");
+            Ensure.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "environment");
+            Ensure.NotNull(mapper, "mapper");
 
             InterfaceBehaviorProvider provider = new InterfaceBehaviorProvider();
             mapper(provider);
@@ -90,7 +91,7 @@ namespace Neptuo.AppServices
         /// <param name="environment">Engine environment.</param>
         public static AppServiceEngineEnvironment WithAppServices(this EngineEnvironment environment)
         {
-            Guard.NotNull(environment, "environment");
+            Ensure.NotNull(environment, "environment");
             return new AppServiceEngineEnvironment(environment);
         }
 
@@ -101,7 +102,7 @@ namespace Neptuo.AppServices
         /// <returns>Registered behaviors collection.</returns>
         public static IBehaviorCollection WithBehaviors(this AppServiceEngineEnvironment appService)
         {
-            Guard.NotNull(appService, "appService");
+            Ensure.NotNull(appService, "appService");
             return appService.Environment.With<IBehaviorCollection>("AppService.Behaviors");
         }
 
@@ -111,10 +112,10 @@ namespace Neptuo.AppServices
         /// <param name="appService">Engine environment.</param>
         /// <param name="configuration">Code dom pipeline configuration.</param>
         /// <returns><paramref name="appService"/>.</returns>
-        public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, CodeDomPipelineConfiguration configuration)
+        public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, ICompilerConfiguration configuration)
         {
-            Guard.NotNull(appService, "appService");
-            appService.Environment.Use<CodeDomPipelineConfiguration>(configuration, "AppService.CodeDomConfiguration");
+            Ensure.NotNull(appService, "appService");
+            appService.Environment.Use<ICompilerConfiguration>(configuration, "AppService.CodeDomConfiguration");
             return appService;
         }
 
@@ -128,7 +129,15 @@ namespace Neptuo.AppServices
         /// <returns><paramref name="appService"/>.</returns>
         public static AppServiceEngineEnvironment UseCodeDomConfiguration(this AppServiceEngineEnvironment appService, Type baseType, string tempDirectory, params string[] binDirectories)
         {
-            return appService.UseCodeDomConfiguration(new CodeDomPipelineConfiguration(baseType, tempDirectory, binDirectories));
+            ICompilerConfiguration configuration = new CompilerConfiguration()
+                .BaseType(baseType)
+                .TempDirectory(tempDirectory);
+
+            configuration
+                .References()
+                .AddDirectories(binDirectories);
+
+            return appService.UseCodeDomConfiguration(configuration);
         }
 
         /// <summary>
@@ -136,9 +145,9 @@ namespace Neptuo.AppServices
         /// </summary>
         /// <param name="environment">Engine environment.</param>
         /// <returns>Registered code dom pipeline configuration.</returns>
-        public static CodeDomPipelineConfiguration WithCodeDomConfiguration(this AppServiceEngineEnvironment appService)
+        public static ICompilerConfiguration WithCodeDomConfiguration(this AppServiceEngineEnvironment appService)
         {
-            return appService.Environment.With<CodeDomPipelineConfiguration>();
+            return appService.Environment.With<ICompilerConfiguration>("AppService.CodeDomConfiguration");
         }
     }
 }

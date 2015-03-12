@@ -72,9 +72,9 @@ namespace Neptuo.ComponentModel
         /// <param name="timeToLive">The time to live for the message in the queue.</param>
         public Envelope(T body, TimeSpan delay, TimeSpan timeToLive)
         {
-            Guard.NotNull(body, "body");
-            Guard.NotNull(delay, "delay");
-            Guard.NotNull(timeToLive, "timeToLive");
+            Ensure.NotNull(body, "body");
+            Ensure.NotNull(delay, "delay");
+            Ensure.NotNull(timeToLive, "timeToLive");
             Body = body;
             Delay = delay;
             TimeToLive = timeToLive;

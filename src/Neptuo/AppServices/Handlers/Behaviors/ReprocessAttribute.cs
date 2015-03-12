@@ -49,7 +49,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors
         /// <param name="delayBeforeReprocess">Time (milliseconds) to wait before starting reprocess.</param>
         public ReprocessAttribute(int count, double delayBeforeReprocess)
         {
-            Guard.PositiveOrZero(count, "count");
+            Ensure.PositiveOrZero(count, "count");
             Count = count;
             DelayBeforeReprocess = TimeSpan.FromMilliseconds(delayBeforeReprocess);
         }

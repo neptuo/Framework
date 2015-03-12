@@ -1,5 +1,4 @@
-﻿using Neptuo.CodeDom.Compiler;
-using Neptuo.Linq.Expressions;
+﻿using Neptuo.Linq.Expressions;
 using Neptuo.ComponentModel.Behaviors;
 using System;
 using System.CodeDom;
@@ -43,7 +42,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Configuration.
         /// </summary>
-        private readonly CodeDomPipelineConfiguration configuration;
+        private readonly ICompilerConfiguration configuration;
 
         /// <summary>
         /// Creates new instance for <paramref name="handlerType"/>.
@@ -51,11 +50,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="handlerType">Target handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
+        public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
         {
-            Guard.NotNull(handlerType, "handlerType");
-            Guard.NotNull(behaviorCollection, "behaviorCollection");
-            Guard.NotNull(configuration, "configuration");
+            Ensure.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(behaviorCollection, "behaviorCollection");
+            Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
             this.compilerFactory = new CompilerFactory(configuration);
@@ -109,7 +108,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             CodeTypeDeclaration type = new CodeTypeDeclaration(FormatPipelineTypeName());
 
             if (handlerType.GetConstructor(new Type[0]) != null)
-                type.BaseTypes.Add(configuration.BaseType.MakeGenericType(handlerType));
+                type.BaseTypes.Add(configuration.BaseType().MakeGenericType(handlerType));
             else
                 throw new NotSupportedException("Currently supported only parameterless behavior constructors.");
 
@@ -149,7 +148,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
                 method.Statements.Add(new CodeMethodInvokeExpression(
                     new CodeVariableReferenceExpression(resultListName),
                     TypeHelper.MethodName<IList<object>, object>(l => l.Add),
-                    configuration.BehaviorInstance.TryGenerate(context, behaviorType) ?? new CodeObjectCreateExpression(behaviorType)
+                    configuration.BehaviorInstance().TryGenerate(context, behaviorType) ?? new CodeObjectCreateExpression(behaviorType)
                 ));
             }
 
@@ -167,14 +166,14 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         {
             IStaticCompiler compiler = compilerFactory.CreateStatic();
 
-            string assemblyFilePath = Path.Combine(configuration.TempDirectory, FormatAssemblyFileName());
+            string assemblyFilePath = Path.Combine(configuration.TempDirectory(), FormatAssemblyFileName());
             ICompilerResult result = compiler.FromUnit(unit, assemblyFilePath);
             if (!result.IsSuccess)
             {
                 // Save source code if compilation was not successfull.
 
                 CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                string sourceCodePath = Path.Combine(configuration.TempDirectory, FormatSourceCodeFileName());
+                string sourceCodePath = Path.Combine(configuration.TempDirectory(), FormatSourceCodeFileName());
 
                 using (StreamWriter writer = new StreamWriter(sourceCodePath))
                 {

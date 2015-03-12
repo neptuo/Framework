@@ -13,8 +13,8 @@ namespace Neptuo.PresentationModels.BindingConverters
 
         public ListBindingConverter(string separator, BindingConverterBase<T> converter)
         {
-            Guard.NotNullOrEmpty(separator, "separator");
-            Guard.NotNull(converter, "converter");
+            Ensure.NotNullOrEmpty(separator, "separator");
+            Ensure.NotNull(converter, "converter");
             Separator = separator;
             Converter = converter;
         }

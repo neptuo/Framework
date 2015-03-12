@@ -82,7 +82,7 @@ namespace Neptuo.Security.Cryptography
         /// <returns></returns>
         private static HashFunc CreateProvider(HashAlgorithm algorithm)
         {
-            Guard.NotNull(algorithm, "algorithm");
+            Ensure.NotNull(algorithm, "algorithm");
             return (source) =>
             {
                 byte[] hash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(source));

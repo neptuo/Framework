@@ -17,37 +17,37 @@ namespace Neptuo.Activators.Internals
 
         public InstanceStorage(Dictionary<string, object> storage, Dictionary<string, IActivator<object>> activatorStorage)
         {
-            Guard.NotNull(storage, "storage");
-            Guard.NotNull(activatorStorage, "activatorStorage");
+            Ensure.NotNull(storage, "storage");
+            Ensure.NotNull(activatorStorage, "activatorStorage");
             this.objectStorage = storage;
             this.activatorStorage = activatorStorage;
         }
 
         public InstanceStorage AddObject(string key, object instance)
         {
-            Guard.NotNullOrEmpty(key, "key");
-            Guard.NotNull(instance, "instance");
+            Ensure.NotNullOrEmpty(key, "key");
+            Ensure.NotNull(instance, "instance");
             objectStorage[key] = instance;
             return this;
         }
 
         public InstanceStorage AddActivator(string key, IActivator<object> activator)
         {
-            Guard.NotNullOrEmpty(key, "key");
-            Guard.NotNull(activator, "activator");
+            Ensure.NotNullOrEmpty(key, "key");
+            Ensure.NotNull(activator, "activator");
             activatorStorage[key] = activator;
             return this;
         }
 
         public object TryGetObject(string key)
         {
-            Guard.NotNullOrEmpty(key, "key");
+            Ensure.NotNullOrEmpty(key, "key");
             return objectStorage[key];
         }
 
         public IActivator<object> TryGetActivator(string key)
         {
-            Guard.NotNullOrEmpty(key, "key");
+            Ensure.NotNullOrEmpty(key, "key");
             return activatorStorage[key];
         }
 

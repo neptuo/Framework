@@ -12,7 +12,7 @@ namespace Neptuo.Configuration
 
         public DictionaryConfigurationStorage(Dictionary<string, string> values)
         {
-            Guard.NotNull(values, "values");
+            Ensure.NotNull(values, "values");
             this.values = values;
         }
 

@@ -89,7 +89,7 @@ namespace Neptuo.Collections.ObjectModel
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            throw Guard.Exception.NotImplemented();
+            throw Ensure.Exception.NotImplemented();
         }
 
         public int Count

@@ -24,7 +24,7 @@ namespace Neptuo.ComponentModel.Behaviors
         /// <returns>Self (for fluency).</returns>
         public IBehaviorCollection Add(IBehaviorProvider provider)
         {
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(provider, "provider");
             providers.Insert(0, provider);
             return this;
         }

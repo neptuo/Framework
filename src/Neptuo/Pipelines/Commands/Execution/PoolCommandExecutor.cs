@@ -21,7 +21,7 @@ namespace Neptuo.Pipelines.Commands.Execution
 
         public PoolCommandExecutor(IPoolCommandExecutorContext poolContext)
         {
-            Guard.NotNull(poolContext, "poolContext");
+            Ensure.NotNull(poolContext, "poolContext");
             PoolContext = poolContext;
         }
 

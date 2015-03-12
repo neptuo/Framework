@@ -24,13 +24,13 @@ namespace Neptuo.Pipelines.Queries
         /// <param name="dependencyProvider">Source for registrations.</param>
         public DependencyQueryDispatcher(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 
         public Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query)
         {
-            Guard.NotNull(query, "query");
+            Ensure.NotNull(query, "query");
 
             Type handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TOutput));
             object handler = dependencyProvider.Resolve(handlerType);

@@ -17,9 +17,9 @@ namespace Neptuo.PresentationModels
 
         public ModelDefinition(string identifier, IEnumerable<IFieldDefinition> fields, IModelMetadataCollection metadata)
         {
-            Guard.NotNull(identifier, "identifier");
-            Guard.NotNull(fields, "fields");
-            Guard.NotNull(metadata, "metadata");
+            Ensure.NotNull(identifier, "identifier");
+            Ensure.NotNull(fields, "fields");
+            Ensure.NotNull(metadata, "metadata");
             Identifier = identifier;
             Fields = new List<IFieldDefinition>(fields);
             Metadata = metadata;

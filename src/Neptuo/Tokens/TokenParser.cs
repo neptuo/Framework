@@ -37,7 +37,7 @@ namespace Neptuo.Tokens
         public bool Parse(string content)
         {
             if (OnParsedToken == null)
-                throw Guard.Exception.InvalidOperation("OnParsedItem event is null, so there isn't callback for parsed tokens.");
+                throw Ensure.Exception.InvalidOperation("OnParsedItem event is null, so there isn't callback for parsed tokens.");
 
             List<TokenStateMachine.Result> results = new List<TokenStateMachine.Result>();
 

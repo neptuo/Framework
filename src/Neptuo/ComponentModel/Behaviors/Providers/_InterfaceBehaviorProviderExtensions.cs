@@ -17,7 +17,7 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         public static InterfaceBehaviorProvider AddMapping<TBehaviorContract, TBehaviorImplementation>(this InterfaceBehaviorProvider provider)
             where TBehaviorImplementation : IBehavior<TBehaviorContract>
         {
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(provider, "provider");
             return provider.AddMapping(typeof(TBehaviorContract), typeof(TBehaviorImplementation));
         }
     }

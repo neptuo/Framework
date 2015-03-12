@@ -4,7 +4,7 @@ using Neptuo.Pipelines.Commands.Events;
 using Neptuo.Pipelines.Commands.Execution;
 using Neptuo.Pipelines.Commands.Handlers;
 using Neptuo.Pipelines.Events;
-using Neptuo.Validators;
+using Neptuo.Pipelines.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,8 +27,8 @@ namespace Neptuo.Pipelines.Commands
         /// <param name="dependencyProvider">Source for registrations.</param>
         public DependencyCommandDispatcher(IDependencyProvider dependencyProvider, IEventDispatcher eventDispatcher)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
-            Guard.NotNull(eventDispatcher, "eventDispatcher");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(eventDispatcher, "eventDispatcher");
             this.dependencyProvider = dependencyProvider;
             this.eventDispatcher = eventDispatcher;
         }
@@ -39,7 +39,7 @@ namespace Neptuo.Pipelines.Commands
         /// <param name="command">Command to handle.</param>
         public void Handle(object command)
         {
-            Guard.NotNull(command, "command");
+            Ensure.NotNull(command, "command");
             HandleInternal(command, true);
         }
 
@@ -94,7 +94,7 @@ namespace Neptuo.Pipelines.Commands
         /// <param name="exception">Exception that occured.</param>
         protected virtual void HandleException(Exception exception)
         {
-            Guard.NotNull(exception, "exception");
+            Ensure.NotNull(exception, "exception");
             HandleInternal(exception, false);
         }
     }

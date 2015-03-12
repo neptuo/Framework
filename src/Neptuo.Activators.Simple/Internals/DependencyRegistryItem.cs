@@ -20,7 +20,7 @@ namespace Neptuo.Activators.Internals
 
         public DependencyRegistryItem(Type requiredType, DependencyLifetime lifetime)
         {
-            Guard.NotNull(requiredType, "requiredType");
+            Ensure.NotNull(requiredType, "requiredType");
             RequiredType = requiredType;
             Lifetime = lifetime;
         }
@@ -28,7 +28,7 @@ namespace Neptuo.Activators.Internals
         public DependencyRegistryItem(Type requiredType, DependencyLifetime lifetime, ConstructorInfo constructorInfo)
             : this(requiredType, lifetime)
         {
-            Guard.NotNull(constructorInfo, "constructorInfo");
+            Ensure.NotNull(constructorInfo, "constructorInfo");
             ConstructorInfo = constructorInfo;
         }
     }

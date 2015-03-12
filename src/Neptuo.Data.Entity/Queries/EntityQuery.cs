@@ -16,7 +16,7 @@ namespace Neptuo.Data.Entity.Queries
 
         public EntityQuery(IQueryable<TEntity> items)
         {
-            Guard.NotNull(items, "items");
+            Ensure.NotNull(items, "items");
             Items = items;
         }
 

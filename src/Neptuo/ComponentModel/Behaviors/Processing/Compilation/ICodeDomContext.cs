@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Compilers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Pipeline configuration.
         /// </summary>
-        CodeDomPipelineConfiguration Configuration { get; }
+        ICompilerConfiguration Configuration { get; }
 
         /// <summary>
         /// Type of handler to wrap.

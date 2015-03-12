@@ -12,21 +12,21 @@ namespace Neptuo.FileSystems
     {
         public static LocalFileSystemKey Create(string fullPath, string type)
         {
-            Guard.NotNullOrEmpty(fullPath, "fullPath");
-            Guard.NotNullOrEmpty(type, "type");
+            Ensure.NotNullOrEmpty(fullPath, "fullPath");
+            Ensure.NotNullOrEmpty(type, "type");
             
             if (!Path.IsPathRooted(fullPath))
-                throw Guard.Exception.Argument("fullPath", "Path must be rooted.");
+                throw Ensure.Exception.Argument("fullPath", "Path must be rooted.");
 
             if (!Directory.Exists(fullPath) && !File.Exists(fullPath))
-                throw Guard.Exception.Argument("fullPath", "Provided path must be existing directory.");
+                throw Ensure.Exception.Argument("fullPath", "Provided path must be existing directory.");
 
             return new LocalFileSystemKey(fullPath, type);
         }
 
         public static LocalFileSystemKey Empty(string type)
         {
-            Guard.NotNullOrEmpty(type, "type");
+            Ensure.NotNullOrEmpty(type, "type");
             return new LocalFileSystemKey(type);
         }
 

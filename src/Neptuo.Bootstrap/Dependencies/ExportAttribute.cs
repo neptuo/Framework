@@ -16,7 +16,7 @@ namespace Neptuo.Bootstrap.Dependencies
 
         public ExportAttribute(string name)
         {
-            Guard.NotNullOrEmpty(name, "name");
+            Ensure.NotNullOrEmpty(name, "name");
             Name = name;
         }
     }

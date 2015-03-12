@@ -15,8 +15,8 @@ namespace Neptuo.Data.Entity.Queries
 
         public ParameterVisitor(ReadOnlyCollection<ParameterExpression> from, ReadOnlyCollection<ParameterExpression> to)
         {
-            Guard.NotNull(from, "from");
-            Guard.NotNull(to, "to");
+            Ensure.NotNull(from, "from");
+            Ensure.NotNull(to, "to");
 
             if (from.Count != to.Count)
                 throw new InvalidOperationException("Parameter lengths must match.");

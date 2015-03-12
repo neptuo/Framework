@@ -37,12 +37,13 @@ namespace Neptuo.ComponentModel
         {
             if (IsDisposed)
                 return;
+            else
+                IsDisposed = true;
 
             if (disposing)
                 DisposeManagedResources();
 
             DisposeUnmanagedResources();
-            IsDisposed = true;
         }
 
         /// <summary>

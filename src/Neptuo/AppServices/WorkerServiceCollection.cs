@@ -20,8 +20,8 @@ namespace Neptuo.AppServices
         /// <returns>Self (for fluency).</returns>
         public WorkerServiceCollection AddHandler(IServiceTrigger trigger, IBackgroundHandler worker)
         {
-            Guard.NotNull(trigger, "trigger");
-            Guard.NotNull(worker, "worker");
+            Ensure.NotNull(trigger, "trigger");
+            Ensure.NotNull(worker, "worker");
             handlers.Add(new KeyValuePair<IServiceTrigger, IBackgroundHandler>(trigger, worker));
             return this;
         }

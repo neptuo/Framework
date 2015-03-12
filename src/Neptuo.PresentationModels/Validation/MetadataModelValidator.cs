@@ -24,7 +24,7 @@ namespace Neptuo.PresentationModels.Validators
         public MetadataModelValidator(IModelDefinition modelDefinition, IMetadataValidatorCollection validators)
             : base(modelDefinition)
         {
-            Guard.NotNull(validators, "validators");
+            Ensure.NotNull(validators, "validators");
             Validators = validators;
         }
 

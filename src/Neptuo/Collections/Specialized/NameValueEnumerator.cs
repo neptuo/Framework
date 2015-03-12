@@ -19,7 +19,7 @@ namespace Neptuo.Collections.Specialized
 
         public NameValueEnumerator(NameValueCollection source)
         {
-            Guard.NotNull(source, "source");
+            Ensure.NotNull(source, "source");
             this.source = source;
             this.keyEnumerator = source.AllKeys.GetEnumerator();
         }

@@ -16,13 +16,13 @@ namespace Neptuo.ComponentModel.Behaviors
 
         public static bool TryGetTargetMethod(this IBehaviorContext context, out MethodInfo method)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             return context.CustomValues.TryGet("TargetMethod", out method);
         }
 
         public static IBehaviorContext SetTargetMethod(this IBehaviorContext context, MethodInfo method)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             context.CustomValues.Set("TargetMethod", method);
             return context;
         }
@@ -33,13 +33,13 @@ namespace Neptuo.ComponentModel.Behaviors
 
         public static bool TryGetTargetParameters(this IBehaviorContext context, out List<object> parameters)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             return context.CustomValues.TryGet("TargetParameters", out parameters);
         }
 
         public static IBehaviorContext SetTargetParameters(this IBehaviorContext context, List<object> parameters)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             context.CustomValues.Set("TargetParameters", parameters);
             return context;
         }
@@ -50,13 +50,13 @@ namespace Neptuo.ComponentModel.Behaviors
 
         public static bool TryGetTargetReturn<TOutput>(this IBehaviorContext context, out TOutput output)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             return context.CustomValues.TryGet("TargetReturn", out output);
         }
 
         public static IBehaviorContext SetTargetReturn(this IBehaviorContext context, object output)
         {
-            Guard.NotNull(context, "context");
+            Ensure.NotNull(context, "context");
             context.CustomValues.Set("TargetReturn", output);
             return context;
         }

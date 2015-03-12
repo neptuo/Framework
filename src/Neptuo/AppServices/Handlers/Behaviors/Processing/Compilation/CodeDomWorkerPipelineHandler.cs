@@ -1,4 +1,5 @@
-﻿using Neptuo.ComponentModel.Behaviors;
+﻿using Neptuo.Compilers;
+using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation
     public class CodeDomWorkerPipelineHandler<T> : TransientWorkerHandler
         where T: IBackgroundHandler
     {
-        public CodeDomWorkerPipelineHandler(IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
+        public CodeDomWorkerPipelineHandler(IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
             : base(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(T), behaviorCollection, configuration))
         { }
 

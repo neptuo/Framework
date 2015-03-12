@@ -17,8 +17,8 @@ namespace Neptuo.Configuration
 
         public void MapScope(string name, IConfigurationScope scope)
         {
-            Guard.NotNull(name, "name");
-            Guard.NotNull(scope, "scope");
+            Ensure.NotNull(name, "name");
+            Ensure.NotNull(scope, "scope");
             storage[name] = scope;
         }
 

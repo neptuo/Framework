@@ -21,7 +21,7 @@ namespace Neptuo.ComponentModel.Converters
         /// <returns><paramref name="repository"/>.</returns>
         public static IConverterRepository Add<TSource, TTarget>(this IConverterRepository repository, IConverter<TSource, TTarget> converter)
         {
-            Guard.NotNull(repository, "repository");
+            Ensure.NotNull(repository, "repository");
             repository.Add(typeof(TSource), typeof(TTarget), converter);
             return repository;
         }

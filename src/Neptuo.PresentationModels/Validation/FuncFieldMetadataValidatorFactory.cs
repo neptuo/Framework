@@ -24,7 +24,7 @@ namespace Neptuo.PresentationModels.Validators
         /// <param name="factory">Function for creating instances of <typeparamref name="TValidator" /></param>
         public FuncFieldMetadataValidatorFactory(Func<TValidator> factory)
         {
-            Guard.NotNull(factory, "factory");
+            Ensure.NotNull(factory, "factory");
             Factory = factory;
         }
 

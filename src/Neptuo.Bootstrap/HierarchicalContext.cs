@@ -19,10 +19,10 @@ namespace Neptuo.Bootstrap
 
         public HierarchicalContext(Func<Type, IBootstrapTask> activator, IBootstrapConstraintProvider constraintProvider, IDependencyDescriptorProvider descriptorProvider, IDependencyExporter dependencyExporter)
         {
-            Guard.NotNull(activator, "activator");
-            Guard.NotNull(constraintProvider, "constraintProvider");
-            Guard.NotNull(descriptorProvider, "dependencyProvider");
-            Guard.NotNull(dependencyExporter, "dependencyExporter");
+            Ensure.NotNull(activator, "activator");
+            Ensure.NotNull(constraintProvider, "constraintProvider");
+            Ensure.NotNull(descriptorProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyExporter, "dependencyExporter");
             Activator = activator;
             ConstraintProvider = constraintProvider;
             DescriptorProvider = descriptorProvider;

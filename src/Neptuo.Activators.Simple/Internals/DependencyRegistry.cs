@@ -16,13 +16,13 @@ namespace Neptuo.Activators.Internals
 
         public DependencyRegistry(Dictionary<string, DependencyRegistryItem> registries)
         {
-            Guard.NotNull(registries, "registries");
+            Ensure.NotNull(registries, "registries");
             this.registries = registries;
         }
 
         public DependencyRegistryItem GetByKey(string key)
         {
-            Guard.NotNullOrEmpty(key, "key");
+            Ensure.NotNullOrEmpty(key, "key");
 
             DependencyRegistryItem item;
             if (registries.TryGetValue(key, out item))
@@ -33,8 +33,8 @@ namespace Neptuo.Activators.Internals
 
         public void Add(string key, DependencyRegistryItem item)
         {
-            Guard.NotNullOrEmpty(key, "key");
-            Guard.NotNull(item, "item");
+            Ensure.NotNullOrEmpty(key, "key");
+            Ensure.NotNull(item, "item");
             registries[key] = item;
         }
 

@@ -51,7 +51,7 @@ namespace Neptuo.Collections.Specialized
 
         public ProviderKeyValueCollection(NameValueCollection collection)
         {
-            Guard.NotNull(collection, "collection");
+            Ensure.NotNull(collection, "collection");
             
             foreach (string key in collection.AllKeys)
                 Add(key, collection[key]);
@@ -64,7 +64,7 @@ namespace Neptuo.Collections.Specialized
         /// <param name="provider">Provider for getting values.</param>
         public void AddProvider(Provider provider)
         {
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(provider, "provider");
             AddProvider(String.Empty, provider);
         }
 
@@ -75,8 +75,8 @@ namespace Neptuo.Collections.Specialized
         /// <param name="provider">Provider for getting values.</param>
         public void AddProvider(string key, Provider provider)
         {
-            Guard.NotNull(key, "key");
-            Guard.NotNull(provider, "provider");
+            Ensure.NotNull(key, "key");
+            Ensure.NotNull(provider, "provider");
 
             List<Provider> values;
             if (!providerStorage.TryGetValue(key, out values))
@@ -91,7 +91,7 @@ namespace Neptuo.Collections.Specialized
         /// <param name="listener">Listener executed after setting value.</param>
         public void AddListener(Listener listener)
         {
-            Guard.NotNull(listener, "listener");
+            Ensure.NotNull(listener, "listener");
             AddListener(String.Empty, listener);
         }
 
@@ -102,8 +102,8 @@ namespace Neptuo.Collections.Specialized
         /// <param name="listener">Listener executed after setting value.</param>
         public void AddListener(string key, Listener listener)
         {
-            Guard.NotNull(key, "key");
-            Guard.NotNull(listener, "listener");
+            Ensure.NotNull(key, "key");
+            Ensure.NotNull(listener, "listener");
 
             List<Listener> values;
             if (!listenerStorage.TryGetValue(key, out values))
@@ -124,7 +124,7 @@ namespace Neptuo.Collections.Specialized
 
         protected override bool TryGetDefault<T>(string key, out T value)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             foreach (Provider provider in Enumerable.Concat(GetProviders(key), GetProviders(String.Empty)))
             {
                 object valueBase;

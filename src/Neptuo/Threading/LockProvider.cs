@@ -42,7 +42,7 @@ namespace Neptuo.Threading
         /// <param name="slimLock">Inner lock.</param>
         public LockProvider(ReaderWriterLockSlim slimLock)
         {
-            Guard.NotNull(slimLock, "slimLock");
+            Ensure.NotNull(slimLock, "slimLock");
             this.slimLock = slimLock;
         }
 

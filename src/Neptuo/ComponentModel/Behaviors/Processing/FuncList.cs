@@ -22,7 +22,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
 
         public FuncList<TInput, TOutput> Add(Func<TInput, TOutput> handler)
         {
-            Guard.NotNull(handler, "handler");
+            Ensure.NotNull(handler, "handler");
             delegates.Insert(delegates.Count - offset, handler);
             return this;
         }

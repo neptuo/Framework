@@ -29,13 +29,13 @@ namespace Neptuo.Collections.Specialized
         /// <param name="source">Source values collection</param>
         public NameValueReadOnlyDictionary(NameValueCollection source)
         {
-            Guard.NotNull(source, "source");
+            Ensure.NotNull(source, "source");
             this.source = source;
         }
 
         public bool ContainsKey(string key)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             return source.AllKeys.Contains(key);
         }
 
@@ -76,7 +76,7 @@ namespace Neptuo.Collections.Specialized
         {
             get
             {
-                Guard.NotNullOrEmpty(key, "key");
+                Ensure.NotNullOrEmpty(key, "key");
                 return source[key];
             }
         }

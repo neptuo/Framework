@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Compilers;
 using Neptuo.ComponentModel.Behaviors;
 using System;
 using System.CodeDom;
@@ -33,7 +34,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Generator configuration.
         /// </summary>
-        private readonly CodeDomPipelineConfiguration configuration;
+        private readonly ICompilerConfiguration configuration;
 
         /// <summary>
         /// Creates new instance for handler of type <paramref name="handlerType"/>.
@@ -41,11 +42,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="handlerType">Handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, CodeDomPipelineConfiguration configuration)
+        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
         {
-            Guard.NotNull(handlerType, "handlerType");
-            Guard.NotNull(behaviorCollection, "behaviorCollection");
-            Guard.NotNull(configuration, "configuration");
+            Ensure.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(behaviorCollection, "behaviorCollection");
+            Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
             this.behaviorCollection = behaviorCollection;
             this.configuration = configuration;

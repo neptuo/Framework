@@ -47,7 +47,7 @@ namespace Neptuo.FileSystems
         /// <param name="fullPath">Standard file system path to the directory.</param>
         internal LocalDirectory(string fullPath)
         {
-            Guard.NotNullOrEmpty(fullPath, "fullPath");
+            Ensure.NotNullOrEmpty(fullPath, "fullPath");
             key = LocalFileSystemKey.Create(fullPath, "LocalDirectory");
             SetDirectoryRelatedProperties(fullPath);
         }
@@ -60,7 +60,7 @@ namespace Neptuo.FileSystems
         internal LocalDirectory(IDirectory parent, string fullPath)
             : this(fullPath)
         {
-            Guard.NotNull(parent, "parent");
+            Ensure.NotNull(parent, "parent");
             Parent = parent;
         }
 
@@ -71,7 +71,7 @@ namespace Neptuo.FileSystems
         private void SetDirectoryRelatedProperties(string fullPath)
         {
             if (!Directory.Exists(fullPath))
-                throw Guard.Exception.Argument("fullPath", "Provided path must be existing directory.");
+                throw Ensure.Exception.Argument("fullPath", "Provided path must be existing directory.");
 
             Name = Path.GetFileName(fullPath);
             FullPath = fullPath;
@@ -130,7 +130,7 @@ namespace Neptuo.FileSystems
 
         public IEnumerable<IDirectory> FindDirectories(string searchPattern, bool inAllDescendants)
         {
-            Guard.NotNullOrEmpty(searchPattern, "searchPattern");
+            Ensure.NotNullOrEmpty(searchPattern, "searchPattern");
             IEnumerable<string> paths = Directory.GetDirectories(FullPath, searchPattern, GetSearchOption(inAllDescendants));
             if (!inAllDescendants)
                 return EnumerateChildDirectories(paths);
@@ -146,7 +146,7 @@ namespace Neptuo.FileSystems
 
         public IEnumerable<IFile> FindFiles(string searchPattern, bool inAllDescendants)
         {
-            Guard.NotNullOrEmpty(searchPattern, "searchPattern");
+            Ensure.NotNullOrEmpty(searchPattern, "searchPattern");
             IEnumerable<string> paths = Directory.GetFiles(FullPath, searchPattern, GetSearchOption(inAllDescendants));
             if (!inAllDescendants)
             {
@@ -162,26 +162,26 @@ namespace Neptuo.FileSystems
 
         public bool ContainsDirectoryName(string directoryName)
         {
-            Guard.NotNullOrEmpty(directoryName, "directoryName");
+            Ensure.NotNullOrEmpty(directoryName, "directoryName");
             return Directory.Exists(Path.Combine(FullPath, directoryName));
         }
 
         public bool ContainsFileName(string fileName)
         {
-            Guard.NotNullOrEmpty(fileName, "fileName");
+            Ensure.NotNullOrEmpty(fileName, "fileName");
             return File.Exists(Path.Combine(FullPath, fileName));
         }
 
         public Task<IDirectory> CreateDirectory(string directoryName)
         {
-            Guard.NotNullOrEmpty(directoryName, "directoryName");
+            Ensure.NotNullOrEmpty(directoryName, "directoryName");
             DirectoryInfo newDirectory = Directory.CreateDirectory(Path.Combine(FullPath, directoryName));
             return Task.FromResult<IDirectory>(new LocalDirectory(this, newDirectory.FullName));
         }
 
         public Task<IFile> CreateFile(string fileName)
         {
-            Guard.NotNullOrEmpty(fileName, "fileName");
+            Ensure.NotNullOrEmpty(fileName, "fileName");
             string filePath= Path.Combine(FullPath, fileName);
             File.Create(filePath).Dispose();
             return Task.FromResult<IFile>(new LocalFile(this, filePath));

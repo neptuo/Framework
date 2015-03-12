@@ -27,7 +27,7 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <param name="storage">Mapping between constracts and implementations.</param>
         protected MappingBehaviorProviderBase(Dictionary<Type, Type> storage)
         {
-            Guard.NotNull(storage, "storage");
+            Ensure.NotNull(storage, "storage");
             this.storage = storage;
         }
 
@@ -38,8 +38,8 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <param name="behaviorImplementation">Behavior implementation type.</param>
         protected void AddMappingInternal(Type behaviorContract, Type behaviorImplementation)
         {
-            Guard.NotNull(behaviorContract, "behaviorContract");
-            Guard.NotNull(behaviorImplementation, "behaviorImplementation");
+            Ensure.NotNull(behaviorContract, "behaviorContract");
+            Ensure.NotNull(behaviorImplementation, "behaviorImplementation");
             storage[behaviorContract] = behaviorImplementation;
         }
 
@@ -50,7 +50,7 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <returns>Enumeration of behavior implementations for <paramref name="handlerType"/>.</returns>
         public IEnumerable<Type> GetBehaviors(Type handlerType)
         {
-            Guard.NotNull(handlerType, "handlerType");
+            Ensure.NotNull(handlerType, "handlerType");
             return GetBehaviorInternal(handlerType, storage);
         }
 

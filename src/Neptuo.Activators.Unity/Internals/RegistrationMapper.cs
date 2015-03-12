@@ -25,8 +25,8 @@ namespace Neptuo.Activators.Internals
 
         public RegistrationMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
         {
-            Guard.NotNull(unityContainer, "unityContainer");
-            Guard.NotNullOrEmpty(scopeName, "scopeName");
+            Ensure.NotNull(unityContainer, "unityContainer");
+            Ensure.NotNullOrEmpty(scopeName, "scopeName");
             this.unityContainer = unityContainer;
             this.scopeName = scopeName;
 
@@ -77,7 +77,7 @@ namespace Neptuo.Activators.Internals
                 return new HierarchicalLifetimeManager();
 
             // Not supported lifetime.
-            throw Guard.Exception.NotSupported(lifetime.ToString());
+            throw Ensure.Exception.NotSupported(lifetime.ToString());
         }
 
         //TODO: Implement using registered features...
@@ -108,7 +108,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // Nothing else is supported.
-            throw Guard.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
+            throw Ensure.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
         }
     }
 }

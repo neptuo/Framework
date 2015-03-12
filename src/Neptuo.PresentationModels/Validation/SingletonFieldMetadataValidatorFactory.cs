@@ -22,7 +22,7 @@ namespace Neptuo.PresentationModels.Validators
         /// <param name="validator">Field validator instance.</param>
         public SingletonFieldMetadataValidatorFactory(IFieldMetadataValidator validator)
         {
-            Guard.NotNull(validator, "validator");
+            Ensure.NotNull(validator, "validator");
             Validator = validator;
         }
 

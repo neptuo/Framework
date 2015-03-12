@@ -60,7 +60,7 @@ namespace Neptuo.FileSystems
         /// <param name="fullPath">Standard file system path to file.</param>
         internal LocalFile(string fullPath)
         {
-            Guard.NotNullOrEmpty(fullPath, "fullPath");
+            Ensure.NotNullOrEmpty(fullPath, "fullPath");
             key = LocalFileSystemKey.Create(fullPath, "LocalFile");
             SetFileRelatedProperties(fullPath);
         }
@@ -73,7 +73,7 @@ namespace Neptuo.FileSystems
         internal LocalFile(IDirectory parent, string fullPath)
             : this(fullPath)
         {
-            Guard.NotNull(parent, "parent");
+            Ensure.NotNull(parent, "parent");
             Parent = parent;
         }
 
@@ -84,7 +84,7 @@ namespace Neptuo.FileSystems
         private void SetFileRelatedProperties(string fullPath)
         {
             if (!File.Exists(fullPath))
-                throw Guard.Exception.Argument("fullPath", "Provided path must be existing file.");
+                throw Ensure.Exception.Argument("fullPath", "Provided path must be existing file.");
 
             FullPath = fullPath;
             Name = Path.GetFileNameWithoutExtension(fullPath);

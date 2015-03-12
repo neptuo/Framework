@@ -21,7 +21,7 @@ namespace Neptuo.Pipelines.Replying
         /// <param name="dependencyProvider">Source for registrations.</param>
         public DependencyRequestDispatcher(IDependencyProvider dependencyProvider)
         {
-            Guard.NotNull(dependencyProvider, "dependencyProvider");
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 

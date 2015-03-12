@@ -20,17 +20,17 @@ namespace Neptuo.Activators
     }
 
     /// <summary>
-    /// Activator for <typeparamref name="TOutput"/> with posibility to use parameters for inicialization.
+    /// Activator for <typeparamref name="T"/> with posibility to use parameters for inicialization.
     /// </summary>
-    /// <typeparam name="TOutput">Type of service to create.</typeparam>
-    /// <typeparam name="TInput">Type of context for activation.</typeparam>
-    public interface IActivator<out TOutput, in TInput>
+    /// <typeparam name="T">Type of service to create.</typeparam>
+    /// <typeparam name="TContext">Type of context for activation.</typeparam>
+    public interface IActivator<out T, in TContext>
     {
         /// <summary>
-        /// Creates service of type <typeparamref name="TOutput"/> with posibility to use <paramref name="context"/> for inicialization.
+        /// Creates service of type <typeparamref name="T"/> with posibility to use <paramref name="context"/> for inicialization.
         /// </summary>
         /// <param name="context">Activation context.</param>
-        /// <returns>Service of type <typeparamref name="TOutput"/>.</returns>
-        TOutput Create(TInput context);
+        /// <returns>Service of type <typeparamref name="T"/>.</returns>
+        T Create(TContext context);
     }
 }

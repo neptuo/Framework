@@ -14,7 +14,7 @@ namespace Neptuo.ComponentModel
 
         protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Guard.NotNull(propertyName, "propertyName");
+            Ensure.NotNull(propertyName, "propertyName");
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }

@@ -21,7 +21,7 @@ namespace Neptuo.AppServices
         /// <param name="service">Root service to manage by this container.</param>
         public DefaultServiceContainer(IServiceHandler service)
         {
-            Guard.NotNull(service, "service");
+            Ensure.NotNull(service, "service");
             this.service = service;
         }
 

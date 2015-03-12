@@ -14,8 +14,8 @@ namespace Neptuo.Bootstrap.Dependencies.Providers.Targets
 
         public ExportAttributeTarget(PropertyInfo propertyInfo, ExportAttribute attribute)
         {
-            Guard.NotNull(propertyInfo, "propertyInfo");
-            Guard.NotNull(attribute, "attribute");
+            Ensure.NotNull(propertyInfo, "propertyInfo");
+            Ensure.NotNull(attribute, "attribute");
             Type = propertyInfo.PropertyType;
             Name = attribute.Name;
         }

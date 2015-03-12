@@ -21,7 +21,7 @@ namespace Neptuo.Activators
         /// <param name="instance">Singleton object.</param>
         public InstanceActivator(T instance)
         {
-            Guard.NotNull(instance, "instance");
+            Ensure.NotNull(instance, "instance");
             this.instance = instance;
         }
 
@@ -31,7 +31,7 @@ namespace Neptuo.Activators
         /// <param name="instanceGetter">Function to access singleton object.</param>
         public InstanceActivator(Func<T> instanceGetter)
         {
-            Guard.NotNull(instanceGetter, "instanceGetter");
+            Ensure.NotNull(instanceGetter, "instanceGetter");
             this.instanceGetter = instanceGetter;
         }
 

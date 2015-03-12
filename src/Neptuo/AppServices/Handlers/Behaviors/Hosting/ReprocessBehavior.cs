@@ -44,7 +44,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting
         /// <param name="deplayBeforeReprocess">Time to wait before starting reprocess.</param>
         public ReprocessBehavior(int count, TimeSpan deplayBeforeReprocess)
         {
-            Guard.PositiveOrZero(count, "count");
+            Ensure.PositiveOrZero(count, "count");
             this.count = count;
             this.deplayBeforeReprocess = deplayBeforeReprocess;
         }

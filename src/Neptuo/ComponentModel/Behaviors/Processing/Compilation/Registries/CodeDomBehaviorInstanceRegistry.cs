@@ -20,8 +20,8 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// </summary>
         public CodeDomBehaviorInstanceRegistry AddGenerator(Type behaviorType, ICodeDomBehaviorInstanceGenerator generator)
         {
-            Guard.NotNull(behaviorType, "behaviorType");
-            Guard.NotNull(generator, "generator");
+            Ensure.NotNull(behaviorType, "behaviorType");
+            Ensure.NotNull(generator, "generator");
             storage[behaviorType] = generator;
             return this;
         }
@@ -33,7 +33,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="searchHandler">Generator provider method.</param>
         public CodeDomBehaviorInstanceRegistry AddSearchHandler(Func<Type, ICodeDomBehaviorInstanceGenerator> searchHandler)
         {
-            Guard.NotNull(searchHandler, "searchHandler");
+            Ensure.NotNull(searchHandler, "searchHandler");
             onSearchBuilder.Add(searchHandler);
             return this;
         }

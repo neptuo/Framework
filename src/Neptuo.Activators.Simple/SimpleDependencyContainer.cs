@@ -32,9 +32,9 @@ namespace Neptuo.Activators
 
         private SimpleDependencyContainer(string scopeName, DependencyRegistry registry, InstanceStorage instances)
         {
-            Guard.NotNullOrEmpty(scopeName, "scopeName");
-            Guard.NotNull(registry, "registry");
-            Guard.NotNull(instances, "instances");
+            Ensure.NotNullOrEmpty(scopeName, "scopeName");
+            Ensure.NotNull(registry, "registry");
+            Ensure.NotNull(instances, "instances");
             this.scopeName = scopeName;
             this.registry = registry;
             this.instances = instances;
@@ -84,7 +84,7 @@ namespace Neptuo.Activators
             }
 
             // Nothing else is supported.
-            throw Guard.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
+            throw Ensure.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
         }
 
         public IDependencyContainer Scope(string scopeName)
@@ -149,7 +149,7 @@ namespace Neptuo.Activators
 
         private object CreateInstance(ConstructorInfo constructorInfo)
         {
-            Guard.NotNull(constructorInfo, "constructorInfo");
+            Ensure.NotNull(constructorInfo, "constructorInfo");
 
             object instance;
             ParameterInfo[] parameterDefinitions = constructorInfo.GetParameters();

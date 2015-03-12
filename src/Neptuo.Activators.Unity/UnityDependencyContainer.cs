@@ -39,12 +39,12 @@ namespace Neptuo.Activators
 
         private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
         {
-            Guard.NotNull(unityContainer, "unityContainer");
+            Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
             this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
 
-            unityContainer.RegisterInstance<IDependencyProvider>(this);
-            unityContainer.RegisterInstance<IDependencyContainer>(this);
+            unityContainer.RegisterInstance<IDependencyProvider>(this, new ExternallyControlledLifetimeManager());
+            unityContainer.RegisterInstance<IDependencyContainer>(this, new ExternallyControlledLifetimeManager());
         }
 
         public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)

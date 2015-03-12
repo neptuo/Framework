@@ -43,7 +43,6 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="XmlDocumentExtensions.cs" />
     <Compile Include="XmlElementExtensions.cs" />
-    <Compile Include="XmlElementStringValueProvider.cs" />
     <Compile Include="XmlNodeListExtensions.cs" />
     <Compile Include="XmlHelper.cs" />
   </ItemGroup>

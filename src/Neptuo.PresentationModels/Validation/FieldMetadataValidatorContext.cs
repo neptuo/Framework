@@ -17,9 +17,9 @@ namespace Neptuo.PresentationModels.Validators
 
         public FieldMetadataValidatorContext(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder)
         {
-            Guard.NotNull(fieldDefinition, "fieldDefinition");
-            Guard.NotNull(getter, "getter");
-            Guard.NotNull(resultBuilder, "resultBuilder");
+            Ensure.NotNull(fieldDefinition, "fieldDefinition");
+            Ensure.NotNull(getter, "getter");
+            Ensure.NotNull(resultBuilder, "resultBuilder");
             FieldDefinition = fieldDefinition;
             Getter = getter;
             ResultBuilder = resultBuilder;

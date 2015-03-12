@@ -15,7 +15,7 @@ namespace Neptuo.Pipelines.Commands.Interception
     {
         public IEnumerable<IDecoratedInvoke> GetInterceptors(object commandHandler, object command, MethodInfo commandHandlerMethod)
         {
-            Guard.NotNull(commandHandler, "commandHandler");
+            Ensure.NotNull(commandHandler, "commandHandler");
             List<IDecoratedInvoke> result = new List<IDecoratedInvoke>();
             AppendInterceptors(commandHandler.GetType(), result);
             AppendInterceptors(commandHandlerMethod, result);

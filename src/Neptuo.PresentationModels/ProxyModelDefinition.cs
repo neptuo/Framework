@@ -23,7 +23,7 @@ namespace Neptuo.PresentationModels
         public ProxyModelDefinition(IModelDefinition modelDefinition)
             : base()
         {
-            Guard.NotNull(modelDefinition, "modelDefinition");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
         }
 

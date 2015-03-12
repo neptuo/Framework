@@ -15,7 +15,7 @@ namespace Neptuo.Bootstrap.Constraints.Providers
 
         public AttributeConstraintProvider(Func<Type, IBootstrapConstraint> factory)
         {
-            Guard.NotNull(factory, "factory");
+            Ensure.NotNull(factory, "factory");
             this.factory = factory;
         }
 

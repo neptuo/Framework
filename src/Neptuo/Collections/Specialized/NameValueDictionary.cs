@@ -32,22 +32,22 @@ namespace Neptuo.Collections.Specialized
         /// <param name="source">Source values collection</param>
         public NameValueDictionary(NameValueCollection source)
         {
-            Guard.NotNull(source, "source");
+            Ensure.NotNull(source, "source");
             this.source = source;
         }
 
         public void Add(string key, string value)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             if (ContainsKey(key))
-                throw Guard.Exception.Argument("key", "Collection already contains it with key '{0}'.", key);
+                throw Ensure.Exception.Argument("key", "Collection already contains it with key '{0}'.", key);
 
             source[key] = value;
         }
 
         public bool ContainsKey(string key)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             return source.AllKeys.Contains(key);
         }
 
@@ -58,7 +58,7 @@ namespace Neptuo.Collections.Specialized
 
         public bool Remove(string key)
         {
-            Guard.NotNull(key, "key");
+            Ensure.NotNull(key, "key");
             if (ContainsKey(key))
             {
                 source.Remove(key);
@@ -98,19 +98,19 @@ namespace Neptuo.Collections.Specialized
         {
             get
             {
-                Guard.NotNullOrEmpty(key, "key");
+                Ensure.NotNullOrEmpty(key, "key");
                 return source[key];
             }
             set
             {
-                Guard.NotNull(key, "key");
+                Ensure.NotNull(key, "key");
                 source[key] = value;
             }
         }
 
         public void Add(KeyValuePair<string, string> item)
         {
-            Guard.NotNull(item, "item");
+            Ensure.NotNull(item, "item");
             Add(item.Key, item.Value);
         }
 
@@ -121,7 +121,7 @@ namespace Neptuo.Collections.Specialized
 
         public bool Contains(KeyValuePair<string, string> item)
         {
-            Guard.NotNull(item, "item");
+            Ensure.NotNull(item, "item");
 
             string value;
             if (TryGetValue(item.Key, out value))
@@ -132,7 +132,7 @@ namespace Neptuo.Collections.Specialized
 
         public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex)
         {
-            throw Guard.Exception.NotImplemented();
+            throw Ensure.Exception.NotImplemented();
         }
 
         public int Count
