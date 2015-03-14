@@ -11,13 +11,19 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
     /// </summary>
     public class AttributeBehaviorProvider : MappingBehaviorProviderBase
     {
-        public AttributeBehaviorProvider AddMapping(Type behaviorContract, Type behaviorImplementation)
+        public AttributeBehaviorProvider AddMapping(Type behaviorAttribute, Type behaviorImplementation)
         {
-            AddMappingInternal(behaviorContract, behaviorImplementation);
+            InsertOrUpdateMappingInternal(null, behaviorAttribute, behaviorImplementation);
             return this;
         }
 
-        protected override IEnumerable<Type> FindBehaviors(Type handlerType)
+        public AttributeBehaviorProvider InsertMapping(int index, Type behaviorAttribute, Type behaviorImplementation)
+        {
+            InsertOrUpdateMappingInternal(index, behaviorAttribute, behaviorImplementation);
+            return this;
+        }
+
+        protected override IEnumerable<Type> FindBehaviorContracts(Type handlerType)
         {
             return handlerType.GetCustomAttributes(true).Select(a => a.GetType());
         }

@@ -47,9 +47,9 @@ namespace TestConsole
             //TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
-            //TestBehaviors.Test();
+            TestBehaviors.Test();
             //TestObjectSize.Test();
-            TestSharpKitCompiler.Test();
+            //TestSharpKitCompiler.Test();
 
             Console.ReadKey(true);
         }

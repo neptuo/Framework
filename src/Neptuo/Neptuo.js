@@ -2472,11 +2472,15 @@ var Neptuo$ComponentModel$Behaviors$Providers$AttributeBehaviorProvider = {
         ctor: function (){
             Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.ctor.call(this);
         },
-        AddMapping: function (behaviorContract, behaviorImplementation){
-            this.AddMappingInternal(behaviorContract, behaviorImplementation);
+        AddMapping: function (behaviorAttribute, behaviorImplementation){
+            this.InsertOrUpdateMappingInternal(null, behaviorAttribute, behaviorImplementation);
             return this;
         },
-        FindBehaviors: function (handlerType){
+        InsertMapping: function (index, behaviorAttribute, behaviorImplementation){
+            this.InsertOrUpdateMappingInternal(index, behaviorAttribute, behaviorImplementation);
+            return this;
+        },
+        FindBehaviorContracts: function (handlerType){
             return System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.Object.ctor, System.Type.ctor, handlerType.GetCustomAttributes$$Boolean(true), $CreateAnonymousDelegate(this, function (a){
                 return a.GetType();
             }));
@@ -2515,42 +2519,37 @@ var Neptuo$ComponentModel$Behaviors$Providers$InterfaceBehaviorProvider = {
             this.AddMapping(behaviorContract, behaviorImplementation);
         },
         AddMapping: function (behaviorContract, behaviorImplementation){
-            Neptuo.Ensure.NotNull$$Object$$String(behaviorContract, "behaviorContract");
-            Neptuo.Ensure.NotNull$$Object$$String(behaviorImplementation, "behaviorImplementation");
-            Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.commonPrototype.AddMappingInternal.call(this, behaviorContract, behaviorImplementation);
+            Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.commonPrototype.InsertOrUpdateMappingInternal.call(this, null, behaviorContract, behaviorImplementation);
+            return this;
+        },
+        InsertMapping: function (index, behaviorContract, behaviorImplementation){
+            Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.commonPrototype.InsertOrUpdateMappingInternal.call(this, index, behaviorContract, behaviorImplementation);
             return this;
         },
         GetBehaviorInternal: function (handlerType, storage){
-            var $yield = [];
-            var behaviorImplementation;
-            var $it20 = handlerType.GetInterfaces().GetEnumerator();
+            var result = new System.Collections.Generic.List$1.ctor(System.Type.ctor);
+            var usedInterfaces = handlerType.GetInterfaces();
+            var $it20 = storage.GetEnumerator();
             while ($it20.MoveNext()){
-                var interfaceType = $it20.get_Current();
-                if ((function (){
-                    var $1 = {
-                        Value: behaviorImplementation
-                    };
-                    var $res = storage.TryGetValue(interfaceType, $1);
-                    behaviorImplementation = $1.Value;
-                    return $res;
-                }).call(this))
-                    $yield.push(behaviorImplementation);
-                if (interfaceType.get_IsGenericType()){
-                    if ((function (){
-                        var $1 = {
-                            Value: behaviorImplementation
-                        };
-                        var $res = storage.TryGetValue(interfaceType.GetGenericTypeDefinition(), $1);
-                        behaviorImplementation = $1.Value;
-                        return $res;
-                    }).call(this)){
-                        if (behaviorImplementation.get_IsGenericType())
-                            behaviorImplementation = behaviorImplementation.MakeGenericType(interfaceType.GetGenericArguments());
-                        $yield.push(behaviorImplementation);
-                    }
+                var model = $it20.get_Current();
+                if (System.Linq.Enumerable.Contains$1$$IEnumerable$1$$TSource(System.Type.ctor, usedInterfaces, model.get_Contract())){
+                    result.Add(model.get_Implementation());
+                }
+                else if (model.get_Contract().get_IsGenericType()){
+                    var usedGeneric = System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(System.Type.ctor, System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(System.Type.ctor, usedInterfaces, $CreateAnonymousDelegate(this, function (i){
+                        return i.get_IsGenericType();
+                    })), $CreateAnonymousDelegate(this, function (i){
+                        return System.Type.op_Equality$$Type$$Type(i.GetGenericTypeDefinition(), model.get_Contract().GetGenericTypeDefinition());
+                    }));
+                    if (model.get_Implementation().get_IsGenericType())
+                        result.AddRange(System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.Type.ctor, System.Type.ctor, usedGeneric, $CreateAnonymousDelegate(this, function (i){
+                            return model.get_Implementation().MakeGenericType(i.GetGenericArguments());
+                        })));
+                    else if (System.Linq.Enumerable.Any$1$$IEnumerable$1(System.Type.ctor, usedGeneric))
+                        result.Add(model.get_Implementation());
                 }
             }
-            return $yield;
+            return result;
         }
     },
     ctors: [{
@@ -2571,6 +2570,10 @@ var Neptuo$ComponentModel$Behaviors$Providers$_InterfaceBehaviorProviderExtensio
         AddMapping$2: function (TBehaviorContract, TBehaviorImplementation, provider){
             Neptuo.Ensure.NotNull$$Object$$String(provider, "provider");
             return provider.AddMapping(Typeof(TBehaviorContract), Typeof(TBehaviorImplementation));
+        },
+        InsertMapping$2: function (TBehaviorContract, TBehaviorImplementation, provider, index){
+            Neptuo.Ensure.NotNull$$Object$$String(provider, "provider");
+            return provider.InsertMapping(index, Typeof(TBehaviorContract), Typeof(TBehaviorImplementation));
         }
     },
     assemblyName: "Neptuo",
@@ -2593,18 +2596,22 @@ var Neptuo$ComponentModel$Behaviors$Providers$MappingBehaviorProviderBase = {
     definition: {
         ctor: function (){
             this.storage = null;
-            Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.ctor$$Dictionary$2$Type$Type.call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Type.ctor));
-        },
-        ctor$$Dictionary$2$Type$Type: function (storage){
-            this.storage = null;
             System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(storage, "storage");
-            this.storage = storage;
+            this.storage = new System.Collections.Generic.List$1.ctor(Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel.ctor);
         },
-        AddMappingInternal: function (behaviorContract, behaviorImplementation){
+        InsertOrUpdateMappingInternal: function (index, behaviorContract, behaviorImplementation){
             Neptuo.Ensure.NotNull$$Object$$String(behaviorContract, "behaviorContract");
             Neptuo.Ensure.NotNull$$Object$$String(behaviorImplementation, "behaviorImplementation");
-            this.storage.set_Item$$TKey(behaviorContract, behaviorImplementation);
+            var model = System.Linq.Enumerable.FirstOrDefault$1$$IEnumerable$1$$Func$2(Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel.ctor, this.storage, $CreateAnonymousDelegate(this, function (m){
+                return System.Type.op_Equality$$Type$$Type(m.get_Contract(), behaviorContract);
+            }));
+            if (model != null)
+                this.storage.Remove(model);
+            model = new Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel.ctor(behaviorContract, behaviorImplementation);
+            if (index != null)
+                this.storage.Insert(index.get_Value(), model);
+            else
+                this.storage.Add(model);
         },
         GetBehaviors: function (handlerType){
             Neptuo.Ensure.NotNull$$Object$$String(handlerType, "handlerType");
@@ -2612,34 +2619,74 @@ var Neptuo$ComponentModel$Behaviors$Providers$MappingBehaviorProviderBase = {
         },
         GetBehaviorInternal: function (handlerType, storage){
             var behaviors = new System.Collections.Generic.List$1.ctor(System.Type.ctor);
-            var behaviorContracts = this.FindBehaviors(handlerType);
-            var behaviorImplementations = System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(System.Type.ctor, System.Type.ctor, System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(System.Type.ctor, behaviorContracts, $CreateAnonymousDelegate(this, function (b){
-                return storage.ContainsKey(b);
-            })), $CreateAnonymousDelegate(this, function (b){
-                return storage.get_Item$$TKey(b);
+            var behaviorContracts = this.FindBehaviorContracts(handlerType);
+            var behaviorImplementations = System.Linq.Enumerable.Select$2$$IEnumerable$1$$Func$2(Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel.ctor, System.Type.ctor, System.Linq.Enumerable.Where$1$$IEnumerable$1$$Func$2(Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel.ctor, storage, $CreateAnonymousDelegate(this, function (m){
+                return System.Linq.Enumerable.Contains$1$$IEnumerable$1$$TSource(System.Type.ctor, behaviorContracts, m.get_Contract());
+            })), $CreateAnonymousDelegate(this, function (m){
+                return m.get_Implementation();
             }));
             return behaviorImplementations;
         },
-        FindBehaviors: function (handlerType){
+        FindBehaviorContracts: function (handlerType){
             return System.Linq.Enumerable.Empty$1(System.Type.ctor);
         }
     },
     ctors: [{
         name: "ctor",
         parameters: []
-    }, {
-        name: "ctor$$Dictionary",
-        parameters: ["System.Collections.Generic.Dictionary"]
     }
     ],
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Behaviors$Providers$MappingBehaviorProviderBase);
+var Neptuo$ComponentModel$Behaviors$Providers$MappingBehaviorProviderBase$BehaviorMappingModel = {
+    fullname: "Neptuo.ComponentModel.Behaviors.Providers.MappingBehaviorProviderBase.BehaviorMappingModel",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (contract, implementation){
+            this._Contract = null;
+            this._Implementation = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(contract, "contract");
+            Neptuo.Ensure.NotNull$$Object$$String(implementation, "implementation");
+            this.set_Contract(contract);
+            this.set_Implementation(implementation);
+        },
+        Contract$$: "System.Type",
+        get_Contract: function (){
+            return this._Contract;
+        },
+        set_Contract: function (value){
+            this._Contract = value;
+        },
+        Implementation$$: "System.Type",
+        get_Implementation: function (){
+            return this._Implementation;
+        },
+        set_Implementation: function (value){
+            this._Implementation = value;
+        },
+        UpdateImplementation: function (implementation){
+            Neptuo.Ensure.NotNull$$Object$$String(implementation, "implementation");
+            this.set_Implementation(implementation);
+            return this;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Type", "System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Behaviors$Providers$MappingBehaviorProviderBase$BehaviorMappingModel);
 var Neptuo$ComponentModel$Behaviors$Providers$_BehaviorCollectionExtensions = {
     fullname: "Neptuo.ComponentModel.Behaviors.Providers._BehaviorCollectionExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        Add$2: function (TContract, TImplementation, collection){
+        AddInterface$2: function (TContract, TImplementation, collection){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(new Neptuo.ComponentModel.Behaviors.Providers.InterfaceBehaviorProvider.ctor$$Type$$Type(Typeof(TContract), Typeof(TImplementation)));
             return collection;

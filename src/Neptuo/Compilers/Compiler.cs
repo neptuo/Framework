@@ -32,6 +32,9 @@ namespace Neptuo.Compilers
             Ensure.NotNullOrEmpty(sourceCode, "sourceCode");
             Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
 
+            if(Configuration.IsDebugMode())
+                File.WriteAllText(Path.ChangeExtension(assemblyFile, ".cs"), sourceCode);
+
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromSource(compilerParameters, sourceCode);
             return ProcessCompilerResults(compilerResults);
@@ -54,6 +57,15 @@ namespace Neptuo.Compilers
         {
             Ensure.NotNull(unit, "unit");
             Ensure.NotNullOrEmpty(assemblyFile, "assemblyFile");
+
+            if (Configuration.IsDebugMode())
+            {
+                using (StringWriter writer = new StringWriter())
+                {
+                    provider.GenerateCodeFromCompileUnit(unit, writer, new CodeGeneratorOptions());
+                    File.WriteAllText(Path.ChangeExtension(assemblyFile, ".cs"), writer.ToString());
+                }
+            }
 
             CompilerParameters compilerParameters = PrepareCompilerParameters(assemblyFile);
             CompilerResults compilerResults = provider.CompileAssemblyFromDom(compilerParameters, unit);
@@ -112,7 +124,7 @@ namespace Neptuo.Compilers
 
             SetupDebugMode(compilerParameters);
             CopyReferences(compilerParameters);
-            SetupOutputAseembly(compilerParameters, assemblyFile);
+            SetupOutputAssembly(compilerParameters, assemblyFile);
             return compilerParameters;
         }
 
@@ -137,7 +149,7 @@ namespace Neptuo.Compilers
                 compilerParameters.ReferencedAssemblies.Add(referencedAssembly);
         }
 
-        private void SetupOutputAseembly(CompilerParameters compilerParameters, string assemblyFile)
+        private void SetupOutputAssembly(CompilerParameters compilerParameters, string assemblyFile)
         {
             if (!String.IsNullOrEmpty(assemblyFile))
                 compilerParameters.OutputAssembly = assemblyFile;

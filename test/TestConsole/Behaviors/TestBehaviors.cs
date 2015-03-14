@@ -18,11 +18,22 @@ namespace TestConsole.Behaviors
         public static void Test()
         {
             // Map behaviors.
+            InterfaceBehaviorProvider behaviorProvider = new InterfaceBehaviorProvider();
+            behaviorProvider
+                .AddMapping<I1, Ti1>()
+                .InsertMapping<I2, Ti2>(0)
+                .InsertMapping(0, typeof(I3<,>), typeof(Ti3<,>))
+                .AddMapping(typeof(I4<>), typeof(Ti4));
+
             IBehaviorCollection behaviorCollection = new BehaviorProviderCollection()
+                .Add(behaviorProvider)
                 .Add(
                     new AttributeBehaviorProvider()
                         .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
+
+            IEnumerable<Type> behaviors = behaviorCollection.GetBehaviors(typeof(Test));
+            Console.WriteLine("Number of behaviors for Test class '{0}'.", behaviors.Count());
 
             // Create reflection providers.
             IReflectionBehaviorInstanceProvider behaviorInstance = new ReflectionBehaviorInstanceRegistry()
@@ -30,9 +41,12 @@ namespace TestConsole.Behaviors
 
             // Invoke pipeline.
             MethodInvokePipeline<HelloService, string> pipeline = new MethodInvokePipeline<HelloService, string>(behaviorCollection, behaviorInstance, "SayHello");
-            pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine(message.Result));
+            pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine("Method result: '{0}'.", message.Result));
         }
     }
+
+    public class Test : I1, I2, I3<string, string>, I3<int, int>, I4<string>, I4<int>
+    { }
 
     [Reprocess(2, 5000)]
     public class HelloService
@@ -48,6 +62,50 @@ namespace TestConsole.Behaviors
             }
             
             return "Hello!";
+        }
+    }
+
+    public interface I1
+    { }
+
+    public class Ti1 : IBehavior<I1>
+    {
+        public Task ExecuteAsync(I1 handler, IBehaviorContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface I2
+    { }
+
+    public class Ti2 : IBehavior<I2>
+    {
+        public Task ExecuteAsync(I2 handler, IBehaviorContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface I3<T1, T2>
+    { }
+
+    public class Ti3<T1, T2> : IBehavior<I3<T1, T2>>
+    {
+        public Task ExecuteAsync(I3<T1, T2> handler, IBehaviorContext context)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public interface I4<T1>
+    { }
+
+    public class Ti4 : IBehavior<object>
+    {
+        public Task ExecuteAsync(object handler, IBehaviorContext context)
+        {
+            throw new NotImplementedException();
         }
     }
 }

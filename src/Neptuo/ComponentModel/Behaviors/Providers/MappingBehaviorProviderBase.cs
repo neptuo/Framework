@@ -12,35 +12,37 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
     /// </summary>
     public abstract class MappingBehaviorProviderBase : IBehaviorProvider
     {
-        private Dictionary<Type, Type> storage;
+        private List<BehaviorMappingModel> storage;
 
         /// <summary>
         /// Creates new instance with empty mappings.
         /// </summary>
         protected MappingBehaviorProviderBase()
-            : this(new Dictionary<Type, Type>())
-        { }
-
-        /// <summary>
-        /// Creates new instance from <paramref name="storage"/>.
-        /// </summary>
-        /// <param name="storage">Mapping between constracts and implementations.</param>
-        protected MappingBehaviorProviderBase(Dictionary<Type, Type> storage)
         {
-            Ensure.NotNull(storage, "storage");
-            this.storage = storage;
+            storage = new List<BehaviorMappingModel>();
         }
 
         /// <summary>
-        /// Maps <paramref name="behaviorContract"/> to implementation <paramref name="behaviorImplementation"/>.
+        /// If uderlaying storage doesn't contain <paramref name="behaviorContract"/>, new mapping is inserted at index <paramref name="index"/>;
+        /// otherwise existing registration is updated and re-inserted at <paramref name="index"/>.
         /// </summary>
-        /// <param name="behaviorContract">Behavior definition type.</param>
+        /// <param name="index">Intex to insert mapping at (if <c>null</c>, mapping will be insterted at last index).</param>
+        /// <param name="behaviorContract">Behavior contract type.</param>
         /// <param name="behaviorImplementation">Behavior implementation type.</param>
-        protected void AddMappingInternal(Type behaviorContract, Type behaviorImplementation)
+        protected void InsertOrUpdateMappingInternal(int? index, Type behaviorContract, Type behaviorImplementation)
         {
             Ensure.NotNull(behaviorContract, "behaviorContract");
             Ensure.NotNull(behaviorImplementation, "behaviorImplementation");
-            storage[behaviorContract] = behaviorImplementation;
+
+            BehaviorMappingModel model = storage.FirstOrDefault(m => m.Contract == behaviorContract);
+            if (model != null)
+                storage.Remove(model);
+
+            model = new BehaviorMappingModel(behaviorContract, behaviorImplementation);
+            if (index != null)
+                storage.Insert(index.Value, model);
+            else
+                storage.Add(model);
         }
 
         /// <summary>
@@ -55,19 +57,19 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         }
 
         /// <summary>
-        /// Calls <see cref="MappingBehaviorProviderBase.FindBehaviors"/> and than enumerates registrations for finding implementations.
-        /// If result of <see cref="MappingBehaviorProviderBase.FindBehaviors"/> contains any unregistered behavior, these will be skipped.
+        /// Calls <see cref="MappingBehaviorProviderBase.FindBehaviorContracts"/> and than enumerates registrations for finding implementations.
+        /// If result of <see cref="MappingBehaviorProviderBase.FindBehaviorContracts"/> contains any unregistered behavior, these will be skipped.
         /// </summary>
         /// <param name="handlerType">Service handler type.</param>
         /// <param name="storage">Behavior mapping registrations.</param>
         /// <returns>Enumeration of behavior implementations for <paramref name="handlerType"/>.</returns>
-        protected virtual IEnumerable<Type> GetBehaviorInternal(Type handlerType, Dictionary<Type, Type> storage)
+        protected virtual IEnumerable<Type> GetBehaviorInternal(Type handlerType, List<BehaviorMappingModel> storage)
         {
             List<Type> behaviors = new List<Type>();
-            IEnumerable<Type> behaviorContracts = FindBehaviors(handlerType);
-            IEnumerable<Type> behaviorImplementations = behaviorContracts
-                .Where(b => storage.ContainsKey(b))
-                .Select(b => storage[b]);
+            IEnumerable<Type> behaviorContracts = FindBehaviorContracts(handlerType);
+            IEnumerable<Type> behaviorImplementations = storage
+                .Where(m => behaviorContracts.Contains(m.Contract))
+                .Select(m => m.Implementation);
 
             return behaviorImplementations;
         }
@@ -77,9 +79,50 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// </summary>
         /// <param name="handlerType">Service handler type.</param>
         /// <returns>List of behavior definition types for <paramref name="handlerType"/>.</returns>
-        protected virtual IEnumerable<Type> FindBehaviors(Type handlerType)
+        protected virtual IEnumerable<Type> FindBehaviorContracts(Type handlerType)
         {
             return Enumerable.Empty<Type>();
+        }
+
+        /// <summary>
+        /// Single mapping item.
+        /// </summary>
+        public class BehaviorMappingModel
+        {
+            /// <summary>
+            /// Behavior contract type.
+            /// </summary>
+            public Type Contract { get; private set; }
+
+            /// <summary>
+            /// Behavior implementation type.
+            /// </summary>
+            public Type Implementation { get; private set; }
+
+            /// <summary>
+            /// Creates new instance.
+            /// </summary>
+            /// <param name="contract">Behavior contract type.</param>
+            /// <param name="implementation">Behavior implementation type.</param>
+            public BehaviorMappingModel(Type contract, Type implementation)
+            {
+                Ensure.NotNull(contract, "contract");
+                Ensure.NotNull(implementation, "implementation");
+                Contract = contract;
+                Implementation = implementation;
+            }
+
+            /// <summary>
+            /// Updates implementation type to <paramref name="implementation"/>.
+            /// </summary>
+            /// <param name="implementation">Behavior implementation type.</param>
+            /// <returns>Self (for fluency).</returns>
+            public BehaviorMappingModel UpdateImplementation(Type implementation)
+            {
+                Ensure.NotNull(implementation, "implementation");
+                Implementation = implementation;
+                return this;
+            }
         }
     }
 }
