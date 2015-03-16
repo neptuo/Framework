@@ -17,6 +17,12 @@ namespace Neptuo
         private Dictionary<Type, Dictionary<string, object>> storage = new Dictionary<Type, Dictionary<string, object>>();
 
         /// <summary>
+        /// Invoked when service was not found.
+        /// Takes typeof requested service, should return <c>true</c> to indicate success; otherwise <c>false</c>.
+        /// </summary>
+        private OutFunc<Type, bool, object> onSearchService;
+
+        /// <summary>
         /// Registers <paramref name="service"/> (with optional <paramref name="name"/>) into environment.
         /// </summary>
         /// <typeparam name="T">Type of service.</typeparam>

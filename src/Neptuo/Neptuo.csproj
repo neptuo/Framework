@@ -132,7 +132,7 @@
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="FeatureModels\IFeatureModel.cs" />
-    <Compile Include="FeatureModels\MappingFeatureModel.cs" />
+    <Compile Include="FeatureModels\FeatureCollectionModel.cs" />
     <Compile Include="FeatureModels\ObjectFeatureModel.cs" />
     <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />

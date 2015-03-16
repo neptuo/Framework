@@ -10,7 +10,7 @@ namespace Neptuo.FeatureModels
     /// <summary>
     /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrent support.).
     /// </summary>
-    public class MappingFeatureModel : IFeatureModel
+    public class FeatureCollectionModel : IFeatureModel
     {
         private readonly IDictionary<Type, object> features;
 
@@ -20,7 +20,7 @@ namespace Neptuo.FeatureModels
         /// </summary>
         private OutFunc<Type, bool, object> onSearchFeature;
 
-        public MappingFeatureModel(bool isSingleThread)
+        public FeatureCollectionModel(bool isSingleThread)
         {
             if (isSingleThread)
                 features = new Dictionary<Type, object>();
@@ -28,13 +28,26 @@ namespace Neptuo.FeatureModels
                 features = new ConcurrentDictionary<Type, object>();
         }
 
-        public MappingFeatureModel(bool isSingleThread, IDictionary<Type, object> features)
+        public FeatureCollectionModel(bool isSingleThread, IDictionary<Type, object> features)
         {
             Ensure.NotNull(features, "features");
             if (isSingleThread)
                 this.features = new Dictionary<Type, object>(features);
             else
                 this.features = new ConcurrentDictionary<Type, object>(features);
+        }
+
+        /// <summary>
+        /// Adds feature to the collection.
+        /// </summary>
+        /// <param name="featureType">Tyoe if feature.</param>
+        /// <param name="feature">Feature instance.</param>
+        /// <returns>Self (for fluency).</returns>
+        public FeatureCollectionModel Add(Type featureType, object feature)
+        {
+            Ensure.NotNull(featureType, "featureType");
+            features[featureType] = feature;
+            return this;
         }
 
         /// <summary>

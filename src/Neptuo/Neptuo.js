@@ -3534,8 +3534,8 @@ var Neptuo$FeatureModels$IFeatureModel = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$FeatureModels$IFeatureModel);
-var Neptuo$FeatureModels$MappingFeatureModel = {
-    fullname: "Neptuo.FeatureModels.MappingFeatureModel",
+var Neptuo$FeatureModels$FeatureCollectionModel = {
+    fullname: "Neptuo.FeatureModels.FeatureCollectionModel",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.FeatureModels.IFeatureModel"],
@@ -3559,6 +3559,11 @@ var Neptuo$FeatureModels$MappingFeatureModel = {
                 this.features = new System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2(System.Type.ctor, System.Object.ctor, features);
             else
                 this.features = new System.Collections.Concurrent.ConcurrentDictionary$2.ctor$$IEnumerable$1(System.Type.ctor, System.Object.ctor, features);
+        },
+        Add: function (featureType, feature){
+            Neptuo.Ensure.NotNull$$Object$$String(featureType, "featureType");
+            this.features.set_Item$$TKey(featureType, feature);
+            return this;
         },
         AddSearchHandler: function (handler){
             Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
@@ -3609,7 +3614,7 @@ var Neptuo$FeatureModels$MappingFeatureModel = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$FeatureModels$MappingFeatureModel);
+JsTypes.push(Neptuo$FeatureModels$FeatureCollectionModel);
 var Neptuo$FeatureModels$ObjectFeatureModel = {
     fullname: "Neptuo.FeatureModels.ObjectFeatureModel",
     baseTypeName: "System.Object",
@@ -5554,6 +5559,7 @@ var Neptuo$EngineEnvironment = {
     definition: {
         ctor: function (){
             this.storage = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.Dictionary$2.ctor);
+            this.onSearchService = null;
             System.Object.ctor.call(this);
         },
         Use$1: function (T, service, name){
