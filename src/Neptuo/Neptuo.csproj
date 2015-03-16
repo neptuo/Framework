@@ -126,7 +126,9 @@
     <Compile Include="ComponentModel\ISourceLineInfo.cs" />
     <Compile Include="ComponentModel\ISourceRangeLineInfo.cs" />
     <Compile Include="ComponentModel\ObservableObject.cs" />
+    <Compile Include="ComponentModel\OutFuncCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
+    <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
@@ -134,6 +136,7 @@
     <Compile Include="FeatureModels\IFeatureModel.cs" />
     <Compile Include="FeatureModels\FeatureCollectionModel.cs" />
     <Compile Include="FeatureModels\ObjectFeatureModel.cs" />
+    <Compile Include="FeatureModels\_FeatureCollectionModelExtensions.cs" />
     <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
