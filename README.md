@@ -1,21 +1,24 @@
-# Common
-Common (shareable) features, extensions and classes.
+This repository contains base framework libraries which are used as mscorlib extensions.
 
-The main project is Neptuo, which is designed as System.dll extension. Here are features that can be used in most projects and, which is important, is doesn't reference any library other than System. Other mentionable projects are:
+* [Activators](./wiki/Activators)
+* [[AppServices|AppServices]]
+* [[Behaviors|Behaviors]]
+* [[Bootstrap|Bootstrap]] (Neptuo.Bootstrap)
+* [[Compilers|Compilers]]
+* [[Converters|Converters]]
+* [[DomainModels|DomainModels]]
+* [[FeatureModels|FeatureModels]]
+* [[FileSystems|FileSystems]]
+* [[Migrations|Migrations]] (Neptuo.Migrations)
+* [[Pipelines|Pipelines]]
+* [[PresentationModels|PresentationModels]] (Neptuo.PresentationModels)
+* [[StateMachines|StateMachines]]
+* [[Tokens|Tokens]]
 
-### Neptuo.Bootstrap
-Simple library for creating bootstrap classes and arranging application bootstrap.
+**Neptuo.dll**
 
-### Neptuo.PresentationModels
-Data model abstractions for presentation layer.
+Contracts and base implementations are typicaly placed in the Neptuo(.dll), so referencing this library makes most of them available. The design goal after that is quite simple
 
-### Neptuo.Commands and Neptuo.Queries
-This library provides abstraction over Command and Query segregation.
+> Neptuo.dll references only System a System.Core, so contracts and base implementations of everything that is reusable during application lifetime and doesn't required other references, can be placed here.
 
-### Neptuo.Migrations
-Simple library for creating and executing migrations.
-
-### Others
-Other projects contain some web stuff, some are designed to the [SharpKit](http://www.sharpkit.net) and much more.
-
-We are planning to split this repository and solution...
+For e.g. Bootstrap is required only when starting application, so this is separated into its own library/dll.
