@@ -11,7 +11,7 @@ namespace Neptuo.Tokens
     /// Default attributes are in <see cref="Token.DefaultAttributes"/> collection.
     /// Named attributes are in <see cref="Token.Attributes"/> collection.
     /// </summary>
-    public class Token : ISourceRangeLineInfo
+    public class Token : ILineRangeInfo
     {
         private readonly List<TokenAttribute> attributes;
         private readonly List<string> defaultAttributes;

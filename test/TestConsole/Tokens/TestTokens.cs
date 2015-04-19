@@ -43,7 +43,7 @@ as{ProductID ID=5} askdh aksjdh alskdj asldkj alskdj.";
             Console.WriteLine("---");
         }
 
-        static void PrintLineInfo(ISourceRangeLineInfo lineInfo)
+        static void PrintLineInfo(ILineRangeInfo lineInfo)
         {
             Console.WriteLine("{0}:{1} -> {2}:{3}", lineInfo.LineIndex, lineInfo.ColumnIndex, lineInfo.EndLineIndex, lineInfo.EndColumnIndex);
         }
