@@ -112,6 +112,7 @@
     <Compile Include="ComponentModel\Behaviors\Providers\_BehaviorCollectionExtensions.cs" />
     <Compile Include="ComponentModel\Converters\CollectionConverter.cs" />
     <Compile Include="ComponentModel\Converters\_ConverterRepositoryExtensions.cs" />
+    <Compile Include="ComponentModel\DefaultErrorModel.cs" />
     <Compile Include="ComponentModel\ErrorInfo.cs" />
     <Compile Include="ComponentModel\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
