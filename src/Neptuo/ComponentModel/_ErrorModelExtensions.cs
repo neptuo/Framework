@@ -30,7 +30,7 @@ namespace Neptuo.ComponentModel
         /// <param name="errorModel">Source error model.</param>
         /// <param name="lineInfo">Target output line info.</param>
         /// <returns><c>true</c> if <paramref name="errorModel"/> contains line info.</returns>
-        public static bool TryWithLineInfo(this IErrorModel errorModel, out ILineRangeInfo lineInfo)
+        public static bool TryWithLineRangeInfo(this IErrorModel errorModel, out ILineRangeInfo lineInfo)
         {
             Ensure.NotNull(errorModel, "errorModel");
             return errorModel.TryWith(out lineInfo);

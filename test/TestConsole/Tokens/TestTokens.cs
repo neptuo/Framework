@@ -1,4 +1,5 @@
 ﻿using Neptuo.ComponentModel;
+using Neptuo.ComponentModel.TextOffsets;
 using Neptuo.Tokens;
 using System;
 using System.Collections.Generic;
