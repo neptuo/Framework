@@ -34,7 +34,7 @@ namespace TestConsole
             //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
-            //TestPresentationModel.Test();
+            TestPresentationModels.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
             //TestEvents.Test();
@@ -47,7 +47,7 @@ namespace TestConsole
             //TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
-            TestBehaviors.Test();
+            //TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
 

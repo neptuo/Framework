@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +11,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// Base implementation for building <see cref="IModelDefinition"/>.
     /// </summary>
-    public abstract class ModelDefinitionBuilderBase : IModelDefinitionBuilder
+    public abstract class ModelDefinitionBuilderBase : IActivator<IModelDefinition>
     {
         /// <summary>
         /// Provides model identifier.
@@ -27,13 +29,13 @@ namespace Neptuo.PresentationModels
         /// Provides model metadata.
         /// </summary>
         /// <returns>Model metadata.</returns>
-        protected abstract IModelMetadataCollection BuildModelMetadata();
+        protected abstract IKeyValueCollection BuildModelMetadata();
 
         /// <summary>
         /// Builds model definition using <see cref="ModelDefinition"/>.
         /// </summary>
         /// <returns>Model definition.</returns>
-        public IModelDefinition Build()
+        public IModelDefinition Create()
         {
             return new ModelDefinition(BuildModelIdentifier(), BuildFieldDefinitions(), BuildModelMetadata());
         }

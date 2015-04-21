@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,11 +20,11 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Field type.
         /// </summary>
-        IFieldType FieldType { get; }
+        Type FieldType { get; }
 
         /// <summary>
         /// Collection of provided meta data values.
         /// </summary>
-        IFieldMetadataCollection Metadata { get; }
+        IReadOnlyKeyValueCollection Metadata { get; }
     }
 }

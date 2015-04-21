@@ -24,7 +24,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// Provides extensions for reading values from <see cref="IModelValueGetter"/>
     /// </summary>
-    public static class ModelValueGetterExtensions
+    public static class _ModelValueGetterExtensions
     {
         /// <summary>
         /// Reads value from <paramref name="getter"/> with <paramref name="identifier"/> and if this can't be provided, returns <paramref name="defaultValue"/>.

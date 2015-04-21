@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,13 +22,13 @@ namespace Neptuo.PresentationModels
         /// Provides field type.
         /// </summary>
         /// <returns>Field type.</returns>
-        protected abstract IFieldType BuildFieldType();
+        protected abstract Type BuildFieldType();
 
         /// <summary>
         /// Provides field metadata.
         /// </summary>
         /// <returns>Field metadata.</returns>
-        protected abstract IFieldMetadataCollection BuildFieldMetadata();
+        protected abstract IKeyValueCollection BuildFieldMetadata();
 
         /// <summary>
         /// Builds field definition using <see cref="FieldDefinition"/>.

@@ -8,64 +8,93 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.TypeModels
 {
+    /// <summary>
+    /// Reflection based implementation of <see cref="IModelValueProvider"/> that operates over single object instance.
+    /// </summary>
+    /// <typeparam name="TModel">Type of model.</typeparam>
     public class ReflectionModelValueProvider<TModel> : IModelValueProvider
     {
-        public Type ModelType { get; private set; }
-        public TModel Model { get; private set; }
-        private Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
+        private readonly Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
 
+        /// <summary>
+        /// Type of model.
+        /// </summary>
+        public Type ModelType { get; private set; }
+
+        /// <summary>
+        /// Instance of model.
+        /// </summary>
+        public TModel Model { get; private set; }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
         public ReflectionModelValueProvider(TModel model)
         {
-            if (model == null)
-                throw new ArgumentNullException("model");
-
+            Ensure.NotNull(model, "model");
             Model = model;
             ModelType = model.GetType();
         }
 
         public bool TryGetValue(string identifier, out object value)
         {
-            if (identifier == null)
-                throw new ArgumentNullException("identifier");
-
-            value = GetPropertyInfo(identifier).GetValue(Model);
-            return true;
-        }
-
-        public virtual void SetValue(string identifier, object value)
-        {
-            if (identifier == null)
-                throw new ArgumentNullException("identifier");
-
-            PropertyInfo propertyInfo = GetPropertyInfo(identifier);
-            if(propertyInfo == null)
-                throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find property '{0}' in '{1}'.", identifier, ModelType.FullName));
-
-            if (value != null && !propertyInfo.PropertyType.IsAssignableFrom(value.GetType()))
-            {
-                TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-                if (typeConverter != null)
-                    value = typeConverter.ConvertFrom(value);
-            }
-
-            propertyInfo.SetValue(Model, value);
-        }
-
-        protected PropertyInfo GetPropertyInfo(string identifier)
-        {
+            Ensure.NotNullOrEmpty(identifier, "identifier");
+            
             PropertyInfo propertyInfo;
-            if (!properties.TryGetValue(identifier, out propertyInfo))
+            if (TryGetPropertyInfo(identifier, out propertyInfo))
             {
-                propertyInfo = ModelType.GetProperty(identifier);
-                if (propertyInfo == null)
-                    throw new ArgumentOutOfRangeException("identifier", String.Format("'{0}' doesn't contain property named '{1}'.", ModelType.FullName, identifier));
-
-                properties[identifier] = propertyInfo;
+                value = propertyInfo.GetValue(Model);
+                return true;
             }
-            return propertyInfo;
+
+            value = null;
+            return false;
+        }
+
+        public virtual bool TrySetValue(string identifier, object value)
+        {
+            Ensure.NotNullOrEmpty(identifier, "identifier");
+
+            PropertyInfo propertyInfo;
+            if (TryGetPropertyInfo(identifier, out propertyInfo))
+            {
+                if (value != null && !propertyInfo.PropertyType.IsAssignableFrom(value.GetType()))
+                {
+                    TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
+                    if (typeConverter != null)
+                        value = typeConverter.ConvertFrom(value);
+                }
+
+                propertyInfo.SetValue(Model, value);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Tries to get property info for identifier <paramref name="identier"/>.
+        /// </summary>
+        /// <param name="identifier">Property identifier.</param>
+        /// <param name="propertyInfo">Target property info.</param>
+        /// <returns><c>true</c> if such property exists; <c>false</c> otherwise.</returns>
+        protected virtual bool TryGetPropertyInfo(string identifier, out PropertyInfo propertyInfo)
+        {
+            if (properties.TryGetValue(identifier, out propertyInfo))
+                return true;
+
+            propertyInfo = ModelType.GetProperty(identifier);
+            if (propertyInfo != null)
+                properties[identifier] = propertyInfo;
+
+            return propertyInfo != null;
         }
     }
 
+    /// <summary>
+    /// Reflection based implementation of <see cref="IModelValueProvider"/> that operates over single object instance.
+    /// </summary>
     public class ReflectionModelValueProvider : ReflectionModelValueProvider<object>
     {
         public ReflectionModelValueProvider(object model)

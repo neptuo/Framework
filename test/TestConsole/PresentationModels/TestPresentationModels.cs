@@ -14,6 +14,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.PresentationModels.Validators.Handlers;
+using Neptuo.PresentationModels.Validation;
 
 namespace TestConsole.PresentationModels
 {
@@ -21,12 +23,12 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            MetadataReaderService readerService = new MetadataReaderService()
+            AttributeMetadataReaderCollection readerService = new AttributeMetadataReaderCollection()
                 .Add(typeof(RequiredAttribute), new RequiredMetadataReader())
                 .Add(typeof(DescriptionAttribute), new DescriptionMetadataReader())
                 .Add(typeof(MatchPropertyAttribute), new MatchPropertyMetadataReader());
 
-            MetadataValidatorCollection validators = new MetadataValidatorCollection()
+            FieldMetadataValidatorCollection validators = new FieldMetadataValidatorCollection()
                 .Add(null, null, "Required", new RequiredMetadataValidator())
                 .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
@@ -37,9 +39,7 @@ namespace TestConsole.PresentationModels
                 //.Add(new TypeFieldType(typeof(string)), new StringBindingConverter());
                 .AddStandart();
 
-            IModelDefinitionFactory factory = new ReflectionModelDefinitionFactory(readerService);
-
-            IModelDefinition modelDefinition = factory.Create<RegisterUserModel>();
+            IModelDefinition modelDefinition = new ReflectionModelDefinitionBuilder(typeof(RegisterUserModel), readerService).Create();
             RegisterUserModel model = new RegisterUserModel();
             model.Username = "pepa";
             model.Password = "x";
@@ -57,8 +57,10 @@ namespace TestConsole.PresentationModels
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
-            IValidationHandler<IModelValueGetter> modelValidator = new MetadataModelValidator(modelDefinition, validators);
-            IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(valueProvider));
+            IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(validators);
+            IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, valueProvider)));
+            Console.WriteLine(validationResult);
+            validationResult = Debug("Validate user with binding", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, bindingGetter)));
             Console.WriteLine(validationResult);
         }
     }

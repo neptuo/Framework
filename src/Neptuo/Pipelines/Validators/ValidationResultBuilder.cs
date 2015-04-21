@@ -10,7 +10,7 @@ namespace Neptuo.Pipelines.Validators
     /// <summary>
     /// Builder for <see cref="IValidationResult"/>
     /// </summary>
-    public class ValidationResultBuilder : IValidationResult
+    public class ValidationResultBuilder : IValidationResult, IValidationResultBuilder
     {
         private readonly List<IValidationMessage> messages = new List<IValidationMessage>();
         private readonly bool isInvalidationCausedByAnyMessage;
@@ -34,9 +34,9 @@ namespace Neptuo.Pipelines.Validators
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>Self (for fluency).</returns>
-        public ValidationResultBuilder AddMessage(IValidationMessage message)
+        public ValidationResultBuilder Add(IValidationMessage message)
         {
-            return AddMessage(message, isInvalidationCausedByAnyMessage);
+            return Add(message, isInvalidationCausedByAnyMessage);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Neptuo.Pipelines.Validators
         /// <param name="message">The message.</param>
         /// <param name="causesInvalidation">Flag to see if <paramref name="message"/> invalidates future result.</param>
         /// <returns>Self (for fluency).</returns>
-        public ValidationResultBuilder AddMessage(IValidationMessage message, bool causesInvalidation)
+        public ValidationResultBuilder Add(IValidationMessage message, bool causesInvalidation)
         {
             Ensure.NotNull(message, "message");
             messages.Add(message);
@@ -62,6 +62,11 @@ namespace Neptuo.Pipelines.Validators
             return this;
         }
 
+        public override string ToString()
+        {
+            return String.Format("{0} ({1})", isValid ? "Valid" : "InValid", messages.Count);
+        }
+
         #region IValidationResult
 
         bool IValidationResult.IsValid
@@ -72,6 +77,25 @@ namespace Neptuo.Pipelines.Validators
         IEnumerable<IValidationMessage> IValidationResult.Messages
         {
             get { return messages; }
+        }
+
+        #endregion
+
+        #region IValidationResultBuilder
+
+        IValidationResultBuilder IValidationResultBuilder.Add(IValidationMessage message)
+        {
+            return Add(message);
+        }
+
+        IValidationResultBuilder IValidationResultBuilder.Add(IValidationMessage message, bool causesInvalidation)
+        {
+            return Add(message, causesInvalidation);
+        }
+
+        IValidationResult IValidationResultBuilder.ToResult()
+        {
+            return this;
         }
 
         #endregion

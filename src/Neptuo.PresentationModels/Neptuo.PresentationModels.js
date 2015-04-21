@@ -248,10 +248,20 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
                         var $res = sourceGetter.TryGetValue(field.get_Identifier(), $1);
                         value = $1.Value;
                         return $res;
-                    }).call(this))
-                        targetSetter.SetValue(field.get_Identifier(), value);
+                    }).call(this)){
+                        if (!this.IsAssignable(field.get_FieldType(), value))
+                            value = Neptuo.Converts.To$$Type$$Object(field.get_FieldType(), value);
+                        targetSetter.TrySetValue(field.get_Identifier(), value);
+                    }
                 }
             }
+        },
+        IsAssignable: function (fieldType, value){
+            if (value != null)
+                return fieldType.IsAssignableFrom(value.GetType());
+            if (fieldType.get_IsValueType())
+                return false;
+            return true;
         }
     },
     ctors: [{
@@ -328,14 +338,14 @@ var Neptuo$PresentationModels$FieldDefinition = {
         set_Identifier: function (value){
             this._Identifier = value;
         },
-        FieldType$$: "Neptuo.PresentationModels.IFieldType",
+        FieldType$$: "System.Type",
         get_FieldType: function (){
             return this._FieldType;
         },
         set_FieldType: function (value){
             this._FieldType = value;
         },
-        Metadata$$: "Neptuo.PresentationModels.IFieldMetadataCollection",
+        Metadata$$: "Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection",
         get_Metadata: function (){
             return this._Metadata;
         },
@@ -345,7 +355,7 @@ var Neptuo$PresentationModels$FieldDefinition = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String", "Neptuo.PresentationModels.IFieldType", "Neptuo.PresentationModels.IFieldMetadataCollection"]
+        parameters: ["System.String", "System.Type", "Neptuo.Collections.Specialized.IKeyValueCollection"]
     }
     ],
     IsAbstract: false
@@ -400,52 +410,6 @@ var Neptuo$PresentationModels$Binding$IBindingModelValueStorage = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$Binding$IBindingModelValueStorage);
-var Neptuo$PresentationModels$MetadataCollectionExtensions = {
-    fullname: "Neptuo.PresentationModels.MetadataCollectionExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        GetOrDefault$1$$IFieldMetadataCollection$$String$$T: function (T, metadata, key, defaultValue){
-            var value;
-            if (!(function (){
-                var $1 = {
-                    Value: value
-                };
-                var $res = metadata.TryGet(key, $1);
-                value = $1.Value;
-                return $res;
-            })())
-                return defaultValue;
-            if (!(Is(value, T)))
-                return defaultValue;
-            return defaultValue;
-        },
-        GetOrDefault$1$$IModelMetadataCollection$$String$$T: function (T, metadata, key, defaultValue){
-            var value;
-            if (!(function (){
-                var $1 = {
-                    Value: value
-                };
-                var $res = metadata.TryGet(key, $1);
-                value = $1.Value;
-                return $res;
-            })())
-                return defaultValue;
-            if (!(Is(value, T)))
-                return defaultValue;
-            return defaultValue;
-        }
-    },
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$MetadataCollectionExtensions);
 var Neptuo$PresentationModels$IFieldDefinition = {
     fullname: "Neptuo.PresentationModels.IFieldDefinition",
     baseTypeName: "System.Object",
@@ -464,33 +428,16 @@ var Neptuo$PresentationModels$IFieldDefinitionBuilder = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$IFieldDefinitionBuilder);
-var Neptuo$PresentationModels$IFieldMetadataCollection = {
-    fullname: "Neptuo.PresentationModels.IFieldMetadataCollection",
+var Neptuo$PresentationModels$IMetadataBuilder = {
+    fullname: "Neptuo.PresentationModels.IMetadataBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$IFieldMetadataCollection);
-var Neptuo$PresentationModels$IFieldType = {
-    fullname: "Neptuo.PresentationModels.IFieldType",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IFieldType);
-var Neptuo$PresentationModels$IFieldView = {
-    fullname: "Neptuo.PresentationModels.IFieldView",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IFieldView);
+JsTypes.push(Neptuo$PresentationModels$IMetadataBuilder);
 var Neptuo$PresentationModels$IModelDefinition = {
     fullname: "Neptuo.PresentationModels.IModelDefinition",
     baseTypeName: "System.Object",
@@ -500,33 +447,6 @@ var Neptuo$PresentationModels$IModelDefinition = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$IModelDefinition);
-var Neptuo$PresentationModels$IModelDefinitionBuilder = {
-    fullname: "Neptuo.PresentationModels.IModelDefinitionBuilder",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IModelDefinitionBuilder);
-var Neptuo$PresentationModels$IModelMetadataCollection = {
-    fullname: "Neptuo.PresentationModels.IModelMetadataCollection",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IModelMetadataCollection);
-var Neptuo$PresentationModels$IModelPresenter = {
-    fullname: "Neptuo.PresentationModels.IModelPresenter",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IModelPresenter);
 var Neptuo$PresentationModels$IModelValueGetter = {
     fullname: "Neptuo.PresentationModels.IModelValueGetter",
     baseTypeName: "System.Object",
@@ -536,8 +456,8 @@ var Neptuo$PresentationModels$IModelValueGetter = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$IModelValueGetter);
-var Neptuo$PresentationModels$ModelValueGetterExtensions = {
-    fullname: "Neptuo.PresentationModels.ModelValueGetterExtensions",
+var Neptuo$PresentationModels$_ModelValueGetterExtensions = {
+    fullname: "Neptuo.PresentationModels._ModelValueGetterExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetValueOrDefault$$IModelValueGetter$$String$$Object: function (getter, identifier, defaultValue){
@@ -603,7 +523,7 @@ var Neptuo$PresentationModels$ModelValueGetterExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$ModelValueGetterExtensions);
+JsTypes.push(Neptuo$PresentationModels$_ModelValueGetterExtensions);
 var Neptuo$PresentationModels$IModelValueProvider = {
     fullname: "Neptuo.PresentationModels.IModelValueProvider",
     baseTypeName: "System.Object",
@@ -623,40 +543,19 @@ var Neptuo$PresentationModels$IModelValueSetter = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$IModelValueSetter);
-var Neptuo$PresentationModels$IModelView = {
-    fullname: "Neptuo.PresentationModels.IModelView",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$IModelView);
 var Neptuo$PresentationModels$MetadataCollection = {
     fullname: "Neptuo.PresentationModels.MetadataCollection",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.Collections.Specialized.KeyValueCollection",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IModelMetadataCollection", "Neptuo.PresentationModels.IFieldMetadataCollection"],
+    interfaceNames: ["Neptuo.PresentationModels.IMetadataBuilder"],
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._Values = null;
-            System.Object.ctor.call(this);
-            this.set_Values(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Object.ctor));
+            Neptuo.Collections.Specialized.KeyValueCollection.ctor.call(this);
         },
-        Values$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Object]]",
-        get_Values: function (){
-            return this._Values;
-        },
-        set_Values: function (value){
-            this._Values = value;
-        },
-        Keys$$: "System.Collections.Generic.IEnumerable`1[[System.String]]",
-        get_Keys: function (){
-            return this.get_Values().get_Keys();
-        },
-        TryGet: function (key, value){
-            return this.get_Values().TryGetValue(key, value);
+        Add: function (identifier, value){
+            Neptuo.Collections.Specialized.KeyValueCollection.commonPrototype.Set.call(this, identifier, value);
+            return this;
         }
     },
     ctors: [{
@@ -671,13 +570,13 @@ var Neptuo$PresentationModels$ModelDefinitionBuilderBase = {
     fullname: "Neptuo.PresentationModels.ModelDefinitionBuilderBase",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IModelDefinitionBuilder"],
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
     Kind: "Class",
     definition: {
         ctor: function (){
             System.Object.ctor.call(this);
         },
-        Build: function (){
+        Create: function (){
             return new Neptuo.PresentationModels.ModelDefinition.ctor(this.BuildModelIdentifier(), this.BuildFieldDefinitions(), this.BuildModelMetadata());
         }
     },
@@ -689,93 +588,56 @@ var Neptuo$PresentationModels$ModelDefinitionBuilderBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$ModelDefinitionBuilderBase);
-var Neptuo$PresentationModels$ModelPresenterBase = {
-    fullname: "Neptuo.PresentationModels.ModelPresenterBase",
+var Neptuo$PresentationModels$ModelDefinitionCollection = {
+    fullname: "Neptuo.PresentationModels.ModelDefinitionCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IModelPresenter"],
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._IsPreparedCalled = false;
-            this._ModelDefinition = null;
-            this._ModelView = null;
-            this._FieldsByIdentifier = null;
+            this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor);
+            this.builders = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Activators.IActivator$1.ctor);
+            this.onSearchDefinition = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
-            this.set_FieldsByIdentifier(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IFieldDefinition.ctor));
         },
-        IsPreparedCalled$$: "System.Boolean",
-        get_IsPreparedCalled: function (){
-            return this._IsPreparedCalled;
-        },
-        set_IsPreparedCalled: function (value){
-            this._IsPreparedCalled = value;
-        },
-        ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
-        get_ModelDefinition: function (){
-            return this._ModelDefinition;
-        },
-        set_ModelDefinition: function (value){
-            this._ModelDefinition = value;
-        },
-        ModelView$$: "Neptuo.PresentationModels.IModelView",
-        get_ModelView: function (){
-            return this._ModelView;
-        },
-        set_ModelView: function (value){
-            this._ModelView = value;
-        },
-        FieldsByIdentifier$$: "System.Collections.Generic.Dictionary`2[[System.String],[Neptuo.PresentationModels.IFieldDefinition]]",
-        get_FieldsByIdentifier: function (){
-            return this._FieldsByIdentifier;
-        },
-        set_FieldsByIdentifier: function (value){
-            this._FieldsByIdentifier = value;
-        },
-        SetModel: function (modelDefinition){
-            if (this.get_IsPreparedCalled())
-                throw $CreateException(new System.InvalidOperationException.ctor$$String("Unable to set model definition after calling Prepare."), new Error());
-            this.set_ModelDefinition(modelDefinition);
+        Add$$IModelDefinition: function (modelDefinition){
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            this.singletons.set_Item$$TKey(modelDefinition.get_Identifier(), modelDefinition);
             return this;
         },
-        SetView: function (modelView){
-            if (this.get_IsPreparedCalled())
-                throw $CreateException(new System.InvalidOperationException.ctor$$String("Unable to set model view after calling Prepare."), new Error());
-            this.set_ModelView(modelView);
+        Add$$String$$IActivator$1$IModelDefinition: function (modelIdentifier, modelDefinitionBuilder){
+            Neptuo.Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinitionBuilder, "modelDefinitionBuilder");
+            this.builders.set_Item$$TKey(modelIdentifier, modelDefinitionBuilder);
             return this;
         },
-        Prepare: function (){
-            if (this.get_IsPreparedCalled())
-                throw $CreateException(new System.InvalidOperationException.ctor$$String("Unable to call Prepare multiple times."), new Error());
-            var $it4 = this.get_ModelDefinition().get_Fields().GetEnumerator();
-            while ($it4.MoveNext()){
-                var field = $it4.get_Current();
-                this.get_FieldsByIdentifier().set_Item$$TKey(field.get_Identifier(), field);
-            }
-            this.set_IsPreparedCalled(true);
+        AddSearchHandler: function (searchHandler){
+            Neptuo.Ensure.NotNull$$Object$$String(searchHandler, "searchHandler");
+            this.onSearchDefinition.Add(searchHandler);
+            return this;
         },
-        SetData: function (getter){
-            var value;
-            var $it5 = this.get_ModelDefinition().get_Fields().GetEnumerator();
-            while ($it5.MoveNext()){
-                var field = $it5.get_Current();
-                if ((function (){
-                    var $1 = {
-                        Value: value
-                    };
-                    var $res = getter.TryGetValue(field.get_Identifier(), $1);
-                    value = $1.Value;
-                    return $res;
-                }).call(this))
-                    this.get_ModelView().SetValue(field.get_Identifier(), value);
+        TryGet: function (modelIdentifier, modelDefinition){
+            Neptuo.Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
+            if (this.singletons.TryGetValue(modelIdentifier, modelDefinition))
+                return true;
+            var builder;
+            if ((function (){
+                var $1 = {
+                    Value: builder
+                };
+                var $res = this.builders.TryGetValue(modelIdentifier, $1);
+                builder = $1.Value;
+                return $res;
+            }).call(this)){
+                this.singletons.set_Item$$TKey(modelIdentifier, modelDefinition.Value = builder.Create());
+                return true;
             }
-        },
-        GetData: function (setter){
-            var $it6 = this.get_ModelDefinition().get_Fields().GetEnumerator();
-            while ($it6.MoveNext()){
-                var field = $it6.get_Current();
-                setter.SetValue(field.get_Identifier(), this.get_ModelView().GetValue(field.get_Identifier()));
+            if (Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, this.onSearchDefinition, modelIdentifier, modelDefinition)){
+                this.singletons.set_Item$$TKey(modelIdentifier, modelDefinition.Value);
+                return true;
             }
+            modelDefinition.Value = null;
+            return true;
         }
     },
     ctors: [{
@@ -783,37 +645,9 @@ var Neptuo$PresentationModels$ModelPresenterBase = {
         parameters: []
     }
     ],
-    IsAbstract: true
+    IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$ModelPresenterBase);
-var Neptuo$PresentationModels$ModelViewBase = {
-    fullname: "Neptuo.PresentationModels.ModelViewBase",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IModelView"],
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        },
-        SetValue: function (identifier, value){
-            this.GetFieldViewByIdentifier(identifier).SetValue(value);
-        },
-        GetValue: function (identifier){
-            var fieldView = this.GetFieldViewByIdentifier(identifier);
-            if (fieldView != null)
-                return fieldView.GetValue();
-            return null;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: []
-    }
-    ],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$ModelViewBase);
+JsTypes.push(Neptuo$PresentationModels$ModelDefinitionCollection);
 var Neptuo$PresentationModels$VersionInfo = {
     fullname: "Neptuo.PresentationModels.VersionInfo",
     baseTypeName: "System.Object",
@@ -869,7 +703,7 @@ var Neptuo$PresentationModels$ModelDefinition = {
         set_Fields: function (value){
             this._Fields = value;
         },
-        Metadata$$: "Neptuo.PresentationModels.IModelMetadataCollection",
+        Metadata$$: "Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection",
         get_Metadata: function (){
             return this._Metadata;
         },
@@ -879,7 +713,7 @@ var Neptuo$PresentationModels$ModelDefinition = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String", "System.Collections.Generic.IEnumerable", "Neptuo.PresentationModels.IModelMetadataCollection"]
+        parameters: ["System.String", "System.Collections.Generic.IEnumerable", "Neptuo.Collections.Specialized.IKeyValueCollection"]
     }
     ],
     IsAbstract: false
@@ -960,7 +794,7 @@ var Neptuo$PresentationModels$ProxyModelDefinitionBase = {
             }
             return this.fields;
         },
-        Metadata$$: "Neptuo.PresentationModels.IModelMetadataCollection",
+        Metadata$$: "Neptuo.Collections.Specialized.IReadOnlyKeyValueCollection",
         get_Metadata: function (){
             if (this.get_IsRefreshRequired()){
                 this.metadata = this.RefreshMetadata();
@@ -977,59 +811,6 @@ var Neptuo$PresentationModels$ProxyModelDefinitionBase = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$ProxyModelDefinitionBase);
-var Neptuo$PresentationModels$FieldType = {
-    fullname: "Neptuo.PresentationModels.FieldType",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        FromType: function (type){
-            return new Neptuo.PresentationModels.FieldType.ctor(type);
-        }
-    },
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.IFieldType"],
-    Kind: "Class",
-    definition: {
-        ctor: function (type){
-            this._Type = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(type, "type");
-            this.set_Type(type);
-        },
-        Type$$: "System.Type",
-        get_Type: function (){
-            return this._Type;
-        },
-        set_Type: function (value){
-            this._Type = value;
-        },
-        GetHashCode: function (){
-            return this.get_Type().GetHashCode();
-        },
-        Equals$$Object: function (obj){
-            if (obj == null)
-                return false;
-            var fieldType = As(obj, Neptuo.PresentationModels.FieldType.ctor);
-            if (fieldType == null)
-                return false;
-            return System.Type.op_Equality$$Type$$Type(fieldType.get_Type(), this.get_Type());
-        },
-        ToString: function (){
-            return System.String.Format$$String$$Object$$Object("(FieldType:{0}:{1})", this.get_Type().get_FullName(), this.GetGenericArgumentFullName());
-        },
-        GetGenericArgumentFullName: function (){
-            if (this.get_Type().get_IsGenericType())
-                return this.get_Type().GetGenericArguments()[0].get_FullName();
-            return System.String.Empty;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Type"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$PresentationModels$FieldType);
 var Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2 = {
     fullname: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorBase$2",
     baseTypeName: "System.Object",
@@ -1052,23 +833,28 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorBase$2 = {
         set_MetadataKey: function (value){
             this._MetadataKey = value;
         },
-        Validate$$IFieldDefinition$$IModelValueGetter$$IModelValidationBuilder: function (fieldDefinition, getter, resultBuilder){
+        Validate$$IFieldDefinition$$IModelValueGetter$$IValidationResultBuilder: function (fieldDefinition, getter, resultBuilder){
             Neptuo.Ensure.NotNull$$Object$$String(fieldDefinition, "fieldDefinition");
             Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
             Neptuo.Ensure.NotNull$$Object$$String(resultBuilder, "resultBuilder");
             var metadataValue;
-            if (!(function (){
+            if ((function (){
                 var $1 = {
                     Value: metadataValue
                 };
-                var $res = fieldDefinition.get_Metadata().TryGet(this.get_MetadataKey(), $1);
+                var $res = fieldDefinition.get_Metadata().TryGet$1(System.Object.ctor, this.get_MetadataKey(), $1);
                 metadataValue = $1.Value;
                 return $res;
-            }).call(this))
-                return this.MissingMetadataKey(fieldDefinition, getter, resultBuilder);
-            var fieldValue = Neptuo.PresentationModels.ModelValueGetterExtensions.GetValueOrDefault$1$$IModelValueGetter$$String$$T(this.TFieldValue, getter, fieldDefinition.get_Identifier(), Default(this.TFieldValue));
-            var metadata = Cast(metadataValue, this.TMetadataValue);
-            return this.Validate$$TFieldValue$$TMetadataValue$$FieldMetadataValidatorContext(fieldValue, metadata, new Neptuo.PresentationModels.Validators.FieldMetadataValidatorContext.ctor(fieldDefinition, getter, resultBuilder));
+            }).call(this)){
+                var fieldValue = Neptuo.PresentationModels._ModelValueGetterExtensions.GetValueOrDefault$1$$IModelValueGetter$$String$$T(this.TFieldValue, getter, fieldDefinition.get_Identifier(), Default(this.TFieldValue));
+                var metadata = Cast(metadataValue, this.TMetadataValue);
+                this.Validate$$TFieldValue$$TMetadataValue$$FieldMetadataValidatorContext(fieldValue, metadata, new Neptuo.PresentationModels.Validators.FieldMetadataValidatorContext.ctor(fieldDefinition, getter, resultBuilder));
+            }
+            else {
+                this.MissingMetadataKey(fieldDefinition, getter, resultBuilder);
+            }
+        },
+        MissingMetadataKey: function (fieldDefinition, getter, resultBuilder){
         }
     },
     ctors: [{
@@ -1111,7 +897,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
         set_Getter: function (value){
             this._Getter = value;
         },
-        ResultBuilder$$: "Neptuo.PresentationModels.Validators.IModelValidationBuilder",
+        ResultBuilder$$: "Neptuo.Pipelines.Validators.IValidationResultBuilder",
         get_ResultBuilder: function (){
             return this._ResultBuilder;
         },
@@ -1121,129 +907,51 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IFieldDefinition", "Neptuo.PresentationModels.IModelValueGetter", "Neptuo.PresentationModels.Validators.IModelValidationBuilder"]
+        parameters: ["Neptuo.PresentationModels.IFieldDefinition", "Neptuo.PresentationModels.IModelValueGetter", "Neptuo.Pipelines.Validators.IValidationResultBuilder"]
     }
     ],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext);
-var Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory$1 = {
-    fullname: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory$1",
+var Neptuo$PresentationModels$Validators$IFieldValidator = {
+    fullname: "Neptuo.PresentationModels.Validators.IFieldValidator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Validators$IFieldValidator);
+var Neptuo$PresentationModels$Validators$MetadataFieldValidator = {
+    fullname: "Neptuo.PresentationModels.Validators.MetadataFieldValidator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.PresentationModels.Validators.IFieldValidator"],
     Kind: "Class",
     definition: {
-        ctor: function (TValidator, factory){
-            this.TValidator = TValidator;
-            this._Factory = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(factory, "factory");
-            this.set_Factory(factory);
-        },
-        Factory$$: "System.Func`1[[`0]]",
-        get_Factory: function (){
-            return this._Factory;
-        },
-        set_Factory: function (value){
-            this._Factory = value;
-        },
-        Create: function (){
-            return this.get_Factory()();
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Func"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory$1);
-var Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory = {
-    fullname: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory",
-    baseTypeName: "Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory$1",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Class",
-    definition: {
-        ctor: function (factory){
-            Neptuo.PresentationModels.Validators.FuncFieldMetadataValidatorFactory$1.ctor.call(this, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, factory);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Func"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$FuncFieldMetadataValidatorFactory);
-var Neptuo$PresentationModels$Validators$IFieldMetadataValidator = {
-    fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidator",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidator);
-var Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory = {
-    fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Activators.IActivator$1"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidatorFactory);
-var Neptuo$PresentationModels$Validators$IMetadataValidatorCollection = {
-    fullname: "Neptuo.PresentationModels.Validators.IMetadataValidatorCollection",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$IMetadataValidatorCollection);
-var Neptuo$PresentationModels$Validators$IModelValidationBuilder = {
-    fullname: "Neptuo.PresentationModels.Validators.IModelValidationBuilder",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$IModelValidationBuilder);
-var Neptuo$PresentationModels$Validators$MetadataModelValidator = {
-    fullname: "Neptuo.PresentationModels.Validators.MetadataModelValidator",
-    baseTypeName: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Class",
-    definition: {
-        ctor: function (modelDefinition, validators){
+        ctor: function (validators){
             this._Validators = null;
-            Neptuo.PresentationModels.Validators.ModelValidatorBase.ctor.call(this, modelDefinition);
+            System.Object.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(validators, "validators");
             this.set_Validators(validators);
         },
-        Validators$$: "Neptuo.PresentationModels.Validators.IMetadataValidatorCollection",
+        Validators$$: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorCollection",
         get_Validators: function (){
             return this._Validators;
         },
         set_Validators: function (value){
             this._Validators = value;
         },
-        ValidateField: function (fieldDefinition, getter, resultBuilder){
-            var $it7 = fieldDefinition.get_Metadata().get_Keys().GetEnumerator();
-            while ($it7.MoveNext()){
-                var key = $it7.get_Current();
+        Validate: function (modelDefinition, fieldDefinition, getter, resultBuilder){
+            var $it4 = fieldDefinition.get_Metadata().get_Keys().GetEnumerator();
+            while ($it4.MoveNext()){
+                var key = $it4.get_Current();
                 var validator;
                 if ((function (){
                     var $1 = {
                         Value: validator
                     };
-                    var $res = this.get_Validators().TryGet(this.get_ModelDefinition().get_Identifier(), fieldDefinition.get_Identifier(), key, $1);
+                    var $res = this.get_Validators().TryGet(modelDefinition.get_Identifier(), fieldDefinition.get_Identifier(), key, $1);
                     validator = $1.Value;
                     return $res;
                 }).call(this))
@@ -1253,103 +961,174 @@ var Neptuo$PresentationModels$Validators$MetadataModelValidator = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IModelDefinition", "Neptuo.PresentationModels.Validators.IMetadataValidatorCollection"]
+        parameters: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidatorCollection"]
     }
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validators$MetadataModelValidator);
-var Neptuo$PresentationModels$Validators$MetadataValidatorCollection = {
-    fullname: "Neptuo.PresentationModels.Validators.MetadataValidatorCollection",
+JsTypes.push(Neptuo$PresentationModels$Validators$MetadataFieldValidator);
+var Neptuo$PresentationModels$Validation$ModelValidatorContext = {
+    fullname: "Neptuo.PresentationModels.Validation.ModelValidatorContext",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.Validators.IMetadataValidatorCollection"],
+    Kind: "Class",
+    definition: {
+        ctor: function (definition, getter){
+            this._Definition = null;
+            this._Getter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(definition, "definition");
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            this.set_Definition(definition);
+            this.set_Getter(getter);
+        },
+        Definition$$: "Neptuo.PresentationModels.IModelDefinition",
+        get_Definition: function (){
+            return this._Definition;
+        },
+        set_Definition: function (value){
+            this._Definition = value;
+        },
+        Getter$$: "Neptuo.PresentationModels.IModelValueGetter",
+        get_Getter: function (){
+            return this._Getter;
+        },
+        set_Getter: function (value){
+            this._Getter = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.IModelDefinition", "Neptuo.PresentationModels.IModelValueGetter"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$Validation$ModelValidatorContext);
+var Neptuo$PresentationModels$Validators$IFieldMetadataValidator = {
+    fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidator);
+var Neptuo$PresentationModels$Validators$IFieldMetadataValidatorCollection = {
+    fullname: "Neptuo.PresentationModels.Validators.IFieldMetadataValidatorCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Validators$IFieldMetadataValidatorCollection);
+var Neptuo$PresentationModels$Validators$Handlers$FieldMetadataModelValidator = {
+    fullname: "Neptuo.PresentationModels.Validators.Handlers.FieldMetadataModelValidator",
+    baseTypeName: "Neptuo.PresentationModels.Validators.Handlers.ModelValidator",
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Class",
+    definition: {
+        ctor: function (validators){
+            Neptuo.PresentationModels.Validators.Handlers.ModelValidator.ctor.call(this, new Neptuo.PresentationModels.Validators.MetadataFieldValidator.ctor(validators));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidatorCollection"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$Validators$Handlers$FieldMetadataModelValidator);
+var Neptuo$PresentationModels$Validators$FieldMetadataValidatorCollection = {
+    fullname: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidatorCollection"],
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._Validators = null;
+            this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor);
+            this.builders = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor);
             System.Object.ctor.call(this);
-            this.set_Validators(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor));
         },
-        Validators$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Collections.Generic.Dictionary`2[[System.String],[System.Collections.Generic.Dictionary`2[[System.String],[Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory]]]]]]",
-        get_Validators: function (){
-            return this._Validators;
-        },
-        set_Validators: function (value){
-            this._Validators = value;
-        },
-        Add: function (modelIdentifier, fieldIdentifier, metadataKey, validatorFactory){
+        AddInternal$1: function (T, storage, modelIdentifier, fieldIdentifier, metadataKey, validator){
             if (modelIdentifier == null)
                 modelIdentifier = System.String.Empty;
             if (fieldIdentifier == null)
                 fieldIdentifier = System.String.Empty;
-            if (!this.get_Validators().ContainsKey(modelIdentifier))
-                this.get_Validators().set_Item$$TKey(modelIdentifier, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor));
-            if (!this.get_Validators().get_Item$$TKey(modelIdentifier).ContainsKey(fieldIdentifier))
-                this.get_Validators().get_Item$$TKey(modelIdentifier).set_Item$$TKey(fieldIdentifier, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory.ctor));
-            this.get_Validators().get_Item$$TKey(modelIdentifier).get_Item$$TKey(fieldIdentifier).set_Item$$TKey(metadataKey, validatorFactory);
+            if (!this.singletons.ContainsKey(modelIdentifier))
+                storage.set_Item$$TKey(modelIdentifier, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Collections.Generic.Dictionary$2.ctor));
+            if (!this.singletons.get_Item$$TKey(modelIdentifier).ContainsKey(fieldIdentifier))
+                storage.get_Item$$TKey(modelIdentifier).set_Item$$TKey(fieldIdentifier, new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, T));
+            storage.get_Item$$TKey(modelIdentifier).get_Item$$TKey(fieldIdentifier).set_Item$$TKey(metadataKey, validator);
+        },
+        Add$$String$$String$$String$$IFieldMetadataValidator: function (modelIdentifier, fieldIdentifier, metadataKey, validator){
+            this.AddInternal$1(Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, this.singletons, modelIdentifier, fieldIdentifier, metadataKey, validator);
             return this;
+        },
+        Add$$String$$String$$String$$IActivator$1$IFieldMetadataValidator: function (modelIdentifier, fieldIdentifier, metadataKey, validator){
+            this.AddInternal$1(Neptuo.Activators.IActivator$1.ctor, this.builders, modelIdentifier, fieldIdentifier, metadataKey, validator);
+            return this;
+        },
+        TryGetInternal$1: function (T, storage, modelIdentifier, fieldIdentifier, metadataKey, validator){
+            var modelValidators;
+            if ((function (){
+                var $1 = {
+                    Value: modelValidators
+                };
+                var $res = storage.TryGetValue(modelIdentifier, $1);
+                modelValidators = $1.Value;
+                return $res;
+            }).call(this) && !(function (){
+                var $1 = {
+                    Value: modelValidators
+                };
+                var $res = storage.TryGetValue(System.String.Empty, $1);
+                modelValidators = $1.Value;
+                return $res;
+            }).call(this)){
+                var fieldValidators;
+                if ((function (){
+                    var $1 = {
+                        Value: fieldValidators
+                    };
+                    var $res = modelValidators.TryGetValue(fieldIdentifier, $1);
+                    fieldValidators = $1.Value;
+                    return $res;
+                }).call(this) && !(function (){
+                    var $1 = {
+                        Value: fieldValidators
+                    };
+                    var $res = modelValidators.TryGetValue(System.String.Empty, $1);
+                    fieldValidators = $1.Value;
+                    return $res;
+                }).call(this)){
+                    if (fieldValidators.TryGetValue(metadataKey, validator) && !fieldValidators.TryGetValue(System.String.Empty, validator))
+                        return true;
+                }
+            }
+            validator.Value = Default(T);
+            return false;
         },
         TryGet: function (modelIdentifier, fieldIdentifier, metadataKey, validator){
-            var modelValidators;
-            if (!(function (){
+            if (this.TryGetInternal$1(Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, this.singletons, modelIdentifier, fieldIdentifier, metadataKey, validator))
+                return true;
+            var builder;
+            if ((function (){
                 var $1 = {
-                    Value: modelValidators
+                    Value: builder
                 };
-                var $res = this.get_Validators().TryGetValue(modelIdentifier, $1);
-                modelValidators = $1.Value;
-                return $res;
-            }).call(this) && !(function (){
-                var $1 = {
-                    Value: modelValidators
-                };
-                var $res = this.get_Validators().TryGetValue(System.String.Empty, $1);
-                modelValidators = $1.Value;
+                var $res = this.TryGetInternal$1(Neptuo.Activators.IActivator$1.ctor, this.builders, modelIdentifier, fieldIdentifier, metadataKey, $1);
+                builder = $1.Value;
                 return $res;
             }).call(this)){
-                validator.Value = null;
-                return false;
+                validator.Value = builder.Create();
+                return true;
             }
-            var fieldValidators;
-            if (!(function (){
-                var $1 = {
-                    Value: fieldValidators
-                };
-                var $res = modelValidators.TryGetValue(fieldIdentifier, $1);
-                fieldValidators = $1.Value;
-                return $res;
-            }).call(this) && !(function (){
-                var $1 = {
-                    Value: fieldValidators
-                };
-                var $res = modelValidators.TryGetValue(System.String.Empty, $1);
-                fieldValidators = $1.Value;
-                return $res;
-            }).call(this)){
-                validator.Value = null;
-                return false;
-            }
-            var factory;
-            if (!(function (){
-                var $1 = {
-                    Value: factory
-                };
-                var $res = fieldValidators.TryGetValue(metadataKey, $1);
-                factory = $1.Value;
-                return $res;
-            }).call(this) && !(function (){
-                var $1 = {
-                    Value: factory
-                };
-                var $res = fieldValidators.TryGetValue(System.String.Empty, $1);
-                factory = $1.Value;
-                return $res;
-            }).call(this)){
-                validator.Value = null;
-                return false;
-            }
-            validator.Value = factory.Create();
-            return true;
+            validator.Value = null;
+            return false;
         }
     },
     ctors: [{
@@ -1359,146 +1138,49 @@ var Neptuo$PresentationModels$Validators$MetadataValidatorCollection = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$Validators$MetadataValidatorCollection);
-var Neptuo$PresentationModels$Validators$MetadataValidatorCollectionExtensions = {
-    fullname: "Neptuo.PresentationModels.Validators.MetadataValidatorCollectionExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        Add: function (collection, modelIdentifier, fieldIdentifier, metadataKey, validator){
-            return collection.Add(modelIdentifier, fieldIdentifier, metadataKey, new Neptuo.PresentationModels.Validators.SingletonFieldMetadataValidatorFactory.ctor(validator));
-        }
-    },
-    assemblyName: "Neptuo.PresentationModels",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$MetadataValidatorCollectionExtensions);
-var Neptuo$PresentationModels$Validators$ModelValidationBuilder = {
-    fullname: "Neptuo.PresentationModels.Validators.ModelValidationBuilder",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Pipelines.Validators.IValidationResult", "Neptuo.PresentationModels.Validators.IModelValidationBuilder"],
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            this._MessageList = null;
-            System.Object.ctor.call(this);
-            this.set_MessageList(new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.Messages.IValidationMessage.ctor));
-        },
-        MessageList$$: "System.Collections.Generic.List`1[[Neptuo.Pipelines.Validators.Messages.IValidationMessage]]",
-        get_MessageList: function (){
-            return this._MessageList;
-        },
-        set_MessageList: function (value){
-            this._MessageList = value;
-        },
-        IsValid$$: "System.Boolean",
-        get_IsValid: function (){
-            return this.get_MessageList().get_Count() == 0;
-        },
-        Messages$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Pipelines.Validators.Messages.IValidationMessage]]",
-        get_Messages: function (){
-            return this.get_MessageList();
-        },
-        AddMessage: function (message){
-            Neptuo.Ensure.NotNull$$Object$$String(message, "message");
-            this.get_MessageList().Add(message);
-            return this;
-        },
-        AddMessages: function (messages){
-            Neptuo.Ensure.NotNull$$Object$$String(messages, "messages");
-            this.get_MessageList().AddRange(messages);
-            return this;
-        },
-        ToResult: function (){
-            return this;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: []
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$ModelValidationBuilder);
-var Neptuo$PresentationModels$Validators$ModelValidatorBase = {
-    fullname: "Neptuo.PresentationModels.Validators.ModelValidatorBase",
+JsTypes.push(Neptuo$PresentationModels$Validators$FieldMetadataValidatorCollection);
+var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
+    fullname: "Neptuo.PresentationModels.Validators.Handlers.ModelValidator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.Pipelines.Validators.Handlers.IValidationHandler$1"],
     Kind: "Class",
     definition: {
-        ctor: function (modelDefinition){
-            this._ModelDefinition = null;
+        ctor: function (fieldValidator){
+            this._FieldValidator = null;
             System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
-            this.set_ModelDefinition(modelDefinition);
+            Neptuo.Ensure.NotNull$$Object$$String(fieldValidator, "fieldValidator");
+            this.set_FieldValidator(fieldValidator);
         },
-        ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
-        get_ModelDefinition: function (){
-            return this._ModelDefinition;
+        FieldValidator$$: "Neptuo.PresentationModels.Validators.IFieldValidator",
+        get_FieldValidator: function (){
+            return this._FieldValidator;
         },
-        set_ModelDefinition: function (value){
-            this._ModelDefinition = value;
+        set_FieldValidator: function (value){
+            this._FieldValidator = value;
         },
         CreateResultBuilder: function (){
-            return new Neptuo.PresentationModels.Validators.ModelValidationBuilder.ctor();
+            return new Neptuo.Pipelines.Validators.ValidationResultBuilder.ctor(true);
         },
-        Handle: function (getter){
+        Handle: function (context){
             var resultBuilder = this.CreateResultBuilder();
-            var $it8 = this.get_ModelDefinition().get_Fields().GetEnumerator();
-            while ($it8.MoveNext()){
-                var fieldDefinition = $it8.get_Current();
-                this.ValidateField(fieldDefinition, getter, resultBuilder);
-            }
+            this.ValidateInternal(context.get_Definition(), context.get_Getter(), resultBuilder);
             return resultBuilder.ToResult();
+        },
+        ValidateInternal: function (modelDefinition, getter, resultBuilder){
+            var $it5 = modelDefinition.get_Fields().GetEnumerator();
+            while ($it5.MoveNext()){
+                var fieldDefinition = $it5.get_Current();
+                this.get_FieldValidator().Validate(modelDefinition, fieldDefinition, getter, resultBuilder);
+            }
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IModelDefinition"]
+        parameters: ["Neptuo.PresentationModels.Validators.IFieldValidator"]
     }
     ],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Validators$ModelValidatorBase);
-var Neptuo$PresentationModels$Validators$SingletonFieldMetadataValidatorFactory = {
-    fullname: "Neptuo.PresentationModels.Validators.SingletonFieldMetadataValidatorFactory",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidatorFactory"],
-    Kind: "Class",
-    definition: {
-        ctor: function (validator){
-            this._Validator = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(validator, "validator");
-            this.set_Validator(validator);
-        },
-        Validator$$: "Neptuo.PresentationModels.Validators.IFieldMetadataValidator",
-        get_Validator: function (){
-            return this._Validator;
-        },
-        set_Validator: function (value){
-            this._Validator = value;
-        },
-        Create: function (){
-            return this.get_Validator();
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.PresentationModels.Validators.IFieldMetadataValidator"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$PresentationModels$Validators$SingletonFieldMetadataValidatorFactory);
+JsTypes.push(Neptuo$PresentationModels$Validators$Handlers$ModelValidator);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,7 +38,7 @@ namespace Neptuo.PresentationModels
             return ModelDefinition.Fields;
         }
 
-        protected override IModelMetadataCollection RefreshMetadata()
+        protected override IReadOnlyKeyValueCollection RefreshMetadata()
         {
             return ModelDefinition.Metadata;
         }

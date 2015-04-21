@@ -23,7 +23,7 @@ namespace TestWpf.PresentationModels
         public ModelWindow()
         {
             InitializeComponent();
-            DataContext = new ModelDefinitionViewModel(new ReflectionModelDefinitionFactory(new MetadataReaderService()).Create<Person>());
+            DataContext = new ModelDefinitionViewModel(new ReflectionModelDefinitionFactory(new AttributeMetadataReaderCollection()).Create<Person>());
         }
     }
 }

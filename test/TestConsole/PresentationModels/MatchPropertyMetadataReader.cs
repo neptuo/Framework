@@ -1,4 +1,5 @@
-﻿using Neptuo.PresentationModels.TypeModels;
+﻿using Neptuo.PresentationModels;
+using Neptuo.PresentationModels.TypeModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace TestConsole.PresentationModels
 {
-    public class MatchPropertyMetadataReader : MetadataReaderBase<MatchPropertyAttribute>
+    public class MatchPropertyMetadataReader : AttributeMetadataReaderBase<MatchPropertyAttribute>
     {
         protected override void ApplyInternal(MatchPropertyAttribute attribute, IMetadataBuilder builder)
         {
-            builder.Set("MatchProperty", attribute.TargetProperty);
+            builder.Add("MatchProperty", attribute.TargetProperty);
         }
     }
 }

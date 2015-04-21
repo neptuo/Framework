@@ -40,9 +40,31 @@ namespace Neptuo.PresentationModels
                 foreach (IModelValueGetter sourceGetter in sourceGetters)
                 {
                     if (sourceGetter.TryGetValue(field.Identifier, out value))
-                        targetSetter.SetValue(field.Identifier, value);
+                    {
+                        if (!IsAssignable(field.FieldType, value))
+                            value = Converts.To(field.FieldType, value);
+
+                        targetSetter.TrySetValue(field.Identifier, value);
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Determines whether <paramref name="value"/> can be assigned to field of type <paramref name="fieldType"/>.
+        /// </summary>
+        /// <param name="fieldType">Required type.</param>
+        /// <param name="value">Current value.</param>
+        /// <returns><c>true</c> if <paramref name="value"/> can be assigned with <paramref name="value"/>; <c>false</c> otherwise.</returns>
+        private bool IsAssignable(Type fieldType, object value)
+        {
+            if (value != null)
+                return fieldType.IsAssignableFrom(value.GetType());
+
+            if (fieldType.IsValueType)
+                return false;
+
+            return true;
         }
     }
 }

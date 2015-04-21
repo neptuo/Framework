@@ -12,10 +12,11 @@ namespace Neptuo.PresentationModels
     public interface IModelValueSetter
     {
         /// <summary>
-        /// Sets value of field with <paramref name="identifier"/> to <paramref name="value"/>.
+        /// Tries to value of field with <paramref name="identifier"/> to <paramref name="value"/>.
         /// </summary>
         /// <param name="identifier">Field identifier to set value.</param>
         /// <param name="value">New value for field with <paramref name="identifier"/>.</param>
-        void SetValue(string identifier, object value);
+        /// <returns><c>true</c> if setting value was successfull; <c>false</c> otherwise.</returns>
+        bool TrySetValue(string identifier, object value);
     }
 }

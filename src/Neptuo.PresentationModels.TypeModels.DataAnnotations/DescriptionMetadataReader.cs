@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.TypeModels.DataAnnotations
 {
-    public class DescriptionMetadataReader : MetadataReaderBase<DescriptionAttribute>
+    /// <summary>
+    /// Provides keys:
+    /// <c>Description</c>
+    /// </summary>
+    public class DescriptionMetadataReader : AttributeMetadataReaderBase<DescriptionAttribute>
     {
         protected override void ApplyInternal(DescriptionAttribute attribute, IMetadataBuilder builder)
         {
-            builder.Set("Description", attribute.Description);
+            if (!builder.Has("Description"))
+                builder.Add("Description", attribute.Description);
         }
     }
 }

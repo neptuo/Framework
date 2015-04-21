@@ -1398,6 +1398,21 @@ var Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions = {
             })())
                 return value;
             return defaultValue;
+        },
+        Has: function (collection, key){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Ensure.NotNull$$Object$$String(key, "key");
+            if (System.Linq.Enumerable.Contains$1$$IEnumerable$1$$TSource(System.String.ctor, collection.get_Keys(), key))
+                return true;
+            var value;
+            return (function (){
+                var $1 = {
+                    Value: value
+                };
+                var $res = collection.TryGet$1(System.Object.ctor, key, $1);
+                value = $1.Value;
+                return $res;
+            })();
         }
     },
     assemblyName: "Neptuo",
@@ -2783,6 +2798,33 @@ var Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions);
+var Neptuo$ComponentModel$DefaultErrorModel = {
+    fullname: "Neptuo.ComponentModel.DefaultErrorModel",
+    baseTypeName: "Neptuo.FeatureModels.FeatureCollectionModel",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (text){
+            this._Text = null;
+            Neptuo.FeatureModels.FeatureCollectionModel.ctor$$Boolean.call(this, true);
+            this.set_Text(text);
+        },
+        Text$$: "System.String",
+        get_Text: function (){
+            return this._Text;
+        },
+        set_Text: function (value){
+            this._Text = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$DefaultErrorModel);
 var Neptuo$ComponentModel$ErrorInfo = {
     fullname: "Neptuo.ComponentModel.ErrorInfo",
     baseTypeName: "System.Object",
@@ -6575,11 +6617,20 @@ var Neptuo$OutFunc$3 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$OutFunc$3);
+var Neptuo$Pipelines$Validators$IValidationResultBuilder = {
+    fullname: "Neptuo.Pipelines.Validators.IValidationResultBuilder",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Validators$IValidationResultBuilder);
 var Neptuo$Pipelines$Validators$ValidationResultBuilder = {
     fullname: "Neptuo.Pipelines.Validators.ValidationResultBuilder",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Pipelines.Validators.IValidationResult"],
+    interfaceNames: ["Neptuo.Pipelines.Validators.IValidationResult", "Neptuo.Pipelines.Validators.IValidationResultBuilder"],
     Kind: "Class",
     definition: {
         ctor: function (isInvalidationCausedByAnyMessage){
@@ -6589,10 +6640,10 @@ var Neptuo$Pipelines$Validators$ValidationResultBuilder = {
             System.Object.ctor.call(this);
             this.isInvalidationCausedByAnyMessage = isInvalidationCausedByAnyMessage;
         },
-        AddMessage$$IValidationMessage: function (message){
-            return this.AddMessage$$IValidationMessage$$Boolean(message, this.isInvalidationCausedByAnyMessage);
+        Add$$IValidationMessage: function (message){
+            return this.Add$$IValidationMessage$$Boolean(message, this.isInvalidationCausedByAnyMessage);
         },
-        AddMessage$$IValidationMessage$$Boolean: function (message, causesInvalidation){
+        Add$$IValidationMessage$$Boolean: function (message, causesInvalidation){
             Neptuo.Ensure.NotNull$$Object$$String(message, "message");
             this.messages.Add(message);
             if (causesInvalidation)
@@ -6601,6 +6652,9 @@ var Neptuo$Pipelines$Validators$ValidationResultBuilder = {
         },
         ToResult: function (){
             return this;
+        },
+        ToString: function (){
+            return System.String.Format$$String$$Object$$Object("{0} ({1})", this.isValid ? "Valid" : "InValid", this.messages.get_Count());
         }
     },
     ctors: [{
@@ -6611,6 +6665,26 @@ var Neptuo$Pipelines$Validators$ValidationResultBuilder = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Validators$ValidationResultBuilder);
+var Neptuo$Pipelines$Validators$_ValidationResultBuilderExtensions = {
+    fullname: "Neptuo.Pipelines.Validators._ValidationResultBuilderExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddTextMessage: function (builder, key, message, parameters){
+            Neptuo.Ensure.NotNull$$Object$$String(builder, "builder");
+            return builder.Add$$IValidationMessage(new Neptuo.Pipelines.Validators.Messages.TextValidationMessage.ctor(key, System.String.Format$$String$$Object$Array(message, parameters)));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Validators$_ValidationResultBuilderExtensions);
 var Neptuo$VersionInfo = {
     fullname: "Neptuo.VersionInfo",
     baseTypeName: "System.Object",
@@ -8135,7 +8209,7 @@ var Neptuo$Pipelines$Validators$DependencyValidationDispatcher = {
             var validatable = As(model, Neptuo.DomainModels.IValidatableModel.ctor);
             if (validatable != null){
                 if (validatable.get_IsValid() != null)
-                    return new Neptuo.Pipelines.Validators.ValidationResultBase.ctor$$Boolean(validatable.get_IsValid().get_Value());
+                    return new Neptuo.Pipelines.Validators.ValidationResult.ctor$$Boolean(validatable.get_IsValid().get_Value());
             }
             var validator = Neptuo.Activators._DependencyProviderExtensions.Resolve$1$$IDependencyProvider(Neptuo.Pipelines.Validators.Handlers.IValidationHandler$1.ctor, this.dependencyProvider);
             var result = validator.Handle(model);
@@ -8403,8 +8477,8 @@ var Neptuo$Pipelines$Validators$Messages$ValidationMessageBase = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Validators$Messages$ValidationMessageBase);
-var Neptuo$Pipelines$Validators$ValidationResultBase = {
-    fullname: "Neptuo.Pipelines.Validators.ValidationResultBase",
+var Neptuo$Pipelines$Validators$ValidationResult = {
+    fullname: "Neptuo.Pipelines.Validators.ValidationResult",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.Pipelines.Validators.IValidationResult"],
@@ -8413,7 +8487,7 @@ var Neptuo$Pipelines$Validators$ValidationResultBase = {
         ctor$$Boolean: function (isValid){
             this._IsValid = false;
             this._Messages = null;
-            Neptuo.Pipelines.Validators.ValidationResultBase.ctor$$Boolean$$IEnumerable$1$IValidationMessage.call(this, isValid, new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.Messages.IValidationMessage.ctor));
+            Neptuo.Pipelines.Validators.ValidationResult.ctor$$Boolean$$IEnumerable$1$IValidationMessage.call(this, isValid, new System.Collections.Generic.List$1.ctor(Neptuo.Pipelines.Validators.Messages.IValidationMessage.ctor));
         },
         IsValid$$: "System.Boolean",
         get_IsValid: function (){
@@ -8448,5 +8522,5 @@ var Neptuo$Pipelines$Validators$ValidationResultBase = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Pipelines$Validators$ValidationResultBase);
+JsTypes.push(Neptuo$Pipelines$Validators$ValidationResult);
 

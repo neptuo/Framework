@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,9 @@ namespace Neptuo.PresentationModels
     {
         public string Identifier { get; protected set; }
         public IEnumerable<IFieldDefinition> Fields { get; protected set; }
-        public IModelMetadataCollection Metadata { get; protected set; }
+        public IReadOnlyKeyValueCollection Metadata { get; protected set; }
 
-        public ModelDefinition(string identifier, IEnumerable<IFieldDefinition> fields, IModelMetadataCollection metadata)
+        public ModelDefinition(string identifier, IEnumerable<IFieldDefinition> fields, IKeyValueCollection metadata)
         {
             Ensure.NotNull(identifier, "identifier");
             Ensure.NotNull(fields, "fields");

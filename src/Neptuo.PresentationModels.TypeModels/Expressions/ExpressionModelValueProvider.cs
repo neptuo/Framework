@@ -10,25 +10,14 @@ namespace Neptuo.PresentationModels.TypeModels.Expressions
         where TModel : class
     {
         public TModel Model { get; private set; }
-        protected IPropertyValueProviderCollection<TModel> ValueProviders { get; private set; }
+        protected IFieldValueProviderCollection<TModel> ValueProviders { get; private set; }
 
-        public ExpressionModelValueProvider(TModel model, IPropertyValueProviderCollection<TModel> valueProviders)
+        public ExpressionModelValueProvider(TModel model, IFieldValueProviderCollection<TModel> valueProviders)
         {
-            if (model == null)
-                throw new ArgumentNullException("model");
-
+            Ensure.NotNull(model, "model");
+            Ensure.NotNull(valueProviders, "valueProviders");
             Model = model;
-
-            if (valueProviders != null)
-                ValueProviders = valueProviders;
-            else
-                ValueProviders = new DictionaryPropertyValueProviderCollection<TModel>();
-        }
-
-        public ExpressionModelValueProvider<TModel> Add(string identifier, IPropertyValueProvider<TModel> valueProvider)
-        {
-            ValueProviders[identifier] = valueProvider;
-            return this;
+            ValueProviders = valueProviders;
         }
 
         public bool TryGetValue(string identifier, out object value)
@@ -37,16 +26,17 @@ namespace Neptuo.PresentationModels.TypeModels.Expressions
             return true;
         }
 
-        public void SetValue(string identifier, object value)
+        public bool TrySetValue(string identifier, object value)
         {
             GetValueProvider(identifier).SetValue(Model, value);
+            return true;
         }
 
-        protected IPropertyValueProvider<TModel> GetValueProvider(string identifier)
+        protected IFieldValueProvider<TModel> GetValueProvider(string identifier)
         {
-            IPropertyValueProvider<TModel> valueProvider;
-            if (!ValueProviders.TryGetValue(identifier, out valueProvider))
-                throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find property '{0}'", identifier));
+            IFieldValueProvider<TModel> valueProvider;
+            if (!ValueProviders.TryGet(identifier, out valueProvider))
+                throw Ensure.Exception.ArgumentOutOfRange("identifier", "Unnable to find property '{0}'.", identifier);
 
             return valueProvider;
         }

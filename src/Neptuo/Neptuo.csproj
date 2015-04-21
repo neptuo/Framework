@@ -240,7 +240,9 @@
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
+    <Compile Include="Pipelines\Validators\IValidationResultBuilder.cs" />
     <Compile Include="Pipelines\Validators\ValidationResultBuilder.cs" />
+    <Compile Include="Pipelines\Validators\_ValidationResultBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Reflection\DefaultReflectionService.cs" />
@@ -281,7 +283,7 @@
     <Compile Include="Pipelines\Validators\Messages\TextValidationMessage.cs" />
     <Compile Include="Pipelines\Validators\ValidationException.cs" />
     <Compile Include="Pipelines\Validators\Messages\ValidationMessageBase.cs" />
-    <Compile Include="Pipelines\Validators\ValidationResultBase.cs" />
+    <Compile Include="Pipelines\Validators\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Neptuo.js" />

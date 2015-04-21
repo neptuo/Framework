@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,10 @@ namespace Neptuo.PresentationModels
     public class FieldDefinition : IFieldDefinition
     {
         public string Identifier { get; protected set; }
-        public IFieldType FieldType { get; protected set; }
-        public IFieldMetadataCollection Metadata { get; protected set; }
+        public Type FieldType { get; protected set; }
+        public IReadOnlyKeyValueCollection Metadata { get; protected set; }
 
-        public FieldDefinition(string identifier, IFieldType fieldType, IFieldMetadataCollection metadata)
+        public FieldDefinition(string identifier, Type fieldType, IKeyValueCollection metadata)
         {
             Ensure.NotNull(identifier ,"identifier");
             Ensure.NotNull(fieldType ,"fieldType");

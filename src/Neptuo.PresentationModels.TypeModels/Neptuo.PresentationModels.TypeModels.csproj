@@ -35,30 +35,26 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Expressions\DictionaryPropertyValueProviderCollection.cs" />
+    <Compile Include="Expressions\FieldValueProviderCollection.cs" />
     <Compile Include="Expressions\ExpressionModelValueProvider.cs" />
-    <Compile Include="Expressions\FuncPropertyValueProvider.cs" />
-    <Compile Include="Expressions\IPropertyValueProvider.cs" />
-    <Compile Include="Expressions\IPropertyValueProviderCollection.cs" />
-    <Compile Include="IMetadataBuilder.cs" />
-    <Compile Include="IMetadataReader.cs" />
-    <Compile Include="IModelDefinitionFactory.cs" />
-    <Compile Include="IModelValueProviderFactory.cs" />
-    <Compile Include="MetadataBuilderCollection.cs" />
-    <Compile Include="MetadataReaderService.cs" />
-    <Compile Include="MetadataReaderBase.cs" />
-    <Compile Include="ModelDefinitionFactoryExtensions.cs" />
+    <Compile Include="Expressions\FuncFieldValueProvider.cs" />
+    <Compile Include="Expressions\IFieldValueProvider.cs" />
+    <Compile Include="Expressions\IFieldValueProviderCollection.cs" />
+    <Compile Include="IAttributeMetadataReader.cs" />
+    <Compile Include="AttributeMetadataReaderCollection.cs" />
+    <Compile Include="AttributeMetadataReaderBase.cs" />
     <Compile Include="ReflectionModelDefinitionBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ModelDefinitionFactoryBase.cs" />
-    <Compile Include="ReflectionModelDefinitionFactory.cs" />
     <Compile Include="ReflectionModelValueProvider.cs" />
-    <Compile Include="ReflectionModelValueProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
+      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
+      <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

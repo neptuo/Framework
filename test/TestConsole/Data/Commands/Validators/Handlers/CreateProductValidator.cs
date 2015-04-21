@@ -12,7 +12,7 @@ namespace TestConsole.Data.Commands.Validators.Handlers
     {
         public IValidationResult Handle(CreateProductCommand command)
         {
-            return new ValidationResultBase(!String.IsNullOrEmpty(command.Name) && command.Category != null);
+            return new ValidationResult(!String.IsNullOrEmpty(command.Name) && command.Category != null);
         }
     }
 }

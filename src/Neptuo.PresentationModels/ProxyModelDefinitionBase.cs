@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Cached model metadata.
         /// </summary>
-        private IModelMetadataCollection metadata;
+        private IReadOnlyKeyValueCollection metadata;
 
         /// <summary>
         /// If <c>true</c>, next access to identifier, fields or metadata forces refresh.
@@ -57,7 +58,7 @@ namespace Neptuo.PresentationModels
             }
         }
 
-        public IModelMetadataCollection Metadata
+        public IReadOnlyKeyValueCollection Metadata
         {
             get
             {
@@ -91,6 +92,6 @@ namespace Neptuo.PresentationModels
         /// Provides model metadata.
         /// </summary>
         /// <returns>Model metadata.</returns>
-        protected abstract IModelMetadataCollection RefreshMetadata();
+        protected abstract IReadOnlyKeyValueCollection RefreshMetadata();
     }
 }

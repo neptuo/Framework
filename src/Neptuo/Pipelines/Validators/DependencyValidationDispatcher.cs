@@ -46,7 +46,7 @@ namespace Neptuo.Pipelines.Validators
             if (validatable != null)
             {
                 if (validatable.IsValid != null)
-                    return new ValidationResultBase(validatable.IsValid.Value);
+                    return new ValidationResult(validatable.IsValid.Value);
             }
 
             IValidationHandler<TModel> validator = dependencyProvider.Resolve<IValidationHandler<TModel>>();

@@ -50,5 +50,23 @@ namespace Neptuo.Collections.Specialized
 
             return defaultValue;
         }
+
+        /// <summary>
+        /// Returns <c>true</c> if <paramref name="collection"/> contains <paramref name="key"/>.
+        /// </summary>
+        /// <param name="collection">Collection of key-value pairs.</param>
+        /// <param name="key">Requested key.</param>
+        /// <returns><c>true</c> if <paramref name="collection"/> contains <paramref name="key"/>; otherwise <c>false</c>.</returns>
+        public static bool Has(this IReadOnlyKeyValueCollection collection, string key)
+        {
+            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(key, "key");
+
+            if (collection.Keys.Contains(key))
+                return true;
+
+            object value;
+            return collection.TryGet(key, out value);
+        }
     }
 }

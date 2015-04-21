@@ -1,51 +1,45 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using Neptuo.Pipelines.Validators;
+using Neptuo.Pipelines.Validators.Messages;
+using Neptuo.PresentationModels;
+using Neptuo.PresentationModels.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Neptuo.PresentationModels;
-using Neptuo.PresentationModels.Validators;
-using Neptuo.Pipelines.Validators;
-using Neptuo.Pipelines.Validators.Messages;
 
 namespace TestConsole.PresentationModels
 {
+    /// <summary>
+    /// Uses these keys from metadata: 
+    /// <c>MatchProperty</c>
+    /// <c>MatchProperty.ErrorMessage</c>
+    /// </summary>
     public class MatchPropertyMetadataValidator : FieldMetadataValidatorBase<string, object>
     {
         public MatchPropertyMetadataValidator()
             : base("MatchProperty")
         { }
 
-        protected override bool Validate(object fieldValue, string metadataValue, FieldMetadataValidatorContext context)
+        protected override void Validate(object fieldValue, string metadataValue, FieldMetadataValidatorContext context)
         {
+            string errorMessage = context.FieldDefinition.Metadata.Get(
+                "MatchProperty.ErrorMessage",
+                String.Format("'{0}' and '{1}' must match!", context.FieldDefinition.Identifier, metadataValue)
+            );
+
             object otherProperty = null;
-            if (fieldValue == null || !context.Getter.TryGetValue(metadataValue, out otherProperty))
+            if(context.Getter.TryGetValue(metadataValue, out otherProperty)) 
             {
-                if (otherProperty == null)
-                    return true;
-
-                context.ResultBuilder.AddMessage(new TextValidationMessage(
-                    context.FieldDefinition.Identifier,
-                    String.Format("'{0}' and '{1}' must match!", context.FieldDefinition.Identifier, metadataValue)
-                ));
-                return false;
+                if ((fieldValue == null && otherProperty != null) || !fieldValue.Equals(otherProperty))
+                    context.ResultBuilder.AddTextMessage(context.FieldDefinition.Identifier, errorMessage);
             }
-
-            if (!fieldValue.Equals(otherProperty))
+            else
             {
-                context.ResultBuilder.AddMessage(new TextValidationMessage(
-                    context.FieldDefinition.Identifier,
-                    String.Format("'{0}' and '{1}' must match!", context.FieldDefinition.Identifier, metadataValue)
-                ));
-                return false;
+                if (fieldValue != null)
+                    context.ResultBuilder.AddTextMessage(context.FieldDefinition.Identifier, errorMessage);
             }
-
-            return true;
-        }
-
-        protected override bool MissingMetadataKey(IFieldDefinition fieldDefinition, IModelValueGetter getter, IModelValidationBuilder resultBuilder)
-        {
-            return true;
         }
     }
 }

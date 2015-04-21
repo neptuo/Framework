@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,6 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Model metadata collection.
         /// </summary>
-        IModelMetadataCollection Metadata { get; }
+        IReadOnlyKeyValueCollection Metadata { get; }
     }
 }

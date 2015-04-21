@@ -17,7 +17,7 @@ namespace Neptuo.PresentationModels.Binding
             PreviousCollection = previousCollection;
         }
 
-        public BindingConverterCollection Add(IFieldType fieldType, IBindingConverter converter)
+        public BindingConverterCollection Add(Type fieldType, IBindingConverter converter)
         {
             Ensure.NotNull(fieldType, "fieldType");
             Ensure.NotNull(converter, "converter");
@@ -73,7 +73,7 @@ namespace Neptuo.PresentationModels.Binding
             return false;
         }
 
-        protected string GetKey(IFieldType fieldType)
+        protected string GetKey(Type fieldType)
         {
             return fieldType.ToString();
         }
