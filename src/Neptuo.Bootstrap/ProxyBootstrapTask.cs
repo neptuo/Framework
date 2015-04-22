@@ -14,9 +14,7 @@ namespace Neptuo.Bootstrap
 
         public ProxyBootstrapTask(Func<IBootstrapTask> factory)
         {
-            if (factory == null)
-                throw new ArgumentNullException("factory");
-
+            Ensure.NotNull(factory, "factory");
             this.factory = factory;
         }
 

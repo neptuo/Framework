@@ -110,7 +110,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
             if (handlerType.GetConstructor(new Type[0]) != null)
                 type.BaseTypes.Add(configuration.BaseType().MakeGenericType(handlerType));
             else
-                throw new NotSupportedException("Currently supported only parameterless behavior constructors.");
+                throw Ensure.Exception.NotSupported("Currently supported only parameterless behavior constructors.");
 
             return type;
         }

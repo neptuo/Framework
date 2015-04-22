@@ -37,32 +37,23 @@ namespace Neptuo.Web.Routing
 
         public IRouteParameterRegistry Add(string parameterName, IRouteParameter parameter)
         {
-            if (parameterName == null)
-                throw new ArgumentNullException("parameterName");
-
-            if (parameter == null)
-                throw new ArgumentNullException("parameter");
-
+            Ensure.NotNull(parameterName, "parameterName");
+            Ensure.NotNull(parameter, "parameter");
             parameters[parameterName] = new ProxyRouteParameterFactory(parameter);
             return this;
         }
 
         public IRouteParameterRegistry Add(string parameterName, IRouteParameterFactory factory)
         {
-            if (parameterName == null)
-                throw new ArgumentNullException("parameterName");
-
-            if (factory == null)
-                throw new ArgumentNullException("factory");
-
+            Ensure.NotNull(parameterName, "parameterName");
+            Ensure.NotNull(factory, "factory");
             parameters[parameterName] = factory;
             return this;
         }
 
         public IRouteParameter Get(string parameterName)
         {
-            if (parameterName == null)
-                throw new ArgumentNullException("parameterName");
+            Ensure.NotNull(parameterName, "parameterName");
 
             IRouteParameterFactory parameter;
             if (parameters.TryGetValue(parameterName, out parameter))

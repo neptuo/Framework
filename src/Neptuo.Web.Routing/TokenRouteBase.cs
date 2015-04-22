@@ -22,9 +22,7 @@ namespace Neptuo.Web.Routing
 
         public TokenRouteBase(IRouteHandler routeHandler, string suffix = null, bool caseSensitive = false, IRouteParameterService parameterService = null)
         {
-            if (routeHandler == null)
-                throw new ArgumentNullException("routeHandler");
-
+            Ensure.NotNull(routeHandler, "routeHandler");
             CaseSensitive = caseSensitive;
 
             RouteHandler = routeHandler;
@@ -58,7 +56,7 @@ namespace Neptuo.Web.Routing
             };
 
             if (!TokenParser.Parse(routeUrl))
-                throw new ArgumentOutOfRangeException("routeUrl", "Route url is not valid format for TokenRoute.");
+                throw Ensure.Exception.ArgumentOutOfRange("routeUrl", "Route url is not valid format for TokenRoute.");
 
             if (routeUrl.Length > lastIndex)
                 result.Add(new StaticRouteSegment(routeUrl.Substring(lastIndex)));

@@ -24,9 +24,7 @@ namespace Neptuo.Web.Routing
         public TokenRoute(string url, IRouteHandler routeHandler, string suffix = null, bool caseSensitive = false, IRouteParameterService parameterService = null)
             : base(routeHandler, suffix, caseSensitive, parameterService)
         {
-            if (url == null)
-                throw new ArgumentNullException("url");
-
+            Ensure.NotNull(url, "url");
             Url = url;
             Segments = BuildRoute(Url);
         }

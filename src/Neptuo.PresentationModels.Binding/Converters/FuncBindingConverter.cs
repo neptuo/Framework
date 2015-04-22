@@ -12,9 +12,7 @@ namespace Neptuo.PresentationModels.Binding.Converters
 
         public FuncBindingConverter(OutFunc<string, T, bool> converter)
         {
-            if (converter == null)
-                throw new ArgumentNullException("converter");
-
+            Ensure.NotNull(converter, "converter");
             Converter = converter;
         }
 

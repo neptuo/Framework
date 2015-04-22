@@ -13,9 +13,7 @@ namespace Neptuo.Web.Routing.Segments
 
         public ParamRouteSegment(IRouteParameter parameter)
         {
-            if (parameter == null)
-                throw new ArgumentNullException("parameter");
-
+            Ensure.NotNull(parameter, "parameter");
             Parameter = parameter;
 
             IRequiredRouteParameter requiredParameter = parameter as IRequiredRouteParameter;
