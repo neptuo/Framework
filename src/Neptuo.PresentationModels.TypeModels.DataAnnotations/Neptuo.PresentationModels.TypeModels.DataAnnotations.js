@@ -46,6 +46,27 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$DataTypeMetadataReader 
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$DataTypeMetadataReader);
+var Neptuo$PresentationModels$TypeModels$DataAnnotations$DefaultValueMetadataReader = {
+    fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.DefaultValueMetadataReader",
+    baseTypeName: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1",
+    assemblyName: "Neptuo.PresentationModels.TypeModels.DataAnnotations",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1.ctor.call(this, System.ComponentModel.DefaultValueAttribute.ctor);
+        },
+        ApplyInternal: function (attribute, builder){
+            builder.Add("DefaultValue", attribute.get_Value());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$DefaultValueMetadataReader);
 var Neptuo$PresentationModels$TypeModels$DataAnnotations$DescriptionMetadataReader = {
     fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.DescriptionMetadataReader",
     baseTypeName: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1",

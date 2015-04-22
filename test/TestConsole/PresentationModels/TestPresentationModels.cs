@@ -23,12 +23,16 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            AttributeMetadataReaderCollection readerService = new AttributeMetadataReaderCollection()
-                .Add(typeof(RequiredAttribute), new RequiredMetadataReader())
-                .Add(typeof(DescriptionAttribute), new DescriptionMetadataReader())
-                .Add(typeof(MatchPropertyAttribute), new MatchPropertyMetadataReader());
+            AttributeMetadataReaderCollection metadataReaders = new AttributeMetadataReaderCollection()
+                .Add<CompareAttribute>(new CompareMetadataReader())
+                .Add<DataTypeAttribute>(new DataTypeMetadataReader())
+                .Add<DefaultValueAttribute>(new DefaultValueMetadataReader())
+                .Add<DescriptionAttribute>(new DescriptionMetadataReader())
+                .Add<DisplayAttribute>(new DisplayMetadataReader())
+                .Add<RequiredAttribute>(new RequiredMetadataReader())
+                .Add<StringLengthAttribute>(new StringLengthMetadataReader());
 
-            FieldMetadataValidatorCollection validators = new FieldMetadataValidatorCollection()
+            FieldMetadataValidatorCollection fieldMetadataValidators = new FieldMetadataValidatorCollection()
                 .Add(null, null, "Required", new RequiredMetadataValidator())
                 .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
@@ -39,7 +43,10 @@ namespace TestConsole.PresentationModels
                 //.Add(new TypeFieldType(typeof(string)), new StringBindingConverter());
                 .AddStandart();
 
-            IModelDefinition modelDefinition = new ReflectionModelDefinitionBuilder(typeof(RegisterUserModel), readerService).Create();
+            TypeModelDefinitionCollection modelDefinitions = new TypeModelDefinitionCollection()
+                .AddReflectionSearchHandler(metadataReaders);
+
+            IModelDefinition modelDefinition = modelDefinitions.Get<RegisterUserModel>();
             RegisterUserModel model = new RegisterUserModel();
             model.Username = "pepa";
             model.Password = "x";
@@ -49,15 +56,15 @@ namespace TestConsole.PresentationModels
             IBindingModelValueStorage storage = new BindingDictionaryValueStorage()
                 .Add("Username", "Pepa")
                 .Add("Password", "XxYy")
-                .Add("PasswordAgain", "XxYy")
-                .Add("Age", "25")
+                //.Add("PasswordAgain", "XxYy")
+                //.Add("Age", "25")
                 .Add("RoleIDs", "1,2,3,4,5,6");
 
             IModelValueGetter bindingGetter = new BindingModelValueGetter(storage, bindingConverters, modelDefinition);
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
-            IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(validators);
+            IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(fieldMetadataValidators);
             IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, valueProvider)));
             Console.WriteLine(validationResult);
             validationResult = Debug("Validate user with binding", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, bindingGetter)));
@@ -74,7 +81,7 @@ namespace TestConsole.PresentationModels
         public string Password { get; set; }
 
         [Required]
-        [MatchProperty("Password")]
+        [Compare("Password")]
         public string PasswordAgain { get; set; }
 
         [Required]

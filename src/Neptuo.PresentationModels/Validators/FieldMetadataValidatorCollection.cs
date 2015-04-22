@@ -66,12 +66,12 @@ namespace Neptuo.PresentationModels.Validators
         private bool TryGetInternal<T>(Dictionary<string, Dictionary<string, Dictionary<string, T>>> storage, string modelIdentifier, string fieldIdentifier, string metadataKey, out T validator)
         {
             Dictionary<string, Dictionary<string, T>> modelValidators;
-            if (storage.TryGetValue(modelIdentifier, out modelValidators) && !storage.TryGetValue(String.Empty, out modelValidators))
+            if (storage.TryGetValue(modelIdentifier, out modelValidators) || storage.TryGetValue(String.Empty, out modelValidators))
             {
                 Dictionary<string, T> fieldValidators;
-                if (modelValidators.TryGetValue(fieldIdentifier, out fieldValidators) && !modelValidators.TryGetValue(String.Empty, out fieldValidators))
+                if (modelValidators.TryGetValue(fieldIdentifier, out fieldValidators) || modelValidators.TryGetValue(String.Empty, out fieldValidators))
                 {
-                    if (fieldValidators.TryGetValue(metadataKey, out validator) && !fieldValidators.TryGetValue(String.Empty, out validator))
+                    if (fieldValidators.TryGetValue(metadataKey, out validator) || fieldValidators.TryGetValue(String.Empty, out validator))
                         return true;
                 }
             }

@@ -96,9 +96,6 @@
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
     <Compile Include="ObjectSizes\TestObjectSize.cs" />
-    <Compile Include="PresentationModels\MatchPropertyAttribute.cs" />
-    <Compile Include="PresentationModels\MatchPropertyMetadataReader.cs" />
-    <Compile Include="PresentationModels\MatchPropertyMetadataValidator.cs" />
     <Compile Include="PresentationModels\TestPresentationModels.cs" />
     <Compile Include="Compilers\ProgramTest.cs" />
     <Compile Include="Program.cs" />

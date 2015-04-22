@@ -14,15 +14,9 @@ namespace Neptuo.PresentationModels.Binding
 
         public BindingModelValueGetter(IBindingModelValueStorage storage, IBindingConverterCollection converterCollection, IModelDefinition modelDefinition)
         {
-            if (storage == null)
-                throw new ArgumentNullException("storage");
-
-            if (converterCollection == null)
-                throw new ArgumentNullException("converterCollection");
-
-            if (modelDefinition == null)
-                throw new ArgumentNullException("modelDefinition");
-
+            Ensure.NotNull(storage, "storage");
+            Ensure.NotNull(converterCollection, "converterCollection");
+            Ensure.NotNull(modelDefinition, "modelDefinition");
             Storage = storage;
             ConverterCollection = converterCollection;
             ModelDefinition = modelDefinition;
@@ -32,7 +26,7 @@ namespace Neptuo.PresentationModels.Binding
         {
             IFieldDefinition targetField = ModelDefinition.Fields.FirstOrDefault(f => f.Identifier == identifier);
             if (targetField == null)
-                throw new ArgumentOutOfRangeException("identifier", String.Format("Unnable to find field '{0}' in model '{1}'.", identifier, ModelDefinition.Identifier));
+                throw Ensure.Exception.ArgumentOutOfRange("identifier", "Unnable to find field '{0}' in model '{1}'.", identifier, ModelDefinition.Identifier);
 
             string sourceValue;
             if (Storage.TryGetValue(identifier, out sourceValue))

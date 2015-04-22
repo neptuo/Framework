@@ -26,12 +26,8 @@ namespace Neptuo.PresentationModels.TypeModels
         /// <returns>Self (for fluency).</returns>
         public AttributeMetadataReaderCollection Add(Type attributeType, IAttributeMetadataReader reader)
         {
-            if (attributeType == null)
-                throw new ArgumentNullException("attributeType");
-
-            if (reader == null)
-                throw new ArgumentNullException("reader");
-
+            Ensure.NotNull(attributeType, "attributeType");
+            Ensure.NotNull(reader, "reader");
             Values[attributeType] = reader;
             return this;
         }
@@ -44,6 +40,7 @@ namespace Neptuo.PresentationModels.TypeModels
         /// <returns><c>true</c> if reader is registered; <c>false</c> otherwise.</returns>
         public bool TryGet(Type attributeType, out IAttributeMetadataReader reader)
         {
+            Ensure.NotNull(attributeType, "attributeType");
             return Values.TryGetValue(attributeType, out reader);
         }
     }

@@ -63,7 +63,10 @@
     <Compile Include="TypeModels\IAttributeMetadataReader.cs" />
     <Compile Include="TypeModels\IMetadataReader.cs" />
     <Compile Include="TypeModels\ReflectionModelDefinitionBuilder.cs" />
+    <Compile Include="TypeModels\TypeModelDefinitionCollection.cs" />
     <Compile Include="TypeModels\ReflectionModelValueProvider.cs" />
+    <Compile Include="TypeModels\_AttributeMetadataReaderCollectionExtensions.cs" />
+    <Compile Include="TypeModels\_TypeModelDefinitionCollectionExtensions.cs" />
     <Compile Include="Validators\FieldMetadataValidatorBase.cs" />
     <Compile Include="Validators\FieldMetadataValidatorContext.cs" />
     <Compile Include="Validators\IFieldValidator.cs" />
