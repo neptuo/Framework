@@ -45,11 +45,17 @@ namespace Neptuo.PresentationModels.TypeModels
             MetadataCollection collection = new MetadataCollection();
             foreach (Attribute attribute in memberInfo.GetCustomAttributes(true))
             {
-                IAttributeMetadataReader reader = attribute as IAttributeMetadataReader;
+                IMetadataReader reader = attribute as IMetadataReader;
                 if (reader != null)
-                    reader.Apply(attribute, collection);
-                else if(MetadataReaderCollection.TryGet(attribute.GetType(), out reader))
-                    reader.Apply(attribute, collection);
+                {
+                    reader.Apply(collection);
+                }
+                else
+                {
+                    IAttributeMetadataReader attributeReader;
+                    if (MetadataReaderCollection.TryGet(attribute.GetType(), out attributeReader))
+                        attributeReader.Apply(attribute, collection);
+                }
             }
             return collection;
         }

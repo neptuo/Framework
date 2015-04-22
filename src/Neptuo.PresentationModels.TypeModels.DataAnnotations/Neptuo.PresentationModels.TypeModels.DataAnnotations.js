@@ -56,7 +56,8 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$DescriptionMetadataRead
             Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1.ctor.call(this, System.ComponentModel.DescriptionAttribute.ctor);
         },
         ApplyInternal: function (attribute, builder){
-            builder.Add("Description", attribute.get_Description());
+            if (!Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Has(builder, "Description"))
+                builder.Add("Description", attribute.get_Description());
         }
     },
     ctors: [{
@@ -67,6 +68,32 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$DescriptionMetadataRead
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$DescriptionMetadataReader);
+var Neptuo$PresentationModels$TypeModels$DataAnnotations$DisplayMetadataReader = {
+    fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.DisplayMetadataReader",
+    baseTypeName: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1",
+    assemblyName: "Neptuo.PresentationModels.TypeModels.DataAnnotations",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1.ctor.call(this, System.ComponentModel.DataAnnotations.DisplayAttribute.ctor);
+        },
+        ApplyInternal: function (attribute, builder){
+            builder.Add("Display.Name", attribute.get_Name());
+            builder.Add("Display.ShortName", attribute.get_ShortName());
+            if (!Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Has(builder, "Description"))
+                builder.Add("Description", attribute.get_Description());
+            builder.Add("Display.Order", attribute.get_Order());
+            builder.Add("Display.Watermark", attribute.get_Prompt());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$DisplayMetadataReader);
 var Neptuo$PresentationModels$TypeModels$DataAnnotations$RequiredMetadataReader = {
     fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.RequiredMetadataReader",
     baseTypeName: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1",
@@ -91,6 +118,29 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$RequiredMetadataReader 
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$RequiredMetadataReader);
+var Neptuo$PresentationModels$TypeModels$DataAnnotations$StringLengthMetadataReader = {
+    fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.StringLengthMetadataReader",
+    baseTypeName: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1",
+    assemblyName: "Neptuo.PresentationModels.TypeModels.DataAnnotations",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderBase$1.ctor.call(this, System.ComponentModel.DataAnnotations.StringLengthAttribute.ctor);
+        },
+        ApplyInternal: function (attribute, builder){
+            builder.Add("StringLength.ErrorMessage", attribute.get_ErrorMessage());
+            builder.Add("StringLength.Minimum", attribute.get_MinimumLength());
+            builder.Add("StringLength.Maximum", attribute.get_MaximumLength());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$TypeModels$DataAnnotations$StringLengthMetadataReader);
 var Neptuo$PresentationModels$TypeModels$DataAnnotations$Validators$MatchPropertyMetadataValidator = {
     fullname: "Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators.MatchPropertyMetadataValidator",
     baseTypeName: "Neptuo.PresentationModels.Validators.FieldMetadataValidatorBase$2",

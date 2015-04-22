@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="CompareMetadataReader.cs" />
     <Compile Include="DataTypeMetadataReader.cs" />
+    <Compile Include="DefaultValueMetadataReader.cs" />
     <Compile Include="DescriptionMetadataReader.cs" />
     <Compile Include="DisplayMetadataReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -47,10 +48,6 @@
     <Compile Include="Validators\RequiredMetadataValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj">
-      <Project>{13b05164-c374-4e72-b702-96e5d9647265}</Project>
-      <Name>Neptuo.PresentationModels.TypeModels</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj">
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>

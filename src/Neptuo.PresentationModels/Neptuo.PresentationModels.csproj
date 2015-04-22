@@ -59,6 +59,17 @@
     <Compile Include="ModelDefinition.cs" />
     <Compile Include="ProxyModelDefinition.cs" />
     <Compile Include="ProxyModelDefinitionBase.cs" />
+    <Compile Include="TypeModels\AttributeMetadataReaderBase.cs" />
+    <Compile Include="TypeModels\AttributeMetadataReaderCollection.cs" />
+    <Compile Include="TypeModels\Expressions\ExpressionModelValueProvider.cs" />
+    <Compile Include="TypeModels\Expressions\FieldValueProviderCollection.cs" />
+    <Compile Include="TypeModels\Expressions\FuncFieldValueProvider.cs" />
+    <Compile Include="TypeModels\Expressions\IFieldValueProvider.cs" />
+    <Compile Include="TypeModels\Expressions\IFieldValueProviderCollection.cs" />
+    <Compile Include="TypeModels\IAttributeMetadataReader.cs" />
+    <Compile Include="TypeModels\IMetadataReader.cs" />
+    <Compile Include="TypeModels\ReflectionModelDefinitionBuilder.cs" />
+    <Compile Include="TypeModels\ReflectionModelValueProvider.cs" />
     <Compile Include="Validators\FieldMetadataValidatorBase.cs" />
     <Compile Include="Validators\FieldMetadataValidatorContext.cs" />
     <Compile Include="Validators\IFieldValidator.cs" />
