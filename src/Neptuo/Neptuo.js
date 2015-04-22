@@ -2259,7 +2259,7 @@ var Neptuo$ComponentModel$Behaviors$Processing$Compilation$CodeDomPipelineGenera
             if (System.Reflection.ConstructorInfo.op_Inequality$$ConstructorInfo$$ConstructorInfo(this.handlerType.GetConstructor$$Type$Array(new Array(0)), null))
                 type.get_BaseTypes().Add$$Type(Neptuo.ComponentModel.Behaviors.Processing.Compilation._CodeDomPipelineConfigurationExtensions.BaseType$$ICompilerConfiguration(this.configuration).MakeGenericType(this.handlerType));
             else
-                throw $CreateException(new System.NotSupportedException.ctor$$String("Currently supported only parameterless behavior constructors."), new Error());
+                throw $CreateException(Neptuo._EnsureSystemExtensions.NotSupported(Neptuo.Ensure.Exception, "Currently supported only parameterless behavior constructors."), new Error());
             return type;
         },
         CreateBehaviorMethod: function (){

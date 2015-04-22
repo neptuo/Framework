@@ -1160,8 +1160,7 @@ var Neptuo$Bootstrap$ProxyBootstrapTask = {
         ctor: function (factory){
             this.factory = null;
             System.Object.ctor.call(this);
-            if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(factory, null))
-                throw $CreateException(new System.ArgumentNullException.ctor$$String("factory"), new Error());
+            Neptuo.Ensure.NotNull$$Object$$String(factory, "factory");
             this.factory = factory;
         },
         Initialize: function (){

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace TestWpf.PresentationModels
 {
-    public class ModelDefinitionViewModel : ObservableObject, IModelView
+    public class ModelDefinitionViewModel : ObservableObject//, IModelView
     {
         public IModelDefinition ModelDefinition { get; private set; }
         public ObservableCollection<FieldDefinitionViewModel> Fields { get; private set; }
