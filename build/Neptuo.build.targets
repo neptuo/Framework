@@ -8,5 +8,7 @@
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)\artifacts\$(ConfigurationName)
 copy $(TargetDir)$(TargetName).* $(SolutionDir)\artifacts\$(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent Condition="$(DefineConstants.Contains('Javascript'))">mkdir $(SolutionDir)\artifacts\$(ConfigurationName)\Javascript
+copy $(ProjectDir)*.js $(SolutionDir)\artifacts\$(ConfigurationName)\Javascript</PostBuildEvent>
   </PropertyGroup>
 </Project>
