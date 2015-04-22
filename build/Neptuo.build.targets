@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Condition="$(DefineConstants.Contains('Javascript'))">
+    <SkcPlugin Include="Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin">
+      <InProject>false</InProject>
+    </SkcPlugin>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" Condition="$(DefineConstants.Contains('Javascript'))" />
+  <PropertyGroup>
+    <PostBuildEvent>mkdir $(SolutionDir)\artifacts\$(ConfigurationName)
+copy $(TargetDir)$(TargetName).* $(SolutionDir)\artifacts\$(ConfigurationName)</PostBuildEvent>
+  </PropertyGroup>
+</Project>
