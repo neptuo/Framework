@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.BindingConverters
+namespace Neptuo.PresentationModels.Binding.Converters
 {
-    public static class BindingConverterCollectionExtensions
+    public static class _BindingConverterCollectionExtensions
     {
         public static BindingConverterCollection AddStandart(this BindingConverterCollection bindingConverters)
         {

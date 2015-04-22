@@ -35,15 +35,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Binding\BindingConverterCollection.cs" />
-    <Compile Include="Binding\BindingModelValueGetter.cs" />
     <Compile Include="CopyModelValueProvider.cs" />
-    <Compile Include="Binding\BindingDictionaryValueStorage.cs" />
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldDefinitionBuilderBase.cs" />
-    <Compile Include="Binding\IBindingConverter.cs" />
-    <Compile Include="Binding\IBindingConverterCollection.cs" />
-    <Compile Include="Binding\IBindingModelValueStorage.cs" />
     <Compile Include="IFieldDefinition.cs" />
     <Compile Include="IFieldDefinitionBuilder.cs" />
     <Compile Include="IMetadataBuilder.cs" />
@@ -96,6 +90,7 @@
       <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" />
 </Project>

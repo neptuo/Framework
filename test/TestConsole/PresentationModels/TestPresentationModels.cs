@@ -1,6 +1,6 @@
 ﻿using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Binding;
-using Neptuo.PresentationModels.BindingConverters;
+using Neptuo.PresentationModels.Binding.Converters;
 using Neptuo.PresentationModels.TypeModels;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations;
 using Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators;

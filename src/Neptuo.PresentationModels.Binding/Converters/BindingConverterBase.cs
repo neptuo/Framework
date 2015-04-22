@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.PresentationModels.BindingConverters
+namespace Neptuo.PresentationModels.Binding.Converters
 {
     public abstract class BindingConverterBase<T> : IBindingConverter
     {

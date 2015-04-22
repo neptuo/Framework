@@ -18,9 +18,9 @@ if (typeof($CreateException)=='undefined')
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
 var Neptuo$PresentationModels$BindingConverters$BindingConverterBase$1 = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     interfaceNames: ["Neptuo.PresentationModels.Binding.IBindingConverter"],
     Kind: "Class",
     definition: {
@@ -54,14 +54,14 @@ var Neptuo$PresentationModels$BindingConverters$BindingConverterBase$1 = {
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$BindingConverterBase$1);
 var Neptuo$PresentationModels$BindingConverters$BindingConverterCollectionExtensions = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.BindingConverterCollectionExtensions",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.BindingConverterCollectionExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         AddStandart: function (bindingConverters){
-            return bindingConverters.Add(Typeof(System.Boolean.ctor), new Neptuo.PresentationModels.BindingConverters.BoolBindingConverter.ctor()).Add(Typeof(System.Int32.ctor), new Neptuo.PresentationModels.BindingConverters.IntBindingConverter.ctor()).Add(Typeof(System.Double.ctor), new Neptuo.PresentationModels.BindingConverters.DoubleBindingConverter.ctor()).Add(Typeof(System.String.ctor), new Neptuo.PresentationModels.BindingConverters.StringBindingConverter.ctor(false, true, true)).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.BindingConverters.NullBindingConverter$1.ctor(System.Boolean.ctor, new Neptuo.PresentationModels.BindingConverters.BoolBindingConverter.ctor())).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.BindingConverters.NullBindingConverter$1.ctor(System.Int32.ctor, new Neptuo.PresentationModels.BindingConverters.IntBindingConverter.ctor())).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.BindingConverters.NullBindingConverter$1.ctor(System.Double.ctor, new Neptuo.PresentationModels.BindingConverters.DoubleBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.BindingConverters.ListBindingConverter$1.ctor(System.Boolean.ctor, ",", new Neptuo.PresentationModels.BindingConverters.BoolBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.BindingConverters.ListBindingConverter$1.ctor(System.Int32.ctor, ",", new Neptuo.PresentationModels.BindingConverters.IntBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.BindingConverters.ListBindingConverter$1.ctor(System.Double.ctor, ",", new Neptuo.PresentationModels.BindingConverters.DoubleBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.BindingConverters.ListBindingConverter$1.ctor(System.String.ctor, ",", new Neptuo.PresentationModels.BindingConverters.StringBindingConverter.ctor(false, true, true)));
+            return bindingConverters.Add(Typeof(System.Boolean.ctor), new Neptuo.PresentationModels.Binding.Converters.BoolBindingConverter.ctor()).Add(Typeof(System.Int32.ctor), new Neptuo.PresentationModels.Binding.Converters.IntBindingConverter.ctor()).Add(Typeof(System.Double.ctor), new Neptuo.PresentationModels.Binding.Converters.DoubleBindingConverter.ctor()).Add(Typeof(System.String.ctor), new Neptuo.PresentationModels.Binding.Converters.StringBindingConverter.ctor(false, true, true)).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.NullBindingConverter$1.ctor(System.Boolean.ctor, new Neptuo.PresentationModels.Binding.Converters.BoolBindingConverter.ctor())).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.NullBindingConverter$1.ctor(System.Int32.ctor, new Neptuo.PresentationModels.Binding.Converters.IntBindingConverter.ctor())).Add(Typeof(System.Nullable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.NullBindingConverter$1.ctor(System.Double.ctor, new Neptuo.PresentationModels.Binding.Converters.DoubleBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.ListBindingConverter$1.ctor(System.Boolean.ctor, ",", new Neptuo.PresentationModels.Binding.Converters.BoolBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.ListBindingConverter$1.ctor(System.Int32.ctor, ",", new Neptuo.PresentationModels.Binding.Converters.IntBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.ListBindingConverter$1.ctor(System.Double.ctor, ",", new Neptuo.PresentationModels.Binding.Converters.DoubleBindingConverter.ctor())).Add(Typeof(System.Collections.Generic.IEnumerable$1.ctor), new Neptuo.PresentationModels.Binding.Converters.ListBindingConverter$1.ctor(System.String.ctor, ",", new Neptuo.PresentationModels.Binding.Converters.StringBindingConverter.ctor(false, true, true)));
         }
     },
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -73,13 +73,13 @@ var Neptuo$PresentationModels$BindingConverters$BindingConverterCollectionExtens
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$BindingConverterCollectionExtensions);
 var Neptuo$PresentationModels$BindingConverters$BoolBindingConverter = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.BoolBindingConverter",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.BoolBindingConverter",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.Boolean.ctor);
+            Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1.ctor.call(this, System.Boolean.ctor);
         },
         TryConvertTo: function (sourceValue, targetField, targetValue){
             if (sourceValue == null){
@@ -115,13 +115,13 @@ var Neptuo$PresentationModels$BindingConverters$BoolBindingConverter = {
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$BoolBindingConverter);
 var Neptuo$PresentationModels$BindingConverters$DoubleBindingConverter = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.DoubleBindingConverter",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.FuncBindingConverter$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.DoubleBindingConverter",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.FuncBindingConverter$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.PresentationModels.BindingConverters.FuncBindingConverter$1.ctor.call(this, System.Double.ctor, System.Double.TryParse$$String$$Double);
+            Neptuo.PresentationModels.Binding.Converters.FuncBindingConverter$1.ctor.call(this, System.Double.ctor, System.Double.TryParse$$String$$Double);
         }
     },
     ctors: [{
@@ -133,15 +133,15 @@ var Neptuo$PresentationModels$BindingConverters$DoubleBindingConverter = {
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$DoubleBindingConverter);
 var Neptuo$PresentationModels$BindingConverters$FuncBindingConverter$1 = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.FuncBindingConverter$1",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.FuncBindingConverter$1",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (T, converter){
             this.T = T;
             this._Converter = null;
-            Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, this.T);
+            Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1.ctor.call(this, this.T);
             if (System.MulticastDelegate.op_Equality$$MulticastDelegate$$MulticastDelegate(converter, null))
                 throw $CreateException(new System.ArgumentNullException.ctor$$String("converter"), new Error());
             this.set_Converter(converter);
@@ -166,13 +166,13 @@ var Neptuo$PresentationModels$BindingConverters$FuncBindingConverter$1 = {
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$FuncBindingConverter$1);
 var Neptuo$PresentationModels$BindingConverters$IntBindingConverter = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.IntBindingConverter",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.FuncBindingConverter$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.IntBindingConverter",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.FuncBindingConverter$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.PresentationModels.BindingConverters.FuncBindingConverter$1.ctor.call(this, System.Int32.ctor, System.Int32.TryParse$$String$$Int32);
+            Neptuo.PresentationModels.Binding.Converters.FuncBindingConverter$1.ctor.call(this, System.Int32.ctor, System.Int32.TryParse$$String$$Int32);
         }
     },
     ctors: [{
@@ -184,16 +184,16 @@ var Neptuo$PresentationModels$BindingConverters$IntBindingConverter = {
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$IntBindingConverter);
 var Neptuo$PresentationModels$BindingConverters$ListBindingConverter$1 = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.ListBindingConverter$1",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.ListBindingConverter$1",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (T, separator, converter){
             this.T = T;
             this._Separator = null;
             this._Converter = null;
-            Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.Collections.Generic.IEnumerable$1.ctor);
+            Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1.ctor.call(this, System.Collections.Generic.IEnumerable$1.ctor);
             Neptuo.Ensure.NotNullOrEmpty(separator, "separator");
             Neptuo.Ensure.NotNull$$Object$$String(converter, "converter");
             this.set_Separator(separator);
@@ -206,7 +206,7 @@ var Neptuo$PresentationModels$BindingConverters$ListBindingConverter$1 = {
         set_Separator: function (value){
             this._Separator = value;
         },
-        Converter$$: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase`1[[`0]]",
+        Converter$$: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase`1[[`0]]",
         get_Converter: function (){
             return this._Converter;
         },
@@ -240,26 +240,26 @@ var Neptuo$PresentationModels$BindingConverters$ListBindingConverter$1 = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String", "Neptuo.PresentationModels.BindingConverters.BindingConverterBase"]
+        parameters: ["System.String", "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase"]
     }
     ],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$ListBindingConverter$1);
 var Neptuo$PresentationModels$BindingConverters$NullBindingConverter$1 = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.NullBindingConverter$1",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.NullBindingConverter$1",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (T, converter){
             this.T = T;
             this._Converter = null;
-            Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.Nullable$1.ctor);
+            Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1.ctor.call(this, System.Nullable$1.ctor);
             Neptuo.Ensure.NotNull$$Object$$String(converter, "converter");
             this.set_Converter(converter);
         },
-        Converter$$: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase`1[[`0]]",
+        Converter$$: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase`1[[`0]]",
         get_Converter: function (){
             return this._Converter;
         },
@@ -289,23 +289,23 @@ var Neptuo$PresentationModels$BindingConverters$NullBindingConverter$1 = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.BindingConverters.BindingConverterBase"]
+        parameters: ["Neptuo.PresentationModels.Binding.Converters.BindingConverterBase"]
     }
     ],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$BindingConverters$NullBindingConverter$1);
 var Neptuo$PresentationModels$BindingConverters$StringBindingConverter = {
-    fullname: "Neptuo.PresentationModels.BindingConverters.StringBindingConverter",
-    baseTypeName: "Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1",
-    assemblyName: "Neptuo.PresentationModels.BindingConverters",
+    fullname: "Neptuo.PresentationModels.Binding.Converters.StringBindingConverter",
+    baseTypeName: "Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1",
+    assemblyName: "Neptuo.PresentationModels.Binding.Converters",
     Kind: "Class",
     definition: {
         ctor: function (allowConvertNull, allowConvertEmpty, allowConvertWhitespace){
             this._AllowConvertNull = false;
             this._AllowConvertEmpty = false;
             this._AllowConvertWhitespace = false;
-            Neptuo.PresentationModels.BindingConverters.BindingConverterBase$1.ctor.call(this, System.String.ctor);
+            Neptuo.PresentationModels.Binding.Converters.BindingConverterBase$1.ctor.call(this, System.String.ctor);
             this.set_AllowConvertNull(allowConvertNull);
             this.set_AllowConvertEmpty(allowConvertEmpty);
             this.set_AllowConvertWhitespace(allowConvertWhitespace);
