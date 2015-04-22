@@ -13,7 +13,7 @@ namespace Neptuo.PresentationModels.Validators.Handlers
     /// Base for <see cref="IModelValidationHandler"/>.
     /// Validator result built from validation of all fields.
     /// </summary>
-    public abstract class ModelValidator : IValidationHandler<ModelValidatorContext>
+    public class ModelValidator : IValidationHandler<ModelValidatorContext>
     {
         /// <summary>
         /// Field validator.

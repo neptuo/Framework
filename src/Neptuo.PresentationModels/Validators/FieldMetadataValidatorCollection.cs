@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,28 +13,14 @@ namespace Neptuo.PresentationModels.Validators
     /// </summary>
     public class FieldMetadataValidatorCollection : IFieldMetadataValidatorCollection
     {
-        private readonly Dictionary<string, Dictionary<string, Dictionary<string, IFieldMetadataValidator>>> singletons
-            = new Dictionary<string, Dictionary<string, Dictionary<string, IFieldMetadataValidator>>>();
+        private readonly Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator> singletons
+            = new Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator>();
 
-        private readonly Dictionary<string, Dictionary<string, Dictionary<string, IActivator<IFieldMetadataValidator>>>> builders
-            = new Dictionary<string, Dictionary<string, Dictionary<string, IActivator<IFieldMetadataValidator>>>>();
+        private readonly Dictionary<FieldMetadataValidatorKey, IActivator<IFieldMetadataValidator>> builders
+            = new Dictionary<FieldMetadataValidatorKey, IActivator<IFieldMetadataValidator>>();
 
-        private void AddInternal<T>(Dictionary<string, Dictionary<string, Dictionary<string, T>>> storage, string modelIdentifier, string fieldIdentifier, string metadataKey, T validator)
-        {
-            if (modelIdentifier == null)
-                modelIdentifier = String.Empty;
-
-            if (fieldIdentifier == null)
-                fieldIdentifier = String.Empty;
-
-            if (!singletons.ContainsKey(modelIdentifier))
-                storage[modelIdentifier] = new Dictionary<string, Dictionary<string, T>>();
-
-            if (!singletons[modelIdentifier].ContainsKey(fieldIdentifier))
-                storage[modelIdentifier][fieldIdentifier] = new Dictionary<string, T>();
-
-            storage[modelIdentifier][fieldIdentifier][metadataKey] = validator;
-        }
+        private readonly OutFuncCollection<FieldMetadataValidatorKey, IFieldMetadataValidator, bool> onSearchValidator
+            = new OutFuncCollection<FieldMetadataValidatorKey, IFieldMetadataValidator, bool>();
 
         /// <summary>
         /// Add validator for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.
@@ -45,7 +32,7 @@ namespace Neptuo.PresentationModels.Validators
         /// <returns>Self (for fluency).</returns>
         public FieldMetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IFieldMetadataValidator validator)
         {
-            AddInternal(singletons, modelIdentifier, fieldIdentifier, metadataKey, validator);
+            singletons[new FieldMetadataValidatorKey(modelIdentifier, fieldIdentifier, metadataKey)] = validator;
             return this;
         }
 
@@ -59,41 +46,48 @@ namespace Neptuo.PresentationModels.Validators
         /// <returns>Self (for fluency).</returns>
         public FieldMetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IActivator<IFieldMetadataValidator> validator)
         {
-            AddInternal(builders, modelIdentifier, fieldIdentifier, metadataKey, validator);
+            builders[new FieldMetadataValidatorKey(modelIdentifier, fieldIdentifier, metadataKey)] = validator;
             return this;
         }
 
-        private bool TryGetInternal<T>(Dictionary<string, Dictionary<string, Dictionary<string, T>>> storage, string modelIdentifier, string fieldIdentifier, string metadataKey, out T validator)
+        /// <summary>
+        /// Adds <paramref name="searchHandler"/> to be executed when field metadata validator was not found.
+        /// </summary>
+        /// <param name="searchHandler">Field metadata validator method.</param>
+        public FieldMetadataValidatorCollection AddSearchHandler(OutFunc<FieldMetadataValidatorKey, IFieldMetadataValidator, bool> searchHandler)
         {
-            Dictionary<string, Dictionary<string, T>> modelValidators;
-            if (storage.TryGetValue(modelIdentifier, out modelValidators) || storage.TryGetValue(String.Empty, out modelValidators))
-            {
-                Dictionary<string, T> fieldValidators;
-                if (modelValidators.TryGetValue(fieldIdentifier, out fieldValidators) || modelValidators.TryGetValue(String.Empty, out fieldValidators))
-                {
-                    if (fieldValidators.TryGetValue(metadataKey, out validator) || fieldValidators.TryGetValue(String.Empty, out validator))
-                        return true;
-                }
-            }
-
-            validator = default(T);
-            return false;
+            Ensure.NotNull(searchHandler, "searchHandler");
+            onSearchValidator.Add(searchHandler);
+            return this;
         }
 
         public bool TryGet(string modelIdentifier, string fieldIdentifier, string metadataKey, out IFieldMetadataValidator validator)
         {
-            if (TryGetInternal(singletons, modelIdentifier, fieldIdentifier, metadataKey, out validator))
-                return true;
-
-            IActivator<IFieldMetadataValidator> builder;
-            if (TryGetInternal(builders, modelIdentifier, fieldIdentifier, metadataKey, out builder))
+            foreach (FieldMetadataValidatorKey key in LazyEnumerateKeys(modelIdentifier, fieldIdentifier, metadataKey))
             {
-                validator = builder.Create();
-                return true;
+                if (singletons.TryGetValue(key, out validator))
+                    return true;
+
+                IActivator<IFieldMetadataValidator> builder;
+                if (builders.TryGetValue(key, out builder))
+                {
+                    validator = builder.Create();
+                    return true;
+                }
+
+                if (onSearchValidator.TryExecute(key, out validator))
+                    return true;
             }
 
             validator = null;
             return false;
+        }
+
+        private IEnumerable<FieldMetadataValidatorKey> LazyEnumerateKeys(string modelIdentifier, string fieldIdentifier, string metadataKey)
+        {
+            yield return new FieldMetadataValidatorKey(modelIdentifier, fieldIdentifier, metadataKey);
+            yield return new FieldMetadataValidatorKey(null, fieldIdentifier, metadataKey);
+            yield return new FieldMetadataValidatorKey(null, null, metadataKey);
         }
     }
 }

@@ -70,6 +70,7 @@
     <Compile Include="TypeModels\_TypeModelDefinitionCollectionExtensions.cs" />
     <Compile Include="Validators\FieldMetadataValidatorBase.cs" />
     <Compile Include="Validators\FieldMetadataValidatorContext.cs" />
+    <Compile Include="Validators\FieldMetadataValidatorKey.cs" />
     <Compile Include="Validators\IFieldValidator.cs" />
     <Compile Include="Validators\MetadataFieldValidator.cs" />
     <Compile Include="Validators\ModelValidatorContext.cs" />

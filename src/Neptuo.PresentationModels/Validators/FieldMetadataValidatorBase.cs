@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels.Validators
     /// <summary>
     /// Base field validator for meta data of type <typeparamref name="TMetadataValue"/> and field value of type <typeparamref name="TFieldValue"/>.
     /// Uses <see cref="MetadataKey"/> as key to metadata collection of field definition <see cref="IFieldDefinition"/>, 
-    /// read value is passed with value from <see cref="IModelValueGetter"/> to abstract <see cref="Validate"/> metod.
+    /// read value is passed with value from <see cref="IModelValueGetter"/> to abstract <see cref="IFieldMetadataValidator.Validate"/> metod.
     /// </summary>
     /// <typeparam name="TMetadataValue">Type of meta data value.</typeparam>
     /// <typeparam name="TFieldValue">Type of field value.</typeparam>

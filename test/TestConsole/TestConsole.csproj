@@ -96,6 +96,7 @@
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
     <Compile Include="ObjectSizes\TestObjectSize.cs" />
+    <Compile Include="PresentationModels\TestFieldMetadataValidatorKey.cs" />
     <Compile Include="PresentationModels\TestPresentationModels.cs" />
     <Compile Include="Compilers\ProgramTest.cs" />
     <Compile Include="Program.cs" />

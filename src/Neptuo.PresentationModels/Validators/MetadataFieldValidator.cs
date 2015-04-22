@@ -14,14 +14,13 @@ namespace Neptuo.PresentationModels.Validators
     public class MetadataFieldValidator : IFieldValidator
     {
         /// <summary>
-        /// Collection of filed validators.
+        /// Collection of field validators.
         /// </summary>
         protected IFieldMetadataValidatorCollection Validators { get; private set; }
 
         /// <summary>
-        /// Creates new instance for validating <paramref name="modelDefinition"/> with collection of metadata validators <paramref name="validators"/>.
+        /// Creates new instance for validating <see cref="IFieldDefinition"/> with collection of metadata validators <paramref name="validators"/>.
         /// </summary>
-        /// <param name="modelDefinition">Model definition.</param>
         /// <param name="validators">Collection of metadata validators.</param>
         public MetadataFieldValidator(IFieldMetadataValidatorCollection validators)
         {
