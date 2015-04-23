@@ -565,7 +565,6 @@ var Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderBase$1 = {
             if (targetAttribute == null)
                 throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "Reader can process only attribute of type \'{0}\'", Typeof(this.T).get_FullName()), new Error());
             this.ApplyInternal(targetAttribute, builder);
-            return this;
         }
     },
     ctors: [{
@@ -820,17 +819,21 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder = {
         BuildModelIdentifier: function (){
             return this.BuildIdentifier(this.get_ModelType());
         },
+        BuildModelMetadata: function (){
+            return this.BuildMetadata(this.get_ModelType());
+        },
         BuildFieldDefinitions: function (){
             var fields = new System.Collections.Generic.List$1.ctor(Neptuo.PresentationModels.IFieldDefinition.ctor);
             var $it3 = this.get_ModelType().GetProperties().GetEnumerator();
             while ($it3.MoveNext()){
                 var propertyInfo = $it3.get_Current();
-                fields.Add(new Neptuo.PresentationModels.FieldDefinition.ctor(this.BuildIdentifier(propertyInfo), propertyInfo.get_PropertyType(), this.BuildMetadata(propertyInfo)));
+                if (this.IsFieldCompatibleProperty(propertyInfo))
+                    fields.Add(new Neptuo.PresentationModels.FieldDefinition.ctor(this.BuildIdentifier(propertyInfo), this.BuildFieldType(propertyInfo), this.BuildMetadata(propertyInfo)));
             }
             return fields;
         },
-        BuildModelMetadata: function (){
-            return this.BuildMetadata(this.get_ModelType());
+        IsFieldCompatibleProperty: function (propertyInfo){
+            return true;
         },
         BuildMetadata: function (memberInfo){
             var collection = new Neptuo.PresentationModels.MetadataCollection.ctor();
@@ -858,6 +861,9 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder = {
         },
         BuildIdentifier: function (memberInfo){
             return memberInfo.get_Name();
+        },
+        BuildFieldType: function (propertyInfo){
+            return propertyInfo.get_PropertyType();
         }
     },
     ctors: [{

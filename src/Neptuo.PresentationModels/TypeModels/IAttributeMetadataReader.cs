@@ -16,6 +16,6 @@ namespace Neptuo.PresentationModels.TypeModels
         /// </summary>
         /// <param name="attribute">Attribute instance.</param>
         /// <param name="builder">Metadata builder.</param>
-        IAttributeMetadataReader Apply(Attribute attribute, IMetadataBuilder builder);
+        void Apply(Attribute attribute, IMetadataBuilder builder);
     }
 }

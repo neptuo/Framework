@@ -6,9 +6,18 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\SharpKit\5\SharpKit.Build.targets" Condition="$(DefineConstants.Contains('Javascript'))" />
   <PropertyGroup>
-    <PostBuildEvent>mkdir $(SolutionDir)\artifacts\$(ConfigurationName)
-copy $(TargetDir)$(TargetName).* $(SolutionDir)\artifacts\$(ConfigurationName)</PostBuildEvent>
-    <PostBuildEvent Condition="$(DefineConstants.Contains('Javascript'))">mkdir $(SolutionDir)\artifacts\$(ConfigurationName)\Javascript
-copy $(ProjectDir)*.js $(SolutionDir)\artifacts\$(ConfigurationName)\Javascript</PostBuildEvent>
+    <PostBuildEvent>
+
+mkdir "$(SolutionDir)\artifacts\$(ConfigurationName)"
+copy "$(TargetDir)$(TargetName).*" "$(SolutionDir)\artifacts\$(ConfigurationName)"
+
+if "$(DefineConstants.Contains('Javascript'))"=="True" (
+
+	mkdir "$(SolutionDir)\artifacts\$(ConfigurationName)\Javascript"
+	copy "$(ProjectDir)*.js" "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
+	
+)
+
+	</PostBuildEvent>
   </PropertyGroup>
 </Project>

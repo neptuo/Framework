@@ -13,7 +13,7 @@ namespace Neptuo.PresentationModels.TypeModels
     public abstract class AttributeMetadataReaderBase<T> : IAttributeMetadataReader
         where T : Attribute
     {
-        public IAttributeMetadataReader Apply(Attribute attribute, IMetadataBuilder builder)
+        public void Apply(Attribute attribute, IMetadataBuilder builder)
         {
             Ensure.NotNull(attribute, "attribute");
             Ensure.NotNull(builder, "builder");
@@ -23,7 +23,6 @@ namespace Neptuo.PresentationModels.TypeModels
                 throw Ensure.Exception.InvalidOperation("Reader can process only attribute of type '{0}'", typeof(T).FullName);
 
             ApplyInternal(targetAttribute, builder);
-            return this;
         }
 
         /// <summary>

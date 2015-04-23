@@ -15,6 +15,6 @@ namespace Neptuo.PresentationModels.TypeModels
         /// Appends metadata to the <paramref name="builder"/>.
         /// </summary>
         /// <param name="builder">Metadata builder.</param>
-        IAttributeMetadataReader Apply(IMetadataBuilder builder);
+        void Apply(IMetadataBuilder builder);
     }
 }
