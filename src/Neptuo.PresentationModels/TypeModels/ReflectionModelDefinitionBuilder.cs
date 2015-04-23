@@ -89,7 +89,7 @@ namespace Neptuo.PresentationModels.TypeModels
         /// </summary>
         /// <param name="memberInfo">Reflection source.</param>
         /// <returns>Collection of metadata values.</returns>
-        protected virtual IKeyValueCollection BuildMetadata(MemberInfo memberInfo)
+        protected virtual MetadataCollection BuildMetadata(MemberInfo memberInfo)
         {
             MetadataCollection collection = new MetadataCollection();
             foreach (Attribute attribute in memberInfo.GetCustomAttributes(true))
