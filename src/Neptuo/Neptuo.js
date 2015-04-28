@@ -829,6 +829,58 @@ var Neptuo$Collections$ObjectModel$IITemsSource = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Collections$ObjectModel$IITemsSource);
+var Neptuo$Collections$Generic$ConcurrentAwareDictionaryActivator$2 = {
+    fullname: "Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (TKey, TValue){
+            Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instance = null;
+            Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instanceLock = new System.Object.ctor();
+        },
+        Instance$$: "Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator`2[[`0],[`1]]",
+        get_Instance: function (){
+            if (Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instance == null){
+                if (Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instance == null)
+                    Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instance = new Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.ctor(this.TKey, this.TValue);
+            }
+            return Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.instance;
+        }
+    },
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (TKey, TValue){
+            this.TKey = TKey;
+            this.TValue = TValue;
+            this.isConcurrent = false;
+            Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.ctor$$Boolean.call(this, this.TKey, this.TValue, Neptuo.Collections._EnvironmentExtensions.WithIsConcurrentApplication(Neptuo.Engine.get_Environment()));
+        },
+        ctor$$Boolean: function (TKey, TValue, isConcurrent){
+            this.TKey = TKey;
+            this.TValue = TValue;
+            this.isConcurrent = false;
+            System.Object.ctor.call(this);
+            this.isConcurrent = isConcurrent;
+        },
+        Create: function (){
+            if (this.isConcurrent)
+                return new System.Collections.Generic.Dictionary$2.ctor(this.TKey, this.TValue);
+            else
+                return new System.Collections.Concurrent.ConcurrentDictionary$2.ctor(this.TKey, this.TValue);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Boolean",
+        parameters: ["System.Boolean"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Collections$Generic$ConcurrentAwareDictionaryActivator$2);
 var Neptuo$Collections$Specialized$IKeyValueCollection = {
     fullname: "Neptuo.Collections.Specialized.IKeyValueCollection",
     baseTypeName: "System.Object",
@@ -1426,6 +1478,32 @@ var Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Collections$Specialized$_ReadOnlyKeyValueCollectionExtensions);
+var Neptuo$Collections$_EnvironmentExtensions = {
+    fullname: "Neptuo.Collections._EnvironmentExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        UseIsConcurrentApplication: function (environment, isConcurrent){
+            Neptuo.Ensure.NotNull$$Object$$String(environment, "environment");
+            return environment.Use$1(System.Boolean.ctor, isConcurrent, "IsConcurrentApplication");
+        },
+        WithIsConcurrentApplication: function (environment){
+            Neptuo.Ensure.NotNull$$Object$$String(environment, "environment");
+            if (!environment.Has$1(System.Boolean.ctor, "IsConcurrentApplication"))
+                Neptuo.Collections._EnvironmentExtensions.UseIsConcurrentApplication(environment, true);
+            return environment.With$1(System.Boolean.ctor, "IsConcurrentApplication");
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Collections$_EnvironmentExtensions);
 var Neptuo$ComponentModel$Behaviors$BehaviorProviderCollection = {
     fullname: "Neptuo.ComponentModel.Behaviors.BehaviorProviderCollection",
     baseTypeName: "System.Object",
@@ -4906,6 +4984,146 @@ var Neptuo$Pipelines$Commands$Interception$ManualInterceptorProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Pipelines$Commands$Interception$ManualInterceptorProvider);
+var Neptuo$Pipelines$Deleters$DefaultDeleteDispatcher = {
+    fullname: "Neptuo.Pipelines.Deleters.DefaultDeleteDispatcher",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Pipelines.Deleters.IDeleteDispatcher"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.handlers = Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.get_Instance().Create();
+            this.onSearchHandler = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.Pipelines.Deleters.Handlers.IDeleteHandler.ctor, System.Boolean.ctor);
+            System.Object.ctor.call(this);
+        },
+        Add: function (objectType, handler){
+            Neptuo.Ensure.NotNull$$Object$$String(objectType, "objectType");
+            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
+            this.handlers.set_Item$$TKey(objectType, handler);
+            return this;
+        },
+        AddSearchHandler: function (searchHandler){
+            Neptuo.Ensure.NotNull$$Object$$String(searchHandler, "searchHandler");
+            this.onSearchHandler.Add(searchHandler);
+            return this;
+        },
+        PrepareContext: function (key){
+            Neptuo.Ensure.NotNull$$Object$$String(key, "key");
+            var handler;
+            if ((function (){
+                var $1 = {
+                    Value: handler
+                };
+                var $res = this.handlers.TryGetValue(key.get_Type(), $1);
+                handler = $1.Value;
+                return $res;
+            }).call(this))
+                return handler.Handle(key);
+            if ((function (){
+                var $1 = {
+                    Value: handler
+                };
+                var $res = Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.Pipelines.Deleters.Handlers.IDeleteHandler.ctor, this.onSearchHandler, key.get_Type(), $1);
+                handler = $1.Value;
+                return $res;
+            }).call(this))
+                return handler.Handle(key);
+            return new Neptuo.Pipelines.Deleters.MissingHandlerContext.ctor(key);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$DefaultDeleteDispatcher);
+var Neptuo$Pipelines$Deleters$Handlers$IDeleteExecutionHandler = {
+    fullname: "Neptuo.Pipelines.Deleters.Handlers.IDeleteExecutionHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$Handlers$IDeleteExecutionHandler);
+var Neptuo$Pipelines$Deleters$Handlers$IDeleteHandler = {
+    fullname: "Neptuo.Pipelines.Deleters.Handlers.IDeleteHandler",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$Handlers$IDeleteHandler);
+var Neptuo$Pipelines$Deleters$IDeleteContext = {
+    fullname: "Neptuo.Pipelines.Deleters.IDeleteContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$IDeleteContext);
+var Neptuo$Pipelines$Deleters$IDeleteDispatcher = {
+    fullname: "Neptuo.Pipelines.Deleters.IDeleteDispatcher",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$IDeleteDispatcher);
+var Neptuo$Pipelines$Deleters$IDeleteReference = {
+    fullname: "Neptuo.Pipelines.Deleters.IDeleteReference",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$IDeleteReference);
+var Neptuo$Pipelines$Deleters$MissingHandlerContext = {
+    fullname: "Neptuo.Pipelines.Deleters.MissingHandlerContext",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Pipelines.Deleters.IDeleteContext"],
+    Kind: "Class",
+    definition: {
+        ctor: function (sourceKey){
+            this._SourceKey = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(sourceKey, "sourceKey");
+            this.set_SourceKey(sourceKey);
+        },
+        SourceKey$$: "Neptuo.DomainModels.IKey",
+        get_SourceKey: function (){
+            return this._SourceKey;
+        },
+        set_SourceKey: function (value){
+            this._SourceKey = value;
+        },
+        CanDelete$$: "System.Boolean",
+        get_CanDelete: function (){
+            return false;
+        },
+        References$$: "System.Collections.Generic.IEnumerable`1[[Neptuo.Pipelines.Deleters.IDeleteReference]]",
+        get_References: function (){
+            return System.Linq.Enumerable.Empty$1(Neptuo.Pipelines.Deleters.IDeleteReference.ctor);
+        },
+        Delete: function (){
+            throw $CreateException(Neptuo._EnsureSystemExtensions.NotSupported(Neptuo.Ensure.Exception, null), new Error());
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.DomainModels.IKey"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Pipelines$Deleters$MissingHandlerContext);
 var Neptuo$Pipelines$Events$Handlers$ActivatorEventHandler$2 = {
     fullname: "Neptuo.Pipelines.Events.Handlers.ActivatorEventHandler$2",
     baseTypeName: "System.Object",
