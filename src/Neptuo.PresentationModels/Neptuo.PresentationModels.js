@@ -331,6 +331,7 @@ var Neptuo$PresentationModels$ModelDefinitionCollection = {
     Kind: "Class",
     definition: {
         ctor: function (){
+            this.storageLock = new System.Object.ctor();
             this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor);
             this.builders = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Activators.IActivator$1.ctor);
             this.onSearchDefinition = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
@@ -881,6 +882,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
     Kind: "Class",
     definition: {
         ctor: function (){
+            this.storageLock = new System.Object.ctor();
             this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor);
             this.onSearchDefinition = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);

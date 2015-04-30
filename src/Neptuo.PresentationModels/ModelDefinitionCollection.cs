@@ -11,9 +11,12 @@ namespace Neptuo.PresentationModels
 {
     /// <summary>
     /// Collection of registered model definitions.
+    /// This class is thread-safe.
     /// </summary>
     public class ModelDefinitionCollection
     {
+        private readonly object storageLock = new object();
+
         private readonly Dictionary<string, IModelDefinition> singletons = new Dictionary<string, IModelDefinition>();
         private readonly Dictionary<string, IActivator<IModelDefinition>> builders = new Dictionary<string, IActivator<IModelDefinition>>();
         private readonly OutFuncCollection<string, IModelDefinition, bool> onSearchDefinition = new OutFuncCollection<string, IModelDefinition, bool>();
@@ -26,7 +29,12 @@ namespace Neptuo.PresentationModels
         public ModelDefinitionCollection Add(IModelDefinition modelDefinition)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
-            singletons[modelDefinition.Identifier] = modelDefinition;
+
+            lock (storageLock)
+            {
+                singletons[modelDefinition.Identifier] = modelDefinition;
+            }
+
             return this;
         }
 
@@ -40,7 +48,12 @@ namespace Neptuo.PresentationModels
         {
             Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
             Ensure.NotNull(modelDefinitionBuilder, "modelDefinitionBuilder");
-            builders[modelIdentifier] = modelDefinitionBuilder;
+            
+            lock (storageLock)
+            {
+                builders[modelIdentifier] = modelDefinitionBuilder;
+            }
+            
             return this;
         }
 
@@ -51,7 +64,12 @@ namespace Neptuo.PresentationModels
         public ModelDefinitionCollection AddSearchHandler(OutFunc<string, IModelDefinition, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchDefinition.Add(searchHandler);
+
+            lock (storageLock)
+            {
+                onSearchDefinition.Add(searchHandler);
+            }
+
             return this;
         }
 
@@ -69,19 +87,22 @@ namespace Neptuo.PresentationModels
             if (singletons.TryGetValue(modelIdentifier, out modelDefinition))
                 return true;
 
-            // Search in builders.
-            IActivator<IModelDefinition> builder;
-            if (builders.TryGetValue(modelIdentifier, out builder))
+            lock (storageLock)
             {
-                singletons[modelIdentifier] = modelDefinition = builder.Create();
-                return true;
-            }
+                // Search in builders.
+                IActivator<IModelDefinition> builder;
+                if (builders.TryGetValue(modelIdentifier, out builder))
+                {
+                    singletons[modelIdentifier] = modelDefinition = builder.Create();
+                    return true;
+                }
 
-            // Search using search handlers.
-            if(onSearchDefinition.TryExecute(modelIdentifier, out modelDefinition))
-            {
-                singletons[modelIdentifier] = modelDefinition;
-                return true;
+                // Search using search handlers.
+                if (onSearchDefinition.TryExecute(modelIdentifier, out modelDefinition))
+                {
+                    singletons[modelIdentifier] = modelDefinition;
+                    return true;
+                }
             }
 
             // Unnable to find model definition.

@@ -10,9 +10,12 @@ namespace Neptuo.PresentationModels.TypeModels
 {
     /// <summary>
     /// Collection of model definitions by model type.
+    /// This class is thread-safe.
     /// </summary>
     public class TypeModelDefinitionCollection
     {
+        private readonly object storageLock = new object();
+
         private readonly Dictionary<Type, IModelDefinition> singletons = new Dictionary<Type, IModelDefinition>();
         private readonly OutFuncCollection<Type, IModelDefinition, bool> onSearchDefinition = new OutFuncCollection<Type, IModelDefinition, bool>();
 
@@ -26,7 +29,12 @@ namespace Neptuo.PresentationModels.TypeModels
         {
             Ensure.NotNull(modelType, "modelType");
             Ensure.NotNull(modelDefinition, "modelDefinition");
-            singletons[modelType] = modelDefinition;
+
+            lock (storageLock)
+            {
+                singletons[modelType] = modelDefinition;
+            }
+
             return this;
         }
 
@@ -37,7 +45,12 @@ namespace Neptuo.PresentationModels.TypeModels
         public TypeModelDefinitionCollection AddSearchHandler(OutFunc<Type, IModelDefinition, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchDefinition.Add(searchHandler);
+
+            lock (storageLock)
+            {
+                onSearchDefinition.Add(searchHandler);
+            }
+
             return this;
         }
 
@@ -55,11 +68,14 @@ namespace Neptuo.PresentationModels.TypeModels
             if (singletons.TryGetValue(modelType, out modelDefinition))
                 return true;
 
-            // Search using search handlers.
-            if (onSearchDefinition.TryExecute(modelType, out modelDefinition))
+            lock (storageLock)
             {
-                singletons[modelType] = modelDefinition;
-                return true;
+                // Search using search handlers.
+                if (onSearchDefinition.TryExecute(modelType, out modelDefinition))
+                {
+                    singletons[modelType] = modelDefinition;
+                    return true;
+                }
             }
 
             // Unnable to find model definition.
