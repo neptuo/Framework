@@ -583,26 +583,19 @@ var Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderCollection = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._Values = null;
+            this.storageLock = new System.Object.ctor();
+            this.values = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.PresentationModels.TypeModels.IAttributeMetadataReader.ctor);
             System.Object.ctor.call(this);
-            this.set_Values(new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.PresentationModels.TypeModels.IAttributeMetadataReader.ctor));
-        },
-        Values$$: "System.Collections.Generic.Dictionary`2[[System.Type],[Neptuo.PresentationModels.TypeModels.IAttributeMetadataReader]]",
-        get_Values: function (){
-            return this._Values;
-        },
-        set_Values: function (value){
-            this._Values = value;
         },
         Add: function (attributeType, reader){
             Neptuo.Ensure.NotNull$$Object$$String(attributeType, "attributeType");
             Neptuo.Ensure.NotNull$$Object$$String(reader, "reader");
-            this.get_Values().set_Item$$TKey(attributeType, reader);
+            this.values.set_Item$$TKey(attributeType, reader);
             return this;
         },
         TryGet: function (attributeType, reader){
             Neptuo.Ensure.NotNull$$Object$$String(attributeType, "attributeType");
-            return this.get_Values().TryGetValue(attributeType, reader);
+            return this.values.TryGetValue(attributeType, reader);
         }
     },
     ctors: [{

@@ -15,9 +15,21 @@ namespace Neptuo.PresentationModels.TypeModels
     /// </summary>
     public class ReflectionModelDefinitionBuilder : ModelDefinitionBuilderBase
     {
+        /// <summary>
+        /// Underlaying type for this model definition builder.
+        /// </summary>
         public Type ModelType { get; private set; }
+
+        /// <summary>
+        /// Collection attribute metadata readers.
+        /// </summary>
         public AttributeMetadataReaderCollection MetadataReaderCollection { get; private set; }
 
+        /// <summary>
+        /// Creates new instance for type <paramref name="modelType"/>.
+        /// </summary>
+        /// <param name="modelType">Underlaying type for this model definition builder.</param>
+        /// <param name="metadataReaderCollection">Collection attribute metadata readers.</param>
         public ReflectionModelDefinitionBuilder(Type modelType, AttributeMetadataReaderCollection metadataReaderCollection)
         {
             Ensure.NotNull(modelType, "modelType");

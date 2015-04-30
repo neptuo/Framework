@@ -8,15 +8,13 @@ namespace Neptuo.PresentationModels.TypeModels
 {
     /// <summary>
     /// Attribute type based collection of registered attribute metadata readers.
+    /// This class is thread-safe.
     /// </summary>
     public class AttributeMetadataReaderCollection
     {
-        protected Dictionary<Type, IAttributeMetadataReader> Values { get; private set; }
+        private readonly object storageLock = new object();
 
-        public AttributeMetadataReaderCollection()
-        {
-            Values = new Dictionary<Type, IAttributeMetadataReader>();
-        }
+        private readonly Dictionary<Type, IAttributeMetadataReader> values = new Dictionary<Type, IAttributeMetadataReader>();
 
         /// <summary>
         /// Registers <paramref name="attributeType"/> to be read by <paramref name="reader"/>.
@@ -28,7 +26,12 @@ namespace Neptuo.PresentationModels.TypeModels
         {
             Ensure.NotNull(attributeType, "attributeType");
             Ensure.NotNull(reader, "reader");
-            Values[attributeType] = reader;
+            
+            lock (storageLock)
+            {
+                values[attributeType] = reader;
+            }
+
             return this;
         }
 
@@ -41,7 +44,7 @@ namespace Neptuo.PresentationModels.TypeModels
         public bool TryGet(Type attributeType, out IAttributeMetadataReader reader)
         {
             Ensure.NotNull(attributeType, "attributeType");
-            return Values.TryGetValue(attributeType, out reader);
+            return values.TryGetValue(attributeType, out reader);
         }
     }
 }

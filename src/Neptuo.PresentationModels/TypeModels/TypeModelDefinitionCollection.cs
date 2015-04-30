@@ -57,7 +57,7 @@ namespace Neptuo.PresentationModels.TypeModels
         /// <summary>
         /// Tries to get model definition for type <paramref name="modelType"/>.
         /// </summary>
-        /// <param name="modelIdentifier">Type of requested model definition.</param>
+        /// <param name="modelType">Type of requested model definition.</param>
         /// <param name="modelDefinition">Model definition.</param>
         /// <returns><c>true</c> if model was found; <c>false</c> otherwise.</returns>
         public bool TryGet(Type modelType, out IModelDefinition modelDefinition)
