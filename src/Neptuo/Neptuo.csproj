@@ -295,10 +295,10 @@
     <Compile Include="Pipelines\Validators\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Neptuo.js" />
-    <Content Include="Neptuo.xml">
+    <None Include="Neptuo.js" />
+    <None Include="Neptuo.xml">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

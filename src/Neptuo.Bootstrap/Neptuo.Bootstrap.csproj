@@ -79,8 +79,8 @@
     <Compile Include="SequenceBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Neptuo.Bootstrap.js" />
-    <Content Include="Neptuo.Bootstrap.xml" />
+    <None Include="Neptuo.Bootstrap.js" />
+    <None Include="Neptuo.Bootstrap.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

@@ -13,10 +13,13 @@ copy "$(TargetDir)$(TargetName).*" "$(SolutionDir)\artifacts\$(ConfigurationName
 
 if "$(DefineConstants.Contains('Javascript'))"=="True" (
 
-	mkdir "$(SolutionDir)\artifacts\$(ConfigurationName)\Javascript"
+	mkdir "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
 	copy "$(ProjectDir)*.js" "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
 	
 )
+
+mkdir $(SolutionDir)\artifacts\$(ConfigurationName)\nuget
+$(SolutionDir)\.nuget\NuGet.exe pack $(ProjectPath) -Prop Configuration=$(ConfigurationName) -OutputDirectory $(SolutionDir)\artifacts\$(ConfigurationName)\nuget -Symbols
 
 	</PostBuildEvent>
   </PropertyGroup>

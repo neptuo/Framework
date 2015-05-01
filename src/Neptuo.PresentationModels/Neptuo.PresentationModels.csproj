@@ -81,8 +81,8 @@
     <Compile Include="Validators\Handlers\ModelValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Neptuo.PresentationModels.js" />
-    <Content Include="Neptuo.PresentationModels.xml" />
+    <None Include="Neptuo.PresentationModels.js" />
+    <None Include="Neptuo.PresentationModels.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
