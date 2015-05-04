@@ -23,11 +23,13 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
     assemblyName: "Neptuo.PresentationModels",
     Kind: "Class",
     definition: {
-        ctor: function (modelDefinition){
+        ctor: function (modelDefinition, isAutoConversion){
             this._ModelDefinition = null;
+            this._IsAutoConversion = false;
             System.Object.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
             this.set_ModelDefinition(modelDefinition);
+            this.set_IsAutoConversion(isAutoConversion);
         },
         ModelDefinition$$: "Neptuo.PresentationModels.IModelDefinition",
         get_ModelDefinition: function (){
@@ -35,6 +37,13 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
         },
         set_ModelDefinition: function (value){
             this._ModelDefinition = value;
+        },
+        IsAutoConversion$$: "System.Boolean",
+        get_IsAutoConversion: function (){
+            return this._IsAutoConversion;
+        },
+        set_IsAutoConversion: function (value){
+            this._IsAutoConversion = value;
         },
         Update: function (targetSetter, sourceGetters){
             var $it1 = this.get_ModelDefinition().get_Fields().GetEnumerator();
@@ -52,7 +61,7 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
                         value = $1.Value;
                         return $res;
                     }).call(this)){
-                        if (!this.IsAssignable(field.get_FieldType(), value))
+                        if (this.get_IsAutoConversion() && !this.IsAssignable(field.get_FieldType(), value))
                             value = Neptuo.Converts.To$$Type$$Object(field.get_FieldType(), value);
                         targetSetter.TrySetValue(field.get_Identifier(), value);
                     }
@@ -69,7 +78,7 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IModelDefinition"]
+        parameters: ["Neptuo.PresentationModels.IModelDefinition", "System.Boolean"]
     }
     ],
     IsAbstract: false

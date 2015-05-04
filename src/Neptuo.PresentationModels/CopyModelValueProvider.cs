@@ -18,13 +18,20 @@ namespace Neptuo.PresentationModels
         public IModelDefinition ModelDefinition { get; private set; }
 
         /// <summary>
+        /// Whether type conversion should be called when types are not assignable.
+        /// </summary>
+        public bool IsAutoConversion { get; private set; }
+
+        /// <summary>
         /// Creates new instance for <paramref name="modelDefinition"/>.
         /// </summary>
         /// <param name="modelDefinition">Model definition.</param>
-        public CopyModelValueProvider(IModelDefinition modelDefinition)
+        /// <param name="isAutoConversion">Whether type conversion should be called when types are not assignable.</param>
+        public CopyModelValueProvider(IModelDefinition modelDefinition, bool isAutoConversion)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
             ModelDefinition = modelDefinition;
+            IsAutoConversion = isAutoConversion;
         }
 
         /// <summary>
@@ -41,7 +48,7 @@ namespace Neptuo.PresentationModels
                 {
                     if (sourceGetter.TryGetValue(field.Identifier, out value))
                     {
-                        if (!IsAssignable(field.FieldType, value))
+                        if (IsAutoConversion && !IsAssignable(field.FieldType, value))
                             value = Converts.To(field.FieldType, value);
 
                         targetSetter.TrySetValue(field.Identifier, value);
@@ -56,7 +63,7 @@ namespace Neptuo.PresentationModels
         /// <param name="fieldType">Required type.</param>
         /// <param name="value">Current value.</param>
         /// <returns><c>true</c> if <paramref name="value"/> can be assigned with <paramref name="value"/>; <c>false</c> otherwise.</returns>
-        private bool IsAssignable(Type fieldType, object value)
+        protected virtual bool IsAssignable(Type fieldType, object value)
         {
             if (value != null)
                 return fieldType.IsAssignableFrom(value.GetType());
