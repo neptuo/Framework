@@ -9,7 +9,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// Current value getter.
     /// </summary>
-    public interface IModelValueGetter
+    public interface IModelValueGetter : IDisposable
     {
         /// <summary>
         /// Tries to read current value with <paramref name="identifier"/> as identifier.

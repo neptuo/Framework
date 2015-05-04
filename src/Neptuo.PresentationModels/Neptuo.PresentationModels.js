@@ -187,6 +187,7 @@ var Neptuo$PresentationModels$IModelValueGetter = {
     fullname: "Neptuo.PresentationModels.IModelValueGetter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.IDisposable"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -274,6 +275,7 @@ var Neptuo$PresentationModels$IModelValueSetter = {
     fullname: "Neptuo.PresentationModels.IModelValueSetter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.IDisposable"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -608,7 +610,7 @@ var Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderCollection = {
 JsTypes.push(Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderCollection);
 var Neptuo$PresentationModels$TypeModels$Expressions$ExpressionModelValueProvider$1 = {
     fullname: "Neptuo.PresentationModels.TypeModels.Expressions.ExpressionModelValueProvider$1",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
     Kind: "Class",
@@ -617,7 +619,7 @@ var Neptuo$PresentationModels$TypeModels$Expressions$ExpressionModelValueProvide
             this.TModel = TModel;
             this._Model = null;
             this._ValueProviders = null;
-            System.Object.ctor.call(this);
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
             Neptuo.Ensure.NotNull$$Object$$String(valueProviders, "valueProviders");
             this.set_Model(model);
@@ -913,7 +915,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
 JsTypes.push(Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection);
 var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider$1 = {
     fullname: "Neptuo.PresentationModels.TypeModels.ReflectionModelValueProvider$1",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
     Kind: "Class",
@@ -923,7 +925,7 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider$1 = {
             this.properties = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Reflection.PropertyInfo.ctor);
             this._ModelType = null;
             this._Model = null;
-            System.Object.ctor.call(this);
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
             this.set_Model(model);
             this.set_ModelType(model.GetType());

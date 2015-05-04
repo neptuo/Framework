@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Neptuo.PresentationModels.TypeModels
     /// Reflection based implementation of <see cref="IModelValueProvider"/> that operates over single object instance.
     /// </summary>
     /// <typeparam name="TModel">Type of model.</typeparam>
-    public class ReflectionModelValueProvider<TModel> : IModelValueProvider
+    public class ReflectionModelValueProvider<TModel> : DisposableBase, IModelValueProvider
     {
         private readonly Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
 

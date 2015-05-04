@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.TypeModels.Expressions
 {
-    public class ExpressionModelValueProvider<TModel> : IModelValueProvider
+    public class ExpressionModelValueProvider<TModel> : DisposableBase, IModelValueProvider
         where TModel : class
     {
         public TModel Model { get; private set; }

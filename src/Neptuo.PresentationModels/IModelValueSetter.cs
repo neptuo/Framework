@@ -9,7 +9,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// Current value setter.
     /// <summary>
-    public interface IModelValueSetter
+    public interface IModelValueSetter : IDisposable
     {
         /// <summary>
         /// Tries to value of field with <paramref name="identifier"/> to <paramref name="value"/>.
