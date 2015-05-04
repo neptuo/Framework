@@ -2,6 +2,7 @@
 <Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
     <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
     <Namespace Target="Neptuo.Compilers" Export="False" />
+    <Namespace Target="Neptuo.ComponentModel.Behaviors" Export="False" />
     <Namespace Target="Neptuo.FileSystems" Export="False" />
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
     <Namespace Target="Neptuo.Threading" Export="False" />
