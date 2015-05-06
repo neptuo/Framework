@@ -80,7 +80,7 @@ namespace Neptuo.PresentationModels.TypeModels
 
             // Unnable to find model definition.
             modelDefinition = null;
-            return true;
+            return false;
         }
     }
 }
