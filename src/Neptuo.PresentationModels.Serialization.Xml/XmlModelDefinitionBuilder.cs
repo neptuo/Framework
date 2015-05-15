@@ -15,13 +15,20 @@ namespace Neptuo.PresentationModels.Serialization
     /// </summary>
     public class XmlModelDefinitionBuilder : IActivator<IModelDefinition>
     {
+        private readonly XmlTypeMappingCollection typeMappings;
         private readonly IReadOnlyFile xmlFile;
 
-        public XmlModelDefinitionBuilder(IReadOnlyFile xmlFile)
+        public XmlModelDefinitionBuilder(XmlTypeMappingCollection typeMappings, IReadOnlyFile xmlFile)
         {
+            Ensure.NotNull(typeMappings, "typeMappings");
             Ensure.NotNull(xmlFile, "xmlFile");
+            this.typeMappings = typeMappings;
             this.xmlFile = xmlFile;
         }
+
+        public XmlModelDefinitionBuilder(IReadOnlyFile xmlFile)
+            : this(new XmlTypeMappingCollection(), xmlFile)
+        { }
 
         public IModelDefinition Create()
         {
@@ -44,7 +51,7 @@ namespace Neptuo.PresentationModels.Serialization
         private IKeyValueCollection BuildMetadata(XElement parent)
         {
             KeyValueCollection result = new KeyValueCollection();
-            foreach (XElement element in parent.Elements("Metadata"))
+            foreach (XElement element in parent.Elements(XName.Get("Metadata", parent.Name.NamespaceName)))
             {
                 XAttribute key = element.Attribute("Key");
                 XAttribute value = element.Attribute("Value");
@@ -61,19 +68,27 @@ namespace Neptuo.PresentationModels.Serialization
         {
             Ensure.NotNull(attribute, "attribute");
             string typeName = attribute.Value;
-            return Type.GetType(typeName);
+
+            Type targetType;
+            if (!typeMappings.TryGet(typeName, out targetType))
+                targetType = Type.GetType(typeName);
+
+            if (targetType == null)
+                throw Ensure.Exception.InvalidOperation("Unnable to resolve type.");
+
+            return targetType;
         }
 
         private IModelDefinition BuildModelDefinition(XElement element)
         {
-            if (element.Name != "ModelDefinition")
+            if (element.Name.LocalName != "ModelDefinition")
                 Ensure.Exception.InvalidOperation("Model definition must be created from element 'ModelDefinition'.");
 
             string identifier = BuildIdentifier(element);
             IKeyValueCollection metadata = BuildMetadata(element);
 
             List<IFieldDefinition> fields = new List<IFieldDefinition>();
-            foreach (XElement fieldElement in element.Elements("FieldDefinition"))
+            foreach (XElement fieldElement in element.Elements(XName.Get("FieldDefinition", element.Name.NamespaceName)))
                 fields.Add(BuildFieldDefinition(fieldElement));
 
             return new ModelDefinition(identifier, fields, metadata);
@@ -81,7 +96,7 @@ namespace Neptuo.PresentationModels.Serialization
 
         private IFieldDefinition BuildFieldDefinition(XElement element)
         {
-            if (element.Name != "FieldDefinition")
+            if (element.Name.LocalName != "FieldDefinition")
                 Ensure.Exception.InvalidOperation("Field definition must be created from element 'FieldDefinition'.");
 
             string identifier = BuildIdentifier(element);

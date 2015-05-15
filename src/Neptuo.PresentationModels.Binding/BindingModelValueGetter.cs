@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Binding
 {
-    public class BindingModelValueGetter : IModelValueGetter
+    public class BindingModelValueGetter : DisposableBase, IModelValueGetter
     {
         protected IBindingModelValueStorage Storage { get; private set; }
         protected IBindingConverterCollection ConverterCollection { get; private set; }

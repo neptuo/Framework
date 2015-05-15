@@ -34,7 +34,8 @@ namespace TestConsole
             //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
-            TestPresentationModels.Test();
+            //TestPresentationModels.Test();
+            TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
