@@ -19,7 +19,7 @@
                             <xs:element name="Metadata" type="MetadataType" minOccurs="0" maxOccurs="unbounded" />
                         </xs:sequence>
                         <xs:attribute name="Identifier" type="xs:string" use="required" />
-                        <xs:attribute name="Type" type="xs:string" use="required" />
+                        <xs:attribute name="FieldType" type="xs:string" use="required" />
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>

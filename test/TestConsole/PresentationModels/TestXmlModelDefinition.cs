@@ -3,6 +3,7 @@ using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Serialization;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,12 @@ namespace TestConsole.PresentationModels
             XmlModelDefinitionBuilder builder = new XmlModelDefinitionBuilder(typeMappings, xmlFile);
             IModelDefinition modelDefiniton = builder.Create();
 
+            XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
+            using (StringWriter writer = new StringWriter())
+            {
+                serializer.Serialize(modelDefiniton, writer);
+                Console.WriteLine(writer);
+            }
         }
     }
 }
