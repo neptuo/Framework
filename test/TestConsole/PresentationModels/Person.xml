@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModelDefinition xmlns="http://schemas.neptuo.com/xsd/neptuo-presentationmodels-modeldefinition.xsd" Identifier="Person">
+    <Metadata Key="CustomIdentifier" Value="PersonExample"/>
+    
+    <FieldDefinition Identifier="ID" Type="int">
+        <Metadata Key="NotField" Value="true"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="FirstName" Type="string">
+        <Metadata Key="Label" Value="First name"/>
+        <Metadata Key="Column" Value="1"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="LastName" Type="string">
+        <Metadata Key="Label" Value="Last name"/>
+        <Metadata Key="Column" Value="1"/>
+    </FieldDefinition>
+</ModelDefinition>

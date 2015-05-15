@@ -173,6 +173,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PresentationModels\Person.xml" />
     <Content Include="Resources.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
