@@ -3,7 +3,7 @@
     <Metadata Key="CustomIdentifier" Value="PersonExample"/>
     
     <FieldDefinition Identifier="ID" Type="int">
-        <Metadata Key="NotField" Value="true"/>
+        <Metadata Key="Hidden" Value="true"/>
     </FieldDefinition>
     <FieldDefinition Identifier="FirstName" Type="string">
         <Metadata Key="Label" Value="First name"/>

@@ -401,10 +401,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "6.0.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "6.0.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("6.0.0");
+            return new System.Version.ctor$$String("6.0.1");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -911,7 +911,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
                 return true;
             }
             modelDefinition.Value = null;
-            return true;
+            return false;
         }
     },
     ctors: [{
