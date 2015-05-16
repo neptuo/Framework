@@ -9,16 +9,36 @@ using System.Xml.Linq;
 
 namespace Neptuo.PresentationModels.Serialization
 {
+    /// <summary>
+    /// Serializer for model definitions to XML format as described at <see cref="XmlNameDefinition.XmlnsUri"/>.
+    /// Not mapped types in <see cref="XmlTypeMappingCollection"/> are serialized as <see cref="Type.AssemblyQualifiedName"/>.
+    /// </summary>
     public class XmlModelDefinitionSerializer
     {
         private readonly XmlTypeMappingCollection typeMappings;
 
+        /// <summary>
+        /// Creates new instance with type name mappings.
+        /// </summary>
+        /// <param name="typeMappings">Type name mappings between XML file and .NET type system.</param>
         public XmlModelDefinitionSerializer(XmlTypeMappingCollection typeMappings)
         {
             Ensure.NotNull(typeMappings, "typeMappings");
             this.typeMappings = typeMappings;
         }
 
+        /// <summary>
+        /// Creates new instance with empty type name mappings.
+        /// </summary>
+        public XmlModelDefinitionSerializer()
+            : this(new XmlTypeMappingCollection())
+        { }
+
+        /// <summary>
+        /// Serializes <paramref name="modelDefinition"/> to the <see cref="targetStream"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition to serialize.</param>
+        /// <param name="targetStream">Serialization target.</param>
         public void Serialize(IModelDefinition modelDefinition, Stream targetStream)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
@@ -26,6 +46,11 @@ namespace Neptuo.PresentationModels.Serialization
             SerializeModelDefinition(modelDefinition).Save(targetStream);
         }
 
+        /// <summary>
+        /// Serializes <paramref name="modelDefinition"/> to the <see cref="targetWriter"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition to serialize.</param>
+        /// <param name="targetWriter">Serialization target.</param>
         public void Serialize(IModelDefinition modelDefinition, TextWriter targetWriter)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
@@ -45,8 +70,6 @@ namespace Neptuo.PresentationModels.Serialization
         private XDocument SerializeModelDefinition(IModelDefinition modelDefinition)
         {
             XElement result = new XElement(XName.Get(XmlNameDefinition.ModelDefinitionElementName, XmlNameDefinition.XmlnsUri));
-            //result.SetDefaultXmlNamespace(XmlNameDefinition.XmlnsUri);
-            //result.Add(new XAttribute("xmlns", XmlNameDefinition.XmlnsUri));
             result.Add(new XAttribute(XmlNameDefinition.ModelDefinitionIdentifierAttributeName, modelDefinition.Identifier));
             result.Add(SerializeMetadata(modelDefinition.Metadata));
             result.Add(modelDefinition.Fields.Select(SerializeFieldDefinition));
