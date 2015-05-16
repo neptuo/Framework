@@ -18,16 +18,21 @@ namespace Neptuo.PresentationModels.Serialization
         public IFieldDefinition FieldDefinition { get; private set; }
 
         /// <summary>
-        /// Collection of matched elements.
+        /// Matched element.
         /// </summary>
-        public IEnumerable<XElement> Elements { get; private set; }
+        public XElement Element { get; private set; }
 
-        public XmlFieldValueGetterContext(IFieldDefinition fieldDefinition, IEnumerable<XElement> elements)
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="fieldDefinition">Target field definition.</param>
+        /// <param name="element">Matched element.</param>
+        public XmlFieldValueGetterContext(IFieldDefinition fieldDefinition, XElement element)
         {
             Ensure.NotNull(fieldDefinition, "fieldDefinition");
-            Ensure.NotNull(elements, "elements");
+            Ensure.NotNull(element, "element");
             FieldDefinition = fieldDefinition;
-            Elements = elements;
+            Element = element;
         }
     }
 }

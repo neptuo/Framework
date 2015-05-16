@@ -29,6 +29,7 @@ namespace Neptuo.PresentationModels.Serialization
 
         public bool TryGetValue(string identifier, out object value)
         {
+            // If model definition doesn't contain field definition, do nothing.
             IFieldDefinition fieldDefinition;
             if (!fieldDefinitions.TryGetValue(identifier, out fieldDefinition))
             {
@@ -38,6 +39,7 @@ namespace Neptuo.PresentationModels.Serialization
 
             XName name = XName.Get(identifier, element.Name.NamespaceName);
 
+            // 1) Try parse from attribute value.
             XAttribute attribute = element.Attribute(name);
             if (attribute != null)
             {
@@ -46,24 +48,28 @@ namespace Neptuo.PresentationModels.Serialization
                     return true;
             }
 
+            // 2) Try find single inner element...
             IEnumerable<XElement> childElements = element.Elements(name);
-            if (Converts.Try(new XmlFieldValueGetterContext(fieldDefinitions[identifier], childElements), out value))
-                return true;
-
-            if (childElements.Any())
+            if (childElements.Count() != 1)
             {
-                if (childElements.Count() == 1)
-                {
-                    XElement childElement = childElements.First();
-                    if (!childElement.Attributes().Any() && !childElement.Elements().Any())
-                    {
-                        string stringValue = childElement.Value;
-                        if (Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
-                            return true;
-                    }
-                }
+                value = null;
+                return false;
             }
 
+            // ... and try to convert to field type.
+            XElement childElement = childElements.First();
+            if (Converts.Try(new XmlFieldValueGetterContext(fieldDefinitions[identifier], childElement), out value))
+                return true;
+
+            // ... otherwise try to convert inner text value.
+            if (!childElement.Attributes().Any() && !childElement.Elements().Any())
+            {
+                string stringValue = childElement.Value;
+                if (Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
+                    return true;
+            }
+
+            // ... 
             value = null;
             return false;
         }
