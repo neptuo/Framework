@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ModelDefinition xmlns="http://schemas.neptuo.com/xsd/neptuo-presentationmodels-modeldefinition.xsd" Identifier="Organization">
-    <FieldDefinition Identifier="ID" FieldType="int">
-        <Metadata Key="Hidden" Value="true"/>
-    </FieldDefinition>
-    <FieldDefinition Identifier="Name" FieldType="string">
-        <Metadata Key="Label" Value="Name"/>
-    </FieldDefinition>
-    <FieldDefinition Identifier="Persons" FieldType="Neptuo.PresentationModels.IModelValueProvider, Neptuo.PresentationModels">
-        <Metadata Key="ModelDefinition" Value="Person"/>
-    </FieldDefinition>
-</ModelDefinition>
+<DataSource>
+    <Organization ID="1" Name="Company Ltd.">
+        <Persons>
+            <Person ID="1" FirstName="Jon" LastName="Doe" />
+            <Person ID="2" FirstName="Jan" LastName="Novák" />
+        </Persons>
+        <Addresses>
+            <Address ID="1" Street="Dlouhá" HouseNumber="104" City="Praha" ZipCode="10000" />
+        </Addresses>
+    </Organization>
+</DataSource>

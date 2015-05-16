@@ -178,6 +178,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="PresentationModels\AddressDefinition.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="PresentationModels\OrganizationDefinition.xml">
       <SubType>Designer</SubType>
     </Content>

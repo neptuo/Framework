@@ -13,4 +13,7 @@
         <Metadata Key="Label" Value="Last name"/>
         <Metadata Key="Column" Value="1"/>
     </FieldDefinition>
+    <FieldDefinition Identifier="Addresses" FieldType="Neptuo.PresentationModels.IModelValueProvider, Neptuo.PresentationModels">
+        <Metadata Key="ModelDefinition" Value="Address"/>
+    </FieldDefinition>
 </ModelDefinition>
