@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Neptuo.PresentationModels.Serialization.Xml.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,9 +39,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlFieldValueSetterContext.cs" />
+    <Compile Include="XmlFieldValueGetterContext.cs" />
     <Compile Include="XmlModelDefinitionBuilder.cs" />
     <Compile Include="XmlModelDefinitionFactory.cs" />
     <Compile Include="XmlModelDefinitionSerializer.cs" />
+    <Compile Include="XmlModelValueGetter.cs" />
+    <Compile Include="XmlModelValueGetterFactory.cs" />
+    <Compile Include="XmlModelValueSetter.cs" />
     <Compile Include="XmlNameDefinition.cs" />
     <Compile Include="XmlTypeMappingCollection.cs" />
     <Compile Include="_XmlTypeMappingCollectionExtensions.cs" />

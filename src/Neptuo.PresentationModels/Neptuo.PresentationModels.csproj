@@ -80,6 +80,7 @@
     <Compile Include="Validators\Handlers\FieldMetadataModelValidator.cs" />
     <Compile Include="Validators\FieldMetadataValidatorCollection.cs" />
     <Compile Include="Validators\Handlers\ModelValidator.cs" />
+    <Compile Include="_ModelDefinitionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.PresentationModels.js" />
