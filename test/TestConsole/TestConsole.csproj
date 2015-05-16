@@ -178,7 +178,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PresentationModels\Person.xml">
+    <Content Include="PresentationModels\OrganizationDefinition.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PresentationModels\Organizations.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PresentationModels\Persons.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="PresentationModels\PersonDefinition.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Resources.xml">

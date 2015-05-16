@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModelDefinition xmlns="http://schemas.neptuo.com/xsd/neptuo-presentationmodels-modeldefinition.xsd" Identifier="Organization">
+    <FieldDefinition Identifier="ID" FieldType="int">
+        <Metadata Key="Hidden" Value="true"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="Name" FieldType="string">
+        <Metadata Key="Label" Value="Name"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="Persons" FieldType="Neptuo.PresentationModels.IModelValueProvider, Neptuo.PresentationModels">
+        <Metadata Key="ModelDefinition" Value="Person"/>
+    </FieldDefinition>
+</ModelDefinition>
