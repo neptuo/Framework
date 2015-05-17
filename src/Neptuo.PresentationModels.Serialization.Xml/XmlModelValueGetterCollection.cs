@@ -12,8 +12,9 @@ namespace Neptuo.PresentationModels.Serialization
 {
     /// <summary>
     /// Factory for <see cref="IModelValueGetter"/> from collection of XML elements.
+    /// Returned model value getters should be disposabled by calling object (are transient from this collection).
     /// </summary>
-    public class XmlModelValueGetterFactory : IEnumerable<IModelValueGetter>
+    public class XmlModelValueGetterCollection : IEnumerable<IModelValueGetter>
     {
         private readonly IModelDefinition modelDefinition;
         private readonly IReadOnlyList<XElement> elements;
@@ -32,7 +33,7 @@ namespace Neptuo.PresentationModels.Serialization
         /// </summary>
         /// <param name="modelDefinition">Model definition.</param>
         /// <param name="elements">Enumeration of elements to be used (at first, they are filtered by <paramref name="modelDefinition"/>).</param>
-        public XmlModelValueGetterFactory(IModelDefinition modelDefinition, IEnumerable<XElement> elements)
+        public XmlModelValueGetterCollection(IModelDefinition modelDefinition, IEnumerable<XElement> elements)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
             Ensure.NotNull(elements, "elements");
@@ -45,7 +46,7 @@ namespace Neptuo.PresentationModels.Serialization
         /// </summary>
         /// <param name="index">Zero based index to the collection of model value getters.</param>
         /// <returns>Model value getter at position <paramref name="index"/>.</returns>
-        public IModelValueGetter Getter(int index)
+        public IModelValueGetter Item(int index)
         {
             return new XmlModelValueGetter(modelDefinition, elements[index]);
         }

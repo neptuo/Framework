@@ -45,7 +45,7 @@
     <Compile Include="XmlModelDefinitionFactory.cs" />
     <Compile Include="XmlModelDefinitionSerializer.cs" />
     <Compile Include="XmlModelValueGetter.cs" />
-    <Compile Include="XmlModelValueGetterFactory.cs" />
+    <Compile Include="XmlModelValueGetterCollection.cs" />
     <Compile Include="XmlModelValueProviderFactory.cs" />
     <Compile Include="XmlModelValueSetter.cs" />
     <Compile Include="XmlNameDefinition.cs" />
