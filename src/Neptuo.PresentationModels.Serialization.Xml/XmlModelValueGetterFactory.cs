@@ -11,41 +11,46 @@ using System.Xml.Linq;
 namespace Neptuo.PresentationModels.Serialization
 {
     /// <summary>
-    /// Reads elements from root element of XML file and for those that match model definition identifier creates <see cref="IModelValueGetter"/>.
-    /// Other XML elements are ignored.
+    /// Factory for <see cref="IModelValueGetter"/> from collection of XML elements.
     /// </summary>
     public class XmlModelValueGetterFactory : IEnumerable<IModelValueGetter>
     {
         private readonly IModelDefinition modelDefinition;
         private readonly IReadOnlyList<XElement> elements;
 
+        /// <summary>
+        /// Returns count of matched elements/model value instances.
+        /// </summary>
         public int Count
         {
             get { return elements.Count(); }
         }
 
-        public XmlModelValueGetterFactory(IModelDefinition modelDefinition, IReadOnlyFile xmlFile)
+        /// <summary>
+        /// Creates new instance for models of type <paramref name="modelDefinition"/> from collection of <paramref name="elements"/>.
+        /// <paramref name="elements"/> are filtered by <paramref name="modelDefinition"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <param name="elements">Enumeration of elements to be used (at first, they are filtered by <paramref name="modelDefinition"/>).</param>
+        public XmlModelValueGetterFactory(IModelDefinition modelDefinition, IEnumerable<XElement> elements)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
-            Ensure.NotNull(xmlFile, "xmlFile");
-
-            if (xmlFile.Extension.ToLowerInvariant() != ".xml")
-                Ensure.Exception.FileSystem("Only xml files are supported, but got file named '{0}{1}'.", xmlFile.Name, xmlFile.Extension);
-
+            Ensure.NotNull(elements, "elements");
             this.modelDefinition = modelDefinition;
-            this.elements = BuildElements(xmlFile);
+            this.elements = new List<XElement>(elements.Where(e => e.Name.LocalName == modelDefinition.Identifier));
         }
 
-        private IReadOnlyList<XElement> BuildElements(IReadOnlyFile xmlFile)
-        {
-            XDocument document = XDocument.Load(xmlFile.GetContentAsStream());
-            return document.Root.Elements(modelDefinition.Identifier).ToList();
-        }
-
+        /// <summary>
+        /// Returns model value getter at position <paramref name="index"/>.
+        /// </summary>
+        /// <param name="index">Zero based index to the collection of model value getters.</param>
+        /// <returns>Model value getter at position <paramref name="index"/>.</returns>
         public IModelValueGetter Getter(int index)
         {
             return new XmlModelValueGetter(modelDefinition, elements[index]);
         }
+
+        #region IEnumerable<IModelValueGetter>
 
         public IEnumerator<IModelValueGetter> GetEnumerator()
         {
@@ -56,5 +61,7 @@ namespace Neptuo.PresentationModels.Serialization
         {
             return GetEnumerator();
         }
+
+        #endregion
     }
 }
