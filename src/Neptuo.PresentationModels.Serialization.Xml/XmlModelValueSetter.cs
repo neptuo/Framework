@@ -27,10 +27,7 @@ namespace Neptuo.PresentationModels.Serialization
         {
             IFieldDefinition fieldDefinition;
             if (!fieldDefinitions.TryGetValue(identifier, out fieldDefinition))
-            {
-                value = null;
                 return false;
-            }
 
             XName name = XName.Get(identifier, element.Name.NamespaceName);
 
@@ -44,6 +41,8 @@ namespace Neptuo.PresentationModels.Serialization
             object stringValue;
             if (value == null)
                 stringValue = null;
+            else if (value.GetType() == typeof(string))
+                stringValue = value;
             else if (!Converts.Try(value.GetType(), typeof(string), value, out stringValue))
                 return false;
 

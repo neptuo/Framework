@@ -48,6 +48,7 @@
     <Compile Include="XmlModelValueGetterCollection.cs" />
     <Compile Include="XmlModelValueGetterFactory.cs" />
     <Compile Include="XmlModelValueSetter.cs" />
+    <Compile Include="XmlModelValueSetterFactory.cs" />
     <Compile Include="XmlNameDefinition.cs" />
     <Compile Include="XmlTypeMappingCollection.cs" />
     <Compile Include="_XmlTypeMappingCollectionExtensions.cs" />

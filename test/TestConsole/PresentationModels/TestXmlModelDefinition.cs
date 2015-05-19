@@ -53,6 +53,23 @@ namespace TestConsole.PresentationModels
                     getter.GetValueOrDefault("Name", String.Empty)
                 );
             }
+
+            XmlModelValueSetterFactory setterFactory = new XmlModelValueSetterFactory("DataSource");
+
+            CopyModelValueProvider personCopier = new CopyModelValueProvider(personDefiniton, false);
+            foreach (IModelValueGetter getter in persons)
+                personCopier.Update(setterFactory.Create(personDefiniton), getter);
+
+            CopyModelValueProvider organizationCopier = new CopyModelValueProvider(organizationDefinition, false);
+            foreach (IModelValueGetter getter in organizations)
+                organizationCopier.Update(setterFactory.Create(organizationDefinition), getter);
+
+            //IFile newMixedFile = (IFile)LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSourceNEW.xml");
+            using (FileStream stream = new FileStream("../../PresentationModels/MixedDataSourceNEW.xml", FileMode.OpenOrCreate))
+            {
+                setterFactory.SaveToStream(stream);
+            }
+
         }
     }
 }

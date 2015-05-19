@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DataSource>
+  <Person FirstName="Jon" LastName="Doe" />
+  <Person FirstName="Jan" LastName="Novák" />
+  <Organization Name="Company Ltd." />
+  <Organization Name="Igos Ltd." />
+</DataSource>
