@@ -14,17 +14,44 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            IReadOnlyFile xmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/Person.xml");
+            IReadOnlyFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
+            IReadOnlyFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
-            XmlModelDefinitionBuilder builder = new XmlModelDefinitionBuilder(typeMappings, xmlFile);
-            IModelDefinition modelDefiniton = builder.Create();
+            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
+            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, organizationXmlFile).Create();
 
             XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
             using (StringWriter writer = new StringWriter())
             {
-                serializer.Serialize(modelDefiniton, writer);
+                serializer.Serialize(personDefiniton, writer);
                 Console.WriteLine(writer);
+            }
+
+            IReadOnlyFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
+            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile);
+
+            XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);
+            XmlModelValueGetterCollection organizations = getterFactory.Create(organizationDefinition);
+
+            Console.WriteLine("---------------------");
+            foreach (IModelValueGetter getter in persons)
+            {
+                Console.WriteLine(
+                    "Person: ({0}) {1}, {2}",
+                    getter.GetValueOrDefault("ID", -1),
+                    getter.GetValueOrDefault("FirstName", String.Empty),
+                    getter.GetValueOrDefault("LastName", String.Empty)
+                );
+            }
+
+            foreach (IModelValueGetter getter in organizations)
+            {
+                Console.WriteLine(
+                    "Organization: ({0}) {1}",
+                    getter.GetValueOrDefault("ID", -1),
+                    getter.GetValueOrDefault("Name", String.Empty)
+                );
             }
         }
     }

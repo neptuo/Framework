@@ -44,6 +44,12 @@ namespace Neptuo.PresentationModels.Serialization
             if (attribute != null)
             {
                 string stringValue = attribute.Value;
+                if (fieldDefinition.FieldType == typeof(string))
+                {
+                    value = stringValue;
+                    return true;
+                }
+
                 if(Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
                     return true;
             }
@@ -65,6 +71,12 @@ namespace Neptuo.PresentationModels.Serialization
             if (!childElement.Attributes().Any() && !childElement.Elements().Any())
             {
                 string stringValue = childElement.Value;
+                if (fieldDefinition.FieldType == typeof(string))
+                {
+                    value = stringValue;
+                    return true;
+                }
+
                 if (Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
                     return true;
             }

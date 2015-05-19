@@ -187,6 +187,9 @@
     <Content Include="PresentationModels\Organizations.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="PresentationModels\MixedDataSource.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="PresentationModels\Persons.xml">
       <SubType>Designer</SubType>
     </Content>
