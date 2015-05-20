@@ -38,6 +38,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
 
 [assembly: InternalsVisibleTo("Neptuo.PresentationModels.Binding")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.Serialization.Xml")]
 [assembly: InternalsVisibleTo("Neptuo.PresentationModels.TypeModels.DataAnnotations")]
-[assembly: InternalsVisibleTo("Neptuo.PresentationModels.Validators")]
