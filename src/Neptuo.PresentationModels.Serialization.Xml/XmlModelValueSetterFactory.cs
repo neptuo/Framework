@@ -11,10 +11,17 @@ using System.Xml.Linq;
 
 namespace Neptuo.PresentationModels.Serialization
 {
+    /// <summary>
+    /// Factory for creating XML documents.
+    /// </summary>
     public class XmlModelValueSetterFactory : IActivator<IModelValueSetter, IModelDefinition>
     {
         private readonly XDocument document;
 
+        /// <summary>
+        /// Creates new instance with XML document root named as <paramref name="rootElementName"/>.
+        /// </summary>
+        /// <param name="rootElementName"></param>
         public XmlModelValueSetterFactory(string rootElementName)
         {
             Ensure.NotNullOrEmpty(rootElementName, "rootElementName");
@@ -22,6 +29,11 @@ namespace Neptuo.PresentationModels.Serialization
             this.document.Add(new XElement(rootElementName));
         }
 
+        /// <summary>
+        /// Creates model value setter for <paramref name="modelDefinition"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <returns>Model value setter for <paramref name="modelDefinition"/>.</returns>
         public IModelValueSetter Create(IModelDefinition modelDefinition)
         {
             XElement element = new XElement(modelDefinition.Identifier);
@@ -29,6 +41,10 @@ namespace Neptuo.PresentationModels.Serialization
             return new XmlModelValueSetter(modelDefinition, element);
         }
 
+        /// <summary>
+        /// Saves XML document to file.
+        /// </summary>
+        /// <param name="xmlFile">Target file.</param>
         public void SaveToFile(IFile xmlFile)
         {
             Ensure.NotNull(xmlFile, "xmlFile");
@@ -43,6 +59,10 @@ namespace Neptuo.PresentationModels.Serialization
             }
         }
 
+        /// <summary>
+        /// Saves XML document to stream.
+        /// </summary>
+        /// <param name="stream">Target stream.</param>
         public void SaveToStream(Stream stream)
         {
             Ensure.NotNull(stream, "stream");

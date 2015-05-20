@@ -8,12 +8,21 @@ using System.Xml.Linq;
 
 namespace Neptuo.PresentationModels.Serialization
 {
+    /// <summary>
+    /// Sets field values to XML element.
+    /// Supports 'fields as attributes', 'fields as inner elements' and custom converter from <see cref="XmlFieldValueGetterContext"/> to <see cref="Object"/>.
+    /// </summary>
     public class XmlModelValueSetter : DisposableBase, IModelValueSetter
     {
         private readonly IModelDefinition modelDefinition;
         private readonly Dictionary<string, IFieldDefinition> fieldDefinitions;
         private readonly XElement element;
 
+        /// <summary>
+        /// Creates new instance for <paramref name="modelDefinition"/> and target to <paramref name="element"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <param name="element">Value target element.</param>
         public XmlModelValueSetter(IModelDefinition modelDefinition, XElement element)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
@@ -44,10 +53,18 @@ namespace Neptuo.PresentationModels.Serialization
             else if (value.GetType() == typeof(string))
                 stringValue = value;
             else if (!Converts.Try(value.GetType(), typeof(string), value, out stringValue))
-                return false;
+                return TryGetDefaultValue(identifier, value);
 
             element.Add(new XAttribute(name, stringValue));
             return true;
+        }
+
+        /// <summary>
+        /// Called when identifier can't be set.
+        /// </summary>
+        protected virtual bool TryGetDefaultValue(string identifier, object value)
+        {
+            return false;
         }
     }
 }

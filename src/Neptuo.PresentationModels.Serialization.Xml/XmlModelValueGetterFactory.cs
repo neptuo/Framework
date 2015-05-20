@@ -16,6 +16,10 @@ namespace Neptuo.PresentationModels.Serialization
     {
         private readonly XDocument document;
 
+        /// <summary>
+        /// Creates new instance that reads from <paramref name="xmlFile"/>.
+        /// </summary>
+        /// <param name="xmlFile">XML document to used as value source.</param>
         public XmlModelValueGetterFactory(IReadOnlyFile xmlFile)
         {
             Ensure.NotNull(xmlFile, "xmlFile");
@@ -26,6 +30,11 @@ namespace Neptuo.PresentationModels.Serialization
             document = XDocument.Load(xmlFile.GetContentAsStream());
         }
 
+        /// <summary>
+        /// Creates collection of model value getters found in the XML document for <paramref name="modelDefinition"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <returns>Collection of model value getters found in the XML document for <paramref name="modelDefinition"/>.</returns>
         public XmlModelValueGetterCollection Create(IModelDefinition modelDefinition)
         {
             return new XmlModelValueGetterCollection(modelDefinition, document.Root.Elements());

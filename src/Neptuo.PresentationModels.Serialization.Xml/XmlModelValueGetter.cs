@@ -10,7 +10,7 @@ namespace Neptuo.PresentationModels.Serialization
 {
     /// <summary>
     /// Reads field values from XML element.
-    /// Supports 'fields at attributes', 'fields as inner elements' and custom converter from <see cref="XmlFieldValueGetterContext"/> to <see cref="Object"/>.
+    /// Supports 'fields as attributes', 'fields as inner elements' and custom converter from <see cref="XmlFieldValueGetterContext"/> to <see cref="Object"/>.
     /// </summary>
     public class XmlModelValueGetter : DisposableBase, IModelValueGetter
     {
@@ -18,6 +18,11 @@ namespace Neptuo.PresentationModels.Serialization
         private readonly Dictionary<string, IFieldDefinition> fieldDefinitions;
         private readonly XElement element;
 
+        /// <summary>
+        /// Creates new instance for <paramref name="modelDefinition"/> and source from <paramref name="element"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <param name="element">Value source element.</param>
         public XmlModelValueGetter(IModelDefinition modelDefinition, XElement element)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
@@ -82,6 +87,14 @@ namespace Neptuo.PresentationModels.Serialization
             }
 
             // ... 
+            return TryGetDefaultValue(identifier, out value);
+        }
+
+        /// <summary>
+        /// Called when identifier can't be get.
+        /// </summary>
+        protected virtual bool TryGetDefaultValue(string identifier, out object value)
+        {
             value = null;
             return false;
         }
