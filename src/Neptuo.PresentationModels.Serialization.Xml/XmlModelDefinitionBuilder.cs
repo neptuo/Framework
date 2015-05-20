@@ -19,6 +19,11 @@ namespace Neptuo.PresentationModels.Serialization
         private readonly XmlModelDefinitionFactory factory;
         private readonly IReadOnlyFile xmlFile;
 
+        /// <summary>
+        /// Creates new instance of model definition builder from XML file.
+        /// </summary>
+        /// <param name="typeMappings">Collection of type name mappings.</param>
+        /// <param name="xmlFile">Source XML file.</param>
         public XmlModelDefinitionBuilder(XmlTypeMappingCollection typeMappings, IReadOnlyFile xmlFile)
         {
             Ensure.NotNull(xmlFile, "xmlFile");
@@ -26,6 +31,10 @@ namespace Neptuo.PresentationModels.Serialization
             this.xmlFile = xmlFile;
         }
 
+        /// <summary>
+        /// Creates new instance of model definition builder from XML file.
+        /// </summary>
+        /// <param name="xmlFile">Source XML file.</param>
         public XmlModelDefinitionBuilder(IReadOnlyFile xmlFile)
             : this(new XmlTypeMappingCollection(), xmlFile)
         { }
