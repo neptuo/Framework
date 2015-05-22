@@ -18,8 +18,8 @@ namespace Neptuo.PresentationModels
 
         public FieldDefinition(string identifier, Type fieldType, IKeyValueCollection metadata)
         {
-            Ensure.NotNull(identifier ,"identifier");
-            Ensure.NotNull(fieldType ,"fieldType");
+            Ensure.NotNull(identifier, "identifier");
+            Ensure.NotNull(fieldType, "fieldType");
             Ensure.NotNull(metadata, "metadata");
             Identifier = identifier;
             FieldType = fieldType;

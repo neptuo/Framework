@@ -401,10 +401,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "6.0.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "6.0.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("6.0.0");
+            return new System.Version.ctor$$String("6.0.1");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -879,6 +879,39 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder);
+var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionFactory = {
+    fullname: "Neptuo.PresentationModels.TypeModels.ReflectionModelDefinitionFactory",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.Activators.IActivator$2"],
+    Kind: "Class",
+    definition: {
+        ctor: function (metadataReaderCollection){
+            this._MetadataReaderCollection = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(metadataReaderCollection, "metadataReaderCollection");
+            this.set_MetadataReaderCollection(metadataReaderCollection);
+        },
+        MetadataReaderCollection$$: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderCollection",
+        get_MetadataReaderCollection: function (){
+            return this._MetadataReaderCollection;
+        },
+        set_MetadataReaderCollection: function (value){
+            this._MetadataReaderCollection = value;
+        },
+        Create: function (modelType){
+            var builder = new Neptuo.PresentationModels.TypeModels.ReflectionModelDefinitionBuilder.ctor(modelType, this.get_MetadataReaderCollection());
+            return builder.Create();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderCollection"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionFactory);
 var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
     fullname: "Neptuo.PresentationModels.TypeModels.TypeModelDefinitionCollection",
     baseTypeName: "System.Object",
@@ -911,7 +944,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
                 return true;
             }
             modelDefinition.Value = null;
-            return true;
+            return false;
         }
     },
     ctors: [{
@@ -1500,4 +1533,30 @@ var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Validators$Handlers$ModelValidator);
+var Neptuo$PresentationModels$_ModelDefinitionExtensions = {
+    fullname: "Neptuo.PresentationModels._ModelDefinitionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FieldsByIdentifier: function (modelDefinition){
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            var result = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IFieldDefinition.ctor);
+            var $it8 = modelDefinition.get_Fields().GetEnumerator();
+            while ($it8.MoveNext()){
+                var fieldDefinition = $it8.get_Current();
+                result.set_Item$$TKey(fieldDefinition.get_Identifier(), fieldDefinition);
+            }
+            return result;
+        }
+    },
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$_ModelDefinitionExtensions);
 

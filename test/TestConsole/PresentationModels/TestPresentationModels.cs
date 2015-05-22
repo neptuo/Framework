@@ -61,7 +61,7 @@ namespace TestConsole.PresentationModels
                 .Add("RoleIDs", "1,2,3,4,5,6");
 
             IModelValueGetter bindingGetter = new BindingModelValueGetter(storage, bindingConverters, modelDefinition);
-            CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition);
+            CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition, true);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
             IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(fieldMetadataValidators);

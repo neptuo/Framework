@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ModelDefinition xmlns="http://schemas.neptuo.com/xsd/neptuo-presentationmodels-modeldefinition.xsd" Identifier="Address">
+    <FieldDefinition Identifier="ID" FieldType="int">
+        <Metadata Key="Hidden" Value="true"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="Street" FieldType="string">
+        <Metadata Key="Label" Value="Street"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="HousNumber" FieldType="int">
+        <Metadata Key="Label" Value="House Number"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="City" FieldType="string">
+        <Metadata Key="Label" Value="City"/>
+    </FieldDefinition>
+    <FieldDefinition Identifier="ZipCode" FieldType="int">
+        <Metadata Key="Label" Value="Postal code"/>
+    </FieldDefinition>
+</ModelDefinition>
