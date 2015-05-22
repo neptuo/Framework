@@ -16,7 +16,8 @@ namespace Neptuo.PresentationModels.Serialization
     /// </summary>
     public class XmlModelValueSetterFactory : IActivator<IModelValueSetter, IModelDefinition>
     {
-        private readonly XDocument document;
+        private readonly string rootElementName;
+        private XDocument document;
 
         /// <summary>
         /// Creates new instance with XML document root named as <paramref name="rootElementName"/>.
@@ -25,8 +26,25 @@ namespace Neptuo.PresentationModels.Serialization
         public XmlModelValueSetterFactory(string rootElementName)
         {
             Ensure.NotNullOrEmpty(rootElementName, "rootElementName");
-            this.document = new XDocument();
-            this.document.Add(new XElement(rootElementName));
+            this.rootElementName = rootElementName;
+        }
+
+        private void EnsureDocument()
+        {
+            if (document == null)
+                document = CreateDocument(rootElementName);
+        }
+
+        /// <summary>
+        /// Creates new instance of target <see cref="XDocument"/> with root element named as <paramref name="rootElementName"/>.
+        /// </summary>
+        /// <param name="rootElementName">Name of the root element to insert into document.</param>
+        /// <returns>New instance of <see cref="XDocument"/> wit root element.</returns>
+        protected virtual XDocument CreateDocument(string rootElementName)
+        {
+            XDocument document = new XDocument();
+            document.Add(new XElement(rootElementName));
+            return document;
         }
 
         /// <summary>
@@ -36,6 +54,7 @@ namespace Neptuo.PresentationModels.Serialization
         /// <returns>Model value setter for <paramref name="modelDefinition"/>.</returns>
         public IModelValueSetter Create(IModelDefinition modelDefinition)
         {
+            EnsureDocument();
             XElement element = new XElement(modelDefinition.Identifier);
             document.Root.Add(element);
             return new XmlModelValueSetter(modelDefinition, element);
@@ -66,6 +85,7 @@ namespace Neptuo.PresentationModels.Serialization
         public void SaveToStream(Stream stream)
         {
             Ensure.NotNull(stream, "stream");
+            EnsureDocument();
             document.Save(stream);
         }
     }
