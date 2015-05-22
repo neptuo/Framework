@@ -33,11 +33,7 @@ namespace Neptuo.PresentationModels.Serialization
         /// <param name="xmlFile">XML document to be used as value source.</param>
         public XmlModelValueGetterFactory(IReadOnlyFile xmlFile)
         {
-            Ensure.NotNull(xmlFile, "xmlFile");
-
-            if (xmlFile.Extension.ToLowerInvariant() != ".xml")
-                Ensure.Exception.FileSystem("Only xml files are supported, but got file named '{0}{1}'.", xmlFile.Name, xmlFile.Extension);
-
+            Ensure.Condition.XmlFile(xmlFile, "xmlFile");
             document = XDocument.Load(xmlFile.GetContentAsStream());
         }
 

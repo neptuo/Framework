@@ -30,5 +30,21 @@ namespace Neptuo.FileSystems
             Ensure.NotNullOrEmpty(format, "format");
             return new FileSystemException(String.Format(format, formatParameters));
         }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentNullException"/> when <paramref name="xmlFile"/> is <c>null</c>
+        /// and <see cref="FileSystemException"/> when <paramref name="xmlFile"/> is not XML file.
+        /// </summary>
+        /// <param name="condition"></param>
+        /// <param name="xmlFile">File to test.</param>
+        /// <param name="argumentName">File argument name.</param>
+        public static void XmlFile(this EnsureConditionHelper condition, IReadOnlyFile xmlFile, string argumentName)
+        {
+            Ensure.NotNull(condition, "condition");
+            Ensure.NotNull(xmlFile, argumentName);
+
+            if (xmlFile.Extension.ToLowerInvariant() != ".xml")
+                Ensure.Exception.FileSystem("Only xml files are supported, but got file named '{0}{1}'.", xmlFile.Name, xmlFile.Extension);
+        }
     }
 }
