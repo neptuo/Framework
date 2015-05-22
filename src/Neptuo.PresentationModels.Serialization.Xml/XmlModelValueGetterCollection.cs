@@ -48,7 +48,18 @@ namespace Neptuo.PresentationModels.Serialization
         /// <returns>Model value getter at position <paramref name="index"/>.</returns>
         public IModelValueGetter Item(int index)
         {
-            return new XmlModelValueGetter(modelDefinition, elements[index]);
+            return CreateElementGetter(modelDefinition, elements[index]);
+        }
+
+        /// <summary>
+        /// Creates model value getter for values in <paramref name="element"/>.
+        /// </summary>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <param name="element">Value source.</param>
+        /// <returns>Model value getter for values in <paramref name="element"/>.</returns>
+        protected virtual IModelValueGetter CreateElementGetter(IModelDefinition modelDefinition, XElement element)
+        {
+            return new XmlModelValueGetter(modelDefinition, element);
         }
 
         #region IEnumerable<IModelValueGetter>
