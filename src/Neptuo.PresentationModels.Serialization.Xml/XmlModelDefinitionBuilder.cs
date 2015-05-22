@@ -39,6 +39,10 @@ namespace Neptuo.PresentationModels.Serialization
             : this(new XmlTypeMappingCollection(), xmlFile)
         { }
 
+        /// <summary>
+        /// Creates new instance of model definition.
+        /// </summary>
+        /// <returns>New instance of model definition.</returns>
         public IModelDefinition Create()
         {
             return factory.Create(xmlFile);

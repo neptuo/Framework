@@ -76,7 +76,7 @@ namespace Neptuo.PresentationModels.Serialization
         }
 
         /// <summary>
-        /// Tries to find mapping from <paramref name="typeName"/> to <paramref name="targetType"/>
+        /// Tries to find mapping from <paramref name="type"/> to <paramref name="targetTypeName"/>
         /// when converting .NET type to XML type name.
         /// </summary>
         /// <param name="type">.NET type.</param>

@@ -22,6 +22,11 @@ namespace Neptuo.PresentationModels.Serialization
         /// </summary>
         public object Value { get; private set; }
 
+        /// <summary>
+        /// Creates new instance of the context.
+        /// </summary>
+        /// <param name="fieldDefinition">Target field definition.</param>
+        /// <param name="value">Field value.</param>
         public XmlFieldValueSetterContext(IFieldDefinition fieldDefinition, object value)
         {
             Ensure.NotNull(fieldDefinition, "fieldDefinition");
