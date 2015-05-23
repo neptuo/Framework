@@ -183,7 +183,7 @@ var Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage = {
 JsTypes.push(Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage);
 var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
     fullname: "Neptuo.PresentationModels.Binding.BindingModelValueGetter",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
     assemblyName: "Neptuo.PresentationModels.Binding",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueGetter"],
     Kind: "Class",
@@ -192,7 +192,7 @@ var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
             this._Storage = null;
             this._ConverterCollection = null;
             this._ModelDefinition = null;
-            System.Object.ctor.call(this);
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(storage, "storage");
             Neptuo.Ensure.NotNull$$Object$$String(converterCollection, "converterCollection");
             Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
@@ -616,4 +616,26 @@ var Neptuo$PresentationModels$Binding$Converters$StringBindingConverter = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Binding$Converters$StringBindingConverter);
+var Neptuo$PresentationModels$Binding$VersionInfo = {
+    fullname: "Neptuo.PresentationModels.Binding.VersionInfo",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.PresentationModels.Binding.VersionInfo.Version = "6.0.0";
+        },
+        GetVersion: function (){
+            return new System.Version.ctor$$String("6.0.0");
+        }
+    },
+    assemblyName: "Neptuo.PresentationModels.Binding",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Binding$VersionInfo);
 

@@ -118,5 +118,10 @@ namespace Neptuo
         /// Helper for throwing exceptions.
         /// </summary>
         public static readonly EnsureExceptionHelper Exception = new EnsureExceptionHelper();
+
+        /// <summary>
+        /// Helper for custom conditions.
+        /// </summary>
+        public static readonly EnsureConditionHelper Condition = new EnsureConditionHelper();
     }
 }

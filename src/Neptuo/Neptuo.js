@@ -2029,6 +2029,24 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$_DependencyProviderExtensions);
+var Neptuo$Exceptions$Helpers$EnsureConditionHelper = {
+    fullname: "Neptuo.Exceptions.Helpers.EnsureConditionHelper",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Exceptions$Helpers$EnsureConditionHelper);
 var Neptuo$FeatureModels$IFeatureModel = {
     fullname: "Neptuo.FeatureModels.IFeatureModel",
     baseTypeName: "System.Object",
@@ -4459,6 +4477,7 @@ var Neptuo$Ensure = {
     staticDefinition: {
         cctor: function (){
             Neptuo.Ensure.Exception = new Neptuo.Exceptions.Helpers.EnsureExceptionHelper.ctor();
+            Neptuo.Ensure.Condition = new Neptuo.Exceptions.Helpers.EnsureConditionHelper.ctor();
         },
         NotNull$$Object$$String: function (argument, argumentName){
             if (argument == null)

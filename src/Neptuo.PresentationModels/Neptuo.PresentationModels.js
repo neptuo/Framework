@@ -14,6 +14,90 @@ if (typeof($CreateException)=='undefined')
     }
 }
 
+function $CombineDelegates(del1,del2)
+{
+    if(del1 == null)
+        return del2;
+    if(del2 == null)
+        return del1;
+    var del=$CreateMulticastDelegateFunction();
+    del.delegates = [];
+    if(del1.isMulticastDelegate)
+    {
+        for(var i=0;i < del1.delegates.length;i++)
+            del.delegates.push(del1.delegates[i]);
+    }
+    else
+    {
+        del.delegates.push(del1);
+    }
+    if(del2.isMulticastDelegate)
+    {
+        for(var i=0;i < del2.delegates.length;i++)
+            del.delegates.push(del2.delegates[i]);
+    }
+    else
+    {
+        del.delegates.push(del2);
+    }
+    return del;
+};
+
+function $CreateMulticastDelegateFunction()
+{
+    var del2 = null;
+    
+    var del=function()
+    {
+        var x=undefined;
+        for(var i=0;i < del2.delegates.length;i++)
+        {
+            var del3=del2.delegates[i];
+            x = del3.apply(null,arguments);
+        }
+        return x;
+    };
+    del.isMulticastDelegate = true;
+    del2 = del;   
+    
+    return del;
+};
+
+function $RemoveDelegate(delOriginal,delToRemove)
+{
+    if(delToRemove == null || delOriginal == null)
+        return delOriginal;
+    if(delOriginal.isMulticastDelegate)
+    {
+        if(delToRemove.isMulticastDelegate)
+            throw new Error("Multicast to multicast delegate removal is not implemented yet");
+        var del=$CreateMulticastDelegateFunction();
+        for(var i=0;i < delOriginal.delegates.length;i++)
+        {
+            var del2=delOriginal.delegates[i];
+            if(del2 != delToRemove)
+            {
+                if(del.delegates == null)
+                    del.delegates = [];
+                del.delegates.push(del2);
+            }
+        }
+        if(del.delegates == null)
+            return null;
+        if(del.delegates.length == 1)
+            return del.delegates[0];
+        return del;
+    }
+    else
+    {
+        if(delToRemove.isMulticastDelegate)
+            throw new Error("single to multicast delegate removal is not supported");
+        if(delOriginal == delToRemove)
+            return null;
+        return delOriginal;
+    }
+};
+
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
@@ -84,6 +168,43 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$CopyModelValueProvider);
+var Neptuo$PresentationModels$DictionaryModelValueProvider = {
+    fullname: "Neptuo.PresentationModels.DictionaryModelValueProvider",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._Storage = null;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            this.set_Storage(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Object.ctor));
+        },
+        Storage$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Object]]",
+        get_Storage: function (){
+            return this._Storage;
+        },
+        set_Storage: function (value){
+            this._Storage = value;
+        },
+        TryGetValue: function (identifier, value){
+            Neptuo.Ensure.NotNull$$Object$$String(identifier, "identifier");
+            return this.get_Storage().TryGetValue(identifier, value);
+        },
+        TrySetValue: function (identifier, value){
+            Neptuo.Ensure.NotNull$$Object$$String(identifier, "identifier");
+            this.get_Storage().set_Item$$TKey(identifier, value);
+            return true;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$DictionaryModelValueProvider);
 var Neptuo$PresentationModels$FieldDefinition = {
     fullname: "Neptuo.PresentationModels.FieldDefinition",
     baseTypeName: "System.Object",
@@ -396,15 +517,94 @@ var Neptuo$PresentationModels$ModelDefinitionCollection = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$ModelDefinitionCollection);
+var Neptuo$PresentationModels$ObservableModelValueProvider = {
+    fullname: "Neptuo.PresentationModels.ObservableModelValueProvider",
+    baseTypeName: "Neptuo.PresentationModels.ObservableModelValueSetter",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (innerProvider){
+            this.innerProvider = null;
+            Neptuo.PresentationModels.ObservableModelValueSetter.ctor.call(this, innerProvider);
+            Neptuo.Ensure.NotNull$$Object$$String(innerProvider, "innerProvider");
+            this.innerProvider = innerProvider;
+        },
+        TryGetValue: function (identifier, value){
+            return this.innerProvider.TryGetValue(identifier, value);
+        },
+        TrySetValue: function (identifier, value){
+            var currentValue;
+            if ((function (){
+                var $1 = {
+                    Value: currentValue
+                };
+                var $res = this.innerProvider.TryGetValue(identifier, $1);
+                currentValue = $1.Value;
+                return $res;
+            }).call(this) && currentValue == value)
+                return true;
+            return Neptuo.PresentationModels.ObservableModelValueSetter.commonPrototype.TrySetValue.call(this, identifier, value);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.IModelValueProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$ObservableModelValueProvider);
+var Neptuo$PresentationModels$ObservableModelValueSetter = {
+    fullname: "Neptuo.PresentationModels.ObservableModelValueSetter",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.PresentationModels.IModelValueSetter", "System.ComponentModel.INotifyPropertyChanged"],
+    Kind: "Class",
+    definition: {
+        ctor: function (innerSetter){
+            this.innerSetter = null;
+            this.PropertyChanged = null;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(innerSetter, "innerSetter");
+            this.innerSetter = innerSetter;
+        },
+        add_PropertyChanged: function (value){
+            this.PropertyChanged = $CombineDelegates(this.PropertyChanged, value);
+        },
+        remove_PropertyChanged: function (value){
+            this.PropertyChanged = $RemoveDelegate(this.PropertyChanged, value);
+        },
+        RaisePropertyChanged: function (propertyName){
+            Neptuo.Ensure.NotNull$$Object$$String(propertyName, "propertyName");
+            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.PropertyChanged, null))
+                this.PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs.ctor(propertyName));
+        },
+        TrySetValue: function (identifier, value){
+            if (this.innerSetter.TrySetValue(identifier, value)){
+                this.RaisePropertyChanged(identifier);
+                return true;
+            }
+            return false;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.IModelValueSetter"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$ObservableModelValueSetter);
 var Neptuo$PresentationModels$VersionInfo = {
     fullname: "Neptuo.PresentationModels.VersionInfo",
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "6.0.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "6.1.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("6.0.0");
+            return new System.Version.ctor$$String("6.1.0");
         }
     },
     assemblyName: "Neptuo.PresentationModels",
@@ -879,6 +1079,39 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionBuilder);
+var Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionFactory = {
+    fullname: "Neptuo.PresentationModels.TypeModels.ReflectionModelDefinitionFactory",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.PresentationModels",
+    interfaceNames: ["Neptuo.Activators.IActivator$2"],
+    Kind: "Class",
+    definition: {
+        ctor: function (metadataReaderCollection){
+            this._MetadataReaderCollection = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(metadataReaderCollection, "metadataReaderCollection");
+            this.set_MetadataReaderCollection(metadataReaderCollection);
+        },
+        MetadataReaderCollection$$: "Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderCollection",
+        get_MetadataReaderCollection: function (){
+            return this._MetadataReaderCollection;
+        },
+        set_MetadataReaderCollection: function (value){
+            this._MetadataReaderCollection = value;
+        },
+        Create: function (modelType){
+            var builder = new Neptuo.PresentationModels.TypeModels.ReflectionModelDefinitionBuilder.ctor(modelType, this.get_MetadataReaderCollection());
+            return builder.Create();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.PresentationModels.TypeModels.AttributeMetadataReaderCollection"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$PresentationModels$TypeModels$ReflectionModelDefinitionFactory);
 var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
     fullname: "Neptuo.PresentationModels.TypeModels.TypeModelDefinitionCollection",
     baseTypeName: "System.Object",
@@ -911,7 +1144,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
                 return true;
             }
             modelDefinition.Value = null;
-            return true;
+            return false;
         }
     },
     ctors: [{
@@ -1500,4 +1733,30 @@ var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Validators$Handlers$ModelValidator);
+var Neptuo$PresentationModels$_ModelDefinitionExtensions = {
+    fullname: "Neptuo.PresentationModels._ModelDefinitionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FieldsByIdentifier: function (modelDefinition){
+            Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
+            var result = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IFieldDefinition.ctor);
+            var $it8 = modelDefinition.get_Fields().GetEnumerator();
+            while ($it8.MoveNext()){
+                var fieldDefinition = $it8.get_Current();
+                result.set_Item$$TKey(fieldDefinition.get_Identifier(), fieldDefinition);
+            }
+            return result;
+        }
+    },
+    assemblyName: "Neptuo.PresentationModels",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$_ModelDefinitionExtensions);
 

@@ -142,6 +142,7 @@
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
+    <Compile Include="Exceptions\Helpers\EnsureConditionHelper.cs" />
     <Compile Include="FeatureModels\IFeatureModel.cs" />
     <Compile Include="FeatureModels\FeatureCollectionModel.cs" />
     <Compile Include="FeatureModels\ObjectFeatureModel.cs" />

@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CopyModelValueProvider.cs" />
+    <Compile Include="DictionaryModelValueProvider.cs" />
     <Compile Include="FieldDefinition.cs" />
     <Compile Include="FieldDefinitionBuilderBase.cs" />
     <Compile Include="IFieldDefinition.cs" />
@@ -49,6 +50,8 @@
     <Compile Include="MetadataCollection.cs" />
     <Compile Include="ModelDefinitionBuilderBase.cs" />
     <Compile Include="ModelDefinitionCollection.cs" />
+    <Compile Include="ObservableModelValueProvider.cs" />
+    <Compile Include="ObservableModelValueSetter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="ModelDefinition.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="TypeModels\IAttributeMetadataReader.cs" />
     <Compile Include="TypeModels\IMetadataReader.cs" />
     <Compile Include="TypeModels\ReflectionModelDefinitionBuilder.cs" />
+    <Compile Include="TypeModels\ReflectionModelDefinitionFactory.cs" />
     <Compile Include="TypeModels\TypeModelDefinitionCollection.cs" />
     <Compile Include="TypeModels\ReflectionModelValueProvider.cs" />
     <Compile Include="TypeModels\_AttributeMetadataReaderCollectionExtensions.cs" />
@@ -79,6 +83,7 @@
     <Compile Include="Validators\Handlers\FieldMetadataModelValidator.cs" />
     <Compile Include="Validators\FieldMetadataValidatorCollection.cs" />
     <Compile Include="Validators\Handlers\ModelValidator.cs" />
+    <Compile Include="_ModelDefinitionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.PresentationModels.js" />
