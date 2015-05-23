@@ -616,4 +616,26 @@ var Neptuo$PresentationModels$Binding$Converters$StringBindingConverter = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$Binding$Converters$StringBindingConverter);
+var Neptuo$PresentationModels$Binding$VersionInfo = {
+    fullname: "Neptuo.PresentationModels.Binding.VersionInfo",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.PresentationModels.Binding.VersionInfo.Version = "6.0.0";
+        },
+        GetVersion: function (){
+            return new System.Version.ctor$$String("6.0.0");
+        }
+    },
+    assemblyName: "Neptuo.PresentationModels.Binding",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$PresentationModels$Binding$VersionInfo);
 
