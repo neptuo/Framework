@@ -4260,6 +4260,8 @@ var Neptuo$Pipelines$Events$DefaultEventManager = {
             var envelopeHandlers = this.registry.GetEnvelopeHandlers(eventType);
             var directHandlers = this.registry.GetDirectHandlers(eventType);
             var tasks = new Array(contextHandlers.get_Length() + envelopeHandlers.get_Length() + directHandlers.get_Length());
+            if (tasks.get_Length() == 0)
+                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
             for (var i = 0; i < contextHandlers.get_Length(); i++)
                 tasks[i] = (Cast(contextHandlers[i], Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(context);
             for (var i = 0; i < envelopeHandlers.get_Length(); i++)
@@ -4903,10 +4905,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "4.0.0";
+            Neptuo.VersionInfo.Version = "4.0.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.0.0");
+            return new System.Version.ctor$$String("4.0.1");
         }
     },
     assemblyName: "Neptuo",
