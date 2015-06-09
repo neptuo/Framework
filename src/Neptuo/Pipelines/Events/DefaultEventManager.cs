@@ -65,7 +65,10 @@ namespace Neptuo.Pipelines.Events
             object[] directHandlers = registry.GetDirectHandlers(eventType);
                 
             Task[] tasks = new Task[contextHandlers.Length + envelopeHandlers.Length + directHandlers.Length];
-            
+
+            if (tasks.Length == 0)
+                return Task.FromResult(true);
+
             // Execute context handlers and store tasks.
             for (int i = 0; i < contextHandlers.Length; i++)
                 tasks[i] = ((IEventHandler<IEventHandlerContext<TEvent>>)contextHandlers[i]).HandleAsync(context);

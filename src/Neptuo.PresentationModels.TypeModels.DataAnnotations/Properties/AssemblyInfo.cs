@@ -1,4 +1,4 @@
-﻿using Neptuo.PresentationModels;
+﻿using Neptuo.PresentationModels.TypeModels.DataAnnotations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;

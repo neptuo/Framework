@@ -2029,6 +2029,24 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$_DependencyProviderExtensions);
+var Neptuo$Exceptions$Helpers$EnsureConditionHelper = {
+    fullname: "Neptuo.Exceptions.Helpers.EnsureConditionHelper",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Exceptions$Helpers$EnsureConditionHelper);
 var Neptuo$FeatureModels$IFeatureModel = {
     fullname: "Neptuo.FeatureModels.IFeatureModel",
     baseTypeName: "System.Object",
@@ -4242,6 +4260,8 @@ var Neptuo$Pipelines$Events$DefaultEventManager = {
             var envelopeHandlers = this.registry.GetEnvelopeHandlers(eventType);
             var directHandlers = this.registry.GetDirectHandlers(eventType);
             var tasks = new Array(contextHandlers.get_Length() + envelopeHandlers.get_Length() + directHandlers.get_Length());
+            if (tasks.get_Length() == 0)
+                return System.Threading.Tasks.Task.FromResult$1(System.Boolean.ctor, true);
             for (var i = 0; i < contextHandlers.get_Length(); i++)
                 tasks[i] = (Cast(contextHandlers[i], Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor)).HandleAsync(context);
             for (var i = 0; i < envelopeHandlers.get_Length(); i++)
@@ -4459,6 +4479,7 @@ var Neptuo$Ensure = {
     staticDefinition: {
         cctor: function (){
             Neptuo.Ensure.Exception = new Neptuo.Exceptions.Helpers.EnsureExceptionHelper.ctor();
+            Neptuo.Ensure.Condition = new Neptuo.Exceptions.Helpers.EnsureConditionHelper.ctor();
         },
         NotNull$$Object$$String: function (argument, argumentName){
             if (argument == null)
@@ -4884,10 +4905,10 @@ var Neptuo$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "4.0.0";
+            Neptuo.VersionInfo.Version = "4.0.1";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("4.0.0");
+            return new System.Version.ctor$$String("4.0.1");
         }
     },
     assemblyName: "Neptuo",
