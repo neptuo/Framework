@@ -64,6 +64,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.Serialization.Xml", "src\Neptuo.PresentationModels.Serialization.Xml\Neptuo.PresentationModels.Serialization.Xml.csproj", "{35F29C01-F567-420B-8E9E-57BD9FC3DE60}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.UI", "src\Neptuo.PresentationModels.UI\Neptuo.PresentationModels.UI.csproj", "{23E62643-F6C3-4D6A-862B-38999EBC6959}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +156,10 @@ Global
 		{35F29C01-F567-420B-8E9E-57BD9FC3DE60}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F29C01-F567-420B-8E9E-57BD9FC3DE60}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F29C01-F567-420B-8E9E-57BD9FC3DE60}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23E62643-F6C3-4D6A-862B-38999EBC6959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E62643-F6C3-4D6A-862B-38999EBC6959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E62643-F6C3-4D6A-862B-38999EBC6959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E62643-F6C3-4D6A-862B-38999EBC6959}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -173,6 +179,7 @@ Global
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{35F29C01-F567-420B-8E9E-57BD9FC3DE60} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
+		{23E62643-F6C3-4D6A-862B-38999EBC6959} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
