@@ -5,29 +5,29 @@ using System.Linq;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Pohled pro jedno filtrační pole.
+    /// Single field view.
     /// </summary>
-    /// <typeparam name="T">Typ kontextu, do kterého se má vykreslovat.</typeparam>
+    /// <typeparam name="T">Type of rendering context.</typeparam>
     public interface IFieldView<T>
     {
         /// <summary>
-        /// Vykreslí pohled.
+        /// Renders the view to the <paramref name="target"/>.
         /// </summary>
-        /// <param name="target">Kontext, do kterého se má vykreslit.</param>
+        /// <param name="target">Rendering context.</param>
         void Render(T target);
 
         /// <summary>
-        /// Vrací hodnotu zadanou do pohledu.
+        /// Tries to get current value of the view.
         /// </summary>
-        /// <param name="value">Hodnotu zadanou do pohledu.</param>
-        /// <returns>Zda bylo možné hodnotu získat.</returns>
+        /// <param name="value">Current view value.</param>
+        /// <returns><c>true</c> if value was provided; <c>false</c> otherwise.</returns>
         bool TryGetValue(out object value);
 
         /// <summary>
-        /// Nastavuje hodnotu do pohledu.
+        /// Tries to set new value to the view.
         /// </summary>
-        /// <param name="value">Nová hodnota.</param>
-        /// <returns>Zda bylo možné hodnotu nastavit.</returns>
+        /// <param name="value">New view value.</param>
+        /// <returns><c>true</c> if value was set; <c>false</c> otherwise.</returns>
         bool TrySetValue(object value);
     }
 }

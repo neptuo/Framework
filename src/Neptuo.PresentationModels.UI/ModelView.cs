@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Základ serverového pohledu na model.
+    /// Base implemtation of <see cref="IModelView{T}"/> based on field views.
     /// </summary>
     public abstract class ModelView<T> : DisposableBase, IModelView<T>
     {
@@ -18,9 +18,9 @@ namespace Neptuo.PresentationModels.UI
         private bool isRendered;
 
         /// <summary>
-        /// Vytvoří instanci a nastaví definici modelu, pro kterou je tento pohled určen.
+        /// Creates new instance for model defined by <paramref name="modelDefinition"/>.
         /// </summary>
-        /// <param name="modelDefinition">Definici modelu pro tento pohled.</param>
+        /// <param name="modelDefinition">Model definition.</param>
         public ModelView(IModelDefinition modelDefinition)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
@@ -29,10 +29,10 @@ namespace Neptuo.PresentationModels.UI
         }
 
         /// <summary>
-        /// Zaregistruje podle pro field, takže z něj bude možné získat hodnotu.
+        /// Registers field view for field.
         /// </summary>
-        /// <param name="fieldIdentifier">Identifikátor fieldu.</param>
-        /// <param name="fieldView">Pohled pro daný field.</param>
+        /// <param name="fieldIdentifier">Field identifier..</param>
+        /// <param name="fieldView">Field view.</param>
         protected void AddFieldView(string fieldIdentifier, IFieldView<T> fieldView)
         {
             Ensure.NotNullOrEmpty(fieldIdentifier, "fieldIdentifier");
@@ -67,16 +67,20 @@ namespace Neptuo.PresentationModels.UI
             return false;
         }
 
-        public void Render(T parent)
+        public void Render(T target)
         {
             if (!isRendered)
             {
                 isRendered = true;
-                RenderInternal(parent);
+                RenderInternal(target);
             }
         }
 
-        protected abstract void RenderInternal(T parent);
+        /// <summary>
+        /// Called once to render view.
+        /// </summary>
+        /// <param name="target">Rendering context.</param>
+        protected abstract void RenderInternal(T target);
 
         #endregion
     }

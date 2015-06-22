@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Kolekce poskytující registrované pohledy pro celé modely.
+    /// Collection of model views.
     /// </summary>
-    /// <typeparam name="T">Typ kontextu pohledu.</typeparam>
+    /// <typeparam name="T">Type of rendering context.</typeparam>
     public interface IModelViewCollection<T>
     {
         /// <summary>
-        /// Pokusí se vrátit pohled pro model identifikovaný <paramref name="modelDefinition"/>.
+        /// Tries to get model view for model definition.
         /// </summary>
-        /// <param name="modelDefinition">Definice modelu.</param>
-        /// <param name="modelView">Zaregistrvaný pohled.</param>
-        /// <returns><c>true</c> pokud se povedlo pohled najít; jinak <c>false</c>.</returns>
+        /// <param name="modelView">Instance of registered model view..</param>
+        /// <returns><c>true</c> if field view was found; <c>false</c> otherwise.</returns>
         bool TryGet(IModelDefinition modelDefinition, out IModelView<T> modelView);
     }
 }

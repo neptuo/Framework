@@ -11,7 +11,9 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Kolekce aktivátorů <see cref="IModelView"/>.
+    /// Implementation of <see cref="IModelViewCollection{T}"/> based on model identifiers.
+    /// For each model definition, there can be registered single model view.
+    /// For generic pursoses, there can be registered search delegate for finding model view.
     /// </summary>
     public class ModelViewCollection<T> : IModelViewCollection<T>
     {
@@ -19,11 +21,11 @@ namespace Neptuo.PresentationModels.UI
         private readonly OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool> onSearchView = new OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool>();
 
         /// <summary>
-        /// Spáruje <paramref name="modelIdentifier"/> s pohledem <paramref name="modelViewActivator"/>.
+        /// Pairs model definition identified by <paramref name="modelIdentifier"/> with view provided by <paramref name="modelViewActivator"/>.
         /// </summary>
-        /// <param name="modelIdentifier">Identifikátor definice modelu.</param>
-        /// <param name="modelViewActivator">Pohled, který se pro daný model má použít.</param>
-        /// <returns>Sebe (kvůli fluentnosti).</returns>
+        /// <param name="modelIdentifier">Model identifier.</param>
+        /// <param name="modelViewActivator">Activator for creating model view instances.</param>
+        /// <returns>Self (for fluency).</returns>
         public ModelViewCollection<T> Add(string modelIdentifier, IActivator<IModelView<T>> modelViewActivator)
         {
             Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
@@ -33,11 +35,10 @@ namespace Neptuo.PresentationModels.UI
         }
 
         /// <summary>
-        /// Spáruje delegáta <paramref name="searchHandler" />, který bude spuštěn, 
-        /// pokud se nepovedlo najít zaregistrovaný pohled pro model.
+        /// Registers generic search handler for unregistered model identifiers.
         /// </summary>
-        /// <param name="searchHandler">Delegát, který může vrátit pohled.</param>
-        /// <returns>Sebe (kvůli fluentnosti).</returns>
+        /// <param name="searchHandler">Search delegate for providing model view activator.</param>
+        /// <returns>Self (for fluency).</returns>
         public ModelViewCollection<T> AddSearchHandler(OutFunc<IModelDefinition, IActivator<IModelView<T>>, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
@@ -45,12 +46,6 @@ namespace Neptuo.PresentationModels.UI
             return this;
         }
 
-        /// <summary>
-        /// Pokusí se vrátit pohled pro model identifikovaný <paramref name="modelDefinition"/>.
-        /// </summary>
-        /// <param name="modelDefinition">Definice modelu.</param>
-        /// <param name="modelView">Zaregistrvaný pohled.</param>
-        /// <returns><c>true</c> pokud se povedlo pohled najít; jinak <c>false</c>.</returns>
         public bool TryGet(IModelDefinition modelDefinition, out IModelView<T> modelView)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");

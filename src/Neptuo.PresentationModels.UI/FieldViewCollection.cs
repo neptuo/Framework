@@ -14,9 +14,12 @@ using SharpKit.JavaScript;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Kolekce aktivátorů <see cref="IFieldView"/>.
+    /// Implementation of <see cref="IFieldViewCollection{T}"/> based on model and field identifiers and field types, or "UI hint".
+    /// Field view can be mapped using:
+    /// - Field type.
+    /// - Model and field identifier.
+    /// - UI hint.
     /// </summary>
-    /// <typeparam name="T">Typ kontextu pohledu.</typeparam>
     public class FieldViewCollection<T> : IFieldViewCollection<T>
     {
         private readonly Dictionary<Key, IActivator<IFieldView<T>, IFieldDefinition>> builders
@@ -25,15 +28,6 @@ namespace Neptuo.PresentationModels.UI
         private readonly OutFuncCollection<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool> onSearchView
             = new OutFuncCollection<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool>();
 
-        /// <summary>
-        /// Spáruje <paramref name="modelIdentifier"/> s pohledem <paramref name="modelViewActivator"/>.
-        /// </summary>
-        /// <param name="modelIdentifier">Identifikátor definice modelu.</param>
-        /// <param name="fieldIdentifier">Identifikátor fieldu.</param>
-        /// <param name="uiHint">Ui hint.</param>
-        /// <param name="fieldType">Type fieldu.</param>
-        /// <param name="fieldViewActivator">Pohled, který se pro daný field má použít.</param>
-        /// <returns>Sebe (kvůli fluentnosti).</returns>
         public FieldViewCollection<T> Add(string modelIdentifier, string fieldIdentifier, string uiHint, Type fieldType, IActivator<IFieldView<T>, IFieldDefinition> fieldViewActivator)
         {
             Ensure.NotNull(fieldType, "fieldType");
@@ -42,12 +36,6 @@ namespace Neptuo.PresentationModels.UI
             return this;
         }
 
-        /// <summary>
-        /// Spáruje delegáta <paramref name="searchHandler" />, který bude spuštěn, 
-        /// pokud se nepovedlo najít zaregistrovaný pohled pro model.
-        /// </summary>
-        /// <param name="searchHandler">Delegát, který může vrátit pohled.</param>
-        /// <returns>Sebe (kvůli fluentnosti).</returns>
         public FieldViewCollection<T> AddSearchHandler(OutFunc<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
@@ -108,37 +96,37 @@ namespace Neptuo.PresentationModels.UI
         }
 
         /// <summary>
-        /// Klíč pro registraci pohledu pro field.
+        /// Key for field view registration.
         /// </summary>
         public class Key
         {
             /// <summary>
-            /// Identifikátor definice modelu.
+            /// Model identifier.
             /// </summary>
             public string ModelIdentifier { get; private set; }
 
             /// <summary>
-            /// Identifikátor fieldu.
+            /// Field identifier.
             /// </summary>
             public string FieldIdentifier { get; private set; }
 
             /// <summary>
-            /// Ui hint.
+            /// UI hint.
             /// </summary>
             public string UiHint { get; private set; }
 
             /// <summary>
-            /// Type fieldu.
+            /// Field type.
             /// </summary>
             public Type FieldType { get; private set; }
-
+            
             /// <summary>
-            /// Vytvoří a nastaví instanci.
+            /// Creates new instance.
             /// </summary>
-            /// <param name="modelIdentifier">Identifikátor definice modelu.</param>
-            /// <param name="fieldIdentifier">Identifikátor fieldu.</param>
-            /// <param name="uiHint">Ui hint.</param>
-            /// <param name="fieldType">Type fieldu.</param>
+            /// <param name="modelIdentifier">Model identifier.</param>
+            /// <param name="fieldIdentifier">Field identifier.</param>
+            /// <param name="uiHint">UI hint.</param>
+            /// <param name="fieldType">Field type.</param>
             public Key(string modelIdentifier, string fieldIdentifier, string uiHint, Type fieldType)
             {
                 ModelIdentifier = modelIdentifier;
@@ -201,8 +189,7 @@ namespace Neptuo.PresentationModels.UI
         }
 
         /// <summary>
-        /// Protože SharpKit nechápe, jak správně zacházet se slovníkem 
-        /// a výpočtem klíčů a podporuje pouze výpočet hash kódu přes komparátor.
+        /// Because of SharpKit and dictionary support.
         /// </summary>
         private class KeyComparer : IEqualityComparer<Key>
         {
