@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.PresentationModels.Validators.Handlers;
 using Neptuo.PresentationModels.Validation;
+using Neptuo.PresentationModels.TypeModels.ValueUpdates;
 
 namespace TestConsole.PresentationModels
 {
@@ -51,7 +52,11 @@ namespace TestConsole.PresentationModels
             model.Username = "pepa";
             model.Password = "x";
             model.PasswordAgain = "y";
-            IModelValueProvider valueProvider = new ReflectionModelValueProvider(model);
+            IModelValueProvider valueProvider = new ReflectionModelValueProvider(
+                model, 
+                new ReflectionValueUpdaterCollection()
+                    .Add<ICollection<int>>(new ReflectionCollectionItemValueUpdater<int>())
+            );
 
             IBindingModelValueStorage storage = new BindingDictionaryValueStorage()
                 .Add("Username", "Pepa")
@@ -87,6 +92,6 @@ namespace TestConsole.PresentationModels
         [Required]
         public int? Age { get; set; }
 
-        public IEnumerable<int> RoleIDs { get; set; }
+        public ICollection<int> RoleIDs { get { return null; } }
     }
 }
