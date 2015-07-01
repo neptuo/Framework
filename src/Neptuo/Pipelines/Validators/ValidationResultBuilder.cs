@@ -64,7 +64,7 @@ namespace Neptuo.Pipelines.Validators
 
         public override string ToString()
         {
-            return String.Format("{0} ({1})", isValid ? "Valid" : "InValid", messages.Count);
+            return String.Format("{0} ({1})", isValid ? "Valid" : "Not valid", messages.Count);
         }
 
         #region IValidationResult
