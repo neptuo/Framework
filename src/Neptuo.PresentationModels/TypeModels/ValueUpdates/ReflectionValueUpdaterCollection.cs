@@ -31,7 +31,7 @@ namespace Neptuo.PresentationModels.TypeModels.ValueUpdates
 
         public bool TryUpdate(object instance, PropertyInfo propertyInfo, object newValue)
         {
-            Type propertyType = propertyInfo.GetType();
+            Type propertyType = propertyInfo.PropertyType;
             IReflectionValueUpdater updater;
             if (storage.TryGetValue(propertyType, out updater))
                 return updater.TryUpdate(instance, propertyInfo, newValue);

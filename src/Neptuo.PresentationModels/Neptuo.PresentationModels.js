@@ -1380,7 +1380,7 @@ var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionValueUpdaterColl
             return this;
         },
         TryUpdate: function (instance, propertyInfo, newValue){
-            var propertyType = propertyInfo.GetType();
+            var propertyType = propertyInfo.get_PropertyType();
             var updater;
             if ((function (){
                 var $1 = {

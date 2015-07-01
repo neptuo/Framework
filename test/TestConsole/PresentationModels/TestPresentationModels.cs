@@ -37,6 +37,9 @@ namespace TestConsole.PresentationModels
                 .Add(null, null, "Required", new RequiredMetadataValidator())
                 .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
+            ReflectionValueUpdaterCollection valueUpdaters = new ReflectionValueUpdaterCollection()
+                    .Add<ICollection<int>>(new ReflectionCollectionItemValueUpdater<int>());
+
             BindingConverterCollection bindingConverters = new BindingConverterCollection()
                 //.Add(new TypeFieldType(typeof(bool)), new BoolBindingConverter())
                 //.Add(new TypeFieldType(typeof(int)), new IntBindingConverter())
@@ -52,11 +55,7 @@ namespace TestConsole.PresentationModels
             model.Username = "pepa";
             model.Password = "x";
             model.PasswordAgain = "y";
-            IModelValueProvider valueProvider = new ReflectionModelValueProvider(
-                model, 
-                new ReflectionValueUpdaterCollection()
-                    .Add<ICollection<int>>(new ReflectionCollectionItemValueUpdater<int>())
-            );
+            IModelValueProvider valueProvider = new ReflectionModelValueProvider(model, valueUpdaters);
 
             IBindingModelValueStorage storage = new BindingDictionaryValueStorage()
                 .Add("Username", "Pepa")
@@ -92,6 +91,12 @@ namespace TestConsole.PresentationModels
         [Required]
         public int? Age { get; set; }
 
-        public ICollection<int> RoleIDs { get { return null; } }
+        private ICollection<int> roleIDs;
+        public ICollection<int> RoleIDs { get { return roleIDs; } }
+
+        public RegisterUserModel()
+        {
+            roleIDs = new List<int>();
+        }
     }
 }
