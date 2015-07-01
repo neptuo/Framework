@@ -1,9 +1,11 @@
 ﻿using Neptuo.ComponentModel;
+using Neptuo.Linq.Expressions;
 using Neptuo.Pipelines.Events;
 using Neptuo.Pipelines.Events.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,6 +27,29 @@ namespace Neptuo.Pipelines.Events
         public static IDisposable Using<TEvent>(this IEventRegistry eventRegistry, IEventHandler<TEvent> eventHandler)
         {
             return new UsignEventHandlerSubscriber<TEvent>(eventRegistry, eventHandler);
+        }
+
+        public static IEventRegistry SubscribeAll(this IEventRegistry eventRegistry, object handler)
+        {
+            Ensure.NotNull(eventRegistry, "eventRegistry");
+            Ensure.NotNull(handler, "handler");
+
+            Type genericHandlerType = typeof(IEventHandler<>);
+            foreach (Type interfaceType in handler.GetType().GetInterfaces())
+            {
+                if (interfaceType.IsGenericType && genericHandlerType.IsAssignableFrom(interfaceType))
+                {
+                    Type[] arguments = interfaceType.GetGenericArguments();
+                    if (arguments.Length != 1)
+                        continue;
+
+                    string subscribeName = TypeHelper.MethodName<IEventRegistry, object, IEventRegistry>(c => c.Subscribe);
+                    MethodInfo subscribe = eventRegistry.GetType().GetMethod(subscribeName).MakeGenericMethod(arguments[0]);
+                    subscribe.Invoke(eventRegistry, new object[] { handler });
+                }
+            }
+
+            return eventRegistry;
         }
     }
 
