@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Models.Domains;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Neptuo.Models
     /// This key can be read and set.
     /// </summary>
     /// <typeparam name="TKey">Type of the key.</typeparam>
-    public interface IModel<TKey>
+    public interface IModel<TKey> : IDomainModel<TKey>
     {
         /// <summary>
         /// Model key.
