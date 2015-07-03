@@ -1,13 +1,13 @@
 ﻿using Neptuo;
-using Neptuo.Pipelines.Commands;
-using Neptuo.Pipelines.Commands.Events;
-using Neptuo.Pipelines.Commands.Events.Handlers;
-using Neptuo.Pipelines.Commands.Execution;
-using Neptuo.Pipelines.Commands.Handlers;
-using Neptuo.Pipelines.Commands.Interception;
+using Neptuo.Services.Commands;
+using Neptuo.Services.Commands.Events;
+using Neptuo.Services.Commands.Events.Handlers;
+using Neptuo.Services.Commands.Execution;
+using Neptuo.Services.Commands.Handlers;
+using Neptuo.Services.Commands.Interception;
 using Neptuo.ComponentModel;
-using Neptuo.Pipelines.Events;
-using Neptuo.Pipelines.Events.Handlers;
+using Neptuo.Services.Events;
+using Neptuo.Services.Events.Handlers;
 using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
@@ -39,7 +39,7 @@ namespace TestConsole.Commands
 
             DependencyContainer
                 .Map(typeof(IEventDispatcher), DependencyLifetime.AnyScope, eventManager)
-                .Map(typeof(IEventRegistry), DependencyLifetime.AnyScope, eventManager)
+                .Map(typeof(IEventHandlerCollection), DependencyLifetime.AnyScope, eventManager)
 
                 .Map(typeof(ICommandHandler<CreateProductCommand>), DependencyLifetime.Transient, typeof(CreateProductCommandHandler))
                 .Map(typeof(ICommandExecutorFactory), DependencyLifetime.AnyScope, commandExecutorFactory);
