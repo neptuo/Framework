@@ -14,7 +14,7 @@ namespace Neptuo.Activators
         #region AddTransient
 
         public static IDependencyDefinitionCollection AddTransient<TInterface, TImplementation>(this IDependencyDefinitionCollection collection)
-            where TInterface : TImplementation
+            where TImplementation : TInterface
         {
             Ensure.NotNull(collection, "collection");
             collection.Add(typeof(TInterface), DependencyLifetime.Transient, typeof(TImplementation));
@@ -49,7 +49,7 @@ namespace Neptuo.Activators
         #region AddScoped
 
         public static IDependencyDefinitionCollection AddScoped<TInterface, TImplementation>(this IDependencyDefinitionCollection collection)
-            where TInterface : TImplementation
+            where TImplementation : TInterface
         {
             Ensure.NotNull(collection, "collection");
             collection.Add(typeof(TInterface), DependencyLifetime.Scope, typeof(TImplementation));
@@ -84,7 +84,7 @@ namespace Neptuo.Activators
         #region AddNameScoped
 
         public static IDependencyDefinitionCollection AddNameScoped<TInterface, TImplementation>(this IDependencyDefinitionCollection collection, string scopeName)
-            where TInterface : TImplementation
+            where TImplementation : TInterface
         {
             Ensure.NotNull(collection, "collection");
             collection.Add(typeof(TInterface), DependencyLifetime.NameScope(scopeName), typeof(TImplementation));

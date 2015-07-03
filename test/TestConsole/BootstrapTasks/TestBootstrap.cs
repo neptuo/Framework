@@ -32,11 +32,11 @@ namespace TestConsole.BootstrapTasks
 
         private static HelloService Sequence()
         {
-            UnityDependencyContainer dependencyContainer = new UnityDependencyContainer();
+            IDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer.Definitions
-                .Add(typeof(string), DependencyLifetime.Scope, "Hi")
-                .Add(typeof(TextWriter), DependencyLifetime.Scope, Console.Out)
-                .Add(typeof(EngineEnvironment), DependencyLifetime.Scope, Engine.Environment);
+                .AddNameScoped<string>(dependencyContainer.ScopeName, "Hi")
+                .AddNameScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out)
+                .AddNameScoped<EngineEnvironment>(dependencyContainer.ScopeName);
 
             SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();

@@ -52,9 +52,9 @@ namespace TestConsole.DependencyContainers
 
             IDependencyContainer container = new UnityDependencyContainer();
             container.Definitions
-                .Add<IHelloService>().InAnyScope().ToType<HiService>()
-                .Add<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
-                .Add<Presenter>().InTransient().ToSelf();
+                .AddScoped<IHelloService, HiService>()
+                .AddNameScopedActivator<IMessageWriter, ConsoleWriterActivator>("Request")
+                .AddTransient<Presenter>();
 
             using (IDependencyProvider provider = container.Scope("Request"))
             {
