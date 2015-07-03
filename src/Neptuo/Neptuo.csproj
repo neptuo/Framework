@@ -206,7 +206,6 @@
     <Compile Include="AppServices\Handlers\IBackgroundHandler.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
-    <Compile Include="DomainModels\IDomainModel.cs" />
     <Compile Include="DomainModels\IValidatableModel.cs" />
     <Compile Include="DomainModels\IReadOnlyRepository.cs" />
     <Compile Include="DomainModels\IRepository.cs" />

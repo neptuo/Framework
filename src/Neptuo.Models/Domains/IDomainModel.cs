@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Neptuo.Models.Keys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.DomainModels
+namespace Neptuo.Models.Domains
 {
     /// <summary>
     /// Describes domain model.

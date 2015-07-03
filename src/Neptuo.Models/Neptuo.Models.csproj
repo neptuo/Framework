@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domains\IDomainModel.cs" />
+    <Compile Include="IModel.cs" />
     <Compile Include="Keys\IKey.cs" />
     <Compile Include="Keys\Int16Key.cs" />
     <Compile Include="Keys\Int32Key.cs" />
@@ -53,9 +55,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Domains\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
