@@ -1412,7 +1412,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
         set_Getter: function (value){
             this._Getter = value;
         },
-        ResultBuilder$$: "Neptuo.Pipelines.Validators.IValidationResultBuilder",
+        ResultBuilder$$: "Neptuo.Services.Validators.IValidationResultBuilder",
         get_ResultBuilder: function (){
             return this._ResultBuilder;
         },
@@ -1422,7 +1422,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorContext = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.IFieldDefinition", "Neptuo.PresentationModels.IModelValueGetter", "Neptuo.Pipelines.Validators.IValidationResultBuilder"]
+        parameters: ["Neptuo.PresentationModels.IFieldDefinition", "Neptuo.PresentationModels.IModelValueGetter", "Neptuo.Services.Validators.IValidationResultBuilder"]
     }
     ],
     IsAbstract: false
@@ -1693,7 +1693,7 @@ var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
     fullname: "Neptuo.PresentationModels.Validators.Handlers.ModelValidator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
-    interfaceNames: ["Neptuo.Pipelines.Validators.Handlers.IValidationHandler$1"],
+    interfaceNames: ["Neptuo.Services.Validators.Handlers.IValidationHandler$1"],
     Kind: "Class",
     definition: {
         ctor: function (fieldValidator){
@@ -1710,7 +1710,7 @@ var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
             this._FieldValidator = value;
         },
         CreateResultBuilder: function (){
-            return new Neptuo.Pipelines.Validators.ValidationResultBuilder.ctor(true);
+            return new Neptuo.Services.Validators.ValidationResultBuilder.ctor(true);
         },
         Handle: function (context){
             var resultBuilder = this.CreateResultBuilder();

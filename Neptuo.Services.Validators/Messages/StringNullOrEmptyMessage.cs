@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines.Validators.Messages
+namespace Neptuo.Services.Validators.Messages
 {
     /// <summary>
     /// Validation message for string not 'null or empty'.

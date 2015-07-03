@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines.Validators.Handlers
+namespace Neptuo.Services.Validators.Handlers
 {
     /// <summary>
     /// Validator for instances of <typeparamref name="TModel"/>.

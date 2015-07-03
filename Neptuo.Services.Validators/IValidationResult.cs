@@ -1,12 +1,12 @@
-﻿using Neptuo.Pipelines.Validators;
-using Neptuo.Pipelines.Validators.Messages;
+﻿using Neptuo.Services.Validators;
+using Neptuo.Services.Validators.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines.Validators
+namespace Neptuo.Services.Validators
 {
     /// <summary>
     /// Describes result of validation process.

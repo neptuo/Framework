@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Pipelines.Validators
+namespace Neptuo.Services.Validators
 {
     /// <summary>
     /// Front facade for providing validations.
