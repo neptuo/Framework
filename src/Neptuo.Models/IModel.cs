@@ -1,4 +1,5 @@
 ﻿using Neptuo.Models.Domains;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Neptuo.Models
     /// </summary>
     /// <typeparam name="TKey">Type of the key.</typeparam>
     public interface IModel<TKey> : IDomainModel<TKey>
+        where TKey : IKey
     {
         /// <summary>
         /// Model key.

@@ -1,5 +1,5 @@
-﻿using Neptuo.Pipelines.Validators;
-using Neptuo.Pipelines.Validators.Handlers;
+﻿using Neptuo.Services.Validators;
+using Neptuo.Services.Validators.Handlers;
 using Neptuo.PresentationModels.Validation;
 using System;
 using System.Collections.Generic;

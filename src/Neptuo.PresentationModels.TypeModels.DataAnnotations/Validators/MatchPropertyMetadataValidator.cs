@@ -1,6 +1,6 @@
 ﻿using Neptuo.Collections.Specialized;
-using Neptuo.Pipelines.Validators;
-using Neptuo.Pipelines.Validators.Messages;
+using Neptuo.Services.Validators;
+using Neptuo.Services.Validators.Messages;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Validators;
 using System;

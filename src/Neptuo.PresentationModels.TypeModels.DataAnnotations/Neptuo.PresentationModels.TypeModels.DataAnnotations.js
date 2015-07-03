@@ -183,11 +183,11 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$Validators$MatchPropert
                 return $res;
             }).call(this)){
                 if ((fieldValue == null && otherProperty != null) || !fieldValue.Equals$$Object(otherProperty))
-                    Neptuo.Pipelines.Validators._ValidationResultBuilderExtensions.AddTextMessage(context.get_ResultBuilder(), context.get_FieldDefinition().get_Identifier(), errorMessage);
+                    Neptuo.Services.Validators._ValidationResultBuilderExtensions.AddTextMessage(context.get_ResultBuilder(), context.get_FieldDefinition().get_Identifier(), errorMessage);
             }
             else {
                 if (fieldValue != null)
-                    Neptuo.Pipelines.Validators._ValidationResultBuilderExtensions.AddTextMessage(context.get_ResultBuilder(), context.get_FieldDefinition().get_Identifier(), errorMessage);
+                    Neptuo.Services.Validators._ValidationResultBuilderExtensions.AddTextMessage(context.get_ResultBuilder(), context.get_FieldDefinition().get_Identifier(), errorMessage);
             }
         }
     },
@@ -210,12 +210,12 @@ var Neptuo$PresentationModels$TypeModels$DataAnnotations$Validators$RequiredMeta
         },
         Validate$$Object$$Boolean$$FieldMetadataValidatorContext: function (fieldValue, metadataValue, context){
             if (fieldValue == null){
-                context.get_ResultBuilder().Add$$IValidationMessage(new Neptuo.Pipelines.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
+                context.get_ResultBuilder().Add$$IValidationMessage(new Neptuo.Services.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
                 return;
             }
             var targetValue = fieldValue.ToString();
             if (!Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.Boolean.ctor, context.get_FieldDefinition().get_Metadata(), "Required.AllowEmptyStrings", false) && System.String.IsNullOrEmpty(targetValue)){
-                context.get_ResultBuilder().Add$$IValidationMessage(new Neptuo.Pipelines.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
+                context.get_ResultBuilder().Add$$IValidationMessage(new Neptuo.Services.Validators.Messages.TextValidationMessage.ctor(context.get_FieldDefinition().get_Identifier(), Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, context.get_FieldDefinition().get_Metadata(), "Required.ErrorMessage", System.String.Format$$String$$Object("Missing value for required field \'{0}\'!", context.get_FieldDefinition().get_Identifier()))));
             }
         }
     },

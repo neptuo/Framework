@@ -150,56 +150,6 @@
     <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
-    <Compile Include="Pipelines\Commands\CommandDispatcherException.cs" />
-    <Compile Include="Pipelines\Commands\CommandException.cs" />
-    <Compile Include="Pipelines\Commands\DependencyCommandDispatcher.cs" />
-    <Compile Include="Pipelines\Commands\Events\CommandHandled.cs" />
-    <Compile Include="Pipelines\Commands\Events\Handlers\CommandEventHandler.cs" />
-    <Compile Include="Pipelines\Commands\Execution\CommandExecutorException.cs" />
-    <Compile Include="Pipelines\Commands\Execution\DependencyCommandExecutor.cs" />
-    <Compile Include="Pipelines\Commands\Execution\DependencyCommandExecutorFactory.cs" />
-    <Compile Include="Pipelines\Commands\Execution\DispatchingCommandExecutorFactory.cs" />
-    <Compile Include="Pipelines\Commands\Execution\ICommandExecutor.cs" />
-    <Compile Include="Pipelines\Commands\Execution\ICommandExecutorFactory.cs" />
-    <Compile Include="Pipelines\Commands\Execution\ICommandHandlerAware.cs" />
-    <Compile Include="Pipelines\Commands\Execution\InterceptorExectionContext.cs" />
-    <Compile Include="Pipelines\Commands\Execution\IPoolCommandExecutorContext.cs" />
-    <Compile Include="Pipelines\Commands\Execution\PoolCommandExecutor.cs" />
-    <Compile Include="Pipelines\Commands\Execution\PoolCommandExecutorFactory.cs" />
-    <Compile Include="Pipelines\Commands\Execution\ThreadPoolCommandExecutor.cs" />
-    <Compile Include="Pipelines\Commands\Execution\ThreadPoolCommandExecutorFactory.cs" />
-    <Compile Include="Pipelines\Commands\Handlers\ICommandHandler.cs" />
-    <Compile Include="Pipelines\Commands\ICommand.cs" />
-    <Compile Include="Pipelines\Commands\ICommandDispatcher.cs" />
-    <Compile Include="Pipelines\Commands\Interception\AttributeInterceptorProvider.cs" />
-    <Compile Include="Pipelines\Commands\Interception\DiscardExceptionAttribute.cs" />
-    <Compile Include="Pipelines\Commands\Interception\IDecoratedInvoke.cs" />
-    <Compile Include="Pipelines\Commands\Interception\IDecoratedInvokeContext.cs" />
-    <Compile Include="Pipelines\Commands\Interception\IInterceptorProvider.cs" />
-    <Compile Include="Pipelines\Commands\Interception\ManualInterceptorProvider.cs" />
-    <Compile Include="Pipelines\Deleters\DefaultDeleteDispatcher.cs" />
-    <Compile Include="Pipelines\Deleters\Handlers\IDeleteExecutionHandler.cs" />
-    <Compile Include="Pipelines\Deleters\Handlers\IDeleteHandler.cs" />
-    <Compile Include="Pipelines\Deleters\IDeleteContext.cs" />
-    <Compile Include="Pipelines\Deleters\IDeleteDispatcher.cs" />
-    <Compile Include="Pipelines\Deleters\IDeleteReference.cs" />
-    <Compile Include="Pipelines\Deleters\MissingHandlerContext.cs" />
-    <Compile Include="Pipelines\Events\Handlers\ActivatorEventHandler.cs" />
-    <Compile Include="Pipelines\Events\Handlers\DefaultEventHandlerContext.cs" />
-    <Compile Include="Pipelines\Events\Handlers\IEventHandlerContext.cs" />
-    <Compile Include="Pipelines\Events\Handlers\WeakEventHandler.cs" />
-    <Compile Include="Pipelines\Events\IEventRegistry.cs" />
-    <Compile Include="Pipelines\Internals\ThreeBranchStorage.cs" />
-    <Compile Include="Pipelines\Internals\TypeResolver.cs" />
-    <Compile Include="Pipelines\Queries\DependencyQueryDispatcher.cs" />
-    <Compile Include="Pipelines\Replying\DependencyRequestDispatcher.cs" />
-    <Compile Include="Pipelines\Replying\IRequestDispatcher.cs" />
-    <Compile Include="Pipelines\Replying\IRequest.cs" />
-    <Compile Include="Pipelines\Replying\Handlers\IRequestHandler.cs" />
-    <Compile Include="Pipelines\Queries\IQuery.cs" />
-    <Compile Include="Pipelines\Queries\IQueryDispatcher.cs" />
-    <Compile Include="Pipelines\Queries\Handlers\IQueryHandler.cs" />
-    <Compile Include="Pipelines\Replying\_RequestDispatcherExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\ReprocessAttribute.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
@@ -209,11 +159,6 @@
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
-    <Compile Include="Pipelines\Events\DefaultEventManager.cs" />
-    <Compile Include="Pipelines\Events\_EventRegistryExtensions.cs" />
-    <Compile Include="Pipelines\Events\Handlers\DelegateEventHandler.cs" />
-    <Compile Include="Pipelines\Events\Handlers\IEventHandler.cs" />
-    <Compile Include="Pipelines\Events\IEventDispatcher.cs" />
     <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
     <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
     <Compile Include="FileSystems\_FileContentExtensions.cs" />
@@ -242,9 +187,6 @@
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
-    <Compile Include="Pipelines\Validators\IValidationResultBuilder.cs" />
-    <Compile Include="Pipelines\Validators\ValidationResultBuilder.cs" />
-    <Compile Include="Pipelines\Validators\_ValidationResultBuilderExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Reflection\DefaultReflectionService.cs" />
@@ -273,19 +215,6 @@
     <Compile Include="Tokens\TokenParserConfiguration.cs" />
     <Compile Include="Tokens\TokenStateMachine.cs" />
     <Compile Include="Tokens\TokenWriter.cs" />
-    <Compile Include="Pipelines\Validators\DependencyValidationDispatcher.cs" />
-    <Compile Include="Pipelines\Validators\IValidationResult.cs" />
-    <Compile Include="Pipelines\Validators\Messages\IValidationMessage.cs" />
-    <Compile Include="Pipelines\Validators\Handlers\IValidationHandler.cs" />
-    <Compile Include="Pipelines\Validators\IValidationDispatcher.cs" />
-    <Compile Include="Pipelines\Validators\Messages\PropertyEqualMessage.cs" />
-    <Compile Include="Pipelines\Validators\Messages\PropertyValidationMessageBase.cs" />
-    <Compile Include="Pipelines\Validators\Messages\StringLengthMessage.cs" />
-    <Compile Include="Pipelines\Validators\Messages\StringNullOrEmptyMessage.cs" />
-    <Compile Include="Pipelines\Validators\Messages\TextValidationMessage.cs" />
-    <Compile Include="Pipelines\Validators\ValidationException.cs" />
-    <Compile Include="Pipelines\Validators\Messages\ValidationMessageBase.cs" />
-    <Compile Include="Pipelines\Validators\ValidationResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.js" />
@@ -294,7 +223,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DomainModels\" />
+    <Folder Include="Pipelines\Deleters\" />
+    <Folder Include="Pipelines\Validators\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
