@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Neptuo.Models.Keys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.DomainModels
+namespace Neptuo.Models.Repositories
 {
     /// <summary>
     /// Describes contract for getting and storing domain models by its key.
@@ -13,7 +14,7 @@ namespace Neptuo.DomainModels
     /// <typeparam name="TKey">The type of the domain model key.</typeparam>
     public interface IRepository<TDomainModel, in TKey>
         where TKey : IKey
-        where TDomainModel : IDomainModel<TKey>
+        where TDomainModel : IModel<TKey>
     {
         /// <summary>
         /// Saves changes to the <paramref name="model"/> to the underlaying storage.

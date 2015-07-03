@@ -40,7 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domains\IDomainModel.cs" />
+    <Compile Include="Domains\IDomainValidatableModel.cs" />
     <Compile Include="IModel.cs" />
+    <Compile Include="IValidatableModel.cs" />
     <Compile Include="Keys\IKey.cs" />
     <Compile Include="Keys\Int16Key.cs" />
     <Compile Include="Keys\Int32Key.cs" />
@@ -49,6 +51,8 @@
     <Compile Include="Keys\StringKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="Repositories\IReadOnlyRepository.cs" />
+    <Compile Include="Repositories\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.Models.xml">
