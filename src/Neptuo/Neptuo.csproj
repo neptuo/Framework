@@ -40,6 +40,8 @@
   <ItemGroup>
     <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="Activators\IDependencyCollection.cs" />
+    <Compile Include="Activators\IDependencyDefinition.cs" />
+    <Compile Include="Activators\IDependencyReadOnlyCollection.cs" />
     <Compile Include="Activators\_DependencyContainerExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />

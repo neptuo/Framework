@@ -9,7 +9,7 @@ namespace Neptuo.Activators
     /// <summary>
     /// Collection of dependencies.
     /// </summary>
-    public interface IDependencyCollection
+    public interface IDependencyCollection : IDependencyReadOnlyCollection
     {
         /// <summary>
         /// Registers mapping from <paramref name="requiredType"/> to <paramref name="target"/>
@@ -18,6 +18,6 @@ namespace Neptuo.Activators
         /// <param name="lifetime">Lifetime of created instance.</param>
         /// <param name="target">Any supported target object.</param>
         /// <returns>Self (fluently).</returns>
-        IDependencyContainer Add(Type requiredType, DependencyLifetime lifetime, object target);
+        IDependencyCollection Add(Type requiredType, DependencyLifetime lifetime, object target);
     }
 }

@@ -39,8 +39,8 @@ namespace Neptuo.Activators
             this.registry = registry;
             this.instances = instances;
 
-            Add(typeof(IDependencyContainer), DependencyLifetime.NamedScope(scopeName), this);
-            Add(typeof(IDependencyProvider), DependencyLifetime.NamedScope(scopeName), this);
+            Add(typeof(IDependencyContainer), DependencyLifetime.NameScoped(scopeName), this);
+            Add(typeof(IDependencyProvider), DependencyLifetime.NameScoped(scopeName), this);
         }
 
         //TODO: Implement using registered features...

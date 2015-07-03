@@ -44,6 +44,13 @@ namespace TestConsole.DependencyContainers
         private static void TestUnity()
         {
             IDependencyContainer container = new UnityDependencyContainer()
+                .AddTransient<IHelloService, HiService>()
+                .AddNameScoped<IMessageWriter, ConsoleWriterActivator>("Request", new ConsoleWriterActivator())
+                .AddTransient<Presenter>();
+
+
+
+            IDependencyContainer container = new UnityDependencyContainer()
                 .Map<IHelloService>().InAnyScope().ToType<HiService>()
                 .Map<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
                 .Map<Presenter>().InTransient().ToSelf();

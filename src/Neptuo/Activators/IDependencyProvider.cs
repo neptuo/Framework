@@ -16,6 +16,11 @@ namespace Neptuo.Activators
         string ScopeName { get; }
 
         /// <summary>
+        /// Collection of current dependency definitions.
+        /// </summary>
+        IDependencyReadOnlyCollection Definitions { get; }
+
+        /// <summary>
         /// Creates new child container based on this provider.
         /// </summary>
         /// <param name="name">Optional name for named scopes.</param>

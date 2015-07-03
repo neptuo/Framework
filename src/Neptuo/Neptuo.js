@@ -153,7 +153,7 @@ var Neptuo$Activators$DependencyLifetime = {
             Neptuo.Activators.DependencyLifetime.Transient = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(false, null);
             Neptuo.Activators.DependencyLifetime.AnyScope = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, null);
         },
-        NamedScope: function (name){
+        NameScoped: function (name){
             return new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, name);
         }
     },
@@ -194,15 +194,69 @@ var Neptuo$Activators$IDependencyCollection = {
     fullname: "Neptuo.Activators.IDependencyCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IDependencyReadOnlyCollection"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$IDependencyCollection);
+var Neptuo$Activators$IDependencyDefinition = {
+    fullname: "Neptuo.Activators.IDependencyDefinition",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyDefinition);
+var Neptuo$Activators$IDependencyReadOnlyCollection = {
+    fullname: "Neptuo.Activators.IDependencyReadOnlyCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyReadOnlyCollection);
 var Neptuo$Activators$_DependencyContainerExtensions = {
     fullname: "Neptuo.Activators._DependencyContainerExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
+        AddTransient$1$$IDependencyContainer: function (TImplementation, dependencyContainer){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.Transient, Typeof(TImplementation));
+            return dependencyContainer;
+        },
+        AddTransient$1$$IDependencyContainer$$T: function (T, dependencyContainer, service){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(T), Neptuo.Activators.DependencyLifetime.Transient, service);
+            return dependencyContainer;
+        },
+        AddTransient$2$$IDependencyContainer: function (TInterface, TImplementation, dependencyContainer){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Transient, Typeof(TImplementation));
+            return dependencyContainer;
+        },
+        AddScoped$1: function (T, dependencyContainer, service){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(T), Neptuo.Activators.DependencyLifetime.Transient, service);
+            return dependencyContainer;
+        },
+        AddNameScoped$1$$IDependencyContainer$$String$$T: function (T, dependencyContainer, scopeName, service){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(T), Neptuo.Activators.DependencyLifetime.NameScoped(scopeName), service);
+            return dependencyContainer;
+        },
+        AddNameScoped$2$$IDependencyContainer$$String$$TActivator: function (T, TActivator, dependencyContainer, scopeName, serviceActivator){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(T), Neptuo.Activators.DependencyLifetime.NameScoped(scopeName), serviceActivator);
+            return dependencyContainer;
+        },
+        AddCurrentScoped$1: function (T, dependencyContainer, service){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            dependencyContainer.get_Definitions().Add(Typeof(T), Neptuo.Activators.DependencyLifetime.NameScoped(null), service);
+            return dependencyContainer;
+        },
         Map$$IDependencyContainer$$Type: function (dependencyContainer, requiredType){
             return new Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration.ctor(dependencyContainer, requiredType);
         },
@@ -219,7 +273,7 @@ var Neptuo$Activators$_DependencyContainerExtensions = {
         },
         InNamedScope: function (model, scopeName){
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
+            return model.In(Neptuo.Activators.DependencyLifetime.NameScoped(scopeName));
         },
         ToType$$IDependencyTargetMapping$$Type: function (model, targetType){
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
@@ -283,10 +337,11 @@ var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
             return this;
         },
         InCurrentScope: function (){
-            return this.In(Neptuo.Activators.DependencyLifetime.NamedScope(this.dependencyContainer.get_ScopeName()));
+            return this.In(Neptuo.Activators.DependencyLifetime.NameScoped(this.dependencyContainer.get_ScopeName()));
         },
         To: function (target){
-            return this.dependencyContainer.Add(this.requiredType, this.lifetime, target);
+            this.dependencyContainer.get_Definitions().Add(this.requiredType, this.lifetime, target);
+            return this.dependencyContainer;
         },
         ToSelf: function (){
             return this.To(this.requiredType);
@@ -2819,7 +2874,7 @@ var Neptuo$Activators$IDependencyContainer = {
     fullname: "Neptuo.Activators.IDependencyContainer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.IDependencyProvider", "Neptuo.Activators.IDependencyCollection"],
+    interfaceNames: ["Neptuo.Activators.IDependencyProvider"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true

@@ -59,7 +59,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="name">The name of the scope.</param>
         /// <returns>Name-scoped lifetime.</returns>
-        public static DependencyLifetime NamedScope(string name)
+        public static DependencyLifetime NameScoped(string name)
         {
             return new DependencyLifetime(true, name);
         }
