@@ -190,16 +190,16 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
-var Neptuo$Activators$IDependencyCollection = {
-    fullname: "Neptuo.Activators.IDependencyCollection",
+var Neptuo$Activators$IDependencyDefinitionCollection = {
+    fullname: "Neptuo.Activators.IDependencyDefinitionCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.IDependencyReadOnlyCollection"],
+    interfaceNames: ["Neptuo.Activators.IDependencyDefinitionReadOnlyCollection"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$IDependencyCollection);
+JsTypes.push(Neptuo$Activators$IDependencyDefinitionCollection);
 var Neptuo$Activators$IDependencyDefinition = {
     fullname: "Neptuo.Activators.IDependencyDefinition",
     baseTypeName: "System.Object",
@@ -209,15 +209,15 @@ var Neptuo$Activators$IDependencyDefinition = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$IDependencyDefinition);
-var Neptuo$Activators$IDependencyReadOnlyCollection = {
-    fullname: "Neptuo.Activators.IDependencyReadOnlyCollection",
+var Neptuo$Activators$IDependencyDefinitionReadOnlyCollection = {
+    fullname: "Neptuo.Activators.IDependencyDefinitionReadOnlyCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$IDependencyReadOnlyCollection);
+JsTypes.push(Neptuo$Activators$IDependencyDefinitionReadOnlyCollection);
 var Neptuo$Activators$_DependencyContainerExtensions = {
     fullname: "Neptuo.Activators._DependencyContainerExtensions",
     baseTypeName: "System.Object",

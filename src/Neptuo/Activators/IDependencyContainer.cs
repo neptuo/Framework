@@ -13,6 +13,6 @@ namespace Neptuo.Activators
         /// <summary>
         /// Collection of current dependency definitions.
         /// </summary>
-        new IDependencyCollection Definitions { get; }
+        new IDependencyDefinitionCollection Definitions { get; }
     }
 }

@@ -17,11 +17,6 @@ namespace Neptuo.Activators
         private readonly IUnityContainer unityContainer;
         private readonly RegistrationMapper mapper;
 
-        public string ScopeName
-        {
-            get { return mapper.ScopeName; }
-        }
-
         /// <summary>
         /// Creates container with new instance of Unity container.
         /// </summary>
@@ -47,13 +42,28 @@ namespace Neptuo.Activators
             unityContainer.RegisterInstance<IDependencyContainer>(this, new ExternallyControlledLifetimeManager());
         }
 
-        public IDependencyContainer Add(Type requiredType, DependencyLifetime lifetime, object target)
+        #region IDependencyContainer
+
+        public IDependencyDefinitionCollection Definitions
         {
-            mapper.Map(new MappingModel(requiredType, lifetime, target));
-            return this;
+            get { return mapper.Mappings; }
         }
 
-        public IDependencyContainer Scope(string scopeName)
+        #endregion
+
+        #region IDependencyProvider
+
+        string IDependencyProvider.ScopeName
+        {
+            get { return mapper.ScopeName; }
+        }
+
+        IDependencyDefinitionReadOnlyCollection IDependencyProvider.Definitions
+        {
+            get { return Definitions; }
+        }
+
+        IDependencyContainer IDependencyProvider.Scope(string scopeName)
         {
             return new UnityDependencyContainer(
                 scopeName,
@@ -62,10 +72,12 @@ namespace Neptuo.Activators
             );
         }
 
-        public object Resolve(Type requiredType)
+        object IDependencyProvider.Resolve(Type requiredType)
         {
             return unityContainer.Resolve(requiredType);
         }
+
+        #endregion
 
         protected override void DisposeManagedResources()
         {

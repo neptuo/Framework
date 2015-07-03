@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class MappingCollection
+    internal class MappingCollection : IDependencyDefinitionCollection
     {
         private readonly MappingCollection parentCollection;
         private readonly ConcurrentDictionary<string, List<MappingModel>> storage = new ConcurrentDictionary<string, List<MappingModel>>();
@@ -21,12 +21,7 @@ namespace Neptuo.Activators.Internals
             this.parentCollection = parentCollection;
         }
 
-        public MappingCollection AddMapping(Type requiredType, DependencyLifetime lifetime, object target)
-        {
-            return AddMapping(new MappingModel(requiredType, lifetime, target));
-        }
-
-        public MappingCollection AddMapping(MappingModel model)
+        internal MappingCollection AddMapping(MappingModel model)
         {
             string scopeName;
             if (model.Lifetime.IsNamed)
@@ -61,5 +56,19 @@ namespace Neptuo.Activators.Internals
             models = null;
             return false;
         }
+
+        #region IDependencyDefinitionCollection
+
+        public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
+        {
+            return AddMapping(new MappingModel(requiredType, lifetime, target));
+        }
+
+        public bool TryGet(Type serviceType, out IDependencyDefinition definition)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

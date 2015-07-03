@@ -47,11 +47,11 @@ namespace Neptuo.Activators.Internals
             if (mappings.TryGet(scopeName, out scopeMappings))
             {
                 foreach (MappingModel model in scopeMappings)
-                    Map(model);
+                    Add(model);
             }
         }
 
-        public RegistrationMapper Map(MappingModel model)
+        public RegistrationMapper Add(MappingModel model)
         {
             if (!model.Lifetime.IsNamed || model.Lifetime.Name == scopeName)
             {

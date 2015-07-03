@@ -12,9 +12,9 @@ namespace Neptuo.Activators
     public interface IDependencyDefinition
     {
         /// <summary>
-        /// Type of service to be resolved by.
+        /// Type to be resolved by.
         /// </summary>
-        Type ServiceType { get; }
+        Type RequiredType { get; }
 
         /// <summary>
         /// Lifetime of instances.
@@ -22,9 +22,9 @@ namespace Neptuo.Activators
         DependencyLifetime Lifetime { get; }
 
         /// <summary>
-        /// Creates 
+        /// Registration target.
+        /// Can be of any supported type.
         /// </summary>
-        /// <returns></returns>
-        object CreateInstance();
+        object Target { get; }
     }
 }
