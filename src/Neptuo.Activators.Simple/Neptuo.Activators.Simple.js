@@ -273,10 +273,10 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             this.scopeName = scopeName;
             this.registry = registry;
             this.instances = instances;
-            this.Map(Typeof(Neptuo.Activators.IDependencyContainer.ctor), Neptuo.Activators.DependencyLifetime.NamedScope(scopeName), this);
-            this.Map(Typeof(Neptuo.Activators.IDependencyProvider.ctor), Neptuo.Activators.DependencyLifetime.NamedScope(scopeName), this);
+            this.Add(Typeof(Neptuo.Activators.IDependencyContainer.ctor), Neptuo.Activators.DependencyLifetime.NamedScope(scopeName), this);
+            this.Add(Typeof(Neptuo.Activators.IDependencyProvider.ctor), Neptuo.Activators.DependencyLifetime.NamedScope(scopeName), this);
         },
-        Map: function (requiredType, lifetime, target){
+        Add: function (requiredType, lifetime, target){
             var targetType = As(target, System.Type.ctor);
             if (System.Type.op_Inequality$$Type$$Type(targetType, null)){
                 if (requiredType.get_IsInterface())
@@ -307,7 +307,7 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             var key = this.GetKey(requiredType);
             var item = this.registry.GetByKey(key);
             if (item == null){
-                this.Map(requiredType, Neptuo.Activators.DependencyLifetime.Transient, requiredType);
+                this.Add(requiredType, Neptuo.Activators.DependencyLifetime.Transient, requiredType);
                 item = this.registry.GetByKey(key);
             }
             return this.Build(item);

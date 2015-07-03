@@ -38,11 +38,11 @@ namespace TestConsole.Commands
             commandExecutorFactory.OnSearchFactory += OnSearchFactory;
 
             DependencyContainer
-                .Map(typeof(IEventDispatcher), DependencyLifetime.AnyScope, eventManager)
-                .Map(typeof(IEventHandlerCollection), DependencyLifetime.AnyScope, eventManager)
-
-                .Map(typeof(ICommandHandler<CreateProductCommand>), DependencyLifetime.Transient, typeof(CreateProductCommandHandler))
-                .Map(typeof(ICommandExecutorFactory), DependencyLifetime.AnyScope, commandExecutorFactory);
+                .Add(typeof(IEventDispatcher), DependencyLifetime.AnyScope, eventManager)
+                .Add(typeof(IEventHandlerCollection), DependencyLifetime.AnyScope, eventManager)
+                 
+                .Add(typeof(ICommandHandler<CreateProductCommand>), DependencyLifetime.Transient, typeof(CreateProductCommandHandler))
+                .Add(typeof(ICommandExecutorFactory), DependencyLifetime.AnyScope, commandExecutorFactory);
 
             ICommandDispatcher commandDispatcher = new DependencyCommandDispatcher(DependencyContainer, eventManager);
 

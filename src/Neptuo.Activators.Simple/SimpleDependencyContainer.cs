@@ -39,12 +39,12 @@ namespace Neptuo.Activators
             this.registry = registry;
             this.instances = instances;
 
-            Map(typeof(IDependencyContainer), DependencyLifetime.NamedScope(scopeName), this);
-            Map(typeof(IDependencyProvider), DependencyLifetime.NamedScope(scopeName), this);
+            Add(typeof(IDependencyContainer), DependencyLifetime.NamedScope(scopeName), this);
+            Add(typeof(IDependencyProvider), DependencyLifetime.NamedScope(scopeName), this);
         }
 
         //TODO: Implement using registered features...
-        public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)
+        public IDependencyContainer Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
             // Target is type to map to.
             Type targetType = target as Type;
@@ -105,7 +105,7 @@ namespace Neptuo.Activators
             DependencyRegistryItem item = registry.GetByKey(key);
             if (item == null)
             {
-                Map(requiredType, DependencyLifetime.Transient, requiredType);
+                Add(requiredType, DependencyLifetime.Transient, requiredType);
                 item = registry.GetByKey(key);
             }
 

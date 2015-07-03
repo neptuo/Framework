@@ -34,9 +34,9 @@ namespace TestConsole.BootstrapTasks
         {
             UnityDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer
-                .Map(typeof(string), DependencyLifetime.AnyScope, "Hi")
-                .Map(typeof(TextWriter), DependencyLifetime.AnyScope, Console.Out)
-                .Map(typeof(EngineEnvironment), DependencyLifetime.AnyScope, Engine.Environment);
+                .Add(typeof(string), DependencyLifetime.AnyScope, "Hi")
+                .Add(typeof(TextWriter), DependencyLifetime.AnyScope, Console.Out)
+                .Add(typeof(EngineEnvironment), DependencyLifetime.AnyScope, Engine.Environment);
 
             SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
