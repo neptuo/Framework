@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domains\IDomainModel.cs" />
-    <Compile Include="Domains\IDomainValidatableModel.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="IValidatableModel.cs" />
     <Compile Include="Keys\IKey.cs" />
