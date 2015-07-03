@@ -8,62 +8,6 @@ namespace Neptuo.Activators
 {
     public static class _DependencyContainerExtensions
     {
-        #region NEW EXTENSIONS
-
-        public static IDependencyContainer AddTransient<TImplementation>(this IDependencyContainer dependencyContainer)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(TImplementation), DependencyLifetime.Transient, typeof(TImplementation));
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddTransient<T>(this IDependencyContainer dependencyContainer, T service)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(T), DependencyLifetime.Transient, service);
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddTransient<TInterface, TImplementation>(this IDependencyContainer dependencyContainer)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(TInterface), DependencyLifetime.Transient, typeof(TImplementation));
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddScoped<T>(this IDependencyContainer dependencyContainer, T service)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(T), DependencyLifetime.Transient, service);
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddNameScoped<T>(this IDependencyContainer dependencyContainer, string scopeName, T service)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(T), DependencyLifetime.NameScoped(scopeName), service);
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddNameScoped<T, TActivator>(this IDependencyContainer dependencyContainer, string scopeName, TActivator serviceActivator)
-            where TActivator : IActivator<T>
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(T), DependencyLifetime.NameScoped(scopeName), serviceActivator);
-            return dependencyContainer;
-        }
-
-        public static IDependencyContainer AddCurrentScoped<T>(this IDependencyContainer dependencyContainer, T service)
-        {
-            Ensure.NotNull(dependencyContainer, "dependencyContainer");
-            dependencyContainer.Definitions.Add(typeof(T), DependencyLifetime.NameScoped(null), service);
-            return dependencyContainer;
-        }
-
-        #endregion
-
-
-
         #region Fluent interfaces and classes
 
         /// <summary>
@@ -129,7 +73,7 @@ namespace Neptuo.Activators
             }
             public IDependencyTargetMapping InCurrentScope()
             {
-                return In(DependencyLifetime.NameScoped(dependencyContainer.ScopeName));
+                return In(DependencyLifetime.NameScope(dependencyContainer.ScopeName));
             }
 
             public IDependencyContainer To(object target)
@@ -193,7 +137,7 @@ namespace Neptuo.Activators
         public static IDependencyTargetMapping InAnyScope(this IDependencyScopeMapping model)
         {
             Ensure.NotNull(model, "model");
-            return model.In(DependencyLifetime.AnyScope);
+            return model.In(DependencyLifetime.Scope);
         }
 
         /// <summary>
@@ -205,7 +149,7 @@ namespace Neptuo.Activators
         public static IDependencyTargetMapping InNamedScope(this IDependencyScopeMapping model, string scopeName)
         {
             Ensure.NotNull(model, "model");
-            return model.In(DependencyLifetime.NameScoped(scopeName));
+            return model.In(DependencyLifetime.NameScope(scopeName));
         }
 
         #endregion

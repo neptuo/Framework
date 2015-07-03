@@ -52,14 +52,14 @@ namespace Neptuo.Activators
         /// <summary>
         /// Scoped lifetime.
         /// </summary>
-        public static readonly DependencyLifetime AnyScope = new DependencyLifetime(true, null);
+        public static readonly DependencyLifetime Scope = new DependencyLifetime(true, null);
         
         /// <summary>
         /// Name-scoped lifetime.
         /// </summary>
         /// <param name="name">The name of the scope.</param>
         /// <returns>Name-scoped lifetime.</returns>
-        public static DependencyLifetime NameScoped(string name)
+        public static DependencyLifetime NameScope(string name)
         {
             return new DependencyLifetime(true, name);
         }

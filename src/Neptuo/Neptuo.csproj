@@ -43,6 +43,7 @@
     <Compile Include="Activators\IDependencyDefinition.cs" />
     <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
     <Compile Include="Activators\_DependencyContainerExtensions.cs" />
+    <Compile Include="Activators\_DependencyRegistrationExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />
