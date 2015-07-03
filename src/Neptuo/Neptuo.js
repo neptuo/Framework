@@ -4323,7 +4323,11 @@ var Neptuo$Pipelines$Events$_EventRegistryExtensions = {
                     var arguments = interfaceType.GetGenericArguments();
                     if (arguments.get_Length() != 1)
                         continue;
-                    throw $CreateException(new System.NotSupportedException.ctor(), new Error());
+                    var subscribeName = Neptuo.Linq.Expressions.TypeHelper.MethodName$3$$Expression$1(Neptuo.Pipelines.Events.IEventRegistry.ctor, Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor, Neptuo.Pipelines.Events.IEventRegistry.ctor, function (c){
+                        return $CreateDelegate(c, c.Subscribe$1);
+                    });
+                    var subscribe = eventRegistry.GetType().GetMethod$$String(subscribeName).MakeGenericMethod(arguments[0]);
+                    subscribe.Invoke$$Object$$Object$Array(eventRegistry, [handler]);
                 }
             }
             return eventRegistry;

@@ -43,10 +43,9 @@ namespace Neptuo.Pipelines.Events
                     if (arguments.Length != 1)
                         continue;
 
-                    //string subscribeName = TypeHelper.MethodName<IEventRegistry, object, IEventRegistry>(c => c.Subscribe);
-                    //MethodInfo subscribe = eventRegistry.GetType().GetMethod(subscribeName).MakeGenericMethod(arguments[0]);
-                    //subscribe.Invoke(eventRegistry, new object[] { handler });
-                    throw new NotSupportedException();
+                    string subscribeName = TypeHelper.MethodName<IEventRegistry, IEventHandler<object>, IEventRegistry>(c => c.Subscribe);
+                    MethodInfo subscribe = eventRegistry.GetType().GetMethod(subscribeName).MakeGenericMethod(arguments[0]);
+                    subscribe.Invoke(eventRegistry, new object[] { handler });
                 }
             }
 
