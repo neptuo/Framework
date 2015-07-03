@@ -44,7 +44,7 @@ namespace Neptuo.Services.Commands.Events.Handlers
         {
             if (context.Payload.Body.Command == command)
             {
-                context.Registry.UnSubscribe(this);
+                context.EventHandlers.UnSubscribe(this);
 
                 if (innerDirectHandler != null)
                     innerDirectHandler.HandleAsync(context.Payload.Body);

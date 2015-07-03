@@ -223,7 +223,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DomainModels\" />
     <Folder Include="Pipelines\Deleters\" />
     <Folder Include="Pipelines\Validators\" />
   </ItemGroup>

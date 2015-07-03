@@ -74,8 +74,8 @@
     <Compile Include="Events\Handlers\IEventHandlerContext.cs" />
     <Compile Include="Events\Handlers\WeakEventHandler.cs" />
     <Compile Include="Events\IEventDispatcher.cs" />
-    <Compile Include="Events\IEventRegistry.cs" />
-    <Compile Include="Events\_EventRegistryExtensions.cs" />
+    <Compile Include="Events\IEventHandlerCollection.cs" />
+    <Compile Include="Events\_EventHandlerCollectionExtensions.cs" />
     <Compile Include="Internals\ThreeBranchStorage.cs" />
     <Compile Include="Internals\TypeResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

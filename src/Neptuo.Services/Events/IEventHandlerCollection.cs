@@ -10,20 +10,20 @@ namespace Neptuo.Services.Events
     /// <summary>
     /// Provides methods for registering and unregistering event handlers.
     /// </summary>
-    public interface IEventRegistry
+    public interface IEventHandlerCollection
     {
         /// <summary>
         /// Subscribes <paramref name="handler"/> for events of type <typeparamref name="TEvent"/>.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventHandlerCollection Subscribe<TEvent>(IEventHandler<TEvent> handler);
 
         /// <summary>
         /// Unsubscribes <paramref name="handler"/> from events of type <typeparamref name="TEvent"/>.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventHandlerCollection UnSubscribe<TEvent>(IEventHandler<TEvent> handler);
     }
 }

@@ -12,26 +12,26 @@ using System.Threading.Tasks;
 namespace Neptuo.Services.Events
 {
     /// <summary>
-    /// Common extensions for <see cref="IEventRegistry"/>.
+    /// Common extensions for <see cref="IEventHandlerCollection"/>.
     /// </summary>
-    public static class _EventRegistryExtensions
+    public static class _EventHandlerCollectionExtensions
     {
         /// <summary>
         /// Registers <paramref name="eventHandler"/> to by notified for events of type <typeparamref name="TEvent"/>
         /// in the time of life of returned disposable object.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
-        /// <param name="eventRegistry">Target event registry.</param>
+        /// <param name="collection">Target event registry.</param>
         /// <param name="eventHandler">Event handler.</param>
         /// <returns>Subscription lifetime manager.</returns>
-        public static IDisposable Using<TEvent>(this IEventRegistry eventRegistry, IEventHandler<TEvent> eventHandler)
+        public static IDisposable Using<TEvent>(this IEventHandlerCollection collection, IEventHandler<TEvent> eventHandler)
         {
-            return new UsignEventHandlerSubscriber<TEvent>(eventRegistry, eventHandler);
+            return new UsignEventHandlerSubscriber<TEvent>(collection, eventHandler);
         }
 
-        public static IEventRegistry SubscribeAll(this IEventRegistry eventRegistry, object handler)
+        public static IEventHandlerCollection SubscribeAll(this IEventHandlerCollection collection, object handler)
         {
-            Ensure.NotNull(eventRegistry, "eventRegistry");
+            Ensure.NotNull(collection, "eventRegistry");
             Ensure.NotNull(handler, "handler");
 
             Type genericHandlerType = typeof(IEventHandler<>);
@@ -43,22 +43,22 @@ namespace Neptuo.Services.Events
                     if (arguments.Length != 1)
                         continue;
 
-                    string subscribeName = TypeHelper.MethodName<IEventRegistry, IEventHandler<object>, IEventRegistry>(c => c.Subscribe);
-                    MethodInfo subscribe = eventRegistry.GetType().GetMethod(subscribeName).MakeGenericMethod(arguments[0]);
-                    subscribe.Invoke(eventRegistry, new object[] { handler });
+                    string subscribeName = TypeHelper.MethodName<IEventHandlerCollection, IEventHandler<object>, IEventHandlerCollection>(c => c.Subscribe);
+                    MethodInfo subscribe = collection.GetType().GetMethod(subscribeName).MakeGenericMethod(arguments[0]);
+                    subscribe.Invoke(collection, new object[] { handler });
                 }
             }
 
-            return eventRegistry;
+            return collection;
         }
     }
 
     internal class UsignEventHandlerSubscriber<TEvent> : DisposableBase
     {
-        private IEventRegistry eventRegistry;
+        private IEventHandlerCollection eventRegistry;
         private IEventHandler<TEvent> eventHandler;
 
-        public UsignEventHandlerSubscriber(IEventRegistry eventRegistry, IEventHandler<TEvent> eventHandler)
+        public UsignEventHandlerSubscriber(IEventHandlerCollection eventRegistry, IEventHandler<TEvent> eventHandler)
         {
             this.eventRegistry = eventRegistry;
             this.eventHandler = eventHandler;

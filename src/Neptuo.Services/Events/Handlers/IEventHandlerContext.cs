@@ -19,9 +19,9 @@ namespace Neptuo.Services.Events.Handlers
         Envelope<TEvent> Payload { get; }
 
         /// <summary>
-        /// Current registry of event subscriptions.
+        /// Current collection of event subscriptions.
         /// </summary>
-        IEventRegistry Registry { get; }
+        IEventHandlerCollection EventHandlers { get; }
 
         /// <summary>
         /// Current event dispatcher.

@@ -31,7 +31,7 @@ namespace Neptuo.Services.Events.Handlers
             if (innerHandler.TryGetTarget(out target))
                 return target.HandleAsync(context.Payload.Body);
             else
-                context.Registry.UnSubscribe(this);
+                context.EventHandlers.UnSubscribe(this);
 
             return Task.FromResult(false);
         }

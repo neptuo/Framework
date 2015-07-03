@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Services.Events
 {
     /// <summary>
-    /// Default implementation of <see cref="IEventDispatcher"/> and <see cref="IEventRegistry"/>.
+    /// Default implementation of <see cref="IEventDispatcher"/> and <see cref="IEventHandlerCollection"/>.
     /// </summary>
-    public class DefaultEventManager : IEventDispatcher, IEventRegistry
+    public class DefaultEventManager : IEventDispatcher, IEventHandlerCollection
     {
         private readonly TypeResolver eventTypeResolver;
         private readonly ThreeBranchStorage registry;
@@ -85,7 +85,7 @@ namespace Neptuo.Services.Events
             return Task.Factory.ContinueWhenAll(tasks, (items) => Task.FromResult(true));
         }
 
-        public IEventRegistry Subscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventHandlerCollection Subscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Ensure.NotNull(handler, "handler");
 
@@ -102,7 +102,7 @@ namespace Neptuo.Services.Events
             return this;
         }
 
-        public IEventRegistry UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventHandlerCollection UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
         {
             Ensure.NotNull(handler, "handler");
 
