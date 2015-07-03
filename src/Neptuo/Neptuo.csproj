@@ -207,12 +207,9 @@
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
     <Compile Include="DomainModels\IDomainModel.cs" />
-    <Compile Include="DomainModels\Int32Key.cs" />
     <Compile Include="DomainModels\IValidatableModel.cs" />
-    <Compile Include="DomainModels\IKey.cs" />
     <Compile Include="DomainModels\IReadOnlyRepository.cs" />
     <Compile Include="DomainModels\IRepository.cs" />
-    <Compile Include="DomainModels\KeyBase.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
