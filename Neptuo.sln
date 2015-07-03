@@ -70,6 +70,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services", "src\Neptuo.Services\Neptuo.Services.csproj", "{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Deleters", "src\Neptuo.Services.Deleters\Neptuo.Services.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Validators", "Neptuo.Services.Validators\Neptuo.Services.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +176,14 @@ Global
 		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{191A52C5-789C-4D8C-9551-0FAE9D632439}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{191A52C5-789C-4D8C-9551-0FAE9D632439}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{191A52C5-789C-4D8C-9551-0FAE9D632439}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{191A52C5-789C-4D8C-9551-0FAE9D632439}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -194,6 +206,8 @@ Global
 		{23E62643-F6C3-4D6A-862B-38999EBC6959} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{37F9B51A-2E66-4A99-950A-17EBF6880ABA} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{191A52C5-789C-4D8C-9551-0FAE9D632439} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
