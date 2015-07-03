@@ -1177,7 +1177,7 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider$1 = {
             this._ValueUpdater = null;
             this._ModelType = null;
             this._Model = null;
-            Neptuo.PresentationModels.TypeModels.ReflectionModelValueProvider$1.ctor$$TModel$$IReflectionValueUpdater.call(this, this.TModel, model, new Neptuo.PresentationModels.TypeModels.ValueUpdates.ReflectionEmptyValueUpdater.ctor());
+            Neptuo.PresentationModels.TypeModels.ReflectionModelValueProvider$1.ctor$$TModel$$IReflectionValueUpdater.call(this, this.TModel, model, new Neptuo.PresentationModels.TypeModels.ValueUpdates.EmptyReflectionValueUpdater.ctor());
         },
         ValueUpdater$$: "Neptuo.PresentationModels.TypeModels.ValueUpdates.IReflectionValueUpdater",
         get_ValueUpdater: function (){
@@ -1301,8 +1301,8 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider);
-var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionCollectionItemValueUpdater$1 = {
-    fullname: "Neptuo.PresentationModels.TypeModels.ValueUpdates.ReflectionCollectionItemValueUpdater$1",
+var Neptuo$PresentationModels$TypeModels$ValueUpdates$CollectionItemReflectionValueUpdater$1 = {
+    fullname: "Neptuo.PresentationModels.TypeModels.ValueUpdates.CollectionItemReflectionValueUpdater$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.TypeModels.ValueUpdates.IReflectionValueUpdater"],
@@ -1339,9 +1339,9 @@ var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionCollectionItemVa
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionCollectionItemValueUpdater$1);
-var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionEmptyValueUpdater = {
-    fullname: "Neptuo.PresentationModels.TypeModels.ValueUpdates.ReflectionEmptyValueUpdater",
+JsTypes.push(Neptuo$PresentationModels$TypeModels$ValueUpdates$CollectionItemReflectionValueUpdater$1);
+var Neptuo$PresentationModels$TypeModels$ValueUpdates$EmptyReflectionValueUpdater = {
+    fullname: "Neptuo.PresentationModels.TypeModels.ValueUpdates.EmptyReflectionValueUpdater",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.TypeModels.ValueUpdates.IReflectionValueUpdater"],
@@ -1361,7 +1361,7 @@ var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionEmptyValueUpdate
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionEmptyValueUpdater);
+JsTypes.push(Neptuo$PresentationModels$TypeModels$ValueUpdates$EmptyReflectionValueUpdater);
 var Neptuo$PresentationModels$TypeModels$ValueUpdates$ReflectionValueUpdaterCollection = {
     fullname: "Neptuo.PresentationModels.TypeModels.ValueUpdates.ReflectionValueUpdaterCollection",
     baseTypeName: "System.Object",

@@ -68,6 +68,8 @@ namespace TestConsole.PresentationModels
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition, true);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
 
+            Console.WriteLine("RoleIDs: {0}", String.Join(", ", model.RoleIDs));
+
             IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(fieldMetadataValidators);
             IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, valueProvider)));
             Console.WriteLine(validationResult);
