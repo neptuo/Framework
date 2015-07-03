@@ -78,7 +78,7 @@ namespace Neptuo.Activators
 
             public IDependencyContainer To(object target)
             {
-                return dependencyContainer.Map(requiredType, lifetime, target);
+                return dependencyContainer.Add(requiredType, lifetime, target);
             }
 
             public IDependencyContainer ToSelf()

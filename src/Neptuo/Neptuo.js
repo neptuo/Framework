@@ -190,6 +190,15 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
+var Neptuo$Activators$IDependencyCollection = {
+    fullname: "Neptuo.Activators.IDependencyCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyCollection);
 var Neptuo$Activators$_DependencyContainerExtensions = {
     fullname: "Neptuo.Activators._DependencyContainerExtensions",
     baseTypeName: "System.Object",
@@ -277,7 +286,7 @@ var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
             return this.In(Neptuo.Activators.DependencyLifetime.NamedScope(this.dependencyContainer.get_ScopeName()));
         },
         To: function (target){
-            return this.dependencyContainer.Map(this.requiredType, this.lifetime, target);
+            return this.dependencyContainer.Add(this.requiredType, this.lifetime, target);
         },
         ToSelf: function (){
             return this.To(this.requiredType);
@@ -2810,7 +2819,7 @@ var Neptuo$Activators$IDependencyContainer = {
     fullname: "Neptuo.Activators.IDependencyContainer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators.IDependencyProvider"],
+    interfaceNames: ["Neptuo.Activators.IDependencyProvider", "Neptuo.Activators.IDependencyCollection"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
