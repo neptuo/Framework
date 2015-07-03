@@ -226,7 +226,6 @@
     <Compile Include="FileSystems\IFile.cs" />
     <Compile Include="FileSystems\IFileSystem.cs" />
     <Compile Include="FileSystems\LocalFileSystem.cs" />
-    <Compile Include="FileSystems\LocalFileSystemKey.cs" />
     <Compile Include="FileSystems\_EnsureExtensions.cs" />
     <Compile Include="Ensure.cs" />
     <Compile Include="ComponentModel\GuidUniqueNameProvider.cs" />

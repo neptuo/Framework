@@ -1,5 +1,4 @@
-﻿using Neptuo.DomainModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +10,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system implemented as stadart file system.
     /// </summary>
-    public class LocalFileSystem : IFileSystem, IReadOnlyRepository<IReadOnlyFile, IKey>, IReadOnlyRepository<IReadOnlyDirectory, IKey>
+    public class LocalFileSystem : IFileSystem
     {
         private readonly LocalDirectory rootDirectory;
 
@@ -49,7 +48,7 @@ namespace Neptuo.FileSystems
             Ensure.NotNull(directory, "directory");
 
             if (!IsReadOnly)
-                throw Ensure.Exception.FileSystem("File system rooted by '{0}' is read only.", rootDirectory.LocalKey.FullPath);
+                throw Ensure.Exception.FileSystem("File system rooted by '{0}' is read only.", rootDirectory.FullPath);
 
             LocalDirectory staticDirectory = directory as LocalDirectory;
             if (staticDirectory == null)
@@ -101,29 +100,5 @@ namespace Neptuo.FileSystems
 
             return new LocalDirectory(directoryPath);
         }
-
-        #region Repositories
-
-        IReadOnlyFile IReadOnlyRepository<IReadOnlyFile, IKey>.Find(IKey key)
-        {
-            LocalFileSystemKey localKey;
-            if (!Converts.Try(key, out localKey))
-                return null;
-
-            //TODO: Only under the current directory;
-            return FromFilePath(localKey.FullPath);
-        }
-
-        IReadOnlyDirectory IReadOnlyRepository<IReadOnlyDirectory, IKey>.Find(IKey key)
-        {
-            LocalFileSystemKey localKey;
-            if (!Converts.Try(key, out localKey))
-                return null;
-
-            //TODO: Only under the current directory;
-            return FromDirectoryPath(localKey.FullPath);
-        }
-
-        #endregion
     }
 }

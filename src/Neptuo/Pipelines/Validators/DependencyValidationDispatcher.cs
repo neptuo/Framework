@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.DomainModels;
 using Neptuo.Linq.Expressions;
 using Neptuo.Pipelines.Validators.Handlers;
 using System;

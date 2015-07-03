@@ -1,5 +1,4 @@
-﻿using Neptuo.DomainModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,22 +13,11 @@ namespace Neptuo.FileSystems
     public class LocalFile : IFile
     {
         private IDirectory parent;
-        private readonly LocalFileSystemKey key;
         private long? fileSize;
 
         public string Name { get; private set; }
         public string Extension { get; private set; }
         public string FullPath { get; private set; }
-
-        public IKey Key
-        {
-            get { return key; }
-        }
-
-        public LocalFileSystemKey LocalKey
-        {
-            get { return key; }
-        }
 
         public IDirectory Parent
         {
@@ -61,7 +49,6 @@ namespace Neptuo.FileSystems
         internal LocalFile(string fullPath)
         {
             Ensure.NotNullOrEmpty(fullPath, "fullPath");
-            key = LocalFileSystemKey.Create(fullPath, "LocalFile");
             SetFileRelatedProperties(fullPath);
         }
 
