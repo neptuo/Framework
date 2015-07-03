@@ -1,6 +1,6 @@
 ﻿using Neptuo;
-using Neptuo.Pipelines.Commands.Handlers;
-using Neptuo.Pipelines.Commands.Interception;
+using Neptuo.Services.Commands.Handlers;
+using Neptuo.Services.Commands.Interception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
