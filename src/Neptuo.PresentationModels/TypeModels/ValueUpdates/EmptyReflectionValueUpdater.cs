@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels.TypeModels.ValueUpdates
     /// Empty implementation of <see cref="IReflectionValueUpdater"/>.
     /// Always returns <c>false</c>.
     /// </summary>
-    public class ReflectionEmptyValueUpdater : IReflectionValueUpdater
+    public class EmptyReflectionValueUpdater : IReflectionValueUpdater
     {
         public bool TryUpdate(object instance, PropertyInfo propertyInfo, object newValue)
         {

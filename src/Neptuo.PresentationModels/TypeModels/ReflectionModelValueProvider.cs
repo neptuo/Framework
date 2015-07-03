@@ -35,7 +35,7 @@ namespace Neptuo.PresentationModels.TypeModels
         /// </summary>
         /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
         public ReflectionModelValueProvider(TModel model)
-            : this(model, new ReflectionEmptyValueUpdater())
+            : this(model, new EmptyReflectionValueUpdater())
         { }
 
         /// <summary>

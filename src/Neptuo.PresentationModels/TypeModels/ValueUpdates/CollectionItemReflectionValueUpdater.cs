@@ -12,7 +12,7 @@ namespace Neptuo.PresentationModels.TypeModels.ValueUpdates
     /// clears collection and adds (if possible) new items.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ReflectionCollectionItemValueUpdater<T> : IReflectionValueUpdater
+    public class CollectionItemReflectionValueUpdater<T> : IReflectionValueUpdater
     {
         public bool TryUpdate(object instance, PropertyInfo propertyInfo, object newValue)
         {

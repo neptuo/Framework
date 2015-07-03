@@ -38,7 +38,7 @@ namespace TestConsole.PresentationModels
                 .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
             ReflectionValueUpdaterCollection valueUpdaters = new ReflectionValueUpdaterCollection()
-                    .Add<ICollection<int>>(new ReflectionCollectionItemValueUpdater<int>());
+                    .Add<ICollection<int>>(new CollectionItemReflectionValueUpdater<int>());
 
             BindingConverterCollection bindingConverters = new BindingConverterCollection()
                 //.Add(new TypeFieldType(typeof(bool)), new BoolBindingConverter())
