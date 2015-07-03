@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.DomainModels
+namespace Neptuo.Models.Keys
 {
     /// <summary>
     /// Base implementation of <see cref="IKey"/>.
