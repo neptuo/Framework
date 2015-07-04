@@ -1,4 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
+using Neptuo.Activators.Internals.LifetimeManagers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Neptuo.Activators.Internals
     internal class RegistrationMapper
     {
         private readonly IUnityContainer unityContainer;
-        private readonly MappingCollection mappings;
+        private readonly UnityDependencyDefinitionCollection mappings;
         private readonly string scopeName;
 
         public string ScopeName
@@ -18,12 +19,12 @@ namespace Neptuo.Activators.Internals
             get { return scopeName; }
         }
 
-        public MappingCollection Mappings
+        public UnityDependencyDefinitionCollection Mappings
         {
             get { return mappings; }
         }
 
-        public RegistrationMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
+        public RegistrationMapper(IUnityContainer unityContainer, UnityDependencyDefinitionCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
@@ -32,26 +33,26 @@ namespace Neptuo.Activators.Internals
 
             if (parentMappings == null)
             {
-                this.mappings = new MappingCollection();
+                this.mappings = new UnityDependencyDefinitionCollection();
             }
             else
             {
-                this.mappings = new MappingCollection(parentMappings);
+                this.mappings = new UnityDependencyDefinitionCollection(parentMappings);
                 MapScope(parentMappings, scopeName);
             }
         }
 
-        private void MapScope(MappingCollection mappings, string scopeName)
+        private void MapScope(UnityDependencyDefinitionCollection mappings, string scopeName)
         {
-            IEnumerable<MappingModel> scopeMappings;
+            IEnumerable<UnityDependencyDefinition> scopeMappings;
             if (mappings.TryGet(scopeName, out scopeMappings))
             {
-                foreach (MappingModel model in scopeMappings)
+                foreach (UnityDependencyDefinition model in scopeMappings)
                     Add(model);
             }
         }
 
-        public RegistrationMapper Add(MappingModel model)
+        public RegistrationMapper Add(UnityDependencyDefinition model)
         {
             if (!model.Lifetime.IsNamed || model.Lifetime.Name == scopeName)
             {

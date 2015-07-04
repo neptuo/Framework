@@ -190,6 +190,31 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
+var Neptuo$Activators$DependencyServiceProvider = {
+    fullname: "Neptuo.Activators.DependencyServiceProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["System.IServiceProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (dependencyProvider){
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        GetService: function (serviceType){
+            return this.dependencyProvider.Resolve(serviceType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Activators.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyServiceProvider);
 var Neptuo$Activators$IDependencyDefinitionCollection = {
     fullname: "Neptuo.Activators.IDependencyDefinitionCollection",
     baseTypeName: "System.Object",

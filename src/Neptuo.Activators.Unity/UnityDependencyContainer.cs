@@ -29,10 +29,10 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(DependencyLifetime.RootScopeName, new MappingCollection(), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new UnityDependencyDefinitionCollection(), unityContainer)
         { }
 
-        private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
+        private UnityDependencyContainer(string scopeName, UnityDependencyDefinitionCollection mappings, IUnityContainer unityContainer)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;

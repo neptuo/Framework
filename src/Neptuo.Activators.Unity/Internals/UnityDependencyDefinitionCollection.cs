@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class MappingCollection : IDependencyDefinitionCollection
+    internal class UnityDependencyDefinitionCollection : IDependencyDefinitionCollection
     {
-        private readonly MappingCollection parentCollection;
-        private readonly ConcurrentDictionary<string, List<MappingModel>> storage = new ConcurrentDictionary<string, List<MappingModel>>();
+        private readonly UnityDependencyDefinitionCollection parentCollection;
+        private readonly ConcurrentDictionary<string, List<UnityDependencyDefinition>> storage = new ConcurrentDictionary<string, List<UnityDependencyDefinition>>();
 
-        public MappingCollection()
+        public UnityDependencyDefinitionCollection()
         { }
 
-        public MappingCollection(MappingCollection parentCollection)
-        {
+        public UnityDependencyDefinitionCollection(UnityDependencyDefinitionCollection parentCollection)
+        { 
             Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
         }
 
-        internal MappingCollection AddMapping(MappingModel model)
+        internal UnityDependencyDefinitionCollection AddMapping(UnityDependencyDefinition model)
         {
             string scopeName;
             if (model.Lifetime.IsNamed)
@@ -31,22 +31,22 @@ namespace Neptuo.Activators.Internals
             else
                 throw Ensure.Exception.InvalidOperation("MappingCollection supports only scoped or name-scoped registrations.");
 
-            List<MappingModel> models;
+            List<UnityDependencyDefinition> models;
             if (!storage.TryGetValue(scopeName, out models))
-                storage[scopeName] = models = new List<MappingModel>();
+                storage[scopeName] = models = new List<UnityDependencyDefinition>();
 
             models.Add(model);
             return this;
         }
 
-        public bool TryGet(string scopeName, out IEnumerable<MappingModel> models)
+        public bool TryGet(string scopeName, out IEnumerable<UnityDependencyDefinition> models)
         {
-            List<MappingModel> result;
+            List<UnityDependencyDefinition> result;
             if (storage.TryGetValue(scopeName, out result))
             {
                 models = result;
 
-                IEnumerable<MappingModel> parentResult;
+                IEnumerable<UnityDependencyDefinition> parentResult;
                 if (parentCollection != null && parentCollection.TryGet(scopeName, out parentResult))
                     models = Enumerable.Concat(result, parentResult);
 
@@ -61,7 +61,7 @@ namespace Neptuo.Activators.Internals
 
         public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            return AddMapping(new MappingModel(requiredType, lifetime, target));
+            return AddMapping(new UnityDependencyDefinition(requiredType, lifetime, target));
         }
 
         public bool TryGet(Type serviceType, out IDependencyDefinition definition)

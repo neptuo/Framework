@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class MappingModel : IDependencyDefinition
+    /// <summary>
+    /// Implementation of <see cref="IDependencyDefinition"/>.
+    /// </summary>
+    internal class UnityDependencyDefinition : IDependencyDefinition
     {
         public Type RequiredType { get; private set; }
         public DependencyLifetime Lifetime { get; private set; }
         public object Target { get; private set; }
 
-        public MappingModel(Type serviceType, DependencyLifetime lifetime, object target)
+        public UnityDependencyDefinition(Type serviceType, DependencyLifetime lifetime, object target)
         {
             Ensure.NotNull(serviceType, "requiredType");
             Ensure.NotNull(target, "target");
