@@ -39,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activators\DependencyLifetime.cs" />
+    <Compile Include="Activators\DependencyServiceProvider.cs" />
     <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
     <Compile Include="Activators\IDependencyDefinition.cs" />
     <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
