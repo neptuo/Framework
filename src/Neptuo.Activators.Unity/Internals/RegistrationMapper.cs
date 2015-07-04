@@ -11,7 +11,7 @@ namespace Neptuo.Activators.Internals
     internal class RegistrationMapper
     {
         private readonly IUnityContainer unityContainer;
-        private readonly UnityDependencyDefinitionCollection mappings;
+        private readonly MappingCollection mappings;
         private readonly string scopeName;
 
         public string ScopeName
@@ -19,12 +19,12 @@ namespace Neptuo.Activators.Internals
             get { return scopeName; }
         }
 
-        public UnityDependencyDefinitionCollection Mappings
+        public MappingCollection Mappings
         {
             get { return mappings; }
         }
 
-        public RegistrationMapper(IUnityContainer unityContainer, UnityDependencyDefinitionCollection parentMappings, string scopeName)
+        public RegistrationMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
@@ -33,16 +33,16 @@ namespace Neptuo.Activators.Internals
 
             if (parentMappings == null)
             {
-                this.mappings = new UnityDependencyDefinitionCollection();
+                this.mappings = new MappingCollection();
             }
             else
             {
-                this.mappings = new UnityDependencyDefinitionCollection(parentMappings);
+                this.mappings = new MappingCollection(parentMappings);
                 MapScope(parentMappings, scopeName);
             }
         }
 
-        private void MapScope(UnityDependencyDefinitionCollection mappings, string scopeName)
+        private void MapScope(MappingCollection mappings, string scopeName)
         {
             IEnumerable<UnityDependencyDefinition> scopeMappings;
             if (mappings.TryGet(scopeName, out scopeMappings))

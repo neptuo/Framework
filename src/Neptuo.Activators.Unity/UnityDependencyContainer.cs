@@ -17,6 +17,11 @@ namespace Neptuo.Activators
         private readonly IUnityContainer unityContainer;
         private readonly RegistrationMapper mapper;
 
+        public IUnityContainer UnityContainer
+        {
+            get { return unityContainer; }
+        }
+
         /// <summary>
         /// Creates container with new instance of Unity container.
         /// </summary>
@@ -29,10 +34,10 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(DependencyLifetime.RootScopeName, new UnityDependencyDefinitionCollection(), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new MappingCollection(), unityContainer)
         { }
 
-        private UnityDependencyContainer(string scopeName, UnityDependencyDefinitionCollection mappings, IUnityContainer unityContainer)
+        private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
@@ -46,7 +51,7 @@ namespace Neptuo.Activators
 
         public IDependencyDefinitionCollection Definitions
         {
-            get { return mapper.Mappings; }
+            get { throw new NotImplementedException(); }
         }
 
         #endregion

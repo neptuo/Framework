@@ -26,5 +26,10 @@ namespace Neptuo.Activators
         /// Can be of any supported type.
         /// </summary>
         object Target { get; }
+
+        /// <summary>
+        /// Whether can be resolved in current scope.
+        /// </summary>
+        bool IsResolvable { get; }
     }
 }

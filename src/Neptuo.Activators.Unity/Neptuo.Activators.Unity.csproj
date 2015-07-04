@@ -52,14 +52,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Internals\LifetimeManagers\ActivatorLifetimeManager.cs" />
-    <Compile Include="Internals\UnityDependencyDefinition.cs" />
-    <Compile Include="Internals\UnityDependencyDefinitionCollection.cs" />
+    <Compile Include="UnityDependencyDefinition.cs" />
+    <Compile Include="Internals\MappingCollection.cs" />
     <Compile Include="Internals\RegistrationMapper.cs" />
     <Compile Include="Internals\LifetimeManagers\SingletonLifetimeManager.cs" />
     <Compile Include="UnityActivator.cs" />
     <Compile Include="UnityDependencyContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="UnityDependencyDefinitionCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

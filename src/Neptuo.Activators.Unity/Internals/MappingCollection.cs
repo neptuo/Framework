@@ -7,21 +7,21 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class UnityDependencyDefinitionCollection : IDependencyDefinitionCollection
+    internal class MappingCollection
     {
-        private readonly UnityDependencyDefinitionCollection parentCollection;
+        private readonly MappingCollection parentCollection;
         private readonly ConcurrentDictionary<string, List<UnityDependencyDefinition>> storage = new ConcurrentDictionary<string, List<UnityDependencyDefinition>>();
 
-        public UnityDependencyDefinitionCollection()
+        public MappingCollection()
         { }
 
-        public UnityDependencyDefinitionCollection(UnityDependencyDefinitionCollection parentCollection)
+        public MappingCollection(MappingCollection parentCollection)
         { 
             Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
         }
 
-        internal UnityDependencyDefinitionCollection AddMapping(UnityDependencyDefinition model)
+        internal MappingCollection AddMapping(UnityDependencyDefinition model)
         {
             string scopeName;
             if (model.Lifetime.IsNamed)
@@ -61,7 +61,8 @@ namespace Neptuo.Activators.Internals
 
         public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            return AddMapping(new UnityDependencyDefinition(requiredType, lifetime, target));
+            //return AddMapping(new UnityDependencyDefinition(requiredType, lifetime, target));
+            throw new NotImplementedException();
         }
 
         public bool TryGet(Type serviceType, out IDependencyDefinition definition)

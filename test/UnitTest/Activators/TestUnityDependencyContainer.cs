@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Practices.Unity;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,38 @@ namespace Neptuo.Activators
         }
 
         [TestMethod]
+        public void DefinitionCollection_Basic()
+        {
+            IUnityContainer container1 = new UnityContainer();
+            UnityDependencyDefinitionCollection collection1 = new UnityDependencyDefinitionCollection(container1);
+
+            collection1.AddTransient<IHelloService>();
+            IDependencyDefinition definition1;
+            Assert.IsTrue(collection1.TryGet(typeof(IHelloService), out definition1));
+            Assert.IsFalse(definition1.IsResolvable);
+
+            container1.RegisterType<IHelloService>();
+            Assert.IsTrue(collection1.TryGet(typeof(IHelloService), out definition1));
+            Assert.IsTrue(definition1.IsResolvable);
+
+            IUnityContainer container2 = container1.CreateChildContainer();
+            UnityDependencyDefinitionCollection collection2 = new UnityDependencyDefinitionCollection(container2, collection1);
+
+            Assert.IsTrue(collection2.TryGet(typeof(IHelloService), out definition1));
+            Assert.IsTrue(definition1.IsResolvable);
+
+            collection2.AddTransient<IOutputWriter>();
+            Assert.IsTrue(collection2.TryGet(typeof(IOutputWriter), out definition1));
+            Assert.IsFalse(definition1.IsResolvable);
+
+            container2.RegisterType<IOutputWriter>();
+            Assert.IsTrue(collection2.TryGet(typeof(IOutputWriter), out definition1));
+            Assert.IsTrue(definition1.IsResolvable);
+
+            Assert.IsFalse(collection1.TryGet(typeof(IOutputWriter), out definition1));
+        }
+
+        [TestMethod]
         public void Registration()
         {
             IDependencyContainer container = CreateContainer();
@@ -27,8 +60,6 @@ namespace Neptuo.Activators
 
             IDependencyDefinition definition;
             Assert.AreEqual(container.Definitions.TryGet(typeof(IMessageFormatter), out definition), true);
-
-
         }
     }
 
