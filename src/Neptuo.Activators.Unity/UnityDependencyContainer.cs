@@ -15,7 +15,7 @@ namespace Neptuo.Activators
     public class UnityDependencyContainer : DisposableBase, IDependencyContainer
     {
         private readonly IUnityContainer unityContainer;
-        private readonly RegistrationMapper mapper;
+        private readonly UnityDependencyDefinitionCollection definitions;
 
         public IUnityContainer UnityContainer
         {
@@ -34,14 +34,14 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(DependencyLifetime.RootScopeName, new MappingCollection(), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new UnityDependencyDefinitionCollection(unityContainer, new MappingCollection(), DependencyLifetime.RootScopeName), unityContainer)
         { }
 
-        private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
+        private UnityDependencyContainer(string scopeName, UnityDependencyDefinitionCollection definitions, IUnityContainer unityContainer)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
-            this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
+            this.definitions = definitions;
 
             unityContainer.RegisterInstance<IDependencyProvider>(this, new ExternallyControlledLifetimeManager());
             unityContainer.RegisterInstance<IDependencyContainer>(this, new ExternallyControlledLifetimeManager());
@@ -51,7 +51,7 @@ namespace Neptuo.Activators
 
         public IDependencyDefinitionCollection Definitions
         {
-            get { throw new NotImplementedException(); }
+            get { return definitions; }
         }
 
         #endregion
@@ -60,7 +60,7 @@ namespace Neptuo.Activators
 
         string IDependencyProvider.ScopeName
         {
-            get { return mapper.ScopeName; }
+            get { return definitions.Mapper.ScopeName; }
         }
 
         IDependencyDefinitionReadOnlyCollection IDependencyProvider.Definitions
@@ -70,10 +70,11 @@ namespace Neptuo.Activators
 
         IDependencyContainer IDependencyProvider.Scope(string scopeName)
         {
+            IUnityContainer childContainer = unityContainer.CreateChildContainer();
             return new UnityDependencyContainer(
                 scopeName,
-                mapper.Mappings, 
-                unityContainer.CreateChildContainer()
+                definitions.CreateChildCollection(childContainer, scopeName),
+                childContainer
             );
         }
 

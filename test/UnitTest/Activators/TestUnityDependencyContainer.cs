@@ -19,33 +19,23 @@ namespace Neptuo.Activators
         [TestMethod]
         public void DefinitionCollection_Basic()
         {
-            IUnityContainer container1 = new UnityContainer();
-            UnityDependencyDefinitionCollection collection1 = new UnityDependencyDefinitionCollection(container1);
+            IDependencyContainer container1 = new UnityDependencyContainer(new UnityContainer());
 
-            collection1.AddTransient<IHelloService>();
+            container1.Definitions.AddTransient<IHelloService>();
             IDependencyDefinition definition1;
-            Assert.IsTrue(collection1.TryGet(typeof(IHelloService), out definition1));
-            Assert.IsFalse(definition1.IsResolvable);
-
-            container1.RegisterType<IHelloService>();
-            Assert.IsTrue(collection1.TryGet(typeof(IHelloService), out definition1));
+            Assert.IsTrue(container1.Definitions.TryGet(typeof(IHelloService), out definition1));
             Assert.IsTrue(definition1.IsResolvable);
 
-            IUnityContainer container2 = container1.CreateChildContainer();
-            UnityDependencyDefinitionCollection collection2 = new UnityDependencyDefinitionCollection(container2, collection1);
+            IDependencyContainer container2 = container1.Scope("S1");
 
-            Assert.IsTrue(collection2.TryGet(typeof(IHelloService), out definition1));
+            Assert.IsTrue(container2.Definitions.TryGet(typeof(IHelloService), out definition1));
             Assert.IsTrue(definition1.IsResolvable);
 
-            collection2.AddTransient<IOutputWriter>();
-            Assert.IsTrue(collection2.TryGet(typeof(IOutputWriter), out definition1));
-            Assert.IsFalse(definition1.IsResolvable);
-
-            container2.RegisterType<IOutputWriter>();
-            Assert.IsTrue(collection2.TryGet(typeof(IOutputWriter), out definition1));
+            container2.Definitions.AddTransient<IOutputWriter>();
+            Assert.IsTrue(container2.Definitions.TryGet(typeof(IOutputWriter), out definition1));
             Assert.IsTrue(definition1.IsResolvable);
 
-            Assert.IsFalse(collection1.TryGet(typeof(IOutputWriter), out definition1));
+            Assert.IsFalse(container1.Definitions.TryGet(typeof(IOutputWriter), out definition1));
         }
 
         [TestMethod]

@@ -14,15 +14,22 @@ namespace Neptuo.Activators
         private readonly Dictionary<Type, UnityDependencyDefinition> storage = new Dictionary<Type, UnityDependencyDefinition>();
         private readonly IUnityContainer unityContainer;
         private readonly UnityDependencyDefinitionCollection parentCollection;
+        private readonly RegistrationMapper mapper;
 
-        public UnityDependencyDefinitionCollection(IUnityContainer unityContainer)
+        internal RegistrationMapper Mapper
+        {
+            get { return mapper; }
+        }
+
+        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection mappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
+            this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
         }
 
-        public UnityDependencyDefinitionCollection(IUnityContainer unityContainer, UnityDependencyDefinitionCollection parentCollection)
-            : this(unityContainer)
+        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection mappings, string scopeName, UnityDependencyDefinitionCollection parentCollection)
+            : this(unityContainer, mappings, scopeName)
         {
             Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
@@ -30,9 +37,13 @@ namespace Neptuo.Activators
 
         public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            storage[requiredType] = new UnityDependencyDefinition(requiredType, lifetime, target);
-            //TODO: Register to container.
+            mapper.Add(storage[requiredType] = new UnityDependencyDefinition(requiredType, lifetime, target));
             return this;
+        }
+
+        public UnityDependencyDefinitionCollection CreateChildCollection(IUnityContainer unityContainer, string scopeName)
+        {
+            return new UnityDependencyDefinitionCollection(unityContainer, new MappingCollection(mapper.Mappings), scopeName, this);
         }
 
         public bool TryGet(Type requiredType, out IDependencyDefinition definition)
