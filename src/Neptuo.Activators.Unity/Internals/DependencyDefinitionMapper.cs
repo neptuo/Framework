@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
-    internal class RegistrationMapper
+    /// <summary>
+    /// Provides mapping of ancestor registrations to the current unity container.
+    /// 
+    /// </summary>
+    internal class DependencyDefinitionMapper
     {
         private readonly IUnityContainer unityContainer;
         private readonly MappingCollection mappings;
@@ -24,7 +28,7 @@ namespace Neptuo.Activators.Internals
             get { return mappings; }
         }
 
-        public RegistrationMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
+        public DependencyDefinitionMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
@@ -38,11 +42,16 @@ namespace Neptuo.Activators.Internals
             else
             {
                 this.mappings = new MappingCollection(parentMappings);
-                MapScope(parentMappings, scopeName);
+                CopyFromParentScope(parentMappings, scopeName);
             }
         }
 
-        private void MapScope(MappingCollection mappings, string scopeName)
+        /// <summary>
+        /// Copies definitions from ancestors for current scope.
+        /// </summary>
+        /// <param name="mappings">Ancestor definitions.</param>
+        /// <param name="scopeName">Current scope name.</param>
+        private void CopyFromParentScope(MappingCollection mappings, string scopeName)
         {
             IEnumerable<UnityDependencyDefinition> scopeMappings;
             if (mappings.TryGet(scopeName, out scopeMappings))
@@ -52,16 +61,24 @@ namespace Neptuo.Activators.Internals
             }
         }
 
-        public RegistrationMapper Add(UnityDependencyDefinition model)
+        /// <summary>
+        /// Adds definition, if <paramref name="definition"/>  is for current scope, registers it the unity container.
+        /// Otherwise stores <paramref name="definition"/> in current mapping collection to any child scopes.
+        /// </summary>
+        /// <param name="definition">New dependency definition.</param>
+        /// <returns>Self (for fluency).</returns>
+        public DependencyDefinitionMapper Add(UnityDependencyDefinition definition)
         {
-            if (!model.Lifetime.IsNamed || model.Lifetime.Name == scopeName)
+            // If lifetime is current scope, register to the unity container.
+            if (!definition.Lifetime.IsNamed || definition.Lifetime.Name == scopeName)
             {
-                LifetimeManager lifetimeManager = CreateLifetimeManager(model.Lifetime);
-                Register(unityContainer, model.RequiredType, lifetimeManager, model.Target);
+                LifetimeManager lifetimeManager = CreateLifetimeManager(definition.Lifetime);
+                Register(unityContainer, definition.RequiredType, lifetimeManager, definition.Target);
             }
 
-            if (!model.Lifetime.IsTransient)
-                mappings.AddMapping(model);
+            // If lifetime is not transient, store for child scopes.
+            if (!definition.Lifetime.IsTransient)
+                mappings.AddMapping(definition);
 
             return this;
         }

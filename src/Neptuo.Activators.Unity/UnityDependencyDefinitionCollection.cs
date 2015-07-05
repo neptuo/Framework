@@ -13,10 +13,10 @@ namespace Neptuo.Activators
     {
         private readonly ConcurrentDictionary<Type, UnityDependencyDefinition> definitionByRequiredType = new ConcurrentDictionary<Type, UnityDependencyDefinition>();
         private readonly UnityDependencyDefinitionCollection parentCollection;
-        private readonly RegistrationMapper mapper;
+        private readonly DependencyDefinitionMapper mapper;
         private readonly Func<Type, bool> isResolvable;
 
-        internal RegistrationMapper Mapper
+        internal DependencyDefinitionMapper Mapper
         {
             get { return mapper; }
         }
@@ -25,7 +25,7 @@ namespace Neptuo.Activators
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.isResolvable = requiredType => unityContainer.Registrations.Any(r => r.RegisteredType == requiredType);
-            this.mapper = new RegistrationMapper(unityContainer, parentMappings, scopeName);
+            this.mapper = new DependencyDefinitionMapper(unityContainer, parentMappings, scopeName);
         }
 
         internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName)
