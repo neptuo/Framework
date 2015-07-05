@@ -8,40 +8,40 @@ namespace Neptuo.Activators.Internals
 {
     internal class DependencyRegistry
     {
-        private Dictionary<string, DependencyRegistryItem> registries;
+        private Dictionary<string, DependencyDefinition> registries;
 
         public DependencyRegistry()
-            : this(new Dictionary<string, DependencyRegistryItem>())
+            : this(new Dictionary<string, DependencyDefinition>())
         { }
 
-        public DependencyRegistry(Dictionary<string, DependencyRegistryItem> registries)
+        public DependencyRegistry(Dictionary<string, DependencyDefinition> registries)
         {
             Ensure.NotNull(registries, "registries");
             this.registries = registries;
         }
 
-        public DependencyRegistryItem GetByKey(string key)
+        public DependencyDefinition GetByKey(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
 
-            DependencyRegistryItem item;
+            DependencyDefinition item;
             if (registries.TryGetValue(key, out item))
                 return item;
 
             return null;
         }
 
-        public void Add(string key, DependencyRegistryItem item)
+        public void Add(string key, DependencyDefinition item)
         {
             Ensure.NotNullOrEmpty(key, "key");
             Ensure.NotNull(item, "item");
             registries[key] = item;
         }
 
-        public Dictionary<string, DependencyRegistryItem> CopyRegistries()
+        public Dictionary<string, DependencyDefinition> CopyRegistries()
         {
-            Dictionary<string, DependencyRegistryItem> result = new Dictionary<string, DependencyRegistryItem>();
-            foreach (KeyValuePair<string, DependencyRegistryItem> item in registries)
+            Dictionary<string, DependencyDefinition> result = new Dictionary<string, DependencyDefinition>();
+            foreach (KeyValuePair<string, DependencyDefinition> item in registries)
                 result.Add(item.Key, item.Value);
 
             return result;
