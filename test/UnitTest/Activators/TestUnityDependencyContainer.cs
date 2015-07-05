@@ -8,90 +8,99 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators
 {
-    [TestClass]
     public class TestUnityDependencyContainer
     {
-        private IDependencyContainer CreateContainer()
+        [TestClass]
+        public class DefinitionCollection
         {
-            return new UnityDependencyContainer();
-        }
-
-        [TestMethod]
-        public void DefinitionCollection_Basic()
-        {
-            IDependencyContainer container1 = CreateContainer();
-
-            container1.Definitions.AddTransient<IHelloService>();
-            IDependencyDefinition definition1;
-            Assert.IsTrue(container1.Definitions.TryGet(typeof(IHelloService), out definition1));
-            Assert.IsTrue(definition1.IsResolvable);
-
-            IDependencyContainer container2 = container1.Scope("S1");
-
-            Assert.IsTrue(container2.Definitions.TryGet(typeof(IHelloService), out definition1));
-            Assert.IsTrue(definition1.IsResolvable);
-
-            container2.Definitions.AddTransient<IOutputWriter>();
-            Assert.IsTrue(container2.Definitions.TryGet(typeof(IOutputWriter), out definition1));
-            Assert.IsTrue(definition1.IsResolvable);
-
-            Assert.IsFalse(container1.Definitions.TryGet(typeof(IOutputWriter), out definition1));
-        }
-
-        [TestMethod]
-        public void DefinitionCollection_ResolvableOnlyInsideScope()
-        {
-            IDependencyContainer root = CreateContainer();
-            root.Definitions
-                .AddNameScoped<string>("S1", "Hello")
-                .AddNameScoped<int>("S2", 5);
-
-            IDependencyDefinition definition;
-
-            Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
-            Assert.IsFalse(definition.IsResolvable);
-            Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
-            Assert.IsFalse(definition.IsResolvable);
-
-            using (IDependencyContainer s1 = root.Scope("S1"))
+            private IDependencyContainer CreateContainer()
             {
-                Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
-                Assert.IsTrue(definition.IsResolvable);
-                Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
-                Assert.IsFalse(definition.IsResolvable);
-
-                using (IDependencyContainer s2 = s1.Scope("S2"))
-                {
-                    Assert.IsTrue(s2.Definitions.TryGet(typeof(string), out definition));
-                    Assert.IsTrue(definition.IsResolvable);
-                    Assert.IsTrue(s2.Definitions.TryGet(typeof(int), out definition));
-                    Assert.IsTrue(definition.IsResolvable);
-                }
-
-                Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
-                Assert.IsTrue(definition.IsResolvable);
-                Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
-                Assert.IsFalse(definition.IsResolvable);
+                return new UnityDependencyContainer();
             }
 
-            Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
-            Assert.IsFalse(definition.IsResolvable);
-            Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
-            Assert.IsFalse(definition.IsResolvable);
+            [TestMethod]
+            public void Registration()
+            {
+                IDependencyContainer container = CreateContainer();
+                container.Definitions
+                    .AddNameScoped<IMessageFormatter, StringMessageFormatter>(container.ScopeName)
+                    .AddTransient<IHelloService, HiService>()
+                    .AddScoped<IOutputWriter, StringOutputWriter>()
+                    .AddTransient<Presenter>();
+
+                IDependencyDefinition definition;
+                Assert.AreEqual(container.Definitions.TryGet(typeof(IMessageFormatter), out definition), true);
+            }
+
+            [TestMethod]
+            public void Basic()
+            {
+                IDependencyContainer container1 = CreateContainer();
+
+                container1.Definitions.AddTransient<IHelloService>();
+                IDependencyDefinition definition1;
+                Assert.IsTrue(container1.Definitions.TryGet(typeof(IHelloService), out definition1));
+                Assert.IsTrue(definition1.IsResolvable);
+
+                IDependencyContainer container2 = container1.Scope("S1");
+
+                Assert.IsTrue(container2.Definitions.TryGet(typeof(IHelloService), out definition1));
+                Assert.IsTrue(definition1.IsResolvable);
+
+                container2.Definitions.AddTransient<IOutputWriter>();
+                Assert.IsTrue(container2.Definitions.TryGet(typeof(IOutputWriter), out definition1));
+                Assert.IsTrue(definition1.IsResolvable);
+
+                Assert.IsFalse(container1.Definitions.TryGet(typeof(IOutputWriter), out definition1));
+            }
+
+            [TestMethod]
+            public void RegisteredOnlyInsideScope()
+            {
+                IDependencyContainer root = CreateContainer();
+                root.Definitions
+                    .AddNameScoped<string>("S1", "Hello")
+                    .AddNameScoped<int>("S2", 5);
+
+                IDependencyDefinition definition;
+
+                Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+                Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+
+                using (IDependencyContainer s1 = root.Scope("S1"))
+                {
+                    Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
+                    Assert.IsTrue(definition.IsResolvable);
+                    Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
+                    Assert.IsFalse(definition.IsResolvable);
+
+                    using (IDependencyContainer s2 = s1.Scope("S2"))
+                    {
+                        Assert.IsTrue(s2.Definitions.TryGet(typeof(string), out definition));
+                        Assert.IsTrue(definition.IsResolvable);
+                        Assert.IsTrue(s2.Definitions.TryGet(typeof(int), out definition));
+                        Assert.IsTrue(definition.IsResolvable);
+                    }
+
+                    Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
+                    Assert.IsTrue(definition.IsResolvable);
+                    Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
+                    Assert.IsFalse(definition.IsResolvable);
+                }
+
+                Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+                Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+            }
         }
 
-        [TestMethod]
-        public void DefinitionCollection_Registration()
+        [TestClass]
+        public class Target
         {
-            IDependencyContainer container = CreateContainer();
-            container.Definitions
-                .AddNameScoped<IMessageFormatter, StringMessageFormatter>(container.ScopeName)
-                .AddTransient<IHelloService, HiService>()
-                .AddScoped<IOutputWriter, StringOutputWriter>()
-                .AddTransient<Presenter>();
 
-            IDependencyDefinition definition;
-            Assert.AreEqual(container.Definitions.TryGet(typeof(IMessageFormatter), out definition), true);
         }
     }
 
