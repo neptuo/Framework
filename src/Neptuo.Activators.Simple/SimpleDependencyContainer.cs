@@ -39,8 +39,8 @@ namespace Neptuo.Activators
             this.registry = registry;
             this.instances = instances;
 
-            Add(typeof(IDependencyContainer), DependencyLifetime.NameScoped(scopeName), this);
-            Add(typeof(IDependencyProvider), DependencyLifetime.NameScoped(scopeName), this);
+            Add(typeof(IDependencyContainer), DependencyLifetime.NameScope(scopeName), this);
+            Add(typeof(IDependencyProvider), DependencyLifetime.NameScope(scopeName), this);
         }
 
         //TODO: Implement using registered features...
@@ -51,10 +51,10 @@ namespace Neptuo.Activators
             if (targetType != null)
             {
                 if (requiredType.IsInterface)
-                    throw new DependencyException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
+                    throw new DependencyResolutionFailedException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
                 if (requiredType.IsAbstract)
-                    throw new DependencyException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
+                    throw new DependencyResolutionFailedException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
                 registry.Add(GetKey(requiredType), new DependencyRegistryItem(
                     requiredType, 
@@ -87,6 +87,22 @@ namespace Neptuo.Activators
             throw Ensure.Exception.InvalidOperation("Not supported target type '{0}'.", target.GetType().FullName);
         }
 
+        #region IDependencyContainer
+
+        public IDependencyDefinitionCollection Definitions
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        #endregion
+
+        #region IDependencyProvider
+
+        IDependencyDefinitionReadOnlyCollection IDependencyProvider.Definitions
+        {
+            get { throw new NotImplementedException(); }
+        }
+
         public IDependencyContainer Scope(string scopeName)
         {
             return new SimpleDependencyContainer(
@@ -111,6 +127,8 @@ namespace Neptuo.Activators
 
             return Build(item);
         }
+
+        #endregion
 
         private string GetKey(Type t)
         {
@@ -140,7 +158,7 @@ namespace Neptuo.Activators
             //    return instance;
 
             //if (item.ConstructorInfo == null)
-            //    throw new DependencyException("Missing constructor.");
+            //    throw new DependencyResolutionFailedException("Missing constructor.");
 
             
             //item.Lifetime.SetValue(instance);
@@ -173,5 +191,6 @@ namespace Neptuo.Activators
             }
             return result;
         }
+
     }
 }

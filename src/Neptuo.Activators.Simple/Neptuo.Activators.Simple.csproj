@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internals\DependencyException.cs" />
     <Compile Include="Internals\DependencyRegistry.cs" />
     <Compile Include="Internals\DependencyRegistryItem.cs" />
     <Compile Include="Internals\InstanceStorage.cs" />

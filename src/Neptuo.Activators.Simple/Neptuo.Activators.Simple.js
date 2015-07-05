@@ -17,8 +17,8 @@ if (typeof($CreateException)=='undefined')
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
-var Neptuo$Activators$Internals$DependencyException = {
-    fullname: "Neptuo.Activators.Internals.DependencyException",
+var Neptuo$Activators$Internals$DependencyResolutionFailedException = {
+    fullname: "Neptuo.Activators.Internals.DependencyResolutionFailedException",
     baseTypeName: "System.Exception",
     assemblyName: "Neptuo.Activators.Simple",
     Kind: "Class",
@@ -34,7 +34,7 @@ var Neptuo$Activators$Internals$DependencyException = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Activators$Internals$DependencyException);
+JsTypes.push(Neptuo$Activators$Internals$DependencyResolutionFailedException);
 var Neptuo$Activators$Internals$DependencyRegistry = {
     fullname: "Neptuo.Activators.Internals.DependencyRegistry",
     baseTypeName: "System.Object",
@@ -280,9 +280,9 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             var targetType = As(target, System.Type.ctor);
             if (System.Type.op_Inequality$$Type$$Type(targetType, null)){
                 if (requiredType.get_IsInterface())
-                    throw $CreateException(new Neptuo.Activators.Internals.DependencyException.ctor(System.String.Format$$String$$Object$$Object("Target can\'t be interface. Mapping \'{0}\' to \'{1}\'.", requiredType.get_FullName(), targetType.get_FullName())), new Error());
+                    throw $CreateException(new Neptuo.Activators.Internals.DependencyResolutionFailedException.ctor(System.String.Format$$String$$Object$$Object("Target can\'t be interface. Mapping \'{0}\' to \'{1}\'.", requiredType.get_FullName(), targetType.get_FullName())), new Error());
                 if (requiredType.get_IsAbstract())
-                    throw $CreateException(new Neptuo.Activators.Internals.DependencyException.ctor(System.String.Format$$String$$Object$$Object("Target can\'t be abstract class. Mapping \'{0}\' to \'{1}\'.", requiredType.get_FullName(), targetType.get_FullName())), new Error());
+                    throw $CreateException(new Neptuo.Activators.Internals.DependencyResolutionFailedException.ctor(System.String.Format$$String$$Object$$Object("Target can\'t be abstract class. Mapping \'{0}\' to \'{1}\'.", requiredType.get_FullName(), targetType.get_FullName())), new Error());
                 this.registry.Add(this.GetKey(requiredType), new Neptuo.Activators.Internals.DependencyRegistryItem.ctor$$Type$$DependencyLifetime$$ConstructorInfo(requiredType, lifetime, this.FindBestConstructor(targetType)));
                 return this;
             }
