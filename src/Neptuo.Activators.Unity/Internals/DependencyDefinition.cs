@@ -9,14 +9,14 @@ namespace Neptuo.Activators.Internals
     /// <summary>
     /// Implementation of <see cref="IDependencyDefinition"/>.
     /// </summary>
-    public class UnityDependencyDefinition : IDependencyDefinition
+    internal class DependencyDefinition : IDependencyDefinition
     {
         public Type RequiredType { get; private set; }
         public DependencyLifetime Lifetime { get; private set; }
         public object Target { get; private set; }
         public bool IsResolvable { get; private set; }
 
-        public UnityDependencyDefinition(Type requiredType, DependencyLifetime lifetime, object target, bool isResolvable = false)
+        public DependencyDefinition(Type requiredType, DependencyLifetime lifetime, object target, bool isResolvable = false)
         {
             Ensure.NotNull(requiredType, "requiredType");
             Ensure.NotNull(target, "target");
@@ -28,7 +28,7 @@ namespace Neptuo.Activators.Internals
 
         public IDependencyDefinition Clone(bool isResolvable)
         {
-            return new UnityDependencyDefinition(RequiredType, Lifetime, Target)
+            return new DependencyDefinition(RequiredType, Lifetime, Target)
             {
                 IsResolvable = isResolvable
             };

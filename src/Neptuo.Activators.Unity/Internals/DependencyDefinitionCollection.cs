@@ -7,32 +7,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Activators
+namespace Neptuo.Activators.Internals
 {
-    public class UnityDependencyDefinitionCollection : IDependencyDefinitionCollection
+    internal class DependencyDefinitionCollection : IDependencyDefinitionCollection
     {
-        private readonly ConcurrentDictionary<Type, UnityDependencyDefinition> definitionByRequiredType = new ConcurrentDictionary<Type, UnityDependencyDefinition>();
-        private readonly UnityDependencyDefinitionCollection parentCollection;
-        private readonly DependencyDefinitionMapper mapper;
+        private readonly ConcurrentDictionary<Type, DependencyDefinition> definitionByRequiredType = new ConcurrentDictionary<Type, DependencyDefinition>();
+        private readonly ConcurrentDictionary<string, List<DependencyDefinition>> definitionByScopeName = new ConcurrentDictionary<string, List<DependencyDefinition>>();
+        private readonly DependencyDefinitionCollection parentCollection;
+        private readonly Mapper mapper;
         private readonly Func<Type, bool> isResolvable;
 
-        internal DependencyDefinitionMapper Mapper
+        internal Mapper Mapper
         {
             get { return mapper; }
         }
 
-        private UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
+        private DependencyDefinitionCollection(IUnityContainer unityContainer, MapperCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.isResolvable = requiredType => unityContainer.Registrations.Any(r => r.RegisteredType == requiredType);
-            this.mapper = new DependencyDefinitionMapper(unityContainer, parentMappings, scopeName);
+            this.mapper = new Mapper(unityContainer, parentMappings, scopeName);
         }
 
-        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName)
+        internal DependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName)
             : this(unityContainer, null, scopeName)
         { }
 
-        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName, UnityDependencyDefinitionCollection parentCollection)
+        internal DependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName, DependencyDefinitionCollection parentCollection)
             : this(unityContainer, parentCollection.Mapper.Mappings, scopeName)
         {
             Ensure.NotNull(parentCollection, "parentCollection");
@@ -41,7 +42,7 @@ namespace Neptuo.Activators
 
         public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            mapper.Add(definitionByRequiredType[requiredType] = new UnityDependencyDefinition(requiredType, lifetime, target));
+            mapper.Add(definitionByRequiredType[requiredType] = new DependencyDefinition(requiredType, lifetime, target));
             return this;
         }
 
@@ -49,7 +50,7 @@ namespace Neptuo.Activators
         {
             Ensure.NotNull(requiredType, "requiredType");
             
-            UnityDependencyDefinition result;
+            DependencyDefinition result;
             if(definitionByRequiredType.TryGetValue(requiredType, out result))
             {
                 definition = result.Clone(isResolvable(requiredType));
@@ -61,7 +62,7 @@ namespace Neptuo.Activators
                 if (parentCollection.TryGet(requiredType, out definition))
                 {
                     if (!definition.IsResolvable && isResolvable(requiredType))
-                        definition = new UnityDependencyDefinition(definition.RequiredType, definition.Lifetime, definition.Target, true);
+                        definition = new DependencyDefinition(definition.RequiredType, definition.Lifetime, definition.Target, true);
 
                     return true;
                 }

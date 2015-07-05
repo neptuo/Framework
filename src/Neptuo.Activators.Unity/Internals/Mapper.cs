@@ -10,12 +10,11 @@ namespace Neptuo.Activators.Internals
 {
     /// <summary>
     /// Provides mapping of ancestor registrations to the current unity container.
-    /// 
     /// </summary>
-    internal class DependencyDefinitionMapper
+    internal class Mapper
     {
         private readonly IUnityContainer unityContainer;
-        private readonly MappingCollection mappings;
+        private readonly MapperCollection collection;
         private readonly string scopeName;
 
         public string ScopeName
@@ -23,26 +22,34 @@ namespace Neptuo.Activators.Internals
             get { return scopeName; }
         }
 
-        public MappingCollection Mappings
+        public MapperCollection Mappings
         {
-            get { return mappings; }
+            get { return collection; }
         }
 
-        public DependencyDefinitionMapper(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
+        /// <summary>
+        /// Creates new instance for <paramref name="unityContainer"/> in scope <paramref name="scopeName"/>.
+        /// If <paramref name="parentCollection"/> is <c>null</c>, thas mapper is the root one; otherwise this
+        /// mapper inherits from <paramref name="parentCollection"/>.
+        /// </summary>
+        /// <param name="unityContainer">Unity container to insert definitions into.</param>
+        /// <param name="parentCollection">Collection of definitions defined in parent scope.</param>
+        /// <param name="scopeName">Scope name to associate with.</param>
+        public Mapper(IUnityContainer unityContainer, MapperCollection parentCollection, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
             this.unityContainer = unityContainer;
             this.scopeName = scopeName;
 
-            if (parentMappings == null)
+            if (parentCollection == null)
             {
-                this.mappings = new MappingCollection();
+                this.collection = new MapperCollection();
             }
             else
             {
-                this.mappings = new MappingCollection(parentMappings);
-                CopyFromParentScope(parentMappings, scopeName);
+                this.collection = new MapperCollection(parentCollection);
+                CopyFromParentScope(parentCollection, scopeName);
             }
         }
 
@@ -51,12 +58,12 @@ namespace Neptuo.Activators.Internals
         /// </summary>
         /// <param name="mappings">Ancestor definitions.</param>
         /// <param name="scopeName">Current scope name.</param>
-        private void CopyFromParentScope(MappingCollection mappings, string scopeName)
+        private void CopyFromParentScope(MapperCollection mappings, string scopeName)
         {
-            IEnumerable<UnityDependencyDefinition> scopeMappings;
+            IEnumerable<DependencyDefinition> scopeMappings;
             if (mappings.TryGet(scopeName, out scopeMappings))
             {
-                foreach (UnityDependencyDefinition model in scopeMappings)
+                foreach (DependencyDefinition model in scopeMappings)
                     Add(model);
             }
         }
@@ -67,18 +74,18 @@ namespace Neptuo.Activators.Internals
         /// </summary>
         /// <param name="definition">New dependency definition.</param>
         /// <returns>Self (for fluency).</returns>
-        public DependencyDefinitionMapper Add(UnityDependencyDefinition definition)
+        public Mapper Add(DependencyDefinition definition)
         {
             // If lifetime is current scope, register to the unity container.
             if (!definition.Lifetime.IsNamed || definition.Lifetime.Name == scopeName)
             {
                 LifetimeManager lifetimeManager = CreateLifetimeManager(definition.Lifetime);
-                Register(unityContainer, definition.RequiredType, lifetimeManager, definition.Target);
+                Register(definition.RequiredType, lifetimeManager, definition.Target);
             }
 
             // If lifetime is not transient, store for child scopes.
             if (!definition.Lifetime.IsTransient)
-                mappings.AddMapping(definition);
+                collection.Add(definition);
 
             return this;
         }
@@ -99,7 +106,7 @@ namespace Neptuo.Activators.Internals
         }
 
         //TODO: Implement using registered features...
-        private void Register(IUnityContainer unityContainer, Type requiredType, LifetimeManager lifetimeManager, object target)
+        private void Register(Type requiredType, LifetimeManager lifetimeManager, object target)
         {
             // Target is type to map to.
             Type targetType = target as Type;
@@ -122,6 +129,14 @@ namespace Neptuo.Activators.Internals
             if (requiredType.IsAssignableFrom(targetType))
             {
                 unityContainer.RegisterInstance(requiredType, target);
+                return;
+            }
+
+            // Target is type of activator for required type.
+            Type requiredActivator = typeof(IActivator<>).MakeGenericType(requiredType);
+            if (requiredActivator.IsAssignableFrom(targetType))
+            {
+                unityContainer.RegisterType(requiredActivator, new ActivatorTypeLifetimeManager(unityContainer, requiredActivator, lifetimeManager));
                 return;
             }
 

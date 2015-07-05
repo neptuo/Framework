@@ -19,7 +19,7 @@ namespace Neptuo.Activators
         [TestMethod]
         public void DefinitionCollection_Basic()
         {
-            IDependencyContainer container1 = new UnityDependencyContainer(new UnityContainer());
+            IDependencyContainer container1 = CreateContainer();
 
             container1.Definitions.AddTransient<IHelloService>();
             IDependencyDefinition definition1;
@@ -41,7 +41,7 @@ namespace Neptuo.Activators
         [TestMethod]
         public void DefinitionCollection_ResolvableOnlyInsideScope()
         {
-            IDependencyContainer root = new UnityDependencyContainer(new UnityContainer());
+            IDependencyContainer root = CreateContainer();
             root.Definitions
                 .AddNameScoped<string>("S1", "Hello")
                 .AddNameScoped<int>("S2", 5);
@@ -81,7 +81,7 @@ namespace Neptuo.Activators
         }
 
         [TestMethod]
-        public void Registration()
+        public void DefinitionCollection_Registration()
         {
             IDependencyContainer container = CreateContainer();
             container.Definitions
