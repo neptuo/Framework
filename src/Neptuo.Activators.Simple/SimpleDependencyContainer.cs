@@ -18,11 +18,6 @@ namespace Neptuo.Activators
         private readonly InstanceStorage instances;
         private readonly string scopeName;
 
-        public string ScopeName
-        {
-            get { return scopeName; }
-        }
-        
         /// <summary>
         /// Creates new intance.
         /// </summary>
@@ -98,6 +93,11 @@ namespace Neptuo.Activators
 
         #region IDependencyProvider
 
+        public string ScopeName
+        {
+            get { return scopeName; }
+        }
+        
         IDependencyDefinitionReadOnlyCollection IDependencyProvider.Definitions
         {
             get { throw new NotImplementedException(); }
