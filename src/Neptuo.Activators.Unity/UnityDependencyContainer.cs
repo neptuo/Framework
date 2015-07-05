@@ -83,7 +83,16 @@ namespace Neptuo.Activators
 
         object IDependencyProvider.Resolve(Type requiredType)
         {
-            return unityContainer.Resolve(requiredType);
+            Ensure.NotNull(requiredType, "requiredType");
+
+            try
+            {
+                return unityContainer.Resolve(requiredType);
+            }
+            catch(ResolutionFailedException e)
+            {
+                throw Ensure.Exception.NotResolvable(requiredType, e);
+            }
         }
 
         #endregion

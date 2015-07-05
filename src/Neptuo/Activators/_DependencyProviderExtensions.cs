@@ -32,5 +32,49 @@ namespace Neptuo.Activators
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
             return (T)dependencyProvider.Resolve(requiredType);
         }
+
+        /// <summary>
+        /// Tries to resolve <typeparamref name="T"/> from <paramref name="dependencyProvider"/>.
+        /// </summary>
+        /// <typeparam name="T">Type of service to resolved.</typeparam>
+        /// <param name="dependencyProvider">Resolution provider.</param>
+        /// <param name="instance">Obtained instance.</param>
+        /// <returns><c>true</c> when resolution was successful; <c>false</c> otherwise.</returns>
+        public static bool TryResolve<T>(this IDependencyProvider dependencyProvider, out T instance)
+        {
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            Type requiredType = typeof(T);
+            IDependencyDefinition definition;
+            if (dependencyProvider.Definitions.TryGet(requiredType, out definition))
+            {
+                if (definition.IsResolvable)
+                {
+                    try
+                    {
+                        instance = (T)dependencyProvider.Resolve(requiredType);
+                        return true;
+                    }
+                    catch (DependencyResolutionFailedException)
+                    {
+                        // Catch DependencyResolutionException and let it return false.
+                    }
+                }
+            } 
+            else if (!requiredType.IsAbstract && !requiredType.IsInterface)
+            {
+                try
+                {
+                    instance = (T)dependencyProvider.Resolve(requiredType);
+                    return true;
+                }
+                catch (DependencyResolutionFailedException)
+                {
+                    // Catch DependencyResolutionException and let it return false.
+                }
+            }
+
+            instance = default(T);
+            return false;
+        }
     }
 }

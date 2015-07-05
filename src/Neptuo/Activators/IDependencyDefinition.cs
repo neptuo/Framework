@@ -30,6 +30,10 @@ namespace Neptuo.Activators
         /// <summary>
         /// Whether can be resolved in current scope.
         /// </summary>
+        /// <remarks>
+        /// Not necessarily means that resolution will succeed, only means that there is registration and
+        /// this registration is valid inside current scope chain.
+        /// </remarks>
         bool IsResolvable { get; }
     }
 }

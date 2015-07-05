@@ -23,7 +23,7 @@ namespace Neptuo.Activators
                 T service = provider.Resolve<T>();
                 isResolved = true;
             }
-            catch (ResolutionFailedException)
+            catch (DependencyResolutionFailedException)
             { }
 
             if (isResolved)
@@ -204,9 +204,11 @@ namespace Neptuo.Activators
                     TryCatchUnResolvable<IHelloService>(root);
 
                     helloService = s1.Resolve<IHelloService>();
+                    Assert.IsTrue(s1.TryResolve<IHelloService>(out helloService));
                 }
 
                 TryCatchUnResolvable<IHelloService>(root);
+                Assert.IsFalse(root.TryResolve<IHelloService>(out helloService));
             }
         }
     }
