@@ -39,6 +39,48 @@ namespace Neptuo.Activators
         }
 
         [TestMethod]
+        public void DefinitionCollection_ResolvableOnlyInsideScope()
+        {
+            IDependencyContainer root = new UnityDependencyContainer(new UnityContainer());
+            root.Definitions
+                .AddNameScoped<string>("S1", "Hello")
+                .AddNameScoped<int>("S2", 5);
+
+            IDependencyDefinition definition;
+
+            Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
+            Assert.IsFalse(definition.IsResolvable);
+            Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
+            Assert.IsFalse(definition.IsResolvable);
+
+            using (IDependencyContainer s1 = root.Scope("S1"))
+            {
+                Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
+                Assert.IsTrue(definition.IsResolvable);
+                Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+
+                using (IDependencyContainer s2 = s1.Scope("S2"))
+                {
+                    Assert.IsTrue(s2.Definitions.TryGet(typeof(string), out definition));
+                    Assert.IsTrue(definition.IsResolvable);
+                    Assert.IsTrue(s2.Definitions.TryGet(typeof(int), out definition));
+                    Assert.IsTrue(definition.IsResolvable);
+                }
+
+                Assert.IsTrue(s1.Definitions.TryGet(typeof(string), out definition));
+                Assert.IsTrue(definition.IsResolvable);
+                Assert.IsTrue(s1.Definitions.TryGet(typeof(int), out definition));
+                Assert.IsFalse(definition.IsResolvable);
+            }
+
+            Assert.IsTrue(root.Definitions.TryGet(typeof(string), out definition));
+            Assert.IsFalse(definition.IsResolvable);
+            Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
+            Assert.IsFalse(definition.IsResolvable);
+        }
+
+        [TestMethod]
         public void Registration()
         {
             IDependencyContainer container = CreateContainer();

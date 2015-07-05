@@ -11,25 +11,29 @@ namespace Neptuo.Activators
 {
     public class UnityDependencyDefinitionCollection : IDependencyDefinitionCollection
     {
-        private readonly Dictionary<Type, UnityDependencyDefinition> storage = new Dictionary<Type, UnityDependencyDefinition>();
-        private readonly IUnityContainer unityContainer;
+        private readonly ConcurrentDictionary<Type, UnityDependencyDefinition> definitionByRequiredType = new ConcurrentDictionary<Type, UnityDependencyDefinition>();
         private readonly UnityDependencyDefinitionCollection parentCollection;
         private readonly RegistrationMapper mapper;
+        private readonly Func<Type, bool> isResolvable;
 
         internal RegistrationMapper Mapper
         {
             get { return mapper; }
         }
 
-        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection mappings, string scopeName)
+        private UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
-            this.unityContainer = unityContainer;
-            this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
+            this.isResolvable = requiredType => unityContainer.Registrations.Any(r => r.RegisteredType == requiredType);
+            this.mapper = new RegistrationMapper(unityContainer, parentMappings, scopeName);
         }
 
-        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, MappingCollection mappings, string scopeName, UnityDependencyDefinitionCollection parentCollection)
-            : this(unityContainer, mappings, scopeName)
+        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName)
+            : this(unityContainer, null, scopeName)
+        { }
+
+        internal UnityDependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName, UnityDependencyDefinitionCollection parentCollection)
+            : this(unityContainer, parentCollection.Mapper.Mappings, scopeName)
         {
             Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
@@ -37,13 +41,8 @@ namespace Neptuo.Activators
 
         public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
         {
-            mapper.Add(storage[requiredType] = new UnityDependencyDefinition(requiredType, lifetime, target));
+            mapper.Add(definitionByRequiredType[requiredType] = new UnityDependencyDefinition(requiredType, lifetime, target));
             return this;
-        }
-
-        public UnityDependencyDefinitionCollection CreateChildCollection(IUnityContainer unityContainer, string scopeName)
-        {
-            return new UnityDependencyDefinitionCollection(unityContainer, new MappingCollection(mapper.Mappings), scopeName, this);
         }
 
         public bool TryGet(Type requiredType, out IDependencyDefinition definition)
@@ -51,9 +50,9 @@ namespace Neptuo.Activators
             Ensure.NotNull(requiredType, "requiredType");
             
             UnityDependencyDefinition result;
-            if(storage.TryGetValue(requiredType, out result))
+            if(definitionByRequiredType.TryGetValue(requiredType, out result))
             {
-                definition = result.Clone(IsResolvable(requiredType));
+                definition = result.Clone(isResolvable(requiredType));
                 return true;
             }
 
@@ -61,7 +60,7 @@ namespace Neptuo.Activators
             {
                 if (parentCollection.TryGet(requiredType, out definition))
                 {
-                    if (!definition.IsResolvable && IsResolvable(requiredType))
+                    if (!definition.IsResolvable && isResolvable(requiredType))
                         definition = new UnityDependencyDefinition(definition.RequiredType, definition.Lifetime, definition.Target, true);
 
                     return true;
@@ -70,11 +69,6 @@ namespace Neptuo.Activators
 
             definition = null;
             return false;
-        }
-
-        private bool IsResolvable(Type requiredType)
-        {
-            return unityContainer.Registrations.Any(r => r.RegisteredType == requiredType);
         }
     }
 }

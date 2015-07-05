@@ -17,6 +17,9 @@ namespace Neptuo.Activators
         private readonly IUnityContainer unityContainer;
         private readonly UnityDependencyDefinitionCollection definitions;
 
+        /// <summary>
+        /// Wrapped unity container.
+        /// </summary>
         public IUnityContainer UnityContainer
         {
             get { return unityContainer; }
@@ -34,7 +37,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(DependencyLifetime.RootScopeName, new UnityDependencyDefinitionCollection(unityContainer, new MappingCollection(), DependencyLifetime.RootScopeName), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new UnityDependencyDefinitionCollection(unityContainer, DependencyLifetime.RootScopeName), unityContainer)
         { }
 
         private UnityDependencyContainer(string scopeName, UnityDependencyDefinitionCollection definitions, IUnityContainer unityContainer)
@@ -73,7 +76,7 @@ namespace Neptuo.Activators
             IUnityContainer childContainer = unityContainer.CreateChildContainer();
             return new UnityDependencyContainer(
                 scopeName,
-                definitions.CreateChildCollection(childContainer, scopeName),
+                new UnityDependencyDefinitionCollection(childContainer, scopeName, definitions),
                 childContainer
             );
         }

@@ -53,23 +53,11 @@ namespace Neptuo.Activators.Internals
                 return true;
             }
 
+            if (parentCollection != null)
+                return parentCollection.TryGet(scopeName, out models);
+
             models = null;
             return false;
         }
-
-        #region IDependencyDefinitionCollection
-
-        public IDependencyDefinitionCollection Add(Type requiredType, DependencyLifetime lifetime, object target)
-        {
-            //return AddMapping(new UnityDependencyDefinition(requiredType, lifetime, target));
-            throw new NotImplementedException();
-        }
-
-        public bool TryGet(Type serviceType, out IDependencyDefinition definition)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }
