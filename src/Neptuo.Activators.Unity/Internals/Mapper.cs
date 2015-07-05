@@ -84,7 +84,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // If lifetime is not transient, store for child scopes.
-            if (!definition.Lifetime.IsTransient)
+            if (definition.Lifetime.IsNamed)
                 collection.Add(definition);
 
             return this;

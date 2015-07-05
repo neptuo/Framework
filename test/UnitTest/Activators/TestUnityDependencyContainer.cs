@@ -10,14 +10,14 @@ namespace Neptuo.Activators
 {
     public class TestUnityDependencyContainer
     {
+        private static IDependencyContainer CreateContainer()
+        {
+            return new UnityDependencyContainer();
+        }
+
         [TestClass]
         public class DefinitionCollection
         {
-            private IDependencyContainer CreateContainer()
-            {
-                return new UnityDependencyContainer();
-            }
-
             [TestMethod]
             public void Registration()
             {
@@ -100,7 +100,42 @@ namespace Neptuo.Activators
         [TestClass]
         public class Target
         {
+            private void ResolveString(IDependencyProvider root)
+            {
+                using (IDependencyProvider s1 = root.Scope("S1"))
+                {
+                    Assert.AreEqual("S1", s1.Resolve<string>());
 
+                    using (IDependencyProvider s2 = s1.Scope("S2"))
+                    {
+                        Assert.AreEqual("S2", s2.Resolve<string>());
+                    }
+
+                    Assert.AreEqual("S1", s1.Resolve<string>());
+                }
+            }
+
+            [TestMethod]
+            public void BaseResolving()
+            {
+                IDependencyContainer root = CreateContainer();
+                root.Definitions
+                    .AddNameScoped<string>("S1", "S1")
+                    .AddNameScoped<string>("S2", "S2");
+
+                ResolveString(root);
+            }
+
+            [TestMethod]
+            public void InstanceOfActivator()
+            {
+                IDependencyContainer root = CreateContainer();
+                root.Definitions
+                    .AddNameScopedActivator<string, IActivator<string>>("S1", new InstanceActivator<string>(() => "S1"))
+                    .AddNameScopedActivator<string, IActivator<string>>("S2", new InstanceActivator<string>(() => "S2"));
+
+                ResolveString(root);
+            }
         }
     }
 
