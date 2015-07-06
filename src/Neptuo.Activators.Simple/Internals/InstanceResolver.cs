@@ -33,9 +33,6 @@ namespace Neptuo.Activators.Internals
                     throw Ensure.Exception.InvalidOperation("Unnable to create registration for type '{0}'.", requiredType.FullName);
             }
 
-            if (!definition.HasConstructorInfo)
-                throw new NotImplementedException();
-
             return Build(definition);
         }
 

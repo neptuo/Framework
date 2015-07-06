@@ -63,10 +63,15 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Activators\TestActivator.cs" />
+    <Compile Include="Activators\TestSimpleDependencyContainer.cs" />
     <Compile Include="Activators\TestUnityDependencyContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">
+      <Project>{891f1607-d6f3-4d9f-8ff1-abc9da73b563}</Project>
+      <Name>Neptuo.Activators.Simple</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj">
       <Project>{a9d02667-9762-4c91-a403-41de7b8a4efe}</Project>
       <Name>Neptuo.Activators.Unity</Name>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators
 {
-    public class TestUnityDependencyContainer
+    public class TestSimpleDependencyContainer
     {
         private static IDependencyContainer CreateContainer()
         {
-            return new UnityDependencyContainer();
+            return new SimpleDependencyContainer();
         }
 
         private static void TryCatchUnResolvable<T>(IDependencyProvider provider)
@@ -52,7 +52,7 @@ namespace Neptuo.Activators
             {
                 IDependencyContainer container1 = CreateContainer();
 
-                container1.Definitions.AddTransient<IHelloService>();
+                container1.Definitions.AddTransient<IHelloService, HiService>();
                 IDependencyDefinition definition1;
                 Assert.IsTrue(container1.Definitions.TryGet(typeof(IHelloService), out definition1));
                 Assert.IsTrue(definition1.IsResolvable);
@@ -62,7 +62,7 @@ namespace Neptuo.Activators
                 Assert.IsTrue(container2.Definitions.TryGet(typeof(IHelloService), out definition1));
                 Assert.IsTrue(definition1.IsResolvable);
 
-                container2.Definitions.AddTransient<IOutputWriter>();
+                container2.Definitions.AddTransient<IOutputWriter, StringOutputWriter>();
                 Assert.IsTrue(container2.Definitions.TryGet(typeof(IOutputWriter), out definition1));
                 Assert.IsTrue(definition1.IsResolvable);
 
@@ -212,4 +212,88 @@ namespace Neptuo.Activators
             }
         }
     }
+
+    #region Services
+
+    public class Presenter
+    {
+        private readonly IHelloService helloService;
+        private readonly IOutputWriter outputWriter;
+
+        public Presenter(IHelloService helloService, IOutputWriter outputWriter)
+        {
+            this.helloService = helloService;
+            this.outputWriter = outputWriter;
+        }
+
+        public void Execute(string name)
+        {
+            outputWriter.Write(helloService.SayHello(name));
+        }
+    }
+
+    public interface IHelloService
+    {
+        string SayHello(string name);
+    }
+
+    public class HiService : IHelloService
+    {
+        private readonly IMessageFormatter formatter;
+
+        public HiService(IMessageFormatter formatter)
+        {
+            Ensure.NotNull(formatter, "formatter");
+            this.formatter = formatter;
+        }
+
+        public string SayHello(string name)
+        {
+            return formatter.Format("Hi, {0}!", name);
+        }
+    }
+
+    public interface IOutputWriter
+    {
+        void Write(string text);
+    }
+
+    public class StringOutputWriter : IOutputWriter
+    {
+        public string Text { get; private set; }
+
+        public StringOutputWriter()
+        {
+            Text = String.Empty;
+        }
+
+        public void Write(string text)
+        {
+            Text += text;
+        }
+    }
+
+    public class ConsoleOutputWriter : IOutputWriter
+    {
+        public void Write(string text)
+        {
+            Console.Write(text);
+        }
+    }
+
+
+    public interface IMessageFormatter
+    {
+        string Format(string template, params object[] parameters);
+    }
+
+    public class StringMessageFormatter : IMessageFormatter
+    {
+        public string Format(string template, params object[] parameters)
+        {
+            return String.Format(template, parameters);
+        }
+    }
+    
+    #endregion
 }

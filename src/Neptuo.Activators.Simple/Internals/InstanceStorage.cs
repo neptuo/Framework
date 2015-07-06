@@ -33,13 +33,23 @@ namespace Neptuo.Activators.Internals
         public object TryGetObject(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return objectStorage[key];
+
+            object result;
+            if (objectStorage.TryGetValue(key, out result))
+                return result;
+
+            return null;
         }
 
         public IActivator<object> TryGetActivator(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return activatorStorage[key];
+
+            IActivator<object> result;
+            if (activatorStorage.TryGetValue(key, out result))
+                return result;
+
+            return null;
         }
     }
 }

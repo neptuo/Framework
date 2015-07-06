@@ -32,6 +32,7 @@ namespace Neptuo.Activators.Internals
             Ensure.NotNull(target, "target");
             RequiredType = requiredType;
             Lifetime = lifetime;
+            Target = target;
         }
 
         public DependencyDefinition(Type requiredType, DependencyLifetime lifetime, object target, ConstructorInfo constructorInfo)
@@ -39,6 +40,18 @@ namespace Neptuo.Activators.Internals
         {
             Ensure.NotNull(constructorInfo, "constructorInfo");
             ConstructorInfo = constructorInfo;
+        }
+
+        public DependencyDefinition Clone(bool isResolvable)
+        {
+            DependencyDefinition result;
+            if (HasConstructorInfo)
+                result = new DependencyDefinition(RequiredType, Lifetime, Target, ConstructorInfo);
+            else
+                result = new DependencyDefinition(RequiredType, Lifetime, Target);
+
+            result.IsResolvable = isResolvable;
+            return result;
         }
     }
 }

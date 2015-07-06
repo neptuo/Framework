@@ -46,10 +46,10 @@ namespace Neptuo.Activators.Internals
             Type targetType = target as Type;
             if (targetType != null)
             {
-                if (requiredType.IsInterface)
+                if (targetType.IsInterface)
                     throw new DependencyResolutionFailedException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
-                if (requiredType.IsAbstract)
+                if (targetType.IsAbstract)
                     throw new DependencyResolutionFailedException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
                 DependencyDefinition definition = new DependencyDefinition(
@@ -128,7 +128,32 @@ namespace Neptuo.Activators.Internals
         internal bool TryGetInternal(Type requiredType, out DependencyDefinition definition)
         {
             string key = requiredType.FullName;
-            return definitionByKey.TryGetValue(key, out definition);
+            if (definitionByKey.TryGetValue(key, out definition))
+            {
+                definition = definition.Clone(true);
+                return true;
+            }
+
+            foreach (List<DependencyDefinition> items in definitionByScopeName.Values)
+            {
+                foreach (DependencyDefinition item in items)
+                {
+                    if(item.RequiredType == requiredType)
+                    {
+                        definition = item.Clone(false);
+                        return true;
+                    }
+                }
+            }
+
+            if (parentCollection != null)
+            {
+                if (parentCollection.TryGetInternal(requiredType, out definition))
+                    return true;
+            }
+
+            definition = null;
+            return false;
         }
 
         private ConstructorInfo FindBestConstructor(Type type)
