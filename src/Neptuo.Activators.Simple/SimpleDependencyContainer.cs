@@ -14,8 +14,7 @@ namespace Neptuo.Activators
     /// </summary>
     public class SimpleDependencyContainer : DisposableBase, IDependencyContainer
     {
-        private readonly DependencyRegistry registry;
-        private readonly InstanceStorage instances;
+        private readonly SimpleDependencyContainer parentContainer;
         private readonly string scopeName;
         private readonly DependencyDefinitionCollection definitions;
         private readonly InstanceResolver resolver;
@@ -24,17 +23,23 @@ namespace Neptuo.Activators
         /// Creates new intance.
         /// </summary>
         public SimpleDependencyContainer()
-            : this(DependencyLifetime.RootScopeName, new DependencyRegistry(), new InstanceStorage())
+            : this(DependencyLifetime.RootScopeName, null)
         { }
 
-        private SimpleDependencyContainer(string scopeName, DependencyRegistry registry, InstanceStorage instances)
+        private SimpleDependencyContainer(string scopeName, SimpleDependencyContainer parentContainer)
         {
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            Ensure.NotNull(registry, "registry");
-            Ensure.NotNull(instances, "instances");
             this.scopeName = scopeName;
-            this.registry = registry;
-            this.instances = instances;
+            this.parentContainer = parentContainer;
+
+            InstanceStorage instances = new InstanceStorage();
+
+            if (parentContainer == null)
+                this.definitions = new DependencyDefinitionCollection(scopeName, instances);
+            else
+                this.definitions = new DependencyDefinitionCollection(scopeName, instances, parentContainer.definitions);
+
+            this.resolver = new InstanceResolver(definitions, instances);
 
             definitions.Add(typeof(IDependencyContainer), DependencyLifetime.NameScope(scopeName), this);
             definitions.Add(typeof(IDependencyProvider), DependencyLifetime.NameScope(scopeName), this);
@@ -63,14 +68,7 @@ namespace Neptuo.Activators
 
         public IDependencyContainer Scope(string scopeName)
         {
-            return new SimpleDependencyContainer(
-                scopeName, 
-                new DependencyRegistry(registry.CopyRegistries()), 
-                new InstanceStorage(
-                    instances.CopyObjects(new List<string>()),
-                    instances.CopyActivators(new List<string>())
-                ) //TODO: SKip scoped instances.
-            );
+            return new SimpleDependencyContainer(scopeName, this);
         }
 
         public object Resolve(Type requiredType)

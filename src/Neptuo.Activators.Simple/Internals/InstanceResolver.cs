@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
+    /// <summary>
+    /// Component that provides logic for creating or reusing instances.
+    /// </summary>
     internal class InstanceResolver
     {
         private readonly DependencyDefinitionCollection definitions;
@@ -36,6 +39,39 @@ namespace Neptuo.Activators.Internals
             return Build(definition);
         }
 
+        private object Build(DependencyDefinition definition)
+        {
+            // For transient definition, create new instance (always).
+            if (definition.Lifetime.IsTransient)
+                return CreateNewInstanceFromDefinition(definition);
+
+            // For scoped definition, try get instance or create new one.
+            object instance = instances.TryGetObject(definition.Key);
+            if (instance == null)
+            {
+                instance = CreateNewInstanceFromDefinition(definition);
+                instances.AddObject(definition.Key, instance);
+            }
+
+            return instance;
+        }
+
+        private object CreateNewInstanceFromDefinition(DependencyDefinition definition)
+        {
+            // When mapped to the implementation type or itself (type).
+            if (definition.HasConstructorInfo)
+                return CreateInstance(definition.ConstructorInfo);
+
+            // When mapped to the instance of activator.
+            IActivator<object> activator = instances.TryGetActivator(definition.Key);
+            if (activator != null)
+                return activator.Create();
+
+            // When mapped to the type of activator.
+            //TODO: Implement.
+            throw new NotImplementedException();
+        }
+
         private object CreateInstance(ConstructorInfo constructorInfo)
         {
             Ensure.NotNull(constructorInfo, "constructorInfo");
@@ -48,37 +84,6 @@ namespace Neptuo.Activators.Internals
 
             instance = constructorInfo.Invoke(parameters);
             return instance;
-        }
-
-        private object Build(DependencyDefinition definition)
-        {
-            //object instance = CreateInstance(definition.ConstructorInfo);
-            //return instance;
-
-            if (definition.Lifetime.IsTransient)
-            {
-                if (definition.HasConstructorInfo)
-                    return CreateInstance(definition.ConstructorInfo);
-
-                // When mapped to the instance of activator.
-                IActivator<object> activator = instances.TryGetActivator(definition.Key);
-                if (activator != null)
-                    return activator.Create();
-
-                // When mapped to the type of activator.
-                //TODO: Implement.
-
-                // When mapped to the implementation type.
-                object instance = instances.TryGetObject(definition.Key);
-                if(instance == null)
-                    return CreateInstance(definition.ConstructorInfo);
-
-
-
-                //TODO: What now?
-            }
-
-            throw new NotImplementedException();
         }
     }
 }

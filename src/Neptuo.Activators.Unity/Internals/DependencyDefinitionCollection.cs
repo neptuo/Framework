@@ -12,7 +12,6 @@ namespace Neptuo.Activators.Internals
     internal class DependencyDefinitionCollection : IDependencyDefinitionCollection
     {
         private readonly ConcurrentDictionary<Type, DependencyDefinition> definitionByRequiredType = new ConcurrentDictionary<Type, DependencyDefinition>();
-        private readonly ConcurrentDictionary<string, List<DependencyDefinition>> definitionByScopeName = new ConcurrentDictionary<string, List<DependencyDefinition>>();
         private readonly DependencyDefinitionCollection parentCollection;
         private readonly Mapper mapper;
         private readonly Func<Type, bool> isResolvable;
