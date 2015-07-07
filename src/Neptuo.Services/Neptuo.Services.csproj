@@ -39,33 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandDispatcherException.cs" />
-    <Compile Include="Commands\CommandException.cs" />
-    <Compile Include="Commands\DependencyCommandDispatcher.cs" />
-    <Compile Include="Commands\Events\CommandHandled.cs" />
-    <Compile Include="Commands\Events\Handlers\CommandEventHandler.cs" />
-    <Compile Include="Commands\Execution\CommandExecutorException.cs" />
-    <Compile Include="Commands\Execution\DependencyCommandExecutor.cs" />
-    <Compile Include="Commands\Execution\DependencyCommandExecutorFactory.cs" />
-    <Compile Include="Commands\Execution\DispatchingCommandExecutorFactory.cs" />
-    <Compile Include="Commands\Execution\ICommandExecutor.cs" />
-    <Compile Include="Commands\Execution\ICommandExecutorFactory.cs" />
-    <Compile Include="Commands\Execution\ICommandHandlerAware.cs" />
-    <Compile Include="Commands\Execution\InterceptorExectionContext.cs" />
-    <Compile Include="Commands\Execution\IPoolCommandExecutorContext.cs" />
-    <Compile Include="Commands\Execution\PoolCommandExecutor.cs" />
-    <Compile Include="Commands\Execution\PoolCommandExecutorFactory.cs" />
-    <Compile Include="Commands\Execution\ThreadPoolCommandExecutor.cs" />
-    <Compile Include="Commands\Execution\ThreadPoolCommandExecutorFactory.cs" />
-    <Compile Include="Commands\Handlers\ICommandHandler.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ICommandDispatcher.cs" />
-    <Compile Include="Commands\Interception\AttributeInterceptorProvider.cs" />
-    <Compile Include="Commands\Interception\DiscardExceptionAttribute.cs" />
-    <Compile Include="Commands\Interception\IDecoratedInvoke.cs" />
-    <Compile Include="Commands\Interception\IDecoratedInvokeContext.cs" />
-    <Compile Include="Commands\Interception\IInterceptorProvider.cs" />
-    <Compile Include="Commands\Interception\ManualInterceptorProvider.cs" />
     <Compile Include="Events\DefaultEventManager.cs" />
     <Compile Include="Events\Handlers\ActivatorEventHandler.cs" />
     <Compile Include="Events\Handlers\DefaultEventHandlerContext.cs" />
