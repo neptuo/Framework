@@ -70,14 +70,19 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\Neptuo.Services\Neptuo.Services.csproj">
-      <Project>{21b47c66-1583-4415-b4f0-9fbefcedcd93}</Project>
-      <Name>Neptuo.Services</Name>
+    <ProjectReference Include="..\Neptuo.Services.Events\Neptuo.Services.Events.csproj">
+      <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
+      <Name>Neptuo.Services.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Neptuo.Services.Commands.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
