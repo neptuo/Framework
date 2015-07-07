@@ -45,6 +45,7 @@
     <Compile Include="DefaultDeleteDispatcher.cs" />
     <Compile Include="Handlers\IDeleteExecutionHandler.cs" />
     <Compile Include="Handlers\IDeleteHandler.cs" />
+    <Compile Include="Handlers\ModelDeleteHandlerBase.cs" />
     <Compile Include="IDeleteContext.cs" />
     <Compile Include="IDeleteDispatcher.cs" />
     <Compile Include="IDeleteReference.cs" />
