@@ -164,17 +164,6 @@
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
     <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
-    <Compile Include="FileSystems\_FileContentExtensions.cs" />
-    <Compile Include="FileSystems\FileSystemException.cs" />
-    <Compile Include="FileSystems\IReadOnlyDirectory.cs" />
-    <Compile Include="FileSystems\IReadOnlyFile.cs" />
-    <Compile Include="FileSystems\LocalDirectory.cs" />
-    <Compile Include="FileSystems\LocalFile.cs" />
-    <Compile Include="FileSystems\IDirectory.cs" />
-    <Compile Include="FileSystems\IFile.cs" />
-    <Compile Include="FileSystems\IFileSystem.cs" />
-    <Compile Include="FileSystems\LocalFileSystem.cs" />
-    <Compile Include="FileSystems\_EnsureExtensions.cs" />
     <Compile Include="Ensure.cs" />
     <Compile Include="ComponentModel\GuidUniqueNameProvider.cs" />
     <Compile Include="IDisposable.cs" />
