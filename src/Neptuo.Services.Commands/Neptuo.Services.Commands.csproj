@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Neptuo.Services.Commands</RootNamespace>
+    <AssemblyName>Neptuo.Services.Commands</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;Javascript</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CommandDispatcherException.cs" />
+    <Compile Include="CommandException.cs" />
+    <Compile Include="DependencyCommandDispatcher.cs" />
+    <Compile Include="Events\CommandHandled.cs" />
+    <Compile Include="Events\Handlers\CommandEventHandler.cs" />
+    <Compile Include="Execution\CommandExecutorException.cs" />
+    <Compile Include="Execution\DependencyCommandExecutor.cs" />
+    <Compile Include="Execution\DependencyCommandExecutorFactory.cs" />
+    <Compile Include="Execution\DispatchingCommandExecutorFactory.cs" />
+    <Compile Include="Execution\ICommandExecutor.cs" />
+    <Compile Include="Execution\ICommandExecutorFactory.cs" />
+    <Compile Include="Execution\ICommandHandlerAware.cs" />
+    <Compile Include="Execution\InterceptorExectionContext.cs" />
+    <Compile Include="Execution\IPoolCommandExecutorContext.cs" />
+    <Compile Include="Execution\PoolCommandExecutor.cs" />
+    <Compile Include="Execution\PoolCommandExecutorFactory.cs" />
+    <Compile Include="Execution\ThreadPoolCommandExecutor.cs" />
+    <Compile Include="Execution\ThreadPoolCommandExecutorFactory.cs" />
+    <Compile Include="Handlers\ICommandHandler.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="ICommandDispatcher.cs" />
+    <Compile Include="Interception\AttributeInterceptorProvider.cs" />
+    <Compile Include="Interception\DiscardExceptionAttribute.cs" />
+    <Compile Include="Interception\IDecoratedInvoke.cs" />
+    <Compile Include="Interception\IDecoratedInvokeContext.cs" />
+    <Compile Include="Interception\IInterceptorProvider.cs" />
+    <Compile Include="Interception\ManualInterceptorProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\VersionInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Services.Events\Neptuo.Services.Events.csproj">
+      <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
+      <Name>Neptuo.Services.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
+      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
+      <Name>Neptuo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Neptuo.Services.Commands.xml">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
