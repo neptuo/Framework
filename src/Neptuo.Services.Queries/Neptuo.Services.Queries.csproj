@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DependencyQueryDispatcher.cs" />
     <Compile Include="Handlers\IQueryHandler.cs" />
     <Compile Include="IQuery.cs" />

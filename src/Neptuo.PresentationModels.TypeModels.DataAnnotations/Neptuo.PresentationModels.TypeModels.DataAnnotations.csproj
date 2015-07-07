@@ -37,6 +37,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CompareMetadataReader.cs" />
     <Compile Include="DataTypeMetadataReader.cs" />
     <Compile Include="DefaultValueMetadataReader.cs" />

@@ -535,12 +535,12 @@ var Neptuo$Models$OrganizationModel = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Models$OrganizationModel);
-var Neptuo$VersionInfo = {
-    fullname: "Neptuo.VersionInfo",
+var Neptuo$Models$VersionInfo = {
+    fullname: "Neptuo.Models.VersionInfo",
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.VersionInfo.Version = "0.1.0";
+            Neptuo.Models.VersionInfo.Version = "0.1.0";
         },
         GetVersion: function (){
             return new System.Version.ctor$$String("0.1.0");
@@ -556,7 +556,7 @@ var Neptuo$VersionInfo = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$VersionInfo);
+JsTypes.push(Neptuo$Models$VersionInfo);
 var Neptuo$Models$Repositories$IReadOnlyRepository$2 = {
     fullname: "Neptuo.Models.Repositories.IReadOnlyRepository$2",
     baseTypeName: "System.Object",

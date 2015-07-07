@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CopyModelValueProvider.cs" />
     <Compile Include="DictionaryModelValueProvider.cs" />
     <Compile Include="FieldDefinition.cs" />
