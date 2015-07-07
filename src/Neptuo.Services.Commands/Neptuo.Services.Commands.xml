@@ -2,5 +2,4 @@
 <Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
     <Export Filename="Neptuo.Services.Commands.js" FilenameFormat="~/{0}" />
     <Type Target="Neptuo.Services.Commands.Execution.DependencyCommandExecutor" Export="False" />
-    <Type Target="Neptuo.Services.Queries.DependencyQueryDispatcher" Export="False" />
 </Exugin>
