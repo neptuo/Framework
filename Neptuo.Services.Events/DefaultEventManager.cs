@@ -1,6 +1,6 @@
 ﻿using Neptuo.ComponentModel;
 using Neptuo.Services.Events.Handlers;
-using Neptuo.Services.Internals;
+using Neptuo.Services.Events.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
