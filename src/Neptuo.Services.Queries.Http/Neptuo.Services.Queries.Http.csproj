@@ -58,6 +58,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Routing\DefaultRouteTable.cs" />
     <Compile Include="Routing\IRouteTable.cs" />
+    <Compile Include="Routing\RelativeRouteTable.cs" />
     <Compile Include="Routing\RouteDefinition.cs" />
     <Compile Include="Routing\RouteMethod.cs" />
     <Compile Include="Routing\RouteSerialization.cs" />

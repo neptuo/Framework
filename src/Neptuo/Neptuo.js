@@ -1016,33 +1016,6 @@ var Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions);
-var Neptuo$ComponentModel$DefaultErrorModel = {
-    fullname: "Neptuo.ComponentModel.DefaultErrorModel",
-    baseTypeName: "Neptuo.FeatureModels.FeatureCollectionModel",
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (text){
-            this._Text = null;
-            Neptuo.FeatureModels.FeatureCollectionModel.ctor$$Boolean.call(this, true);
-            this.set_Text(text);
-        },
-        Text$$: "System.String",
-        get_Text: function (){
-            return this._Text;
-        },
-        set_Text: function (value){
-            this._Text = value;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.String"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$ComponentModel$DefaultErrorModel);
 var Neptuo$ComponentModel$ErrorInfo = {
     fullname: "Neptuo.ComponentModel.ErrorInfo",
     baseTypeName: "System.Object",
@@ -1556,16 +1529,6 @@ var Neptuo$ComponentModel$Envelope$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Envelope$1);
-var Neptuo$ComponentModel$IErrorModel = {
-    fullname: "Neptuo.ComponentModel.IErrorModel",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.FeatureModels.IFeatureModel"],
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$ComponentModel$IErrorModel);
 var Neptuo$ComponentModel$TextOffsets$DefaultContentRangeInfo = {
     fullname: "Neptuo.ComponentModel.TextOffsets.DefaultContentRangeInfo",
     baseTypeName: "System.Object",
@@ -1823,23 +1786,9 @@ var Neptuo$ComponentModel$ReturnTypeAttribute = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$ReturnTypeAttribute);
-var Neptuo$ComponentModel$_ErrorModelExtensions = {
-    fullname: "Neptuo.ComponentModel._ErrorModelExtensions",
+var Neptuo$ComponentModel$__ErrorModelExtensions = {
+    fullname: "Neptuo.ComponentModel.__ErrorModelExtensions",
     baseTypeName: "System.Object",
-    staticDefinition: {
-        TryWithLineInfo: function (errorModel, lineInfo){
-            Neptuo.Ensure.NotNull$$Object$$String(errorModel, "errorModel");
-            return errorModel.TryWith$1(Neptuo.ComponentModel.TextOffsets.ILineInfo.ctor, lineInfo);
-        },
-        TryWithLineRangeInfo: function (errorModel, lineInfo){
-            Neptuo.Ensure.NotNull$$Object$$String(errorModel, "errorModel");
-            return errorModel.TryWith$1(Neptuo.ComponentModel.TextOffsets.ILineRangeInfo.ctor, lineInfo);
-        },
-        TryWithContentInfo: function (errorModel, contentInfo){
-            Neptuo.Ensure.NotNull$$Object$$String(errorModel, "errorModel");
-            return errorModel.TryWith$1(Neptuo.ComponentModel.TextOffsets.IContentRangeInfo.ctor, contentInfo);
-        }
-    },
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
@@ -1850,7 +1799,7 @@ var Neptuo$ComponentModel$_ErrorModelExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ComponentModel$_ErrorModelExtensions);
+JsTypes.push(Neptuo$ComponentModel$__ErrorModelExtensions);
 var Neptuo$ComponentModel$_OutFuncCollectionExtensions = {
     fullname: "Neptuo.ComponentModel._OutFuncCollectionExtensions",
     baseTypeName: "System.Object",
@@ -2047,176 +1996,6 @@ var Neptuo$Exceptions$Helpers$EnsureConditionHelper = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Exceptions$Helpers$EnsureConditionHelper);
-var Neptuo$FeatureModels$IFeatureModel = {
-    fullname: "Neptuo.FeatureModels.IFeatureModel",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$FeatureModels$IFeatureModel);
-var Neptuo$FeatureModels$FeatureCollectionModel = {
-    fullname: "Neptuo.FeatureModels.FeatureCollectionModel",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.FeatureModels.IFeatureModel"],
-    Kind: "Class",
-    definition: {
-        ctor$$Boolean: function (isSingleThread){
-            this.features = null;
-            this.onSearchFeature = null;
-            System.Object.ctor.call(this);
-            if (isSingleThread)
-                this.features = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Object.ctor);
-            else
-                this.features = new System.Collections.Concurrent.ConcurrentDictionary$2.ctor(System.Type.ctor, System.Object.ctor);
-        },
-        ctor$$Boolean$$IDictionary$2$Type$Object: function (isSingleThread, features){
-            this.features = null;
-            this.onSearchFeature = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(features, "features");
-            if (isSingleThread)
-                this.features = new System.Collections.Generic.Dictionary$2.ctor$$IDictionary$2(System.Type.ctor, System.Object.ctor, features);
-            else
-                this.features = new System.Collections.Concurrent.ConcurrentDictionary$2.ctor$$IEnumerable$1(System.Type.ctor, System.Object.ctor, features);
-        },
-        Add: function (featureType, feature){
-            Neptuo.Ensure.NotNull$$Object$$String(featureType, "featureType");
-            this.features.set_Item$$TKey(featureType, feature);
-            return this;
-        },
-        AddSearchHandler: function (handler){
-            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
-            this.onSearchFeature = System.Delegate.Combine$$Delegate$$Delegate(this.onSearchFeature, handler);
-        },
-        TryWith$1: function (TFeature, feature){
-            var featureType = Typeof(TFeature);
-            var featureBase;
-            if ((function (){
-                var $1 = {
-                    Value: featureBase
-                };
-                var $res = this.features.TryGetValue(featureType, $1);
-                featureBase = $1.Value;
-                return $res;
-            }).call(this)){
-                feature.Value = Cast(featureBase, TFeature);
-                return true;
-            }
-            if (System.MulticastDelegate.op_Inequality$$MulticastDelegate$$MulticastDelegate(this.onSearchFeature, null)){
-                var $it9 = this.onSearchFeature.GetInvocationList().GetEnumerator();
-                while ($it9.MoveNext()){
-                    var handler = $it9.get_Current();
-                    if ((function (){
-                        var $1 = {
-                            Value: featureBase
-                        };
-                        var $res = handler(Typeof(TFeature), $1);
-                        featureBase = $1.Value;
-                        return $res;
-                    }).call(this)){
-                        feature.Value = Cast(featureBase, TFeature);
-                        return true;
-                    }
-                }
-            }
-            feature.Value = Default(TFeature);
-            return false;
-        }
-    },
-    ctors: [{
-        name: "ctor$$Boolean",
-        parameters: ["System.Boolean"]
-    }, {
-        name: "ctor$$Boolean$$IDictionary",
-        parameters: ["System.Boolean", "System.Collections.Generic.IDictionary"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$FeatureModels$FeatureCollectionModel);
-var Neptuo$FeatureModels$ObjectFeatureModel = {
-    fullname: "Neptuo.FeatureModels.ObjectFeatureModel",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.FeatureModels.IFeatureModel"],
-    Kind: "Class",
-    definition: {
-        ctor: function (instance){
-            this.instance = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(instance, "instance");
-            this.instance = instance;
-        },
-        TryWith$1: function (TFeature, feature){
-            if (Is(this.instance, TFeature)){
-                feature.Value = Cast(this.instance, TFeature);
-                return true;
-            }
-            feature.Value = Default(TFeature);
-            return false;
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["System.Object"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$FeatureModels$ObjectFeatureModel);
-var Neptuo$FeatureModels$_FeatureCollectionModelExtensions = {
-    fullname: "Neptuo.FeatureModels._FeatureCollectionModelExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        Add$1: function (T, collection, feature){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
-            return collection.Add(Typeof(T), feature);
-        }
-    },
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$FeatureModels$_FeatureCollectionModelExtensions);
-var Neptuo$FeatureModels$_FeatureModelExtensions = {
-    fullname: "Neptuo.FeatureModels._FeatureModelExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        With$1: function (TFeature, model){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            var feature;
-            if ((function (){
-                var $1 = {
-                    Value: feature
-                };
-                var $res = model.TryWith$1(TFeature, $1);
-                feature = $1.Value;
-                return $res;
-            })())
-                return feature;
-            throw $CreateException(Neptuo._EnsureSystemExtensions.NotSupported(Neptuo.Ensure.Exception, "Feature model \'{0}\' doesn\'t support feature \'{1}\'.", model.GetType().get_FullName(), Typeof(TFeature).get_FullName()), new Error());
-        }
-    },
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$FeatureModels$_FeatureModelExtensions);
 var Neptuo$ICloneable$1 = {
     fullname: "Neptuo.ICloneable$1",
     baseTypeName: "System.Object",
@@ -2765,9 +2544,9 @@ var Neptuo$Globalization$CultureInfoParser = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it10 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it10.MoveNext()){
-                var item = $it10.get_Current();
+            var $it9 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it9.MoveNext()){
+                var item = $it9.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -3097,9 +2876,9 @@ var Neptuo$Reflection$DefaultReflectionService = {
                     searchIn = this.EnumerateAssemblies();
                 }
             }
-            var $it11 = searchIn.GetEnumerator();
-            while ($it11.MoveNext()){
-                var assembly = $it11.get_Current();
+            var $it10 = searchIn.GetEnumerator();
+            while ($it10.MoveNext()){
+                var assembly = $it10.get_Current();
                 var type = assembly.GetType$$String(typeName);
                 if (System.Type.op_Inequality$$Type$$Type(type, null))
                     return type;
@@ -3168,9 +2947,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it12 = type.GetProperties().GetEnumerator();
-            while ($it12.MoveNext()){
-                var prop = $it12.get_Current();
+            var $it11 = type.GetProperties().GetEnumerator();
+            while ($it11.MoveNext()){
+                var prop = $it11.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -3385,9 +3164,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Ensure.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it13 = items.GetEnumerator();
-            while ($it13.MoveNext()){
-                var item = $it13.get_Current();
+            var $it12 = items.GetEnumerator();
+            while ($it12.MoveNext()){
+                var item = $it12.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -3608,9 +3387,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it14 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it14.MoveNext()){
-                var defaultAttribute = $it14.get_Current();
+            var $it13 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it13.MoveNext()){
+                var defaultAttribute = $it13.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3620,9 +3399,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it15 = this.get_Attributes().GetEnumerator();
-            while ($it15.MoveNext()){
-                var attribute = $it15.get_Current();
+            var $it14 = this.get_Attributes().GetEnumerator();
+            while ($it14.MoveNext()){
+                var attribute = $it14.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3789,9 +3568,9 @@ var Neptuo$Tokens$TokenParser = {
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
                 var newLines = this.GetNewLineIndexes(content);
-                var $it16 = results.GetEnumerator();
-                while ($it16.MoveNext()){
-                    var result = $it16.get_Current();
+                var $it15 = results.GetEnumerator();
+                while ($it15.MoveNext()){
+                    var result = $it15.get_Current();
                     var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
                     var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
                     result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
@@ -4415,9 +4194,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it17 = this.items.GetEnumerator();
-            while ($it17.MoveNext()){
-                var item = $it17.get_Current();
+            var $it16 = this.items.GetEnumerator();
+            while ($it16.MoveNext()){
+                var item = $it16.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -4427,9 +4206,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it18 = this.items.GetEnumerator();
-            while ($it18.MoveNext()){
-                var item = $it18.get_Current();
+            var $it17 = this.items.GetEnumerator();
+            while ($it17.MoveNext()){
+                var item = $it17.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, tokenMapper, item.get_Value(), ""));
                 else
