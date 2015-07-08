@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,6 +20,14 @@ namespace Neptuo.Services.Queries
 
         public Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query)
         {
+            Ensure.NotNull(query, "query");
+            Type queryType = query.GetType();
+            string url;
+            if (routeTable.TryGet(queryType, out url))
+            {
+                HttpClient httpClient = new HttpClient();
+            }
+
             throw new NotImplementedException();
         }
     }
