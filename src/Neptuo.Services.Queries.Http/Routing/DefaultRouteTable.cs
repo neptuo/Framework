@@ -11,26 +11,26 @@ namespace Neptuo.Services.Queries.Routing
     /// </summary>
     public class DefaultRouteTable : IRouteTable
     {
-        private readonly Dictionary<Type, string> storage = new Dictionary<Type, string>();
+        private readonly Dictionary<Type, RouteDefinition> storage = new Dictionary<Type, RouteDefinition>();
 
         /// <summary>
-        /// Add mapping for <paramref name="queryType"/> to <paramref name="url"/>.
+        /// Add mapping for <paramref name="queryType"/> to <paramref name="route"/>.
         /// </summary>
         /// <param name="queryType">Type of query object.</param>
-        /// <param name="url">Url to be routed to.</param>
+        /// <param name="route">Route definition.</param>
         /// <returns>Self (for fluency).</returns>
-        public DefaultRouteTable Add(Type queryType, string url)
+        public DefaultRouteTable Add(Type queryType, RouteDefinition route)
         {
             Ensure.NotNull(queryType, "queryType");
-            Ensure.NotNull(url, "url");
-            storage[queryType] = url;
+            Ensure.NotNull(route, "route");
+            storage[queryType] = route;
             return this;
         }
 
-        public bool TryGet(Type queryType, out string url)
+        public bool TryGet(Type queryType, out RouteDefinition route)
         {
             Ensure.NotNull(queryType, "queryType");
-            return storage.TryGetValue(queryType, out url);
+            return storage.TryGetValue(queryType, out route);
         }
     }
 }

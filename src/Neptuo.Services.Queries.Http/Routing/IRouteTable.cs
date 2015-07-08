@@ -12,11 +12,11 @@ namespace Neptuo.Services.Queries.Routing
     public interface IRouteTable
     {
         /// <summary>
-        /// Tries to get <paramref name="url"/> for <paramref name="queryType"/>.
+        /// Tries to get <paramref name="route"/> for <paramref name="queryType"/>.
         /// </summary>
         /// <param name="queryType">Type of query object.</param>
-        /// <param name="url">Url to be routed to.</param>
+        /// <param name="route">Route definition.</param>
         /// <returns><c>true</c> when such registration exits; <c>false</c> otherwise.</returns>
-        bool TryGet(Type queryType, out string url);
+        bool TryGet(Type queryType, out RouteDefinition route);
     }
 }

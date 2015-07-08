@@ -22,8 +22,8 @@ namespace Neptuo.Services.Queries
         {
             Ensure.NotNull(query, "query");
             Type queryType = query.GetType();
-            string url;
-            if (routeTable.TryGet(queryType, out url))
+            RouteDefinition route;
+            if (routeTable.TryGet(queryType, out route))
             {
                 HttpClient httpClient = new HttpClient();
             }
