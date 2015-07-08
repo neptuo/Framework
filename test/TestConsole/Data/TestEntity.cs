@@ -1,7 +1,7 @@
 ﻿//using Neptuo;
 //using Neptuo.Data;
-//using Neptuo.Pipelines.Commands;
-//using Neptuo.Pipelines.Commands.Handlers;
+//using Neptuo.Services.Commands;
+//using Neptuo.Services.Commands.Handlers;
 //using Neptuo.Data.Entity;
 //using Neptuo.Data.Entity.Queries;
 //using Neptuo.Data.Queries;
@@ -21,7 +21,7 @@
 //using TestConsole.Data.Commands.Validators.Handlers;
 //using TestConsole.Data.Queries;
 //using Neptuo.Services.Validators;
-//using Neptuo.Pipelines.Events;
+//using Neptuo.Services.Events;
 
 //namespace TestConsole.Data
 //{

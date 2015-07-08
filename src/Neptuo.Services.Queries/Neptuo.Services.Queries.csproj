@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DefaultQueryDispatcher.cs" />
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DependencyQueryDispatcher.cs" />
     <Compile Include="Handlers\IQueryHandler.cs" />
     <Compile Include="Internals\DefaultQueryHandlerDefinition.cs" />

@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DefaultEventManager.cs" />
     <Compile Include="Handlers\ActivatorEventHandler.cs" />
     <Compile Include="Handlers\DefaultEventHandlerContext.cs" />

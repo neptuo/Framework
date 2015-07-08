@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Domains\IDomainModel.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="IValidatableModel.cs" />
@@ -48,8 +51,8 @@
     <Compile Include="Keys\Int64Key.cs" />
     <Compile Include="Keys\KeyBase.cs" />
     <Compile Include="Keys\StringKey.cs" />
-    <Compile Include="_Temp\PersonRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_Temp\PersonRepository.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Repositories\IReadOnlyRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

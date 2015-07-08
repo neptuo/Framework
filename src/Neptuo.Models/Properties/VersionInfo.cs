@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo
+namespace Neptuo.Models
 {
     public static class VersionInfo
     {

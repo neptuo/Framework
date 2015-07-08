@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AutomaticBootstrapper.cs" />
     <Compile Include="BootstrapperBase.cs" />
     <Compile Include="Constraints\ConstraintAttribute.cs" />

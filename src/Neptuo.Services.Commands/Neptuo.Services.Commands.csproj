@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CommandDispatcherException.cs" />
     <Compile Include="CommandException.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />

@@ -1,8 +1,8 @@
-﻿using Neptuo.Services.Events;
+﻿using Neptuo.Models.Features;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Events")]
-[assembly: AssemblyDescription("Event support.")]
+[assembly: AssemblyTitle("Neptuo.Models.Features")]
+[assembly: AssemblyDescription("Feature models (soft contract, endless extensibility).")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]

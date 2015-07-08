@@ -38,6 +38,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="Activators\_DependencyContainerExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
@@ -114,7 +117,6 @@
     <Compile Include="ComponentModel\Behaviors\Providers\_BehaviorCollectionExtensions.cs" />
     <Compile Include="ComponentModel\Converters\CollectionConverter.cs" />
     <Compile Include="ComponentModel\Converters\_ConverterRepositoryExtensions.cs" />
-    <Compile Include="ComponentModel\DefaultErrorModel.cs" />
     <Compile Include="ComponentModel\ErrorInfo.cs" />
     <Compile Include="ComponentModel\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
@@ -126,7 +128,6 @@
     <Compile Include="ComponentModel\Disposable.cs" />
     <Compile Include="ComponentModel\DisposableBase.cs" />
     <Compile Include="ComponentModel\Envelope.cs" />
-    <Compile Include="ComponentModel\IErrorModel.cs" />
     <Compile Include="ComponentModel\TextOffsets\DefaultContentRangeInfo.cs" />
     <Compile Include="ComponentModel\TextOffsets\DefaultLineInfo.cs" />
     <Compile Include="ComponentModel\TextOffsets\DefaultLineRangeInfo.cs" />
@@ -136,18 +137,13 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\OutFuncCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
-    <Compile Include="ComponentModel\_ErrorModelExtensions.cs" />
+    <Compile Include="ComponentModel\__ErrorModelExtensions.cs" />
     <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureConditionHelper.cs" />
-    <Compile Include="FeatureModels\IFeatureModel.cs" />
-    <Compile Include="FeatureModels\FeatureCollectionModel.cs" />
-    <Compile Include="FeatureModels\ObjectFeatureModel.cs" />
-    <Compile Include="FeatureModels\_FeatureCollectionModelExtensions.cs" />
-    <Compile Include="FeatureModels\_FeatureModelExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\ReprocessAttribute.cs" />
@@ -223,6 +219,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="FeatureModels\" />
     <Folder Include="Pipelines\Deleters\" />
     <Folder Include="Pipelines\Validators\" />
   </ItemGroup>
