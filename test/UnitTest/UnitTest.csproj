@@ -62,9 +62,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Activators\TestActivator.cs" />
-    <Compile Include="Activators\TestSimpleDependencyContainer.cs" />
-    <Compile Include="Activators\TestUnityDependencyContainer.cs" />
+    <Compile Include="Activators\T_Activators_Activator.cs" />
+    <Compile Include="Activators\Tests\TestBase.cs" />
+    <Compile Include="Activators\Tests\TestRegistration.cs" />
+    <Compile Include="Activators\T_Activators_Simple.cs" />
+    <Compile Include="Activators\Tests\TestResolve.cs" />
+    <Compile Include="Activators\Tests\_TestServices.cs" />
+    <Compile Include="Activators\T_Activators_Unity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

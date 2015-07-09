@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     [TestClass]
-    public class TestActivator
+    public class T_Activators_Activator
     {
         [TestMethod]
         public void InstanceActivator()
