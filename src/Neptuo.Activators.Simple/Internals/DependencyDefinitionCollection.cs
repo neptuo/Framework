@@ -101,15 +101,25 @@ namespace Neptuo.Activators.Internals
             if (definition.Lifetime.IsTransient || (definition.Lifetime.IsScoped && (definition.Lifetime.IsNamed && definition.Lifetime.Name == scopeName) || !definition.Lifetime.IsNamed))
                 definitionByKey[definition.Key] = definition;
 
-            // If definition is targeted for other scope, add it to the definitionByScopeName.
             if(definition.Lifetime.IsNamed)
             {
-                List<DependencyDefinition> list;
-                if (!definitionByScopeName.TryGetValue(definition.Lifetime.Name, out list))
-                    definitionByScopeName[definition.Lifetime.Name] = list = new List<DependencyDefinition>();
-
-                list.Add(definition);
+                // If definition is targeted for other scope, add it to the definitionByScopeName.
+                AddDefinitionToScope(definition.Lifetime.Name, definition);
+            } 
+            else if(definition.Lifetime.IsScoped)
+            {
+                // If definition is targeted to any scope, add it to the definitionByScopeName with empty scope name.
+                AddDefinitionToScope(String.Empty, definition);
             }
+        }
+
+        private void AddDefinitionToScope(string scopeName, DependencyDefinition definition)
+        {
+            List<DependencyDefinition> list;
+            if (!definitionByScopeName.TryGetValue(scopeName, out list))
+                definitionByScopeName[definition.Lifetime.Name] = list = new List<DependencyDefinition>();
+
+            list.Add(definition);
         }
 
         public bool TryGet(Type requiredType, out IDependencyDefinition definition)
@@ -177,6 +187,8 @@ namespace Neptuo.Activators.Internals
         /// <returns><c>true</c> if such definitions exits (at least one); <c>false</c> otherwise.</returns>
         internal bool TryGetChild(string scopeName, out IEnumerable<DependencyDefinition> definitions)
         {
+            //TODO: This should be joined with parent values and with empty scope values!
+
             List<DependencyDefinition> result;
             if (definitionByScopeName.TryGetValue(scopeName, out result))
             {
