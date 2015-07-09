@@ -32,7 +32,7 @@ namespace Neptuo.Activators.Internals
             if(parentCollection.TryGetChild(scopeName, out definitions))
             {
                 foreach (DependencyDefinition definition in definitions)
-                    AddDefinition(definition);
+                    Add(definition.RequiredType, definition.Lifetime, definition.Target);
             }
         }
 
@@ -70,7 +70,7 @@ namespace Neptuo.Activators.Internals
                 DependencyDefinition definition = new DependencyDefinition(
                     requiredType,
                     lifetime,
-                    targetType
+                    targetActivator
                 );
                 instances.AddActivator(definition.Key, targetActivator);
                 AddDefinition(definition);
@@ -84,7 +84,7 @@ namespace Neptuo.Activators.Internals
                 DependencyDefinition definition = new DependencyDefinition(
                     requiredType,
                     lifetime,
-                    targetType
+                    target
                 );
                 instances.AddObject(definition.Key, target);
                 AddDefinition(definition);
