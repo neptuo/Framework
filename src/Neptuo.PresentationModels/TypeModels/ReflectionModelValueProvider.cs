@@ -1,4 +1,5 @@
 ﻿using Neptuo.ComponentModel;
+using Neptuo.PresentationModels.TypeModels.ValueUpdates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,8 @@ namespace Neptuo.PresentationModels.TypeModels
     {
         private readonly Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
 
+        protected IReflectionValueUpdater ValueUpdater { get; private set; }
+
         /// <summary>
         /// Type of model.
         /// </summary>
@@ -32,10 +35,21 @@ namespace Neptuo.PresentationModels.TypeModels
         /// </summary>
         /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
         public ReflectionModelValueProvider(TModel model)
+            : this(model, new EmptyReflectionValueUpdater())
+        { }
+
+        /// <summary>
+        /// Creates new instance with support for updating values of readonly properties.
+        /// </summary>
+        /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
+        /// <param name="valueUpdater">Readonly property value updater. Can't be <c>null</c>.</param>
+        public ReflectionModelValueProvider(TModel model, IReflectionValueUpdater valueUpdater)
         {
             Ensure.NotNull(model, "model");
+            Ensure.NotNull(valueUpdater, "valueUpdater");
             Model = model;
             ModelType = model.GetType();
+            ValueUpdater = valueUpdater;
         }
 
         public bool TryGetValue(string identifier, out object value)
@@ -67,11 +81,28 @@ namespace Neptuo.PresentationModels.TypeModels
                         value = typeConverter.ConvertFrom(value);
                 }
 
-                propertyInfo.SetValue(Model, value);
-                return true;
+                if (propertyInfo.CanWrite)
+                {
+                    propertyInfo.SetValue(Model, value);
+                    return true;
+                }
+                
+                return TrySetValueOnReadOnlyProperty(identifier, propertyInfo, value);
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Called when <paramref name="propertyInfo"/> is readonly and caller tries to set value to it.
+        /// </summary>
+        /// <param name="identifier">Field identifier.</param>
+        /// <param name="propertyInfo">Reflection property info.</param>
+        /// <param name="value">New value.</param>
+        /// <returns><c>true</c> if setting value was possible; <c>false</c> otherwise.</returns>
+        protected virtual bool TrySetValueOnReadOnlyProperty(string identifier, PropertyInfo propertyInfo, object value)
+        {
+            return ValueUpdater.TryUpdate(Model, propertyInfo, value);
         }
 
         /// <summary>
@@ -98,8 +129,21 @@ namespace Neptuo.PresentationModels.TypeModels
     /// </summary>
     public class ReflectionModelValueProvider : ReflectionModelValueProvider<object>
     {
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
         public ReflectionModelValueProvider(object model)
             : base(model)
+        { }
+
+        /// <summary>
+        /// Creates new instance with support for updating values of readonly properties.
+        /// </summary>
+        /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
+        /// <param name="valueUpdater">Readonly property value updater. Can't be <c>null</c>.</param>
+        public ReflectionModelValueProvider(object model, IReflectionValueUpdater valueUpdater)
+            : base(model, valueUpdater)
         { }
     }
 }
