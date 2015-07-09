@@ -47,12 +47,14 @@
     <Compile Include="BindingDictionaryValueStorage.cs" />
     <Compile Include="BindingModelValueGetter.cs" />
     <Compile Include="Converters\BindingConverterBase.cs" />
+    <Compile Include="Converters\CollectionBindingConverter.cs" />
+    <Compile Include="Converters\ListBindingConverter.cs" />
     <Compile Include="Converters\_BindingConverterCollectionExtensions.cs" />
     <Compile Include="Converters\BoolBindingConverter.cs" />
     <Compile Include="Converters\DoubleBindingConverter.cs" />
     <Compile Include="Converters\FuncBindingConverter.cs" />
     <Compile Include="Converters\IntBindingConverter.cs" />
-    <Compile Include="Converters\ListBindingConverter.cs" />
+    <Compile Include="Converters\EnumerableBindingConverter.cs" />
     <Compile Include="Converters\NullBindingConverter.cs" />
     <Compile Include="Converters\IBindingConverter.cs" />
     <Compile Include="Converters\IBindingConverterCollection.cs" />
