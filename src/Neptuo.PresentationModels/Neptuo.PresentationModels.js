@@ -601,10 +601,10 @@ var Neptuo$PresentationModels$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.PresentationModels.VersionInfo.Version = "6.1.0";
+            Neptuo.PresentationModels.VersionInfo.Version = "6.2.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("6.1.0");
+            return new System.Version.ctor$$String("6.2.0");
         }
     },
     assemblyName: "Neptuo.PresentationModels",

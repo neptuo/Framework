@@ -4311,6 +4311,26 @@ var Neptuo$Pipelines$Events$_EventRegistryExtensions = {
     staticDefinition: {
         Using$1: function (TEvent, eventRegistry, eventHandler){
             return new Neptuo.Pipelines.Events.UsignEventHandlerSubscriber$1.ctor(TEvent, eventRegistry, eventHandler);
+        },
+        SubscribeAll: function (eventRegistry, handler){
+            Neptuo.Ensure.NotNull$$Object$$String(eventRegistry, "eventRegistry");
+            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
+            var genericHandlerType = Typeof(Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor);
+            var $it12 = handler.GetType().GetInterfaces().GetEnumerator();
+            while ($it12.MoveNext()){
+                var interfaceType = $it12.get_Current();
+                if (interfaceType.get_IsGenericType() && genericHandlerType.IsAssignableFrom(interfaceType)){
+                    var arguments = interfaceType.GetGenericArguments();
+                    if (arguments.get_Length() != 1)
+                        continue;
+                    var subscribeName = Neptuo.Linq.Expressions.TypeHelper.MethodName$3$$Expression$1(Neptuo.Pipelines.Events.IEventRegistry.ctor, Neptuo.Pipelines.Events.Handlers.IEventHandler$1.ctor, Neptuo.Pipelines.Events.IEventRegistry.ctor, function (c){
+                        return $CreateDelegate(c, c.Subscribe$1);
+                    });
+                    var subscribe = eventRegistry.GetType().GetMethod$$String(subscribeName).MakeGenericMethod(arguments[0]);
+                    subscribe.Invoke$$Object$$Object$Array(eventRegistry, [handler]);
+                }
+            }
+            return eventRegistry;
         }
     },
     assemblyName: "Neptuo",
@@ -4577,9 +4597,9 @@ var Neptuo$Globalization$CultureInfoParser = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it12 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it12.MoveNext()){
-                var item = $it12.get_Current();
+            var $it13 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it13.MoveNext()){
+                var item = $it13.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -4977,9 +4997,9 @@ var Neptuo$Reflection$DefaultReflectionService = {
                     searchIn = this.EnumerateAssemblies();
                 }
             }
-            var $it13 = searchIn.GetEnumerator();
-            while ($it13.MoveNext()){
-                var assembly = $it13.get_Current();
+            var $it14 = searchIn.GetEnumerator();
+            while ($it14.MoveNext()){
+                var assembly = $it14.get_Current();
                 var type = assembly.GetType$$String(typeName);
                 if (System.Type.op_Inequality$$Type$$Type(type, null))
                     return type;
@@ -5048,9 +5068,9 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it14 = type.GetProperties().GetEnumerator();
-            while ($it14.MoveNext()){
-                var prop = $it14.get_Current();
+            var $it15 = type.GetProperties().GetEnumerator();
+            while ($it15.MoveNext()){
+                var prop = $it15.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
@@ -5265,9 +5285,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Ensure.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it15 = items.GetEnumerator();
-            while ($it15.MoveNext()){
-                var item = $it15.get_Current();
+            var $it16 = items.GetEnumerator();
+            while ($it16.MoveNext()){
+                var item = $it16.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -5488,9 +5508,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it16 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it16.MoveNext()){
-                var defaultAttribute = $it16.get_Current();
+            var $it17 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it17.MoveNext()){
+                var defaultAttribute = $it17.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -5500,9 +5520,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it17 = this.get_Attributes().GetEnumerator();
-            while ($it17.MoveNext()){
-                var attribute = $it17.get_Current();
+            var $it18 = this.get_Attributes().GetEnumerator();
+            while ($it18.MoveNext()){
+                var attribute = $it18.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -5669,9 +5689,9 @@ var Neptuo$Tokens$TokenParser = {
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
                 var newLines = this.GetNewLineIndexes(content);
-                var $it18 = results.GetEnumerator();
-                while ($it18.MoveNext()){
-                    var result = $it18.get_Current();
+                var $it19 = results.GetEnumerator();
+                while ($it19.MoveNext()){
+                    var result = $it19.get_Current();
                     var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
                     var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
                     result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
@@ -6295,9 +6315,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it19 = this.items.GetEnumerator();
-            while ($it19.MoveNext()){
-                var item = $it19.get_Current();
+            var $it20 = this.items.GetEnumerator();
+            while ($it20.MoveNext()){
+                var item = $it20.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -6307,9 +6327,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it20 = this.items.GetEnumerator();
-            while ($it20.MoveNext()){
-                var item = $it20.get_Current();
+            var $it21 = this.items.GetEnumerator();
+            while ($it21.MoveNext()){
+                var item = $it21.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, tokenMapper, item.get_Value(), ""));
                 else

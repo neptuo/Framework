@@ -217,7 +217,6 @@
     <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
     <Compile Include="Pipelines\Events\DefaultEventManager.cs" />
-    <Compile Include="Pipelines\Events\_EventRegistryExtensions.cs" />
     <Compile Include="Pipelines\Events\Handlers\DelegateEventHandler.cs" />
     <Compile Include="Pipelines\Events\Handlers\IEventHandler.cs" />
     <Compile Include="Pipelines\Events\IEventDispatcher.cs" />
