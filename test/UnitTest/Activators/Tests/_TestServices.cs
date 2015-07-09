@@ -85,5 +85,20 @@ namespace Neptuo.Activators.Tests
             return String.Format(template, parameters);
         }
     }
-    
+
+
+    public class Counter
+    {
+        private static int count;
+
+        public int Count
+        {
+            get { return count; }
+        }
+
+        public Counter()
+        {
+            count++;
+        }
+    }
 }

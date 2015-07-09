@@ -104,5 +104,68 @@ namespace Neptuo.Activators.Tests
             TryCatchUnResolvable<IHelloService>(root);
             Assert.IsFalse(root.TryResolve<IHelloService>(out helloService));
         }
+
+        [TestMethod]
+        public void InAnyScope()
+        {
+            IDependencyContainer root = CreateContainer();
+            root.Definitions
+                .AddScoped<Counter>();
+
+            Counter counter;
+            counter = root.Resolve<Counter>();
+            Assert.AreEqual(1, counter.Count);
+
+            counter = root.Resolve<Counter>();
+            Assert.AreEqual(1, counter.Count);
+
+            using (root.Scope("S1"))
+            {
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(2, counter.Count);
+
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(2, counter.Count);
+
+                using (root.Scope("S2"))
+                {
+                    counter = root.Resolve<Counter>();
+                    Assert.AreEqual(3, counter.Count);
+
+                    counter = root.Resolve<Counter>();
+                    Assert.AreEqual(3, counter.Count);
+                }
+
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(3, counter.Count);
+
+                using (root.Scope("S2"))
+                {
+                    counter = root.Resolve<Counter>();
+                    Assert.AreEqual(4, counter.Count);
+
+                    counter = root.Resolve<Counter>();
+                    Assert.AreEqual(4, counter.Count);
+                }
+
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(4, counter.Count);
+            }
+
+            counter = root.Resolve<Counter>();
+            Assert.AreEqual(4, counter.Count);
+
+            using (root.Scope("S1"))
+            {
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(5, counter.Count);
+
+                counter = root.Resolve<Counter>();
+                Assert.AreEqual(5, counter.Count);
+            }
+
+            counter = root.Resolve<Counter>();
+            Assert.AreEqual(5, counter.Count);
+        }
     }
 }
