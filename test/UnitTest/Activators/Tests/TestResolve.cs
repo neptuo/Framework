@@ -108,6 +108,8 @@ namespace Neptuo.Activators.Tests
         [TestMethod]
         public void InAnyScope()
         {
+            Counter.count = 0;
+
             IDependencyContainer root = CreateContainer();
             root.Definitions
                 .AddScoped<Counter>();
@@ -119,48 +121,48 @@ namespace Neptuo.Activators.Tests
             counter = root.Resolve<Counter>();
             Assert.AreEqual(1, counter.Count);
 
-            using (root.Scope("S1"))
+            using (IDependencyContainer s1 = root.Scope("S1"))
             {
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(2, counter.Count);
 
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(2, counter.Count);
 
-                using (root.Scope("S2"))
+                using (IDependencyContainer s2 = root.Scope("S2"))
                 {
-                    counter = root.Resolve<Counter>();
+                    counter = s2.Resolve<Counter>();
                     Assert.AreEqual(3, counter.Count);
 
-                    counter = root.Resolve<Counter>();
+                    counter = s2.Resolve<Counter>();
                     Assert.AreEqual(3, counter.Count);
                 }
 
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(3, counter.Count);
 
-                using (root.Scope("S2"))
+                using (IDependencyContainer s2 = root.Scope("S2"))
                 {
-                    counter = root.Resolve<Counter>();
+                    counter = s2.Resolve<Counter>();
                     Assert.AreEqual(4, counter.Count);
 
-                    counter = root.Resolve<Counter>();
+                    counter = s2.Resolve<Counter>();
                     Assert.AreEqual(4, counter.Count);
                 }
 
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(4, counter.Count);
             }
 
             counter = root.Resolve<Counter>();
             Assert.AreEqual(4, counter.Count);
 
-            using (root.Scope("S1"))
+            using (IDependencyContainer s1 = root.Scope("S1"))
             {
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(5, counter.Count);
 
-                counter = root.Resolve<Counter>();
+                counter = s1.Resolve<Counter>();
                 Assert.AreEqual(5, counter.Count);
             }
 

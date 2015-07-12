@@ -47,16 +47,20 @@ namespace Neptuo.Activators.Internals
             if (targetType != null)
             {
                 if (targetType.IsInterface)
-                    throw new DependencyResolutionFailedException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
+                    throw new DependencyRegistrationFailedException(String.Format("Target can't be interface. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
                 if (targetType.IsAbstract)
-                    throw new DependencyResolutionFailedException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
+                    throw new DependencyRegistrationFailedException(String.Format("Target can't be abstract class. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
+
+                ConstructorInfo constructorInfo = FindBestConstructor(targetType);
+                if(constructorInfo == null)
+                    throw new DependencyRegistrationFailedException(String.Format("Target must has public contructor. Mapping '{0}' to '{1}'.", requiredType.FullName, targetType.FullName));
 
                 DependencyDefinition definition = new DependencyDefinition(
                     requiredType,
                     lifetime,
                     targetType,
-                    FindBestConstructor(targetType)
+                    constructorInfo
                 );
                 AddDefinition(definition);
 
@@ -117,7 +121,7 @@ namespace Neptuo.Activators.Internals
         {
             List<DependencyDefinition> list;
             if (!definitionByScopeName.TryGetValue(scopeName, out list))
-                definitionByScopeName[definition.Lifetime.Name] = list = new List<DependencyDefinition>();
+                definitionByScopeName[scopeName] = list = new List<DependencyDefinition>();
 
             list.Add(definition);
         }
@@ -187,22 +191,42 @@ namespace Neptuo.Activators.Internals
         /// <returns><c>true</c> if such definitions exits (at least one); <c>false</c> otherwise.</returns>
         internal bool TryGetChild(string scopeName, out IEnumerable<DependencyDefinition> definitions)
         {
-            //TODO: This should be joined with parent values and with empty scope values!
+            bool isSucess = false;
+            definitions = Enumerable.Empty<DependencyDefinition>();
 
-            List<DependencyDefinition> result;
-            if (definitionByScopeName.TryGetValue(scopeName, out result))
+            // 1) Find registrations from parent.
+            if (parentCollection != null)
             {
-                definitions = result;
-
                 IEnumerable<DependencyDefinition> parentResult;
-                if (parentCollection != null && parentCollection.TryGetChild(scopeName, out parentResult))
-                    definitions = Enumerable.Concat(result, parentResult);
+                if (parentCollection.TryGetChild(String.Empty, out parentResult))
+                {
+                    definitions = Enumerable.Concat(definitions, parentResult);
+                    isSucess = true;
+                }
 
-                return true;
+                if (parentCollection.TryGetChild(scopeName, out parentResult))
+                {
+                    definitions = Enumerable.Concat(definitions, parentResult);
+                    isSucess = true;
+                }
             }
 
-            if (parentCollection != null)
-                return parentCollection.TryGetChild(scopeName, out definitions);
+            // 2) Find registrations from current.
+            List<DependencyDefinition> result;
+            if (definitionByScopeName.TryGetValue(String.Empty, out result))
+            {
+                definitions = Enumerable.Concat(definitions, result);
+                isSucess = true;
+            }
+
+            if (definitionByScopeName.TryGetValue(scopeName, out result))
+            {
+                definitions = Enumerable.Concat(definitions, result);
+                isSucess = true;
+            }
+
+            if (isSucess)
+                return true;
 
             definitions = null;
             return false;

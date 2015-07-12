@@ -72,6 +72,13 @@ namespace Neptuo.Activators.Tests
         }
     }
 
+    public abstract class OutputWriterBase : IOutputWriter
+    {
+        public void Write(string text)
+        {
+            throw new NotImplementedException();
+        }
+    }
 
     public interface IMessageFormatter
     {
@@ -89,7 +96,7 @@ namespace Neptuo.Activators.Tests
 
     public class Counter
     {
-        private static int count;
+        public static int count;
 
         public int Count
         {

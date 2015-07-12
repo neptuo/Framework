@@ -38,7 +38,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Activators\DependencyException.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />
+    <Compile Include="Activators\DependencyRegistrationFailedException.cs" />
     <Compile Include="Activators\DependencyResolutionFailedException.cs" />
     <Compile Include="Activators\DependencyServiceProvider.cs" />
     <Compile Include="Activators\GetterActivator.cs" />

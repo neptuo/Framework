@@ -8,22 +8,21 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Exception that should by thrown by all implementations of <see cref="IDependencyProvider"/> when instance can't provided.
+    /// Generic base exception for <see cref="IDependencyContainer"/> and <see cref="IDependencyProvider"/>.
     /// </summary>
-    [Serializable]
-    public class DependencyResolutionFailedException : DependencyException
+    public abstract class DependencyException : Exception
     {
         /// <summary>
         /// Creates empty instance.
         /// </summary>
-        public DependencyResolutionFailedException() 
+        public DependencyException() 
         { }
 
         /// <summary>
         /// Creates instance with text message.
         /// </summary>
         /// <param name="message">Text description of the occurred error.</param>
-        public DependencyResolutionFailedException(string message) 
+        public DependencyException(string message) 
             : base(message) 
         { }
 
@@ -32,7 +31,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="message">Text description of the occurred error.</param>
         /// <param name="inner">Source exception that caused problem.</param>
-        public DependencyResolutionFailedException(string message, Exception inner) 
+        public DependencyException(string message, Exception inner) 
             : base(message, inner) 
         { }
 
@@ -41,7 +40,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="info">Info object.</param>
         /// <param name="context">Context object.</param>
-        protected DependencyResolutionFailedException(SerializationInfo info, StreamingContext context)
+        protected DependencyException(SerializationInfo info, StreamingContext context)
             : base(info, context) 
         { }
     }

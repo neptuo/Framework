@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Exception that should by thrown by all implementations of <see cref="IDependencyProvider"/> when instance can't provided.
+    /// Exception that should by thrown by all implementations of <see cref="IDependencyDefinitionCollection"/> when registration is not possible.
     /// </summary>
     [Serializable]
-    public class DependencyResolutionFailedException : DependencyException
+    public class DependencyRegistrationFailedException : DependencyException
     {
         /// <summary>
         /// Creates empty instance.
         /// </summary>
-        public DependencyResolutionFailedException() 
+        public DependencyRegistrationFailedException() 
         { }
 
         /// <summary>
         /// Creates instance with text message.
         /// </summary>
         /// <param name="message">Text description of the occurred error.</param>
-        public DependencyResolutionFailedException(string message) 
+        public DependencyRegistrationFailedException(string message) 
             : base(message) 
         { }
 
@@ -32,7 +32,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="message">Text description of the occurred error.</param>
         /// <param name="inner">Source exception that caused problem.</param>
-        public DependencyResolutionFailedException(string message, Exception inner) 
+        public DependencyRegistrationFailedException(string message, Exception inner) 
             : base(message, inner) 
         { }
 
@@ -41,7 +41,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="info">Info object.</param>
         /// <param name="context">Context object.</param>
-        protected DependencyResolutionFailedException(SerializationInfo info, StreamingContext context)
+        protected DependencyRegistrationFailedException(SerializationInfo info, StreamingContext context)
             : base(info, context) 
         { }
     }
