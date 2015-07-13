@@ -116,6 +116,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.Services.AppServices\Neptuo.Services.AppServices.csproj">
+      <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
+      <Name>Neptuo.Services.AppServices</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
       <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
       <Name>Neptuo.Services.Validators</Name>
