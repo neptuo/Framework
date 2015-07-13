@@ -209,7 +209,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="FeatureModels\" />
     <Folder Include="Pipelines\Deleters\" />
     <Folder Include="Pipelines\Validators\" />
   </ItemGroup>
