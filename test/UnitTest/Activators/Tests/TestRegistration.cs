@@ -86,14 +86,5 @@ namespace Neptuo.Activators.Tests
             Assert.IsTrue(root.Definitions.TryGet(typeof(int), out definition));
             Assert.IsFalse(definition.IsResolvable);
         }
-
-        [TestMethod]
-        [ExpectedException(typeof(DependencyRegistrationFailedException))]
-        public void MappingToAbstractClass()
-        {
-            IDependencyContainer root = CreateContainer();
-            root.Definitions
-                .AddTransient<IOutputWriter, OutputWriterBase>();
-        }
     }
 }

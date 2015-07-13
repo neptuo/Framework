@@ -18,6 +18,17 @@ namespace Neptuo.Activators
             {
                 return new SimpleDependencyContainer();
             }
+
+            [TestMethod]
+            [ExpectedException(typeof(DependencyRegistrationFailedException))]
+            public void MappingToAbstractClass()
+            {
+                IDependencyContainer root = CreateContainer();
+                root.Definitions
+                    .AddTransient<IOutputWriter, OutputWriterBase>();
+
+                IOutputWriter writer = root.Resolve<IOutputWriter>();
+            }
         }
 
         [TestClass]
