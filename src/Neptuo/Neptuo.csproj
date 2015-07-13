@@ -41,8 +41,17 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Activators\DependencyException.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />
-    <Compile Include="Activators\_DependencyContainerExtensions.cs" />
+    <Compile Include="Activators\DependencyRegistrationFailedException.cs" />
+    <Compile Include="Activators\DependencyResolutionFailedException.cs" />
+    <Compile Include="Activators\DependencyServiceProvider.cs" />
+    <Compile Include="Activators\GetterActivator.cs" />
+    <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
+    <Compile Include="Activators\IDependencyDefinition.cs" />
+    <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
+    <Compile Include="Activators\_DependencyRegistrationExtensions.cs" />
+    <Compile Include="Activators\_EnsureExceptionExtensions.cs" />
     <Compile Include="AppServices\Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="AppServices\Handlers\IServiceHandler.cs" />
     <Compile Include="AppServices\Handlers\TimerServiceHandler.cs" />

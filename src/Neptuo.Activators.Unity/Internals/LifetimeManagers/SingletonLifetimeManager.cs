@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Activators.Internals
+namespace Neptuo.Activators.Internals.LifetimeManagers
 {
     public class SingletonLifetimeManager : ContainerControlledLifetimeManager
     {

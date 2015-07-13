@@ -7,26 +7,25 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Implementation of <see cref="IActivator<T>"/> using <see cref="IDependencyProvider"/>.
+    /// Implementation of <see cref="IServiceProvider"/> using <see cref="IDependencyProvider"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class DependencyActivator<T> : IActivator<T>
+    public class DependencyServiceProvider : IServiceProvider
     {
         private readonly IDependencyProvider dependencyProvider;
 
         /// <summary>
-        /// Creates new instance that resolves instance using <paramref name="dependencyProvider"/>.
+        /// Creates new instance that resolves instances using <paramref name="dependencyProvider"/>.
         /// </summary>
         /// <param name="dependencyProvider">Instance resolution provider.</param>
-        public DependencyActivator(IDependencyProvider dependencyProvider)
+        public DependencyServiceProvider(IDependencyProvider dependencyProvider)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 
-        public T Create()
+        public object GetService(Type serviceType)
         {
-            return dependencyProvider.Resolve<T>();
+            return dependencyProvider.Resolve(serviceType);
         }
     }
 }
