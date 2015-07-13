@@ -169,5 +169,34 @@ namespace Neptuo.Activators.Tests
             counter = root.Resolve<Counter>();
             Assert.AreEqual(5, counter.Count);
         }
+
+        [TestMethod]
+        public void ContainerDisposable()
+        {
+            //TODO: Unity doesn't dispose transient instance be default (because no instance is held).
+            //Disposable.count = 0;
+            //IDependencyContainer root = CreateContainer();
+
+            //root.Definitions
+            //    .AddTransient<Disposable>();
+
+            //using (IDependencyContainer s1 = root.Scope("S1"))
+            //{
+            //    s1.Resolve<Disposable>();
+            //    Assert.AreEqual(0, Disposable.count);
+            //}
+
+            //Assert.AreEqual(1, Disposable.count);
+
+            //using (IDependencyContainer s1 = root.Scope("S1"))
+            //{
+            //    s1.Resolve<Disposable>();
+            //    Assert.AreEqual(1, Disposable.count);
+            //    s1.Resolve<Disposable>();
+            //    Assert.AreEqual(1, Disposable.count);
+            //}
+
+            //Assert.AreEqual(3, Disposable.count);
+        }
     }
 }

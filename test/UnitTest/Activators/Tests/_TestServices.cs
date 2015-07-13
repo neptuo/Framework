@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,6 +106,17 @@ namespace Neptuo.Activators.Tests
 
         public Counter()
         {
+            count++;
+        }
+    }
+
+    public class Disposable : DisposableBase
+    {
+        public static int count;
+
+        protected override void DisposeManagedResources()
+        {
+            base.DisposeManagedResources();
             count++;
         }
     }

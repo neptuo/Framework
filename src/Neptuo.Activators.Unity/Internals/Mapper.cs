@@ -79,7 +79,7 @@ namespace Neptuo.Activators.Internals
             // If lifetime is current scope, register to the unity container.
             if (!definition.Lifetime.IsNamed || definition.Lifetime.Name == scopeName)
             {
-                LifetimeManager lifetimeManager = CreateLifetimeManager(definition.Lifetime);
+                LifetimeManager lifetimeManager = CreateLifetimeManager(definition.Lifetime, definition.Target is Type);
                 Register(definition.RequiredType, lifetimeManager, definition.Target);
             }
 
@@ -90,13 +90,18 @@ namespace Neptuo.Activators.Internals
             return this;
         }
 
-        private LifetimeManager CreateLifetimeManager(DependencyLifetime lifetime)
+        private LifetimeManager CreateLifetimeManager(DependencyLifetime lifetime, bool isMappedToType)
         {
             if (lifetime.IsTransient)
                 return new TransientLifetimeManager();
 
-            if (lifetime.IsNamed)
-                return new SingletonLifetimeManager();
+            if (lifetime.IsNamed) 
+            {
+                if (isMappedToType)
+                    return new ContainerControlledLifetimeManager();
+                
+                return new ExternallyControlledLifetimeManager();
+            }
 
             if (lifetime.IsScoped)
                 return new HierarchicalLifetimeManager();
