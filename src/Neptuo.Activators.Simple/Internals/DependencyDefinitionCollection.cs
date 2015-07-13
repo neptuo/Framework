@@ -62,6 +62,7 @@ namespace Neptuo.Activators.Internals
                     targetType,
                     constructorInfo
                 );
+                FindDependencyProperties(definition);
                 AddDefinition(definition);
 
                 return this;
@@ -181,6 +182,23 @@ namespace Neptuo.Activators.Internals
                     result = ctor;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Tries to find dependency properties on implementation type.
+        /// </summary>
+        /// <param name="definition">Dependency definition.</param>
+        private void FindDependencyProperties(DependencyDefinition definition)
+        {
+            Type targetType = definition.Target as Type;
+            if(targetType == null)
+                return;
+
+            foreach (PropertyInfo property in targetType.GetProperties())
+            {
+                if (property.GetCustomAttributes(typeof(DependencyAttribute)).Any())
+                    definition.DependencyProperties.Add(property);
+            }
         }
 
         /// <summary>

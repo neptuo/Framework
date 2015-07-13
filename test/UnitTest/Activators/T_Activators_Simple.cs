@@ -38,6 +38,24 @@ namespace Neptuo.Activators
             {
                 return new SimpleDependencyContainer();
             }
+
+            [TestMethod]
+            public void DependencyProperties()
+            {
+                IDependencyContainer root = CreateContainer();
+                root.Definitions
+                    .AddTransient<IMessageFormatter, StringMessageFormatter>()
+                    .AddTransient<IHelloService, HiService>()
+                    .AddTransient<IOutputWriter, ConsoleOutputWriter>()
+                    .AddTransient<View>();
+
+                View view = root.Resolve<View>();
+                Assert.IsNotNull(view.Writer);
+                Assert.IsInstanceOfType(view.Writer, typeof(ConsoleOutputWriter));
+                Assert.IsNotNull(view.HelloService);
+                Assert.IsInstanceOfType(view.HelloService, typeof(HiService));
+                Assert.IsNull(view.MessageFormatter);
+            }
         }
     }
 }

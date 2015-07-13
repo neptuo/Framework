@@ -60,7 +60,11 @@ namespace Neptuo.Activators.Internals
         {
             // When mapped to the implementation type or itself (type).
             if (definition.HasConstructorInfo)
-                return CreateInstance(definition.ConstructorInfo);
+            {
+                object instance = CreateInstance(definition.ConstructorInfo);
+                FillDependencyProperties(definition, instance);
+                return instance;
+            }
 
             // When mapped to the instance of activator.
             IActivator<object> activator = instances.TryGetActivator(definition.Key);
@@ -84,6 +88,12 @@ namespace Neptuo.Activators.Internals
 
             instance = constructorInfo.Invoke(parameters);
             return instance;
+        }
+
+        private void FillDependencyProperties(DependencyDefinition definition, object instance)
+        {
+            foreach (PropertyInfo propertyInfo in definition.DependencyProperties)
+                propertyInfo.SetValue(instance, Resolve(propertyInfo.PropertyType));
         }
     }
 }

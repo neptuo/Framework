@@ -16,6 +16,8 @@ namespace Neptuo.Activators.Internals
         public object Target { get; private set; }
         public bool IsResolvable { get; private set; }
 
+        public List<PropertyInfo> DependencyProperties { get; private set; }
+
         public bool HasConstructorInfo
         {
             get { return ConstructorInfo != null; }
@@ -33,6 +35,7 @@ namespace Neptuo.Activators.Internals
             RequiredType = requiredType;
             Lifetime = lifetime;
             Target = target;
+            DependencyProperties = new List<PropertyInfo>();
         }
 
         public DependencyDefinition(Type requiredType, DependencyLifetime lifetime, object target, ConstructorInfo constructorInfo)
@@ -49,6 +52,9 @@ namespace Neptuo.Activators.Internals
                 result = new DependencyDefinition(RequiredType, Lifetime, Target, ConstructorInfo);
             else
                 result = new DependencyDefinition(RequiredType, Lifetime, Target);
+
+            if (DependencyProperties.Count > 0)
+                result.DependencyProperties.AddRange(DependencyProperties);
 
             result.IsResolvable = isResolvable;
             return result;

@@ -120,4 +120,15 @@ namespace Neptuo.Activators.Tests
             count++;
         }
     }
+
+    public class View
+    {
+        [Dependency]
+        public IOutputWriter Writer { get; set; }
+
+        [Dependency]
+        public IHelloService HelloService { get; set; }
+
+        public IMessageFormatter MessageFormatter { get; set; }
+    }
 }

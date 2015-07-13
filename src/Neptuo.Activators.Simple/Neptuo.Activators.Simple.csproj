@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyAttribute.cs" />
     <Compile Include="Internals\DependencyDefinitionCollection.cs" />
     <Compile Include="Internals\DependencyDefinition.cs" />
     <Compile Include="Internals\InstanceResolver.cs" />
