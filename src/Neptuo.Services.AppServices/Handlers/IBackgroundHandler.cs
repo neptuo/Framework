@@ -12,7 +12,7 @@ namespace Neptuo.AppServices.Handlers
     public interface IBackgroundHandler
     {
         /// <summary>
-        /// Should to it's stuff.
+        /// Should do it's stuff.
         /// </summary>
         void Invoke();
     }
