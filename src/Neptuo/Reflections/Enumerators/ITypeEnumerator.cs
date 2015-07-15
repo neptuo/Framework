@@ -25,6 +25,22 @@ namespace Neptuo.Reflections.Enumerators
         /// <param name="handler">Delegate to be executed for every type, that matches all filters.</param>
         /// <returns>Self (for fluency).</returns>
         ITypeEnumerator<TContext> AddHandler(Action<Type, TContext> handler);
+
+        /// <summary>
+        /// Returns <c>true</c> when <paramref name="type"/> passes all registered filters; <c>false</c> otherwise.
+        /// When no filter is defined, all implementations should return <c>true</c>.
+        /// </summary>
+        /// <param name="type">Type to test.</param>
+        /// <param name="context">Processing context.</param>
+        /// <returns>Returns <c>true</c> when <paramref name="type"/> passes all registered filters; <c>false</c> otherwise.</returns>
+        bool IsMatched(Type type, TContext context);
+
+        /// <summary>
+        /// If <paramref name="type"/> passes all registered filters, then all registered handlers are executed.
+        /// </summary>
+        /// <param name="type">Type to process.</param>
+        /// <param name="context">Processing context.</param>
+        void Handle(Type type, TContext context);
     }
 
     public interface ITypeEnumerator
@@ -42,5 +58,19 @@ namespace Neptuo.Reflections.Enumerators
         /// <param name="handler">Delegate to be executed for every type, that matches all filters.</param>
         /// <returns>Self (for fluency).</returns>
         ITypeEnumerator AddHandler(Action<Type> handler);
+
+        /// <summary>
+        /// Returns <c>true</c> when <paramref name="type"/> passes all registered filters; <c>false</c> otherwise.
+        /// When no filter is defined, all implementations should return <c>true</c>.
+        /// </summary>
+        /// <param name="type">Type to test.</param>
+        /// <returns>Returns <c>true</c> when <paramref name="type"/> passes all registered filters; <c>false</c> otherwise.</returns>
+        bool IsMatched(Type type);
+
+        /// <summary>
+        /// If <paramref name="type"/> passes all registered filters, then all registered handlers are executed.
+        /// </summary>
+        /// <param name="type">Type to process.</param>
+        void Handle(Type type);
     }
 }
