@@ -1,4 +1,4 @@
-﻿using Neptuo.PresentationModels;
+﻿using Neptuo.PresentationModels.UI;
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.PresentationModels.UI")]
