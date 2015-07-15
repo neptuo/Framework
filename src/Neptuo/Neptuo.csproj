@@ -177,10 +177,10 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Reflections\DefaultReflectionService.cs" />
     <Compile Include="Reflections\IReflectionService.cs" />
-    <Compile Include="Reflections\ITypeEnumerator.cs" />
+    <Compile Include="Reflections\Enumerators\ITypeEnumerator.cs" />
     <Compile Include="Reflections\ReflectionFactory.cs" />
     <Compile Include="Reflections\ReflectionHelper.cs" />
-    <Compile Include="Reflections\_TypeEnumeratorExtensions.cs" />
+    <Compile Include="Reflections\Enumerators\_TypeEnumeratorExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />

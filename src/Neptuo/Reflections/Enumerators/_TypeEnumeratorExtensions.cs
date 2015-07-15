@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections
+namespace Neptuo.Reflections.Enumerators
 {
     /// <summary>
     /// Common extensions for <see cref="ITypeEnumerator"/> and <see cref="ITypeEnumerator{TContext}"/>.
