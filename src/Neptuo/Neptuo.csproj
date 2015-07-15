@@ -171,8 +171,11 @@
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
     <Compile Include="Linq\Expressions\TranslationMap.cs" />
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
+    <Compile Include="Logging\ConsoleLogWriter.cs" />
+    <Compile Include="Logging\DefaultLog.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogFactory.cs" />
+    <Compile Include="Logging\ILogWriter.cs" />
     <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />

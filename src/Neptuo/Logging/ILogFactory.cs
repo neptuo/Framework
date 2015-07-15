@@ -23,6 +23,6 @@ namespace Neptuo.Logging
         /// </summary>
         /// <param name="writer">New log writer to be added.</param>
         /// <returns>Self (for fluency).</returns>
-        ILogFactory AddWriter(ILog writer);
+        ILogFactory AddWriter(ILogWriter writer);
     }
 }
