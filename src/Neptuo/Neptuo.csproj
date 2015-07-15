@@ -173,6 +173,7 @@
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogFactory.cs" />
+    <Compile Include="Logging\LogLevel.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

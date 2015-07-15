@@ -17,5 +17,12 @@ namespace Neptuo.Logging
         /// <param name="scopeName"></param>
         /// <returns></returns>
         ILog Scope(string scopeName);
+
+        /// <summary>
+        /// Adds <paramref name="writer"/> to be output of current log.
+        /// </summary>
+        /// <param name="writer">New log writer to be added.</param>
+        /// <returns>Self (for fluency).</returns>
+        ILogFactory AddWriter(ILog writer);
     }
 }
