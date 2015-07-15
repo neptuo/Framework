@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflection
+namespace Neptuo.Reflections
 {
     /// <summary>
     /// Default implementation of <see cref="IReflectionService"/>.

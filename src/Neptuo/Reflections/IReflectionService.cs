@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflection
+namespace Neptuo.Reflections
 {
     /// <summary>
     /// Some usefull shortcuts in reflection.

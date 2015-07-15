@@ -144,6 +144,42 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var Neptuo$Activators$DependencyException = {
+    fullname: "Neptuo.Activators.DependencyException",
+    baseTypeName: "System.Exception",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Exception.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            System.Exception.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            System.Exception.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            System.Exception.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$DependencyException);
 var Neptuo$Activators$DependencyLifetime = {
     fullname: "Neptuo.Activators.DependencyLifetime",
     baseTypeName: "System.ValueType",
@@ -190,6 +226,78 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
+var Neptuo$Activators$DependencyRegistrationFailedException = {
+    fullname: "Neptuo.Activators.DependencyRegistrationFailedException",
+    baseTypeName: "Neptuo.Activators.DependencyException",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Activators.DependencyException.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            Neptuo.Activators.DependencyException.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            Neptuo.Activators.DependencyException.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            Neptuo.Activators.DependencyException.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyRegistrationFailedException);
+var Neptuo$Activators$DependencyResolutionFailedException = {
+    fullname: "Neptuo.Activators.DependencyResolutionFailedException",
+    baseTypeName: "Neptuo.Activators.DependencyException",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Activators.DependencyException.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            Neptuo.Activators.DependencyException.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            Neptuo.Activators.DependencyException.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            Neptuo.Activators.DependencyException.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyResolutionFailedException);
 var Neptuo$Activators$DependencyServiceProvider = {
     fullname: "Neptuo.Activators.DependencyServiceProvider",
     baseTypeName: "System.Object",
@@ -215,6 +323,59 @@ var Neptuo$Activators$DependencyServiceProvider = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyServiceProvider);
+var Neptuo$Activators$GetterActivator$1 = {
+    fullname: "Neptuo.Activators.GetterActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, getter){
+            this.T = T;
+            this.getter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            this.getter = getter;
+        },
+        Create: function (){
+            return this.getter();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Func"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$GetterActivator$1);
+var Neptuo$Activators$GetterActivator$2 = {
+    fullname: "Neptuo.Activators.GetterActivator$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IActivator$2"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, TContext, getter){
+            this.T = T;
+            this.TContext = TContext;
+            this.getter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            this.getter = getter;
+        },
+        Create: function (context){
+            return this.getter(context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Func"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$GetterActivator$2);
 var Neptuo$Activators$IDependencyDefinitionCollection = {
     fullname: "Neptuo.Activators.IDependencyDefinitionCollection",
     baseTypeName: "System.Object",
@@ -243,108 +404,6 @@ var Neptuo$Activators$IDependencyDefinitionReadOnlyCollection = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$IDependencyDefinitionReadOnlyCollection);
-var Neptuo$Activators$_DependencyContainerExtensions = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        Map$$IDependencyContainer$$Type: function (dependencyContainer, requiredType){
-            return new Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration.ctor(dependencyContainer, requiredType);
-        },
-        Map$1$$IDependencyContainer: function (TRequired, dependencyContainer){
-            return Neptuo.Activators._DependencyContainerExtensions.Map$$IDependencyContainer$$Type(dependencyContainer, Typeof(TRequired));
-        },
-        InTransient: function (model){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.Transient);
-        },
-        InAnyScope: function (model){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.Scope);
-        },
-        InNamedScope: function (model, scopeName){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.NameScope(scopeName));
-        },
-        ToType$$IDependencyTargetMapping$$Type: function (model, targetType){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.To(targetType);
-        },
-        ToType$1$$IDependencyTargetMapping: function (TTarget, model){
-            return Neptuo.Activators._DependencyContainerExtensions.ToType$$IDependencyTargetMapping$$Type(model, Typeof(TTarget));
-        },
-        ToActivator$1: function (TTarget, model, activator){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.To(activator);
-        }
-    },
-    assemblyName: "Neptuo",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions);
-var Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping);
-var Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping);
-var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping", "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping"],
-    Kind: "Class",
-    definition: {
-        ctor: function (dependencyContainer, requiredType){
-            this.dependencyContainer = null;
-            this.requiredType = null;
-            this.lifetime = new Neptuo.Activators.DependencyLifetime.ctor();
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
-            this.dependencyContainer = dependencyContainer;
-            this.requiredType = requiredType;
-        },
-        In: function (lifetime){
-            this.lifetime = lifetime;
-            return this;
-        },
-        InCurrentScope: function (){
-            return this.In(Neptuo.Activators.DependencyLifetime.NameScope(this.dependencyContainer.get_ScopeName()));
-        },
-        To: function (target){
-            this.dependencyContainer.get_Definitions().Add(this.requiredType, this.lifetime, target);
-            return this.dependencyContainer;
-        },
-        ToSelf: function (){
-            return this.To(this.requiredType);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.Activators.IDependencyContainer", "System.Type"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration);
 var Neptuo$Activators$_DependencyRegistrationExtensions = {
     fullname: "Neptuo.Activators._DependencyRegistrationExtensions",
     baseTypeName: "System.Object",
@@ -426,6 +485,32 @@ var Neptuo$Activators$_DependencyRegistrationExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Activators$_DependencyRegistrationExtensions);
+var Neptuo$Activators$_EnsureExceptionExtensions = {
+    fullname: "Neptuo.Activators._EnsureExceptionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        NotResolvable$$EnsureExceptionHelper$$Type: function (exception, requiredType){
+            Neptuo.Ensure.NotNull$$Object$$String(exception, "exception");
+            Neptuo.Ensure.NotNull$$Object$$String(requiredType, "requiredType");
+            return new Neptuo.Activators.DependencyResolutionFailedException.ctor$$String(System.String.Format$$String$$Object("Problem resolving type \'{0}\'.", requiredType.get_FullName()));
+        },
+        NotResolvable$$EnsureExceptionHelper$$Type$$Exception: function (exception, requiredType, inner){
+            Neptuo.Ensure.NotNull$$Object$$String(exception, "exception");
+            Neptuo.Ensure.NotNull$$Object$$String(requiredType, "requiredType");
+            return new Neptuo.Activators.DependencyResolutionFailedException.ctor$$String$$Exception(System.String.Format$$String$$Object("Problem resolving type \'{0}\'.", requiredType.get_FullName()), inner);
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$_EnsureExceptionExtensions);
 var Neptuo$Collections$Generic$_DictionaryExtensions = {
     fullname: "Neptuo.Collections.Generic._DictionaryExtensions",
     baseTypeName: "System.Object",
@@ -2100,6 +2185,38 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
         Resolve$1$$IDependencyProvider$$Type: function (T, dependencyProvider, requiredType){
             Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
             return Cast(dependencyProvider.Resolve(requiredType), T);
+        },
+        TryResolve$1: function (T, dependencyProvider, instance){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            var requiredType = Typeof(T);
+            var definition;
+            if ((function (){
+                var $1 = {
+                    Value: definition
+                };
+                var $res = dependencyProvider.get_Definitions().TryGet(requiredType, $1);
+                definition = $1.Value;
+                return $res;
+            })()){
+                if (definition.get_IsResolvable()){
+                    try{
+                        instance.Value = Cast(dependencyProvider.Resolve(requiredType), T);
+                        return true;
+                    }
+                    catch($$e1){
+                    }
+                }
+            }
+            else if (!requiredType.get_IsAbstract() && !requiredType.get_IsInterface()){
+                try{
+                    instance.Value = Cast(dependencyProvider.Resolve(requiredType), T);
+                    return true;
+                }
+                catch($$e2){
+                }
+            }
+            instance.Value = Default(T);
+            return false;
         }
     },
     assemblyName: "Neptuo",
@@ -2956,11 +3073,11 @@ var Neptuo$VersionInfo = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$VersionInfo);
-var Neptuo$Reflection$DefaultReflectionService = {
-    fullname: "Neptuo.Reflection.DefaultReflectionService",
+var Neptuo$Reflections$DefaultReflectionService = {
+    fullname: "Neptuo.Reflections.DefaultReflectionService",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Reflection.IReflectionService"],
+    interfaceNames: ["Neptuo.Reflections.IReflectionService"],
     Kind: "Class",
     definition: {
         ctor: function (appDomain){
@@ -3028,25 +3145,25 @@ var Neptuo$Reflection$DefaultReflectionService = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Reflection$DefaultReflectionService);
-var Neptuo$Reflection$IReflectionService = {
-    fullname: "Neptuo.Reflection.IReflectionService",
+JsTypes.push(Neptuo$Reflections$DefaultReflectionService);
+var Neptuo$Reflections$IReflectionService = {
+    fullname: "Neptuo.Reflections.IReflectionService",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$IReflectionService);
-var Neptuo$Reflection$ReflectionFactory = {
-    fullname: "Neptuo.Reflection.ReflectionFactory",
+JsTypes.push(Neptuo$Reflections$IReflectionService);
+var Neptuo$Reflections$ReflectionFactory = {
+    fullname: "Neptuo.Reflections.ReflectionFactory",
     baseTypeName: "System.Object",
     staticDefinition: {
         FromAppDomain: function (appDomain){
-            return new Neptuo.Reflection.DefaultReflectionService.ctor(appDomain);
+            return new Neptuo.Reflections.DefaultReflectionService.ctor(appDomain);
         },
         FromCurrentAppDomain: function (){
-            return Neptuo.Reflection.ReflectionFactory.FromAppDomain(System.AppDomain.get_CurrentDomain());
+            return Neptuo.Reflections.ReflectionFactory.FromAppDomain(System.AppDomain.get_CurrentDomain());
         }
     },
     assemblyName: "Neptuo",
@@ -3059,9 +3176,9 @@ var Neptuo$Reflection$ReflectionFactory = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$ReflectionFactory);
-var Neptuo$Reflection$ReflectionHelper = {
-    fullname: "Neptuo.Reflection.ReflectionHelper",
+JsTypes.push(Neptuo$Reflections$ReflectionFactory);
+var Neptuo$Reflections$ReflectionHelper = {
+    fullname: "Neptuo.Reflections.ReflectionHelper",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetAttribute$1: function (T, member){
@@ -3091,10 +3208,10 @@ var Neptuo$Reflection$ReflectionHelper = {
             return result;
         },
         IsGenericType$2$$Type: function (TAssignable, TArgument, testedType){
-            return Neptuo.Reflection.ReflectionHelper.IsGenericType$$Type$$Type$$Type(testedType, Typeof(TAssignable), Typeof(TArgument));
+            return Neptuo.Reflections.ReflectionHelper.IsGenericType$$Type$$Type$$Type(testedType, Typeof(TAssignable), Typeof(TArgument));
         },
         IsGenericType$1$$Type: function (TAssignable, testedType){
-            return Neptuo.Reflection.ReflectionHelper.IsGenericType$$Type$$Type(testedType, Typeof(TAssignable));
+            return Neptuo.Reflections.ReflectionHelper.IsGenericType$$Type$$Type(testedType, Typeof(TAssignable));
         },
         IsGenericType$$Type$$Type$$Type: function (testedType, assignableType, argumentType){
             if (System.Type.op_Equality$$Type$$Type(argumentType, null))
@@ -3155,7 +3272,7 @@ var Neptuo$Reflection$ReflectionHelper = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$ReflectionHelper);
+JsTypes.push(Neptuo$Reflections$ReflectionHelper);
 var Neptuo$Linq$Expressions$TypeHelper = {
     fullname: "Neptuo.Linq.Expressions.TypeHelper",
     baseTypeName: "System.Object",

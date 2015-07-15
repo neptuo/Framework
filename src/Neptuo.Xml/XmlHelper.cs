@@ -5,7 +5,7 @@ using System.Text;
 using System.Xml;
 using System.Globalization;
 using System.Linq.Expressions;
-using Neptuo.Reflection;
+using Neptuo.Reflections;
 
 namespace Neptuo.Xml
 {

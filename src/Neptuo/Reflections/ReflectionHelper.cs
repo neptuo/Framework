@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Linq.Expressions;
 
-namespace Neptuo.Reflection
+namespace Neptuo.Reflections
 {
     public static class ReflectionHelper
     {
