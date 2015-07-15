@@ -11,6 +11,8 @@ namespace Neptuo.Logging
     /// </summary>
     public interface ILogFactory
     {
+        string ScopeName { get; }
+
         /// <summary>
         /// Creates child log with <paramref name="scopeName"/> in it's scope path.
         /// </summary>

@@ -177,6 +177,8 @@
     <Compile Include="Logging\ILogFactory.cs" />
     <Compile Include="Logging\ILogWriter.cs" />
     <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\_LogExtensions.cs" />
+    <Compile Include="Logging\_LogFactoryExtensions.cs" />
     <Compile Include="OutFunc.cs" />
     <Compile Include="Collections\ObjectModel\ObservableCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
