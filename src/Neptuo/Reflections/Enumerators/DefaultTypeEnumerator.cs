@@ -36,7 +36,7 @@ namespace Neptuo.Reflections.Enumerators
             return filters.All(f => f(type, context));
         }
 
-        public void Handle(Type type, TContext context)
+        public virtual void Handle(Type type, TContext context)
         {
             if(IsMatched(type, context))
             {
