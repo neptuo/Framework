@@ -7,20 +7,20 @@ using System.Threading.Tasks;
 namespace Neptuo.Reflections.Enumerators
 {
     /// <summary>
-    /// Implementation of <see cref="ITypeEnumerator{TContext}"/> with support for independent branches.
+    /// Implementation of <see cref="ITypeDeletegateCollection{TContext}"/> with support for independent branches.
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    public class TreeTypeEnumerator<TContext> : DefaultTypeEnumerator<TContext>
+    public class TreeTypeExecutor<TContext> : DefaultTypeExecutor<TContext>
     {
-        private readonly List<TreeTypeEnumerator<TContext>> branches = new List<TreeTypeEnumerator<TContext>>();
+        private readonly List<TreeTypeExecutor<TContext>> branches = new List<TreeTypeExecutor<TContext>>();
 
         /// <summary>
         /// Creates new branch.
         /// </summary>
         /// <returns>New branch.</returns>
-        public TreeTypeEnumerator<TContext> AddNewBranch()
+        public TreeTypeExecutor<TContext> AddNewBranch()
         {
-            TreeTypeEnumerator<TContext> branch = new TreeTypeEnumerator<TContext>();
+            TreeTypeExecutor<TContext> branch = new TreeTypeExecutor<TContext>();
             branches.Add(branch);
             return branch;
         }
@@ -31,7 +31,7 @@ namespace Neptuo.Reflections.Enumerators
 
             if (IsMatched(type, context))
             {
-                foreach (TreeTypeEnumerator<TContext> branch in branches)
+                foreach (TreeTypeExecutor<TContext> branch in branches)
                     branch.Handle(type, context);
             }
         }

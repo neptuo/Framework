@@ -7,41 +7,39 @@ using System.Threading.Tasks;
 namespace Neptuo.Reflections.Enumerators
 {
     /// <summary>
-    /// Default implementation of <see cref="ITypeEnumerator{TContext}"/>.
+    /// Default (enumeration) implementation of <see cref="ITypeEnumerator"/>.
     /// </summary>
-    /// <typeparam name="TContext">Type of context information.</typeparam>
-    public class DefaultTypeEnumerator<TContext> : ITypeEnumerator<TContext>
+    public class DefaultTypeEnumerator : ITypeEnumerator
     {
-        private readonly List<Func<Type, TContext, bool>> filters = new List<Func<Type, TContext, bool>>();
-        private readonly List<Action<Type, TContext>> handlers = new List<Action<Type, TContext>>();
+        private readonly IEnumerable<Type> types;
+        private IEnumerator<Type> enumerator;
 
-        public ITypeEnumerator<TContext> AddFilter(Func<Type, TContext, bool> filter)
+        public Type Current { get; private set; }
+
+        /// <summary>
+        /// Creates new instance that enumerates type from <paramref name="types"/>.
+        /// </summary>
+        /// <param name="types">Enumeration of types.</param>
+        public DefaultTypeEnumerator(IEnumerable<Type> types)
         {
-            Ensure.NotNull(filter, "filter");
-            filters.Add(filter);
-            return this;
+            Ensure.NotNull(types, "types");
+            this.types = types;
         }
 
-        public ITypeEnumerator<TContext> AddHandler(Action<Type, TContext> handler)
+        public bool Next()
         {
-            Ensure.NotNull(handler, "handler");
-            handlers.Add(handler);
-            return this;
-        }
+            if (enumerator == null)
+                enumerator = types.GetEnumerator();
 
-        public bool IsMatched(Type type, TContext context)
-        {
-            Ensure.NotNull(type, "type");
-            Ensure.NotNull(context, "context");
-            return filters.All(f => f(type, context));
-        }
-
-        public virtual void Handle(Type type, TContext context)
-        {
-            if(IsMatched(type, context))
+            if(enumerator.MoveNext())
             {
-                foreach (Action<Type, TContext> handler in handlers)
-                    handler(type, context);
+                Current = enumerator.Current;
+                return true;
+            }
+            else
+            {
+                Current = null;
+                return false;
             }
         }
     }

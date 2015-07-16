@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Reflections.Enumerators
 {
     /// <summary>
-    /// Common extensions for <see cref="ITypeEnumerator"/> and <see cref="ITypeEnumerator{TContext}"/>.
+    /// Common extensions for <see cref="ITypeDeletegateCollection"/> and <see cref="ITypeDeletegateCollection{TContext}"/>.
     /// </summary>
-    public static class _TypeEnumeratorExtensions
+    public static class _TypeDeletegateCollectionExtensions
     {
         #region AddFilterNotInterface
 
@@ -17,8 +17,8 @@ namespace Neptuo.Reflections.Enumerators
         /// Adds filter on <paramref name="enumerator"/> to filter out interfaces.
         /// </summary>
         /// <param name="enumerator">Type enumerator.</param>
-        /// <returns>Result from calling <see cref="ITypeEnumerator.AddFilter"/>.</returns>
-        public static ITypeEnumerator AddFilterNotInterface(this ITypeEnumerator enumerator)
+        /// <returns>Result from calling <see cref="ITypeDeletegateCollection.AddFilter"/>.</returns>
+        public static ITypeDeletegateCollection AddFilterNotInterface(this ITypeDeletegateCollection enumerator)
         {
             Ensure.NotNull(enumerator, "enumerator");
             return enumerator.AddFilter(t => !t.IsInterface);
@@ -28,8 +28,8 @@ namespace Neptuo.Reflections.Enumerators
         /// Adds filter on <paramref name="enumerator"/> to filter out interfaces.
         /// </summary>
         /// <param name="enumerator">Type enumerator.</param>
-        /// <returns>Result from calling <see cref="ITypeEnumerator.AddFilter"/>.</returns>
-        public static ITypeEnumerator<TContext> AddFilterNotInterface<TContext>(this ITypeEnumerator<TContext> enumerator)
+        /// <returns>Result from calling <see cref="ITypeDeletegateCollection.AddFilter"/>.</returns>
+        public static ITypeDeletegateCollection<TContext> AddFilterNotInterface<TContext>(this ITypeDeletegateCollection<TContext> enumerator)
         {
             Ensure.NotNull(enumerator, "enumerator");
             return enumerator.AddFilter((t, context) => !t.IsInterface);
@@ -43,8 +43,8 @@ namespace Neptuo.Reflections.Enumerators
         /// Adds filter on <paramref name="enumerator"/> to filter out abstract classes.
         /// </summary>
         /// <param name="enumerator">Type enumerator.</param>
-        /// <returns>Result from calling <see cref="ITypeEnumerator.AddFilter"/>.</returns>
-        public static ITypeEnumerator AddTypeFilterNotAbstract(this ITypeEnumerator enumerator)
+        /// <returns>Result from calling <see cref="ITypeDeletegateCollection.AddFilter"/>.</returns>
+        public static ITypeDeletegateCollection AddTypeFilterNotAbstract(this ITypeDeletegateCollection enumerator)
         {
             Ensure.NotNull(enumerator, "enumerator");
             return enumerator.AddFilter(t => !t.IsInterface);
@@ -54,8 +54,8 @@ namespace Neptuo.Reflections.Enumerators
         /// Adds filter on <paramref name="enumerator"/> to filter out abstract classes.
         /// </summary>
         /// <param name="enumerator">Type enumerator.</param>
-        /// <returns>Result from calling <see cref="ITypeEnumerator.AddFilter"/>.</returns>
-        public static ITypeEnumerator<TContext> AddTypeFilterNotAbstract<TContext>(this ITypeEnumerator<TContext> enumerator)
+        /// <returns>Result from calling <see cref="ITypeDeletegateCollection.AddFilter"/>.</returns>
+        public static ITypeDeletegateCollection<TContext> AddTypeFilterNotAbstract<TContext>(this ITypeDeletegateCollection<TContext> enumerator)
         {
             Ensure.NotNull(enumerator, "enumerator");
             return enumerator.AddFilter((t, context) => !t.IsAbstract);
