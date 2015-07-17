@@ -21,6 +21,7 @@ namespace Neptuo.Logging
         /// <summary>
         /// Logs <paramref name="model"/> to the current log with <paramref name="level"/>.
         /// </summary>
+        /// <param name="scopeName">Scope name to write into.</param>
         /// <param name="level">Log message level.</param>
         /// <param name="model">Log message.</param>
         void Log(string scopeName, LogLevel level, object model);
