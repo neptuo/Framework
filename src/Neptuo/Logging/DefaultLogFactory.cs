@@ -15,6 +15,10 @@ namespace Neptuo.Logging
             : this(String.Empty, Enumerable.Empty<ILogWriter>())
         { }
 
+        public DefaultLogFactory(string scopeName)
+            : this(scopeName, Enumerable.Empty<ILogWriter>())
+        { }
+
         public DefaultLogFactory(string scopeName, IEnumerable<ILogWriter> parentWriters)
         {
             Ensure.NotNull(parentWriters, "parentWriters");

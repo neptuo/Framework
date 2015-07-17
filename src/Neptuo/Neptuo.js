@@ -3039,19 +3039,10 @@ var Neptuo$Logging$ConsoleLogWriter = {
     interfaceNames: ["Neptuo.Logging.ILogWriter"],
     Kind: "Class",
     definition: {
-        ctor: function (scopeName){
-            this._ScopeName = null;
+        ctor: function (){
             this._Output = null;
             System.Object.ctor.call(this);
-            this.set_ScopeName(scopeName);
             this.set_Output(System.Console.get_Out());
-        },
-        ScopeName$$: "System.String",
-        get_ScopeName: function (){
-            return this._ScopeName;
-        },
-        set_ScopeName: function (value){
-            this._ScopeName = value;
         },
         Output$$: "System.IO.TextWriter",
         get_Output: function (){
@@ -3063,13 +3054,13 @@ var Neptuo$Logging$ConsoleLogWriter = {
         IsLevelEnabled: function (level){
             return true;
         },
-        Log: function (level, message){
-            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}: {2}", System.DateTime.get_Now(), level.ToString().ToUpperInvariant(), message);
+        Log: function (scopeName, level, model){
+            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}: {2}", System.DateTime.get_Now(), level.ToString().ToUpperInvariant(), model);
         }
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String"]
+        parameters: []
     }
     ],
     IsAbstract: false
@@ -3084,42 +3075,35 @@ var Neptuo$Logging$DefaultLog = {
     definition: {
         ctor: function (){
             this.writers = null;
+            this.scopeName = null;
             this.factory = null;
-            this._ScopeName = null;
             Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogWriter.call(this, "Root", System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
-        },
-        ScopeName$$: "System.String",
-        get_ScopeName: function (){
-            return this._ScopeName;
-        },
-        set_ScopeName: function (value){
-            this._ScopeName = value;
         },
         Factory$$: "Neptuo.Logging.ILogFactory",
         get_Factory: function (){
             if (this.factory == null)
-                this.factory = new Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter(this.get_ScopeName(), this.writers);
+                this.factory = new Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter(this.scopeName, this.writers);
             return this.factory;
         },
         ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, writers){
             this.writers = null;
+            this.scopeName = null;
             this.factory = null;
-            this._ScopeName = null;
             System.Object.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(writers, "writers");
             this.writers = writers;
-            this.set_ScopeName(scopeName);
+            this.scopeName = scopeName;
         },
         IsLevelEnabled: function (level){
             return System.Linq.Enumerable.Any$1$$IEnumerable$1$$Func$2(Neptuo.Logging.ILogWriter.ctor, this.writers, $CreateAnonymousDelegate(this, function (w){
                 return w.IsLevelEnabled(level);
             }));
         },
-        Log: function (level, message){
+        Log: function (level, model){
             var $it10 = this.writers.GetEnumerator();
             while ($it10.MoveNext()){
                 var writer = $it10.get_Current();
-                writer.Log(level, message);
+                writer.Log(this.scopeName, level, model);
             }
         }
     },
@@ -3153,6 +3137,11 @@ var Neptuo$Logging$DefaultLogFactory = {
         set_ScopeName: function (value){
             this._ScopeName = value;
         },
+        ctor$$String: function (scopeName){
+            this.childWriters = null;
+            this._ScopeName = null;
+            Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter.call(this, scopeName, System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
+        },
         ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, parentWriters){
             this.childWriters = null;
             this._ScopeName = null;
@@ -3175,6 +3164,9 @@ var Neptuo$Logging$DefaultLogFactory = {
         name: "ctor",
         parameters: []
     }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
         name: "ctor$$String$$IEnumerable",
         parameters: ["System.String", "System.Collections.Generic.IEnumerable"]
     }
@@ -3186,7 +3178,6 @@ var Neptuo$Logging$ILog = {
     fullname: "Neptuo.Logging.ILog",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Logging.ILogWriter"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -3213,11 +3204,11 @@ JsTypes.push(Neptuo$Logging$ILogWriter);
 var Neptuo$Logging$LogLevel = {
     fullname: "Neptuo.Logging.LogLevel",
     staticDefinition: {
-        Debug: 0,
-        Info: 1,
-        Warning: 2,
-        Error: 3,
-        Fatal: 4
+        Debug: 1,
+        Info: 2,
+        Warning: 4,
+        Error: 8,
+        Fatal: 16
     },
     Kind: "Enum",
     ctors: [{
@@ -3257,7 +3248,7 @@ var Neptuo$Logging$_LogFactoryExtensions = {
     staticDefinition: {
         AddConsoleWriter: function (logFactory){
             Neptuo.Ensure.NotNull$$Object$$String(logFactory, "logFactory");
-            return logFactory.AddWriter(new Neptuo.Logging.ConsoleLogWriter.ctor(logFactory.get_ScopeName()));
+            return logFactory.AddWriter(new Neptuo.Logging.ConsoleLogWriter.ctor());
         }
     },
     assemblyName: "Neptuo",

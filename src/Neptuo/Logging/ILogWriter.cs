@@ -12,11 +12,6 @@ namespace Neptuo.Logging
     public interface ILogWriter
     {
         /// <summary>
-        /// Dot separated log scope.
-        /// </summary>
-        string ScopeName { get; }
-
-        /// <summary>
         /// Returns <c>true</c> if <paramref name="level"/> is enabled in current log; <c>false</c> otherwise.
         /// </summary>
         /// <param name="level">Log message level.</param>
@@ -24,10 +19,10 @@ namespace Neptuo.Logging
         bool IsLevelEnabled(LogLevel level);
 
         /// <summary>
-        /// Logs <paramref name="message"/> to the current log with <paramref name="level"/>.
+        /// Logs <paramref name="model"/> to the current log with <paramref name="level"/>.
         /// </summary>
         /// <param name="level">Log message level.</param>
-        /// <param name="message">Log message.</param>
-        void Log(LogLevel level, string message);
+        /// <param name="model">Log message.</param>
+        void Log(string scopeName, LogLevel level, object model);
     }
 }

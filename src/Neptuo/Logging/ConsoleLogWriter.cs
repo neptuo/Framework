@@ -12,12 +12,10 @@ namespace Neptuo.Logging
     /// </summary>
     public class ConsoleLogWriter : ILogWriter
     {
-        public string ScopeName { get; private set; }
         public TextWriter Output { get; private set; }
 
-        public ConsoleLogWriter(string scopeName)
+        public ConsoleLogWriter()
         {
-            ScopeName = scopeName;
             Output = Console.Out;
         }
 
@@ -26,13 +24,13 @@ namespace Neptuo.Logging
             return true;
         }
 
-        public void Log(LogLevel level, string message)
+        public void Log(string scopeName, LogLevel level, object model)
         {
             Output.WriteLine(
-                "{0}\t{1}: {2}", 
-                DateTime.Now, 
-                level.ToString().ToUpperInvariant(), 
-                message
+                "{0}\t{1}: {2}",
+                DateTime.Now,
+                level.ToString().ToUpperInvariant(),
+                model
             );
         }
     }

@@ -11,10 +11,10 @@ namespace Neptuo.Logging
     /// </summary>
     public enum LogLevel
     {
-        Debug,
-        Info,
-        Warning,
-        Error,
-        Fatal
+        Debug = 1,
+        Info = 2,
+        Warning = 4,
+        Error = 8,
+        Fatal = 16
     }
 }

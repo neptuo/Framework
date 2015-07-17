@@ -12,16 +12,15 @@ namespace Neptuo.Logging
     public class DefaultLog : ILog
     {
         private readonly IEnumerable<ILogWriter> writers;
+        private readonly string scopeName;
         private ILogFactory factory;
-
-        public string ScopeName { get; private set; }
 
         public ILogFactory Factory
         {
             get
             {
                 if (factory == null)
-                    factory = new DefaultLogFactory(ScopeName, writers);
+                    factory = new DefaultLogFactory(scopeName, writers);
 
                 return factory;
             }
@@ -43,7 +42,7 @@ namespace Neptuo.Logging
         {
             Ensure.NotNull(writers, "writers");
             this.writers = writers;
-            ScopeName = scopeName;
+            this.scopeName = scopeName;
         }
 
         public bool IsLevelEnabled(LogLevel level)
@@ -51,10 +50,10 @@ namespace Neptuo.Logging
             return writers.Any(w => w.IsLevelEnabled(level));
         }
 
-        public void Log(LogLevel level, string message)
+        public void Log(LogLevel level, object model)
         {
             foreach (ILogWriter writer in writers)
-                writer.Log(level, message);
+                writer.Log(scopeName, level, model);
         }
     }
 }

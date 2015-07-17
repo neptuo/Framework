@@ -11,6 +11,9 @@ namespace Neptuo.Logging
     /// </summary>
     public interface ILogFactory
     {
+        /// <summary>
+        /// Dot separated log scope.
+        /// </summary>
         string ScopeName { get; }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Neptuo.Logging
         public static ILogFactory AddConsoleWriter(this ILogFactory logFactory)
         {
             Ensure.NotNull(logFactory, "logFactory");
-            return logFactory.AddWriter(new ConsoleLogWriter(logFactory.ScopeName));
+            return logFactory.AddWriter(new ConsoleLogWriter());
         }
     }
 }
