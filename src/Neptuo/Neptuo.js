@@ -3034,30 +3034,12 @@ var Neptuo$Linq$_ExpressiveExtensions = {
 JsTypes.push(Neptuo$Linq$_ExpressiveExtensions);
 var Neptuo$Logging$Serialization$ConsoleSerializer = {
     fullname: "Neptuo.Logging.Serialization.ConsoleSerializer",
-    baseTypeName: "System.Object",
+    baseTypeName: "Neptuo.Logging.Serialization.TextWriterSerializer",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Logging.Serialization.ILogSerializer"],
     Kind: "Class",
     definition: {
         ctor: function (){
-            this._Output = null;
-            System.Object.ctor.call(this);
-            this.set_Output(System.Console.get_Out());
-        },
-        Output$$: "System.IO.TextWriter",
-        get_Output: function (){
-            return this._Output;
-        },
-        set_Output: function (value){
-            this._Output = value;
-        },
-        IsEnabled: function (scopeName, level){
-            return true;
-        },
-        Append: function (scopeName, level, model){
-            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}:{2}", System.DateTime.get_Now(), level.ToString().ToUpperInvariant(), model);
-            this.get_Output().WriteLine$$Object(model);
-            this.get_Output().WriteLine();
+            Neptuo.Logging.Serialization.TextWriterSerializer.ctor.call(this, System.Console.get_Out());
         }
     },
     ctors: [{
@@ -3282,6 +3264,83 @@ var Neptuo$Logging$LogLevel = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Logging$LogLevel);
+var Neptuo$Logging$Serialization$TextWriterSerializer = {
+    fullname: "Neptuo.Logging.Serialization.TextWriterSerializer",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Logging.Serialization.ILogSerializer"],
+    Kind: "Class",
+    definition: {
+        ctor: function (output){
+            this._Output = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(output, "output");
+            this.set_Output(output);
+        },
+        Output$$: "System.IO.TextWriter",
+        get_Output: function (){
+            return this._Output;
+        },
+        set_Output: function (value){
+            this._Output = value;
+        },
+        IsEnabled: function (scopeName, level){
+            return true;
+        },
+        Append: function (scopeName, level, model){
+            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}:{2}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant());
+            this.get_Output().WriteLine$$Object(model);
+            this.get_Output().WriteLine();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.IO.TextWriter"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Logging$Serialization$TextWriterSerializer);
+var Neptuo$Logging$Serialization$TraceSerializer = {
+    fullname: "Neptuo.Logging.Serialization.TraceSerializer",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Logging.Serialization.ILogSerializer"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        IsEnabled: function (scopeName, level){
+            return true;
+        },
+        Append: function (scopeName, level, model){
+            var message = System.String.Format$$String$$Object$Array("{0}\t{1}:{2}{3}{4}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant(), System.Environment.get_NewLine(), model);
+            switch (level){
+                case Neptuo.Logging.LogLevel.Debug:
+                case Neptuo.Logging.LogLevel.Info:
+                    System.Diagnostics.Trace.TraceInformation$$String(message);
+                    return;
+                case Neptuo.Logging.LogLevel.Warning:
+                    System.Diagnostics.Trace.TraceWarning$$String(message);
+                    return;
+                case Neptuo.Logging.LogLevel.Error:
+                case Neptuo.Logging.LogLevel.Fatal:
+                    System.Diagnostics.Trace.TraceError$$String(message);
+                    return;
+                default:
+                    throw $CreateException(Neptuo._EnsureSystemExtensions.NotSupported(Neptuo.Ensure.Exception, "Level \'{0}\' is not supported by the TraceSerializer.", level), new Error());
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Logging$Serialization$TraceSerializer);
 var Neptuo$Logging$_LogExtensions = {
     fullname: "Neptuo.Logging._LogExtensions",
     baseTypeName: "System.Object",
@@ -3368,6 +3427,10 @@ var Neptuo$Logging$_LogFactoryExtensions = {
         AddConsole: function (logFactory){
             Neptuo.Ensure.NotNull$$Object$$String(logFactory, "logFactory");
             return logFactory.AddSerializer(new Neptuo.Logging.Serialization.ConsoleSerializer.ctor());
+        },
+        AddTrace: function (logFactory){
+            Neptuo.Ensure.NotNull$$Object$$String(logFactory, "logFactory");
+            return logFactory.AddSerializer(new Neptuo.Logging.Serialization.TraceSerializer.ctor());
         }
     },
     assemblyName: "Neptuo",
