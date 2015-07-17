@@ -3039,7 +3039,7 @@ var Neptuo$Logging$Serialization$ConsoleSerializer = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            Neptuo.Logging.Serialization.TextWriterSerializer.ctor.call(this, System.Console.get_Out());
+            Neptuo.Logging.Serialization.TextWriterSerializer.ctor$$TextWriter.call(this, System.Console.get_Out());
         }
     },
     ctors: [{
@@ -3314,7 +3314,17 @@ var Neptuo$Logging$Serialization$Formatters$DefaultLogFormatter = {
             System.Object.ctor.call(this);
         },
         Format: function (scopeName, level, model){
-            return System.String.Format$$String$$Object$Array("{0}\t{1}:{2}{3}{4}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant(), System.Environment.get_NewLine(), model);
+            var message;
+            if (!(function (){
+                var $1 = {
+                    Value: message
+                };
+                var $res = Neptuo.Converts.Try$$Type$$Type$$Object$$Object(model.GetType(), Typeof(System.String.ctor), model, $1);
+                message = $1.Value;
+                return $res;
+            }).call(this))
+                message = model;
+            return System.String.Format$$String$$Object$Array("{0} {1}({2}){3}{3}{4}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant(), System.Environment.get_NewLine(), message);
         }
     },
     ctors: [{
@@ -3369,11 +3379,10 @@ var Neptuo$Logging$Serialization$TextWriterSerializer = {
     interfaceNames: ["Neptuo.Logging.Serialization.ILogSerializer"],
     Kind: "Class",
     definition: {
-        ctor: function (output){
+        ctor$$TextWriter: function (output){
             this._Output = null;
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(output, "output");
-            this.set_Output(output);
+            this._Formatter = null;
+            Neptuo.Logging.Serialization.TextWriterSerializer.ctor$$TextWriter$$ILogFormatter.call(this, output, new Neptuo.Logging.Serialization.Formatters.DefaultLogFormatter.ctor());
         },
         Output$$: "System.IO.TextWriter",
         get_Output: function (){
@@ -3382,18 +3391,36 @@ var Neptuo$Logging$Serialization$TextWriterSerializer = {
         set_Output: function (value){
             this._Output = value;
         },
+        Formatter$$: "Neptuo.Logging.Serialization.Formatters.ILogFormatter",
+        get_Formatter: function (){
+            return this._Formatter;
+        },
+        set_Formatter: function (value){
+            this._Formatter = value;
+        },
+        ctor$$TextWriter$$ILogFormatter: function (output, formatter){
+            this._Output = null;
+            this._Formatter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(output, "output");
+            Neptuo.Ensure.NotNull$$Object$$String(formatter, "formatter");
+            this.set_Output(output);
+            this.set_Formatter(formatter);
+        },
         IsEnabled: function (scopeName, level){
             return true;
         },
         Append: function (scopeName, level, model){
-            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}:{2}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant());
-            this.get_Output().WriteLine$$Object(model);
+            this.get_Output().WriteLine$$String(this.get_Formatter().Format(scopeName, level, model));
             this.get_Output().WriteLine();
         }
     },
     ctors: [{
-        name: "ctor",
+        name: "ctor$$TextWriter",
         parameters: ["System.IO.TextWriter"]
+    }, {
+        name: "ctor$$TextWriter$$ILogFormatter",
+        parameters: ["System.IO.TextWriter", "Neptuo.Logging.Serialization.Formatters.ILogFormatter"]
     }
     ],
     IsAbstract: false
