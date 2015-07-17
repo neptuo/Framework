@@ -14,7 +14,7 @@ namespace Neptuo.Logging.Serialization.Formatters
         public string Format(string scopeName, LogLevel level, object model)
         {
             return String.Format(
-                "{0}\t{1}:{2}{3}{4}",
+                "{0} {1}({2}){3}{3}{4}",
                 DateTime.Now,
                 scopeName,
                 level.ToString().ToUpperInvariant(),
