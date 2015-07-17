@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Reflections.Enumerators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace Neptuo.Reflections
     /// </summary>
     internal class DefaultReflectionService : IReflectionService
     {
+        private readonly List<ITypeExecutor> typeExecutors = new List<ITypeExecutor>();
+        private bool isAssemblyLoadedAttached;
+
         public AppDomain AppDomain { get; private set; }
 
         /// <summary>
@@ -71,6 +75,42 @@ namespace Neptuo.Reflections
             }
 
             return null;
+        }
+
+
+        public void AddTypeExecutor(ITypeExecutor executor, bool isExecutedForLatelyLoadedAssemblies)
+        {
+            Ensure.NotNull(executor, "executor");
+
+            foreach (Assembly assembly in EnumerateAssemblies())
+            {
+                AssemblyTypeEnumerator enumerator = new AssemblyTypeEnumerator(assembly);
+                enumerator.HandleExecutor(executor);
+            }
+
+            if(isExecutedForLatelyLoadedAssemblies)
+            {
+                typeExecutors.Add(executor);
+                EnsureAssemblyLoadDelegate();
+            }
+        }
+
+        private void EnsureAssemblyLoadDelegate()
+        {
+            if (!isAssemblyLoadedAttached)
+            {
+                AppDomain.AssemblyLoad += OnAssemblyLoaded;
+                isAssemblyLoadedAttached = true;
+            }
+        }
+
+        private void OnAssemblyLoaded(object sender, AssemblyLoadEventArgs args)
+        {
+            foreach (ITypeExecutor executor in typeExecutors)
+            {
+                AssemblyTypeEnumerator enumerator = new AssemblyTypeEnumerator(args.LoadedAssembly);
+                enumerator.HandleExecutor(executor);
+            }
         }
     }
 }

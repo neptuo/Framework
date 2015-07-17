@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Neptuo.Reflections.Enumerators
 {
     /// <summary>
-    /// Implementation of <see cref="ITypeDeletegateCollection{TContext}"/> with support for independent branches.
+    /// Implementation of <see cref="ITypeDelegateCollection{TContext}"/> with support for independent branches.
     /// </summary>
     /// <typeparam name="TContext"></typeparam>
-    public class TreeTypeExecutor<TContext> : DefaultTypeExecutor<TContext>
+    public class TreeTypeExecutor<TContext> : FilterTypeExecutor<TContext>
     {
         private readonly List<TreeTypeExecutor<TContext>> branches = new List<TreeTypeExecutor<TContext>>();
 

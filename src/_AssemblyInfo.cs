@@ -14,4 +14,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCompany("Neptuo")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("en-US")]
+[assembly: AssemblyCulture("")]
