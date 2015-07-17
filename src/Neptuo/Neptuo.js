@@ -3174,6 +3174,44 @@ var Neptuo$Logging$DefaultLogFactory = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Logging$DefaultLogFactory);
+var Neptuo$Logging$ExceptionModel = {
+    fullname: "Neptuo.Logging.ExceptionModel",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (message, exception){
+            this._Message = null;
+            this._Exception = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNullOrEmpty(message, "message");
+            Neptuo.Ensure.NotNull$$Object$$String(exception, "exception");
+            this.set_Message(message);
+            this.set_Exception(exception);
+        },
+        Message$$: "System.String",
+        get_Message: function (){
+            return this._Message;
+        },
+        set_Message: function (value){
+            this._Message = value;
+        },
+        Exception$$: "System.Exception",
+        get_Exception: function (){
+            return this._Exception;
+        },
+        set_Exception: function (value){
+            this._Exception = value;
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.String", "System.Exception"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Logging$ExceptionModel);
 var Neptuo$Logging$ILog = {
     fullname: "Neptuo.Logging.ILog",
     baseTypeName: "System.Object",
