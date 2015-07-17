@@ -175,7 +175,6 @@
     <Compile Include="Logging\DefaultLog.cs" />
     <Compile Include="Logging\DefaultLogFactory.cs" />
     <Compile Include="Logging\ExceptionModel.cs" />
-    <Compile Include="Logging\IExceptionAware.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogFactory.cs" />
     <Compile Include="Logging\Serialization\ExceptionModelConverter.cs" />

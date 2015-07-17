@@ -9,7 +9,7 @@ namespace Neptuo.Logging
     /// <summary>
     /// Describes exception with message.
     /// </summary>
-    public class ExceptionModel : IExceptionAware
+    public class ExceptionModel
     {
         /// <summary>
         /// Custom message associated with exception.
