@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,26 +7,30 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Logging
 {
-    public class StringLogWriter : ILogWriter
+    public class StringSerializer : ILogSerializer
     {
-        private readonly Func<LogLevel, bool> isLevelEnabled;
+        private readonly Func<string, LogLevel, bool> isLevelEnabled;
 
         public List<StringLogMessage> Messages { get; private set; }
 
-        public StringLogWriter(Func<LogLevel, bool> isLevelEnabled)
+        public StringSerializer()
+            : this((scopeName, level) => true)
+        { }
+
+        public StringSerializer(Func<string, LogLevel, bool> isLevelEnabled)
         {
             Messages = new List<StringLogMessage>();
             this.isLevelEnabled = isLevelEnabled;
         }
 
-        public bool IsLevelEnabled(LogLevel level)
+        public bool IsEnabled(string scopeName, LogLevel level)
         {
-            return isLevelEnabled(level);
+            return isLevelEnabled(scopeName, level);
         }
 
-        public void Log(string scopeName, LogLevel level, object model)
+        public void Append(string scopeName, LogLevel level, object model)
         {
-            if (IsLevelEnabled(level))
+            if (IsEnabled(scopeName, level))
             {
                 Messages.Add(new StringLogMessage
                 {

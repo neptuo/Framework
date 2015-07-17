@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,10 @@ namespace Neptuo.Logging
         ILog Scope(string scopeName);
 
         /// <summary>
-        /// Adds <paramref name="writer"/> to be output of current log.
+        /// Adds <paramref name="serializer"/> to be used for child scopes.
         /// </summary>
-        /// <param name="writer">New log writer to be added.</param>
+        /// <param name="serializer">Log item serializer.</param>
         /// <returns>Self (for fluency).</returns>
-        ILogFactory AddWriter(ILogWriter writer);
+        ILogFactory AddSerializer(ILogSerializer serializer);
     }
 }

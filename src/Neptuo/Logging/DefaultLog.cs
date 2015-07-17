@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Neptuo.Logging
     /// </summary>
     public class DefaultLog : ILog
     {
-        private readonly IEnumerable<ILogWriter> writers;
+        private readonly IEnumerable<ILogSerializer> serializers;
         private readonly string scopeName;
         private ILogFactory factory;
 
@@ -20,7 +21,7 @@ namespace Neptuo.Logging
             get
             {
                 if (factory == null)
-                    factory = new DefaultLogFactory(scopeName, writers);
+                    factory = new DefaultLogFactory(scopeName, serializers);
 
                 return factory;
             }
@@ -30,30 +31,30 @@ namespace Neptuo.Logging
         /// Creates empty root log.
         /// </summary>
         public DefaultLog()
-            : this("Root", Enumerable.Empty<ILogWriter>())
+            : this("Root", Enumerable.Empty<ILogSerializer>())
         { }
 
         /// <summary>
-        /// Creates new instance with <paramref name="writers"/> in scope <paramref name="scopeName"/>.
+        /// Creates new instance with <paramref name="serializers"/> in scope <paramref name="scopeName"/>.
         /// </summary>
         /// <param name="scopeName">Current log scope name.</param>
-        /// <param name="writers">Writers for current log.</param>
-        public DefaultLog(string scopeName, IEnumerable<ILogWriter> writers)
+        /// <param name="serializers">Serializers for current log.</param>
+        public DefaultLog(string scopeName, IEnumerable<ILogSerializer> serializers)
         {
-            Ensure.NotNull(writers, "writers");
-            this.writers = writers;
+            Ensure.NotNull(serializers, "serializers");
+            this.serializers = serializers;
             this.scopeName = scopeName;
         }
 
         public bool IsLevelEnabled(LogLevel level)
         {
-            return writers.Any(w => w.IsLevelEnabled(level));
+            return serializers.Any(w => w.IsEnabled(scopeName, level));
         }
 
         public void Log(LogLevel level, object model)
         {
-            foreach (ILogWriter writer in writers)
-                writer.Log(scopeName, level, model);
+            foreach (ILogSerializer serializer in serializers)
+                serializer.Append(scopeName, level, model);
         }
     }
 }

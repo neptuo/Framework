@@ -3032,11 +3032,11 @@ var Neptuo$Linq$_ExpressiveExtensions = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Linq$_ExpressiveExtensions);
-var Neptuo$Logging$ConsoleLogWriter = {
-    fullname: "Neptuo.Logging.ConsoleLogWriter",
+var Neptuo$Logging$Serialization$ConsoleSerializer = {
+    fullname: "Neptuo.Logging.Serialization.ConsoleSerializer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Logging.ILogWriter"],
+    interfaceNames: ["Neptuo.Logging.Serialization.ILogSerializer"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -3051,11 +3051,13 @@ var Neptuo$Logging$ConsoleLogWriter = {
         set_Output: function (value){
             this._Output = value;
         },
-        IsLevelEnabled: function (level){
+        IsEnabled: function (scopeName, level){
             return true;
         },
-        Log: function (scopeName, level, model){
-            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}: {2}", System.DateTime.get_Now(), level.ToString().ToUpperInvariant(), model);
+        Append: function (scopeName, level, model){
+            this.get_Output().WriteLine$$String$$Object$$Object$$Object("{0}\t{1}:{2}", System.DateTime.get_Now(), level.ToString().ToUpperInvariant(), model);
+            this.get_Output().WriteLine$$Object(model);
+            this.get_Output().WriteLine();
         }
     },
     ctors: [{
@@ -3065,7 +3067,7 @@ var Neptuo$Logging$ConsoleLogWriter = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Logging$ConsoleLogWriter);
+JsTypes.push(Neptuo$Logging$Serialization$ConsoleSerializer);
 var Neptuo$Logging$DefaultLog = {
     fullname: "Neptuo.Logging.DefaultLog",
     baseTypeName: "System.Object",
@@ -3074,36 +3076,36 @@ var Neptuo$Logging$DefaultLog = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this.writers = null;
+            this.serializers = null;
             this.scopeName = null;
             this.factory = null;
-            Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogWriter.call(this, "Root", System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
+            Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogSerializer.call(this, "Root", System.Linq.Enumerable.Empty$1(Neptuo.Logging.Serialization.ILogSerializer.ctor));
         },
         Factory$$: "Neptuo.Logging.ILogFactory",
         get_Factory: function (){
             if (this.factory == null)
-                this.factory = new Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter(this.scopeName, this.writers);
+                this.factory = new Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogSerializer(this.scopeName, this.serializers);
             return this.factory;
         },
-        ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, writers){
-            this.writers = null;
+        ctor$$String$$IEnumerable$1$ILogSerializer: function (scopeName, serializers){
+            this.serializers = null;
             this.scopeName = null;
             this.factory = null;
             System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(writers, "writers");
-            this.writers = writers;
+            Neptuo.Ensure.NotNull$$Object$$String(serializers, "serializers");
+            this.serializers = serializers;
             this.scopeName = scopeName;
         },
         IsLevelEnabled: function (level){
-            return System.Linq.Enumerable.Any$1$$IEnumerable$1$$Func$2(Neptuo.Logging.ILogWriter.ctor, this.writers, $CreateAnonymousDelegate(this, function (w){
-                return w.IsLevelEnabled(level);
+            return System.Linq.Enumerable.Any$1$$IEnumerable$1$$Func$2(Neptuo.Logging.Serialization.ILogSerializer.ctor, this.serializers, $CreateAnonymousDelegate(this, function (w){
+                return w.IsEnabled(this.scopeName, level);
             }));
         },
         Log: function (level, model){
-            var $it10 = this.writers.GetEnumerator();
+            var $it10 = this.serializers.GetEnumerator();
             while ($it10.MoveNext()){
-                var writer = $it10.get_Current();
-                writer.Log(this.scopeName, level, model);
+                var serializer = $it10.get_Current();
+                serializer.Append(this.scopeName, level, model);
             }
         }
     },
@@ -3126,9 +3128,9 @@ var Neptuo$Logging$DefaultLogFactory = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this.initialWriters = null;
+            this.serializers = null;
             this._ScopeName = null;
-            Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter.call(this, System.String.Empty, System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
+            Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogSerializer.call(this, System.String.Empty, System.Linq.Enumerable.Empty$1(Neptuo.Logging.Serialization.ILogSerializer.ctor));
         },
         ScopeName$$: "System.String",
         get_ScopeName: function (){
@@ -3138,25 +3140,25 @@ var Neptuo$Logging$DefaultLogFactory = {
             this._ScopeName = value;
         },
         ctor$$String: function (scopeName){
-            this.initialWriters = null;
+            this.serializers = null;
             this._ScopeName = null;
-            Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter.call(this, scopeName, System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
+            Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogSerializer.call(this, scopeName, System.Linq.Enumerable.Empty$1(Neptuo.Logging.Serialization.ILogSerializer.ctor));
         },
-        ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, initialWriters){
-            this.initialWriters = null;
+        ctor$$String$$IEnumerable$1$ILogSerializer: function (scopeName, initialSerializers){
+            this.serializers = null;
             this._ScopeName = null;
             System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(initialWriters, "parentWriters");
+            Neptuo.Ensure.NotNull$$Object$$String(initialSerializers, "initialSerializers");
             this.set_ScopeName(scopeName);
-            this.initialWriters = new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.Logging.ILogWriter.ctor, initialWriters);
+            this.serializers = new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.Logging.Serialization.ILogSerializer.ctor, initialSerializers);
         },
         Scope: function (scopeName){
             Neptuo.Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            return new Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogWriter(this.get_ScopeName() + "." + scopeName, this.initialWriters);
+            return new Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogSerializer(this.get_ScopeName() + "." + scopeName, this.serializers);
         },
-        AddWriter: function (writer){
-            Neptuo.Ensure.NotNull$$Object$$String(writer, "writer");
-            this.initialWriters.Add(writer);
+        AddSerializer: function (serializer){
+            Neptuo.Ensure.NotNull$$Object$$String(serializer, "serializer");
+            this.serializers.Add(serializer);
             return this;
         }
     },
@@ -3253,15 +3255,15 @@ var Neptuo$Logging$ILogFactory = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Logging$ILogFactory);
-var Neptuo$Logging$ILogWriter = {
-    fullname: "Neptuo.Logging.ILogWriter",
+var Neptuo$Logging$Serialization$ILogSerializer = {
+    fullname: "Neptuo.Logging.Serialization.ILogSerializer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Logging$ILogWriter);
+JsTypes.push(Neptuo$Logging$Serialization$ILogSerializer);
 var Neptuo$Logging$LogLevel = {
     fullname: "Neptuo.Logging.LogLevel",
     staticDefinition: {
@@ -3363,9 +3365,9 @@ var Neptuo$Logging$_LogFactoryExtensions = {
     fullname: "Neptuo.Logging._LogFactoryExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        AddConsoleWriter: function (logFactory){
+        AddConsole: function (logFactory){
             Neptuo.Ensure.NotNull$$Object$$String(logFactory, "logFactory");
-            return logFactory.AddWriter(new Neptuo.Logging.ConsoleLogWriter.ctor());
+            return logFactory.AddSerializer(new Neptuo.Logging.Serialization.ConsoleSerializer.ctor());
         }
     },
     assemblyName: "Neptuo",

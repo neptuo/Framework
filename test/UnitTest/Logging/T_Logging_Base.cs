@@ -10,18 +10,18 @@ namespace Neptuo.Logging
     [TestClass]
     public class T_Logging_Base
     {
-        protected ILogFactory CreateLogFactory(out StringLogWriter writer, LogLevel minLevel = LogLevel.Debug)
+        protected ILogFactory CreateLogFactory(out StringSerializer writer, LogLevel minLevel = LogLevel.Debug)
         {
-            writer = new StringLogWriter(level => level >= minLevel);
+            writer = new StringSerializer((scopeName, level) => level >= minLevel);
             return new DefaultLogFactory("Root")
-                .AddWriter(writer);
+                .AddSerializer(writer);
         }
 
         [TestMethod]
         public void BaseComposition()
         {
             ILogFactory logFactory = new DefaultLogFactory();
-            logFactory.AddConsoleWriter();
+            logFactory.AddConsole();
 
             ILog log = logFactory.Scope("Application");
             log.Debug("Hello, {0}!", "World");
@@ -30,23 +30,23 @@ namespace Neptuo.Logging
         [TestMethod]
         public void ConcatingEnumerationOfWriters()
         {
-            StringLogWriter[] w = new StringLogWriter[] 
+            StringSerializer[] w = new StringSerializer[] 
             {
-                new StringLogWriter(level => true),
-                new StringLogWriter(level => true),
-                new StringLogWriter(level => true),
-                new StringLogWriter(level => true),
-                new StringLogWriter(level => true)
+                new StringSerializer(),
+                new StringSerializer(),
+                new StringSerializer(),
+                new StringSerializer(),
+                new StringSerializer()
             };
 
             ILogFactory logFactory = new DefaultLogFactory();
-            logFactory.AddWriter(w[0]);
+            logFactory.AddSerializer(w[0]);
 
             ILog l1 = logFactory.Scope("L1");
             l1.Debug("M1");
             EnsureMessageCount(w, 1, 0, 0, 0, 0);
 
-            l1.Factory.AddWriter(w[1]);
+            l1.Factory.AddSerializer(w[1]);
             l1.Debug("M3");
             EnsureMessageCount(w, 2, 0, 0, 0, 0);
 
@@ -54,7 +54,7 @@ namespace Neptuo.Logging
             l2.Debug("M3");
             EnsureMessageCount(w, 3, 1, 0, 0, 0);
 
-            l2.Factory.AddWriter(w[2]);
+            l2.Factory.AddSerializer(w[2]);
             l2.Debug("M4");
             EnsureMessageCount(w, 4, 2, 0, 0, 0);
 
@@ -62,12 +62,12 @@ namespace Neptuo.Logging
             l3.Debug("M5");
             EnsureMessageCount(w, 5, 3, 1, 0, 0);
 
-            l1.Factory.AddWriter(w[3]);
+            l1.Factory.AddSerializer(w[3]);
             ILog l4 = l1.Factory.Scope("L4");
             l4.Debug("M6");
             EnsureMessageCount(w, 6, 4, 1, 1, 0);
 
-            l4.Factory.AddWriter(w[4]);
+            l4.Factory.AddSerializer(w[4]);
             ILog l5 = l4.Factory.Scope("L5");
             l4.Debug("M7");
             EnsureMessageCount(w, 7, 5, 1, 2, 0);
@@ -76,7 +76,7 @@ namespace Neptuo.Logging
             EnsureMessageCount(w, 8, 6, 1, 3, 1);
         }
 
-        private void EnsureMessageCount(StringLogWriter[] writers, params int[] counts)
+        private void EnsureMessageCount(StringSerializer[] writers, params int[] counts)
         {
             Assert.AreEqual(counts.Length, writers.Length);
 
@@ -87,7 +87,7 @@ namespace Neptuo.Logging
         [TestMethod]
         public void Scopes()
         {
-            StringLogWriter writer;
+            StringSerializer writer;
             ILogFactory logFactory = CreateLogFactory(out writer);
 
             ILog applicationLog = logFactory.Scope("Application");
@@ -112,7 +112,7 @@ namespace Neptuo.Logging
         [TestMethod]
         public void LoggingExtensionMethods()
         {
-            StringLogWriter writer;
+            StringSerializer writer;
             ILogFactory logFactory = CreateLogFactory(out writer);
             ILog log = logFactory.Scope("Application");
 
@@ -160,7 +160,7 @@ namespace Neptuo.Logging
             EnsureMessage(writer, 15, "Root.Application", LogLevel.Fatal, new ExceptionModel("M14", e6));
         }
 
-        private void EnsureMessage(StringLogWriter writer, int index, string scopeName, LogLevel level, object messageModel)
+        private void EnsureMessage(StringSerializer writer, int index, string scopeName, LogLevel level, object messageModel)
         {
             StringLogMessage message = writer.Messages[index];
             Assert.AreEqual(scopeName, message.ScopeName);

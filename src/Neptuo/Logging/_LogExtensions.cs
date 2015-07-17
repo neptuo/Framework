@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Logging
 {
     /// <summary>
-    /// Logging extensions for <see cref="ILogWriter"/>.
+    /// Logging extensions for <see cref="ILogSerializer"/>.
     /// </summary>
     public static class _LogExtensions
     {

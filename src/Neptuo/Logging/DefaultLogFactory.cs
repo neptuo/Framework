@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Neptuo.Logging
     /// </summary>
     public class DefaultLogFactory : ILogFactory
     {
-        private readonly List<ILogWriter> initialWriters;
+        private readonly List<ILogSerializer> serializers;
 
         public string ScopeName { get; private set; }
 
@@ -19,7 +20,7 @@ namespace Neptuo.Logging
         /// No scope name will be used.
         /// </summary>
         public DefaultLogFactory()
-            : this(String.Empty, Enumerable.Empty<ILogWriter>())
+            : this(String.Empty, Enumerable.Empty<ILogSerializer>())
         { }
 
         /// <summary>
@@ -27,31 +28,31 @@ namespace Neptuo.Logging
         /// </summary>
         /// <param name="scopeName">Scope name.</param>
         public DefaultLogFactory(string scopeName)
-            : this(scopeName, Enumerable.Empty<ILogWriter>())
+            : this(scopeName, Enumerable.Empty<ILogSerializer>())
         { }
 
         /// <summary>
-        /// Cretes new log factory with <paramref name="scopeName"/> and <paramref name="initialWriters"/>.
+        /// Cretes new log factory with <paramref name="scopeName"/> and <paramref name="initialSerializers"/>.
         /// </summary>
         /// <param name="scopeName">Scop name.</param>
-        /// <param name="initialWriters">Enumeration of initial writers.</param>
-        public DefaultLogFactory(string scopeName, IEnumerable<ILogWriter> initialWriters)
+        /// <param name="initialSerializers">Enumeration of initial serializers (this enumeration is copies).</param>
+        public DefaultLogFactory(string scopeName, IEnumerable<ILogSerializer> initialSerializers)
         {
-            Ensure.NotNull(initialWriters, "parentWriters");
+            Ensure.NotNull(initialSerializers, "initialSerializers");
             ScopeName = scopeName;
-            this.initialWriters = new List<ILogWriter>(initialWriters);
+            this.serializers = new List<ILogSerializer>(initialSerializers);
         }
 
         public ILog Scope(string scopeName)
         {
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            return new DefaultLog(ScopeName + "." + scopeName, initialWriters);
+            return new DefaultLog(ScopeName + "." + scopeName, serializers);
         }
 
-        public ILogFactory AddWriter(ILogWriter writer)
+        public ILogFactory AddSerializer(ILogSerializer serializer)
         {
-            Ensure.NotNull(writer, "writer");
-            initialWriters.Add(writer);
+            Ensure.NotNull(serializer, "serializer");
+            serializers.Add(serializer);
             return this;
         }
     }
