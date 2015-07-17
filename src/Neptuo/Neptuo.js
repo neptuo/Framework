@@ -3126,7 +3126,7 @@ var Neptuo$Logging$DefaultLogFactory = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this.childWriters = null;
+            this.initialWriters = null;
             this._ScopeName = null;
             Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter.call(this, System.String.Empty, System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
         },
@@ -3138,25 +3138,25 @@ var Neptuo$Logging$DefaultLogFactory = {
             this._ScopeName = value;
         },
         ctor$$String: function (scopeName){
-            this.childWriters = null;
+            this.initialWriters = null;
             this._ScopeName = null;
             Neptuo.Logging.DefaultLogFactory.ctor$$String$$IEnumerable$1$ILogWriter.call(this, scopeName, System.Linq.Enumerable.Empty$1(Neptuo.Logging.ILogWriter.ctor));
         },
-        ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, parentWriters){
-            this.childWriters = null;
+        ctor$$String$$IEnumerable$1$ILogWriter: function (scopeName, initialWriters){
+            this.initialWriters = null;
             this._ScopeName = null;
             System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(parentWriters, "parentWriters");
+            Neptuo.Ensure.NotNull$$Object$$String(initialWriters, "parentWriters");
             this.set_ScopeName(scopeName);
-            this.childWriters = new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.Logging.ILogWriter.ctor, parentWriters);
+            this.initialWriters = new System.Collections.Generic.List$1.ctor$$IEnumerable$1(Neptuo.Logging.ILogWriter.ctor, initialWriters);
         },
         Scope: function (scopeName){
             Neptuo.Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            return new Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogWriter(this.get_ScopeName() + "." + scopeName, this.childWriters);
+            return new Neptuo.Logging.DefaultLog.ctor$$String$$IEnumerable$1$ILogWriter(this.get_ScopeName() + "." + scopeName, this.initialWriters);
         },
         AddWriter: function (writer){
             Neptuo.Ensure.NotNull$$Object$$String(writer, "writer");
-            this.childWriters.Add(writer);
+            this.initialWriters.Add(writer);
             return this;
         }
     },

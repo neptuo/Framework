@@ -5,37 +5,53 @@ using System.Text;
 
 namespace Neptuo.Logging
 {
+    /// <summary>
+    /// Default implementation of <see cref="ILogFactory"/>.
+    /// </summary>
     public class DefaultLogFactory : ILogFactory
     {
+        private readonly List<ILogWriter> initialWriters;
+
         public string ScopeName { get; private set; }
 
-        private readonly List<ILogWriter> childWriters;
-
+        /// <summary>
+        /// Creates new root log factory.
+        /// No scope name will be used.
+        /// </summary>
         public DefaultLogFactory()
             : this(String.Empty, Enumerable.Empty<ILogWriter>())
         { }
 
+        /// <summary>
+        /// Creates new log factory with <paramref name="scopeName"/>.
+        /// </summary>
+        /// <param name="scopeName">Scope name.</param>
         public DefaultLogFactory(string scopeName)
             : this(scopeName, Enumerable.Empty<ILogWriter>())
         { }
 
-        public DefaultLogFactory(string scopeName, IEnumerable<ILogWriter> parentWriters)
+        /// <summary>
+        /// Cretes new log factory with <paramref name="scopeName"/> and <paramref name="initialWriters"/>.
+        /// </summary>
+        /// <param name="scopeName">Scop name.</param>
+        /// <param name="initialWriters">Enumeration of initial writers.</param>
+        public DefaultLogFactory(string scopeName, IEnumerable<ILogWriter> initialWriters)
         {
-            Ensure.NotNull(parentWriters, "parentWriters");
+            Ensure.NotNull(initialWriters, "parentWriters");
             ScopeName = scopeName;
-            this.childWriters = new List<ILogWriter>(parentWriters);
+            this.initialWriters = new List<ILogWriter>(initialWriters);
         }
 
         public ILog Scope(string scopeName)
         {
             Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            return new DefaultLog(ScopeName + "." + scopeName, childWriters);
+            return new DefaultLog(ScopeName + "." + scopeName, initialWriters);
         }
 
         public ILogFactory AddWriter(ILogWriter writer)
         {
             Ensure.NotNull(writer, "writer");
-            childWriters.Add(writer);
+            initialWriters.Add(writer);
             return this;
         }
     }
