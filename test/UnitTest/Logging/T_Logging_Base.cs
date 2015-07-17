@@ -28,6 +28,63 @@ namespace Neptuo.Logging
         }
 
         [TestMethod]
+        public void ConcatingEnumerationOfWriters()
+        {
+            StringLogWriter[] w = new StringLogWriter[] 
+            {
+                new StringLogWriter(level => true),
+                new StringLogWriter(level => true),
+                new StringLogWriter(level => true),
+                new StringLogWriter(level => true),
+                new StringLogWriter(level => true)
+            };
+
+            ILogFactory logFactory = new DefaultLogFactory();
+            logFactory.AddWriter(w[0]);
+
+            ILog l1 = logFactory.Scope("L1");
+            l1.Debug("M1");
+            EnsureMessageCount(w, 1, 0, 0, 0, 0);
+
+            l1.Factory.AddWriter(w[1]);
+            l1.Debug("M3");
+            EnsureMessageCount(w, 2, 0, 0, 0, 0);
+
+            ILog l2 = l1.Factory.Scope("L2");
+            l2.Debug("M3");
+            EnsureMessageCount(w, 3, 1, 0, 0, 0);
+
+            l2.Factory.AddWriter(w[2]);
+            l2.Debug("M4");
+            EnsureMessageCount(w, 4, 2, 0, 0, 0);
+
+            ILog l3 = l2.Factory.Scope("L3");
+            l3.Debug("M5");
+            EnsureMessageCount(w, 5, 3, 1, 0, 0);
+
+            l1.Factory.AddWriter(w[3]);
+            ILog l4 = l1.Factory.Scope("L4");
+            l4.Debug("M6");
+            EnsureMessageCount(w, 6, 4, 1, 1, 0);
+
+            l4.Factory.AddWriter(w[4]);
+            ILog l5 = l4.Factory.Scope("L5");
+            l4.Debug("M7");
+            EnsureMessageCount(w, 7, 5, 1, 2, 0);
+
+            l5.Debug("M8");
+            EnsureMessageCount(w, 8, 6, 1, 3, 1);
+        }
+
+        private void EnsureMessageCount(StringLogWriter[] writers, params int[] counts)
+        {
+            Assert.AreEqual(counts.Length, writers.Length);
+
+            for (int i = 0; i < writers.Length; i++)
+                Assert.AreEqual(counts[i], writers[i].Messages.Count);
+        }
+
+        [TestMethod]
         public void Scopes()
         {
             StringLogWriter writer;
@@ -53,7 +110,7 @@ namespace Neptuo.Logging
         }
 
         [TestMethod]
-        public void ExtensionMethods()
+        public void LoggingExtensionMethods()
         {
             StringLogWriter writer;
             ILogFactory logFactory = CreateLogFactory(out writer);
