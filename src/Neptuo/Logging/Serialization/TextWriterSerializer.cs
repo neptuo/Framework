@@ -12,8 +12,15 @@ namespace Neptuo.Logging.Serialization
     /// </summary>
     public class TextWriterSerializer : ILogSerializer
     {
+        /// <summary>
+        /// Serializer output writer.
+        /// </summary>
         public TextWriter Output { get; private set; }
 
+        /// <summary>
+        /// Creates new instance that writes to the <paramref name="output"/>.
+        /// </summary>
+        /// <param name="output"></param>
         public TextWriterSerializer(TextWriter output)
         {
             Ensure.NotNull(output, "output");
