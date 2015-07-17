@@ -173,6 +173,7 @@
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
     <Compile Include="Logging\ConsoleLogWriter.cs" />
     <Compile Include="Logging\DefaultLog.cs" />
+    <Compile Include="Logging\DefaultLogFactory.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogFactory.cs" />
     <Compile Include="Logging\ILogWriter.cs" />

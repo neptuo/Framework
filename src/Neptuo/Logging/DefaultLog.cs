@@ -11,10 +11,21 @@ namespace Neptuo.Logging
     /// </summary>
     public class DefaultLog : ILog
     {
-        private readonly IEnumerable<ILogWriter> currentWriters;
-        private readonly List<ILogWriter> childWriters;
+        private readonly IEnumerable<ILogWriter> writers;
+        private ILogFactory factory;
 
         public string ScopeName { get; private set; }
+
+        public ILogFactory Factory
+        {
+            get
+            {
+                if (factory == null)
+                    factory = new DefaultLogFactory(ScopeName, writers);
+
+                return factory;
+            }
+        }
 
         /// <summary>
         /// Creates empty root log.
@@ -31,32 +42,18 @@ namespace Neptuo.Logging
         public DefaultLog(string scopeName, IEnumerable<ILogWriter> writers)
         {
             Ensure.NotNull(writers, "writers");
-            this.currentWriters = writers;
-            this.childWriters = new List<ILogWriter>();
+            this.writers = writers;
             ScopeName = scopeName;
-        }
-
-        public ILog Scope(string scopeName)
-        {
-            Ensure.NotNullOrEmpty(scopeName, "scopeName");
-            return new DefaultLog(ScopeName + "." + scopeName, Enumerable.Concat(currentWriters, childWriters));
-        }
-
-        public ILogFactory AddWriter(ILogWriter writer)
-        {
-            Ensure.NotNull(writer, "writer");
-            childWriters.Add(writer);
-            return this;
         }
 
         public bool IsLevelEnabled(LogLevel level)
         {
-            return currentWriters.Any(w => w.IsLevelEnabled(level));
+            return writers.Any(w => w.IsLevelEnabled(level));
         }
 
         public void Log(LogLevel level, string message)
         {
-            foreach (ILogWriter writer in currentWriters)
+            foreach (ILogWriter writer in writers)
                 writer.Log(level, message);
         }
     }

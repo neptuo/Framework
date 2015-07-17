@@ -13,7 +13,7 @@ namespace Neptuo.Logging
         [TestMethod]
         public void BaseComposition()
         {
-            ILogFactory logFactory = new DefaultLog();
+            ILogFactory logFactory = new DefaultLogFactory();
             logFactory.AddConsoleWriter();
 
             ILog log = logFactory.Scope("Application");

@@ -8,9 +8,12 @@ namespace Neptuo.Logging
 {
     /// <summary>
     /// Composite log contract.
-    /// Provides facility for scoping logs, for appending writers and for logging.
     /// </summary>
-    public interface ILog : ILogFactory, ILogWriter
+    public interface ILog : ILogWriter
     {
+        /// <summary>
+        /// Factory for child scopes.
+        /// </summary>
+        ILogFactory Factory { get; }
     }
 }
