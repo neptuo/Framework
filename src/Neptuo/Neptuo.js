@@ -3229,6 +3229,42 @@ var Neptuo$Logging$_LogExtensions = {
         },
         Debug$$ILog$$String$$Object$Array: function (log, messageFormat, parameters){
             Neptuo.Logging._LogExtensions.Debug$$ILog$$String(log, System.String.Format$$String$$Object$Array(messageFormat, parameters));
+        },
+        Info$$ILog$$String: function (log, message){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Info, message);
+        },
+        Info$$ILog$$String$$Object$Array: function (log, messageFormat, parameters){
+            Neptuo.Logging._LogExtensions.Info$$ILog$$String(log, System.String.Format$$String$$Object$Array(messageFormat, parameters));
+        },
+        Warning$$ILog$$String: function (log, message){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Warning, message);
+        },
+        Warning$$ILog$$String$$Object$Array: function (log, messageFormat, parameters){
+            Neptuo.Logging._LogExtensions.Warning$$ILog$$String(log, System.String.Format$$String$$Object$Array(messageFormat, parameters));
+        },
+        Error$$ILog$$String: function (log, message){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Error, message);
+        },
+        Error$$ILog$$String$$Object$Array: function (log, messageFormat, parameters){
+            Neptuo.Logging._LogExtensions.Error$$ILog$$String(log, System.String.Format$$String$$Object$Array(messageFormat, parameters));
+        },
+        Error$$ILog$$Exception: function (log, exception){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Error, exception);
+        },
+        Fatal$$ILog$$String: function (log, message){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Fatal, message);
+        },
+        Fatal$$ILog$$String$$Object$Array: function (log, messageFormat, parameters){
+            Neptuo.Logging._LogExtensions.Fatal$$ILog$$String(log, System.String.Format$$String$$Object$Array(messageFormat, parameters));
+        },
+        Fatal$$ILog$$Exception: function (log, exception){
+            Neptuo.Ensure.NotNull$$Object$$String(log, "log");
+            log.Log(Neptuo.Logging.LogLevel.Fatal, exception);
         }
     },
     assemblyName: "Neptuo",

@@ -11,10 +11,29 @@ namespace Neptuo.Logging
     /// </summary>
     public enum LogLevel
     {
+        /// <summary>
+        /// Minimal level for debuging purposes.
+        /// </summary>
         Debug = 1,
+
+        /// <summary>
+        /// Informational level.
+        /// </summary>
         Info = 2,
+
+        /// <summary>
+        /// Should be taken seriously.
+        /// </summary>
         Warning = 4,
+
+        /// <summary>
+        /// Problem!
+        /// </summary>
         Error = 8,
+
+        /// <summary>
+        /// Big problem!
+        /// </summary>
         Fatal = 16
     }
 }
