@@ -15,6 +15,13 @@ namespace Neptuo.Logging
         /// Factory for child scopes.
         /// </summary>
         ILogFactory Factory { get; }
+        
+        /// <summary>
+        /// Returns <c>true</c> if <paramref name="level"/> is enabled; otherwise <c>false</c>.
+        /// </summary>
+        /// <param name="level">Log message level.</param>
+        /// <returns><c>true</c> if <paramref name="level"/> is enabled; otherwise <c>false</c>.</returns>
+        bool IsLevelEnabled(LogLevel level);
 
         /// <summary>
         /// Logs <paramref name="model"/> to the current log with <paramref name="level"/>.
