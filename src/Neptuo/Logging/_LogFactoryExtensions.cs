@@ -13,7 +13,7 @@ namespace Neptuo.Logging
     public static class _LogFactoryExtensions
     {
         /// <summary>
-        /// Adds <see cref="ConsoleSerializer"/> to <paramref name="logFactory"/>.
+        /// Adds <see cref="ConsoleSerializer"/> the to <paramref name="logFactory"/>.
         /// </summary>
         /// <param name="logFactory">Log factory to extend.</param>
         /// <returns><see cref="ILogFactory.AddSerializer"/>.</returns>
@@ -23,6 +23,11 @@ namespace Neptuo.Logging
             return logFactory.AddSerializer(new ConsoleSerializer());
         }
 
+        /// <summary>
+        /// Adds <see cref="TraceSerializer"/> to the <paramref name="logFactory"/>.
+        /// </summary>
+        /// <param name="logFactory">Log factory to extend.</param>
+        /// <returns><see cref="ILogFactory.AddSerializer"/>.</returns>
         public static ILogFactory AddTrace(this ILogFactory logFactory)
         {
             Ensure.NotNull(logFactory, "logFactory");
