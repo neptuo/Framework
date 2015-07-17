@@ -90,6 +90,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "test\UnitTest\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.AppServices", "src\Neptuo.Services.AppServices\Neptuo.Services.AppServices.csproj", "{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Logging.Log4net", "src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj", "{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -228,6 +230,10 @@ Global
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,6 +265,7 @@ Global
 		{8EC49C59-5F97-4877-95CA-F1BB2254F332} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{57E49676-4746-41FD-B439-B4F41F8AE837} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
