@@ -180,6 +180,8 @@
     <Compile Include="Logging\ILogFactory.cs" />
     <Compile Include="Logging\Serialization\ILogSerializer.cs" />
     <Compile Include="Logging\LogLevel.cs" />
+    <Compile Include="Logging\Serialization\TextWriterSerializer.cs" />
+    <Compile Include="Logging\Serialization\TraceSerializer.cs" />
     <Compile Include="Logging\_LogExtensions.cs" />
     <Compile Include="Logging\_LogFactoryExtensions.cs" />
     <Compile Include="OutFunc.cs" />

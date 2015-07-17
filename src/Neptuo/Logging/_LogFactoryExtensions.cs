@@ -22,5 +22,11 @@ namespace Neptuo.Logging
             Ensure.NotNull(logFactory, "logFactory");
             return logFactory.AddSerializer(new ConsoleSerializer());
         }
+
+        public static ILogFactory AddTrace(this ILogFactory logFactory)
+        {
+            Ensure.NotNull(logFactory, "logFactory");
+            return logFactory.AddSerializer(new TraceSerializer());
+        }
     }
 }
