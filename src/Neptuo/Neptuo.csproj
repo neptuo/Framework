@@ -178,6 +178,8 @@
     <Compile Include="Logging\IExceptionAware.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Logging\ILogFactory.cs" />
+    <Compile Include="Logging\Serialization\Filters\DefaultLogFilter.cs" />
+    <Compile Include="Logging\Serialization\Filters\ILogFilter.cs" />
     <Compile Include="Logging\Serialization\Formatters\DefaultLogFormatter.cs" />
     <Compile Include="Logging\Serialization\Formatters\ILogFormatter.cs" />
     <Compile Include="Logging\Serialization\ILogSerializer.cs" />

@@ -3237,10 +3237,108 @@ var Neptuo$Logging$ILogFactory = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Logging$ILogFactory);
+var Neptuo$Logging$Serialization$Filters$DefaultLogFilter = {
+    fullname: "Neptuo.Logging.Serialization.Filters.DefaultLogFilter",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.Debug = new Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$LogLevel(Neptuo.Logging.LogLevel.Debug);
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.Info = new Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$LogLevel(Neptuo.Logging.LogLevel.Info);
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.Warning = new Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$LogLevel(Neptuo.Logging.LogLevel.Warning);
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.Error = new Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$LogLevel(Neptuo.Logging.LogLevel.Error);
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.Fatal = new Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$LogLevel(Neptuo.Logging.LogLevel.Fatal);
+        }
+    },
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Logging.Serialization.Filters.ILogFilter"],
+    Kind: "Class",
+    definition: {
+        ctor$$HashSet$1$String$$LogLevel: function (scopeNames, minLevel){
+            this.scopeNames = null;
+            this.minLevel = Neptuo.Logging.LogLevel.Debug;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(scopeNames, "scopeNames");
+            this.scopeNames = scopeNames;
+            this.minLevel = minLevel;
+        },
+        ctor$$IEnumerable$1$String$$LogLevel: function (scopeNames, minLevel){
+            this.scopeNames = null;
+            this.minLevel = Neptuo.Logging.LogLevel.Debug;
+            Neptuo.Logging.Serialization.Filters.DefaultLogFilter.ctor$$HashSet$1$String$$LogLevel.call(this, new System.Collections.Generic.HashSet$1.ctor$$IEnumerable$1(System.String.ctor, scopeNames), minLevel);
+        },
+        ctor$$LogLevel: function (minLevel){
+            this.scopeNames = null;
+            this.minLevel = Neptuo.Logging.LogLevel.Debug;
+            System.Object.ctor.call(this);
+            this.minLevel = minLevel;
+        },
+        IsEnabled: function (scopeName, level){
+            if (level < this.minLevel)
+                return false;
+            if (this.scopeNames == null)
+                return true;
+            return this.scopeNames.Contains(scopeName);
+        }
+    },
+    ctors: [{
+        name: "ctor$$HashSet$$LogLevel",
+        parameters: ["System.Collections.Generic.HashSet", "Neptuo.Logging.LogLevel"]
+    }, {
+        name: "ctor$$IEnumerable$$LogLevel",
+        parameters: ["System.Collections.Generic.IEnumerable", "Neptuo.Logging.LogLevel"]
+    }, {
+        name: "ctor$$LogLevel",
+        parameters: ["Neptuo.Logging.LogLevel"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Logging$Serialization$Filters$DefaultLogFilter);
+var Neptuo$Logging$Serialization$Filters$ILogFilter = {
+    fullname: "Neptuo.Logging.Serialization.Filters.ILogFilter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Logging$Serialization$Filters$ILogFilter);
+var Neptuo$Logging$Serialization$Formatters$DefaultLogFormatter = {
+    fullname: "Neptuo.Logging.Serialization.Formatters.DefaultLogFormatter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Logging.Serialization.Formatters.ILogFormatter"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        },
+        Format: function (scopeName, level, model){
+            return System.String.Format$$String$$Object$Array("{0}\t{1}:{2}{3}{4}", System.DateTime.get_Now(), scopeName, level.ToString().ToUpperInvariant(), System.Environment.get_NewLine(), model);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Logging$Serialization$Formatters$DefaultLogFormatter);
+var Neptuo$Logging$Serialization$Formatters$ILogFormatter = {
+    fullname: "Neptuo.Logging.Serialization.Formatters.ILogFormatter",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Logging$Serialization$Formatters$ILogFormatter);
 var Neptuo$Logging$Serialization$ILogSerializer = {
     fullname: "Neptuo.Logging.Serialization.ILogSerializer",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Logging.Serialization.Filters.ILogFilter"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
