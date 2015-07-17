@@ -114,8 +114,8 @@ namespace Neptuo.Logging
             Ensure.NotNull(log, "log");
             if (String.IsNullOrEmpty(message))
                 log.Log(LogLevel.Error, exception);
-
-            log.Log(LogLevel.Error, new ExceptionModel(message, exception));
+            else
+                log.Log(LogLevel.Error, new ExceptionModel(message, exception));
         }
 
         /// <summary>
@@ -131,8 +131,8 @@ namespace Neptuo.Logging
             Ensure.NotNull(log, "log");
             if (String.IsNullOrEmpty(messageFormat))
                 log.Log(LogLevel.Error, exception);
-
-            log.Log(LogLevel.Error, new ExceptionModel(String.Format(messageFormat, parameters), exception));
+            else
+                log.Log(LogLevel.Error, new ExceptionModel(String.Format(messageFormat, parameters), exception));
         }
 
 
@@ -170,8 +170,8 @@ namespace Neptuo.Logging
             Ensure.NotNull(log, "log");
             if (String.IsNullOrEmpty(message))
                 log.Log(LogLevel.Fatal, exception);
-
-            log.Log(LogLevel.Fatal, new ExceptionModel(message, exception));
+            else
+                log.Log(LogLevel.Fatal, new ExceptionModel(message, exception));
         }
 
         /// <summary>
@@ -187,8 +187,8 @@ namespace Neptuo.Logging
             Ensure.NotNull(log, "log");
             if (String.IsNullOrEmpty(messageFormat))
                 log.Log(LogLevel.Fatal, exception);
-
-            log.Log(LogLevel.Fatal, new ExceptionModel(String.Format(messageFormat, parameters), exception));
+            else
+                log.Log(LogLevel.Fatal, new ExceptionModel(String.Format(messageFormat, parameters), exception));
         }
     }
 }

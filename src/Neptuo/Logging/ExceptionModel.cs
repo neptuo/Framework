@@ -33,5 +33,25 @@ namespace Neptuo.Logging
             Message = message;
             Exception = exception;
         }
+
+        public override int GetHashCode()
+        {
+            return 7 ^ Message.GetHashCode() ^ Exception.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            ExceptionModel other = obj as ExceptionModel;
+            if (other == null)
+                return false;
+
+            if (other.Message != Message)
+                return false;
+
+            if (other.Exception != Exception)
+                return false;
+
+            return true;
+        }
     }
 }
