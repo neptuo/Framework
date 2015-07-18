@@ -42,32 +42,53 @@ namespace Neptuo.Logging.Serializers
         public void Append(string scopeName, LogLevel level, object model)
         {
             ILogger log = GetLog(scopeName);
-            object message;
-            if (formatter != null)
-                message = formatter.Format(scopeName, level, model);
-            else if (!Converts.Try(model.GetType(), typeof(string), model, out message))
-                message = model;
 
-            if(IsEnabled(log, level))
+            // If requested level is not enabled, do nothing.
+            if (!IsEnabled(log, level))
+                return;
+
+            object message;
+            Exception exception = null;
+
+            // If we have formatter, use formatter.
+            if (formatter != null)
             {
-                switch (level)
+                message = formatter.Format(scopeName, level, model);
+            }
+            else if (!Converts.Try(model.GetType(), typeof(string), model, out message))
+            {
+                // Try convert to exception model.
+                ExceptionModel exceptionModel = model as ExceptionModel;
+                if (exceptionModel != null)
                 {
-                    case LogLevel.Debug:
-                        log.Debug(model);
-                        break;
-                    case LogLevel.Info:
-                        log.Info(model);
-                        break;
-                    case LogLevel.Warning:
-                        log.Warn(model);
-                        break;
-                    case LogLevel.Error:
-                        log.Error(model);
-                        break;
-                    case LogLevel.Fatal:
-                        log.Fatal(model);
-                        break;
+                    message = exceptionModel.Message;
+                    exception = exceptionModel.Exception;
                 }
+                else
+                {
+                    // Use model as message.
+                    message = model;
+                }
+            }
+
+            // Log to defined level.
+            switch (level)
+            {
+                case LogLevel.Debug:
+                    log.Debug(model, exception);
+                    break;
+                case LogLevel.Info:
+                    log.Info(model);
+                    break;
+                case LogLevel.Warning:
+                    log.Warn(model, exception);
+                    break;
+                case LogLevel.Error:
+                    log.Error(model, exception);
+                    break;
+                case LogLevel.Fatal:
+                    log.Fatal(model, exception);
+                    break;
             }
         }
 
