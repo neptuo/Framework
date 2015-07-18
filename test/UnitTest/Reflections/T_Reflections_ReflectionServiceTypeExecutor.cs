@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.ComponentModel.Converters;
 using Neptuo.Reflections.Enumerators;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,46 @@ namespace Neptuo.Reflections
             }
 
             File.WriteAllText("C:/Temp/Files.txt", result.ToString());
+        }
+
+        [TestMethod]
+        public void InterfaceFiltering()
+        {
+            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+
+            int matchCount = 0;
+            using (ITypeExecutorService executors = reflectionService.PrepareTypeExecutors())
+            {
+                executors.AddFiltered(false)
+                    .AddFilterNotInterface()
+                    .AddHandler(t =>
+                    {
+                        Assert.AreEqual(false, t.IsInterface);
+                        matchCount++;
+                    });
+            }
+
+            Ensure.Positive(matchCount, "matchCount");
+        }
+
+        [TestMethod]
+        public void AttributeFiltering()
+        {
+            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+
+            int matchCount = 0;
+            using (ITypeExecutorService executors = reflectionService.PrepareTypeExecutors())
+            {
+                executors.AddFiltered(false)
+                    .AddFilterHasAttribute<ConverterAttribute>()
+                    .AddHandler(t =>
+                    {
+                        Assert.AreEqual(typeof(IntToStringConverter), t);
+                        matchCount++;
+                    });
+            }
+
+            Assert.AreEqual(1, matchCount);
         }
     }
 }

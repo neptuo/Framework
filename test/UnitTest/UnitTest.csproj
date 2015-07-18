@@ -71,6 +71,7 @@
     <Compile Include="Activators\T_Activators_Unity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflections\T_Reflections_ReflectionServiceTypeExecutor.cs" />
+    <Compile Include="Reflections\_Services.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">
