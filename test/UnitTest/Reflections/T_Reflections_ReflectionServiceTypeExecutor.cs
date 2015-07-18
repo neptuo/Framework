@@ -51,6 +51,26 @@ namespace Neptuo.Reflections
         }
 
         [TestMethod]
+        public void AbstractFiltering()
+        {
+            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+
+            int matchCount = 0;
+            using (ITypeExecutorService executors = reflectionService.PrepareTypeExecutors())
+            {
+                executors.AddFiltered(false)
+                    .AddFilterNotAbstract()
+                    .AddHandler(t =>
+                    {
+                        Assert.AreEqual(false, t.IsAbstract);
+                        matchCount++;
+                    });
+            }
+
+            Ensure.Positive(matchCount, "matchCount");
+        }
+
+        [TestMethod]
         public void AttributeFiltering()
         {
             IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();

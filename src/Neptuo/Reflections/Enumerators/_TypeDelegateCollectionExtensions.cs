@@ -48,7 +48,7 @@ namespace Neptuo.Reflections.Enumerators
         public static ITypeDelegateCollection AddFilterNotAbstract(this ITypeDelegateCollection enumerator)
         {
             Ensure.NotNull(enumerator, "enumerator");
-            return enumerator.AddFilter(t => !t.IsInterface);
+            return enumerator.AddFilter(t => !t.IsAbstract);
         }
 
         /// <summary>
