@@ -1,5 +1,6 @@
-﻿using Neptuo.Logging.Serialization;
-using log4net;
+﻿using log4net;
+using Neptuo.Logging.Serialization;
+using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,28 @@ namespace Neptuo.Logging.Serializers
 {
     /// <summary>
     /// Basic integration of <see cref="log4net.ILog"/> to <see cref="ILogSerializer"/>.
+    /// For formatting message uses <see cref="ILogFormatter"/> or tries to convert model to string using <see cref="Converts.Try"/>.
     /// </summary>
     public class Log4netSerializer : ILogSerializer
     {
+        private readonly ILogFormatter formatter;
+
+        /// <summary>
+        /// Creates new instance that tries to serialize message model using <see cref="Converts.Try"/>.
+        /// </summary>
+        public Log4netSerializer()
+        { }
+
+        /// <summary>
+        /// Creates new instance that serializes messages using <paramref name="formatter"/>.
+        /// </summary>
+        /// <param name="formatter">Log message formatter.</param>
+        public Log4netSerializer(ILogFormatter formatter)
+        {
+            Ensure.NotNull(formatter, "formatter");
+            this.formatter = formatter;
+        }
+
         private ILogger GetLog(string scopeName)
         {
             return LogManager.GetLogger(scopeName);
@@ -22,6 +42,12 @@ namespace Neptuo.Logging.Serializers
         public void Append(string scopeName, LogLevel level, object model)
         {
             ILogger log = GetLog(scopeName);
+            object message;
+            if (formatter != null)
+                message = formatter.Format(scopeName, level, model);
+            else if (!Converts.Try(model.GetType(), typeof(string), model, out message))
+                message = model;
+
             if(IsEnabled(log, level))
             {
                 switch (level)
