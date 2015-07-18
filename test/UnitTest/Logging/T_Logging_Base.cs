@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.Logging.Serialization;
+using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -171,6 +173,22 @@ namespace Neptuo.Logging
             Assert.AreEqual(messageModel, message.Model);
         }
 
+        [TestMethod]
+        public void DefaultFormatter()
+        {
+            DefaultLogFormatter formatter = new DefaultLogFormatter();
+
+            Converts.Repository
+                .Add(typeof(ExceptionModel), typeof(string), new ExceptionModelConverter());
+            
+            string message;
+            DateTime now = DateTime.Now;
+            message = formatter.Format("Application", LogLevel.Debug, "M1");
+            Assert.AreEqual(String.Format("{0} Application(DEBUG){1}{1}M1", now, Environment.NewLine), message);
+
+            message = formatter.Format("Application", LogLevel.Info, new ExceptionModel("M2", Ensure.Exception.NotImplemented()));
+            Assert.AreEqual(String.Format("{0} Application(INFO){1}{1}M2{1}System.NotImplementedException: The method or operation is not implemented.{1}", now, Environment.NewLine), message);
+        }
 
     }
 }
