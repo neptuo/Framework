@@ -21,7 +21,9 @@ namespace Neptuo.Logging
         public void BaseComposition()
         {
             ILogFactory logFactory = new DefaultLogFactory();
-            logFactory.AddConsole();
+            logFactory
+                .AddConsole()
+                .AddLog4net();
 
             ILog log = logFactory.Scope("Application");
             log.Debug("Hello, {0}!", "World");
@@ -168,5 +170,7 @@ namespace Neptuo.Logging
             Assert.IsInstanceOfType(message.Model, messageModel.GetType());
             Assert.AreEqual(messageModel, message.Model);
         }
+
+
     }
 }
