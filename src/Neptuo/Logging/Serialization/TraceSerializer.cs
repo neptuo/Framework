@@ -1,4 +1,5 @@
-﻿using Neptuo.Logging.Serialization.Formatters;
+﻿using Neptuo.Logging.Serialization.Filters;
+using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,35 +12,26 @@ namespace Neptuo.Logging.Serialization
     /// <summary>
     /// Implementation of <see cref="ILogSerializer"/> that writes to the <see cref="Trace"/>.
     /// </summary>
-    public class TraceSerializer : ILogSerializer
+    public class TraceSerializer : TextLogSerializerBase
     {
-        private readonly ILogFormatter formatter;
-
         /// <summary>
         /// Creates new instance that writes to the <see cref="Trace"/>.
         /// </summary>
         public TraceSerializer()
-            : this(new DefaultLogFormatter())
+            : this(new DefaultLogFormatter(), new AllowedLogFilter())
         { }
 
         /// <summary>
-        /// Creates new instance that writes to the <see cref="Trace"/> and formats entries using <paramref name="formatter"/>.
+        /// Creates new instance that writes to the <see cref="Trace"/>.
         /// </summary>
         /// <param name="formatter">Log entry formatter.</param>
-        public TraceSerializer(ILogFormatter formatter)
-        {
-            Ensure.NotNull(formatter, "formatter");
-            this.formatter = formatter;
-        }
+        /// <param name="filter">Log entry filter.</param>
+        public TraceSerializer(ILogFormatter formatter, ILogFilter filter)
+            : base(formatter, filter)
+        { }
 
-        public bool IsEnabled(string scopeName, LogLevel level)
+        protected override void Append(string scopeName, LogLevel level, string message)
         {
-            return true;
-        }
-
-        public void Append(string scopeName, LogLevel level, object model)
-        {
-            string message = formatter.Format(scopeName, level, model);
             switch (level)
             {
                 case LogLevel.Debug:

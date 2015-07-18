@@ -19,7 +19,7 @@ namespace Neptuo.Logging.Serialization.Formatters
                 message = model;
 
             return String.Format(
-                "{0} {1}({2}){3}{3}{4}",
+                "{0} {1}({2}){3}{3}{4}{3}",
                 DateTime.Now,
                 scopeName,
                 level.ToString().ToUpperInvariant(),

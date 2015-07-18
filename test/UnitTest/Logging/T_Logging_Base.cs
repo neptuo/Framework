@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Logging.Serialization;
+using Neptuo.Logging.Serialization.Converters;
+using Neptuo.Logging.Serialization.Filters;
 using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
@@ -188,6 +190,22 @@ namespace Neptuo.Logging
 
             message = formatter.Format("Application", LogLevel.Info, new ExceptionModel("M2", Ensure.Exception.NotImplemented()));
             Assert.AreEqual(String.Format("{0} Application(INFO){1}{1}M2{1}System.NotImplementedException: The method or operation is not implemented.{1}", now, Environment.NewLine), message);
+        }
+
+        [TestMethod]
+        public void DefaultFilter()
+        {
+            DefaultLogFilter filter = new DefaultLogFilter(LogLevel.Info);
+            Assert.AreEqual(false, filter.IsEnabled("App", LogLevel.Debug));
+            Assert.AreEqual(true, filter.IsEnabled("App", LogLevel.Info));
+            Assert.AreEqual(true, filter.IsEnabled("App", LogLevel.Warning));
+            Assert.AreEqual(true, filter.IsEnabled("App", LogLevel.Error));
+            Assert.AreEqual(true, filter.IsEnabled("App", LogLevel.Fatal));
+
+            filter = new DefaultLogFilter(new HashSet<string> { "S1", "S2" }, LogLevel.Debug);
+            Assert.AreEqual(true, filter.IsEnabled("S1", LogLevel.Debug));
+            Assert.AreEqual(true, filter.IsEnabled("S2", LogLevel.Debug));
+            Assert.AreEqual(false, filter.IsEnabled("S3", LogLevel.Debug));
         }
 
     }

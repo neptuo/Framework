@@ -2,6 +2,7 @@
 using Neptuo;
 using Neptuo.Logging;
 using Neptuo.Logging.Serialization;
+using Neptuo.Logging.Serialization.Converters;
 using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ namespace TestConsole.Logging
             ILog root = logFactory.Scope("Root");
             root.Debug("Hello, World!");
             root.Fatal(Ensure.Exception.NotImplemented());
+            root.Fatal(Ensure.Exception.NotImplemented(), "Method is not implemented!");
         }
     }
 }

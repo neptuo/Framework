@@ -1,4 +1,5 @@
-﻿using Neptuo.Logging.Serialization.Formatters;
+﻿using Neptuo.Logging.Serialization.Filters;
+using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,11 +22,12 @@ namespace Neptuo.Logging.Serialization
         { }
 
         /// <summary>
-        /// Creates new instance that writes to the <see cref="Console.Out"/> and formats entries using <paramref name="formatter"/>.
+        /// Creates new instance that writes to the <see cref="Console.Out"/>.
         /// </summary>
         /// <param name="formatter">Log entry formatter.</param>
-        public ConsoleSerializer(ILogFormatter formatter)
-            : base(Console.Out, formatter)
+        /// <param name="filter">Log entry filter.</param>
+        public ConsoleSerializer(ILogFormatter formatter, ILogFilter filter)
+            : base(Console.Out, formatter, filter)
         { }
     }
 }

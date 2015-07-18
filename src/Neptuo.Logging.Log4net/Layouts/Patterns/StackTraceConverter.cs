@@ -20,8 +20,8 @@ namespace Neptuo.Logging.Layouts.Patterns
         protected override void Convert(TextWriter writer, LoggingEvent loggingEvent)
         {
             LocationInfo locationInfo = loggingEvent.LocationInformation;
-            var stack = new StackTrace(true);
-            var writeFrame = false;
+            StackTrace stack = new StackTrace(true);
+            bool writeFrame = false;
 
             StackFrame[] frames = stack.GetFrames();
             if (frames == null)
@@ -34,12 +34,11 @@ namespace Neptuo.Logging.Layouts.Patterns
 
                 if (!writeFrame)
                 {
-                    if (method.DeclaringType != null
-                        && (method.DeclaringType.FullName == locationInfo.ClassName
-                            && method.Name == locationInfo.MethodName
-                            && lineNumber.ToString() == locationInfo.LineNumber))
-
-                        writeFrame = true;
+                    if (method.DeclaringType != null)
+                    {
+                        if (method.DeclaringType.FullName == locationInfo.ClassName && method.Name == locationInfo.MethodName && lineNumber.ToString() == locationInfo.LineNumber)
+                            writeFrame = true;
+                    }
                 }
 
                 if (!writeFrame)

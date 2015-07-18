@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Logging.Serialization
+namespace Neptuo.Logging.Serialization.Converters
 {
     /// <summary>
     /// Converter from <see cref="ExceptionModel"/> to <see cref="string"/>.

@@ -1,4 +1,5 @@
-﻿using Neptuo.Logging.Serialization.Formatters;
+﻿using Neptuo.Logging.Serialization.Filters;
+using Neptuo.Logging.Serialization.Formatters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace Neptuo.Logging.Serialization
     /// <summary>
     /// Base implementation of <see cref="ILogSerializer"/> that writes to the <see cref="TextWriter"/>.
     /// </summary>
-    public class TextWriterSerializer : ILogSerializer
+    public class TextWriterSerializer : TextLogSerializerBase
     {
         /// <summary>
         /// Serializer output writer.
@@ -19,40 +20,29 @@ namespace Neptuo.Logging.Serialization
         public TextWriter Output { get; private set; }
 
         /// <summary>
-        /// Log entry formatter.
+        /// Creates new instance that writes to the <paramref name="output"/>.
         /// </summary>
-        public ILogFormatter Formatter { get; private set; }
+        /// <param name="output">Serializer output writer.</param>
+        public TextWriterSerializer(TextWriter output)
+            : this(output, new DefaultLogFormatter(), new AllowedLogFilter())
+        { }
 
         /// <summary>
         /// Creates new instance that writes to the <paramref name="output"/>.
         /// </summary>
         /// <param name="output">Serializer output writer.</param>
-        public TextWriterSerializer(TextWriter output)
-            : this(output, new DefaultLogFormatter())
-        { }
-
-        /// <summary>
-        /// Creates new instance that writes to the <paramref name="output"/> and formats entries using <paramref name="formatter"/>.
-        /// </summary>
-        /// <param name="output">Serializer output writer.</param>
         /// <param name="formatter">Log entry formatter.</param>
-        public TextWriterSerializer(TextWriter output, ILogFormatter formatter)
+        /// <param name="filter">Log entry filter.</param>
+        public TextWriterSerializer(TextWriter output, ILogFormatter formatter, ILogFilter filter)
+            : base(formatter, filter)
         {
             Ensure.NotNull(output, "output");
-            Ensure.NotNull(formatter, "formatter");
             Output = output;
-            Formatter = formatter;
         }
 
-        public bool IsEnabled(string scopeName, LogLevel level)
+        protected override void Append(string scopeName, LogLevel level, string message)
         {
-            return true;
-        }
-
-        public void Append(string scopeName, LogLevel level, object model)
-        {
-            Output.WriteLine(Formatter.Format(scopeName, level, model));
-            Output.WriteLine();
+            Output.WriteLine(message);
         }
     }
 }
