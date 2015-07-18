@@ -3145,7 +3145,7 @@ var Neptuo$Reflections$DefaultReflectionService = {
             while ($it11.MoveNext()){
                 var assembly = $it11.get_Current();
                 var enumerator = new Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator.ctor(assembly);
-                Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions.HandleExecutor(enumerator, executor);
+                Neptuo.Reflections.Enumerators._Typeenumeratorxtensions.HandleExecutor(enumerator, executor);
             }
             if (isExecutedForLatelyLoadedAssemblies){
                 this.typeExecutors.Add(executor);
@@ -3163,7 +3163,7 @@ var Neptuo$Reflections$DefaultReflectionService = {
             while ($it12.MoveNext()){
                 var executor = $it12.get_Current();
                 var enumerator = new Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator.ctor(args.get_LoadedAssembly());
-                Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions.HandleExecutor(enumerator, executor);
+                Neptuo.Reflections.Enumerators._Typeenumeratorxtensions.HandleExecutor(enumerator, executor);
             }
         }
     },
@@ -3398,8 +3398,8 @@ var Neptuo$Reflections$Enumerators$FilterTypeExecutor = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Reflections$Enumerators$FilterTypeExecutor);
-var Neptuo$Reflections$Enumerators$_TypeEnumeratorExtensions = {
-    fullname: "Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions",
+var Neptuo$Reflections$Enumerators$_Typeenumeratorxtensions = {
+    fullname: "Neptuo.Reflections.Enumerators._Typeenumeratorxtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         HandleExecutor: function (enumerator, executor){
@@ -3419,7 +3419,7 @@ var Neptuo$Reflections$Enumerators$_TypeEnumeratorExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflections$Enumerators$_TypeEnumeratorExtensions);
+JsTypes.push(Neptuo$Reflections$Enumerators$_Typeenumeratorxtensions);
 var Neptuo$Reflections$IReflectionService = {
     fullname: "Neptuo.Reflections.IReflectionService",
     baseTypeName: "System.Object",

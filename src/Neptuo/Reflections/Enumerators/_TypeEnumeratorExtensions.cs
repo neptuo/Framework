@@ -9,7 +9,7 @@ namespace Neptuo.Reflections.Enumerators
     /// <summary>
     /// Common extesnions for <see cref="ITypeEnumerator"/>.
     /// </summary>
-    public static class _TypeEnumeratorExtensions
+    public static class _Typeenumeratorxtensions
     {
         /// <summary>
         /// Executes <paramref name="executor"/> on all types from <paramref name="enumerator"/>.
