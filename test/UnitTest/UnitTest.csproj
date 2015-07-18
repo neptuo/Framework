@@ -69,6 +69,8 @@
     <Compile Include="Activators\Tests\TestResolve.cs" />
     <Compile Include="Activators\Tests\_TestServices.cs" />
     <Compile Include="Activators\T_Activators_Unity.cs" />
+    <Compile Include="Logging\T_Logging_Base.cs" />
+    <Compile Include="Logging\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +81,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj">
       <Project>{a9d02667-9762-4c91-a403-41de7b8a4efe}</Project>
       <Name>Neptuo.Activators.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
+      <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
+      <Name>Neptuo.Logging.Log4net</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
