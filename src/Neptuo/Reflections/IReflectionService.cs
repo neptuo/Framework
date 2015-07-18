@@ -39,11 +39,9 @@ namespace Neptuo.Reflections
         Type LoadType(string typeAssemblyName);
 
         /// <summary>
-        /// Adds type executor, that will be executed immediately 
-        /// and if <paramref name="isExecutedForLatelyLoadedAssemblies" /> is <c>true</c> then also for all lately loaded assemblies.
+        /// Creates single use service for registering <see cref="Enumerators.ITypeExecutor"/>.
         /// </summary>
-        /// <param name="executor">Type enumerator.</param>
-        /// <param name="isExecutedForLatelyLoadedAssemblies">Whether to execute <paramref name="executor"/> also for lately loaded assemblies.</param>
-        void AddTypeExecutor(ITypeExecutor executor, bool isExecutedForLatelyLoadedAssemblies);
+        /// <returns>Service for registering <see cref="Enumerators.ITypeExecutor"/>.</returns>
+        ITypeExecutorService PrepareTypeExecutors();
     }
 }

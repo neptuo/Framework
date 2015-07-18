@@ -18,10 +18,13 @@ namespace Neptuo.Reflections
             StringBuilder result = new StringBuilder();
 
             IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
-            reflectionService.AddFilterTypeExecutor(true)
-                .AddFilterNotInterface()
-                .AddFilterNotAbstract()
-                .AddHandler(t => result.AppendLine(t.FullName));
+            using (ITypeExecutorService executors = reflectionService.PrepareTypeExecutors())
+            {
+                executors.AddFiltered(true)
+                    .AddFilterNotInterface()
+                    .AddFilterNotAbstract()
+                    .AddHandler(t => result.AppendLine(t.FullName));
+            }
 
             File.WriteAllText("C:/Temp/Files.txt", result.ToString());
         }

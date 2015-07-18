@@ -185,10 +185,11 @@
     <Compile Include="Reflections\Enumerators\_TypeEnumeratorExtensions.cs" />
     <Compile Include="Reflections\IReflectionService.cs" />
     <Compile Include="Reflections\Enumerators\ITypeDelegateCollection.cs" />
+    <Compile Include="Reflections\ITypeExecutorService.cs" />
     <Compile Include="Reflections\ReflectionFactory.cs" />
     <Compile Include="Reflections\ReflectionHelper.cs" />
     <Compile Include="Reflections\Enumerators\_TypeDelegateCollectionExtensions.cs" />
-    <Compile Include="Reflections\_ReflectionServiceExtensions.cs" />
+    <Compile Include="Reflections\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
     <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />

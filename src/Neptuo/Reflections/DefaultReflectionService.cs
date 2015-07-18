@@ -1,4 +1,5 @@
-﻿using Neptuo.Reflections.Enumerators;
+﻿using Neptuo.ComponentModel;
+using Neptuo.Reflections.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,24 +78,6 @@ namespace Neptuo.Reflections
             return null;
         }
 
-
-        public void AddTypeExecutor(ITypeExecutor executor, bool isExecutedForLatelyLoadedAssemblies)
-        {
-            Ensure.NotNull(executor, "executor");
-
-            foreach (Assembly assembly in EnumerateAssemblies())
-            {
-                AssemblyTypeEnumerator enumerator = new AssemblyTypeEnumerator(assembly);
-                enumerator.HandleExecutor(executor);
-            }
-
-            if(isExecutedForLatelyLoadedAssemblies)
-            {
-                typeExecutors.Add(executor);
-                EnsureAssemblyLoadDelegate();
-            }
-        }
-
         private void EnsureAssemblyLoadDelegate()
         {
             if (!isAssemblyLoadedAttached)
@@ -112,5 +95,72 @@ namespace Neptuo.Reflections
                 enumerator.HandleExecutor(executor);
             }
         }
+
+        public ITypeExecutorService PrepareTypeExecutors()
+        {
+            return new DefaultTypeExecutorService(this, executor =>
+            {
+                EnsureAssemblyLoadDelegate();
+                typeExecutors.Add(executor);
+            });
+        }
     }
+
+    internal class DefaultTypeExecutorService : DisposableBase, ITypeExecutorService
+    {
+        private readonly DefaultReflectionService service;
+        private readonly Action<ITypeExecutor> addPermanentExecutor;
+        private readonly ListTypeExector executor;
+
+        public DefaultTypeExecutorService(DefaultReflectionService service, Action<ITypeExecutor> addPermanentExecutor)
+        {
+            this.service = service;
+            this.addPermanentExecutor = addPermanentExecutor;
+            this.executor = new ListTypeExector();
+        }
+
+        public ITypeExecutorService AddTypeExecutor(ITypeExecutor executor, bool isExecutedForLatelyLoadedAssemblies)
+        {
+            Ensure.NotNull(executor, "executor");
+
+            this.executor.TypeExecutors.Add(executor);
+            if (isExecutedForLatelyLoadedAssemblies)
+                addPermanentExecutor(executor);
+
+            return this;
+        }
+
+        protected override void DisposeManagedResources()
+        {
+            base.DisposeManagedResources();
+
+            foreach (Assembly assembly in service.EnumerateAssemblies())
+            {
+                AssemblyTypeEnumerator enumerator = new AssemblyTypeEnumerator(assembly);
+                    enumerator.HandleExecutor(executor);
+            }
+        }
+    }
+
+    internal class ListTypeExector : ITypeExecutor
+    {
+        public List<ITypeExecutor> TypeExecutors { get; private set; }
+
+        public ListTypeExector()
+        {
+            TypeExecutors = new List<ITypeExecutor>();
+        }
+
+        public bool IsMatched(Type type)
+        {
+            return TypeExecutors.Any(e => e.IsMatched(type));
+        }
+
+        public void Handle(Type type)
+        {
+            foreach (ITypeExecutor executor in TypeExecutors)
+                executor.Handle(type);
+        }
+    }
+
 }
