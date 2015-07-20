@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections.Enumerators
+namespace Neptuo.Reflections.Enumerators.Executors
 {
     /// <summary>
     /// Contract for defining type filters and handlers.
