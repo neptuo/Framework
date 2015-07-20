@@ -89,5 +89,19 @@ namespace Neptuo.Reflections
 
             Assert.AreEqual(1, matchCount);
         }
+
+        [TestMethod]
+        public void AutoWireConverters()
+        {
+            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+            using (ITypeExecutorService executors = reflectionService.PrepareTypeExecutors())
+            {
+                executors.AddConverters();
+            }
+
+            string value;
+            Assert.AreEqual(true, Converts.Repository.TryConvert<int, string>(5, out value));
+            Assert.AreEqual("5", value);
+        }
     }
 }

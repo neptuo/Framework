@@ -132,6 +132,7 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\OutFuncCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
+    <Compile Include="ComponentModel\Converters\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="ComponentModel\__ErrorModelExtensions.cs" />
     <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
