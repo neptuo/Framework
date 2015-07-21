@@ -273,6 +273,28 @@ var Neptuo$Services$Validators$Messages$ValidationMessageBase = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Services$Validators$Messages$ValidationMessageBase);
+var Neptuo$Services$Validators$VersionInfo = {
+    fullname: "Neptuo.Services.Validators.VersionInfo",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Services.Validators.VersionInfo.Version = "0.1.0";
+        },
+        GetVersion: function (){
+            return new System.Version.ctor$$String("0.1.0");
+        }
+    },
+    assemblyName: "Neptuo.Services.Validators",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Services$Validators$VersionInfo);
 var Neptuo$Services$Validators$ValidationException = {
     fullname: "Neptuo.Services.Validators.ValidationException",
     baseTypeName: "System.Exception",

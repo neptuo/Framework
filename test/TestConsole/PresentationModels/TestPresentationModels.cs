@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.PresentationModels.Validators.Handlers;
 using Neptuo.PresentationModels.Validation;
+using Neptuo.PresentationModels.TypeModels.ValueUpdates;
 
 namespace TestConsole.PresentationModels
 {
@@ -36,6 +37,9 @@ namespace TestConsole.PresentationModels
                 .Add(null, null, "Required", new RequiredMetadataValidator())
                 .Add(null, null, "MatchProperty", new MatchPropertyMetadataValidator());
 
+            ReflectionValueUpdaterCollection valueUpdaters = new ReflectionValueUpdaterCollection()
+                    .Add<ICollection<int>>(new CollectionItemReflectionValueUpdater<int>());
+
             BindingConverterCollection bindingConverters = new BindingConverterCollection()
                 //.Add(new TypeFieldType(typeof(bool)), new BoolBindingConverter())
                 //.Add(new TypeFieldType(typeof(int)), new IntBindingConverter())
@@ -51,7 +55,7 @@ namespace TestConsole.PresentationModels
             model.Username = "pepa";
             model.Password = "x";
             model.PasswordAgain = "y";
-            IModelValueProvider valueProvider = new ReflectionModelValueProvider(model);
+            IModelValueProvider valueProvider = new ReflectionModelValueProvider(model, valueUpdaters);
 
             IBindingModelValueStorage storage = new BindingDictionaryValueStorage()
                 .Add("Username", "Pepa")
@@ -63,6 +67,8 @@ namespace TestConsole.PresentationModels
             IModelValueGetter bindingGetter = new BindingModelValueGetter(storage, bindingConverters, modelDefinition);
             CopyModelValueProvider copyProvider = new CopyModelValueProvider(modelDefinition, true);
             Debug("Copy from dictionary", () => copyProvider.Update(valueProvider, bindingGetter));
+
+            Console.WriteLine("RoleIDs: {0}", String.Join(", ", model.RoleIDs));
 
             IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(fieldMetadataValidators);
             IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, valueProvider)));
@@ -87,6 +93,12 @@ namespace TestConsole.PresentationModels
         [Required]
         public int? Age { get; set; }
 
-        public IEnumerable<int> RoleIDs { get; set; }
+        private ICollection<int> roleIDs;
+        public ICollection<int> RoleIDs { get { return roleIDs; } }
+
+        public RegisterUserModel()
+        {
+            roleIDs = new List<int>();
+        }
     }
 }

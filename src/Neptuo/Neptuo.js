@@ -144,6 +144,42 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
+var Neptuo$Activators$DependencyException = {
+    fullname: "Neptuo.Activators.DependencyException",
+    baseTypeName: "System.Exception",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Exception.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            System.Exception.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            System.Exception.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            System.Exception.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$DependencyException);
 var Neptuo$Activators$DependencyLifetime = {
     fullname: "Neptuo.Activators.DependencyLifetime",
     baseTypeName: "System.ValueType",
@@ -151,9 +187,9 @@ var Neptuo$Activators$DependencyLifetime = {
         cctor: function (){
             Neptuo.Activators.DependencyLifetime.RootScopeName = "Root";
             Neptuo.Activators.DependencyLifetime.Transient = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(false, null);
-            Neptuo.Activators.DependencyLifetime.AnyScope = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, null);
+            Neptuo.Activators.DependencyLifetime.Scope = new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, null);
         },
-        NamedScope: function (name){
+        NameScope: function (name){
             return new Neptuo.Activators.DependencyLifetime.ctor$$Boolean$$String(true, name);
         }
     },
@@ -190,38 +226,252 @@ var Neptuo$Activators$DependencyLifetime = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Activators$DependencyLifetime);
-var Neptuo$Activators$_DependencyContainerExtensions = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions",
+var Neptuo$Activators$DependencyRegistrationFailedException = {
+    fullname: "Neptuo.Activators.DependencyRegistrationFailedException",
+    baseTypeName: "Neptuo.Activators.DependencyException",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Activators.DependencyException.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            Neptuo.Activators.DependencyException.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            Neptuo.Activators.DependencyException.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            Neptuo.Activators.DependencyException.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyRegistrationFailedException);
+var Neptuo$Activators$DependencyResolutionFailedException = {
+    fullname: "Neptuo.Activators.DependencyResolutionFailedException",
+    baseTypeName: "Neptuo.Activators.DependencyException",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            Neptuo.Activators.DependencyException.ctor.call(this);
+        },
+        ctor$$String: function (message){
+            Neptuo.Activators.DependencyException.ctor$$String.call(this, message);
+        },
+        ctor$$String$$Exception: function (message, inner){
+            Neptuo.Activators.DependencyException.ctor$$String$$Exception.call(this, message, inner);
+        },
+        ctor$$SerializationInfo$$StreamingContext: function (info, context){
+            Neptuo.Activators.DependencyException.ctor$$SerializationInfo$$StreamingContext.call(this, info, context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$String",
+        parameters: ["System.String"]
+    }, {
+        name: "ctor$$String$$Exception",
+        parameters: ["System.String", "System.Exception"]
+    }, {
+        name: "ctor$$SerializationInfo$$StreamingContext",
+        parameters: ["System.Runtime.Serialization.SerializationInfo", "System.Runtime.Serialization.StreamingContext"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyResolutionFailedException);
+var Neptuo$Activators$DependencyServiceProvider = {
+    fullname: "Neptuo.Activators.DependencyServiceProvider",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["System.IServiceProvider"],
+    Kind: "Class",
+    definition: {
+        ctor: function (dependencyProvider){
+            this.dependencyProvider = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        },
+        GetService: function (serviceType){
+            return this.dependencyProvider.Resolve(serviceType);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Activators.IDependencyProvider"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$DependencyServiceProvider);
+var Neptuo$Activators$GetterActivator$1 = {
+    fullname: "Neptuo.Activators.GetterActivator$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IActivator$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, getter){
+            this.T = T;
+            this.getter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            this.getter = getter;
+        },
+        Create: function (){
+            return this.getter();
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Func"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$GetterActivator$1);
+var Neptuo$Activators$GetterActivator$2 = {
+    fullname: "Neptuo.Activators.GetterActivator$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IActivator$2"],
+    Kind: "Class",
+    definition: {
+        ctor: function (T, TContext, getter){
+            this.T = T;
+            this.TContext = TContext;
+            this.getter = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(getter, "getter");
+            this.getter = getter;
+        },
+        Create: function (context){
+            return this.getter(context);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Func"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Activators$GetterActivator$2);
+var Neptuo$Activators$IDependencyDefinitionCollection = {
+    fullname: "Neptuo.Activators.IDependencyDefinitionCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Activators.IDependencyDefinitionReadOnlyCollection"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyDefinitionCollection);
+var Neptuo$Activators$IDependencyDefinition = {
+    fullname: "Neptuo.Activators.IDependencyDefinition",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyDefinition);
+var Neptuo$Activators$IDependencyDefinitionReadOnlyCollection = {
+    fullname: "Neptuo.Activators.IDependencyDefinitionReadOnlyCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Activators$IDependencyDefinitionReadOnlyCollection);
+var Neptuo$Activators$_DependencyRegistrationExtensions = {
+    fullname: "Neptuo.Activators._DependencyRegistrationExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        Map$$IDependencyContainer$$Type: function (dependencyContainer, requiredType){
-            return new Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration.ctor(dependencyContainer, requiredType);
+        AddTransient$2$$IDependencyDefinitionCollection: function (TInterface, TImplementation, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Transient, Typeof(TImplementation));
+            return collection;
         },
-        Map$1$$IDependencyContainer: function (TRequired, dependencyContainer){
-            return Neptuo.Activators._DependencyContainerExtensions.Map$$IDependencyContainer$$Type(dependencyContainer, Typeof(TRequired));
+        AddTransient$1$$IDependencyDefinitionCollection: function (TImplementation, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.Transient, Typeof(TImplementation));
+            return collection;
         },
-        InTransient: function (model){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.Transient);
+        AddTransientActivator$2$$IDependencyDefinitionCollection$$TActivator: function (TInterface, TActivator, collection, activator){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Transient, activator);
+            return collection;
         },
-        InAnyScope: function (model){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.AnyScope);
+        AddTransientActivator$2$$IDependencyDefinitionCollection: function (TInterface, TActivator, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Transient, Typeof(TActivator));
+            return collection;
         },
-        InNamedScope: function (model, scopeName){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.In(Neptuo.Activators.DependencyLifetime.NamedScope(scopeName));
+        AddScoped$2$$IDependencyDefinitionCollection: function (TInterface, TImplementation, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Scope, Typeof(TImplementation));
+            return collection;
         },
-        ToType$$IDependencyTargetMapping$$Type: function (model, targetType){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.To(targetType);
+        AddScoped$1$$IDependencyDefinitionCollection: function (TImplementation, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.Scope, Typeof(TImplementation));
+            return collection;
         },
-        ToType$1$$IDependencyTargetMapping: function (TTarget, model){
-            return Neptuo.Activators._DependencyContainerExtensions.ToType$$IDependencyTargetMapping$$Type(model, Typeof(TTarget));
+        AddScopedActivator$2$$IDependencyDefinitionCollection$$TActivator: function (TInterface, TActivator, collection, activator){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Scope, activator);
+            return collection;
         },
-        ToActivator$1: function (TTarget, model, activator){
-            Neptuo.Ensure.NotNull$$Object$$String(model, "model");
-            return model.To(activator);
+        AddScopedActivator$2$$IDependencyDefinitionCollection: function (TInterface, TActivator, collection){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Scope, Typeof(TActivator));
+            return collection;
+        },
+        AddNameScoped$2$$IDependencyDefinitionCollection$$String: function (TInterface, TImplementation, collection, scopeName){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TImplementation));
+            return collection;
+        },
+        AddNameScoped$1$$IDependencyDefinitionCollection$$String: function (TImplementation, collection, scopeName){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TImplementation));
+            return collection;
+        },
+        AddNameScoped$1$$IDependencyDefinitionCollection$$String$$TImplementation: function (TImplementation, collection, scopeName, instance){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), instance);
+            return collection;
+        },
+        AddNameScopedActivator$2$$IDependencyDefinitionCollection$$String$$TActivator: function (TInterface, TActivator, collection, scopeName, activator){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), activator);
+            return collection;
+        },
+        AddNameScopedActivator$2$$IDependencyDefinitionCollection$$String: function (TInterface, TActivator, collection, scopeName){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TActivator));
+            return collection;
         }
     },
     assemblyName: "Neptuo",
@@ -234,63 +484,33 @@ var Neptuo$Activators$_DependencyContainerExtensions = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions);
-var Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping",
+JsTypes.push(Neptuo$Activators$_DependencyRegistrationExtensions);
+var Neptuo$Activators$_EnsureExceptionExtensions = {
+    fullname: "Neptuo.Activators._EnsureExceptionExtensions",
     baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyScopeMapping);
-var Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    Kind: "Interface",
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$IDependencyTargetMapping);
-var Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration = {
-    fullname: "Neptuo.Activators._DependencyContainerExtensions.DependencyRegistration",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Activators._DependencyContainerExtensions.IDependencyScopeMapping", "Neptuo.Activators._DependencyContainerExtensions.IDependencyTargetMapping"],
-    Kind: "Class",
-    definition: {
-        ctor: function (dependencyContainer, requiredType){
-            this.dependencyContainer = null;
-            this.requiredType = null;
-            this.lifetime = new Neptuo.Activators.DependencyLifetime.ctor();
-            System.Object.ctor.call(this);
-            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
-            this.dependencyContainer = dependencyContainer;
-            this.requiredType = requiredType;
+    staticDefinition: {
+        NotResolvable$$EnsureExceptionHelper$$Type: function (exception, requiredType){
+            Neptuo.Ensure.NotNull$$Object$$String(exception, "exception");
+            Neptuo.Ensure.NotNull$$Object$$String(requiredType, "requiredType");
+            return new Neptuo.Activators.DependencyResolutionFailedException.ctor$$String(System.String.Format$$String$$Object("Problem resolving type \'{0}\'.", requiredType.get_FullName()));
         },
-        In: function (lifetime){
-            this.lifetime = lifetime;
-            return this;
-        },
-        InCurrentScope: function (){
-            return this.In(Neptuo.Activators.DependencyLifetime.NamedScope(this.dependencyContainer.get_ScopeName()));
-        },
-        To: function (target){
-            return this.dependencyContainer.Map(this.requiredType, this.lifetime, target);
-        },
-        ToSelf: function (){
-            return this.To(this.requiredType);
+        NotResolvable$$EnsureExceptionHelper$$Type$$Exception: function (exception, requiredType, inner){
+            Neptuo.Ensure.NotNull$$Object$$String(exception, "exception");
+            Neptuo.Ensure.NotNull$$Object$$String(requiredType, "requiredType");
+            return new Neptuo.Activators.DependencyResolutionFailedException.ctor$$String$$Exception(System.String.Format$$String$$Object("Problem resolving type \'{0}\'.", requiredType.get_FullName()), inner);
         }
     },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.Activators.IDependencyContainer", "System.Type"]
-    }
-    ],
-    IsAbstract: false
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
 };
-JsTypes.push(Neptuo$Activators$_DependencyContainerExtensions$DependencyRegistration);
+JsTypes.push(Neptuo$Activators$_EnsureExceptionExtensions);
 var Neptuo$Collections$Generic$_DictionaryExtensions = {
     fullname: "Neptuo.Collections.Generic._DictionaryExtensions",
     baseTypeName: "System.Object",
@@ -995,6 +1215,62 @@ var Neptuo$ComponentModel$Converters$CollectionConverter$1 = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$CollectionConverter$1);
+var Neptuo$ComponentModel$Converters$ConverterAttribute = {
+    fullname: "Neptuo.ComponentModel.Converters.ConverterAttribute",
+    baseTypeName: "System.Attribute",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._SourceType = null;
+            this._TargetType = null;
+            this._HasTypesDefined = false;
+            System.Attribute.ctor.call(this);
+        },
+        SourceType$$: "System.Type",
+        get_SourceType: function (){
+            return this._SourceType;
+        },
+        set_SourceType: function (value){
+            this._SourceType = value;
+        },
+        TargetType$$: "System.Type",
+        get_TargetType: function (){
+            return this._TargetType;
+        },
+        set_TargetType: function (value){
+            this._TargetType = value;
+        },
+        HasTypesDefined$$: "System.Boolean",
+        get_HasTypesDefined: function (){
+            return this._HasTypesDefined;
+        },
+        set_HasTypesDefined: function (value){
+            this._HasTypesDefined = value;
+        },
+        ctor$$Type$$Type: function (sourceType, targetType){
+            this._SourceType = null;
+            this._TargetType = null;
+            this._HasTypesDefined = false;
+            System.Attribute.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(sourceType, "sourceType");
+            Neptuo.Ensure.NotNull$$Object$$String(targetType, "targetType");
+            this.set_SourceType(sourceType);
+            this.set_TargetType(targetType);
+            this.set_HasTypesDefined(true);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Type$$Type",
+        parameters: ["System.Type", "System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$ComponentModel$Converters$ConverterAttribute);
 var Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions = {
     fullname: "Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions",
     baseTypeName: "System.Object",
@@ -1786,6 +2062,59 @@ var Neptuo$ComponentModel$ReturnTypeAttribute = {
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$ReturnTypeAttribute);
+var Neptuo$ComponentModel$Converters$_TypeExecutorServiceExtensions = {
+    fullname: "Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddConverters$$ITypeExecutorService$$Boolean: function (service, isExecutedForLatelyLoadedAssemblies){
+            return Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions.AddConverters$$ITypeExecutorService$$IConverterRepository$$Boolean(service, Neptuo.Converts.get_Repository(), isExecutedForLatelyLoadedAssemblies);
+        },
+        AddConverters$$ITypeExecutorService$$IConverterRepository$$Boolean: function (service, repository, isExecutedForLatelyLoadedAssemblies){
+            Neptuo.Ensure.NotNull$$Object$$String(service, "service");
+            Neptuo.Ensure.NotNull$$Object$$String(repository, "repository");
+            Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection(Neptuo.ComponentModel.Converters.ConverterAttribute.ctor, Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotAbstract$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotInterface$$ITypeDelegateCollection(Neptuo.Reflections._TypeExecutorServiceExtensions.AddFiltered(service, isExecutedForLatelyLoadedAssemblies)))).AddHandler(function (t){
+                Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions.AddConverter(repository, t);
+            });
+            return service;
+        },
+        AddConverter: function (repository, converterType){
+            var attributes = converterType.GetCustomAttributes$$Type$$Boolean(Typeof(Neptuo.ComponentModel.Converters.ConverterAttribute.ctor), true);
+            var converter = Cast(System.Activator.CreateInstance$$Type(converterType), Neptuo.ComponentModel.Converters.IConverter.ctor);
+            var $it8 = attributes.GetEnumerator();
+            while ($it8.MoveNext()){
+                var attribute = $it8.get_Current();
+                if (attribute.get_HasTypesDefined()){
+                    var sourceType = attribute.get_SourceType();
+                    var targetType = attribute.get_TargetType();
+                    repository.Add(sourceType, targetType, converter);
+                }
+                else {
+                    var interfaceTypes = converterType.GetInterfaces();
+                    var $it9 = interfaceTypes.GetEnumerator();
+                    while ($it9.MoveNext()){
+                        var interfaceType = $it9.get_Current();
+                        if (interfaceType.get_IsGenericType() && System.Type.op_Equality$$Type$$Type(Typeof(Neptuo.ComponentModel.Converters.IConverter$2.ctor), interfaceType.GetGenericTypeDefinition())){
+                            var parameters = interfaceType.GetGenericArguments();
+                            var sourceType = parameters[0];
+                            var targetType = parameters[1];
+                            repository.Add(sourceType, targetType, converter);
+                        }
+                    }
+                }
+            }
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$ComponentModel$Converters$_TypeExecutorServiceExtensions);
 var Neptuo$ComponentModel$__ErrorModelExtensions = {
     fullname: "Neptuo.ComponentModel.__ErrorModelExtensions",
     baseTypeName: "System.Object",
@@ -1805,9 +2134,9 @@ var Neptuo$ComponentModel$_OutFuncCollectionExtensions = {
     baseTypeName: "System.Object",
     staticDefinition: {
         TryExecute$2: function (T, TOutput, list, parameter, output){
-            var $it8 = list.GetEnumerator();
-            while ($it8.MoveNext()){
-                var func = $it8.get_Current();
+            var $it10 = list.GetEnumerator();
+            while ($it10.MoveNext()){
+                var func = $it10.get_Current();
                 if (func(parameter, output))
                     return true;
             }
@@ -1965,6 +2294,38 @@ var Neptuo$Activators$_DependencyProviderExtensions = {
         Resolve$1$$IDependencyProvider$$Type: function (T, dependencyProvider, requiredType){
             Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
             return Cast(dependencyProvider.Resolve(requiredType), T);
+        },
+        TryResolve$1: function (T, dependencyProvider, instance){
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyProvider, "dependencyProvider");
+            var requiredType = Typeof(T);
+            var definition;
+            if ((function (){
+                var $1 = {
+                    Value: definition
+                };
+                var $res = dependencyProvider.get_Definitions().TryGet(requiredType, $1);
+                definition = $1.Value;
+                return $res;
+            })()){
+                if (definition.get_IsResolvable()){
+                    try{
+                        instance.Value = Cast(dependencyProvider.Resolve(requiredType), T);
+                        return true;
+                    }
+                    catch($$e1){
+                    }
+                }
+            }
+            else if (!requiredType.get_IsAbstract() && !requiredType.get_IsInterface()){
+                try{
+                    instance.Value = Cast(dependencyProvider.Resolve(requiredType), T);
+                    return true;
+                }
+                catch($$e2){
+                }
+            }
+            instance.Value = Default(T);
+            return false;
         }
     },
     assemblyName: "Neptuo",
@@ -2544,9 +2905,9 @@ var Neptuo$Globalization$CultureInfoParser = {
                 cultureInfo.Value = null;
                 return false;
             }
-            var $it9 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
-            while ($it9.MoveNext()){
-                var item = $it9.get_Current();
+            var $it11 = System.Globalization.CultureInfo.GetCultures(7).GetEnumerator();
+            while ($it11.MoveNext()){
+                var item = $it11.get_Current();
                 if ((value.get_Length() == 5 && item.get_Name().ToLowerInvariant() == value.ToLowerInvariant()) || (value.get_Length() == 2 && item.get_TwoLetterISOLanguageName().ToLowerInvariant() == value.ToLowerInvariant())){
                     cultureInfo.Value = item;
                     return true;
@@ -2821,14 +3182,16 @@ var Neptuo$VersionInfo = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$VersionInfo);
-var Neptuo$Reflection$DefaultReflectionService = {
-    fullname: "Neptuo.Reflection.DefaultReflectionService",
+var Neptuo$Reflections$DefaultReflectionService = {
+    fullname: "Neptuo.Reflections.DefaultReflectionService",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.Reflection.IReflectionService"],
+    interfaceNames: ["Neptuo.Reflections.IReflectionService"],
     Kind: "Class",
     definition: {
         ctor: function (appDomain){
+            this.typeExecutors = new System.Collections.Generic.List$1.ctor(Neptuo.Reflections.Enumerators.Executors.ITypeExecutor.ctor);
+            this.isAssemblyLoadedAttached = false;
             this._AppDomain = null;
             System.Object.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(appDomain, "appDomain");
@@ -2876,14 +3239,34 @@ var Neptuo$Reflection$DefaultReflectionService = {
                     searchIn = this.EnumerateAssemblies();
                 }
             }
-            var $it10 = searchIn.GetEnumerator();
-            while ($it10.MoveNext()){
-                var assembly = $it10.get_Current();
+            var $it12 = searchIn.GetEnumerator();
+            while ($it12.MoveNext()){
+                var assembly = $it12.get_Current();
                 var type = assembly.GetType$$String(typeName);
                 if (System.Type.op_Inequality$$Type$$Type(type, null))
                     return type;
             }
             return null;
+        },
+        EnsureAssemblyLoadDelegate: function (){
+            if (!this.isAssemblyLoadedAttached){
+                this.get_AppDomain().add_AssemblyLoad($CreateDelegate(this, this.OnAssemblyLoaded));
+                this.isAssemblyLoadedAttached = true;
+            }
+        },
+        OnAssemblyLoaded: function (sender, args){
+            var $it13 = this.typeExecutors.GetEnumerator();
+            while ($it13.MoveNext()){
+                var executor = $it13.get_Current();
+                var enumerator = new Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator.ctor(args.get_LoadedAssembly());
+                Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions.HandleExecutor(enumerator, executor);
+            }
+        },
+        PrepareTypeExecutors: function (){
+            return new Neptuo.Reflections.DefaultTypeExecutorService.ctor(this, $CreateAnonymousDelegate(this, function (executor){
+                this.EnsureAssemblyLoadDelegate();
+                this.typeExecutors.Add(executor);
+            }));
         }
     },
     ctors: [{
@@ -2893,25 +3276,320 @@ var Neptuo$Reflection$DefaultReflectionService = {
     ],
     IsAbstract: false
 };
-JsTypes.push(Neptuo$Reflection$DefaultReflectionService);
-var Neptuo$Reflection$IReflectionService = {
-    fullname: "Neptuo.Reflection.IReflectionService",
+JsTypes.push(Neptuo$Reflections$DefaultReflectionService);
+var Neptuo$Reflections$DefaultTypeExecutorService = {
+    fullname: "Neptuo.Reflections.DefaultTypeExecutorService",
+    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Reflections.ITypeExecutorService"],
+    Kind: "Class",
+    definition: {
+        ctor: function (service, addPermanentExecutor){
+            this.service = null;
+            this.addPermanentExecutor = null;
+            this.executor = null;
+            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            this.service = service;
+            this.addPermanentExecutor = addPermanentExecutor;
+            this.executor = new Neptuo.Reflections.ListTypeExector.ctor();
+        },
+        AddTypeExecutor: function (executor, isExecutedForLatelyLoadedAssemblies){
+            Neptuo.Ensure.NotNull$$Object$$String(executor, "executor");
+            this.executor.get_TypeExecutors().Add(executor);
+            if (isExecutedForLatelyLoadedAssemblies)
+                this.addPermanentExecutor(executor);
+            return this;
+        },
+        DisposeManagedResources: function (){
+            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            var $it14 = this.service.EnumerateAssemblies().GetEnumerator();
+            while ($it14.MoveNext()){
+                var assembly = $it14.get_Current();
+                var enumerator = new Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator.ctor(assembly);
+                Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions.HandleExecutor(enumerator, this.executor);
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Reflections.DefaultReflectionService", "System.Action"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$DefaultTypeExecutorService);
+var Neptuo$Reflections$ListTypeExector = {
+    fullname: "Neptuo.Reflections.ListTypeExector",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Reflections.Enumerators.Executors.ITypeExecutor"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._TypeExecutors = null;
+            System.Object.ctor.call(this);
+            this.set_TypeExecutors(new System.Collections.Generic.List$1.ctor(Neptuo.Reflections.Enumerators.Executors.ITypeExecutor.ctor));
+        },
+        TypeExecutors$$: "System.Collections.Generic.List`1[[Neptuo.Reflections.Enumerators.Executors.ITypeExecutor]]",
+        get_TypeExecutors: function (){
+            return this._TypeExecutors;
+        },
+        set_TypeExecutors: function (value){
+            this._TypeExecutors = value;
+        },
+        IsMatched: function (type){
+            return System.Linq.Enumerable.Any$1$$IEnumerable$1$$Func$2(Neptuo.Reflections.Enumerators.Executors.ITypeExecutor.ctor, this.get_TypeExecutors(), $CreateAnonymousDelegate(this, function (e){
+                return e.IsMatched(type);
+            }));
+        },
+        Handle: function (type){
+            var $it15 = this.get_TypeExecutors().GetEnumerator();
+            while ($it15.MoveNext()){
+                var executor = $it15.get_Current();
+                executor.Handle(type);
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$ListTypeExector);
+var Neptuo$Reflections$Enumerators$AssemblyTypeEnumerator = {
+    fullname: "Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator",
+    baseTypeName: "Neptuo.Reflections.Enumerators.DefaultTypeEnumerator",
+    staticDefinition: {
+        EnumerateTypes: function (assembly){
+            Neptuo.Ensure.NotNull$$Object$$String(assembly, "assembly");
+            return assembly.GetTypes();
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (assembly){
+            Neptuo.Reflections.Enumerators.DefaultTypeEnumerator.ctor.call(this, Neptuo.Reflections.Enumerators.AssemblyTypeEnumerator.EnumerateTypes(assembly));
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Reflection.Assembly"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$AssemblyTypeEnumerator);
+var Neptuo$Reflections$Enumerators$DefaultTypeEnumerator = {
+    fullname: "Neptuo.Reflections.Enumerators.DefaultTypeEnumerator",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Reflections.Enumerators.ITypeEnumerator"],
+    Kind: "Class",
+    definition: {
+        ctor: function (types){
+            this.types = null;
+            this.enumerator = null;
+            this._Current = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(types, "types");
+            this.types = types;
+        },
+        Current$$: "System.Type",
+        get_Current: function (){
+            return this._Current;
+        },
+        set_Current: function (value){
+            this._Current = value;
+        },
+        Next: function (){
+            if (this.enumerator == null)
+                this.enumerator = this.types.GetEnumerator();
+            if (this.enumerator.MoveNext()){
+                this.set_Current(this.enumerator.get_Current());
+                return true;
+            }
+            else {
+                this.set_Current(null);
+                return false;
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["System.Collections.Generic.IEnumerable"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$DefaultTypeEnumerator);
+var Neptuo$Reflections$Enumerators$ITypeEnumerator = {
+    fullname: "Neptuo.Reflections.Enumerators.ITypeEnumerator",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$IReflectionService);
-var Neptuo$Reflection$ReflectionFactory = {
-    fullname: "Neptuo.Reflection.ReflectionFactory",
+JsTypes.push(Neptuo$Reflections$Enumerators$ITypeEnumerator);
+var Neptuo$Reflections$Enumerators$Executors$ITypeExecutor$1 = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.ITypeExecutor$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$ITypeExecutor$1);
+var Neptuo$Reflections$Enumerators$Executors$ITypeExecutor = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.ITypeExecutor",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$ITypeExecutor);
+var Neptuo$Reflections$Enumerators$Executors$TreeTypeExecutor$1 = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.TreeTypeExecutor$1",
+    baseTypeName: "Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor$1",
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (TContext){
+            this.TContext = TContext;
+            this.branches = new System.Collections.Generic.List$1.ctor(Neptuo.Reflections.Enumerators.Executors.TreeTypeExecutor$1.ctor);
+            Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor$1.ctor.call(this, this.TContext);
+        },
+        AddNewBranch: function (){
+            var branch = new Neptuo.Reflections.Enumerators.Executors.TreeTypeExecutor$1.ctor(this.TContext);
+            this.branches.Add(branch);
+            return branch;
+        },
+        Handle: function (type, context){
+            Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor$1.commonPrototype.Handle.call(this, type, context);
+            if (this.IsMatched(type, context)){
+                var $it16 = this.branches.GetEnumerator();
+                while ($it16.MoveNext()){
+                    var branch = $it16.get_Current();
+                    branch.Handle(type, context);
+                }
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$TreeTypeExecutor$1);
+var Neptuo$Reflections$Enumerators$Executors$FilterTypeExecutor$1 = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Reflections.Enumerators.Executors.ITypeDelegateCollection$1", "Neptuo.Reflections.Enumerators.Executors.ITypeExecutor$1"],
+    Kind: "Class",
+    definition: {
+        ctor: function (TContext){
+            this.TContext = TContext;
+            this.filters = new System.Collections.Generic.List$1.ctor(System.Func$3.ctor);
+            this.handlers = new System.Collections.Generic.List$1.ctor(System.Action$2.ctor);
+            System.Object.ctor.call(this);
+        },
+        AddFilter: function (filter){
+            Neptuo.Ensure.NotNull$$Object$$String(filter, "filter");
+            this.filters.Add(filter);
+            return this;
+        },
+        AddHandler: function (handler){
+            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
+            this.handlers.Add(handler);
+            return this;
+        },
+        IsMatched: function (type, context){
+            Neptuo.Ensure.NotNull$$Object$$String(type, "type");
+            Neptuo.Ensure.NotNull$$Object$$String(context, "context");
+            return System.Linq.Enumerable.All$1(System.Func$3.ctor, this.filters, $CreateAnonymousDelegate(this, function (f){
+                return f(type, context);
+            }));
+        },
+        Handle: function (type, context){
+            if (this.IsMatched(type, context)){
+                var $it17 = this.handlers.GetEnumerator();
+                while ($it17.MoveNext()){
+                    var handler = $it17.get_Current();
+                    handler(type, context);
+                }
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$FilterTypeExecutor$1);
+var Neptuo$Reflections$Enumerators$Executors$FilterTypeExecutor = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.Reflections.Enumerators.Executors.ITypeDelegateCollection", "Neptuo.Reflections.Enumerators.Executors.ITypeExecutor"],
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this.filters = new System.Collections.Generic.List$1.ctor(System.Func$2.ctor);
+            this.handlers = new System.Collections.Generic.List$1.ctor(System.Action$1.ctor);
+            System.Object.ctor.call(this);
+        },
+        AddFilter: function (filter){
+            Neptuo.Ensure.NotNull$$Object$$String(filter, "filter");
+            this.filters.Add(filter);
+            return this;
+        },
+        AddHandler: function (handler){
+            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
+            this.handlers.Add(handler);
+            return this;
+        },
+        IsMatched: function (type){
+            Neptuo.Ensure.NotNull$$Object$$String(type, "type");
+            return System.Linq.Enumerable.All$1(System.Func$2.ctor, this.filters, $CreateAnonymousDelegate(this, function (f){
+                return f(type);
+            }));
+        },
+        Handle: function (type){
+            if (this.IsMatched(type)){
+                var $it18 = this.handlers.GetEnumerator();
+                while ($it18.MoveNext()){
+                    var handler = $it18.get_Current();
+                    handler(type);
+                }
+            }
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$FilterTypeExecutor);
+var Neptuo$Reflections$Enumerators$_TypeEnumeratorExtensions = {
+    fullname: "Neptuo.Reflections.Enumerators._TypeEnumeratorExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
-        FromAppDomain: function (appDomain){
-            return new Neptuo.Reflection.DefaultReflectionService.ctor(appDomain);
-        },
-        FromCurrentAppDomain: function (){
-            return Neptuo.Reflection.ReflectionFactory.FromAppDomain(System.AppDomain.get_CurrentDomain());
+        HandleExecutor: function (enumerator, executor){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            Neptuo.Ensure.NotNull$$Object$$String(executor, "executor");
+            while (enumerator.Next())
+                executor.Handle(enumerator.get_Current());
         }
     },
     assemblyName: "Neptuo",
@@ -2924,9 +3602,68 @@ var Neptuo$Reflection$ReflectionFactory = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$ReflectionFactory);
-var Neptuo$Reflection$ReflectionHelper = {
-    fullname: "Neptuo.Reflection.ReflectionHelper",
+JsTypes.push(Neptuo$Reflections$Enumerators$_TypeEnumeratorExtensions);
+var Neptuo$Reflections$IReflectionService = {
+    fullname: "Neptuo.Reflections.IReflectionService",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$IReflectionService);
+var Neptuo$Reflections$Enumerators$Executors$ITypeDelegateCollection$1 = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.ITypeDelegateCollection$1",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$ITypeDelegateCollection$1);
+var Neptuo$Reflections$Enumerators$Executors$ITypeDelegateCollection = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors.ITypeDelegateCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$ITypeDelegateCollection);
+var Neptuo$Reflections$ITypeExecutorService = {
+    fullname: "Neptuo.Reflections.ITypeExecutorService",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo",
+    interfaceNames: ["Neptuo.IDisposable"],
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$ITypeExecutorService);
+var Neptuo$Reflections$ReflectionFactory = {
+    fullname: "Neptuo.Reflections.ReflectionFactory",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        FromAppDomain: function (appDomain){
+            return new Neptuo.Reflections.DefaultReflectionService.ctor(appDomain);
+        },
+        FromCurrentAppDomain: function (){
+            return Neptuo.Reflections.ReflectionFactory.FromAppDomain(System.AppDomain.get_CurrentDomain());
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$ReflectionFactory);
+var Neptuo$Reflections$ReflectionHelper = {
+    fullname: "Neptuo.Reflections.ReflectionHelper",
     baseTypeName: "System.Object",
     staticDefinition: {
         GetAttribute$1: function (T, member){
@@ -2947,19 +3684,19 @@ var Neptuo$Reflection$ReflectionHelper = {
         },
         GetAnnotatedProperties$1: function (T, type){
             var result = new System.Collections.Generic.List$1.ctor(System.Reflection.PropertyInfo.ctor);
-            var $it11 = type.GetProperties().GetEnumerator();
-            while ($it11.MoveNext()){
-                var prop = $it11.get_Current();
+            var $it19 = type.GetProperties().GetEnumerator();
+            while ($it19.MoveNext()){
+                var prop = $it19.get_Current();
                 if (prop.GetCustomAttributes$$Type$$Boolean(Typeof(T), true).get_Length() == 1)
                     result.Add(prop);
             }
             return result;
         },
         IsGenericType$2$$Type: function (TAssignable, TArgument, testedType){
-            return Neptuo.Reflection.ReflectionHelper.IsGenericType$$Type$$Type$$Type(testedType, Typeof(TAssignable), Typeof(TArgument));
+            return Neptuo.Reflections.ReflectionHelper.IsGenericType$$Type$$Type$$Type(testedType, Typeof(TAssignable), Typeof(TArgument));
         },
         IsGenericType$1$$Type: function (TAssignable, testedType){
-            return Neptuo.Reflection.ReflectionHelper.IsGenericType$$Type$$Type(testedType, Typeof(TAssignable));
+            return Neptuo.Reflections.ReflectionHelper.IsGenericType$$Type$$Type(testedType, Typeof(TAssignable));
         },
         IsGenericType$$Type$$Type$$Type: function (testedType, assignableType, argumentType){
             if (System.Type.op_Equality$$Type$$Type(argumentType, null))
@@ -3020,7 +3757,87 @@ var Neptuo$Reflection$ReflectionHelper = {
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$Reflection$ReflectionHelper);
+JsTypes.push(Neptuo$Reflections$ReflectionHelper);
+var Neptuo$Reflections$Enumerators$Executors$_TypeDelegateCollectionExtensions = {
+    fullname: "Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddFilterNotInterface$$ITypeDelegateCollection: function (enumerator){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t){
+                return !t.get_IsInterface();
+            });
+        },
+        AddFilterNotInterface$1$$ITypeDelegateCollection$1: function (TContext, enumerator){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t, context){
+                return !t.get_IsInterface();
+            });
+        },
+        AddFilterNotAbstract$$ITypeDelegateCollection: function (enumerator){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t){
+                return !t.get_IsAbstract();
+            });
+        },
+        AddFilterNotAbstract$1$$ITypeDelegateCollection$1: function (TContext, enumerator){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t, context){
+                return !t.get_IsAbstract();
+            });
+        },
+        AddFilterHasAttribute$$ITypeDelegateCollection$$Type: function (enumerator, attributeType){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t){
+                return t.GetCustomAttributes$$Type$$Boolean(attributeType, true).get_Length() > 0;
+            });
+        },
+        AddFilterHasAttribute$1$$ITypeDelegateCollection: function (TAttribute, enumerator){
+            return Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$$ITypeDelegateCollection$$Type(enumerator, Typeof(TAttribute));
+        },
+        AddFilterHasAttribute$1$$ITypeDelegateCollection$1$$Type: function (TContext, enumerator, attributeType){
+            Neptuo.Ensure.NotNull$$Object$$String(enumerator, "enumerator");
+            return enumerator.AddFilter(function (t, context){
+                return t.GetCustomAttributes$$Type$$Boolean(attributeType, true).get_Length() > 0;
+            });
+        },
+        AddFilterHasAttribute$2$$ITypeDelegateCollection$1: function (TContext, TAttribute, enumerator){
+            return Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection$1$$Type(TContext, enumerator, Typeof(TAttribute));
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$Enumerators$Executors$_TypeDelegateCollectionExtensions);
+var Neptuo$Reflections$_TypeExecutorServiceExtensions = {
+    fullname: "Neptuo.Reflections._TypeExecutorServiceExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddFiltered: function (executorService, isExecutedForLatelyLoadedAssemblies){
+            Neptuo.Ensure.NotNull$$Object$$String(executorService, "executorService");
+            var executor = new Neptuo.Reflections.Enumerators.Executors.FilterTypeExecutor.ctor();
+            executorService.AddTypeExecutor(executor, isExecutedForLatelyLoadedAssemblies);
+            return executor;
+        }
+    },
+    assemblyName: "Neptuo",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Reflections$_TypeExecutorServiceExtensions);
 var Neptuo$Linq$Expressions$TypeHelper = {
     fullname: "Neptuo.Linq.Expressions.TypeHelper",
     baseTypeName: "System.Object",
@@ -3164,9 +3981,9 @@ var Neptuo$StateMachines$StateMachine$2 = {
             Neptuo.Ensure.NotNull$$Object$$String(items, "items");
             var currentState = this.get_InitialState();
             var index = 0;
-            var $it12 = items.GetEnumerator();
-            while ($it12.MoveNext()){
-                var item = $it12.get_Current();
+            var $it20 = items.GetEnumerator();
+            while ($it20.MoveNext()){
+                var item = $it20.get_Current();
                 var newState = currentState.Accept(item, index);
                 if (newState == null)
                     throw $CreateException(Neptuo._EnsureSystemExtensions.InvalidOperation(Neptuo.Ensure.Exception, "StateMachine in invalid state, got null new state."), new Error());
@@ -3387,9 +4204,9 @@ var Neptuo$Tokens$Token = {
         ToString: function (){
             var result = new System.Text.StringBuilder.ctor$$String("{" + this.get_Fullname());
             var isFirstAttribute = true;
-            var $it13 = this.get_DefaultAttributes().GetEnumerator();
-            while ($it13.MoveNext()){
-                var defaultAttribute = $it13.get_Current();
+            var $it21 = this.get_DefaultAttributes().GetEnumerator();
+            while ($it21.MoveNext()){
+                var defaultAttribute = $it21.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3399,9 +4216,9 @@ var Neptuo$Tokens$Token = {
                 }
                 result.AppendFormat$$String$$Object$Array(defaultAttribute);
             }
-            var $it14 = this.get_Attributes().GetEnumerator();
-            while ($it14.MoveNext()){
-                var attribute = $it14.get_Current();
+            var $it22 = this.get_Attributes().GetEnumerator();
+            while ($it22.MoveNext()){
+                var attribute = $it22.get_Current();
                 if (isFirstAttribute){
                     isFirstAttribute = false;
                     result.Append$$String(" ");
@@ -3568,9 +4385,9 @@ var Neptuo$Tokens$TokenParser = {
             var finalState = stateMachine.Process(content);
             if (this.IsSuccessState(finalState)){
                 var newLines = this.GetNewLineIndexes(content);
-                var $it15 = results.GetEnumerator();
-                while ($it15.MoveNext()){
-                    var result = $it15.get_Current();
+                var $it23 = results.GetEnumerator();
+                while ($it23.MoveNext()){
+                    var result = $it23.get_Current();
                     var startInfo = this.GetLineInfo(newLines, result.get_StartIndex());
                     var endInfo = this.GetLineInfo(newLines, result.get_LastIndex() + 1);
                     result.get_Token().SetLineInfo(startInfo.get_Item1(), startInfo.get_Item2(), endInfo.get_Item1(), endInfo.get_Item2());
@@ -4194,9 +5011,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$Func$2$String$String: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it16 = this.items.GetEnumerator();
-            while ($it16.MoveNext()){
-                var item = $it16.get_Current();
+            var $it24 = this.items.GetEnumerator();
+            while ($it24.MoveNext()){
+                var item = $it24.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(tokenMapper(item.get_Value()));
                 else
@@ -4206,9 +5023,9 @@ var Neptuo$Tokens$TokenWriter = {
         },
         Format$$IReadOnlyKeyValueCollection: function (tokenMapper){
             var result = new System.Text.StringBuilder.ctor();
-            var $it17 = this.items.GetEnumerator();
-            while ($it17.MoveNext()){
-                var item = $it17.get_Current();
+            var $it25 = this.items.GetEnumerator();
+            while ($it25.MoveNext()){
+                var item = $it25.get_Current();
                 if (item.get_IsToken())
                     result.Append$$String(Neptuo.Collections.Specialized._ReadOnlyKeyValueCollectionExtensions.Get$1$$IReadOnlyKeyValueCollection$$String$$T(System.String.ctor, tokenMapper, item.get_Value(), ""));
                 else

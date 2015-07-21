@@ -6,22 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
+    /// <summary>
+    /// Storage for scoped instances/activators.
+    /// </summary>
     internal class InstanceStorage
     {
-        private readonly Dictionary<string, object> objectStorage;
-        private readonly Dictionary<string, IActivator<object>> activatorStorage;
-
-        public InstanceStorage()
-            : this(new Dictionary<string, object>(), new Dictionary<string,IActivator<object>>())
-        { }
-
-        public InstanceStorage(Dictionary<string, object> storage, Dictionary<string, IActivator<object>> activatorStorage)
-        {
-            Ensure.NotNull(storage, "storage");
-            Ensure.NotNull(activatorStorage, "activatorStorage");
-            this.objectStorage = storage;
-            this.activatorStorage = activatorStorage;
-        }
+        private readonly Dictionary<string, object> objectStorage = new Dictionary<string, object>();
+        private readonly Dictionary<string, IActivator<object>> activatorStorage = new Dictionary<string,IActivator<object>>();
 
         public InstanceStorage AddObject(string key, object instance)
         {
@@ -42,37 +33,23 @@ namespace Neptuo.Activators.Internals
         public object TryGetObject(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return objectStorage[key];
+
+            object result;
+            if (objectStorage.TryGetValue(key, out result))
+                return result;
+
+            return null;
         }
 
         public IActivator<object> TryGetActivator(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return activatorStorage[key];
-        }
 
-        public Dictionary<string, object> CopyObjects(IEnumerable<string> keysToSkip)
-        {
-            Dictionary<string, object> result = new Dictionary<string, object>();
-            foreach (KeyValuePair<string, object> item in objectStorage)
-            {
-                if (!keysToSkip.Contains(item.Key))
-                    result.Add(item.Key, item.Value);
-            }
+            IActivator<object> result;
+            if (activatorStorage.TryGetValue(key, out result))
+                return result;
 
-            return result;
-        }
-
-        public Dictionary<string, IActivator<object>> CopyActivators(IEnumerable<string> keysToSkip)
-        {
-            Dictionary<string, IActivator<object>> result = new Dictionary<string, IActivator<object>>();
-            foreach (KeyValuePair<string, IActivator<object>> item in activatorStorage)
-            {
-                if (!keysToSkip.Contains(item.Key))
-                    result.Add(item.Key, item.Value);
-            }
-
-            return result;
+            return null;
         }
     }
 }

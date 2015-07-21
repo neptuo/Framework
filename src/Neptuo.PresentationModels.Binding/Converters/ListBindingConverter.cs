@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Binding.Converters
 {
-    public class ListBindingConverter<T> : BindingConverterBase<IEnumerable<T>>
+    public class ListBindingConverter<T> : BindingConverterBase<List<T>>
     {
         protected string Separator { get; private set; }
         protected BindingConverterBase<T> Converter { get; private set; }
@@ -19,7 +19,7 @@ namespace Neptuo.PresentationModels.Binding.Converters
             Converter = converter;
         }
 
-        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out IEnumerable<T> targetValue)
+        public override bool TryConvertTo(string sourceValue, IFieldDefinition targetField, out List<T> targetValue)
         {
             if (String.IsNullOrEmpty(sourceValue))
             {

@@ -21,10 +21,20 @@ namespace Neptuo.PresentationModels.Binding.Converters
                 .Add(typeof(int?), new NullBindingConverter<int>(new IntBindingConverter()))
                 .Add(typeof(double?), new NullBindingConverter<double>(new DoubleBindingConverter()))
 
-                .Add(typeof(IEnumerable<bool>), new ListBindingConverter<bool>(",", new BoolBindingConverter()))
-                .Add(typeof(IEnumerable<int>), new ListBindingConverter<int>(",", new IntBindingConverter()))
-                .Add(typeof(IEnumerable<double>), new ListBindingConverter<double>(",", new DoubleBindingConverter()))
-                .Add(typeof(IEnumerable<string>), new ListBindingConverter<string>(",", new StringBindingConverter()));
+                .Add(typeof(IEnumerable<bool>), new EnumerableBindingConverter<bool>(",", new BoolBindingConverter()))
+                .Add(typeof(IEnumerable<int>), new EnumerableBindingConverter<int>(",", new IntBindingConverter()))
+                .Add(typeof(IEnumerable<double>), new EnumerableBindingConverter<double>(",", new DoubleBindingConverter()))
+                .Add(typeof(IEnumerable<string>), new EnumerableBindingConverter<string>(",", new StringBindingConverter()))
+
+                .Add(typeof(ICollection<bool>), new CollectionBindingConverter<bool>(",", new BoolBindingConverter()))
+                .Add(typeof(ICollection<int>), new CollectionBindingConverter<int>(",", new IntBindingConverter()))
+                .Add(typeof(ICollection<double>), new CollectionBindingConverter<double>(",", new DoubleBindingConverter()))
+                .Add(typeof(ICollection<string>), new CollectionBindingConverter<string>(",", new StringBindingConverter()))
+
+                .Add(typeof(List<bool>), new ListBindingConverter<bool>(",", new BoolBindingConverter()))
+                .Add(typeof(List<int>), new ListBindingConverter<int>(",", new IntBindingConverter()))
+                .Add(typeof(List<double>), new ListBindingConverter<double>(",", new DoubleBindingConverter()))
+                .Add(typeof(List<string>), new ListBindingConverter<string>(",", new StringBindingConverter()));
         }
     }
 }

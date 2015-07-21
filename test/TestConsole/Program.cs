@@ -19,6 +19,7 @@ using TestConsole.Delegates;
 using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
+using TestConsole.Logging;
 using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
 using TestConsole.SharpKitCompilers;
@@ -35,7 +36,7 @@ namespace TestConsole
             //TestTokenWriter.Test();
             //TestEntity.Test();
             //TestPresentationModels.Test();
-            TestXmlModelDefinition.Test();
+            //TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
@@ -52,6 +53,7 @@ namespace TestConsole
             //TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
+            TestLog4net.Test();
 
             Console.ReadKey(true);
         }

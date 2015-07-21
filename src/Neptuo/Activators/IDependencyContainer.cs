@@ -11,12 +11,8 @@ namespace Neptuo.Activators
     public interface IDependencyContainer : IDependencyProvider
     {
         /// <summary>
-        /// Registers mapping from <paramref name="requiredType"/> to <paramref name="target"/>
+        /// Collection of current dependency definitions.
         /// </summary>
-        /// <param name="requiredType">Required type.</param>
-        /// <param name="lifetime">Lifetime of created instance.</param>
-        /// <param name="target">Any supported target object.</param>
-        /// <returns>Self (fluently).</returns>
-        IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target);
+        new IDependencyDefinitionCollection Definitions { get; }
     }
 }
