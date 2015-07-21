@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflection
+namespace Neptuo.Reflections
 {
     /// <summary>
     /// Factory for creating reflection services.

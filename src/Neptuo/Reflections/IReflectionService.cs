@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Neptuo.Reflections.Enumerators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflection
+namespace Neptuo.Reflections
 {
     /// <summary>
     /// Some usefull shortcuts in reflection.
@@ -36,5 +37,11 @@ namespace Neptuo.Reflection
         /// <param name="typeAssemblyName">Assembly qualified name of the type to load.</param>
         /// <returns>Type described by assembly qualified name in <paramref name="typeAssemblyName"/></returns>
         Type LoadType(string typeAssemblyName);
+
+        /// <summary>
+        /// Creates single use service for registering <see cref="Enumerators.ITypeExecutor"/>.
+        /// </summary>
+        /// <returns>Service for registering <see cref="Enumerators.ITypeExecutor"/>.</returns>
+        ITypeExecutorService PrepareTypeExecutors();
     }
 }

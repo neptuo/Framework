@@ -72,6 +72,8 @@
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reflections\T_Reflections_ReflectionServiceTypeExecutor.cs" />
+    <Compile Include="Reflections\_Services.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">
