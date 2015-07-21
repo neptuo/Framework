@@ -28,7 +28,7 @@ namespace Neptuo.ComponentModel.Converters
         public Type TargetType { get; private set; }
 
         /// <summary>
-        /// Whether is general using or type-specifi usage.
+        /// Whether is general use or type-specific usage.
         /// </summary>
         public bool HasTypesDefined { get; private set; }
 

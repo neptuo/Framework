@@ -45,12 +45,14 @@
     </Compile>
     <Compile Include="DependencyQueryDispatcher.cs" />
     <Compile Include="Handlers\IQueryHandler.cs" />
+    <Compile Include="Handlers\QueryHandlerAttribute.cs" />
     <Compile Include="Internals\DefaultQueryHandlerDefinition.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryDispatcher.cs" />
     <Compile Include="IQueryHandlerCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="Handlers\_TypeExecutorServiceExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
