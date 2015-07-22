@@ -173,6 +173,8 @@
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
     <Compile Include="Linq\Expressions\TranslationMap.cs" />
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
+    <Compile Include="Localization\L.cs" />
+    <Compile Include="Localization\Translate.cs" />
     <Compile Include="Logging\Serialization\ConsoleSerializer.cs" />
     <Compile Include="Logging\DefaultLog.cs" />
     <Compile Include="Logging\DefaultLogFactory.cs" />
