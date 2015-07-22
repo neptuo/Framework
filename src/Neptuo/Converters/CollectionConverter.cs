@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Converters
+namespace Neptuo.Converters
 {
     /// <summary>
     /// Converter for converting string value (splitted using defined separator) to one of supported collection types.

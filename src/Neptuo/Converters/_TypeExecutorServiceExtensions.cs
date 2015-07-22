@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Converters;
+﻿using Neptuo.Converters;
 using Neptuo.Reflections;
 using Neptuo.Reflections.Enumerators;
 using Neptuo.Reflections.Enumerators.Executors;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Converters
+namespace Neptuo.Converters
 {
     /// <summary>
     /// Auto-wiring converter extensions for <see cref="ITypeExecutorService"/>.
