@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,11 +32,12 @@ namespace Neptuo.Localization
         /// <summary>
         /// Private constructor to create instance and translate <paramref name="text"/>.
         /// </summary>
+        /// <param name="assembly">Calling assembly.</param>
         /// <param name="text">Text to translate.</param>
-        private L(string text)
+        private L(Assembly assembly, string text)
         {
             originalText = text;
-            translatedText = Translate.Text(text);
+            translatedText = Translate.Text(assembly, text);
         }
 
         /// <summary>
@@ -45,7 +47,7 @@ namespace Neptuo.Localization
         /// <returns>Instance of translation structure for <paramref name="text"/>.</returns>
         public static explicit operator L(string text)
         {
-            return new L(text);
+            return new L(Assembly.GetCallingAssembly(), text);
         }
 
         /// <summary>
