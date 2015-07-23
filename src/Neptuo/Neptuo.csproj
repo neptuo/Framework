@@ -140,6 +140,7 @@
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureConditionHelper.cs" />
+    <Compile Include="Globalization\_CultureInfoExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />

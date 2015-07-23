@@ -69,6 +69,7 @@
     <Compile Include="Activators\Tests\TestResolve.cs" />
     <Compile Include="Activators\Tests\_TestServices.cs" />
     <Compile Include="Activators\T_Activators_Unity.cs" />
+    <Compile Include="Globalization\T_Globalization_CultureInfo.cs" />
     <Compile Include="Localization\T_Localization_Base.cs" />
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
