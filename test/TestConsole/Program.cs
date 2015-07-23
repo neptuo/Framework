@@ -19,6 +19,7 @@ using TestConsole.Delegates;
 using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
+using TestConsole.Localization;
 using TestConsole.Logging;
 using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
@@ -53,7 +54,8 @@ namespace TestConsole
             //TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
-            TestLog4net.Test();
+            //TestLog4net.Test();
+            TestLocalization.Test();
 
             Console.ReadKey(true);
         }
