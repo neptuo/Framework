@@ -43,6 +43,9 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="GetText\ITranslationReader.cs" />
+    <Compile Include="GetText\ITranslationReaderProvider.cs" />
+    <Compile Include="GetText\TranslationAdapter.cs" />
+    <Compile Include="GetText\TranslationReaderCollection.cs" />
     <Compile Include="ICultureProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
