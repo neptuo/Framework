@@ -64,14 +64,25 @@ namespace Neptuo.Localization.GetText
             Ensure.NotNull(assembly, "assembly");
             string assemblyName = GetAssemblyName(assembly);
 
-            reader = new CompositeTranslationReader(Enumerable.Concat(
-                GetReaders(culture, assemblyName),
-                GetReaders(culture, String.Empty)
-            ));
-            return true;
+            IEnumerable<ITranslationReader> assemblyReaders = FindReaders(culture, assemblyName);
+            IEnumerable<ITranslationReader> globalReaders = FindReaders(culture, String.Empty);
+            if (assemblyReaders != null || globalReaders != null)
+            {
+                if (assemblyReaders == null)
+                    reader = new CompositeTranslationReader(globalReaders);
+                else if (globalReaders == null)
+                    reader = new CompositeTranslationReader(assemblyReaders);
+                else
+                    reader = new CompositeTranslationReader(Enumerable.Concat(assemblyReaders, globalReaders));
+
+                return true;
+            }
+
+            reader = null;
+            return false;
         }
 
-        private IEnumerable<ITranslationReader> GetReaders(CultureInfo culture, string assemblyName)
+        private IEnumerable<ITranslationReader> FindReaders(CultureInfo culture, string assemblyName)
         {
             Dictionary<string, List<ITranslationReader>> cultureReaders;
             if (storage.TryGetValue(culture, out cultureReaders))
@@ -81,7 +92,7 @@ namespace Neptuo.Localization.GetText
                     return assemblyReaders;
             }
 
-            return Enumerable.Empty<ITranslationReader>();
+            return null;
         }
 
         private string GetAssemblyName(Assembly assembly)

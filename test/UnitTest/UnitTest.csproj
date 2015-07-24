@@ -71,6 +71,7 @@
     <Compile Include="Activators\T_Activators_Unity.cs" />
     <Compile Include="Globalization\T_Globalization_CultureInfo.cs" />
     <Compile Include="Localization\T_Localization_Base.cs" />
+    <Compile Include="Localization\_Services.cs" />
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +86,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj">
       <Project>{a9d02667-9762-4c91-a403-41de7b8a4efe}</Project>
       <Name>Neptuo.Activators.Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Localization\Neptuo.Localization.csproj">
+      <Project>{577a8095-efca-43c7-9797-3e9f3ad4bfb9}</Project>
+      <Name>Neptuo.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
