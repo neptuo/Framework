@@ -14,11 +14,6 @@ namespace Neptuo.Localization.GetText
     public interface ITranslationReader
     {
         /// <summary>
-        /// Assembly to which translations are bound.
-        /// </summary>
-        string AssemblyName { get; }
-
-        /// <summary>
         /// Culture info of translations in this reader.
         /// </summary>
         CultureInfo Culture { get; }

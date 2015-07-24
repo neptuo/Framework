@@ -15,6 +15,33 @@ namespace Neptuo.Localization.GetText
     {
         private readonly Dictionary<CultureInfo, Dictionary<string, List<ITranslationReader>>> storage = new Dictionary<CultureInfo, Dictionary<string, List<ITranslationReader>>>();
 
+        private void Add(CultureInfo culture, string assemblyName, ITranslationReader reader)
+        {
+            Ensure.NotNull(culture, "culture");
+            Ensure.NotNull(reader, "reader");
+            Dictionary<string, List<ITranslationReader>> cultureReaders;
+            if (!storage.TryGetValue(culture, out cultureReaders))
+                storage[culture] = cultureReaders = new Dictionary<string, List<ITranslationReader>>();
+
+            List<ITranslationReader> assemblyReaders;
+            if (!cultureReaders.TryGetValue(assemblyName, out assemblyReaders))
+                cultureReaders[assemblyName] = assemblyReaders = new List<ITranslationReader>();
+
+            assemblyReaders.Add(reader);
+        }
+
+        /// <summary>
+        /// Adds <paramref name="reader"/> for <paramref name="culture"/>.
+        /// </summary>
+        /// <param name="culture">Culture to add <paramref name="reader"/> for.</param>
+        /// <param name="reader">Translation reader.</param>
+        /// <returns>Self (for fluency).</returns>
+        public TranslationReaderCollection Add(CultureInfo culture, ITranslationReader reader)
+        {
+            Add(culture, String.Empty, reader);
+            return this;
+        }
+
         /// <summary>
         /// Adds <paramref name="reader"/> for <paramref name="culture"/> and <paramref name="assembly"/>.
         /// </summary>
@@ -27,38 +54,21 @@ namespace Neptuo.Localization.GetText
             Ensure.NotNull(culture, "culture");
             Ensure.NotNull(assembly, "assembly");
             string assemblyName = GetAssemblyName(assembly);
-
-            Dictionary<string, List<ITranslationReader>> cultureReaders;
-            if (!storage.TryGetValue(culture, out cultureReaders))
-                storage[culture] = cultureReaders = new Dictionary<string, List<ITranslationReader>>();
-
-            List<ITranslationReader> assemblyReaders;
-            if (!cultureReaders.TryGetValue(assemblyName, out assemblyReaders))
-                cultureReaders[assemblyName] = assemblyReaders = new List<ITranslationReader>();
-
-            assemblyReaders.Add(reader);
+            Add(culture, assemblyName, reader);
             return this;
         }
 
-        public IEnumerable<ITranslationReader> GetReaders(IEnumerable<CultureInfo> cultures, Assembly assembly)
+        public bool TryGetReader(CultureInfo culture, Assembly assembly, out ITranslationReader reader)
         {
-            Ensure.NotNull(cultures, "cultures");
+            Ensure.NotNull(culture, "culture");
             Ensure.NotNull(assembly, "assembly");
             string assemblyName = GetAssemblyName(assembly);
 
-            IEnumerable<ITranslationReader> result = Enumerable.Empty<ITranslationReader>();
-            foreach (CultureInfo culture in cultures)
-            {
-                result = Enumerable.Concat(
-                    Enumerable.Concat(
-                        result,
-                        GetReaders(culture, assemblyName)
-                    ),
-                    GetReaders(culture, String.Empty)
-                );
-            }
-
-            return result;
+            reader = new CompositeTranslationReader(Enumerable.Concat(
+                GetReaders(culture, assemblyName),
+                GetReaders(culture, String.Empty)
+            ));
+            return true;
         }
 
         private IEnumerable<ITranslationReader> GetReaders(CultureInfo culture, string assemblyName)

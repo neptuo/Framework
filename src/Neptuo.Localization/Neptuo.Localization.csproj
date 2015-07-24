@@ -44,6 +44,7 @@
     </Compile>
     <Compile Include="GetText\ITranslationReader.cs" />
     <Compile Include="GetText\ITranslationReaderProvider.cs" />
+    <Compile Include="GetText\CompositeTranslationReader.cs" />
     <Compile Include="GetText\TranslationAdapter.cs" />
     <Compile Include="GetText\TranslationReaderCollection.cs" />
     <Compile Include="ICultureProvider.cs" />
