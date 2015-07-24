@@ -14,11 +14,11 @@ namespace Neptuo.Localization.GetText
     public interface ITranslationReaderProvider
     {
         /// <summary>
-        /// Returns enumeration of <see cref="ITranslationReader"/> for <paramref name="cultures"/> and <paramref name="assembly"/>.
+        /// Tries to get <paramref name="reader" /> for <paramref name="culture"/> and <paramref name="assembly"/>.
         /// </summary>
-        /// <param name="cultures">Cultures to find readers for.</param>
+        /// <param name="culture">Cultures to find readers for.</param>
         /// <param name="assembly">Assembly to find readers for.</param>
-        /// <returns>Enumeration of <see cref="ITranslationReader"/> for <paramref name="cultures"/> and <paramref name="assembly"/>.</returns>
-        IEnumerable<ITranslationReader> GetReaders(IEnumerable<CultureInfo> cultures, Assembly assembly);
+        /// <return><c>true</c> when there is reader; <c>false</c> otherwise.</returns>
+        bool TryGetReader(CultureInfo culture, Assembly assembly, out ITranslationReader reader);
     }
 }

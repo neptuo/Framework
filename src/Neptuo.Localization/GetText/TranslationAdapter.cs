@@ -14,19 +14,19 @@ namespace Neptuo.Localization.GetText
     public class TranslationAdapter
     {
         private readonly ICultureProvider cultureProvider;
-        private readonly ITranslationReader reader;
+        private readonly ITranslationReaderProvider readerProvider;
 
         /// <summary>
         /// Creates new instance that reads culture from <paramref name="cultureProvider"/>.
         /// </summary>
         /// <param name="cultureProvider">Provider for user culture.</param>
-        /// <param name="reader">Translations provider.</param>
-        public TranslationAdapter(ICultureProvider cultureProvider, ITranslationReader reader)
+        /// <param name="readerProvider">Translations provider.</param>
+        public TranslationAdapter(ICultureProvider cultureProvider, ITranslationReaderProvider readerProvider)
         {
             Ensure.NotNull(cultureProvider, "cultureProvider");
-            Ensure.NotNull(reader, "reader");
+            Ensure.NotNull(readerProvider, "readerProvider");
             this.cultureProvider = cultureProvider;
-            this.reader = reader;
+            this.readerProvider = readerProvider;
         }
 
         public string Translate(Assembly callingAssembly, string originalText)
@@ -34,8 +34,9 @@ namespace Neptuo.Localization.GetText
             IEnumerable<CultureInfo> cultureInfos = cultureProvider.GetCulture();
             foreach (CultureInfo cultureInfo in cultureInfos)
             {
+                ITranslationReader reader;
                 string translatedText;
-                if (reader.TryGet(cultureInfo, originalText, out translatedText))
+                if (readerProvider.TryGetReader(cultureInfo, callingAssembly, out reader) && reader.TryGet(originalText, out translatedText))
                     return translatedText;
             }
 
