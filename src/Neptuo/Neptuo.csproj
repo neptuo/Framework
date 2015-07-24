@@ -212,7 +212,6 @@
     <Compile Include="Reflections\Enumerators\Executors\_TypeDelegateCollectionExtensions.cs" />
     <Compile Include="Reflections\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
-    <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
     <Compile Include="ComponentModel\SequenceUniqueNameProvider.cs" />
     <Compile Include="Security\Cryptography\HashFunc.cs" />
