@@ -109,9 +109,6 @@ namespace Neptuo
                 return null;
             }
 
-            if (targetType == typeof(string))
-                return sourceValue.ToString();
-
             Ensure.NotNull(targetType, "targetType");
             throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
         }
