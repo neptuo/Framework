@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel.Converters;
 using Neptuo.Reflections;
 using Neptuo.Reflections.Enumerators;
 using Neptuo.Reflections.Enumerators.Executors;
@@ -9,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Handlers
+namespace Neptuo.Services.Queries.Handlers.AutoExports
 {
     /// <summary>
-    /// Auto-wiring converter extensions for <see cref="ITypeExecutorService"/>.
+    /// Auto-wiring query handlers extensions for <see cref="ITypeExecutorService"/>.
     /// </summary>
     public static class _TypeExecutorServiceExtensions
     {
@@ -21,7 +20,7 @@ namespace Neptuo.Services.Queries.Handlers
         /// </summary>
         /// <param name="service">Type enumerating service.</param>
         /// <param name="dependencyContainer">Container to register handlers to.</param>
-        /// <param name="isExecutedForLatelyLoadedAssemblies">Whether to add converters from lately loaded assemblies.</param>
+        /// <param name="isExecutedForLatelyLoadedAssemblies">Whether to add query handlers from lately loaded assemblies.</param>
         /// <returns><paramref name="service"/>.</returns>
         public static ITypeExecutorService AddQueryHandlers(this ITypeExecutorService service, IDependencyContainer dependencyContainer, bool isExecutedForLatelyLoadedAssemblies = true)
         {
@@ -31,7 +30,7 @@ namespace Neptuo.Services.Queries.Handlers
                 .AddFiltered(isExecutedForLatelyLoadedAssemblies)
                 .AddFilterNotInterface()
                 .AddFilterNotAbstract()
-                .AddFilterHasAttribute<ConverterAttribute>()
+                .AddFilterHasAttribute<QueryHandlerAttribute>()
                 .AddHandler(t => AddQueryHandler(dependencyContainer, t));
 
             return service;

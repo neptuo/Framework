@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Handlers
+namespace Neptuo.Services.Queries.Handlers.AutoExports
 {
     /// <summary>
     /// Auto query handler wiring.
