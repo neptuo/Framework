@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Activators
+namespace Neptuo.Activators.AutoExports
 {
     /// <summary>
     /// Dependency container extensions for <see cref="ITypeExecutorService"/>.
@@ -34,12 +34,17 @@ namespace Neptuo.Activators
             return service;
         }
 
-        private static void AddExport(IDependencyContainer dependencyContainer, Type converterType)
+        private static void AddExport(IDependencyContainer dependencyContainer, Type targetType)
         {
-            IEnumerable<object> attributes = converterType.GetCustomAttributes(typeof(ExportAttribute), true);
-            foreach (ExportAttribute attribute in attributes)
-            {
+            IEnumerable<object> allAttributes = targetType.GetCustomAttributes(true);
+            ExportLifetimeAttribute lifetimeAttribute = allAttributes.OfType<ExportLifetimeAttribute>().FirstOrDefault();
+            DependencyLifetime lifetime = lifetimeAttribute != null ? lifetimeAttribute.GetLifetime() : DependencyLifetime.Transient;
 
+            IEnumerable<object> exportAttributes = allAttributes.OfType<ExportAttribute>();
+            foreach (ExportAttribute attribute in exportAttributes)
+            {
+                dependencyContainer.Definitions
+                    .Add(attribute.RequiredType, lifetime, targetType);
             }
         }
     }

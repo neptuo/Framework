@@ -42,20 +42,20 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Activators\DependencyException.cs" />
-    <Compile Include="Activators\ExportAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportAttribute.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="Activators\DependencyRegistrationFailedException.cs" />
     <Compile Include="Activators\DependencyResolutionFailedException.cs" />
     <Compile Include="Activators\DependencyServiceProvider.cs" />
-    <Compile Include="Activators\ExportLifetimeAttribute.cs" />
-    <Compile Include="Activators\ExportTransientAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportLifetimeAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportTransientAttribute.cs" />
     <Compile Include="Activators\GetterActivator.cs" />
     <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
     <Compile Include="Activators\IDependencyDefinition.cs" />
     <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
     <Compile Include="Activators\_DependencyRegistrationExtensions.cs" />
     <Compile Include="Activators\_EnsureExceptionExtensions.cs" />
-    <Compile Include="Activators\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="Activators\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
