@@ -1,4 +1,5 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.Activators.AutoExports;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,6 +51,7 @@ namespace Neptuo.Activators.Tests
         void Write(string text);
     }
 
+    [Export(typeof(IOutputWriter))]
     public class StringOutputWriter : IOutputWriter
     {
         public string Text { get; private set; }
@@ -95,6 +97,8 @@ namespace Neptuo.Activators.Tests
     }
 
 
+    [Export(typeof(Counter))]
+    [ExportNameScoped("S1")]
     public class Counter
     {
         public static int count;
