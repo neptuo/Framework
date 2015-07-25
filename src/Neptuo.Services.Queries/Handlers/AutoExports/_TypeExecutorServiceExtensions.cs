@@ -52,7 +52,7 @@ namespace Neptuo.Services.Queries.Handlers.AutoExports
                             Type[] parameters = queryInterfaceType.GetGenericArguments();
                             if (parameters.Length == 1)
                             {
-                                Type queryResultType = parameters[1];
+                                Type queryResultType = parameters[0];
                                 Type queryHandlerInterfaceType = typeof(IQueryHandler<,>).MakeGenericType(queryType, queryResultType);
                                 dependencyContainer.Definitions.Add(queryHandlerInterfaceType, DependencyLifetime.Transient, queryHandlerType);
                             }
