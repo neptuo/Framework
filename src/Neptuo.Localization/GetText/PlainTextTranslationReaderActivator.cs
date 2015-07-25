@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 namespace Neptuo.Localization.GetText
 {
     /// <summary>
-    /// Creates <see cref="ITranslationReader"/> from files structured as Key=Value
+    /// Creates <see cref="ITranslationReader"/> from files structured as Key=Value.
+    /// Use \= to escape '=' that should not be treated as key-value separator.
     /// </summary>
     public class PlainTextTranslationReaderActivator : IActivator<ITranslationReader, Stream>, IActivator<ITranslationReader, string>
     {
