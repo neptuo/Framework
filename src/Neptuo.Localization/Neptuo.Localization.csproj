@@ -42,6 +42,7 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="GetText\DefaultTranslationReader.cs" />
     <Compile Include="GetText\ITranslationReader.cs" />
     <Compile Include="GetText\ITranslationReaderProvider.cs" />
     <Compile Include="GetText\CompositeTranslationReader.cs" />

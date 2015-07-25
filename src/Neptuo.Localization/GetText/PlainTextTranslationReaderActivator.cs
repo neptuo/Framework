@@ -9,34 +9,10 @@ using System.Threading.Tasks;
 namespace Neptuo.Localization.GetText
 {
     /// <summary>
-    /// Creates <see cref="ITranslationReader"/> from files structured as:
-    /// first non-empty lines: Message key (original text),
-    /// second non-empty lines: Translation (translated text),
-    /// two empty lines: Message-translation separation.
+    /// Creates <see cref="ITranslationReader"/> from files structured as Key=Value
     /// </summary>
-    /// <example>
-    /// Name
-    /// 
-    /// Jméno
-    /// 
-    /// 
-    /// Surname
-    /// 
-    /// Příjmení
-    /// 
-    /// 
-    /// </example>
     public class PlainTextTranslationReaderActivator : IActivator<ITranslationReader, Stream>, IActivator<ITranslationReader, string>
     {
-        public ITranslationReader Create(Stream fileContent)
-        {
-            using (StreamReader reader = new StreamReader(fileContent))
-            {
-                string line = reader.ReadLine();
-                throw new NotImplementedException();
-            }
-        }
-
         /// <summary>
         /// Creates translation reader from file path.
         /// </summary>
@@ -48,6 +24,46 @@ namespace Neptuo.Localization.GetText
             {
                 return Create(fileContent);
             }
+        }
+
+        public ITranslationReader Create(Stream fileContent)
+        {
+            DefaultTranslationReader result = new DefaultTranslationReader();
+            using (StreamReader reader = new StreamReader(fileContent))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    int splitIndex = FindSplitPosition(line);
+                    if (splitIndex >= 0)
+                    {
+                        string originalText = line.Substring(0, splitIndex);
+                        string translatedText = line.Substring(splitIndex + 1);
+                        result.Add(originalText, translatedText);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private int FindSplitPosition(string line)
+        {
+            int indexOfEqual = -1;
+            bool isFinished = false;
+            do
+            {
+                indexOfEqual = line.IndexOf('=', indexOfEqual + 1);
+                if (indexOfEqual >= 0)
+                {
+                    if (indexOfEqual > 0 && line[indexOfEqual - 1] == '\\')
+                        continue;
+
+                }
+                isFinished = true;
+            } while (!isFinished);
+
+            return indexOfEqual;
         }
     }
 }

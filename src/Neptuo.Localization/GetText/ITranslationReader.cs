@@ -14,11 +14,6 @@ namespace Neptuo.Localization.GetText
     public interface ITranslationReader
     {
         /// <summary>
-        /// Culture info of translations in this reader.
-        /// </summary>
-        CultureInfo Culture { get; }
-
-        /// <summary>
         /// Tries to find translation of <paramref name="originalText"/>.
         /// </summary>
         /// <param name="originalText">Original text to find translation of.</param>

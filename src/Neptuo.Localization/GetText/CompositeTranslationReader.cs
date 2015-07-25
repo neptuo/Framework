@@ -14,21 +14,8 @@ namespace Neptuo.Localization.GetText
     {
         private readonly IEnumerable<ITranslationReader> readers;
 
-        public CultureInfo Culture
-        {
-            get
-            {
-                ITranslationReader firstReader = readers.FirstOrDefault();
-                if (firstReader != null)
-                    return firstReader.Culture;
-
-                return CultureInfo.InvariantCulture;
-            }
-        }
-
         /// <summary>
         /// Creates new instance that reads from <paramref name="readers"/>.
-        /// Culture info is provided from first item; if <paramref name="readers"/> is empty, culture is <see cref="CultureInfo.InvariantCulture"/>.
         /// </summary>
         /// <param name="readers">Enumeration of readers to read from.</param>
         public CompositeTranslationReader(IEnumerable<ITranslationReader> readers)
