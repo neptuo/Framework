@@ -53,5 +53,25 @@ namespace Neptuo.Localization
                 Assert.AreEqual("Znak '\\=' znamená 'rovnost'", translatedText);
             }
         }
+
+        [TestMethod]
+        public void TranslateTextUsingL()
+        {
+            PlainTextTranslationReaderActivator factory = new PlainTextTranslationReaderActivator();
+            using (MemoryStream fileContent = new MemoryStream())
+            using (TextWriter writer = new StreamWriter(fileContent))
+            {
+                writer.WriteLine("Hello, World!=Ahoj světe!");
+                writer.WriteLine("Character '\\=' means 'equal'=Znak '\\=' znamená 'rovnost'");
+                writer.Flush();
+                fileContent.Seek(0, SeekOrigin.Begin);
+
+                ITranslationReader reader = factory.Create(fileContent);
+                TranslationAdapter adapter = new TranslationAdapter(new DefaultCultureProvider(), new TranslationReaderCollection().Add(new CultureInfo("cs"), reader));
+                Translate.SetHandler(adapter.Translate);
+
+                Assert.AreEqual("Ahoj světe!", (L)"Hello, World!");
+            }
+        }
     }
 }

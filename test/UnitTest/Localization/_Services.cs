@@ -19,4 +19,12 @@ namespace Neptuo.Localization
         }
     }
 
+    class DefaultCultureProvider : ICultureProvider
+    {
+        public IEnumerable<CultureInfo> GetCulture()
+        {
+            return new List<CultureInfo>() { new CultureInfo("cs") };
+        }
+    }
+
 }
