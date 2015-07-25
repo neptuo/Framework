@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Converters
+namespace Neptuo.Converters
 {
     public class ConverterRepository : IConverterRepository
     {
@@ -57,6 +57,12 @@ namespace Neptuo.ComponentModel.Converters
                     return true;
                 }
 
+                if (targetType == typeof(string))
+                {
+                    targetValue = (TTarget)(object)sourceValue.ToString();
+                    return true;
+                }
+
                 targetValue = default(TTarget);
                 return false;
             }
@@ -93,6 +99,12 @@ namespace Neptuo.ComponentModel.Converters
             {
                 targetValue = null;
                 return false;
+            }
+
+            if (targetType == typeof(string))
+            {
+                targetValue = sourceValue.ToString();
+                return true;
             }
 
             return converter.TryConvertGeneral(sourceType, targetType, sourceValue, out targetValue);

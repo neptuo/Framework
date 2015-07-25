@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Converters
+namespace Neptuo.Converters
 {
     /// <summary>
     /// Registration extensions for <see cref="IConverterRepository"/>.

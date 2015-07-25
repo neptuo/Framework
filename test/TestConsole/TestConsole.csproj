@@ -99,6 +99,7 @@
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
+    <Compile Include="Localization\TestLocalization.cs" />
     <Compile Include="Logging\TestLog4net.cs" />
     <Compile Include="ObjectSizes\TestObjectSize.cs" />
     <Compile Include="PresentationModels\TestFieldMetadataValidatorKey.cs" />
@@ -224,6 +225,10 @@
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestLibrary\TestLibrary.csproj">
+      <Project>{66a47143-0fea-4fea-84c3-be2f9cbe0693}</Project>
+      <Name>TestLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

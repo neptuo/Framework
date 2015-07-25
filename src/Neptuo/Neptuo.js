@@ -1157,10 +1157,10 @@ var Neptuo$Collections$_EnvironmentExtensions = {
 };
 JsTypes.push(Neptuo$Collections$_EnvironmentExtensions);
 var Neptuo$ComponentModel$Converters$CollectionConverter$1 = {
-    fullname: "Neptuo.ComponentModel.Converters.CollectionConverter$1",
+    fullname: "Neptuo.Converters.CollectionConverter$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverter$2", "Neptuo.ComponentModel.Converters.IConverter$2", "Neptuo.ComponentModel.Converters.IConverter$2"],
+    interfaceNames: ["Neptuo.Converters.IConverter$2", "Neptuo.Converters.IConverter$2", "Neptuo.Converters.IConverter$2"],
     Kind: "Class",
     definition: {
         ctor: function (TItemTarget, separator, itemConverter){
@@ -1209,14 +1209,14 @@ var Neptuo$ComponentModel$Converters$CollectionConverter$1 = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["System.String", "Neptuo.ComponentModel.Converters.IConverter"]
+        parameters: ["System.String", "Neptuo.Converters.IConverter"]
     }
     ],
     IsAbstract: false
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$CollectionConverter$1);
 var Neptuo$ComponentModel$Converters$ConverterAttribute = {
-    fullname: "Neptuo.ComponentModel.Converters.ConverterAttribute",
+    fullname: "Neptuo.Converters.ConverterAttribute",
     baseTypeName: "System.Attribute",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -1272,7 +1272,7 @@ var Neptuo$ComponentModel$Converters$ConverterAttribute = {
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$ConverterAttribute);
 var Neptuo$ComponentModel$Converters$_ConverterRepositoryExtensions = {
-    fullname: "Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions",
+    fullname: "Neptuo.Converters._ConverterRepositoryExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         Add$2: function (TSource, TTarget, repository, converter){
@@ -1370,10 +1370,10 @@ var Neptuo$ComponentModel$IErrorInfo = {
 };
 JsTypes.push(Neptuo$ComponentModel$IErrorInfo);
 var Neptuo$ComponentModel$Converters$ConverterBase$2 = {
-    fullname: "Neptuo.ComponentModel.Converters.ConverterBase$2",
+    fullname: "Neptuo.Converters.ConverterBase$2",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverter$2"],
+    interfaceNames: ["Neptuo.Converters.IConverter$2"],
     Kind: "Class",
     definition: {
         ctor: function (TSource, TTarget){
@@ -1431,18 +1431,18 @@ var Neptuo$ComponentModel$Converters$ConverterBase$2 = {
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$ConverterBase$2);
 var Neptuo$ComponentModel$Converters$ConverterRepository = {
-    fullname: "Neptuo.ComponentModel.Converters.ConverterRepository",
+    fullname: "Neptuo.Converters.ConverterRepository",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverterRepository"],
+    interfaceNames: ["Neptuo.Converters.IConverterRepository"],
     Kind: "Class",
     definition: {
         ctor: function (){
             this.OnSearchConverter = null;
             this._Storage = null;
-            Neptuo.ComponentModel.Converters.ConverterRepository.ctor$$Dictionary$2.call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.Dictionary$2.ctor));
+            Neptuo.Converters.ConverterRepository.ctor$$Dictionary$2.call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, System.Collections.Generic.Dictionary$2.ctor));
         },
-        Storage$$: "System.Collections.Generic.Dictionary`2[[System.Type],[System.Collections.Generic.Dictionary`2[[System.Type],[Neptuo.ComponentModel.Converters.IConverter]]]]",
+        Storage$$: "System.Collections.Generic.Dictionary`2[[System.Type],[System.Collections.Generic.Dictionary`2[[System.Type],[Neptuo.Converters.IConverter]]]]",
         get_Storage: function (){
             return this._Storage;
         },
@@ -1472,7 +1472,7 @@ var Neptuo$ComponentModel$Converters$ConverterRepository = {
                 storage = (function ($p3){
                     this.get_Storage().set_Item$$TKey(sourceType, $p3);
                     return $p3;
-                }).call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.ComponentModel.Converters.IConverter.ctor));
+                }).call(this, new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.Converters.IConverter.ctor));
             storage.set_Item$$TKey(targetType, converter);
             return this;
         },
@@ -1513,7 +1513,7 @@ var Neptuo$ComponentModel$Converters$ConverterRepository = {
                 targetValue.Value = Default(TTarget);
                 return false;
             }
-            var genericConverter = As(converter, Neptuo.ComponentModel.Converters.IConverter$2.ctor);
+            var genericConverter = As(converter, Neptuo.Converters.IConverter$2.ctor);
             if (genericConverter != null)
                 return genericConverter.TryConvert(sourceValue, targetValue);
             var targetObject;
@@ -1573,7 +1573,7 @@ var Neptuo$ComponentModel$Converters$ConverterRepository = {
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$ConverterRepository);
 var Neptuo$ComponentModel$Converters$ConverterSearchDelegate = {
-    fullname: "Neptuo.ComponentModel.Converters.ConverterSearchDelegate",
+    fullname: "Neptuo.Converters.ConverterSearchDelegate",
     Kind: "Delegate",
     definition: {
         ctor: function (obj, func){
@@ -1589,7 +1589,7 @@ var Neptuo$ComponentModel$Converters$ConverterSearchDelegate = {
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$ConverterSearchDelegate);
 var Neptuo$ComponentModel$Converters$IConverter = {
-    fullname: "Neptuo.ComponentModel.Converters.IConverter",
+    fullname: "Neptuo.Converters.IConverter",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -1598,17 +1598,17 @@ var Neptuo$ComponentModel$Converters$IConverter = {
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$IConverter);
 var Neptuo$ComponentModel$Converters$IConverter$2 = {
-    fullname: "Neptuo.ComponentModel.Converters.IConverter$2",
+    fullname: "Neptuo.Converters.IConverter$2",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.Converters.IConverter"],
+    interfaceNames: ["Neptuo.Converters.IConverter"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$Converters$IConverter$2);
 var Neptuo$ComponentModel$Converters$IConverterRepository = {
-    fullname: "Neptuo.ComponentModel.Converters.IConverterRepository",
+    fullname: "Neptuo.Converters.IConverterRepository",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -2063,23 +2063,23 @@ var Neptuo$ComponentModel$ReturnTypeAttribute = {
 };
 JsTypes.push(Neptuo$ComponentModel$ReturnTypeAttribute);
 var Neptuo$ComponentModel$Converters$_TypeExecutorServiceExtensions = {
-    fullname: "Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions",
+    fullname: "Neptuo.Converters._TypeExecutorServiceExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         AddConverters$$ITypeExecutorService$$Boolean: function (service, isExecutedForLatelyLoadedAssemblies){
-            return Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions.AddConverters$$ITypeExecutorService$$IConverterRepository$$Boolean(service, Neptuo.Converts.get_Repository(), isExecutedForLatelyLoadedAssemblies);
+            return Neptuo.Converters._TypeExecutorServiceExtensions.AddConverters$$ITypeExecutorService$$IConverterRepository$$Boolean(service, Neptuo.Converts.get_Repository(), isExecutedForLatelyLoadedAssemblies);
         },
         AddConverters$$ITypeExecutorService$$IConverterRepository$$Boolean: function (service, repository, isExecutedForLatelyLoadedAssemblies){
             Neptuo.Ensure.NotNull$$Object$$String(service, "service");
             Neptuo.Ensure.NotNull$$Object$$String(repository, "repository");
-            Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection(Neptuo.ComponentModel.Converters.ConverterAttribute.ctor, Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotAbstract$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotInterface$$ITypeDelegateCollection(Neptuo.Reflections._TypeExecutorServiceExtensions.AddFiltered(service, isExecutedForLatelyLoadedAssemblies)))).AddHandler(function (t){
-                Neptuo.ComponentModel.Converters._TypeExecutorServiceExtensions.AddConverter(repository, t);
+            Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection(Neptuo.Converters.ConverterAttribute.ctor, Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotAbstract$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotInterface$$ITypeDelegateCollection(Neptuo.Reflections._TypeExecutorServiceExtensions.AddFiltered(service, isExecutedForLatelyLoadedAssemblies)))).AddHandler(function (t){
+                Neptuo.Converters._TypeExecutorServiceExtensions.AddConverter(repository, t);
             });
             return service;
         },
         AddConverter: function (repository, converterType){
-            var attributes = converterType.GetCustomAttributes$$Type$$Boolean(Typeof(Neptuo.ComponentModel.Converters.ConverterAttribute.ctor), true);
-            var converter = Cast(System.Activator.CreateInstance$$Type(converterType), Neptuo.ComponentModel.Converters.IConverter.ctor);
+            var attributes = converterType.GetCustomAttributes$$Type$$Boolean(Typeof(Neptuo.Converters.ConverterAttribute.ctor), true);
+            var converter = Cast(System.Activator.CreateInstance$$Type(converterType), Neptuo.Converters.IConverter.ctor);
             var $it8 = attributes.GetEnumerator();
             while ($it8.MoveNext()){
                 var attribute = $it8.get_Current();
@@ -2093,7 +2093,7 @@ var Neptuo$ComponentModel$Converters$_TypeExecutorServiceExtensions = {
                     var $it9 = interfaceTypes.GetEnumerator();
                     while ($it9.MoveNext()){
                         var interfaceType = $it9.get_Current();
-                        if (interfaceType.get_IsGenericType() && System.Type.op_Equality$$Type$$Type(Typeof(Neptuo.ComponentModel.Converters.IConverter$2.ctor), interfaceType.GetGenericTypeDefinition())){
+                        if (interfaceType.get_IsGenericType() && System.Type.op_Equality$$Type$$Type(Typeof(Neptuo.Converters.IConverter$2.ctor), interfaceType.GetGenericTypeDefinition())){
                             var parameters = interfaceType.GetGenericArguments();
                             var sourceType = parameters[0];
                             var targetType = parameters[1];
@@ -2163,12 +2163,12 @@ var Neptuo$Converts = {
             Neptuo.Converts.lockRepository = new System.Object.ctor();
             Neptuo.Converts.repository = null;
         },
-        Repository$$: "Neptuo.ComponentModel.Converters.IConverterRepository",
+        Repository$$: "Neptuo.Converters.IConverterRepository",
         get_Repository: function (){
             if (Neptuo.Converts.repository == null){
                 if (Neptuo.Converts.repository == null)
-                    Neptuo.Converts.repository = new Neptuo.ComponentModel.Converters.ConverterRepository.ctor();
-                Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Decimal.ctor, Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Double.ctor, Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Int64.ctor, Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Int32.ctor, Neptuo.ComponentModel.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Boolean.ctor, Neptuo.Converts.repository, new Neptuo.ComponentModel.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Boolean.ctor, System.Boolean.TryParse)), new Neptuo.ComponentModel.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Int32.ctor, System.Int32.TryParse$$String$$Int32)), new Neptuo.ComponentModel.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Int64.ctor, System.Int64.TryParse$$String$$Int64)), new Neptuo.ComponentModel.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Double.ctor, System.Double.TryParse$$String$$Double)), new Neptuo.ComponentModel.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Decimal.ctor, System.Decimal.TryParse$$String$$Decimal));
+                    Neptuo.Converts.repository = new Neptuo.Converters.ConverterRepository.ctor();
+                Neptuo.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Decimal.ctor, Neptuo.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Double.ctor, Neptuo.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Int64.ctor, Neptuo.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Int32.ctor, Neptuo.Converters._ConverterRepositoryExtensions.Add$2(System.String.ctor, System.Boolean.ctor, Neptuo.Converts.repository, new Neptuo.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Boolean.ctor, System.Boolean.TryParse)), new Neptuo.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Int32.ctor, System.Int32.TryParse$$String$$Int32)), new Neptuo.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Int64.ctor, System.Int64.TryParse$$String$$Int64)), new Neptuo.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Double.ctor, System.Double.TryParse$$String$$Double)), new Neptuo.Converters.ConverterBase$2.ctor$$OutFunc$3(System.String.ctor, System.Decimal.ctor, System.Decimal.TryParse$$String$$Decimal));
             }
             return Neptuo.Converts.repository;
         },

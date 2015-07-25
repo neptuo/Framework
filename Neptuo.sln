@@ -92,6 +92,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.AppServices
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Logging.Log4net", "src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj", "{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Localization", "src\Neptuo.Localization\Neptuo.Localization.csproj", "{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "test\TestLibrary\TestLibrary.csproj", "{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -234,6 +238,14 @@ Global
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +278,7 @@ Global
 		{57E49676-4746-41FD-B439-B4F41F8AE837} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

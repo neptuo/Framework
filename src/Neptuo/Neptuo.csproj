@@ -41,17 +41,23 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Activators\AutoExports\ExportNameScopedAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportScopedAttribute.cs" />
     <Compile Include="Activators\DependencyException.cs" />
+    <Compile Include="Activators\AutoExports\ExportAttribute.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />
     <Compile Include="Activators\DependencyRegistrationFailedException.cs" />
     <Compile Include="Activators\DependencyResolutionFailedException.cs" />
     <Compile Include="Activators\DependencyServiceProvider.cs" />
+    <Compile Include="Activators\AutoExports\ExportLifetimeAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportTransientAttribute.cs" />
     <Compile Include="Activators\GetterActivator.cs" />
     <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
     <Compile Include="Activators\IDependencyDefinition.cs" />
     <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
     <Compile Include="Activators\_DependencyRegistrationExtensions.cs" />
     <Compile Include="Activators\_EnsureExceptionExtensions.cs" />
+    <Compile Include="Activators\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Collections\Generic\_DictionaryExtensions.cs" />
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
@@ -109,17 +115,17 @@
     <Compile Include="ComponentModel\Behaviors\Providers\_InterfaceBehaviorProviderExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\Providers\MappingBehaviorProviderBase.cs" />
     <Compile Include="ComponentModel\Behaviors\Providers\_BehaviorCollectionExtensions.cs" />
-    <Compile Include="ComponentModel\Converters\CollectionConverter.cs" />
-    <Compile Include="ComponentModel\Converters\ConverterAttribute.cs" />
-    <Compile Include="ComponentModel\Converters\_ConverterRepositoryExtensions.cs" />
+    <Compile Include="Converters\CollectionConverter.cs" />
+    <Compile Include="Converters\AutoExports\ConverterAttribute.cs" />
+    <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="ComponentModel\ErrorInfo.cs" />
     <Compile Include="ComponentModel\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
-    <Compile Include="ComponentModel\Converters\ConverterBase.cs" />
-    <Compile Include="ComponentModel\Converters\ConverterRepository.cs" />
-    <Compile Include="ComponentModel\Converters\ConverterSearchDelegate.cs" />
-    <Compile Include="ComponentModel\Converters\IConverter.cs" />
-    <Compile Include="ComponentModel\Converters\IConverterRepository.cs" />
+    <Compile Include="Converters\ConverterBase.cs" />
+    <Compile Include="Converters\ConverterRepository.cs" />
+    <Compile Include="Converters\ConverterSearchDelegate.cs" />
+    <Compile Include="Converters\IConverter.cs" />
+    <Compile Include="Converters\IConverterRepository.cs" />
     <Compile Include="ComponentModel\Disposable.cs" />
     <Compile Include="ComponentModel\DisposableBase.cs" />
     <Compile Include="ComponentModel\Envelope.cs" />
@@ -132,7 +138,7 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\OutFuncCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
-    <Compile Include="ComponentModel\Converters\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="ComponentModel\__ErrorModelExtensions.cs" />
     <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
@@ -140,6 +146,7 @@
     <Compile Include="Activators\DependencyActivator.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureConditionHelper.cs" />
+    <Compile Include="Globalization\_CultureInfoExtensions.cs" />
     <Compile Include="ICloneable.cs" />
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
@@ -173,6 +180,8 @@
     <Compile Include="Linq\Expressions\TranslatingExpressionVisitor.cs" />
     <Compile Include="Linq\Expressions\TranslationMap.cs" />
     <Compile Include="Linq\_ExpressiveExtensions.cs" />
+    <Compile Include="Localization\L.cs" />
+    <Compile Include="Localization\Translate.cs" />
     <Compile Include="Logging\Serialization\ConsoleSerializer.cs" />
     <Compile Include="Logging\DefaultLog.cs" />
     <Compile Include="Logging\DefaultLogFactory.cs" />
@@ -212,7 +221,6 @@
     <Compile Include="Reflections\Enumerators\Executors\_TypeDelegateCollectionExtensions.cs" />
     <Compile Include="Reflections\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
-    <Compile Include="Security\Cryptography\HashHelper.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
     <Compile Include="ComponentModel\SequenceUniqueNameProvider.cs" />
     <Compile Include="Security\Cryptography\HashFunc.cs" />
