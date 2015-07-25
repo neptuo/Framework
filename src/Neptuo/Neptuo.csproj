@@ -116,7 +116,7 @@
     <Compile Include="ComponentModel\Behaviors\Providers\MappingBehaviorProviderBase.cs" />
     <Compile Include="ComponentModel\Behaviors\Providers\_BehaviorCollectionExtensions.cs" />
     <Compile Include="Converters\CollectionConverter.cs" />
-    <Compile Include="Converters\ConverterAttribute.cs" />
+    <Compile Include="Converters\AutoExports\ConverterAttribute.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="ComponentModel\ErrorInfo.cs" />
     <Compile Include="ComponentModel\IErrorInfo.cs" />
@@ -138,7 +138,7 @@
     <Compile Include="ComponentModel\ObservableObject.cs" />
     <Compile Include="ComponentModel\OutFuncCollection.cs" />
     <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
-    <Compile Include="Converters\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="ComponentModel\__ErrorModelExtensions.cs" />
     <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Converters
+namespace Neptuo.Converters.AutoExports
 {
     /// <summary>
     /// Auto converter wiring.
