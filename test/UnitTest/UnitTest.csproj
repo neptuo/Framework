@@ -65,6 +65,7 @@
     <Compile Include="Activators\T_Activators_Activator.cs" />
     <Compile Include="Activators\Tests\TestBase.cs" />
     <Compile Include="Activators\Tests\TestRegistration.cs" />
+    <Compile Include="Activators\T_Activators_AutoExports.cs" />
     <Compile Include="Activators\T_Activators_Simple.cs" />
     <Compile Include="Activators\Tests\TestResolve.cs" />
     <Compile Include="Activators\Tests\_TestServices.cs" />

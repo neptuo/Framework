@@ -41,6 +41,8 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Activators\AutoExports\ExportNameScopedAttribute.cs" />
+    <Compile Include="Activators\AutoExports\ExportScopedAttribute.cs" />
     <Compile Include="Activators\DependencyException.cs" />
     <Compile Include="Activators\AutoExports\ExportAttribute.cs" />
     <Compile Include="Activators\DependencyLifetime.cs" />

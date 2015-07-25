@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators.AutoExports
 {
     /// <summary>
-    /// Exports service as transient.
+    /// Exports service as any-scope.
     /// </summary>
-    public class ExportTransientAttribute : ExportLifetimeAttribute
+    public class ExportScopedAttribute : ExportLifetimeAttribute
     {
         public override DependencyLifetime GetLifetime()
         {
-            return DependencyLifetime.Transient;
+            return DependencyLifetime.Scope;
         }
     }
 }
