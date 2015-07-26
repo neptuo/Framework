@@ -55,6 +55,7 @@
     <Compile Include="Processing\Compilation\ICodeDomContext.cs" />
     <Compile Include="Processing\Compilation\CodeDomBehaviorInstanceGeneratorCollection.cs" />
     <Compile Include="Processing\Compilation\_CodeDomPipelineConfigurationExtensions.cs" />
+    <Compile Include="Processing\Compilation\_EnsureExceptionExtensions.cs" />
     <Compile Include="Processing\Reflection\ReflectionDefaultPipeline.cs" />
     <Compile Include="Processing\DefaultPipelineBase.cs" />
     <Compile Include="Processing\FuncList.cs" />

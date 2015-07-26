@@ -181,7 +181,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
                     provider.GenerateCodeFromCompileUnit(unit, writer, new CodeGeneratorOptions());
                 }
 
-                throw new PipelineFactoryException(String.Format("Error during compilation of generated pipeline, source code saved to '{0}'.", sourceCodePath));
+                Ensure.Exception.UnCompilableSource(sourceCodePath);
             }
 
             // Load compiled assembly.
