@@ -15,7 +15,17 @@ namespace Neptuo.ComponentModel
     /// <typeparam name="TReturn"></typeparam>
     public class OutFuncCollection<T, TOutput, TReturn> : IEnumerable<OutFunc<T, TOutput, TReturn>>
     {
-        private List<OutFunc<T, TOutput, TReturn>> storage = new List<OutFunc<T, TOutput, TReturn>>();
+        private readonly OutFunc<T, TOutput, TReturn> defaultFunc;
+        private readonly List<OutFunc<T, TOutput, TReturn>> storage = new List<OutFunc<T, TOutput, TReturn>>();
+
+        public OutFuncCollection()
+        { }
+
+        public OutFuncCollection(OutFunc<T, TOutput, TReturn> defaultFunc)
+        {
+            Ensure.NotNull(defaultFunc, "defaultFunc");
+            this.defaultFunc = defaultFunc;
+        }
 
         public OutFuncCollection<T, TOutput, TReturn> Add(OutFunc<T, TOutput, TReturn> func)
         {
@@ -35,7 +45,13 @@ namespace Neptuo.ComponentModel
 
         public IEnumerator<OutFunc<T, TOutput, TReturn>> GetEnumerator()
         {
-            return storage.GetEnumerator();
+            if (defaultFunc == null)
+                return storage.GetEnumerator();
+
+            return Enumerable.Concat(
+                storage,
+                new OutFunc<T, TOutput, TReturn>[1] { defaultFunc }
+            ).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -10,7 +10,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <summary>
     /// Generates code for creating behavior instance.
     /// </summary>
-    public interface ICodeDomBehaviorInstanceGenerator
+    public interface ICodeDomBehaviorGenerator
     {
         /// <summary>
         /// Tries to generate expression for creating instance of <paramref name="behaviorType"/>.

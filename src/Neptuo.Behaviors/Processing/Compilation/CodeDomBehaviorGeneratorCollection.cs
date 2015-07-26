@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,19 @@ using System.Threading.Tasks;
 namespace Neptuo.Behaviors.Processing.Compilation
 {
     /// <summary>
-    /// Registry for <see cref="ICodeDomBehaviorInstanceGenerator"/> by behavior type.
+    /// Collection of <see cref="ICodeDomBehaviorGenerator"/> by behavior type.
     /// </summary>
-    public class CodeDomBehaviorInstanceGeneratorCollection : ICodeDomBehaviorInstanceGenerator
+    public class CodeDomBehaviorGeneratorCollection : ICodeDomBehaviorGenerator
     {
         private readonly object storageLock = new object();
         private readonly object searchHandlerLock = new object();
-        private readonly Dictionary<Type, ICodeDomBehaviorInstanceGenerator> storage = new Dictionary<Type, ICodeDomBehaviorInstanceGenerator>();
-        private readonly FuncList<Type, ICodeDomBehaviorInstanceGenerator> onSearchBuilder = new FuncList<Type, ICodeDomBehaviorInstanceGenerator>(o => new CodeDomDefaultBehaviorInstanceGenerator());
+        private readonly Dictionary<Type, ICodeDomBehaviorGenerator> storage = new Dictionary<Type, ICodeDomBehaviorGenerator>();
+        private readonly OutFuncCollection<Type, ICodeDomBehaviorGenerator, bool> onSearchGenerator = new OutFuncCollection<Type, ICodeDomBehaviorGenerator, bool>(TryGetDefaultGenerator);
 
         /// <summary>
         /// Maps <paramref name="behaviorType"/> to be processed by <paramref name="generator" />
         /// </summary>
-        public CodeDomBehaviorInstanceGeneratorCollection Add(Type behaviorType, ICodeDomBehaviorInstanceGenerator generator)
+        public CodeDomBehaviorGeneratorCollection Add(Type behaviorType, ICodeDomBehaviorGenerator generator)
         {
             Ensure.NotNull(behaviorType, "behaviorType");
             Ensure.NotNull(generator, "generator");
@@ -36,23 +37,29 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// (Last registered is executed the first).
         /// </summary>
         /// <param name="searchHandler">Generator provider method.</param>
-        public CodeDomBehaviorInstanceGeneratorCollection AddSearchHandler(Func<Type, ICodeDomBehaviorInstanceGenerator> searchHandler)
+        public CodeDomBehaviorGeneratorCollection AddSearchHandler(OutFunc<Type, ICodeDomBehaviorGenerator, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
 
             lock (searchHandlerLock)
-                onSearchBuilder.Add(searchHandler);
+                onSearchGenerator.Add(searchHandler);
 
             return this;
         }
 
         public CodeExpression TryGenerate(ICodeDomContext context, Type behaviorType)
         {
-            ICodeDomBehaviorInstanceGenerator generator;
+            ICodeDomBehaviorGenerator generator;
             if (!storage.TryGetValue(behaviorType, out generator))
-                generator = onSearchBuilder.Execute(behaviorType);
+                onSearchGenerator.TryExecute(behaviorType, out generator);
 
             return generator.TryGenerate(context, behaviorType);
+        }
+
+        private static bool TryGetDefaultGenerator(Type behaviorType, out ICodeDomBehaviorGenerator generator)
+        {
+            generator = new CodeDomDefaultBehaviorGenerator();
+            return true;
         }
     }
 }
