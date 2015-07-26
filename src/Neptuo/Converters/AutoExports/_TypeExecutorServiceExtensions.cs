@@ -42,6 +42,7 @@ namespace Neptuo.Converters.AutoExports
                 .AddFiltered(isExecutedForLatelyLoadedAssemblies)
                 .AddFilterNotInterface()
                 .AddFilterNotAbstract()
+                .AddFilterHasDefaultConstructor()
                 .AddFilterHasAttribute<ConverterAttribute>()
                 .AddHandler(t => AddConverter(repository, t));
 

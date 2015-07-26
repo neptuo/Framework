@@ -116,5 +116,61 @@ namespace Neptuo.Reflections.Enumerators.Executors
         }
 
         #endregion
+
+        #region AddFilterHasConstructor
+
+        /// <summary>
+        /// Adds filter on <paramref name="enumerator"/> to filter out classes without constructor with <paramref name="parameterTypes" />.
+        /// </summary>
+        /// <param name="enumerator">Type enumerator.</param>
+        /// <param name="parameterTypes">Ordered array of required parameters in constructor.</param>
+        /// <returns>Result from calling <see cref="ITypeDelegateCollection.AddFilter"/>.</returns>
+        public static ITypeDelegateCollection AddFilterHasConstructor(this ITypeDelegateCollection enumerator, params Type[] parameterTypes)
+        {
+            Ensure.NotNull(enumerator, "enumerator");
+            return enumerator.AddFilter(t => t.GetConstructor(parameterTypes) != null);
+        }
+
+        /// <summary>
+        /// Adds filter on <paramref name="enumerator"/> to filter out classes without constructor with <paramref name="parameterTypes" />.
+        /// </summary>
+        /// <typeparam name="TContext">Type of context.</typeparam>
+        /// <param name="enumerator">Type enumerator.</param>
+        /// <param name="parameterTypes">Ordered array of required parameters in constructor.</param>
+        /// <returns>Result from calling <see cref="ITypeDelegateCollection.AddFilter"/>.</returns>
+        public static ITypeDelegateCollection<TContext> AddFilterHasConstructor<TContext>(this ITypeDelegateCollection<TContext> enumerator, params Type[] parameterTypes)
+        {
+            Ensure.NotNull(enumerator, "enumerator");
+            return enumerator.AddFilter((t, context) => t.GetConstructor(parameterTypes) != null);
+        }
+
+        #endregion
+
+        #region AddFilterHasDefaultConstructor
+
+        /// <summary>
+        /// Adds filter on <paramref name="enumerator"/> to filter out classes without default (parameter-less) constructor.
+        /// </summary>
+        /// <param name="enumerator">Type enumerator.</param>
+        /// <returns>Result from calling <see cref="ITypeDelegateCollection.AddFilter"/>.</returns>
+        public static ITypeDelegateCollection AddFilterHasDefaultConstructor(this ITypeDelegateCollection enumerator)
+        {
+            Ensure.NotNull(enumerator, "enumerator");
+            return enumerator.AddFilter(t => t.HasDefaultConstructor());
+        }
+
+        /// <summary>
+        /// Adds filter on <paramref name="enumerator"/> to filter out classes without default (parameter-less) constructor.
+        /// </summary>
+        /// <typeparam name="TContext">Type of context.</typeparam>
+        /// <param name="enumerator">Type enumerator.</param>
+        /// <returns>Result from calling <see cref="ITypeDelegateCollection.AddFilter"/>.</returns>
+        public static ITypeDelegateCollection<TContext> AddFilterHasDefaultConstructor<TContext>(this ITypeDelegateCollection<TContext> enumerator)
+        {
+            Ensure.NotNull(enumerator, "enumerator");
+            return enumerator.AddFilter((t, context) => t.HasDefaultConstructor());
+        }
+
+        #endregion
     }
 }

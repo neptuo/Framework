@@ -13,6 +13,12 @@ namespace Neptuo.Reflections
     /// </summary>
     public static class _TypeExecutorServiceExtensions
     {
+        /// <summary>
+        /// Adds <see cref="FilterTypeExecutor"/> to the <paramref name="executorService"/>.
+        /// </summary>
+        /// <param name="executorService">Target service.</param>
+        /// <param name="isExecutedForLatelyLoadedAssemblies">Whether to execute <paramref name="executor"/> also for lately loaded assemblies.</param>
+        /// <returns>Newly created instance of <see cref="FilterTypeExecutor"/>.</returns>
         public static FilterTypeExecutor AddFiltered(this ITypeExecutorService executorService, bool isExecutedForLatelyLoadedAssemblies)
         {
             Ensure.NotNull(executorService, "executorService");

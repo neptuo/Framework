@@ -219,6 +219,7 @@
     <Compile Include="Reflections\ReflectionFactory.cs" />
     <Compile Include="Reflections\ReflectionHelper.cs" />
     <Compile Include="Reflections\Enumerators\Executors\_TypeDelegateCollectionExtensions.cs" />
+    <Compile Include="Reflections\_ReflectionExtensions.cs" />
     <Compile Include="Reflections\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
