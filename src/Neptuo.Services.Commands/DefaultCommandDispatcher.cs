@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Services.Commands
 {
+    /// <summary>
+    /// Default implementation of <see cref="ICommandDispatcher"/> and <see cref="ICommandHandlerCollection"/>.
+    /// When handling command and command handler is missing, exception is thrown.
+    /// </summary>
     public class DefaultCommandDispatcher : ICommandHandlerCollection, ICommandDispatcher
     {
         private readonly Dictionary<Type, DefaultCommandHandlerDefinition> storage = new Dictionary<Type, DefaultCommandHandlerDefinition>();
