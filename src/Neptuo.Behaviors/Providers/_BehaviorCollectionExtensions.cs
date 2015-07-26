@@ -26,6 +26,5 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
             collection.Add(new InterfaceBehaviorProvider(typeof(TContract), typeof(TImplementation)));
             return collection;
         }
-
     }
 }

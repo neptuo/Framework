@@ -10,7 +10,7 @@ namespace Neptuo.ComponentModel.Behaviors
     /// <summary>
     /// Provides mappings between behavior interface contract and actual implementation type.
     /// </summary>
-    public interface IBehaviorCollection
+    public interface IBehaviorCollection : IBehaviorProvider
     {
         /// <summary>
         /// Adds provider for behaviors.
@@ -18,12 +18,5 @@ namespace Neptuo.ComponentModel.Behaviors
         /// <param name="provider">Behavior provider.</param>
         /// <returns>Self (for fluency).</returns>
         IBehaviorCollection Add(IBehaviorProvider provider);
-
-        /// <summary>
-        /// Gets registered behaviors for handler of type <paramref name="handlerType"/>.
-        /// </summary>
-        /// <param name="handlerType">Handler type.</param>
-        /// <returns>Registered behaviors for handler of type <paramref name="handlerType"/>.</returns>
-        IEnumerable<Type> GetBehaviors(Type handlerType);
     }
 }

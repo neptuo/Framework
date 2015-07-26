@@ -20,10 +20,10 @@ namespace TestConsole.Behaviors
             // Map behaviors.
             InterfaceBehaviorProvider behaviorProvider = new InterfaceBehaviorProvider();
             behaviorProvider
-                .AddMapping<I1, Ti1>()
-                .InsertMapping<I2, Ti2>(0)
-                .InsertMapping(0, typeof(I3<,>), typeof(Ti3<,>))
-                .AddMapping(typeof(I4<>), typeof(Ti4));
+                .Add<I1, Ti1>()
+                .Insert<I2, Ti2>(0)
+                .Insert(0, typeof(I3<,>), typeof(Ti3<,>))
+                .Add(typeof(I4<>), typeof(Ti4));
 
             IBehaviorCollection behaviorCollection = new BehaviorProviderCollection()
                 .Add(behaviorProvider)
