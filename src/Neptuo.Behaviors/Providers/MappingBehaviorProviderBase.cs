@@ -12,15 +12,8 @@ namespace Neptuo.Behaviors.Providers
     /// </summary>
     public abstract class MappingBehaviorProviderBase : IBehaviorProvider
     {
-        private List<BehaviorMappingModel> storage;
-
-        /// <summary>
-        /// Creates new instance with empty mappings.
-        /// </summary>
-        protected MappingBehaviorProviderBase()
-        {
-            storage = new List<BehaviorMappingModel>();
-        }
+        private readonly object storageLock = new object();
+        private readonly List<BehaviorMappingModel> storage = new List<BehaviorMappingModel>();
 
         /// <summary>
         /// If uderlaying storage doesn't contain <paramref name="behaviorContract"/>, new mapping is inserted at index <paramref name="index"/>;
@@ -39,10 +32,14 @@ namespace Neptuo.Behaviors.Providers
                 storage.Remove(model);
 
             model = new BehaviorMappingModel(behaviorContract, behaviorImplementation);
-            if (index != null)
-                storage.Insert(index.Value, model);
-            else
-                storage.Add(model);
+
+            lock (storageLock)
+            {
+                if (index != null)
+                    storage.Insert(index.Value, model);
+                else
+                    storage.Add(model);
+            }
         }
 
         /// <summary>
