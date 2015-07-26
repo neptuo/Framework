@@ -15,7 +15,9 @@ namespace Neptuo.Services.Deleters
     /// </summary>
     public class DefaultDeleteDispatcher : IDeleteDispatcher
     {
-        private IDictionary<string, IDeleteHandler> handlers = ConcurrentAwareDictionaryActivator<string, IDeleteHandler>.Instance.Create();
+        private readonly object handlersLock = new object();
+        private readonly object searchHandlerLock = new object();
+        private Dictionary<string, IDeleteHandler> handlers = new Dictionary<string, IDeleteHandler>();
         private OutFuncCollection<string, IDeleteHandler, bool> onSearchHandler = new OutFuncCollection<string, IDeleteHandler, bool>();
 
         /// <summary>
@@ -28,7 +30,10 @@ namespace Neptuo.Services.Deleters
         {
             Ensure.NotNull(objectType, "objectType");
             Ensure.NotNull(handler, "handler");
-            handlers[objectType] = handler;
+
+            lock (handlersLock)
+                handlers[objectType] = handler;
+
             return this;
         }
 
@@ -40,7 +45,10 @@ namespace Neptuo.Services.Deleters
         public DefaultDeleteDispatcher AddSearchHandler(OutFunc<string, IDeleteHandler, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchHandler.Add(searchHandler);
+
+            lock (searchHandlerLock)
+                onSearchHandler.Add(searchHandler);
+
             return this;
         }
 

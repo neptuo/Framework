@@ -85,7 +85,7 @@ namespace Neptuo.Bootstrap
 
         HierarchicalBootstrapper IHierarchicalBuilderExporter.WithEnvironmentExporter()
         {
-            return CreateBootstrapper(new EnvironmentDependencyExporter());
+            throw new NotImplementedException();
         }
 
         private HierarchicalBootstrapper CreateBootstrapper(IDependencyExporter dependencyExporter)

@@ -27,14 +27,9 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         private Func<T> generatedFactory;
 
         /// <summary>
-        /// Behavior collection.
+        /// Pipeline configuration.
         /// </summary>
-        private readonly IBehaviorCollection behaviorCollection;
-
-        /// <summary>
-        /// Generator configuration.
-        /// </summary>
-        private readonly ICompilerConfiguration configuration;
+        private readonly CodeDomPipelineConfiguration configuration;
 
         /// <summary>
         /// Creates new instance for handler of type <paramref name="handlerType"/>.
@@ -42,13 +37,11 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <param name="handlerType">Handler type.</param>
         /// <param name="behaviorCollection">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineFactory(Type handlerType, IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
+        public CodeDomPipelineFactory(Type handlerType, CodeDomPipelineConfiguration configuration)
         {
             Ensure.NotNull(handlerType, "handlerType");
-            Ensure.NotNull(behaviorCollection, "behaviorCollection");
             Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
-            this.behaviorCollection = behaviorCollection;
             this.configuration = configuration;
         }
 
@@ -77,7 +70,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// </summary>
         private void GeneratePipelineFactory()
         {
-            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, behaviorCollection, configuration);
+            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, configuration.Behaviors, configuration.CompilerConfiguration);
             Type pipelineType = generator.GeneratePipeline();
 
             generatedFactory = () => (T)Activator.CreateInstance(pipelineType);
