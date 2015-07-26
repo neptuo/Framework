@@ -1,5 +1,5 @@
 ﻿using Neptuo.Linq.Expressions;
-using Neptuo.ComponentModel.Behaviors;
+using Neptuo.Behaviors;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
@@ -11,9 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Compilers;
 using Neptuo.Reflections;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors.Providers;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
+namespace Neptuo.Behaviors.Processing.Compilation
 {
     /// <summary>
     /// CodeDom generator for pipelines based on concrete handlert type.

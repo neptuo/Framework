@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors
+namespace Neptuo.Behaviors
 {
     /// <summary>
     /// Default implementation of <see cref="IBehaviorContext"/>.

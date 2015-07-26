@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
+namespace Neptuo.Behaviors.Processing.Reflection
 {
     /// <summary>
     /// Default implementation of <see cref="IReflectionContext"/>.

@@ -1,7 +1,7 @@
 ﻿using Neptuo.Compilers;
-using Neptuo.ComponentModel.Behaviors;
-using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors;
+using Neptuo.Behaviors.Processing.Compilation;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

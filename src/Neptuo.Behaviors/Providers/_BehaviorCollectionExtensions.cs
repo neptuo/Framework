@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Providers
+namespace Neptuo.Behaviors.Providers
 {
     /// <summary>
     /// Extensions for <see cref="IBehaviorCollection"/>.

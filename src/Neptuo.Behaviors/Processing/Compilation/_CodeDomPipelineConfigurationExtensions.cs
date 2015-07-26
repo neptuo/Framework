@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
+namespace Neptuo.Behaviors.Processing.Compilation
 {
     /// <summary>
     /// Extensions for compiler configuration for pipeline compilation.

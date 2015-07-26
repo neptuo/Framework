@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
+namespace Neptuo.Behaviors.Processing.Reflection
 {
     /// <summary>
     /// Registry for <see cref="IReflectionBehaviorInstanceProvider"/> by behavior type.

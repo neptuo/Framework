@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
+namespace Neptuo.Behaviors.Processing.Compilation
 {
     /// <summary>
     /// Base context for code dom generators.

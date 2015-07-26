@@ -3,7 +3,7 @@
     <Export Filename="Neptuo.js" FilenameFormat="~/{0}" />
     <Namespace Target="Neptuo.AppServices.*" Export="False" />
     <Namespace Target="Neptuo.Compilers" Export="False" />
-    <Namespace Target="Neptuo.ComponentModel.Behaviors.*" Export="False" />
+    <Namespace Target="Neptuo.Behaviors.*" Export="False" />
     <Namespace Target="Neptuo.FileSystems" Export="False" />
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
     <Namespace Target="Neptuo.Threading" Export="False" />

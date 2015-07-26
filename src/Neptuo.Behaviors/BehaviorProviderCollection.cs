@@ -1,11 +1,11 @@
-﻿using Neptuo.ComponentModel.Behaviors.Providers;
+﻿using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors
+namespace Neptuo.Behaviors
 {
     /// <summary>
     /// Base implementation using list of providers.

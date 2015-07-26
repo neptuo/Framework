@@ -1,10 +1,10 @@
 ﻿using Neptuo.AppServices.Handlers.Behaviors;
 using Neptuo.AppServices.Handlers.Behaviors.Hosting;
 using Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection;
-using Neptuo.ComponentModel.Behaviors;
-using Neptuo.ComponentModel.Behaviors.Processing;
-using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors;
+using Neptuo.Behaviors.Processing;
+using Neptuo.Behaviors.Processing.Reflection;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

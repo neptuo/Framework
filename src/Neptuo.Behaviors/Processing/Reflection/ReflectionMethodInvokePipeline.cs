@@ -1,6 +1,6 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors.Processing.Reflection;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing
+namespace Neptuo.Behaviors.Processing
 {
     public class ReflectionMethodInvokePipeline<THandler, TOutput> : ReflectionDefaultPipeline<THandler>
         where THandler : new()

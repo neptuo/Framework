@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
+﻿using Neptuo.Behaviors.Processing.Compilation;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;

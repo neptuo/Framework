@@ -1,12 +1,12 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel.Behaviors;
+using Neptuo.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing
+namespace Neptuo.Behaviors.Processing
 {
     /// <summary>
     /// Pipeline for handlers with parameterless constructor.

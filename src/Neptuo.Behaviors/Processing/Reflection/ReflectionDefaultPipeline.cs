@@ -1,15 +1,15 @@
 ﻿using Neptuo;
-using Neptuo.ComponentModel.Behaviors;
-using Neptuo.ComponentModel.Behaviors.Processing;
-using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors;
+using Neptuo.Behaviors.Processing;
+using Neptuo.Behaviors.Processing.Reflection;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing
+namespace Neptuo.Behaviors.Processing
 {
     /// <summary>
     /// Creates behaviors using <see cref="Activator"/>.

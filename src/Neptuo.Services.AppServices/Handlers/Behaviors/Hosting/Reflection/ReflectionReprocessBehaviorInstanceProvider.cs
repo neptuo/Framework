@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
+﻿using Neptuo.Behaviors.Processing.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing
+namespace Neptuo.Behaviors.Processing
 {
     /// <summary>
     /// Exception during pipeline factory execution.

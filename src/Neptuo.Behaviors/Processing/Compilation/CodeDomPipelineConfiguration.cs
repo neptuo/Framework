@@ -1,12 +1,12 @@
 ﻿using Neptuo.Compilers;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
+namespace Neptuo.Behaviors.Processing.Compilation
 {
     /// <summary>
     /// Configuration of <see cref="CodeDomPipelineFactory{T}"/>.

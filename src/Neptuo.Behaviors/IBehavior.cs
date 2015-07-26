@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors
+namespace Neptuo.Behaviors
 {
     /// <summary>
     /// Integrates logic into execution pipeline.

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.Behaviors
+namespace Neptuo.Behaviors
 {
     /// <summary>
     /// Extensions for custom values in <see cref="IBehaviorContext"/>.

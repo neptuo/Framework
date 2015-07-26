@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Behaviors;
+﻿using Neptuo.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Neptuo.Collections.Specialized;
 using Neptuo.Activators;
 
-namespace Neptuo.ComponentModel.Behaviors.Processing
+namespace Neptuo.Behaviors.Processing
 {
     /// <summary>
     /// Base implementation of pipeline that operates on handler of type <typeparamref name="T"/>.
