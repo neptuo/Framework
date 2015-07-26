@@ -6,6 +6,7 @@ using Neptuo.AppServices.Handlers.Behaviors.Hosting;
 using Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation;
 using Neptuo.AppServices.Handlers.Behaviors.Processing;
 using Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation;
+using Neptuo.Compilers;
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
 using Neptuo.ComponentModel.Behaviors.Providers;
@@ -30,31 +31,27 @@ namespace TestConsole.AppServices
         {
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
-            Engine.Environment.UseAppServices()
-                .UseBehaviors(
-                    new BehaviorProviderCollection()
-                        .Add(
-                            new AttributeBehaviorProvider()
-                                .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
-                        )
-                )
-                .UseCodeDomConfiguration(
-                    typeof(WorkerPipelineHandler<>), 
-                    @"C:\Temp\Pipelines", 
-                    Environment.CurrentDirectory
+            IBehaviorCollection behaviors = new BehaviorProviderCollection()
+                .Add(
+                    new AttributeBehaviorProvider()
+                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
+            ICompilerConfiguration configuration = new CompilerConfiguration()
+                .BaseType(typeof(WorkerPipelineHandler<>))
+                .TempDirectory(@"C:\Temp\Pipelines");
+            
+            configuration.References()
+                .AddDirectory(Environment.CurrentDirectory);
 
-            // Compilation configuration
-            Engine.Environment.WithAppServices().WithCodeDomConfiguration().BehaviorInstance()
+            configuration.BehaviorInstance()
                 .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
-
 
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
                 new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>())
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>(behaviors, configuration))
             );
             //collection.Add(new Temp2CheckServiceHandler());
 

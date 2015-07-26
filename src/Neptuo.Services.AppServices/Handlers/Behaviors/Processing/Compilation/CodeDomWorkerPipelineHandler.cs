@@ -15,9 +15,5 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation
         public CodeDomWorkerPipelineHandler(IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
             : base(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(T), behaviorCollection, configuration))
         { }
-
-        public CodeDomWorkerPipelineHandler()
-            : this(Engine.Environment.WithAppServices().WithBehaviors(), Engine.Environment.WithAppServices().WithCodeDomConfiguration())
-        { }
     }
 }

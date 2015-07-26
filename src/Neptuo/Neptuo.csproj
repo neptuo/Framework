@@ -62,7 +62,6 @@
     <Compile Include="Collections\ObjectModel\IItemsSource.cs" />
     <Compile Include="Collections\ObjectModel\ObservableDictionary.cs" />
     <Compile Include="Collections\ObjectModel\SortableObservableCollection.cs" />
-    <Compile Include="Collections\Generic\ConcurrentAwareDictionaryActivator.cs" />
     <Compile Include="Collections\Specialized\IKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\IReadOnlyKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\KeyValueCollection.cs" />
@@ -71,7 +70,6 @@
     <Compile Include="Collections\Specialized\NameValueReadOnlyDictionary.cs" />
     <Compile Include="Collections\Specialized\ProviderKeyValueCollection.cs" />
     <Compile Include="Collections\Specialized\_ReadOnlyKeyValueCollectionExtensions.cs" />
-    <Compile Include="Collections\_EnvironmentExtensions.cs" />
     <Compile Include="Compilers\Compiler.cs" />
     <Compile Include="Compilers\CompilerConfiguration.cs" />
     <Compile Include="Compilers\CompilerConfigurationWrapper.cs" />
@@ -151,8 +149,6 @@
     <Compile Include="Activators\InstanceActivator.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
-    <Compile Include="Engine.cs" />
-    <Compile Include="EngineEnvironment.cs" />
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
     <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
