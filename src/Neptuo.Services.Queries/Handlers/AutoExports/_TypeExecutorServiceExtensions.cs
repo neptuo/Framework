@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Activators.AutoExports;
 using Neptuo.Reflections;
 using Neptuo.Reflections.Enumerators;
 using Neptuo.Reflections.Enumerators.Executors;
@@ -38,7 +39,11 @@ namespace Neptuo.Services.Queries.Handlers.AutoExports
 
         private static void AddQueryHandler(IDependencyContainer dependencyContainer, Type queryHandlerType)
         {
-            IEnumerable<object> attributes = queryHandlerType.GetCustomAttributes(typeof(QueryHandlerAttribute), true);
+            IEnumerable<object> allAttributes = queryHandlerType.GetCustomAttributes(true);
+            ExportLifetimeAttribute lifetimeAttribute = allAttributes.OfType<ExportLifetimeAttribute>().FirstOrDefault();
+            DependencyLifetime lifetime = lifetimeAttribute != null ? lifetimeAttribute.GetLifetime() : DependencyLifetime.Transient;
+
+            IEnumerable<object> attributes = allAttributes.OfType<QueryHandlerAttribute>();
             foreach (QueryHandlerAttribute attribute in attributes)
             {
                 if (attribute.HasTypeDefined)
@@ -54,12 +59,10 @@ namespace Neptuo.Services.Queries.Handlers.AutoExports
                             {
                                 Type queryResultType = parameters[0];
                                 Type queryHandlerInterfaceType = typeof(IQueryHandler<,>).MakeGenericType(queryType, queryResultType);
-                                dependencyContainer.Definitions.Add(queryHandlerInterfaceType, DependencyLifetime.Transient, queryHandlerType);
+                                dependencyContainer.Definitions.Add(queryHandlerInterfaceType, lifetime, queryHandlerType);
                             }
                         }
                     }
-
-                    //TODO: Implement else branches...
                 }
                 else
                 {
@@ -70,7 +73,7 @@ namespace Neptuo.Services.Queries.Handlers.AutoExports
                         {
                             Type[] parameters = interfaceType.GetGenericArguments();
                             Type queryHandlerInterfaceType = typeof(IQueryHandler<,>).MakeGenericType(parameters[0], parameters[1]);
-                            dependencyContainer.Definitions.Add(queryHandlerInterfaceType, DependencyLifetime.Transient, queryHandlerType);
+                            dependencyContainer.Definitions.Add(queryHandlerInterfaceType, lifetime, queryHandlerType);
                         }
                     }
                 }
