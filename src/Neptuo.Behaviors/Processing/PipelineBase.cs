@@ -17,10 +17,9 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     public abstract class PipelineBase<T>
     {
         /// <summary>
-        /// Gets factory for handlers of type <typeparamref name="T"/>.
+        /// Factory for handlers of type <typeparamref name="T"/>.
         /// </summary>
-        /// <returns>Factory for handlers of type <typeparamref name="T"/>.</returns>
-        protected abstract IActivator<T> GetHandlerFactory();
+        protected abstract IActivator<T> HandlerFactory { get; }
 
         /// <summary>
         /// Gets enumeration of behaviors for handler of type <typeparamref name="T"/>.
@@ -33,20 +32,19 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// </summary>
         /// <param name="behaviors">Enumeration of behaviors for current handler.</param>
         /// <param name="handler">Inner handler of current pipeline.</param>
-        /// <returns></returns>
+        /// <returns>Instance of <see cref="IBehaviorContext"/> for <paramref name="behaviors"/> and <paramref name="handler"/>.</returns>
         protected virtual IBehaviorContext GetBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
         {
             return new DefaultBehaviorContext<T>(behaviors, handler);
         }
 
         /// <summary>
-        /// Executed behavior list.
+        /// Executes behavior list and target method.
         /// </summary>
         protected Task ExecutePipelineAsync()
         {
             IEnumerable<IBehavior<T>> behaviors = GetBehaviors();
-            IActivator<T> handlerFactory = GetHandlerFactory();
-            T handler = handlerFactory.Create();
+            T handler = HandlerFactory.Create();
 
             IBehaviorContext context = GetBehaviorContext(behaviors, handler);
             return context.NextAsync();

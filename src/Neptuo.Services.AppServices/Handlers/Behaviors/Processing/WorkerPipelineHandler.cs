@@ -15,14 +15,9 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Processing
     /// Base class for behaviors processing integration.
     /// </summary>
     /// <typeparam name="T">Type of inner handler.</typeparam>
-    public abstract class WorkerPipelineHandler<T> : PipelineBase<T>, IBackgroundHandler
+    public abstract class WorkerPipelineHandler<T> : DefaultPipelineBase<T>, IBackgroundHandler
         where T : IBackgroundHandler, new()
     {
-        protected override IActivator<T> GetHandlerFactory()
-        {
-            return new DefaultActivator<T>();
-        }
-
         protected override IBehaviorContext GetBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
         {
             return new DefaultBehaviorContext<T>(

@@ -13,11 +13,13 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public abstract class DefaultPipelineBase<T> : PipelineBase<T>
-        where T: new()
+        where T : new()
     {
-        protected override IActivator<T> GetHandlerFactory()
+        private readonly IActivator<T> handlerFactory = new DefaultActivator<T>();
+
+        protected override IActivator<T> HandlerFactory
         {
-            return new DefaultActivator<T>();
+            get { return handlerFactory; }
         }
     }
 }

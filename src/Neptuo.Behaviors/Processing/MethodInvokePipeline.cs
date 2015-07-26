@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.ComponentModel.Behaviors.Processing
 {
-    public class MethodInvokePipeline<THandler, TOutput> : DefaultPipeline<THandler>
+    public class MethodInvokePipeline<THandler, TOutput> : ReflectionDefaultPipeline<THandler>
         where THandler : new()
     {
         private readonly string methodName;
@@ -39,8 +39,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
             Ensure.NotNull(parameters, "parameters");
 
             IEnumerable<IBehavior<THandler>> behaviors = GetBehaviors();
-            IActivator<THandler> handlerFactory = GetHandlerFactory();
-            THandler handler = handlerFactory.Create();
+            THandler handler = HandlerFactory.Create();
 
             IBehaviorContext context = GetBehaviorContext(behaviors, handler)
                 .SetTargetMethod(GetMethodInfo())

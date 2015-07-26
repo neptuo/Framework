@@ -16,7 +16,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     /// Handler must have parameterless construtor.
     /// </summary>
     /// <typeparam name="T">Type of handler.</typeparam>
-    public class DefaultPipeline<T> : DefaultPipelineBase<T>
+    public class ReflectionDefaultPipeline<T> : DefaultPipelineBase<T>
         where T : new()
     {
         private readonly IBehaviorProvider behaviors;
@@ -27,7 +27,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         /// </summary>
         /// <param name="behaviors">Behavior provider.</param>
         /// <param name="behaviorInstance">Behavior instance provider.</param>
-        public DefaultPipeline(IBehaviorProvider behaviors, IReflectionBehaviorInstanceProvider behaviorInstance)
+        public ReflectionDefaultPipeline(IBehaviorProvider behaviors, IReflectionBehaviorInstanceProvider behaviorInstance)
         {
             Ensure.NotNull(behaviors, "behaviors");
             Ensure.NotNull(behaviorInstance, "behaviorInstance");
