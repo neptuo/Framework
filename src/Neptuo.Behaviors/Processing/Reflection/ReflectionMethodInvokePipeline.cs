@@ -16,7 +16,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     {
         private readonly string methodName;
 
-        public MethodInvokePipeline(IBehaviorProvider behaviors, IReflectionBehaviorInstanceProvider behaviorInstance, string methodName)
+        public ReflectionMethodInvokePipeline(IBehaviorProvider behaviors, IReflectionBehaviorInstanceProvider behaviorInstance, string methodName)
             : base(behaviors, behaviorInstance)
         {
             Ensure.NotNullOrEmpty(methodName, "methodName");
