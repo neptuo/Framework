@@ -54,7 +54,7 @@ namespace TestConsole.Commands
 
                 eventManager.Subscribe(new CommandEventHandler(command, DelegateEventHandler.FromAction<CommandHandled>(OnCommandHandled)));
                 eventManager.Subscribe(new CommandEventHandler(command, new WeakEventHandler<CommandHandled>(new CreateProductEventHandler())));
-                commandDispatcher.Handle(command);
+                commandDispatcher.HandleAsync(command);
                 GC.Collect();
             }
 
@@ -71,7 +71,7 @@ namespace TestConsole.Commands
 
         static void TestCommandDispatcher(int count, ICommandDispatcher commandDispatcher)
         {
-            DebugIteration("CommandDispatcher", count, () => commandDispatcher.Handle(new CreateProductCommand("Pen", 5.0)));
+            DebugIteration("CommandDispatcher", count, () => commandDispatcher.HandleAsync(new CreateProductCommand("Pen", 5.0)));
         }
 
         static void TestDirect(int count)

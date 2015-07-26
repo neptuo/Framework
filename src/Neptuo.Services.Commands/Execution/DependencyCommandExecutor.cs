@@ -18,9 +18,9 @@ namespace Neptuo.Services.Commands.Execution
     public class DependencyCommandExecutor : ICommandExecutor, IDecoratedInvoke
     {
         /// <summary>
-        /// Name of <see cref="ICommandHandler{TCommand}.Handle"/>.
+        /// Name of <see cref="ICommandHandler{TCommand}.HandleAsync"/>.
         /// </summary>
-        private static readonly string handleMethodName = TypeHelper.MethodName<ICommandHandler<object>, object>(h => h.Handle);
+        private static readonly string handleMethodName = TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync);
 
         /// <summary>
         /// Current dependency provider.

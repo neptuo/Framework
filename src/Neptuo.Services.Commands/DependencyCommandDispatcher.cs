@@ -36,13 +36,13 @@ namespace Neptuo.Services.Commands
         /// Handles <paramref name="command"/>.
         /// </summary>
         /// <param name="command">Command to handle.</param>
-        public void Handle(object command)
+        public Task HandleAsync(object command)
         {
             Ensure.NotNull(command, "command");
-            HandleInternal(command, true);
+            return HandleInternal(command, true);
         }
 
-        protected virtual void HandleInternal(object command, bool handleException)
+        protected virtual Task HandleInternal(object command, bool handleException)
         {
             ICommandExecutor executor = null;
             try
@@ -57,7 +57,7 @@ namespace Neptuo.Services.Commands
                 if (handleException)
                 {
                     HandleException(e);
-                    return;
+                    return Task.FromResult(false);
                 }
 
                 Exception commandException = command as Exception;
@@ -72,6 +72,8 @@ namespace Neptuo.Services.Commands
                 if (disposable != null)
                     disposable.Dispose();
             }
+
+            return Task.FromResult(true);
         }
 
         private void OnCommandHandled(ICommandExecutor executor, object command)

@@ -20,7 +20,7 @@ namespace Neptuo.Services.Commands
         {
             Ensure.NotNull(handler, "handler");
             Type commandType = typeof(TCommand);
-            storage[commandType] = new DefaultCommandHandlerDefinition(handler, command => handler.Handle((TCommand)command));
+            storage[commandType] = new DefaultCommandHandlerDefinition(handler, command => handler.HandleAsync((TCommand)command));
 
             return this;
         }
@@ -39,7 +39,7 @@ namespace Neptuo.Services.Commands
             return false;
         }
 
-        public Task Handle(object command)
+        public Task HandleAsync(object command)
         {
             Ensure.NotNull(command, "command");
             Type commandType = command.GetType();
