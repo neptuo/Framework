@@ -53,6 +53,10 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Behaviors\Neptuo.Behaviors.csproj">
+      <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
+      <Name>Neptuo.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
