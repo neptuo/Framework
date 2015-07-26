@@ -45,7 +45,7 @@ namespace TestConsole.AppServices
                 .AddDirectory(Environment.CurrentDirectory);
 
             configuration.BehaviorInstance()
-                .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
+                .Add(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
 
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             //collection.Add(new TempCheckServiceHandler());

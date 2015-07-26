@@ -10,19 +10,24 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
     /// <summary>
     /// Registry for <see cref="IReflectionBehaviorInstanceProvider"/> by behavior type.
     /// </summary>
-    public class ReflectionBehaviorInstanceRegistry : IReflectionBehaviorInstanceProvider
+    public class ReflectionBehaviorInstanceCollection : IReflectionBehaviorInstanceProvider
     {
+        private readonly object storageLock = new object();
+        private readonly object searchHandlerLock = new object();
         private readonly Dictionary<Type, IReflectionBehaviorInstanceProvider> storage = new Dictionary<Type, IReflectionBehaviorInstanceProvider>();
         private readonly FuncList<Type, IReflectionBehaviorInstanceProvider> onSearchBuilder = new FuncList<Type, IReflectionBehaviorInstanceProvider>(o => new DefaultReflectionBehaviorInstanceProvider());
 
         /// <summary>
         /// Maps <paramref name="behaviorType"/> to be processed by <paramref name="provider" />
         /// </summary>
-        public ReflectionBehaviorInstanceRegistry AddProvider(Type behaviorType, IReflectionBehaviorInstanceProvider provider)
+        public ReflectionBehaviorInstanceCollection AddProvider(Type behaviorType, IReflectionBehaviorInstanceProvider provider)
         {
             Ensure.NotNull(behaviorType, "behaviorType");
             Ensure.NotNull(provider, "provider");
-            storage[behaviorType] = provider;
+         
+            lock (storageLock)
+                storage[behaviorType] = provider;
+
             return this;
         }
 
@@ -31,10 +36,13 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Reflection
         /// (Last registered is executed the first).
         /// </summary>
         /// <param name="searchHandler">Generator provider method.</param>
-        public ReflectionBehaviorInstanceRegistry AddSearchHandler(Func<Type, IReflectionBehaviorInstanceProvider> searchHandler)
+        public ReflectionBehaviorInstanceCollection AddSearchHandler(Func<Type, IReflectionBehaviorInstanceProvider> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchBuilder.Add(searchHandler);
+
+            lock (searchHandlerLock)
+                onSearchBuilder.Add(searchHandler);
+
             return this;
         }
 

@@ -46,12 +46,12 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// </summary>
         /// <param name="configuration">Compiler configuration.</param>
         /// <returns>Registry for behavior instance generators.</returns>
-        public static CodeDomBehaviorInstanceRegistry BehaviorInstance(this ICompilerConfiguration configuration)
+        public static CodeDomBehaviorInstanceGeneratorCollection BehaviorInstance(this ICompilerConfiguration configuration)
         {
             Ensure.NotNull(configuration, "configuration");
-            CodeDomBehaviorInstanceRegistry registry;
+            CodeDomBehaviorInstanceGeneratorCollection registry;
             if (!configuration.TryGet("BehaviorInstance", out registry))
-                configuration.Set("BehaviorInstance", registry = new CodeDomBehaviorInstanceRegistry());
+                configuration.Set("BehaviorInstance", registry = new CodeDomBehaviorInstanceGeneratorCollection());
 
             return registry;
         }

@@ -10,19 +10,24 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
     /// <summary>
     /// Registry for <see cref="ICodeDomBehaviorInstanceGenerator"/> by behavior type.
     /// </summary>
-    public class CodeDomBehaviorInstanceRegistry : ICodeDomBehaviorInstanceGenerator
+    public class CodeDomBehaviorInstanceGeneratorCollection : ICodeDomBehaviorInstanceGenerator
     {
+        private readonly object storageLock = new object();
+        private readonly object searchHandlerLock = new object();
         private readonly Dictionary<Type, ICodeDomBehaviorInstanceGenerator> storage = new Dictionary<Type, ICodeDomBehaviorInstanceGenerator>();
         private readonly FuncList<Type, ICodeDomBehaviorInstanceGenerator> onSearchBuilder = new FuncList<Type, ICodeDomBehaviorInstanceGenerator>(o => new CodeDomDefaultBehaviorInstanceGenerator());
 
         /// <summary>
         /// Maps <paramref name="behaviorType"/> to be processed by <paramref name="generator" />
         /// </summary>
-        public CodeDomBehaviorInstanceRegistry AddGenerator(Type behaviorType, ICodeDomBehaviorInstanceGenerator generator)
+        public CodeDomBehaviorInstanceGeneratorCollection Add(Type behaviorType, ICodeDomBehaviorInstanceGenerator generator)
         {
             Ensure.NotNull(behaviorType, "behaviorType");
             Ensure.NotNull(generator, "generator");
-            storage[behaviorType] = generator;
+
+            lock (storageLock)
+                storage[behaviorType] = generator;
+
             return this;
         }
 
@@ -31,10 +36,13 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// (Last registered is executed the first).
         /// </summary>
         /// <param name="searchHandler">Generator provider method.</param>
-        public CodeDomBehaviorInstanceRegistry AddSearchHandler(Func<Type, ICodeDomBehaviorInstanceGenerator> searchHandler)
+        public CodeDomBehaviorInstanceGeneratorCollection AddSearchHandler(Func<Type, ICodeDomBehaviorInstanceGenerator> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchBuilder.Add(searchHandler);
+
+            lock (searchHandlerLock)
+                onSearchBuilder.Add(searchHandler);
+
             return this;
         }
 

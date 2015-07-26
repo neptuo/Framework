@@ -54,7 +54,7 @@
     <Compile Include="Processing\Compilation\CodeDomPipelineGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomContext.cs" />
-    <Compile Include="Processing\Compilation\Registries\CodeDomBehaviorInstanceRegistry.cs" />
+    <Compile Include="Processing\Compilation\CodeDomBehaviorInstanceGeneratorCollection.cs" />
     <Compile Include="Processing\Compilation\_CodeDomPipelineConfigurationExtensions.cs" />
     <Compile Include="Processing\DefaultPipeline.cs" />
     <Compile Include="Processing\DefaultPipelineBase.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="Processing\Reflection\DefaultReflectionContext.cs" />
     <Compile Include="Processing\Reflection\IReflectionBehaviorInstanceProvider.cs" />
     <Compile Include="Processing\Reflection\IReflectionContext.cs" />
-    <Compile Include="Processing\Reflection\Registries\ReflectionBehaviorInstanceRegistry.cs" />
+    <Compile Include="Processing\Reflection\ReflectionBehaviorInstanceCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Providers\AttributeBehaviorProvider.cs" />

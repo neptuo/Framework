@@ -36,7 +36,7 @@ namespace TestConsole.Behaviors
             Console.WriteLine("Number of behaviors for Test class '{0}'.", behaviors.Count());
 
             // Create reflection providers.
-            IReflectionBehaviorInstanceProvider behaviorInstance = new ReflectionBehaviorInstanceRegistry()
+            IReflectionBehaviorInstanceProvider behaviorInstance = new ReflectionBehaviorInstanceCollection()
                 .AddProvider(typeof(ReprocessBehavior), new ReflectionReprocessBehaviorInstanceProvider());
 
             // Invoke pipeline.
