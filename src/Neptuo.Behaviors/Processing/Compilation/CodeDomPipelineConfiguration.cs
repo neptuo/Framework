@@ -1,4 +1,5 @@
 ﻿using Neptuo.Compilers;
+using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Collection of behaviors.
         /// </summary>
-        public IBehaviorCollection Behaviors { get; private set; }
+        public IBehaviorProvider Behaviors { get; private set; }
 
         /// <summary>
         /// Pipeline compiler configuration.
@@ -27,7 +28,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// </summary>
         /// <param name="behaviors">Collection of behaviors.</param>
         /// <param name="compilerConfiguration">Pipeline compiler configuration.</param>
-        public CodeDomPipelineConfiguration(IBehaviorCollection behaviors, ICompilerConfiguration compilerConfiguration)
+        public CodeDomPipelineConfiguration(IBehaviorProvider behaviors, ICompilerConfiguration compilerConfiguration)
         {
             Ensure.NotNull(behaviors, "behaviors");
             Ensure.NotNull(compilerConfiguration, "compilerConfiguration");

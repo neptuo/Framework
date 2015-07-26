@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Compilers;
 using Neptuo.Reflections;
+using Neptuo.ComponentModel.Behaviors.Providers;
 
 namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
 {
@@ -32,7 +33,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// <summary>
         /// Behavior collection.
         /// </summary>
-        private readonly IBehaviorCollection behaviorCollection;
+        private readonly IBehaviorProvider behaviors;
 
         /// <summary>
         /// Factory for code compilers.
@@ -48,15 +49,15 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
         /// Creates new instance for <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
-        /// <param name="behaviorCollection">Behavior collection.</param>
+        /// <param name="behaviors">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineGenerator(Type handlerType, IBehaviorCollection behaviorCollection, ICompilerConfiguration configuration)
+        public CodeDomPipelineGenerator(Type handlerType, IBehaviorProvider behaviors, ICompilerConfiguration configuration)
         {
             Ensure.NotNull(handlerType, "handlerType");
-            Ensure.NotNull(behaviorCollection, "behaviorCollection");
+            Ensure.NotNull(behaviors, "behaviors");
             Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
-            this.behaviorCollection = behaviorCollection;
+            this.behaviors = behaviors;
             this.compilerFactory = new CompilerFactory(configuration);
             this.configuration = configuration;
         }
@@ -141,7 +142,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing.Compilation
                 new CodeObjectCreateExpression(resultListType)
             ));
 
-            IEnumerable<Type> behaviorTypes = behaviorCollection.GetBehaviors(handlerType);
+            IEnumerable<Type> behaviorTypes = behaviors.GetBehaviors(handlerType);
             ICodeDomContext context = new CodeDomDefaultContext(configuration, handlerType);
             foreach (Type behaviorType in behaviorTypes)
             {

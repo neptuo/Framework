@@ -2,6 +2,7 @@
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing;
 using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
+using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,19 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
     public class DefaultPipeline<T> : DefaultPipelineBase<T>
         where T : new()
     {
-        private readonly IBehaviorCollection collection;
+        private readonly IBehaviorProvider behaviors;
         private readonly IReflectionBehaviorInstanceProvider behaviorInstance;
         
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="collection">Behavior collection.</param>
+        /// <param name="behaviors">Behavior provider.</param>
         /// <param name="behaviorInstance">Behavior instance provider.</param>
-        public DefaultPipeline(IBehaviorCollection collection, IReflectionBehaviorInstanceProvider behaviorInstance)
+        public DefaultPipeline(IBehaviorProvider behaviors, IReflectionBehaviorInstanceProvider behaviorInstance)
         {
-            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(behaviors, "behaviors");
             Ensure.NotNull(behaviorInstance, "behaviorInstance");
-            this.collection = collection;
+            this.behaviors = behaviors;
             this.behaviorInstance = behaviorInstance;
         }
 
@@ -42,7 +43,7 @@ namespace Neptuo.ComponentModel.Behaviors.Processing
         protected override IEnumerable<IBehavior<T>> GetBehaviors()
         {
             IReflectionContext context = new DefaultReflectionContext(typeof(T));
-            IEnumerable<Type> behaviorTypes = collection.GetBehaviors(typeof(T));
+            IEnumerable<Type> behaviorTypes = behaviors.GetBehaviors(typeof(T));
             foreach (Type behaviorType in behaviorTypes)
                 yield return (IBehavior<T>)behaviorInstance.TryProvide(context, behaviorType);
         }

@@ -10,7 +10,7 @@ namespace Neptuo.ComponentModel.Behaviors
     /// <summary>
     /// Base implementation using list of providers.
     /// </summary>
-    public class BehaviorProviderCollection : IBehaviorCollection
+    public class BehaviorProviderCollection : IBehaviorProvider
     {
         /// <summary>
         /// List of registered behavior providers.
@@ -22,7 +22,7 @@ namespace Neptuo.ComponentModel.Behaviors
         /// </summary>
         /// <param name="provider">New behavior provider.</param>
         /// <returns>Self (for fluency).</returns>
-        public IBehaviorCollection Add(IBehaviorProvider provider)
+        public BehaviorProviderCollection Add(IBehaviorProvider provider)
         {
             Ensure.NotNull(provider, "provider");
             providers.Insert(0, provider);

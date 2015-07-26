@@ -19,7 +19,7 @@ namespace Neptuo.ComponentModel.Behaviors.Providers
         /// <typeparam name="TImplementation">Implementation type.</typeparam>
         /// <param name="collection">Collection to insert into.</param>
         /// <returns><paramref name="collection"/> (for fluency).</returns>
-        public static IBehaviorCollection AddInterface<TContract, TImplementation>(this IBehaviorCollection collection)
+        public static BehaviorProviderCollection AddInterface<TContract, TImplementation>(this BehaviorProviderCollection collection)
             where TImplementation : IBehavior<TContract>
         {
             Ensure.NotNull(collection, "collection");

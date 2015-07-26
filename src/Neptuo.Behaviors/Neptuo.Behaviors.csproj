@@ -45,7 +45,6 @@
     <Compile Include="BehaviorProviderCollection.cs" />
     <Compile Include="DefaultBehaviorContext.cs" />
     <Compile Include="IBehavior.cs" />
-    <Compile Include="IBehaviorCollection.cs" />
     <Compile Include="IBehaviorContext.cs" />
     <Compile Include="Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="Processing\Compilation\CodeDomDefaultContext.cs" />
