@@ -42,7 +42,7 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="BehaviorProviderCollection.cs" />
+    <Compile Include="Providers\BehaviorProviderCollection.cs" />
     <Compile Include="DefaultBehaviorContext.cs" />
     <Compile Include="IBehavior.cs" />
     <Compile Include="IBehaviorContext.cs" />
