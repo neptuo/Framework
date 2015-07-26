@@ -31,7 +31,7 @@ namespace TestConsole.AppServices
         {
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
-            IBehaviorCollection behaviors = new BehaviorProviderCollection()
+            IBehaviorProvider behaviors = new BehaviorProviderCollection()
                 .Add(
                     new AttributeBehaviorProvider()
                         .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))

@@ -1,6 +1,7 @@
 ﻿using Neptuo.Compilers;
 using Neptuo.ComponentModel.Behaviors;
 using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
+using Neptuo.ComponentModel.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="behaviors">Collection of behaviors.</param>
+        /// <param name="behaviors">Behaviors provider.</param>
         /// <param name="compilerConfiguration">Pipeline compiler configuration.</param>
-        public CodeDomWorkerPipelineConfiguration(IBehaviorCollection behaviors, ICompilerConfiguration compilerConfiguration)
+        public CodeDomWorkerPipelineConfiguration(IBehaviorProvider behaviors, ICompilerConfiguration compilerConfiguration)
             : base(behaviors, compilerConfiguration)
         { }
     }

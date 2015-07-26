@@ -18,21 +18,21 @@ namespace TestConsole.Behaviors
         public static void Test()
         {
             // Map behaviors.
-            InterfaceBehaviorProvider behaviorProvider = new InterfaceBehaviorProvider();
-            behaviorProvider
+            InterfaceBehaviorProvider interfaceBehaviors = new InterfaceBehaviorProvider();
+            interfaceBehaviors
                 .Add<I1, Ti1>()
                 .Insert<I2, Ti2>(0)
                 .Insert(0, typeof(I3<,>), typeof(Ti3<,>))
                 .Add(typeof(I4<>), typeof(Ti4));
 
-            IBehaviorCollection behaviorCollection = new BehaviorProviderCollection()
-                .Add(behaviorProvider)
+            IBehaviorProvider behaviorProvider = new BehaviorProviderCollection()
+                .Add(interfaceBehaviors)
                 .Add(
                     new AttributeBehaviorProvider()
                         .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
-            IEnumerable<Type> behaviors = behaviorCollection.GetBehaviors(typeof(Test));
+            IEnumerable<Type> behaviors = behaviorProvider.GetBehaviors(typeof(Test));
             Console.WriteLine("Number of behaviors for Test class '{0}'.", behaviors.Count());
 
             // Create reflection providers.
@@ -40,7 +40,7 @@ namespace TestConsole.Behaviors
                 .AddProvider(typeof(ReprocessBehavior), new ReflectionReprocessBehaviorInstanceProvider());
 
             // Invoke pipeline.
-            MethodInvokePipeline<HelloService, string> pipeline = new MethodInvokePipeline<HelloService, string>(behaviorCollection, behaviorInstance, "SayHello");
+            MethodInvokePipeline<HelloService, string> pipeline = new MethodInvokePipeline<HelloService, string>(interfaceBehaviors, behaviorInstance, "SayHello");
             pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine("Method result: '{0}'.", message.Result));
         }
     }
