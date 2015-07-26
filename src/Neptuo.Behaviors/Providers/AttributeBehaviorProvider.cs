@@ -11,13 +11,13 @@ namespace Neptuo.Behaviors.Providers
     /// </summary>
     public class AttributeBehaviorProvider : MappingBehaviorProviderBase
     {
-        public AttributeBehaviorProvider AddMapping(Type behaviorAttribute, Type behaviorImplementation)
+        public AttributeBehaviorProvider Add(Type behaviorAttribute, Type behaviorImplementation)
         {
             InsertOrUpdateMappingInternal(null, behaviorAttribute, behaviorImplementation);
             return this;
         }
 
-        public AttributeBehaviorProvider InsertMapping(int index, Type behaviorAttribute, Type behaviorImplementation)
+        public AttributeBehaviorProvider Insert(int index, Type behaviorAttribute, Type behaviorImplementation)
         {
             InsertOrUpdateMappingInternal(index, behaviorAttribute, behaviorImplementation);
             return this;

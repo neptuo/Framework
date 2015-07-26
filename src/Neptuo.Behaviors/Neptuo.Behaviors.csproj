@@ -75,6 +75,7 @@
     <Compile Include="Providers\IBehaviorProvider.cs" />
     <Compile Include="Providers\InterfaceBehaviorProvider.cs" />
     <Compile Include="Providers\MappingBehaviorProviderBase.cs" />
+    <Compile Include="Providers\_AttributeBehaviorProviderExtensions.cs" />
     <Compile Include="Providers\_BehaviorCollectionExtensions.cs" />
     <Compile Include="Providers\_InterfaceBehaviorProviderExtensions.cs" />
     <Compile Include="_BehaviorContextExtensions.cs" />

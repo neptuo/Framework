@@ -29,7 +29,7 @@ namespace TestConsole.Behaviors
                 .Add(interfaceBehaviors)
                 .Add(
                     new AttributeBehaviorProvider()
-                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+                        .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
             IEnumerable<Type> behaviors = behaviorProvider.GetBehaviors(typeof(Test));

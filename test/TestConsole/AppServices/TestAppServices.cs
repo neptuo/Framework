@@ -34,7 +34,7 @@ namespace TestConsole.AppServices
             IBehaviorProvider behaviors = new BehaviorProviderCollection()
                 .Add(
                     new AttributeBehaviorProvider()
-                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+                        .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
             ICompilerConfiguration configuration = new CompilerConfiguration()
