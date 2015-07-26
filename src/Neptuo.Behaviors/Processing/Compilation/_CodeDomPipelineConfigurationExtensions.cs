@@ -60,7 +60,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// <param name="configuration">Compiler configuration.</param>
         /// <param name="generator">Behavior instance generator.</param>
         /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration BaseType(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator generator)
+        public static ICompilerConfiguration BehaviorInstance(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator generator)
         {
             Ensure.NotNull(configuration, "configuration");
             configuration.Set("BehaviorInstance", generator);
