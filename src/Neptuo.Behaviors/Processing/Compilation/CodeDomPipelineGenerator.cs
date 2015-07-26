@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Neptuo.Compilers;
 using Neptuo.Reflections;
 using Neptuo.Behaviors.Providers;
+using Neptuo.Behaviors.Processing.Compilation.Internals;
 
 namespace Neptuo.Behaviors.Processing.Compilation
 {
@@ -24,26 +25,12 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// Name of variable containing behaviors in GetBehavior method of PipelineBase.
         /// </summary>
         private const string resultListName = "result";
-
-        /// <summary>
-        /// Target handler type.
-        /// </summary>
+        
         private readonly Type handlerType;
-
-        /// <summary>
-        /// Behavior collection.
-        /// </summary>
         private readonly IBehaviorProvider behaviors;
-
-        /// <summary>
-        /// Factory for code compilers.
-        /// </summary>
         private readonly CompilerFactory compilerFactory;
-
-        /// <summary>
-        /// Configuration.
-        /// </summary>
         private readonly ICompilerConfiguration configuration;
+        private readonly CodeDomNameFormatter nameFormatter;
 
         /// <summary>
         /// Creates new instance for <paramref name="handlerType"/>.
@@ -60,10 +47,11 @@ namespace Neptuo.Behaviors.Processing.Compilation
             this.behaviors = behaviors;
             this.compilerFactory = new CompilerFactory(configuration);
             this.configuration = configuration;
+            this.nameFormatter = new CodeDomNameFormatter(handlerType);
         }
 
         /// <summary>
-        /// Generates dynamicly pipeline type for handler.
+        /// Generates pipeline type for inner handler.
         /// </summary>
         /// <returns></returns>
         public Type GeneratePipeline()
@@ -78,7 +66,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
             GenerateBehaviorMethodBody(method);
 
             Assembly assembly = CompileCodeUnit(unit);
-            Type pipelineType = assembly.GetType(FormatPipelineTypeName());
+            Type pipelineType = assembly.GetType(nameFormatter.FormatPipelineTypeName());
             return pipelineType;
         }
 
@@ -101,12 +89,12 @@ namespace Neptuo.Behaviors.Processing.Compilation
         }
 
         /// <summary>
-        /// Creates empty pipeline type base on <see cref="DefaultPipelineBase{T}"/>.
+        /// Creates empty pipeline type based on <see cref="DefaultPipelineBase{T}"/>.
         /// </summary>
         /// <returns>Empty pipeline type.</returns>
         private CodeTypeDeclaration CreateType()
         {
-            CodeTypeDeclaration type = new CodeTypeDeclaration(FormatPipelineTypeName());
+            CodeTypeDeclaration type = new CodeTypeDeclaration(nameFormatter.FormatPipelineTypeName());
 
             if (handlerType.GetConstructor(new Type[0]) != null)
                 type.BaseTypes.Add(configuration.BaseType().MakeGenericType(handlerType));
@@ -184,14 +172,14 @@ namespace Neptuo.Behaviors.Processing.Compilation
         {
             IStaticCompiler compiler = compilerFactory.CreateStatic();
 
-            string assemblyFilePath = Path.Combine(configuration.TempDirectory(), FormatAssemblyFileName());
+            string assemblyFilePath = Path.Combine(configuration.TempDirectory(), nameFormatter.FormatAssemblyFileName());
             ICompilerResult result = compiler.FromUnit(unit, assemblyFilePath);
             if (!result.IsSuccess)
             {
                 // Save source code if compilation was not successfull.
 
                 CodeDomProvider provider = CodeDomProvider.CreateProvider("CSharp");
-                string sourceCodePath = Path.Combine(configuration.TempDirectory(), FormatSourceCodeFileName());
+                string sourceCodePath = Path.Combine(configuration.TempDirectory(), nameFormatter.FormatSourceCodeFileName());
 
                 using (StreamWriter writer = new StreamWriter(sourceCodePath))
                 {
@@ -203,33 +191,6 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
             // Load compiled assembly.
             return ReflectionFactory.FromCurrentAppDomain().LoadAssembly(assemblyFilePath);
-        }
-
-        /// <summary>
-        /// Formats pipeline type based on name of handler type.
-        /// </summary>
-        /// <returns>Pipeline name.</returns>
-        private string FormatPipelineTypeName()
-        {
-            return String.Format("{0}Pipeline", handlerType.Name);
-        }
-
-        /// <summary>
-        /// Formats name for generated assembly (only file name with extension).
-        /// </summary>
-        /// <returns>Name for generated assembly.</returns>
-        private string FormatAssemblyFileName()
-        {
-            return String.Format("{0}.dll", handlerType.FullName);
-        }
-
-        /// <summary>
-        /// Formats name for generated source code (only file name with extension).
-        /// </summary>
-        /// <returns>Name for generated assesource codembly.</returns>
-        private string FormatSourceCodeFileName()
-        {
-            return String.Format("{0}.cs", handlerType.FullName);
         }
     }
 }

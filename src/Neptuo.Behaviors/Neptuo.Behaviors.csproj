@@ -48,6 +48,7 @@
     <Compile Include="IBehaviorContext.cs" />
     <Compile Include="Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="Processing\Compilation\Internals\CodeDomNameFormatter.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineFactory.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineGenerator.cs" />
