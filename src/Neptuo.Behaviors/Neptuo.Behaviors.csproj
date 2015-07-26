@@ -59,7 +59,7 @@
     <Compile Include="Processing\Reflection\ReflectionDefaultPipeline.cs" />
     <Compile Include="Processing\DefaultPipelineBase.cs" />
     <Compile Include="Processing\FuncList.cs" />
-    <Compile Include="Processing\MethodInvokePipeline.cs" />
+    <Compile Include="Processing\Reflection\ReflectionMethodInvokePipeline.cs" />
     <Compile Include="Processing\PipelineBase.cs" />
     <Compile Include="Processing\PipelineException.cs" />
     <Compile Include="Processing\PipelineFactoryException.cs" />

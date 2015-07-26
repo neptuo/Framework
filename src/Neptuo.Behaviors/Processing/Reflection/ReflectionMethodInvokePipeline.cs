@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.ComponentModel.Behaviors.Processing
 {
-    public class MethodInvokePipeline<THandler, TOutput> : ReflectionDefaultPipeline<THandler>
+    public class ReflectionMethodInvokePipeline<THandler, TOutput> : ReflectionDefaultPipeline<THandler>
         where THandler : new()
     {
         private readonly string methodName;
