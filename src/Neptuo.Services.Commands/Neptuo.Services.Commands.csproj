@@ -44,6 +44,7 @@
     </Compile>
     <Compile Include="CommandDispatcherException.cs" />
     <Compile Include="CommandException.cs" />
+    <Compile Include="DefaultCommandDispatcher.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />
     <Compile Include="Events\CommandHandled.cs" />
     <Compile Include="Events\Handlers\CommandEventHandler.cs" />
@@ -63,12 +64,14 @@
     <Compile Include="Handlers\ICommandHandler.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandDispatcher.cs" />
+    <Compile Include="ICommandHandlerCollection.cs" />
     <Compile Include="Interception\AttributeInterceptorProvider.cs" />
     <Compile Include="Interception\DiscardExceptionAttribute.cs" />
     <Compile Include="Interception\IDecoratedInvoke.cs" />
     <Compile Include="Interception\IDecoratedInvokeContext.cs" />
     <Compile Include="Interception\IInterceptorProvider.cs" />
     <Compile Include="Interception\ManualInterceptorProvider.cs" />
+    <Compile Include="Internals\DefaultCommandHandlerDefinition.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
