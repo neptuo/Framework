@@ -14,41 +14,83 @@ namespace Neptuo.Services.Queries
     [TestClass]
     public class T_Services_Queries_AutoExport
     {
-        [TestMethod]
-        public void Base()
+        [TestClass]
+        public class Dependency
         {
-            IDependencyContainer root = new SimpleDependencyContainer();
-
-            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
-            using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+            [TestMethod]
+            public void Base()
             {
-                executorService.AddQueryHandlers(root);
+                IDependencyContainer root = new SimpleDependencyContainer();
+
+                IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+                using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+                {
+                    executorService.AddQueryHandlers(root);
+                }
+
+                IQueryHandler<Q1, R1> handler1 = root.Resolve<IQueryHandler<Q1, R1>>();
+                IQueryHandler<Q2, R2> handler2 = root.Resolve<IQueryHandler<Q2, R2>>();
             }
 
-            IQueryHandler<Q1, R1> handler1 = root.Resolve<IQueryHandler<Q1, R1>>();
-            IQueryHandler<Q2, R2> handler2 = root.Resolve<IQueryHandler<Q2, R2>>();
+            [TestMethod]
+            public void ConcreteType()
+            {
+                IDependencyContainer root = new SimpleDependencyContainer();
+
+                IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+                using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+                {
+                    executorService.AddQueryHandlers(root);
+                }
+
+                IQueryHandler<Q3, R3> handler1 = root.Resolve<IQueryHandler<Q3, R3>>();
+
+                try
+                {
+                    IQueryHandler<Q4, R4> handler2 = root.Resolve<IQueryHandler<Q4, R4>>();
+                    Assert.Fail("Handler for Q4 should not be registered");
+                }
+                catch (DependencyRegistrationFailedException)
+                { }
+            }
         }
 
-        [TestMethod]
-        public void ConcreteType()
+        [TestClass]
+        public class Collection
         {
-            IDependencyContainer root = new SimpleDependencyContainer();
-
-            IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
-            using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+            [TestMethod]
+            public void Base()
             {
-                executorService.AddQueryHandlers(root);
+                IQueryHandlerCollection collection = new DefaultQueryDispatcher();
+
+                IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+                using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+                {
+                    executorService.AddQueryHandlers(collection);
+                }
+
+                IQueryHandler<Q1, R1> handler1;
+                Assert.AreEqual(true, collection.TryGet(out handler1));
+                IQueryHandler<Q2, R2> handler2;
+                Assert.AreEqual(true, collection.TryGet(out handler2));
             }
 
-            IQueryHandler<Q3, R3> handler1 = root.Resolve<IQueryHandler<Q3, R3>>();
-
-            try
+            [TestMethod]
+            public void ConcreteType()
             {
-                IQueryHandler<Q4, R4> handler2 = root.Resolve<IQueryHandler<Q4, R4>>();
-                Assert.Fail("Handler for Q4 should not be registered");
+                IQueryHandlerCollection collection = new DefaultQueryDispatcher();
+
+                IReflectionService reflectionService = ReflectionFactory.FromCurrentAppDomain();
+                using (ITypeExecutorService executorService = reflectionService.PrepareTypeExecutors())
+                {
+                    executorService.AddQueryHandlers(collection);
+                }
+
+                IQueryHandler<Q3, R3> handler3;
+                Assert.AreEqual(true, collection.TryGet(out handler3));
+                IQueryHandler<Q4, R4> handler4;
+                Assert.AreEqual(false, collection.TryGet(out handler4));
             }
-            catch (DependencyRegistrationFailedException)
-            { }
         }
     }
 }
