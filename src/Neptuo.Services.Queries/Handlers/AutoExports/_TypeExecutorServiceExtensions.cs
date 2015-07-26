@@ -3,6 +3,7 @@ using Neptuo.Activators.AutoExports;
 using Neptuo.Reflections;
 using Neptuo.Reflections.Enumerators;
 using Neptuo.Reflections.Enumerators.Executors;
+using Neptuo.Services.Queries.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,15 +72,13 @@ namespace Neptuo.Services.Queries.Handlers.AutoExports
             return service;
         }
 
-        private static string addMethodName = "Add";
-
         private static void AddQueryHandler(IQueryHandlerCollection collection, Type queryHandlerType)
         {
             IEnumerable<object> attributes = queryHandlerType.GetCustomAttributes(typeof(QueryHandlerAttribute), true);
             object handler = Activator.CreateInstance(queryHandlerType);
             foreach (Type queryHandlerInterfaceType in GetHandlerInterfaces(queryHandlerType, attributes))
             {
-                MethodInfo addMethod = collection.GetType().GetMethod(addMethodName).MakeGenericMethod(queryHandlerInterfaceType.GetGenericArguments());
+                MethodInfo addMethod = collection.GetType().GetMethod(Constant.QueryHandlerCollectionAddMethodName).MakeGenericMethod(queryHandlerInterfaceType.GetGenericArguments());
                 addMethod.Invoke(collection, new object[] { handler });
             }
         }

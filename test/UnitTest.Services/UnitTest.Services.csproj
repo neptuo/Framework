@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\T_Services_Queries_AutoExport.cs" />
+    <Compile Include="Queries\T_Service_Queries_AddAll.cs" />
     <Compile Include="Queries\_Services.cs" />
   </ItemGroup>
   <ItemGroup>
