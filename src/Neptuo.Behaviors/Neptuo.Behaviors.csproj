@@ -51,6 +51,7 @@
     <Compile Include="Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineFactory.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineGenerator.cs" />
+    <Compile Include="Processing\Compilation\DefaultCodeDomBehaviorInstanceGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomContext.cs" />
     <Compile Include="Processing\Compilation\CodeDomBehaviorInstanceGeneratorCollection.cs" />

@@ -41,19 +41,32 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
         #endregion
 
+        #region BehaviorInstance
+
         /// <summary>
-        /// Returns registry for behavior instance generators.
+        /// Returns behavior instance generator.
         /// </summary>
         /// <param name="configuration">Compiler configuration.</param>
-        /// <returns>Registry for behavior instance generators.</returns>
-        public static CodeDomBehaviorInstanceGeneratorCollection BehaviorInstance(this ICompilerConfiguration configuration)
+        /// <returns>Behavior instance generator.</returns>
+        public static ICodeDomBehaviorInstanceGenerator BehaviorInstance(this ICompilerConfiguration configuration)
         {
             Ensure.NotNull(configuration, "configuration");
-            CodeDomBehaviorInstanceGeneratorCollection registry;
-            if (!configuration.TryGet("BehaviorInstance", out registry))
-                configuration.Set("BehaviorInstance", registry = new CodeDomBehaviorInstanceGeneratorCollection());
-
-            return registry;
+            return configuration.Get<ICodeDomBehaviorInstanceGenerator>("BehaviorInstance", null);
         }
+
+        /// <summary>
+        /// Sets behavior instance generator.
+        /// </summary>
+        /// <param name="configuration">Compiler configuration.</param>
+        /// <param name="generator">Behavior instance generator.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static ICompilerConfiguration BaseType(this ICompilerConfiguration configuration, ICodeDomBehaviorInstanceGenerator generator)
+        {
+            Ensure.NotNull(configuration, "configuration");
+            configuration.Set("BehaviorInstance", generator);
+            return configuration;
+        }
+
+        #endregion
     }
 }

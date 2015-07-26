@@ -144,18 +144,35 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
             IEnumerable<Type> behaviorTypes = behaviors.GetBehaviors(handlerType);
             ICodeDomContext context = new CodeDomDefaultContext(configuration, handlerType);
+            ICodeDomBehaviorInstanceGenerator behaviorGenerator = GetBehaviorInstanceGenerator();
+
             foreach (Type behaviorType in behaviorTypes)
             {
                 method.Statements.Add(new CodeMethodInvokeExpression(
                     new CodeVariableReferenceExpression(resultListName),
                     TypeHelper.MethodName<IList<object>, object>(l => l.Add),
-                    configuration.BehaviorInstance().TryGenerate(context, behaviorType) ?? new CodeObjectCreateExpression(behaviorType)
+                    behaviorGenerator.TryGenerate(context, behaviorType)
                 ));
             }
 
             method.Statements.Add(new CodeMethodReturnStatement(
                 new CodeVariableReferenceExpression(resultListName)
             ));
+        }
+
+        /// <summary>
+        /// Returns behavior instance generator.
+        /// </summary>
+        /// <returns>Behavior instance generator.</returns>
+        private ICodeDomBehaviorInstanceGenerator GetBehaviorInstanceGenerator()
+        {
+            ICodeDomBehaviorInstanceGenerator behaviorGenerator = configuration.BehaviorInstance();
+            if (behaviorGenerator == null)
+                behaviorGenerator = new DefaultCodeDomBehaviorInstanceGenerator();
+            else
+                behaviorGenerator = new DefaultCodeDomBehaviorInstanceGenerator(behaviorGenerator);
+
+            return behaviorGenerator;
         }
 
         /// <summary>
