@@ -16,19 +16,8 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <typeparam name="T">Base type (or required interface) of generated type.</typeparam>
     public class CodeDomPipelineFactory<T> : IActivator<T>
     {
-        /// <summary>
-        /// Handler type.
-        /// </summary>
         private readonly Type handlerType;
-
-        /// <summary>
-        /// Function that creates instance of pipeline.
-        /// </summary>
         private Func<T> generatedFactory;
-
-        /// <summary>
-        /// Pipeline configuration.
-        /// </summary>
         private readonly CodeDomPipelineConfiguration configuration;
 
         /// <summary>
@@ -70,9 +59,13 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// </summary>
         private void GeneratePipelineFactory()
         {
-            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(handlerType, configuration.Behaviors, configuration.CompilerConfiguration);
-            Type pipelineType = generator.GeneratePipeline();
+            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(
+                handlerType, 
+                configuration.Behaviors, 
+                configuration.CompilerConfiguration
+            );
 
+            Type pipelineType = generator.GeneratePipeline();
             generatedFactory = () => (T)Activator.CreateInstance(pipelineType);
         }
     }
