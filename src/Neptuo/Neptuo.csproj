@@ -85,6 +85,7 @@
     <Compile Include="ComponentModel\Behaviors\DefaultBehaviorContext.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultBehaviorInstanceGenerator.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="ComponentModel\Behaviors\Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\_CodeDomPipelineConfigurationExtensions.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\FuncList.cs" />
     <Compile Include="ComponentModel\Behaviors\Processing\Compilation\ICodeDomBehaviorInstanceGenerator.cs" />

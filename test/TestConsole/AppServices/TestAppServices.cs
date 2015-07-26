@@ -51,7 +51,7 @@ namespace TestConsole.AppServices
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
                 new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>(behaviors, configuration))
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>(new CodeDomWorkerPipelineConfiguration(behaviors, configuration)))
             );
             //collection.Add(new Temp2CheckServiceHandler());
 

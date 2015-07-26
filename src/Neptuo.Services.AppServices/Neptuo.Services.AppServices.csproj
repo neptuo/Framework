@@ -46,6 +46,7 @@
     <Compile Include="Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
     <Compile Include="Handlers\Behaviors\Hosting\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
     <Compile Include="Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
+    <Compile Include="Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineConfiguration.cs" />
     <Compile Include="Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="Handlers\Behaviors\Processing\WorkerPipelineHandler.cs" />
     <Compile Include="Handlers\Behaviors\ReprocessAttribute.cs" />
