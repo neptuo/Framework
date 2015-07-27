@@ -12,7 +12,13 @@ namespace Neptuo.Behaviors.Processing
     /// <typeparam name="T">Type of inner handler.</typeparam>
     public interface IPipeline<T>
     {
-        IPipeline<T> AddBehavior()
+        /// <summary>
+        /// Adds <paramref name="behavior"/> to the pipeline.
+        /// </summary>
+        /// <param name="position">Position where <paramref name="behavior"/> should be executed.</param>
+        /// <param name="behavior">Instance of behavior.</param>
+        /// <returns>Self (for fluency).</returns>
+        IPipeline<T> AddBehavior(PipelineBehaviorPosition position, IBehavior<T> behavior);
 
         /// <summary>
         /// Executes pipeline on <paramref name="handler"/>.

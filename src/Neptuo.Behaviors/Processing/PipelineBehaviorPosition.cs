@@ -17,11 +17,6 @@ namespace Neptuo.Behaviors.Processing
         Before,
 
         /// <summary>
-        /// Inject behavior into dynamically obtained behavior list.
-        /// </summary>
-        Inside,
-
-        /// <summary>
         /// Inject behavior after all dynamically obtainer behaviors.
         /// </summary>
         After
