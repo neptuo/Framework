@@ -18,7 +18,7 @@ namespace TestConsole.Behaviors
         public static void Test()
         {
             // Map behaviors.
-            InterfaceBehaviorProvider interfaceBehaviors = new InterfaceBehaviorProvider();
+            InterfaceBehaviorCollection interfaceBehaviors = new InterfaceBehaviorCollection();
             interfaceBehaviors
                 .Add<I1, Ti1>()
                 .Insert<I2, Ti2>(0)
@@ -28,7 +28,7 @@ namespace TestConsole.Behaviors
             IBehaviorProvider behaviorProvider = new BehaviorProviderCollection()
                 .Add(interfaceBehaviors)
                 .Add(
-                    new AttributeBehaviorProvider()
+                    new AttributeBehaviorCollection()
                         .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 

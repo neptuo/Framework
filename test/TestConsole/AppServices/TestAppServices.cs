@@ -33,7 +33,7 @@ namespace TestConsole.AppServices
 
             IBehaviorProvider behaviors = new BehaviorProviderCollection()
                 .Add(
-                    new AttributeBehaviorProvider()
+                    new AttributeBehaviorCollection()
                         .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
