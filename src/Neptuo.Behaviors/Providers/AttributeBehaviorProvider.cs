@@ -11,12 +11,25 @@ namespace Neptuo.Behaviors.Providers
     /// </summary>
     public class AttributeBehaviorProvider : MappingBehaviorProviderBase
     {
+        /// <summary>
+        /// Adds mapping with <paramref name="behaviorAttribute"/> as attribute and <paramref name="behaviorImplementation"/> as implementation type.
+        /// </summary>
+        /// <param name="behaviorAttribute">Behavior attribute.</param>
+        /// <param name="behaviorImplementation">Behavior contract implementor.</param>
+        /// <returns>Self (for fluency).</returns>
         public AttributeBehaviorProvider Add(Type behaviorAttribute, Type behaviorImplementation)
         {
             InsertOrUpdateMappingInternal(null, behaviorAttribute, behaviorImplementation);
             return this;
         }
 
+        /// <summary>
+        /// Adds mapping with <paramref name="behaviorAttribute"/> as attribute and <paramref name="behaviorImplementation"/> as implementation type.
+        /// </summary>
+        /// <param name="index">Index at which to insert behavior mapping.</param>
+        /// <param name="behaviorAttribute">Behavior attribute.</param>
+        /// <param name="behaviorImplementation">Behavior contract implementor.</param>
+        /// <returns>Self (for fluency).</returns>
         public AttributeBehaviorProvider Insert(int index, Type behaviorAttribute, Type behaviorImplementation)
         {
             InsertOrUpdateMappingInternal(index, behaviorAttribute, behaviorImplementation);
