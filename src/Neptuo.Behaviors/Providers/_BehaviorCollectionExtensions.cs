@@ -12,7 +12,7 @@ namespace Neptuo.Behaviors.Providers
     public static class _BehaviorCollectionExtensions
     {
         /// <summary>
-        /// Adds <see cref="InterfaceBehaviorProvider"/> with <typeparamref name="TContract"/> as contract interface 
+        /// Adds <see cref="InterfaceBehaviorCollection"/> with <typeparamref name="TContract"/> as contract interface 
         /// and <typeparamref name="TImplementation"/> as implementation class.
         /// </summary>
         /// <typeparam name="TContract">Contract interface</typeparam>
@@ -23,7 +23,7 @@ namespace Neptuo.Behaviors.Providers
             where TImplementation : IBehavior<TContract>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(new InterfaceBehaviorProvider(typeof(TContract), typeof(TImplementation)));
+            collection.Add(new InterfaceBehaviorCollection(typeof(TContract), typeof(TImplementation)));
             return collection;
         }
     }

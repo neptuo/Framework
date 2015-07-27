@@ -25,7 +25,10 @@ namespace Neptuo.Behaviors.Processing
         /// Gets enumeration of behaviors for handler of type <typeparamref name="T"/>.
         /// </summary>
         /// <returns>Enumeration of behaviors for handler of type <typeparamref name="T"/>.</returns>
-        protected abstract IEnumerable<IBehavior<T>> GetBehaviors();
+        protected virtual IEnumerable<IBehavior<T>> GetBehaviors()
+        {
+            return Enumerable.Empty<IBehavior<T>>();
+        }
 
         /// <summary>
         /// Should create instance of <see cref="IBehaviorContext"/> for <paramref name="behaviors"/> and <paramref name="handler"/>.

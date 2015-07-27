@@ -20,19 +20,19 @@ namespace Neptuo.Behaviors.Processing
         where T : new()
     {
         private readonly IBehaviorProvider behaviors;
-        private readonly IReflectionBehaviorFactory behaviorInstance;
+        private readonly IReflectionBehaviorFactory behaviorFactory;
         
         /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="behaviors">Behavior provider.</param>
-        /// <param name="behaviorInstance">Behavior instance provider.</param>
-        public ReflectionDefaultPipeline(IBehaviorProvider behaviors, IReflectionBehaviorFactory behaviorInstance)
+        /// <param name="behaviorFactory">Behavior instance provider.</param>
+        public ReflectionDefaultPipeline(IBehaviorProvider behaviors, IReflectionBehaviorFactory behaviorFactory)
         {
             Ensure.NotNull(behaviors, "behaviors");
-            Ensure.NotNull(behaviorInstance, "behaviorInstance");
+            Ensure.NotNull(behaviorFactory, "behaviorFactory");
             this.behaviors = behaviors;
-            this.behaviorInstance = behaviorInstance;
+            this.behaviorFactory = behaviorFactory;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Neptuo.Behaviors.Processing
             IReflectionContext context = new DefaultReflectionContext(typeof(T));
             IEnumerable<Type> behaviorTypes = behaviors.GetBehaviors(typeof(T));
             foreach (Type behaviorType in behaviorTypes)
-                yield return (IBehavior<T>)behaviorInstance.TryCreate(context, behaviorType);
+                yield return (IBehavior<T>)behaviorFactory.TryCreate(context, behaviorType);
         }
     }
 }

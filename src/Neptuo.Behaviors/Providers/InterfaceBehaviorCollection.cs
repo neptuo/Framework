@@ -9,12 +9,12 @@ namespace Neptuo.Behaviors.Providers
     /// <summary>
     /// Provides behavior based on implemented interfaces.
     /// </summary>
-    public class InterfaceBehaviorProvider : MappingBehaviorProviderBase
+    public class InterfaceBehaviorCollection : MappingBehaviorProviderBase
     {
         /// <summary>
         /// Creates empty instance.
         /// </summary>
-        public InterfaceBehaviorProvider()
+        public InterfaceBehaviorCollection()
         { }
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Neptuo.Behaviors.Providers
         /// </summary>
         /// <param name="behaviorContract">Behavior interface contract.</param>
         /// <param name="behaviorImplementation">Behavior contract implementor.</param>
-        public InterfaceBehaviorProvider(Type behaviorContract, Type behaviorImplementation)
+        public InterfaceBehaviorCollection(Type behaviorContract, Type behaviorImplementation)
         {
             Ensure.NotNull(behaviorContract, "behaviorContract");
             Ensure.NotNull(behaviorImplementation, "behaviorImplementation");
@@ -35,7 +35,7 @@ namespace Neptuo.Behaviors.Providers
         /// <param name="behaviorContract">Behavior interface contract.</param>
         /// <param name="behaviorImplementation">Behavior contract implementor.</param>
         /// <returns>Self (for fluency).</returns>
-        public InterfaceBehaviorProvider Add(Type behaviorContract, Type behaviorImplementation)
+        public InterfaceBehaviorCollection Add(Type behaviorContract, Type behaviorImplementation)
         {
             base.InsertOrUpdateMappingInternal(null, behaviorContract, behaviorImplementation);
             return this;
@@ -48,7 +48,7 @@ namespace Neptuo.Behaviors.Providers
         /// <param name="behaviorContract">Behavior interface contract.</param>
         /// <param name="behaviorImplementation">Behavior contract implementor.</param>
         /// <returns>Self (for fluency).</returns>
-        public InterfaceBehaviorProvider Insert(int index, Type behaviorContract, Type behaviorImplementation)
+        public InterfaceBehaviorCollection Insert(int index, Type behaviorContract, Type behaviorImplementation)
         {
             base.InsertOrUpdateMappingInternal(index, behaviorContract, behaviorImplementation);
             return this;

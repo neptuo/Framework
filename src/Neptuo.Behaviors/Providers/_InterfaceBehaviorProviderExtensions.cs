@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Behaviors.Providers
 {
     /// <summary>
-    /// Common extensions for <see cref="InterfaceBehaviorProvider"/>.
+    /// Common extensions for <see cref="InterfaceBehaviorCollection"/>.
     /// </summary>
     public static class _InterfaceBehaviorProviderExtensions
     {
@@ -17,7 +17,7 @@ namespace Neptuo.Behaviors.Providers
         /// <typeparam name="TBehaviorContract">Behavior interface contract.</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
         /// <returns>Self (for fluency).</returns>>
-        public static InterfaceBehaviorProvider Add<TBehaviorContract, TBehaviorImplementation>(this InterfaceBehaviorProvider provider)
+        public static InterfaceBehaviorCollection Add<TBehaviorContract, TBehaviorImplementation>(this InterfaceBehaviorCollection provider)
             where TBehaviorImplementation : IBehavior<TBehaviorContract>
         {
             Ensure.NotNull(provider, "provider");
@@ -30,7 +30,7 @@ namespace Neptuo.Behaviors.Providers
         /// <typeparam name="TBehaviorContract">Behavior interface contract.</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
         /// <returns>Self (for fluency).</returns>>
-        public static InterfaceBehaviorProvider Insert<TBehaviorContract, TBehaviorImplementation>(this InterfaceBehaviorProvider provider, int index)
+        public static InterfaceBehaviorCollection Insert<TBehaviorContract, TBehaviorImplementation>(this InterfaceBehaviorCollection provider, int index)
             where TBehaviorImplementation : IBehavior<TBehaviorContract>
         {
             Ensure.NotNull(provider, "provider");

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Behaviors.Providers
 {
     /// <summary>
-    /// Common extensions for <see cref="AttributeBehaviorProvider"/>.
+    /// Common extensions for <see cref="AttributeBehaviorCollection"/>.
     /// </summary>
     public static class _AttributeBehaviorProviderExtensions
     {
@@ -17,7 +17,7 @@ namespace Neptuo.Behaviors.Providers
         /// <typeparam name="TBehaviorContract">Behavior attribute contract.</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
         /// <returns>Self (for fluency).</returns>>
-        public static AttributeBehaviorProvider Add<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorProvider provider)
+        public static AttributeBehaviorCollection Add<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorCollection provider)
             where TBehaviorImplementation : IBehavior<TBehaviorContract>
         {
             Ensure.NotNull(provider, "provider");
@@ -30,7 +30,7 @@ namespace Neptuo.Behaviors.Providers
         /// <typeparam name="TBehaviorContract">Behavior attribute contract.</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
         /// <returns>Self (for fluency).</returns>>
-        public static AttributeBehaviorProvider Insert<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorProvider provider, int index)
+        public static AttributeBehaviorCollection Insert<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorCollection provider, int index)
             where TBehaviorContract : Attribute
             where TBehaviorImplementation : IBehavior<TBehaviorContract>
         {
