@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace Neptuo.Behaviors.Processing.Reflection
 {
     /// <summary>
-    /// Default implementation of <see cref="IReflectionBehaviorInstanceProvider"/> which uses <see cref="Activator.CreateInstance"/>.
+    /// Default implementation of <see cref="IReflectionBehaviorFactory"/> which uses <see cref="Activator.CreateInstance"/>.
     /// </summary>
-    public class DefaultReflectionBehaviorInstanceProvider : IReflectionBehaviorInstanceProvider
+    public class DefaultReflectionBehaviorFactory : IReflectionBehaviorFactory
     {
-        public object TryProvide(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionContext context, Type behaviorType)
         {
             return Activator.CreateInstance(behaviorType);
         }

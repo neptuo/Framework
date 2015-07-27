@@ -11,9 +11,9 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection
     /// <summary>
     /// Instance provider for <see cref="ReprocessBehavior"/> and <see cref="ReprocessAttribute"/>.
     /// </summary>
-    public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorInstanceProvider
+    public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorFactory
     {
-        public object TryProvide(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionContext context, Type behaviorType)
         {
             if (behaviorType != typeof(ReprocessBehavior))
                 return null;

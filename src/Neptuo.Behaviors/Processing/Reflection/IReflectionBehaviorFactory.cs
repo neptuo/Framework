@@ -9,7 +9,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
     /// <summary>
     /// Provides instance of behavior.
     /// </summary>
-    public interface IReflectionBehaviorInstanceProvider
+    public interface IReflectionBehaviorFactory
     {
         /// <summary>
         /// Tries to create instance of <paramref name="behaviorType"/>.
@@ -17,6 +17,6 @@ namespace Neptuo.Behaviors.Processing.Reflection
         /// <param name="context">Reflection context.</param>
         /// <param name="behaviorType">Behavior type to create instance of.</param>
         /// <returns>Instance of <paramref name="behaviorType"/>; <c>null</c> to execute next provider.</returns>
-        object TryProvide(IReflectionContext context, Type behaviorType);
+        object TryCreate(IReflectionContext context, Type behaviorType);
     }
 }
