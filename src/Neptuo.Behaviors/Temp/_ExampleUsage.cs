@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Behaviors.Processing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,30 @@ namespace Neptuo.Behaviors
         void Invoke();
     }
 
-    public interface IXPipeline<T>
-    {
-        Task ExecuteAsync(T instance, Action lastBehavior);
-    }
-
-    public class XBackgroundPipelineHandler<T> : IXBackgroundHandler
+    public class XBackgroundPipelineHandler<T> : IXBackgroundHandler, IBehavior<T>
         where T : IXBackgroundHandler
     {
-        private readonly IXPipeline<T> pipeline;
+        private readonly IPipeline<T> pipeline;
         private readonly IActivator<T> handlerFactory;
 
-        public XBackgroundPipelineHandler(IXPipeline<T> pipeline, IActivator<T> handlerFactory)
+        public XBackgroundPipelineHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");
-            this.pipeline = pipeline;
+            this.pipeline = pipeline.AddBehavior(PipelineBehaviorPosition.After, this);
             this.handlerFactory = handlerFactory;
+        }
+
+        Task IBehavior<T>.ExecuteAsync(T handler, IBehaviorContext context)
+        {
+            handler.Invoke();
+            return Task.FromResult(true);
         }
 
         public void Invoke()
         {
             T instance = handlerFactory.Create();
-            Task task = pipeline.ExecuteAsync(instance, () => instance.Invoke());
+            Task task = pipeline.ExecuteAsync(instance);
             if (!task.IsCompleted)
                 task.RunSynchronously();
         }
