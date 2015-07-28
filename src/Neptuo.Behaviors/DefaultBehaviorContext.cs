@@ -14,19 +14,8 @@ namespace Neptuo.Behaviors
     public class DefaultBehaviorContext<T> : IBehaviorContext
     {
         private readonly IEnumerator<IBehavior<T>> behaviorEnumerator;
-        private IKeyValueCollection customValues;
 
-        public IKeyValueCollection CustomValues
-        {
-            get
-            {
-                if (customValues == null)
-                    customValues = new KeyValueCollection();
-
-                return customValues;
-            }
-            set { customValues = value; }
-        }
+        public IKeyValueCollection CustomValues { get; private set; }
 
         /// <summary>
         /// Target handler.
@@ -48,17 +37,19 @@ namespace Neptuo.Behaviors
         /// </summary>
         protected Func<Task> OnNextAsyncWhenNoMoreBehaviors { get; private set; }
 
-        public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
-            : this(behaviors, handler, 0)
+        public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler, IKeyValueCollection customValues)
+            : this(behaviors, handler, customValues, 0)
         { }
 
-        public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler, int behaviorStartOffset)
+        public DefaultBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler, IKeyValueCollection customValues, int behaviorStartOffset)
         {
             Ensure.NotNull(behaviors, "behaviors");
             Ensure.NotNull(handler, "handler");
+            Ensure.NotNull(customValues, "customValues");
             Ensure.PositiveOrZero(behaviorStartOffset, "behaviorStartOffset");
             Handler = handler;
             Behaviors = behaviors;
+            CustomValues = customValues;
             this.behaviorEnumerator = behaviors.GetEnumerator();
 
             NextBehaviorIndex = behaviorStartOffset + 1;
@@ -70,18 +61,6 @@ namespace Neptuo.Behaviors
                         break;
                 }
             }
-        }
-
-        /// <summary>
-        /// Sets collection of custom values.
-        /// If <paramref name="customValues"/> is <c>null</c>, new (empty) collection is created.
-        /// </summary>
-        /// <param name="customValues">New custom values collection.</param>
-        /// <returns>Self (for fluency).</returns>
-        public DefaultBehaviorContext<T> SetCustomValues(IKeyValueCollection customValues)
-        {
-            this.customValues = customValues;
-            return this;
         }
 
         /// <summary>
@@ -121,8 +100,12 @@ namespace Neptuo.Behaviors
 
         public virtual IBehaviorContext Clone()
         {
-            return new DefaultBehaviorContext<T>(Behaviors.ToList(), Handler, NextBehaviorIndex - 1)
-                .SetCustomValues(CustomValues);
+            return new DefaultBehaviorContext<T>(
+                Behaviors.ToList(), 
+                Handler, 
+                CustomValues, 
+                NextBehaviorIndex - 1
+            );
         }
     }
 }

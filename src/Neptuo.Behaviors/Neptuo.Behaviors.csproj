@@ -45,6 +45,7 @@
     <Compile Include="Processing\IPipeline.cs" />
     <Compile Include="Processing\PipelineBehaviorPosition.cs" />
     <Compile Include="Processing\Reflection\ReflectionPipeline.cs" />
+    <Compile Include="Processing\_PipelineExtensions.cs" />
     <Compile Include="Providers\BehaviorProviderCollection.cs" />
     <Compile Include="DefaultBehaviorContext.cs" />
     <Compile Include="IBehavior.cs" />

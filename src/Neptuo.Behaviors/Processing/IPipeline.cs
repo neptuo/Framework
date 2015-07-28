@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,8 @@ namespace Neptuo.Behaviors.Processing
         /// Executes pipeline on <paramref name="handler"/>.
         /// </summary>
         /// <param name="handler">Handler instance to execute pipeline on.</param>
+        /// <param name="customValues">Collection of custom values passed around invokation.</param>
         /// <returns>Continuation task.</returns>
-        Task ExecuteAsync(T handler);
+        Task ExecuteAsync(T handler, IKeyValueCollection customValues);
     }
 }

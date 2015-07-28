@@ -1,4 +1,5 @@
 ﻿using Neptuo.Behaviors.Providers;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,9 +41,9 @@ namespace Neptuo.Behaviors.Processing.Reflection
             return this;
         }
 
-        protected virtual IBehaviorContext CreateBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler)
+        protected virtual IBehaviorContext CreateBehaviorContext(IEnumerable<IBehavior<T>> behaviors, T handler, IKeyValueCollection customValues)
         {
-            return new DefaultBehaviorContext<T>(behaviors, handler);
+            return new DefaultBehaviorContext<T>(behaviors, handler, customValues);
         }
 
         protected virtual IEnumerable<IBehavior<T>> CreateBehaviors()
@@ -62,10 +63,10 @@ namespace Neptuo.Behaviors.Processing.Reflection
             return result;
         }
 
-        public Task ExecuteAsync(T handler)
+        public Task ExecuteAsync(T handler, IKeyValueCollection customValues)
         {
             IEnumerable<IBehavior<T>> behaviors = CreateBehaviors();
-            IBehaviorContext context = CreateBehaviorContext(behaviors, handler);
+            IBehaviorContext context = CreateBehaviorContext(behaviors, handler, customValues);
             return context.NextAsync();
         }
     }
