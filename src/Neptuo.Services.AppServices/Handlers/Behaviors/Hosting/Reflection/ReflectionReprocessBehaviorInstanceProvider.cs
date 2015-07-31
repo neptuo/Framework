@@ -13,7 +13,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection
     /// </summary>
     public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorFactory
     {
-        public object TryCreate(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType)
         {
             if (behaviorType != typeof(ReprocessBehavior))
                 return null;

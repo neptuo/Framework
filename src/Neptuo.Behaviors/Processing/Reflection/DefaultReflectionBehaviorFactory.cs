@@ -11,7 +11,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
     /// </summary>
     public class DefaultReflectionBehaviorFactory : IReflectionBehaviorFactory
     {
-        public object TryCreate(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType)
         {
             return Activator.CreateInstance(behaviorType);
         }

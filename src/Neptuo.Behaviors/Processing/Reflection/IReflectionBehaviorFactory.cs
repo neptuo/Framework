@@ -17,6 +17,6 @@ namespace Neptuo.Behaviors.Processing.Reflection
         /// <param name="context">Reflection context.</param>
         /// <param name="behaviorType">Behavior type to create instance of.</param>
         /// <returns>Instance of <paramref name="behaviorType"/>; <c>null</c> to execute next provider.</returns>
-        object TryCreate(IReflectionContext context, Type behaviorType);
+        object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType);
     }
 }

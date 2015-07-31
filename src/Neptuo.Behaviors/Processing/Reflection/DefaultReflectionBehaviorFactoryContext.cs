@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Behaviors.Processing.Reflection
 {
     /// <summary>
-    /// Default implementation of <see cref="IReflectionContext"/>.
+    /// Default implementation of <see cref="IReflectionBehaviorFactoryContext"/>.
     /// </summary>
-    public class DefaultReflectionContext : IReflectionContext
+    public class DefaultReflectionBehaviorFactoryContext : IReflectionBehaviorFactoryContext
     {
         public Type HandlerType { get; private set; }
 
-        public DefaultReflectionContext(Type handlerType)
+        public DefaultReflectionBehaviorFactoryContext(Type handlerType)
         {
             Ensure.NotNull(handlerType, "handlerType");
             HandlerType = handlerType;

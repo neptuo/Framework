@@ -47,7 +47,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
             return this;
         }
 
-        public object TryCreate(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType)
         {
             IReflectionBehaviorFactory provider;
             if (!storage.TryGetValue(behaviorType, out provider))

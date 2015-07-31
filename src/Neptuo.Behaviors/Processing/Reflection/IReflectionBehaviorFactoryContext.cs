@@ -9,7 +9,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
     /// <summary>
     /// Base context for reflection providers.
     /// </summary>
-    public interface IReflectionContext
+    public interface IReflectionBehaviorFactoryContext
     {
         /// <summary>
         /// Type of handler to wrap.
