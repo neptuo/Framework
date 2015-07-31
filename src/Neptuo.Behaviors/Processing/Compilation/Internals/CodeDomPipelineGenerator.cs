@@ -12,9 +12,8 @@ using System.Threading.Tasks;
 using Neptuo.Compilers;
 using Neptuo.Reflections;
 using Neptuo.Behaviors.Providers;
-using Neptuo.Behaviors.Processing.Compilation.Internals;
 
-namespace Neptuo.Behaviors.Processing.Compilation
+namespace Neptuo.Behaviors.Processing.Compilation.Internals
 {
     /// <summary>
     /// CodeDom generator for pipelines based on concrete handlert type.

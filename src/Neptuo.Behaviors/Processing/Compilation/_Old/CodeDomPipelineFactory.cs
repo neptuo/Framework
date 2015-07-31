@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Behaviors.Processing.Compilation.Internals;
 
 namespace Neptuo.Behaviors.Processing.Compilation
 {
@@ -61,7 +62,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
         {
             CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(
                 handlerType, 
-                configuration.Behaviors, 
+                configuration.BehaviorProvider, 
                 configuration.CompilerConfiguration
             );
 

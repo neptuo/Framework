@@ -42,7 +42,9 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Processing\Compilation\CodeDomPipeline.cs" />
     <Compile Include="Processing\IPipeline.cs" />
+    <Compile Include="Processing\PipelineBase.cs" />
     <Compile Include="Processing\PipelineBehaviorPosition.cs" />
     <Compile Include="Processing\Reflection\ReflectionPipeline.cs" />
     <Compile Include="Processing\_PipelineExtensions.cs" />
@@ -53,8 +55,8 @@
     <Compile Include="Processing\Compilation\CodeDomDefaultContext.cs" />
     <Compile Include="Processing\Compilation\Internals\CodeDomNameFormatter.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineConfiguration.cs" />
-    <Compile Include="Processing\Compilation\CodeDomPipelineFactory.cs" />
-    <Compile Include="Processing\Compilation\CodeDomPipelineGenerator.cs" />
+    <Compile Include="Processing\Compilation\_Old\CodeDomPipelineFactory.cs" />
+    <Compile Include="Processing\Compilation\Internals\CodeDomPipelineGenerator.cs" />
     <Compile Include="Processing\Compilation\CodeDomDefaultBehaviorGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomBehaviorGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomContext.cs" />

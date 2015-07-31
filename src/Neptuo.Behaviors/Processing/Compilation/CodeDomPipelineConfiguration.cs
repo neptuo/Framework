@@ -16,7 +16,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// <summary>
         /// Collection of behaviors.
         /// </summary>
-        public IBehaviorProvider Behaviors { get; private set; }
+        public IBehaviorProvider BehaviorProvider { get; private set; }
 
         /// <summary>
         /// Pipeline compiler configuration.
@@ -26,13 +26,13 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="behaviors">Collection of behaviors.</param>
+        /// <param name="behaviorProvider">Collection of behaviors.</param>
         /// <param name="compilerConfiguration">Pipeline compiler configuration.</param>
-        public CodeDomPipelineConfiguration(IBehaviorProvider behaviors, ICompilerConfiguration compilerConfiguration)
+        public CodeDomPipelineConfiguration(IBehaviorProvider behaviorProvider, ICompilerConfiguration compilerConfiguration)
         {
-            Ensure.NotNull(behaviors, "behaviors");
+            Ensure.NotNull(behaviorProvider, "behaviorProvider");
             Ensure.NotNull(compilerConfiguration, "compilerConfiguration");
-            Behaviors = behaviors;
+            BehaviorProvider = behaviorProvider;
             CompilerConfiguration = compilerConfiguration;
         }
     }
