@@ -1,5 +1,7 @@
-﻿using Neptuo.Behaviors.Providers;
+﻿using Neptuo.Behaviors.Processing.Compilation.Internals;
+using Neptuo.Behaviors.Providers;
 using Neptuo.Collections.Specialized;
+using Neptuo.Compilers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,10 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <typeparam name="T">Type of inner handler.</typeparam>
     public class CodeDomPipeline<T> : IPipeline<T>
     {
+        private readonly IBehaviorProvider behaviorProvider;
         private readonly ICodeDomBehaviorGenerator behaviorGenerator;
-        private readonly IPipeline<T> generatedPipeline;
+        private readonly ICompilerConfiguration compilerConfiguration;
+        private IPipeline<T> generatedPipeline;
 
         private void EnsureGeneratedPipeline()
         {
@@ -26,7 +30,9 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
         private void GeneratePipeline()
         {
-
+            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(typeof(T), behaviorProvider, compilerConfiguration);
+            Type pipelineType = generator.GeneratePipeline();
+            generatedPipeline = (IPipeline<T>)Activator.CreateInstance(pipelineType);
         }
 
         public IPipeline<T> AddBehavior(PipelineBehaviorPosition position, IBehavior<T> behavior)

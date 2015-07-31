@@ -14,6 +14,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
     /// <typeparam name="T">Type of handler.</typeparam>
     public class ReflectionPipeline<T> : PipelineBase<T>
     {
+        private readonly IBehaviorProvider behaviorProvider;
         private readonly IReflectionBehaviorFactory behaviorFactory;
         
         /// <summary>
@@ -22,15 +23,17 @@ namespace Neptuo.Behaviors.Processing.Reflection
         /// <param name="behaviorProvider">Behavior provider.</param>
         /// <param name="behaviorFactory">Factory for creating instances of behaviors.</param>
         public ReflectionPipeline(IBehaviorProvider behaviorProvider, IReflectionBehaviorFactory behaviorFactory)
-            : base(behaviorProvider)
         {
+            Ensure.NotNull(behaviorProvider, "behaviorProvider");
             Ensure.NotNull(behaviorFactory, "behaviorFactory");
+            this.behaviorProvider = behaviorProvider;
             this.behaviorFactory = behaviorFactory;
         }
 
-        protected override IEnumerable<IBehavior<T>> CreateBehaviorInstances(IEnumerable<Type> behaviorTypes)
+        protected override IEnumerable<IBehavior<T>> CreateBehaviorsInternal()
         {
             Type handlerType = typeof(T);
+            IEnumerable<Type> behaviorTypes = behaviorProvider.GetBehaviors(handlerType);
             IReflectionBehaviorFactoryContext context = new DefaultReflectionBehaviorFactoryContext(handlerType);
             IEnumerable<IBehavior<T>> result = behaviorTypes.Select(bt => (IBehavior<T>)behaviorFactory.TryCreate(context, bt));
             return result;

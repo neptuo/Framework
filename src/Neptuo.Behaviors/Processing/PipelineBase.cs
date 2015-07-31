@@ -16,20 +16,9 @@ namespace Neptuo.Behaviors.Processing
     /// <typeparam name="T">Type of inner handler.</typeparam>
     public abstract class PipelineBase<T> : IPipeline<T>
     {
-        protected IBehaviorProvider BehaviorProvider { get; private set; }
         protected List<IBehavior<T>> PreBehaviors { get; private set; }
         protected List<IBehavior<T>> PostBehaviors { get; private set; }
         
-        /// <summary>
-        /// Creates new instance.
-        /// </summary>
-        /// <param name="behaviorProvider">Behavior provider.</param>
-        protected PipelineBase(IBehaviorProvider behaviorProvider)
-        {
-            Ensure.NotNull(behaviorProvider, "behaviorProvider");
-            BehaviorProvider = behaviorProvider;
-        }
-
         public IPipeline<T> AddBehavior(PipelineBehaviorPosition position, IBehavior<T> behavior)
         {
             Ensure.NotNull(behavior, "behavior");
@@ -64,13 +53,10 @@ namespace Neptuo.Behaviors.Processing
         /// <summary>
         /// Creates enumeration of behaviors.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Enumeration of behaviors.</returns>
         protected virtual IEnumerable<IBehavior<T>> CreateBehaviors()
         {
-            Type handlerType = typeof(T);
-            IEnumerable<Type> behaviorTypes = BehaviorProvider.GetBehaviors(handlerType);
-            IEnumerable<IBehavior<T>> result = CreateBehaviorInstances(behaviorTypes);
-
+            IEnumerable<IBehavior<T>> result = CreateBehaviorsInternal();
             if (PreBehaviors.Count > 0)
                 result = Enumerable.Concat(PreBehaviors, result);
 
@@ -81,11 +67,10 @@ namespace Neptuo.Behaviors.Processing
         }
 
         /// <summary>
-        /// Creates instances of behaviors from enumeration of <paramref name="behaviorTypes"/>.
+        /// Should provide behaviors, that are decorated with manually registered behaviors.
         /// </summary>
-        /// <param name="behaviorTypes">Enumeration of behavior types to instantiate.</param>
-        /// <returns>Enumeration of instances of behaviors.</returns>
-        protected abstract IEnumerable<IBehavior<T>> CreateBehaviorInstances(IEnumerable<Type> behaviorTypes);
+        /// <returns>Enumeration of behaviors.</returns>
+        protected abstract IEnumerable<IBehavior<T>> CreateBehaviorsInternal();
 
         /// <summary>
         /// Using <see cref="CreateBehaviors"/>, behaviors are created. Then calling <see cref="CreateBehaviorContext"/> context is created. And then pipeline is executed.

@@ -25,17 +25,12 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         private const string resultListName = "result";
 
         /// <summary>
-        /// Name of parameter containing <see cref="IBehaviorProvider"/> in constructor.
-        /// </summary>
-        private const string constructorBehaviorProviderName = "behaviorProvider";
-
-        /// <summary>
         /// Name of method from <see cref="PipelineBase{T}"/> to create behavior instances.
         /// </summary>
-        private static readonly string createBehaviorInstancesMethodName = "CreateBehaviorInstances";
+        private static readonly string createBehaviorInstancesMethodName = "CreateBehaviorsInternal";
         
         private readonly Type handlerType;
-        private readonly IBehaviorProvider behaviors;
+        private readonly IBehaviorProvider behaviorProvider;
         private readonly CompilerFactory compilerFactory;
         private readonly ICompilerConfiguration configuration;
         private readonly CodeDomNameFormatter nameFormatter;
@@ -44,15 +39,15 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         /// Creates new instance for <paramref name="handlerType"/>.
         /// </summary>
         /// <param name="handlerType">Target handler type.</param>
-        /// <param name="behaviors">Behavior collection.</param>
+        /// <param name="behaviorProvider">Behavior collection.</param>
         /// <param name="configuration">Generator configuration.</param>
-        public CodeDomPipelineGenerator(Type handlerType, IBehaviorProvider behaviors, ICompilerConfiguration configuration)
+        public CodeDomPipelineGenerator(Type handlerType, IBehaviorProvider behaviorProvider, ICompilerConfiguration configuration)
         {
             Ensure.NotNull(handlerType, "handlerType");
-            Ensure.NotNull(behaviors, "behaviors");
+            Ensure.NotNull(behaviorProvider, "behaviorProvider");
             Ensure.NotNull(configuration, "configuration");
             this.handlerType = handlerType;
-            this.behaviors = behaviors;
+            this.behaviorProvider = behaviorProvider;
             this.compilerFactory = new CompilerFactory(configuration);
             this.configuration = configuration;
             this.nameFormatter = new CodeDomNameFormatter(handlerType);
@@ -69,8 +64,6 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
             unit.Namespaces.Add(nameSpace);
             CodeTypeDeclaration type = CreateType();
             nameSpace.Types.Add(type);
-            CodeConstructor constructor = CreateConstructor();
-            type.Members.Add(constructor);
             CodeMemberMethod method = CreateBehaviorMethod();
             type.Members.Add(method);
             GenerateBehaviorMethodBody(method);
@@ -110,29 +103,6 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         }
 
         /// <summary>
-        /// Creates constructor with <see cref="IBehaviorProvider"/> that is passed to the base <see cref="PipelineBase{T}"/>.
-        /// </summary>
-        /// <returns></returns>
-        private CodeConstructor CreateConstructor()
-        {
-            CodeConstructor constructor = new CodeConstructor()
-            {
-                Attributes = MemberAttributes.Public
-            };
-            constructor.Parameters.Add(
-                new CodeParameterDeclarationExpression(
-                    new CodeTypeReference(typeof(IBehaviorProvider)),
-                    constructorBehaviorProviderName
-                )
-            );
-            constructor.BaseConstructorArgs.Add(
-                new CodeVariableReferenceExpression(constructorBehaviorProviderName)
-            );
-
-            return constructor;
-        }
-
-        /// <summary>
         /// Creates empty GetBehaviors method of <see cref="PipelineBase<>"/>.
         /// </summary>
         /// <returns></returns>
@@ -158,7 +128,7 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
                 new CodeObjectCreateExpression(resultListType)
             ));
 
-            IEnumerable<Type> behaviorTypes = behaviors.GetBehaviors(handlerType);
+            IEnumerable<Type> behaviorTypes = behaviorProvider.GetBehaviors(handlerType);
             ICodeDomContext context = new CodeDomDefaultContext(configuration, handlerType);
             ICodeDomBehaviorGenerator behaviorGenerator = GetBehaviorInstanceGenerator();
 
