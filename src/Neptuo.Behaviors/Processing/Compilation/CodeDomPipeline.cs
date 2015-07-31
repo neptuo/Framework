@@ -18,7 +18,6 @@ namespace Neptuo.Behaviors.Processing.Compilation
     public class CodeDomPipeline<T> : IPipeline<T>
     {
         private readonly IBehaviorProvider behaviorProvider;
-        private readonly ICodeDomBehaviorGenerator behaviorGenerator;
         private readonly ICompilerConfiguration compilerConfiguration;
         private IPipeline<T> generatedPipeline;
 
@@ -27,7 +26,6 @@ namespace Neptuo.Behaviors.Processing.Compilation
             Ensure.NotNull(configuration, "configuration");
             behaviorProvider = configuration.BehaviorProvider;
             compilerConfiguration = configuration.CompilerConfiguration;
-            behaviorGenerator = configuration.CompilerConfiguration.GetBehaviorGenerator(new DefaultCodeDomBehaviorGenerator());
         }
 
         private void EnsureGeneratedPipeline()

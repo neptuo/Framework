@@ -13,34 +13,6 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// </summary>
     public static class _CodeDomPipelineConfigurationExtensions
     {
-        #region BaseType
-
-        /// <summary>
-        /// Returns required pipeline base type.
-        /// </summary>
-        /// <param name="configuration">Compiler configuration.</param>
-        /// <returns>Required pipeline base type.</returns>
-        public static Type BaseType(this ICompilerConfiguration configuration)
-        {
-            Ensure.NotNull(configuration, "configuration");
-            return configuration.Get("BaseType", typeof(DefaultPipelineBase<>));
-        }
-
-        /// <summary>
-        /// Sets equired pipeline base type.
-        /// </summary>
-        /// <param name="configuration">Compiler configuration.</param>
-        /// <param name="baseType">Required pipeline base type.</param>
-        /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration BaseType(this ICompilerConfiguration configuration, Type baseType)
-        {
-            Ensure.NotNull(configuration, "configuration");
-            configuration.Set("BaseType", baseType);
-            return configuration;
-        }
-
-        #endregion
-
         #region BehaviorGenerator
 
         /// <summary>
