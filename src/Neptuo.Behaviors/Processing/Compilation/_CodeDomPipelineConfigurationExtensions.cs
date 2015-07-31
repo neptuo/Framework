@@ -41,17 +41,18 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
         #endregion
 
-        #region BehaviorInstance
+        #region BehaviorGenerator
 
         /// <summary>
         /// Returns behavior instance generator.
         /// </summary>
         /// <param name="configuration">Compiler configuration.</param>
+        /// <param name="defaultValue">Fallback value, when <paramref name="configuration"/> doesn't contain generator.</param>
         /// <returns>Behavior instance generator.</returns>
-        public static ICodeDomBehaviorGenerator BehaviorInstance(this ICompilerConfiguration configuration)
+        public static ICodeDomBehaviorGenerator GetBehaviorGenerator(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator defaultValue)
         {
             Ensure.NotNull(configuration, "configuration");
-            return configuration.Get<ICodeDomBehaviorGenerator>("BehaviorInstance", null);
+            return configuration.Get<ICodeDomBehaviorGenerator>("BehaviorGenerator", defaultValue);
         }
 
         /// <summary>
@@ -60,10 +61,10 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// <param name="configuration">Compiler configuration.</param>
         /// <param name="generator">Behavior instance generator.</param>
         /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration BehaviorInstance(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator generator)
+        public static ICompilerConfiguration AddBehaviorGenerator(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator generator)
         {
             Ensure.NotNull(configuration, "configuration");
-            configuration.Set("BehaviorInstance", generator);
+            configuration.Set("BehaviorGenerator", generator);
             return configuration;
         }
 

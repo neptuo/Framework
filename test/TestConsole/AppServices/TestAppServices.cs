@@ -44,7 +44,7 @@ namespace TestConsole.AppServices
             configuration.References()
                 .AddDirectory(Environment.CurrentDirectory);
 
-            configuration.BehaviorInstance(
+            configuration.GetBehaviorGenerator(
                 new CodeDomBehaviorGeneratorCollection()
                     .Add(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator())
             );

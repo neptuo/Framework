@@ -152,7 +152,7 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         /// <returns>Behavior instance generator.</returns>
         private ICodeDomBehaviorGenerator GetBehaviorInstanceGenerator()
         {
-            ICodeDomBehaviorGenerator behaviorGenerator = configuration.BehaviorInstance();
+            ICodeDomBehaviorGenerator behaviorGenerator = configuration.AddBehaviorGenerator();
             if (behaviorGenerator == null)
                 behaviorGenerator = new CodeDomDefaultBehaviorGenerator();
             else
