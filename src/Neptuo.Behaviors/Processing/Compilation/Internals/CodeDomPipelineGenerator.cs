@@ -1,5 +1,7 @@
-﻿using Neptuo.Linq.Expressions;
-using Neptuo.Behaviors;
+﻿using Neptuo.Behaviors.Providers;
+using Neptuo.Compilers;
+using Neptuo.Linq.Expressions;
+using Neptuo.Reflections;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
@@ -9,9 +11,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Neptuo.Compilers;
-using Neptuo.Reflections;
-using Neptuo.Behaviors.Providers;
 
 namespace Neptuo.Behaviors.Processing.Compilation.Internals
 {
