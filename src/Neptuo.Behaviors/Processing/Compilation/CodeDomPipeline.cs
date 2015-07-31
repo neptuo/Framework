@@ -17,15 +17,17 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <typeparam name="T">Type of inner handler.</typeparam>
     public class CodeDomPipeline<T> : IPipeline<T>
     {
-        private readonly IBehaviorProvider behaviorProvider;
-        private readonly ICompilerConfiguration compilerConfiguration;
+        private readonly CodeDomPipelineConfiguration configuration;
         private IPipeline<T> generatedPipeline;
 
+        /// <summary>
+        /// Creates new instance based on <paramref name="configuration"/>.
+        /// </summary>
+        /// <param name="configuration">Pipeline generator configuration.</param>
         public CodeDomPipeline(CodeDomPipelineConfiguration configuration)
         {
             Ensure.NotNull(configuration, "configuration");
-            behaviorProvider = configuration.BehaviorProvider;
-            compilerConfiguration = configuration.CompilerConfiguration;
+            this.configuration = configuration;
         }
 
         private void EnsureGeneratedPipeline()
@@ -36,9 +38,8 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
         private void GeneratePipeline()
         {
-            CodeDomPipelineGenerator generator = new CodeDomPipelineGenerator(typeof(T), behaviorProvider, compilerConfiguration);
-            Type pipelineType = generator.GeneratePipeline();
-            generatedPipeline = (IPipeline<T>)Activator.CreateInstance(pipelineType);
+            CodeDomPipelineFactory<T> factory = new CodeDomPipelineFactory<T>(configuration);
+            generatedPipeline = factory.Create();
         }
 
         public IPipeline<T> AddBehavior(PipelineBehaviorPosition position, IBehavior<T> behavior)
