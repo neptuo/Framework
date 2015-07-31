@@ -18,12 +18,22 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
     /// <summary>
     /// CodeDom generator for pipelines based on concrete handlert type.
     /// </summary>
-    public class CodeDomPipelineGenerator
+    internal class CodeDomPipelineGenerator
     {
         /// <summary>
-        /// Name of variable containing behaviors in GetBehavior method of PipelineBase.
+        /// Name of variable containing behaviors in GetBehavior method of <see cref="PipelineBase{T}"/>.
         /// </summary>
         private const string resultListName = "result";
+
+        /// <summary>
+        /// Name of parameter containing <see cref="IBehaviorProvider"/> in constructor.
+        /// </summary>
+        private const string constructorBehaviorProviderName = "behaviorProvider";
+
+        /// <summary>
+        /// Name of method from <see cref="PipelineBase{T}"/> to create behavior instances.
+        /// </summary>
+        private static readonly string createBehaviorInstancesMethodName = "CreateBehaviorInstances";
         
         private readonly Type handlerType;
         private readonly IBehaviorProvider behaviors;
@@ -60,6 +70,8 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
             unit.Namespaces.Add(nameSpace);
             CodeTypeDeclaration type = CreateType();
             nameSpace.Types.Add(type);
+            CodeConstructor constructor = CreateConstructor();
+            type.Members.Add(constructor);
             CodeMemberMethod method = CreateBehaviorMethod();
             type.Members.Add(method);
             GenerateBehaviorMethodBody(method);
@@ -94,13 +106,31 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         private CodeTypeDeclaration CreateType()
         {
             CodeTypeDeclaration type = new CodeTypeDeclaration(nameFormatter.FormatPipelineTypeName());
-
-            if (handlerType.GetConstructor(new Type[0]) != null)
-                type.BaseTypes.Add(configuration.BaseType().MakeGenericType(handlerType));
-            else
-                throw Ensure.Exception.NotSupported("Currently supported only parameterless behavior constructors.");
-
+            type.BaseTypes.Add(typeof(PipelineBase<>).MakeGenericType(handlerType));
             return type;
+        }
+
+        /// <summary>
+        /// Creates constructor with <see cref="IBehaviorProvider"/> that is passed to the base <see cref="PipelineBase{T}"/>.
+        /// </summary>
+        /// <returns></returns>
+        private CodeConstructor CreateConstructor()
+        {
+            CodeConstructor constructor = new CodeConstructor()
+            {
+                Attributes = MemberAttributes.Public
+            };
+            constructor.Parameters.Add(
+                new CodeParameterDeclarationExpression(
+                    new CodeTypeReference(typeof(IBehaviorProvider)),
+                    constructorBehaviorProviderName
+                )
+            );
+            constructor.BaseConstructorArgs.Add(
+                new CodeVariableReferenceExpression(constructorBehaviorProviderName)
+            );
+
+            return constructor;
         }
 
         /// <summary>
@@ -110,7 +140,7 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         private CodeMemberMethod CreateBehaviorMethod()
         {
             CodeMemberMethod getBehaviorsMethod = new CodeMemberMethod();
-            getBehaviorsMethod.Name = "GetBehaviors";
+            getBehaviorsMethod.Name = createBehaviorInstancesMethodName;
             getBehaviorsMethod.Attributes = MemberAttributes.Override | MemberAttributes.Family;
             getBehaviorsMethod.ReturnType = new CodeTypeReference(typeof(IEnumerable<>).MakeGenericType(typeof(IBehavior<>).MakeGenericType(handlerType)));
             return getBehaviorsMethod;
