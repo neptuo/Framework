@@ -52,12 +52,12 @@
     <Compile Include="DefaultBehaviorContext.cs" />
     <Compile Include="IBehavior.cs" />
     <Compile Include="IBehaviorContext.cs" />
-    <Compile Include="Processing\Compilation\CodeDomDefaultContext.cs" />
+    <Compile Include="Processing\Compilation\DefaultCodeDomContext.cs" />
     <Compile Include="Processing\Compilation\Internals\CodeDomNameFormatter.cs" />
     <Compile Include="Processing\Compilation\CodeDomPipelineConfiguration.cs" />
     <Compile Include="Processing\Compilation\_Old\CodeDomPipelineFactory.cs" />
     <Compile Include="Processing\Compilation\Internals\CodeDomPipelineGenerator.cs" />
-    <Compile Include="Processing\Compilation\CodeDomDefaultBehaviorGenerator.cs" />
+    <Compile Include="Processing\Compilation\DefaultCodeDomBehaviorGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomBehaviorGenerator.cs" />
     <Compile Include="Processing\Compilation\ICodeDomContext.cs" />
     <Compile Include="Processing\Compilation\CodeDomBehaviorGeneratorCollection.cs" />

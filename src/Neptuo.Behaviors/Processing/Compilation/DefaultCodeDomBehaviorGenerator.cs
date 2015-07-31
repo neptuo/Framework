@@ -11,14 +11,14 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// Uses parameter-less constructor to create instances of behaviors.
     /// Never returns <c>null</c>.
     /// </summary>
-    public class CodeDomDefaultBehaviorGenerator : ICodeDomBehaviorGenerator
+    public class DefaultCodeDomBehaviorGenerator : ICodeDomBehaviorGenerator
     {
         private readonly ICodeDomBehaviorGenerator generator;
 
         /// <summary>
         /// Creates new instance that always calls default (parameter-less) constructor.
         /// </summary>
-        public CodeDomDefaultBehaviorGenerator()
+        public DefaultCodeDomBehaviorGenerator()
         { }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
         /// uses default (parameter-less) constructor.
         /// </summary>
         /// <param name="generator">Inner generator used first.</param>
-        public CodeDomDefaultBehaviorGenerator(ICodeDomBehaviorGenerator generator)
+        public DefaultCodeDomBehaviorGenerator(ICodeDomBehaviorGenerator generator)
         {
             Ensure.NotNull(generator, "generator");
             this.generator = generator;

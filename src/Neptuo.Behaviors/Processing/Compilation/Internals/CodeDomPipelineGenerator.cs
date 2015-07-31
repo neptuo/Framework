@@ -129,7 +129,7 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
             ));
 
             IEnumerable<Type> behaviorTypes = behaviorProvider.GetBehaviors(handlerType);
-            ICodeDomContext context = new CodeDomDefaultContext(configuration, handlerType);
+            ICodeDomContext context = new DefaultCodeDomContext(configuration, handlerType);
             ICodeDomBehaviorGenerator behaviorGenerator = GetBehaviorInstanceGenerator();
 
             foreach (Type behaviorType in behaviorTypes)
@@ -154,9 +154,9 @@ namespace Neptuo.Behaviors.Processing.Compilation.Internals
         {
             ICodeDomBehaviorGenerator behaviorGenerator = configuration.AddBehaviorGenerator();
             if (behaviorGenerator == null)
-                behaviorGenerator = new CodeDomDefaultBehaviorGenerator();
+                behaviorGenerator = new DefaultCodeDomBehaviorGenerator();
             else
-                behaviorGenerator = new CodeDomDefaultBehaviorGenerator(behaviorGenerator);
+                behaviorGenerator = new DefaultCodeDomBehaviorGenerator(behaviorGenerator);
 
             return behaviorGenerator;
         }

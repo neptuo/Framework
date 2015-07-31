@@ -27,7 +27,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
             Ensure.NotNull(configuration, "configuration");
             behaviorProvider = configuration.BehaviorProvider;
             compilerConfiguration = configuration.CompilerConfiguration;
-            behaviorGenerator = configuration.CompilerConfiguration.GetBehaviorGenerator(new CodeDomDefaultBehaviorGenerator());
+            behaviorGenerator = configuration.CompilerConfiguration.GetBehaviorGenerator(new DefaultCodeDomBehaviorGenerator());
         }
 
         private void EnsureGeneratedPipeline()

@@ -58,7 +58,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
 
         private static bool TryGetDefaultGenerator(Type behaviorType, out ICodeDomBehaviorGenerator generator)
         {
-            generator = new CodeDomDefaultBehaviorGenerator();
+            generator = new DefaultCodeDomBehaviorGenerator();
             return true;
         }
     }

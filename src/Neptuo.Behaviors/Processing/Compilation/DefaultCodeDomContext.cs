@@ -10,12 +10,12 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <summary>
     /// Default implementation of <see cref="ICodeDomContext"/>
     /// </summary>
-    public class CodeDomDefaultContext : ICodeDomContext
+    public class DefaultCodeDomContext : ICodeDomContext
     {
         public ICompilerConfiguration Configuration { get; private set; }
         public Type HandlerType { get; private set; }
 
-        public CodeDomDefaultContext(ICompilerConfiguration configuration, Type handlerType)
+        public DefaultCodeDomContext(ICompilerConfiguration configuration, Type handlerType)
         {
             Ensure.NotNull(configuration, "configuration");
             Ensure.NotNull(handlerType, "handlerType");
