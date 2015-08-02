@@ -46,6 +46,7 @@
     <Compile Include="Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
     <Compile Include="Handlers\Behaviors\Hosting\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
     <Compile Include="Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
+    <Compile Include="Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineConfiguration.cs" />
     <Compile Include="Handlers\Behaviors\Processing\Compilation\CodeDomWorkerPipelineHandler.cs" />
     <Compile Include="Handlers\Behaviors\Processing\WorkerPipelineHandler.cs" />
     <Compile Include="Handlers\Behaviors\ReprocessAttribute.cs" />
@@ -61,10 +62,13 @@
     <Compile Include="Triggers\IServiceTrigger.cs" />
     <Compile Include="Triggers\TimerServiceTrigger.cs" />
     <Compile Include="WorkerServiceCollection.cs" />
-    <Compile Include="_EnvironmentExtensions.cs" />
     <Compile Include="_WorkerServiceCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Behaviors\Neptuo.Behaviors.csproj">
+      <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
+      <Name>Neptuo.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
+﻿using Neptuo.Behaviors.Processing.Compilation;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation
     /// <summary>
     /// Code generator for <see cref="ReprocessAttribute"/> and <see cref="ReprocessBehavior"/>.
     /// </summary>
-    public class CodeDomReprocessBehaviorInstanceGenerator : ICodeDomBehaviorInstanceGenerator
+    public class CodeDomReprocessBehaviorInstanceGenerator : ICodeDomBehaviorGenerator
     {
         public CodeExpression TryGenerate(ICodeDomContext context, Type behaviorType)
         {

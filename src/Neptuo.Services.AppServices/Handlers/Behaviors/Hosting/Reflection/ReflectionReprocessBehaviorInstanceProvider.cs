@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.Behaviors.Processing.Reflection;
+﻿using Neptuo.Behaviors.Processing.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +11,9 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection
     /// <summary>
     /// Instance provider for <see cref="ReprocessBehavior"/> and <see cref="ReprocessAttribute"/>.
     /// </summary>
-    public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorInstanceProvider
+    public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorFactory
     {
-        public object TryProvide(IReflectionContext context, Type behaviorType)
+        public object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType)
         {
             if (behaviorType != typeof(ReprocessBehavior))
                 return null;
