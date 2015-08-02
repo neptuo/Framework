@@ -100,6 +100,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Services", "test\U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries.Behaviors", "src\Neptuo.Services.Queries.Behaviors\Neptuo.Services.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -258,6 +260,10 @@ Global
 		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -291,8 +297,9 @@ Global
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
-		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
