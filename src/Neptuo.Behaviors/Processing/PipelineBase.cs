@@ -18,6 +18,15 @@ namespace Neptuo.Behaviors.Processing
     {
         protected List<IBehavior<T>> PreBehaviors { get; private set; }
         protected List<IBehavior<T>> PostBehaviors { get; private set; }
+
+        /// <summary>
+        /// Initializes new instance.
+        /// </summary>
+        protected PipelineBase()
+        {
+            PreBehaviors = new List<IBehavior<T>>();
+            PostBehaviors = new List<IBehavior<T>>();
+        }
         
         public IPipeline<T> AddBehavior(PipelineBehaviorPosition position, IBehavior<T> behavior)
         {
