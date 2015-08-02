@@ -40,8 +40,8 @@ namespace TestConsole.Behaviors
                 .AddProvider(typeof(ReprocessBehavior), new ReflectionReprocessBehaviorInstanceProvider());
 
             // Invoke pipeline.
-            ReflectionMethodInvokePipeline<HelloService, string> pipeline = new ReflectionMethodInvokePipeline<HelloService, string>(interfaceBehaviors, behaviorInstance, "SayHello");
-            pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine("Method result: '{0}'.", message.Result));
+            //ReflectionMethodInvokePipeline<HelloService, string> pipeline = new ReflectionMethodInvokePipeline<HelloService, string>(interfaceBehaviors, behaviorInstance, "SayHello");
+            //pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine("Method result: '{0}'.", message.Result));
         }
     }
 

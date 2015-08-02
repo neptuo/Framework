@@ -76,7 +76,7 @@ namespace TestConsole.Commands
 
         static void TestDirect(int count)
         {
-            DebugIteration("Direct", count, () => new CreateProductCommandHandler().Handle(new CreateProductCommand("Pen", 5.0)));
+            DebugIteration("Direct", count, () => new CreateProductCommandHandler().HandleAsync(new CreateProductCommand("Pen", 5.0)));
         }
 
         private static ICommandExecutorFactory OnSearchFactory(object arg)
@@ -119,7 +119,7 @@ namespace TestConsole.Commands
         public void Handle(object command)
         {
             var handler = new CreateProductCommandHandler();
-            handler.Handle((CreateProductCommand)command);
+            handler.HandleAsync((CreateProductCommand)command);
 
             if (OnCommandHandled != null)
                 OnCommandHandled(this, command);

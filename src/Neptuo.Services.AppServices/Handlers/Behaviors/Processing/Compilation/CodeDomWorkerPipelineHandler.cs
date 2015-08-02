@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation
 {
-    public class CodeDomWorkerPipelineHandler<T> : TransientWorkerHandler
-        where T: IBackgroundHandler
-    {
-        public CodeDomWorkerPipelineHandler(CodeDomWorkerPipelineConfiguration configuration)
-            : base(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(T), configuration))
-        { }
-    }
+    //public class CodeDomWorkerPipelineHandler<T> : TransientWorkerHandler
+    //    where T: IBackgroundHandler
+    //{
+    //    public CodeDomWorkerPipelineHandler(CodeDomWorkerPipelineConfiguration configuration)
+    //        : base(new CodeDomPipelineFactory<IBackgroundHandler>(typeof(T), configuration))
+    //    { }
+    //}
 }

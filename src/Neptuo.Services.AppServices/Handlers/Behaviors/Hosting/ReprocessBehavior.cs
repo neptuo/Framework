@@ -71,7 +71,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors.Hosting
                         Thread.Sleep(delay);
 
                     Task result = ExecuteAsync(handler, contextState, remaingCount);
-                    context.CustomValues = contextState.CustomValues;
+                    //context.CustomValues = contextState.CustomValues;
                     return result;
                 }
 

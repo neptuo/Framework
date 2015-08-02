@@ -5,17 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Data.Queries;
 
-namespace TestConsole.Queries
+namespace TestConsole.Data.Queries
 {
     class TestQueries
     {
         public static void Test()
         {
-            IQuery<ProductModel, ProductFilter> query = null;
+            //IQuery<ProductModel, ProductFilter> query = null;
 
-            ProductFilter nameFilter = new ProductFilter();
+            //ProductFilter nameFilter = new ProductFilter();
 
-            query.Filter.Key = IntSearch.Create(5);
+            //query.Filter.Key = IntSearch.Create(5);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Neptuo.Services.Queries;
+﻿using Neptuo.Services.Queries.Behaviors;
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Services.Queries.Behaviors")]

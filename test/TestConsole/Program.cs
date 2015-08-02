@@ -55,7 +55,8 @@ namespace TestConsole
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
             //TestLog4net.Test();
-            TestLocalization.Test();
+            //TestLocalization.Test();
+            Services.Queries.TestQueries.Test();
 
             Console.ReadKey(true);
         }

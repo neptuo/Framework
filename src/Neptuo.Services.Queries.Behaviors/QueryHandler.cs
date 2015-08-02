@@ -18,6 +18,7 @@ namespace Neptuo.Services.Queries.Behaviors
     /// <typeparam name="TQuery">Type of query parameters.</typeparam>
     /// <typeparam name="TResult">Type of query result.</typeparam>
     public class QueryHandler<T, TQuery, TResult> : IQueryHandler<TQuery, TResult>, IBehavior<T>
+        where TQuery : IQuery<TResult>
         where T : IQueryHandler<TQuery, TResult>
     {
         private readonly IPipeline<T> pipeline;

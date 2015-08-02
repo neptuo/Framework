@@ -38,7 +38,7 @@ namespace TestConsole.AppServices
                 );
 
             ICompilerConfiguration configuration = new CompilerConfiguration()
-                .BaseType(typeof(WorkerPipelineHandler<>))
+                //.BaseType(typeof(WorkerPipelineHandler<>))
                 .TempDirectory(@"C:\Temp\Pipelines");
             
             configuration.References()
@@ -53,7 +53,7 @@ namespace TestConsole.AppServices
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
                 new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>(new CodeDomWorkerPipelineConfiguration(behaviors, configuration)))
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TempCheckWorkerHandler())
             );
             //collection.Add(new Temp2CheckServiceHandler());
 
