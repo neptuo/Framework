@@ -11,12 +11,23 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Services.Queries.Behaviors
 {
+    /// <summary>
+    /// Pipeline based implementatio of query handler.
+    /// </summary>
+    /// <typeparam name="T">Type of inner handler.</typeparam>
+    /// <typeparam name="TQuery">Type of query parameters.</typeparam>
+    /// <typeparam name="TResult">Type of query result.</typeparam>
     public class QueryHandler<T, TQuery, TResult> : IQueryHandler<TQuery, TResult>, IBehavior<T>
         where T : IQueryHandler<TQuery, TResult>
     {
         private readonly IPipeline<T> pipeline;
         private readonly IActivator<T> handlerFactory;
 
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="pipeline">Behavior pipeline.</param>
+        /// <param name="handlerFactory">Inner handler factory.</param>
         public QueryHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
