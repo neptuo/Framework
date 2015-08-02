@@ -1,8 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
 using Neptuo.Behaviors;
+using Neptuo.Behaviors.Processing;
+using Neptuo.Behaviors.Processing.Compilation;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
+using Neptuo.Compilers;
 using Neptuo.Services.Queries.Behaviors;
 using Neptuo.Services.Queries.Handlers;
 using System;
@@ -50,13 +53,12 @@ namespace Neptuo.Services.Queries
     [TestClass]
     public class T_Services_Queries_Behaviors
     {
-        [TestMethod]
-        public void ReflectionPipeline()
+        private void TestPipeline(Func<IBehaviorProvider, IPipeline<ProductQueryHandler>> pipelinefactory)
         {
             IBehaviorProvider behaviorProvider = new GlobalBehaviorCollection()
                 .Add(typeof(TestBehavior));
 
-            ReflectionPipeline<ProductQueryHandler> pipeline = new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory());
+            IPipeline<ProductQueryHandler> pipeline = pipelinefactory(behaviorProvider);
             IQueryHandler<ProductQuery, Product> queryHandler = new QueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultActivator<ProductQueryHandler>());
 
             Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" });
@@ -65,6 +67,21 @@ namespace Neptuo.Services.Queries
 
             Assert.AreEqual(10.1M, task.Result.Price);
             Assert.AreEqual(1, TestBehavior.count);
+        }
+
+        [TestMethod]
+        public void ReflectionPipeline()
+        {
+            TestPipeline(behaviorProvider => new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory()));
+        }
+
+        [TestMethod]
+        public void CodeDomPipeline()
+        {
+            ICompilerConfiguration configuration = new CompilerConfiguration();
+            configuration.References().AddDirectory(Environment.CurrentDirectory);
+
+            TestPipeline(behaviorProvider => new CodeDomPipeline<ProductQueryHandler>(new CodeDomPipelineConfiguration(behaviorProvider, configuration)));
         }
     }
 }
