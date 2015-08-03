@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.AppServices
 {
     /// <summary>
-    /// Common trigger extensions for <see cref="WorkerServiceCollection"/>.
+    /// Common trigger extensions for <see cref="BackgroundServiceCollection"/>.
     /// </summary>
     public static class _WorkerServiceCollectionExtensions
     {
@@ -20,7 +20,7 @@ namespace Neptuo.AppServices
         /// <param name="interval">Amount of time between trigger hits.</param>
         /// <param name="handler">Handler to execute.</param>
         /// <returns>Self (for fluency).</returns>
-        public static WorkerServiceCollection AddIntervalHandler(this WorkerServiceCollection collection, TimeSpan interval, IBackgroundHandler handler)
+        public static BackgroundServiceCollection AddIntervalHandler(this BackgroundServiceCollection collection, TimeSpan interval, IBackgroundHandler handler)
         {
             Ensure.NotNull(collection, "collection");
             Ensure.NotNull(handler, "handler");
@@ -35,7 +35,7 @@ namespace Neptuo.AppServices
         /// <param name="interval">Amount of time between trigger hits.</param>
         /// <param name="handler">Handler to execute.</param>
         /// <returns>Self (for fluency).</returns>
-        public static WorkerServiceCollection AddIntervalDelayedHandler(this WorkerServiceCollection collection, TimeSpan startDelay, TimeSpan interval, IBackgroundHandler handler)
+        public static BackgroundServiceCollection AddIntervalDelayedHandler(this BackgroundServiceCollection collection, TimeSpan startDelay, TimeSpan interval, IBackgroundHandler handler)
         {
             Ensure.NotNull(collection, "collection");
             Ensure.NotNull(handler, "handler");

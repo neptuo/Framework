@@ -52,7 +52,7 @@ namespace TestConsole.AppServices
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
-                new WorkerServiceCollection()
+                new BackgroundServiceCollection()
                     .AddIntervalHandler(TimeSpan.FromSeconds(5), new TempCheckWorkerHandler())
             );
             //collection.Add(new Temp2CheckServiceHandler());

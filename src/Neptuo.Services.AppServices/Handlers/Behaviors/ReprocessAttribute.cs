@@ -17,6 +17,11 @@ namespace Neptuo.AppServices.Handlers.Behaviors
         public const int DefaultReprocessCount = 3;
 
         /// <summary>
+        /// Default of delay before reprocess.
+        /// </summary>
+        public const double DefaultDelayBeforeReprocess = 0;
+
+        /// <summary>
         /// Reprocess max count.
         /// </summary>
         public int Count { get; private set; }
@@ -28,10 +33,10 @@ namespace Neptuo.AppServices.Handlers.Behaviors
 
         /// <summary>
         /// Creates new intance with reprocess count <see cref="ReprocessAttribute.DefaultReprocessCount"/> and 
-        /// 0ms as delay before reprocess.
+        /// <see cref="ReprocessAttribute.DefaultDelayBeforeReprocess"/> as delay before reprocess.
         /// </summary>
         public ReprocessAttribute()
-            : this(3)
+            : this(DefaultReprocessCount)
         { }
 
         /// <summary>
@@ -39,7 +44,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors
         /// </summary>
         /// <param name="count">Reprocess max count.</param>
         public ReprocessAttribute(int count)
-            : this(count, 0)
+            : this(count, DefaultDelayBeforeReprocess)
         { }
 
         /// <summary>
@@ -50,6 +55,7 @@ namespace Neptuo.AppServices.Handlers.Behaviors
         public ReprocessAttribute(int count, double delayBeforeReprocess)
         {
             Ensure.PositiveOrZero(count, "count");
+            Ensure.PositiveOrZero(delayBeforeReprocess, "delayBeforeReprocess");
             Count = count;
             DelayBeforeReprocess = TimeSpan.FromMilliseconds(delayBeforeReprocess);
         }

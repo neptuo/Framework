@@ -79,6 +79,18 @@ namespace Neptuo
         }
 
         /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is lower or equal to zero.
+        /// </summary>
+        /// <param name="argument">Argument to test.</param>
+        /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
+        public static void Positive(double argument, string argumentName)
+        {
+            if (argument <= 0)
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be positive (> 0).");
+        }
+
+        /// <summary>
         /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is lower than zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
@@ -97,6 +109,18 @@ namespace Neptuo
         /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void PositiveOrZero(long argument, string argumentName)
+        {
+            if (argument < 0)
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be positive or zero (>= 0).");
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is lower than zero.
+        /// </summary>
+        /// <param name="argument">Argument to test.</param>
+        /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
+        public static void PositiveOrZero(double argument, string argumentName)
         {
             if (argument < 0)
                 throw Exception.ArgumentOutOfRange(argumentName, "Argument must be positive or zero (>= 0).");
@@ -127,6 +151,18 @@ namespace Neptuo
         }
 
         /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is greater or equal to zero.
+        /// </summary>
+        /// <param name="argument">Argument to test.</param>
+        /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
+        public static void Negative(double argument, string argumentName)
+        {
+            if (argument >= 0)
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be negative (< 0).");
+        }
+
+        /// <summary>
         /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is greater than zero.
         /// </summary>
         /// <param name="argument">Argument to test.</param>
@@ -145,6 +181,18 @@ namespace Neptuo
         /// <param name="argumentName">Argument name.</param>
         [DebuggerStepThrough]
         public static void NegativeOrZero(long argument, string argumentName)
+        {
+            if (argument > 0)
+                throw Exception.ArgumentOutOfRange(argumentName, "Argument must be negative or zero (<= 0).");
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="argument"/> is greater than zero.
+        /// </summary>
+        /// <param name="argument">Argument to test.</param>
+        /// <param name="argumentName">Argument name.</param>
+        [DebuggerStepThrough]
+        public static void NegativeOrZero(double argument, string argumentName)
         {
             if (argument > 0)
                 throw Exception.ArgumentOutOfRange(argumentName, "Argument must be negative or zero (<= 0).");

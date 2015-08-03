@@ -1,22 +1,22 @@
 ﻿using Neptuo.Activators;
+using Neptuo.AppServices.Handlers;
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing;
-using Neptuo.Collections.Specialized;
+using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands.Handlers
+namespace Neptuo.Services.AppServices.Handlers
 {
     /// <summary>
-    /// Pipeline based implementation of query handler.
+    /// Pipeline based implementation of <see cref="IBackgroundHandler"/>.
     /// </summary>
-    /// <typeparam name="T">Type of innner handler.</typeparam>
-    /// <typeparam name="TCommand">Type of command.</typeparam>
-    public class BehaviorCommandHandler<T, TCommand> : ICommandHandler<TCommand>, IBehavior<T>
-        where T : ICommandHandler<TCommand>
+    /// <typeparam name="T">Type of inner handler.</typeparam>
+    public class BehaviorServiceHandler<T> : DisposableBase, IBackgroundHandler, IBehavior<T>
+        where T : IBackgroundHandler
     {
         private readonly IPipeline<T> pipeline;
         private readonly IActivator<T> handlerFactory;
@@ -26,7 +26,7 @@ namespace Neptuo.Services.Commands.Handlers
         /// </summary>
         /// <param name="pipeline">Behavior pipeline.</param>
         /// <param name="handlerFactory">Inner handler factory.</param>
-        public BehaviorCommandHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
+        public BehaviorServiceHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");
@@ -36,16 +36,14 @@ namespace Neptuo.Services.Commands.Handlers
 
         Task IBehavior<T>.ExecuteAsync(T handler, IBehaviorContext context)
         {
-            return handler.HandleAsync(context.CustomValues.Get<TCommand>("Command"));
+            handler.Invoke();
+            return Task.FromResult(true);
         }
 
-        public Task HandleAsync(TCommand command)
+        public void Invoke()
         {
             T instance = handlerFactory.Create();
-            IKeyValueCollection customValues = new KeyValueCollection()
-                .Set("Command", command);
-
-            return pipeline.ExecuteAsync(instance, customValues);
+            pipeline.ExecuteAsync(instance);
         }
     }
 }

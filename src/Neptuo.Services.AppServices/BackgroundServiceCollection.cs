@@ -8,21 +8,24 @@ using System.Threading.Tasks;
 
 namespace Neptuo.AppServices
 {
-    public class WorkerServiceCollection : ServiceHandlerBase
+    /// <summary>
+    /// Collection of <see cref="IBackgroundHandler"/> that are invoked by <see cref="IServiceTrigger"/>.
+    /// </summary>
+    public class BackgroundServiceCollection : ServiceHandlerBase
     {
         private readonly List<KeyValuePair<IServiceTrigger, IBackgroundHandler>> handlers = new List<KeyValuePair<IServiceTrigger, IBackgroundHandler>>();
 
         /// <summary>
-        /// Adds worker.
+        /// Adds background handler to the collection. <paramref name="handler"/> will be invoked on <paramref name="trigger"/>.
         /// </summary>
-        /// <param name="trigger">Invocation trigger.</param>
-        /// <param name="worker">Worker to add.</param>
+        /// <param name="trigger">Invocation trigger for <paramref name="handler"/>.</param>
+        /// <param name="handler">Background handler to add.</param>
         /// <returns>Self (for fluency).</returns>
-        public WorkerServiceCollection AddHandler(IServiceTrigger trigger, IBackgroundHandler worker)
+        public BackgroundServiceCollection AddHandler(IServiceTrigger trigger, IBackgroundHandler handler)
         {
             Ensure.NotNull(trigger, "trigger");
-            Ensure.NotNull(worker, "worker");
-            handlers.Add(new KeyValuePair<IServiceTrigger, IBackgroundHandler>(trigger, worker));
+            Ensure.NotNull(handler, "worker");
+            handlers.Add(new KeyValuePair<IServiceTrigger, IBackgroundHandler>(trigger, handler));
             return this;
         }
 

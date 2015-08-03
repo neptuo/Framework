@@ -2800,11 +2800,19 @@ var Neptuo$Ensure = {
             if (argument <= 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be positive (> 0)."), new Error());
         },
+        Positive$$Double$$String: function (argument, argumentName){
+            if (argument <= 0)
+                throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be positive (> 0)."), new Error());
+        },
         PositiveOrZero$$Int32$$String: function (argument, argumentName){
             if (argument < 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be positive or zero (>= 0)."), new Error());
         },
         PositiveOrZero$$Int64$$String: function (argument, argumentName){
+            if (argument < 0)
+                throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be positive or zero (>= 0)."), new Error());
+        },
+        PositiveOrZero$$Double$$String: function (argument, argumentName){
             if (argument < 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be positive or zero (>= 0)."), new Error());
         },
@@ -2816,11 +2824,19 @@ var Neptuo$Ensure = {
             if (argument >= 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be negative (< 0)."), new Error());
         },
+        Negative$$Double$$String: function (argument, argumentName){
+            if (argument >= 0)
+                throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be negative (< 0)."), new Error());
+        },
         NegativeOrZero$$Int32$$String: function (argument, argumentName){
             if (argument > 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be negative or zero (<= 0)."), new Error());
         },
         NegativeOrZero$$Int64$$String: function (argument, argumentName){
+            if (argument > 0)
+                throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be negative or zero (<= 0)."), new Error());
+        },
+        NegativeOrZero$$Double$$String: function (argument, argumentName){
             if (argument > 0)
                 throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, argumentName, "Argument must be negative or zero (<= 0)."), new Error());
         },
