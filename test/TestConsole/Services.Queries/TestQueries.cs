@@ -1,7 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
-using Neptuo.Services.Queries.Behaviors;
 using Neptuo.Services.Queries.Handlers;
 using System;
 using System.Collections.Generic;
@@ -19,7 +18,7 @@ namespace TestConsole.Services.Queries
                 .Add(typeof(LogAttribute), typeof(LogBehavior));
 
             ReflectionPipeline<ProductQueryHandler> pipeline = new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory());
-            IQueryHandler<ProductQuery, Product> queryHandler = new QueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultActivator<ProductQueryHandler>());
+            IQueryHandler<ProductQuery, Product> queryHandler = new BehaviorQueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultActivator<ProductQueryHandler>());
 
             Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" });
             if (!task.IsCompleted)

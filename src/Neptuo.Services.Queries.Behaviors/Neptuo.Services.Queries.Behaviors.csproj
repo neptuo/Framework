@@ -7,7 +7,7 @@
     <ProjectGuid>{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Queries.Behaviors</RootNamespace>
+    <RootNamespace>Neptuo.Services.Queries</RootNamespace>
     <AssemblyName>Neptuo.Services.Queries.Behaviors</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,7 +44,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="QueryHandler.cs" />
+    <Compile Include="Handlers\BehaviorQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Behaviors\Neptuo.Behaviors.csproj">

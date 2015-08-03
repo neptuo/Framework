@@ -2,14 +2,13 @@
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing;
 using Neptuo.Collections.Specialized;
-using Neptuo.Services.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Behaviors
+namespace Neptuo.Services.Queries.Handlers
 {
     /// <summary>
     /// Pipeline based implementatio of query handler.
@@ -17,7 +16,7 @@ namespace Neptuo.Services.Queries.Behaviors
     /// <typeparam name="T">Type of inner handler.</typeparam>
     /// <typeparam name="TQuery">Type of query parameters.</typeparam>
     /// <typeparam name="TResult">Type of query result.</typeparam>
-    public class QueryHandler<T, TQuery, TResult> : IQueryHandler<TQuery, TResult>, IBehavior<T>
+    public class BehaviorQueryHandler<T, TQuery, TResult> : IQueryHandler<TQuery, TResult>, IBehavior<T>
         where TQuery : IQuery<TResult>
         where T : IQueryHandler<TQuery, TResult>
     {
@@ -29,7 +28,7 @@ namespace Neptuo.Services.Queries.Behaviors
         /// </summary>
         /// <param name="pipeline">Behavior pipeline.</param>
         /// <param name="handlerFactory">Inner handler factory.</param>
-        public QueryHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
+        public BehaviorQueryHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");
