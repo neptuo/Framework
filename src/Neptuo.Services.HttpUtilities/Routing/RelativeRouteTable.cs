@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Routing
+namespace Neptuo.Services.HttpUtilities.Routing
 {
     /// <summary>
     /// Implementation of <see cref="IRouteTable"/> which uses inner route table
@@ -36,9 +36,9 @@ namespace Neptuo.Services.Queries.Routing
             this.routeTable = routeTable;
         }
 
-        public bool TryGet(Type queryType, out RouteDefinition route)
+        public bool TryGet(Type inputType, out RouteDefinition route)
         {
-            if (routeTable.TryGet(queryType, out route))
+            if (routeTable.TryGet(inputType, out route))
             {
                 // If URL in route is absolute, nothing is needed.
                 Uri url;

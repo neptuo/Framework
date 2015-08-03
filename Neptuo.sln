@@ -106,7 +106,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Be
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Events.Behaviors", "src\Neptuo.Services.Events.Behaviors\Neptuo.Services.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.HttpUtility", "src\Neptuo.Services.HttpUtility\Neptuo.Services.HttpUtility.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.HttpUtilities", "src\Neptuo.Services.HttpUtilities\Neptuo.Services.HttpUtilities.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
