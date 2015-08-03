@@ -39,7 +39,7 @@ namespace Neptuo.Services.Commands
             return false;
         }
 
-        public Task HandleAsync(object command)
+        public Task HandleAsync<TCommand>(TCommand command)
         {
             Ensure.NotNull(command, "command");
             Type commandType = command.GetType();

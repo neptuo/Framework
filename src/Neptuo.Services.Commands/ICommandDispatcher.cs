@@ -22,6 +22,6 @@ namespace Neptuo.Services.Commands
         /// </remarks>
         /// <param name="command">Instance describing requested operation.</param>
         /// <returns>Continuation task.</returns>
-        Task HandleAsync(object command);
+        Task HandleAsync<TCommand>(TCommand command);
     }
 }
