@@ -104,6 +104,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries.Beh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Behaviors", "src\Neptuo.Services.Commands.Behaviors\Neptuo.Services.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Events.Behaviors", "src\Neptuo.Services.Events.Behaviors\Neptuo.Services.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -270,6 +272,10 @@ Global
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -307,6 +313,7 @@ Global
 		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{3B70454A-3537-4696-B2FE-1280CAC029DC} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{9AE39411-759E-4682-9CB1-D1308C868290} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

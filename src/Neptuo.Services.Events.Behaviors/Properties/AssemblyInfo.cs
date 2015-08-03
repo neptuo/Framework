@@ -1,8 +1,8 @@
-﻿using Neptuo.Services.Commands.Behaviors;
+﻿using Neptuo.Services.Events.Behaviors;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Commands.Behaviors")]
-[assembly: AssemblyDescription("Behaviors extension for command handling.")]
+[assembly: AssemblyTitle("Neptuo.Services.Events.Behaviors")]
+[assembly: AssemblyDescription("Behaviors extension for event handling.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
