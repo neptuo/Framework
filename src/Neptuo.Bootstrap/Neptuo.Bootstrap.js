@@ -398,30 +398,6 @@ var Neptuo$Bootstrap$Dependencies$Providers$Exporters$EmptyDependencyExporter = 
     IsAbstract: false
 };
 JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Exporters$EmptyDependencyExporter);
-var Neptuo$Bootstrap$Dependencies$Providers$Exporters$EnvironmentDependencyExporter = {
-    fullname: "Neptuo.Bootstrap.Dependencies.Providers.Exporters.EnvironmentDependencyExporter",
-    baseTypeName: "System.Object",
-    assemblyName: "Neptuo.Bootstrap",
-    interfaceNames: ["Neptuo.Bootstrap.Dependencies.Providers.Exporters.IDependencyExporter"],
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        },
-        Export: function (export, value){
-            var methodInfo = Typeof(Neptuo.EngineEnvironment.ctor).GetMethod$$String("Use");
-            methodInfo = methodInfo.MakeGenericMethod(value.GetType());
-            methodInfo.Invoke$$Object$$Object$Array(Neptuo.Engine.get_Environment(), [value, null]);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: []
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Bootstrap$Dependencies$Providers$Exporters$EnvironmentDependencyExporter);
 var Neptuo$Bootstrap$Dependencies$ExportAttribute = {
     fullname: "Neptuo.Bootstrap.Dependencies.ExportAttribute",
     baseTypeName: "System.Attribute",

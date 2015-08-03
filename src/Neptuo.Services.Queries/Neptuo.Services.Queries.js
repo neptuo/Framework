@@ -81,7 +81,7 @@ var Neptuo$Services$Queries$DefaultQueryDispatcher = {
                 var target = Cast(definition, Neptuo.Services.Queries.Internals.DefaultQueryHandlerDefinition$1.ctor);
                 return target.HandleAsync(query);
             }
-            throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, "query", "There isn\'t query handler query of type \'{0}\'.", queryType.get_FullName()), new Error());
+            throw $CreateException(Neptuo._EnsureArgumentExtensions.ArgumentOutOfRange(Neptuo.Ensure.Exception, "query", "There isn\'t query handler for query of type \'{0}\'.", queryType.get_FullName()), new Error());
         }
     },
     ctors: [{
@@ -101,6 +101,73 @@ var Neptuo$Services$Queries$Handlers$IQueryHandler$2 = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Services$Queries$Handlers$IQueryHandler$2);
+var Neptuo$Services$Queries$Handlers$AutoExports$QueryHandlerAttribute = {
+    fullname: "Neptuo.Services.Queries.Handlers.AutoExports.QueryHandlerAttribute",
+    baseTypeName: "System.Attribute",
+    assemblyName: "Neptuo.Services.Queries",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            this._QueryType = null;
+            this._HasTypeDefined = false;
+            System.Attribute.ctor.call(this);
+        },
+        QueryType$$: "System.Type",
+        get_QueryType: function (){
+            return this._QueryType;
+        },
+        set_QueryType: function (value){
+            this._QueryType = value;
+        },
+        HasTypeDefined$$: "System.Boolean",
+        get_HasTypeDefined: function (){
+            return this._HasTypeDefined;
+        },
+        set_HasTypeDefined: function (value){
+            this._HasTypeDefined = value;
+        },
+        ctor$$Type: function (queryType){
+            this._QueryType = null;
+            this._HasTypeDefined = false;
+            System.Attribute.ctor.call(this);
+            this.set_QueryType(queryType);
+            this.set_HasTypeDefined(true);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }, {
+        name: "ctor$$Type",
+        parameters: ["System.Type"]
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Services$Queries$Handlers$AutoExports$QueryHandlerAttribute);
+var Neptuo$Services$Queries$Internals$Constant = {
+    fullname: "Neptuo.Services.Queries.Internals.Constant",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        cctor: function (){
+            Neptuo.Services.Queries.Internals.Constant.QueryHandlerCollectionAddMethodName = "Add";
+        }
+    },
+    assemblyName: "Neptuo.Services.Queries",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: []
+    }
+    ],
+    IsAbstract: false
+};
+JsTypes.push(Neptuo$Services$Queries$Internals$Constant);
 var Neptuo$Services$Queries$Internals$DefaultQueryHandlerDefinition = {
     fullname: "Neptuo.Services.Queries.Internals.DefaultQueryHandlerDefinition",
     baseTypeName: "System.Object",
@@ -208,4 +275,122 @@ var Neptuo$Services$Queries$VersionInfo = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Services$Queries$VersionInfo);
+var Neptuo$Services$Queries$Handlers$AutoExports$_TypeExecutorServiceExtensions = {
+    fullname: "Neptuo.Services.Queries.Handlers.AutoExports._TypeExecutorServiceExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddQueryHandlers$$ITypeExecutorService$$IDependencyContainer$$Boolean: function (service, dependencyContainer, isExecutedForLatelyLoadedAssemblies){
+            Neptuo.Ensure.NotNull$$Object$$String(service, "service");
+            Neptuo.Ensure.NotNull$$Object$$String(dependencyContainer, "dependencyContainer");
+            Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection(Neptuo.Services.Queries.Handlers.AutoExports.QueryHandlerAttribute.ctor, Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotAbstract$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotInterface$$ITypeDelegateCollection(Neptuo.Reflections._TypeExecutorServiceExtensions.AddFiltered(service, isExecutedForLatelyLoadedAssemblies)))).AddHandler(function (t){
+                Neptuo.Services.Queries.Handlers.AutoExports._TypeExecutorServiceExtensions.AddQueryHandler$$IDependencyContainer$$Type(dependencyContainer, t);
+            });
+            return service;
+        },
+        AddQueryHandler$$IDependencyContainer$$Type: function (dependencyContainer, queryHandlerType){
+            var allAttributes = queryHandlerType.GetCustomAttributes$$Boolean(true);
+            var lifetimeAttribute = System.Linq.Enumerable.FirstOrDefault$1$$IEnumerable$1(Neptuo.Activators.AutoExports.ExportLifetimeAttribute.ctor, System.Linq.Enumerable.OfType$1(Neptuo.Activators.AutoExports.ExportLifetimeAttribute.ctor, allAttributes));
+            var lifetime = lifetimeAttribute != null ? lifetimeAttribute.GetLifetime() : Neptuo.Activators.DependencyLifetime.Transient;
+            var attributes = System.Linq.Enumerable.OfType$1(Neptuo.Services.Queries.Handlers.AutoExports.QueryHandlerAttribute.ctor, allAttributes);
+            var $it1 = Neptuo.Services.Queries.Handlers.AutoExports._TypeExecutorServiceExtensions.GetHandlerInterfaces(queryHandlerType, attributes).GetEnumerator();
+            while ($it1.MoveNext()){
+                var queryHandlerInterfaceType = $it1.get_Current();
+                dependencyContainer.get_Definitions().Add(queryHandlerInterfaceType, lifetime, queryHandlerType);
+            }
+        },
+        AddQueryHandlers$$ITypeExecutorService$$IQueryHandlerCollection$$Boolean: function (service, collection, isExecutedForLatelyLoadedAssemblies){
+            Neptuo.Ensure.NotNull$$Object$$String(service, "service");
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasAttribute$1$$ITypeDelegateCollection(Neptuo.Services.Queries.Handlers.AutoExports.QueryHandlerAttribute.ctor, Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterHasDefaultConstructor$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotAbstract$$ITypeDelegateCollection(Neptuo.Reflections.Enumerators.Executors._TypeDelegateCollectionExtensions.AddFilterNotInterface$$ITypeDelegateCollection(Neptuo.Reflections._TypeExecutorServiceExtensions.AddFiltered(service, isExecutedForLatelyLoadedAssemblies))))).AddHandler(function (t){
+                Neptuo.Services.Queries.Handlers.AutoExports._TypeExecutorServiceExtensions.AddQueryHandler$$IQueryHandlerCollection$$Type(collection, t);
+            });
+            return service;
+        },
+        AddQueryHandler$$IQueryHandlerCollection$$Type: function (collection, queryHandlerType){
+            var attributes = queryHandlerType.GetCustomAttributes$$Type$$Boolean(Typeof(Neptuo.Services.Queries.Handlers.AutoExports.QueryHandlerAttribute.ctor), true);
+            var handler = System.Activator.CreateInstance$$Type(queryHandlerType);
+            var $it2 = Neptuo.Services.Queries.Handlers.AutoExports._TypeExecutorServiceExtensions.GetHandlerInterfaces(queryHandlerType, attributes).GetEnumerator();
+            while ($it2.MoveNext()){
+                var queryHandlerInterfaceType = $it2.get_Current();
+                var addMethod = collection.GetType().GetMethod$$String(Neptuo.Services.Queries.Internals.Constant.QueryHandlerCollectionAddMethodName).MakeGenericMethod(queryHandlerInterfaceType.GetGenericArguments());
+                addMethod.Invoke$$Object$$Object$Array(collection, [handler]);
+            }
+        },
+        GetHandlerInterfaces: function (queryHandlerType, queryHandlerAttributes){
+            var result = new System.Collections.Generic.List$1.ctor(System.Type.ctor);
+            var $it3 = queryHandlerAttributes.GetEnumerator();
+            while ($it3.MoveNext()){
+                var attribute = $it3.get_Current();
+                if (attribute.get_HasTypeDefined()){
+                    var queryType = attribute.get_QueryType();
+                    var queryInterfaceTypes = queryType.GetInterfaces();
+                    var $it4 = queryInterfaceTypes.GetEnumerator();
+                    while ($it4.MoveNext()){
+                        var queryInterfaceType = $it4.get_Current();
+                        if (queryInterfaceType.get_IsGenericType()){
+                            var parameters = queryInterfaceType.GetGenericArguments();
+                            if (parameters.get_Length() == 1){
+                                var queryResultType = parameters[0];
+                                var queryHandlerInterfaceType = Typeof(Neptuo.Services.Queries.Handlers.IQueryHandler$2.ctor).MakeGenericType(queryType, queryResultType);
+                                result.Add(queryHandlerInterfaceType);
+                            }
+                        }
+                    }
+                }
+                else {
+                    var interfaceTypes = queryHandlerType.GetInterfaces();
+                    var $it5 = interfaceTypes.GetEnumerator();
+                    while ($it5.MoveNext()){
+                        var interfaceType = $it5.get_Current();
+                        if (interfaceType.get_IsGenericType() && System.Type.op_Equality$$Type$$Type(Typeof(Neptuo.Services.Queries.Handlers.IQueryHandler$2.ctor), interfaceType.GetGenericTypeDefinition())){
+                            var parameters = interfaceType.GetGenericArguments();
+                            var queryHandlerInterfaceType = Typeof(Neptuo.Services.Queries.Handlers.IQueryHandler$2.ctor).MakeGenericType(parameters[0], parameters[1]);
+                            result.Add(queryHandlerInterfaceType);
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+    },
+    assemblyName: "Neptuo.Services.Queries",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Services$Queries$Handlers$AutoExports$_TypeExecutorServiceExtensions);
+var Neptuo$Services$Queries$_QueryHandlerCollectionExtensions = {
+    fullname: "Neptuo.Services.Queries._QueryHandlerCollectionExtensions",
+    baseTypeName: "System.Object",
+    staticDefinition: {
+        AddAll: function (collection, handler){
+            Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
+            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
+            var $it6 = handler.GetType().GetInterfaces().GetEnumerator();
+            while ($it6.MoveNext()){
+                var interfaceType = $it6.get_Current();
+                if (interfaceType.get_IsGenericType() && System.Type.op_Equality$$Type$$Type(Typeof(Neptuo.Services.Queries.Handlers.IQueryHandler$2.ctor), interfaceType.GetGenericTypeDefinition())){
+                    var addMethod = collection.GetType().GetMethod$$String(Neptuo.Services.Queries.Internals.Constant.QueryHandlerCollectionAddMethodName).MakeGenericMethod(interfaceType.GetGenericArguments());
+                    addMethod.Invoke$$Object$$Object$Array(collection, [handler]);
+                }
+            }
+            return collection;
+        }
+    },
+    assemblyName: "Neptuo.Services.Queries",
+    Kind: "Class",
+    definition: {
+        ctor: function (){
+            System.Object.ctor.call(this);
+        }
+    },
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Services$Queries$_QueryHandlerCollectionExtensions);
 
