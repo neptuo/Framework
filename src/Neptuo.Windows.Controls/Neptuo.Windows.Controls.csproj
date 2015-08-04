@@ -65,6 +65,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Observables\Neptuo.Observables.csproj">
+      <Project>{eda4c50e-2873-4237-a84b-f73a15c27cd6}</Project>
+      <Name>Neptuo.Observables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

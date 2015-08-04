@@ -25,7 +25,9 @@ var Neptuo$Services$Deleters$DefaultDeleteDispatcher = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this.handlers = Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.get_Instance().Create();
+            this.handlersLock = new System.Object.ctor();
+            this.searchHandlerLock = new System.Object.ctor();
+            this.handlers = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor);
             this.onSearchHandler = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },
@@ -90,6 +92,38 @@ var Neptuo$Services$Deleters$Handlers$IDeleteHandler = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Services$Deleters$Handlers$IDeleteHandler);
+var Neptuo$Services$Deleters$Handlers$ModelDeleteHandlerBase$2 = {
+    fullname: "Neptuo.Services.Deleters.Handlers.ModelDeleteHandlerBase$2",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Services.Deleters",
+    interfaceNames: ["Neptuo.Services.Deleters.Handlers.IDeleteHandler"],
+    Kind: "Class",
+    definition: {
+        ctor: function (TModel, TKey, repository){
+            this.TModel = TModel;
+            this.TKey = TKey;
+            this.repository = null;
+            System.Object.ctor.call(this);
+            Neptuo.Ensure.NotNull$$Object$$String(repository, "repository");
+            this.repository = repository;
+        },
+        Handle: function (key){
+            var modelKey = As(key, this.TKey);
+            Neptuo.Ensure.NotNull$$Object$$String(modelKey, "key");
+            var model = this.repository.Find(modelKey);
+            if (model == null)
+                return new Neptuo.Services.Deleters.MissingHandlerContext.ctor(key);
+            return this.HandleModel(model);
+        }
+    },
+    ctors: [{
+        name: "ctor",
+        parameters: ["Neptuo.Models.Repositories.IReadOnlyRepository"]
+    }
+    ],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Services$Deleters$Handlers$ModelDeleteHandlerBase$2);
 var Neptuo$Services$Deleters$IDeleteContext = {
     fullname: "Neptuo.Services.Deleters.IDeleteContext",
     baseTypeName: "System.Object",

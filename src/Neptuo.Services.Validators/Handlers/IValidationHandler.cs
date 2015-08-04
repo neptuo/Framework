@@ -17,6 +17,6 @@ namespace Neptuo.Services.Validators.Handlers
         /// </summary>
         /// <param name="model">Model instance to validate.</param>
         /// <returns><see cref="IValidationResult"/> describing succes or validation failure.</returns>
-        IValidationResult Handle(TModel model);
+        Task<IValidationResult> HandleAsync(TModel model);
     }
 }

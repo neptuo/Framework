@@ -67,7 +67,7 @@ namespace Neptuo.PresentationModels.Serialization
                 if (key == null || value == null)
                     Ensure.Exception.InvalidOperation("Element 'Metadata' must have attributes 'Key' and 'Value'.");
 
-                result.Set(key.Value, value.Value);
+                result.Add(key.Value, value.Value);
             }
 
             return result;

@@ -1,6 +1,5 @@
 ﻿using Neptuo;
 using Neptuo.Services.Commands.Handlers;
-using Neptuo.Services.Commands.Interception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ namespace TestConsole.Commands
     {
         static int count = 0;
 
-        public void Handle(CreateProductCommand command)
+        public Task HandleAsync(CreateProductCommand command)
         {
             //throw new NullReferenceException();
             Ensure.NotNull(command, "command");
@@ -25,6 +24,7 @@ namespace TestConsole.Commands
             count++;
 
             Console.WriteLine("Creating product {2}: '{0}' with price {1}.", command.Name, command.Price, count);
+            return Task.FromResult(true);
         }
     }
 }

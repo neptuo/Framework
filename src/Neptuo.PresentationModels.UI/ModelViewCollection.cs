@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Implementation of <see cref="IModelViewCollection{T}"/> based on model identifiers.
+    /// Implementation of <see cref="IModelViewProvider{T}"/> based on model identifiers.
     /// For each model definition, there can be registered single model view.
     /// For generic pursoses, there can be registered search delegate for finding model view.
     /// </summary>
-    public class ModelViewCollection<T> : IModelViewCollection<T>
+    public class ModelViewCollection<T> : IModelViewProvider<T>
     {
         private readonly Dictionary<string, IActivator<IModelView<T>>> storage = new Dictionary<string, IActivator<IModelView<T>>>();
         private readonly OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool> onSearchView = new OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool>();

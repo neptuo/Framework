@@ -10,9 +10,11 @@ namespace TestConsole.Data.Commands.Validators.Handlers
 {
     public class CreateProductValidator : IValidationHandler<CreateProductCommand>
     {
-        public IValidationResult Handle(CreateProductCommand command)
+        public Task<IValidationResult> HandleAsync(CreateProductCommand command)
         {
-            return new ValidationResult(!String.IsNullOrEmpty(command.Name) && command.Category != null);
+            return Task.FromResult<IValidationResult>(
+                new ValidationResult(!String.IsNullOrEmpty(command.Name) && command.Category != null)
+            );
         }
     }
 }

@@ -12,11 +12,11 @@ namespace Neptuo.Services.Queries
     public interface IQueryDispatcher
     {
         /// <summary>
-        /// Dispatches 
+        /// Dispatches <paramref name="query"/> for providing result.
         /// </summary>
-        /// <typeparam name="TOutput"></typeparam>
-        /// <param name="query"></param>
-        /// <returns></returns>
+        /// <typeparam name="TOutput">Type of result.</typeparam>
+        /// <param name="query">Query parameters.</param>
+        /// <returns>Result to <paramref name="query"/>.</returns>
         Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query);
     }
 }

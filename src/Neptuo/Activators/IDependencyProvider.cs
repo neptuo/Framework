@@ -16,9 +16,14 @@ namespace Neptuo.Activators
         string ScopeName { get; }
 
         /// <summary>
+        /// Collection of current dependency definitions.
+        /// </summary>
+        IDependencyDefinitionReadOnlyCollection Definitions { get; }
+
+        /// <summary>
         /// Creates new child container based on this provider.
         /// </summary>
-        /// <param name="name">Optional name for named scopes.</param>
+        /// <param name="name">Name for the scope.</param>
         /// <returns>New child container based on this provider.</returns>
         IDependencyContainer Scope(string name);
 
@@ -26,8 +31,7 @@ namespace Neptuo.Activators
         /// Resolves instance of <paramref name="requiredType"/>.
         /// </summary>
         /// <param name="requiredType">Required type.</param>
-        /// <param name="name">Optional name.</param>
-        /// <returns>Instance of <paramref name="requiredType"/>; if it's not possible to create instance, return <c>null</c>.</returns>
+        /// <returns>Instance of <paramref name="requiredType"/>; if it's not possible to create instance.</returns>
         object Resolve(Type requiredType);
     }
 }

@@ -14,13 +14,13 @@ using SharpKit.JavaScript;
 namespace Neptuo.PresentationModels.UI
 {
     /// <summary>
-    /// Implementation of <see cref="IFieldViewCollection{T}"/> based on model and field identifiers and field types, or "UI hint".
+    /// Implementation of <see cref="IFieldViewProvider{T}"/> based on model and field identifiers and field types, or "UI hint".
     /// Field view can be mapped using:
     /// - Field type.
     /// - Model and field identifier.
     /// - UI hint.
     /// </summary>
-    public class FieldViewCollection<T> : IFieldViewCollection<T>
+    public class FieldViewCollection<T> : IFieldViewProvider<T>
     {
         private readonly Dictionary<Key, IActivator<IFieldView<T>, IFieldDefinition>> builders
             = new Dictionary<Key, IActivator<IFieldView<T>, IFieldDefinition>>(new KeyComparer());

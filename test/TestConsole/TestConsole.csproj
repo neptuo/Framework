@@ -40,6 +40,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
@@ -59,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppServices\TempCheckServiceHandler.cs" />
+    <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
     <Compile Include="Cloning\TestCloning.cs" />
@@ -95,6 +99,8 @@
     <Compile Include="Disposable\TestDisposable.cs" />
     <Compile Include="Events\TestEvents.cs" />
     <Compile Include="Hashing\TestHash.cs" />
+    <Compile Include="Localization\TestLocalization.cs" />
+    <Compile Include="Logging\TestLog4net.cs" />
     <Compile Include="ObjectSizes\TestObjectSize.cs" />
     <Compile Include="PresentationModels\TestFieldMetadataValidatorKey.cs" />
     <Compile Include="PresentationModels\TestPresentationModels.cs" />
@@ -103,11 +109,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\TestEntity.cs" />
-    <Compile Include="Queries\ProductModel.cs" />
-    <Compile Include="Queries\TestQueries.cs" />
+    <Compile Include="Data.Queries\ProductModel.cs" />
+    <Compile Include="Data.Queries\TestQueries.cs" />
+    <Compile Include="Services.Queries\Behaviors.cs" />
+    <Compile Include="Services.Queries\Services.cs" />
+    <Compile Include="Services.Queries\TestQueries.cs" />
     <Compile Include="SharpKitCompilers\TestSharpKitCompiler.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
-    <Compile Include="AppServices\TestAppServices.cs" />
+    <Compile Include="Services.Jobs\TestJob.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
   </ItemGroup>
@@ -116,7 +125,43 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Behaviors\Neptuo.Behaviors.csproj">
+      <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
+      <Name>Neptuo.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.FileSystems\Neptuo.FileSystems.csproj">
+      <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
+      <Name>Neptuo.FileSystems</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
+      <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
+      <Name>Neptuo.Logging.Log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj">
+      <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
+      <Name>Neptuo.Services.Jobs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Commands\Neptuo.Services.Commands.csproj">
+      <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
+      <Name>Neptuo.Services.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Events\Neptuo.Services.Events.csproj">
+      <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
+      <Name>Neptuo.Services.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Queries.Behaviors\Neptuo.Services.Queries.Behaviors.csproj">
+      <Project>{f1deaa68-6740-42ec-9c02-6946cda4ce26}</Project>
+      <Name>Neptuo.Services.Queries.Behaviors</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Queries.Http\Neptuo.Services.Queries.Http.csproj">
+      <Project>{8ec49c59-5f97-4877-95ca-f1bb2254f332}</Project>
+      <Name>Neptuo.Services.Queries.Http</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Queries\Neptuo.Services.Queries.csproj">
+      <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
+      <Name>Neptuo.Services.Queries</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
       <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
       <Name>Neptuo.Services.Validators</Name>
     </ProjectReference>
@@ -176,10 +221,6 @@
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
       <Name>Neptuo.Services.Deleters</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services\Neptuo.Services.csproj">
-      <Project>{21b47c66-1583-4415-b4f0-9fbefcedcd93}</Project>
-      <Name>Neptuo.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj">
       <Project>{0a82625a-bb41-48ce-b3ad-0141dd3cb779}</Project>
       <Name>Neptuo.Windows.Controls</Name>
@@ -195,6 +236,10 @@
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestLibrary\TestLibrary.csproj">
+      <Project>{66a47143-0fea-4fea-84c3-be2f9cbe0693}</Project>
+      <Name>TestLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

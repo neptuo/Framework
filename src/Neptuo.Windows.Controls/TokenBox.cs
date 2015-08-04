@@ -1,4 +1,4 @@
-﻿using Neptuo.Collections.ObjectModel;
+﻿using Neptuo.Observables.Collections.Features;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,15 +16,17 @@ namespace Neptuo.Windows.Controls
         public const string TextBoxPart = "PART_TextBox";
         public const string ListViewPart = "PART_ListView";
 
-        public IITemsSource ItemsSource
+        public object ItemsSource
         {
-            get { return (IITemsSource)GetValue(ItemsSourceProperty); }
+            get { return (object)GetValue(ItemsSourceProperty); }
             set { SetValue(ItemsSourceProperty, value); }
         }
 
+        /// <summary>
+        /// Value should implement <see cref="IRemoveAtCollection"/> and <see cref="ICountCollection"/>.
+        /// </summary>
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(IITemsSource), typeof(TokenBox), new PropertyMetadata(null));
-
+            DependencyProperty.Register("ItemsSource", typeof(object), typeof(TokenBox), new PropertyMetadata(null));
         
         public DataTemplate ItemTemplate
         {
@@ -91,6 +93,9 @@ namespace Neptuo.Windows.Controls
 
         private void tbxName_PreviewKeyUp(object sender, KeyEventArgs e)
         {
+            ICountCollection countSource = (ICountCollection)ItemsSource;
+            IRemoveAtCollection removeSource = (IRemoveAtCollection)ItemsSource;
+
             if (e.Key == SeparatorKey && !String.IsNullOrEmpty(tbxName.Text))
             {
                 RaiseEvent(new CreateItemEventArgs(CreateItemEvent, this, tbxName.Text));
@@ -98,14 +103,14 @@ namespace Neptuo.Windows.Controls
                 //ViewModel.Items.Add(new CompletionItem { Name = textBox.Text });
                 tbxName.Text = String.Empty;
             }
-            else if (e.Key == Key.Back && String.IsNullOrEmpty(tbxName.Text) && ItemsSource.Count > 0)
+            else if (e.Key == Key.Back && String.IsNullOrEmpty(tbxName.Text) && countSource.Count > 0)
             {
-                ItemsSource.RemoveAt(ItemsSource.Count - 1);
+                removeSource.RemoveAt(countSource.Count - 1);
             }
             else if (e.Key == Key.Left && tbxName.CaretIndex == 0)
             {
                 lvwItems.Focus();
-                lvwItems.SelectedIndex = ItemsSource.Count - 1;
+                lvwItems.SelectedIndex = countSource.Count - 1;
                 UIListViewItem listViewItem = (UIListViewItem)lvwItems.ItemContainerGenerator.ContainerFromIndex(lvwItems.SelectedIndex);
                 listViewItem.Focus();
 
@@ -115,12 +120,15 @@ namespace Neptuo.Windows.Controls
 
         private void lvwItems_PreviewKeyUp(object sender, KeyEventArgs e)
         {
+            ICountCollection countSource = (ICountCollection)ItemsSource;
+            IRemoveAtCollection removeSource = (IRemoveAtCollection)ItemsSource;
+
             if ((e.Key == Key.Back || e.Key == Key.Delete) && lvwItems.SelectedItem != null)
             {
-                ItemsSource.RemoveAt(lvwItems.SelectedIndex);
+                removeSource.RemoveAt(lvwItems.SelectedIndex);
                 tbxName.Focus();
             }
-            else if (e.Key == Key.Right && lvwItems.SelectedIndex == (ItemsSource.Count - 1))
+            else if (e.Key == Key.Right && lvwItems.SelectedIndex == (countSource.Count - 1))
             {
                 tbxName.Focus();
             }

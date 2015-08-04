@@ -13,13 +13,13 @@ namespace Neptuo.Services.Validators.Messages
     public interface IValidationMessage
     {
         /// <summary>
-        /// Key (or property name) this message is bound to.
+        /// Target field key.
         /// </summary>
         string Key { get; }
         
         /// <summary>
-        /// Text representation of message.
+        /// Returns text representation of message.
         /// </summary>
-        string Message { get; }
+        string ToString();
     }
 }

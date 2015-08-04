@@ -14,6 +14,10 @@ namespace Neptuo.Activators
     {
         private readonly IDependencyProvider dependencyProvider;
 
+        /// <summary>
+        /// Creates new instance that resolves instance using <paramref name="dependencyProvider"/>.
+        /// </summary>
+        /// <param name="dependencyProvider">Instance resolution provider.</param>
         public DependencyActivator(IDependencyProvider dependencyProvider)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");

@@ -22,7 +22,6 @@ namespace TestConsole.Hashing
             });
 
             HashFunc hashFunc = new HashFactory().Sha1;
-            DebugIteration("Old", 1000, () => HashHelper.Sha1("Hello, World!"));
             DebugIteration("New", 1000, () => hashFunc("Hello, World!"));
 
 

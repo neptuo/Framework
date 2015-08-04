@@ -19,8 +19,8 @@ namespace TestConsole.Collections
         static void TestExtensions()
         {
             KeyValueCollection collection = new KeyValueCollection();
-            collection.Set("id", "5");
-            collection.Set("key", (int?)5);
+            collection.Add("id", "5");
+            collection.Add("key", (int?)5);
 
             Console.WriteLine(collection.Get<string>("idx", null));
             Console.WriteLine(collection.Get<int?>("key"));

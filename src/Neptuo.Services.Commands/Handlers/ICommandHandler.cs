@@ -16,6 +16,6 @@ namespace Neptuo.Services.Commands.Handlers
         /// Handles <paramref name="command"/>.
         /// </summary>
         /// <param name="command">Command to handle.</param>
-        void Handle(TCommand command);
+        Task HandleAsync(TCommand command);
     }
 }

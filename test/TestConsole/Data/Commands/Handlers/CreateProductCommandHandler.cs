@@ -17,13 +17,14 @@ namespace TestConsole.Data.Commands.Handlers
             this.products = products;
         }
 
-        public void Handle(CreateProductCommand command)
+        public Task HandleAsync(CreateProductCommand command)
         {
             Product product = products.Create();
             product.Name = command.Name;
             product.Price = command.Price;
             product.Category = command.Category;
             products.Insert(product);
+            return Task.FromResult(true);
         }
     }
 }
