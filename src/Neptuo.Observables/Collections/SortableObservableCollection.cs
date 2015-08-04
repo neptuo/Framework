@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Collections.ObjectModel
+namespace Neptuo.Observables.Collections
 {
     public class SortableObservableCollection<T> : ObservableCollection<T>
     {

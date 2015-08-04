@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel
+namespace Neptuo.Observables
 {
     public class ObservableObject : INotifyPropertyChanged
     {

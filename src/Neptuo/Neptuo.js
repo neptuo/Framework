@@ -688,7 +688,7 @@ var Neptuo$Collections$Generic$_DictionaryExtensions = {
 };
 JsTypes.push(Neptuo$Collections$Generic$_DictionaryExtensions);
 var Neptuo$Collections$ObjectModel$IITemsSource = {
-    fullname: "Neptuo.Collections.ObjectModel.IITemsSource",
+    fullname: "Neptuo.Observables.Collections.IITemsSource",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["System.Collections.IEnumerable"],

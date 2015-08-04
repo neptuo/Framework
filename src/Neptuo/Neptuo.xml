@@ -6,9 +6,9 @@
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
     <Namespace Target="Neptuo.Threading" Export="False" />
     <Type Target="Neptuo.CodeDom.Compiler.CsCodeDomCompiler" Export="False" />
-    <Type Target="Neptuo.Collections.ObjectModel.SortableObservableCollection`1" Export="False" />
-    <Type Target="Neptuo.Collections.ObjectModel.ObservableCollection`1" Export="False" />
-    <Type Target="Neptuo.Collections.ObjectModel.ObservableDictionary`2" Export="False" />
+    <Type Target="Neptuo.Observables.Collections.SortableObservableCollection`1" Export="False" />
+    <Type Target="Neptuo.Observables.Collections.ObservableCollection`1" Export="False" />
+    <Type Target="Neptuo.Observables.Collections.ObservableDictionary`2" Export="False" />
     <Type Target="Neptuo.Collections.Specialized.NameValueReadOnlyDictionary" Export="False" />
     <Type Target="Neptuo.Linq.Expressions.TranslatingExpressionVisitor" Export="False" />
     <Type Target="Neptuo.Linq.ExpressiveExtensions" Export="False" />

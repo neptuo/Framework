@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using Neptuo.Observables.Collections.Features;
 
-namespace Neptuo.Collections.ObjectModel
+namespace Neptuo.Observables.Collections
 {
-    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IITemsSource
+    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IRemoveAtCollection, ICountCollection
     {
         public ObservableCollection() { }
 
