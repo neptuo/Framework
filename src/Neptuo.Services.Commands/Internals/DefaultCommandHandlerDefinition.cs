@@ -12,7 +12,7 @@ namespace Neptuo.Services.Commands.Internals
     internal class DefaultCommandHandlerDefinition
     {
         /// <summary>
-        /// Query handler.
+        /// Command handler.
         /// Should never be <c>null</c>.
         /// </summary>
         public object CommandHandler { get; set; }
