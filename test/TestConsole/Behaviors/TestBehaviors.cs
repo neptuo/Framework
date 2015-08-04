@@ -1,6 +1,6 @@
 ﻿using Neptuo.AppServices.Handlers.Behaviors;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection;
+using Neptuo.AppServices.Handlers.Behaviors.Processing;
+using Neptuo.AppServices.Handlers.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing;
 using Neptuo.Behaviors.Processing.Reflection;

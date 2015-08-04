@@ -42,9 +42,9 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Handlers\Behaviors\Hosting\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
-    <Compile Include="Handlers\Behaviors\Hosting\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
-    <Compile Include="Handlers\Behaviors\Hosting\ReprocessBehavior.cs" />
+    <Compile Include="Handlers\Behaviors\Processing\Compilation\CodeDomReprocessBehaviorInstanceGenerator.cs" />
+    <Compile Include="Handlers\Behaviors\Processing\Reflection\ReflectionReprocessBehaviorInstanceProvider.cs" />
+    <Compile Include="Handlers\Behaviors\Processing\ReprocessBehavior.cs" />
     <Compile Include="Handlers\Behaviors\ReprocessAttribute.cs" />
     <Compile Include="Handlers\IBackgroundHandler.cs" />
     <Compile Include="Handlers\IServiceHandler.cs" />

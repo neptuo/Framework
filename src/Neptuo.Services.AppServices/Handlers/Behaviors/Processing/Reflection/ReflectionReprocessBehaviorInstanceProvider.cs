@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.AppServices.Handlers.Behaviors.Hosting.Reflection
+namespace Neptuo.AppServices.Handlers.Behaviors.Processing.Reflection
 {
     /// <summary>
     /// Instance provider for <see cref="ReprocessBehavior"/> and <see cref="ReprocessAttribute"/>.

@@ -2,8 +2,8 @@
 using Neptuo.AppServices;
 using Neptuo.AppServices.Handlers;
 using Neptuo.AppServices.Handlers.Behaviors;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation;
+using Neptuo.AppServices.Handlers.Behaviors.Processing;
+using Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.AppServices.Handlers.Behaviors.Processing;
 using Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.Compilers;
