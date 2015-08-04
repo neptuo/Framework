@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections.Enumerators
+namespace Neptuo.Reflection.Enumerators
 {
     /// <summary>
     /// Implementation of <see cref="ITypeEnumerator"/> that enumerates types from <see cref="Assembly"/>.

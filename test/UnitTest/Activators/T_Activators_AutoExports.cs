@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators.AutoExports;
 using Neptuo.Activators.Tests;
-using Neptuo.Reflections;
+using Neptuo.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Converters;
 using Neptuo.Converters.AutoExports;
-using Neptuo.Reflections.Enumerators;
-using Neptuo.Reflections.Enumerators.Executors;
+using Neptuo.Reflection.Enumerators;
+using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections
+namespace Neptuo.Reflection
 {
     [TestClass]
     public class T_Reflections_ReflectionServiceTypeExecutor

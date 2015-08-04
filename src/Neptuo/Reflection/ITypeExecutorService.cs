@@ -1,12 +1,12 @@
-﻿using Neptuo.Reflections.Enumerators;
-using Neptuo.Reflections.Enumerators.Executors;
+﻿using Neptuo.Reflection.Enumerators;
+using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections
+namespace Neptuo.Reflection
 {
     /// <summary>
     /// Service for registering <see cref="ITypeExecutor"/>.

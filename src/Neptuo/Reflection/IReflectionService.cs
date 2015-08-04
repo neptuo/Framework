@@ -1,4 +1,4 @@
-﻿using Neptuo.Reflections.Enumerators;
+﻿using Neptuo.Reflection.Enumerators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections
+namespace Neptuo.Reflection
 {
     /// <summary>
     /// Some usefull shortcuts in reflection.

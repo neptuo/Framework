@@ -1,8 +1,8 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Activators.AutoExports;
-using Neptuo.Reflections;
-using Neptuo.Reflections.Enumerators;
-using Neptuo.Reflections.Enumerators.Executors;
+using Neptuo.Reflection;
+using Neptuo.Reflection.Enumerators;
+using Neptuo.Reflection.Enumerators.Executors;
 using Neptuo.Services.Queries.Internals;
 using System;
 using System.Collections.Generic;

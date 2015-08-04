@@ -1,11 +1,11 @@
-﻿using Neptuo.Reflections.Enumerators.Executors;
+﻿using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections.Enumerators
+namespace Neptuo.Reflection.Enumerators
 {
     /// <summary>
     /// Common extesnions for <see cref="ITypeEnumerator"/>.

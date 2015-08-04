@@ -1,7 +1,7 @@
 ﻿using Neptuo.Behaviors.Providers;
 using Neptuo.Compilers;
 using Neptuo.Linq.Expressions;
-using Neptuo.Reflections;
+using Neptuo.Reflection;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;

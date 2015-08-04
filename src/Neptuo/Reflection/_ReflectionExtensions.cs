@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections
+namespace Neptuo.Reflection
 {
     /// <summary>
     /// Common extensions for <see cref="System.Reflection"/>.

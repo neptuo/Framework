@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections.Enumerators.Executors
+namespace Neptuo.Reflection.Enumerators.Executors
 {
     /// <summary>
     /// Implementation of <see cref="ITypeDelegateCollection{TContext}"/> with support for independent branches.

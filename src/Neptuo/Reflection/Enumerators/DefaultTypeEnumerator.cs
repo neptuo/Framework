@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Reflections.Enumerators
+namespace Neptuo.Reflection.Enumerators
 {
     /// <summary>
     /// Default (enumeration) implementation of <see cref="ITypeEnumerator"/>.

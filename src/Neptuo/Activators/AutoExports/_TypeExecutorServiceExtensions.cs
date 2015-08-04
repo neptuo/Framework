@@ -1,5 +1,5 @@
-﻿using Neptuo.Reflections;
-using Neptuo.Reflections.Enumerators.Executors;
+﻿using Neptuo.Reflection;
+using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.Linq;

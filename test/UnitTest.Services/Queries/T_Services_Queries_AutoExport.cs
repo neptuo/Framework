@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
-using Neptuo.Reflections;
+using Neptuo.Reflection;
 using Neptuo.Services.Queries.Handlers;
 using Neptuo.Services.Queries.Handlers.AutoExports;
 using System;
