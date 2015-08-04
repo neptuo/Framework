@@ -36,7 +36,7 @@ namespace TestConsole
             //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
-            //TestPresentationModels.Test();
+            TestPresentationModels.Test();
             //TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
             //TestConfiguration.Test();
@@ -56,7 +56,7 @@ namespace TestConsole
             //TestSharpKitCompiler.Test();
             //TestLog4net.Test();
             //TestLocalization.Test();
-            Services.Queries.TestQueries.Test();
+            //Services.Queries.TestQueries.Test();
 
             Console.ReadKey(true);
         }
