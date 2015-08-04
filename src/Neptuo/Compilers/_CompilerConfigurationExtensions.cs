@@ -37,7 +37,7 @@ namespace Neptuo.Compilers
         /// <param name="configuration">Compiler configuration.</param>
         /// <param name="references">Collection of references.</param>
         /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration References(this ICompilerConfiguration configuration, CompilerReferenceCollection references)
+        public static ICompilerConfiguration AddReferences(this ICompilerConfiguration configuration, CompilerReferenceCollection references)
         {
             Ensure.NotNull(configuration, "configuration");
             Ensure.NotNull(references, "references");
@@ -67,7 +67,7 @@ namespace Neptuo.Compilers
         /// <param name="configuration">Compiler configuration.</param>
         /// <param name="isDebugMode">New value for debug mode.</param>
         /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration IsDebugMode(this ICompilerConfiguration configuration, bool isDebugMode)
+        public static ICompilerConfiguration AddIsDebugMode(this ICompilerConfiguration configuration, bool isDebugMode)
         {
             Ensure.NotNull(configuration, "configuration");
             configuration.Add("IsDebugMode", isDebugMode);
@@ -95,7 +95,7 @@ namespace Neptuo.Compilers
         /// <param name="configuration">Compiler configuration.</param>
         /// <param name="tempDirectory">Path to temp directory.</param>
         /// <returns>Self (for fluency).</returns>
-        public static ICompilerConfiguration TempDirectory(this ICompilerConfiguration configuration, string tempDirectory)
+        public static ICompilerConfiguration AddTempDirectory(this ICompilerConfiguration configuration, string tempDirectory)
         {
             Ensure.NotNull(configuration, "configuration");
             configuration.Add("TempDirectory", tempDirectory);

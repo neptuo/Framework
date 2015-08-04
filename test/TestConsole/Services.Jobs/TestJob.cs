@@ -37,7 +37,7 @@ namespace TestConsole.Services.Jobs
 
             ICompilerConfiguration configuration = new CompilerConfiguration()
                 //.BaseType(typeof(WorkerPipelineHandler<>))
-                .TempDirectory(@"C:\Temp\Pipelines");
+                .AddTempDirectory(@"C:\Temp\Pipelines");
             
             configuration.References()
                 .AddDirectory(Environment.CurrentDirectory);

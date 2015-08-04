@@ -21,12 +21,12 @@ namespace TestConsole.SharpKitCompilers
         {
             CompilerFactory compilerFactory = new CompilerFactory(
                 new CompilerConfiguration()
-                    .TempDirectory(@"C:\Temp\SharpKit")
+                    .AddTempDirectory(@"C:\Temp\SharpKit")
                     .Plugins(
                         new SharpKitPluginCollection()
                             .Add("Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin")
                     )
-                    .References(
+                    .AddReferences(
                         new CompilerReferenceCollection()
                             .AddDirectory(Environment.CurrentDirectory)
                             .AddAssembly("SharpKit.JavaScript.dll")
