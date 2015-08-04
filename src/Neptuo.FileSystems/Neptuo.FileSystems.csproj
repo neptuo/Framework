@@ -42,6 +42,18 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Features\IAncestorEnumerator.cs" />
+    <Compile Include="Features\IAbsolutePath.cs" />
+    <Compile Include="Features\Timestamps\ICreatedAt.cs" />
+    <Compile Include="Features\IDirectoryCreator.cs" />
+    <Compile Include="Features\IDirectoryEnumerator.cs" />
+    <Compile Include="Features\IFileContentAppender.cs" />
+    <Compile Include="Features\IFileContentReader.cs" />
+    <Compile Include="Features\IFileCreator.cs" />
+    <Compile Include="Features\IFileEnumerator.cs" />
+    <Compile Include="Features\IFileContentUpdater.cs" />
+    <Compile Include="Features\IFileContentSize.cs" />
+    <Compile Include="Features\Timestamps\IModefiedAt.cs" />
     <Compile Include="FileSystemException.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IFile.cs" />
@@ -57,6 +69,10 @@
     <Compile Include="_FileContentExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
+      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
+      <Name>Neptuo.Models.Features</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
