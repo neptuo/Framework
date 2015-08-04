@@ -74,10 +74,6 @@
       <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
       <Name>Neptuo.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Services\Neptuo.Services.csproj">
-      <Project>{21b47c66-1583-4415-b4f0-9fbefcedcd93}</Project>
-      <Name>Neptuo.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

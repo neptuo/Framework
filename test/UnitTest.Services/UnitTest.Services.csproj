@@ -93,10 +93,6 @@
       <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
       <Name>Neptuo.Services.Validators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services\Neptuo.Services.csproj">
-      <Project>{21b47c66-1583-4415-b4f0-9fbefcedcd93}</Project>
-      <Name>Neptuo.Services</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

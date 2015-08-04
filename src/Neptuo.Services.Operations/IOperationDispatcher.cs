@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Replying
+namespace Neptuo.Services.Operations
 {
     /// <summary>
-    /// Common extensions for <see cref="IRequestDispatcher"/>.
+    /// Request-reply pipeline.
     /// </summary>
-    public static class _RequestDispatcherExtensions
+    public interface IOperationDispatcher
     {
         /// <summary>
         /// Executes <paramref name="request"/> and returns its response.
@@ -18,11 +18,6 @@ namespace Neptuo.Services.Replying
         /// <typeparam name="TOutput">Type of response.</typeparam>
         /// <param name="request">Request data.</param>
         /// <returns>Response to <paramref name="request"/>.</returns>
-        public static Task<TOutput> Execute<TInput, TOutput>(this IRequestDispatcher mediator, TInput request)
-            where TInput : IRequest<TOutput>
-        {
-            Ensure.NotNull(mediator, "mediator");
-            return mediator.ExecuteAsync<TInput, TOutput>(request);
-        }
+        Task<TOutput> ExecuteAsync<TInput, TOutput>(TInput request);
     }
 }
