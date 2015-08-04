@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.FeatureModels
+namespace Neptuo.Models.Features
 {
     /// <summary>
     /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrent support.).

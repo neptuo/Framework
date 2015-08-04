@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.FeatureModels
+namespace Neptuo.Models.Features
 {
     public static class _FeatureModelExtensions
     {
