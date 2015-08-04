@@ -133,9 +133,9 @@
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.AppServices\Neptuo.Services.AppServices.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
-      <Name>Neptuo.Services.AppServices</Name>
+      <Name>Neptuo.Services.Jobs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Services.Commands\Neptuo.Services.Commands.csproj">
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>

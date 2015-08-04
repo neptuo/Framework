@@ -65,9 +65,9 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.AppServices\Neptuo.Services.AppServices.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
-      <Name>Neptuo.Services.AppServices</Name>
+      <Name>Neptuo.Services.Jobs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Services.Deleters\Neptuo.Services.Deleters.csproj">
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
