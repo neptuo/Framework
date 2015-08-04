@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E293C506-6FE1-4ED9-840F-9C29C5066227}</ProjectGuid>
+    <ProjectGuid>{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Neptuo.FileSystems</RootNamespace>
-    <AssemblyName>Neptuo.FileSystems</AssemblyName>
+    <AssemblyName>Neptuo.FileSystems.Local</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,33 +42,16 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Features\IAncestorEnumerator.cs" />
-    <Compile Include="Features\IAbsolutePath.cs" />
-    <Compile Include="Features\Timestamps\ICreatedAt.cs" />
-    <Compile Include="Features\IDirectoryCreator.cs" />
-    <Compile Include="Features\IDirectoryEnumerator.cs" />
-    <Compile Include="Features\IFileContentAppender.cs" />
-    <Compile Include="Features\IFileContentReader.cs" />
-    <Compile Include="Features\IFileCreator.cs" />
-    <Compile Include="Features\IFileEnumerator.cs" />
-    <Compile Include="Features\IFileContentUpdater.cs" />
-    <Compile Include="Features\IFileContentSize.cs" />
-    <Compile Include="Features\Timestamps\IModefiedAt.cs" />
-    <Compile Include="FileSystemException.cs" />
-    <Compile Include="IDirectory.cs" />
-    <Compile Include="IFile.cs" />
-    <Compile Include="IFileSystem.cs" />
-    <Compile Include="IReadOnlyDirectory.cs" />
-    <Compile Include="IReadOnlyFile.cs" />
+    <Compile Include="LocalDirectory.cs" />
+    <Compile Include="LocalFile.cs" />
+    <Compile Include="LocalFileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="_EnsureExtensions.cs" />
-    <Compile Include="_FileContentExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
-      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
-      <Name>Neptuo.Models.Features</Name>
+    <ProjectReference Include="..\Neptuo.FileSystems\Neptuo.FileSystems.csproj">
+      <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
+      <Name>Neptuo.FileSystems</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>

@@ -116,6 +116,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Operations"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Observables", "src\Neptuo.Observables\Neptuo.Observables.csproj", "{EDA4C50E-2873-4237-A84B-F73A15C27CD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FileSystems.Local", "src\Neptuo.FileSystems.Local\Neptuo.FileSystems.Local.csproj", "{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -306,6 +308,10 @@ Global
 		{EDA4C50E-2873-4237-A84B-F73A15C27CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDA4C50E-2873-4237-A84B-F73A15C27CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDA4C50E-2873-4237-A84B-F73A15C27CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
