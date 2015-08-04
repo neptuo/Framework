@@ -18,12 +18,12 @@ namespace Neptuo.Services.Validators
     public class DependencyValidationDispatcher : IValidationDispatcher
     {
         /// <summary>
-        /// Name of the <see cref="Handlers.IValidationHandler{T}.Handle"/>.
+        /// Name of the <see cref="Handlers.IValidationHandler{T}.HandleAsync"/>.
         /// </summary>
         /// <remarks>
         /// Because of SharpKit, this can't be defined by <see cref="TypeHelper"/>.
         /// </remarks>
-        private static readonly string ValidateMethodName = "Validate"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
+        private static readonly string validateMethodName = "ValidateAsync"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
 
         /// <summary>
         /// Inner provider of validation handlers.
@@ -40,7 +40,7 @@ namespace Neptuo.Services.Validators
             this.dependencyProvider = dependencyProvider;
         }
 
-        public IValidationResult Validate<TModel>(TModel model)
+        public async Task<IValidationResult> ValidateAsync<TModel>(TModel model)
         {
             IValidatableModel validatable = model as IValidatableModel;
             if (validatable != null)
@@ -50,7 +50,7 @@ namespace Neptuo.Services.Validators
             }
 
             IValidationHandler<TModel> validator = dependencyProvider.Resolve<IValidationHandler<TModel>>();
-            IValidationResult result = validator.Handle(model);
+            IValidationResult result = await validator.HandleAsync(model);
 
             if (validatable != null)
                 validatable.IsValid = result.IsValid;
@@ -58,16 +58,16 @@ namespace Neptuo.Services.Validators
             return result;
         }
 
-        public IValidationResult Validate(object model)
+        public Task<IValidationResult> ValidateAsync(object model)
         {
             Ensure.NotNull(model, "model");
             Type modelType = model.GetType();
             Type validatorType = typeof(IValidationHandler<>).MakeGenericType(modelType);
-            MethodInfo validateMethod = validatorType.GetMethod(ValidateMethodName);
+            MethodInfo validateMethod = validatorType.GetMethod(validateMethodName);
             
             object validator = dependencyProvider.Resolve(validatorType);
             object validationResult = validateMethod.Invoke(validator, new object[] { model });
-            return (IValidationResult)validationResult;
+            return (Task<IValidationResult>)validationResult;
         }
     }
 }

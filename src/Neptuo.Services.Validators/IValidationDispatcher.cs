@@ -17,7 +17,7 @@ namespace Neptuo.Services.Validators
         /// <typeparam name="TModel">Type of model to validate.</typeparam>
         /// <param name="model">Model instance to validate.</param>
         /// <returns><see cref="IValidationResult"/> describing succes or validation failure.</returns>
-        IValidationResult Validate<TModel>(TModel model);
+        Task<IValidationResult> ValidateAsync<TModel>(TModel model);
 
         /// <summary>
         /// Validates <paramref name="model"/> using runtime type of model.
@@ -25,6 +25,6 @@ namespace Neptuo.Services.Validators
         /// </summary>
         /// <param name="model">Model instance to validate.</param>
         /// <returns><see cref="IValidationResult"/> describing succes or validation failure.</returns>
-        IValidationResult Validate(object model);
+        Task<IValidationResult> ValidateAsync(object model);
     }
 }
