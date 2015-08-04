@@ -12,34 +12,12 @@ namespace Neptuo.FileSystems
     public interface IReadOnlyDirectory
     {
         /// <summary>
-        /// Directory name.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// Link to parent directory.
-        /// </summary>
-        IDirectory Parent { get; }
-
-        /// <summary>
-        /// Returns enumeration of all child directories.
-        /// </summary>
-        /// <returns>Enumeration of all child directories.</returns>
-        IEnumerable<IDirectory> EnumerateDirectories();
-
-        /// <summary>
         /// Returns enumeration of all child directories.
         /// </summary>
         /// <param name="searchPattern">Name for filtering.</param>
         /// <param name="inAllDescendants">True for not only direct childs.</param>
         /// <returns>Enumeration of all child directories.</returns>
         IEnumerable<IDirectory> FindDirectories(string searchPattern, bool inAllDescendants);
-
-        /// <summary>
-        /// Returns enumeration of all child files.
-        /// </summary>
-        /// <returns>Enumeration of all child files</returns>
-        IEnumerable<IFile> EnumerateFiles();
 
         /// <summary>
         /// Returns enumeration of all child files.
