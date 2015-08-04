@@ -52,7 +52,6 @@
     <Compile Include="IValidationResultBuilder.cs" />
     <Compile Include="Messages\IValidationMessage.cs" />
     <Compile Include="Messages\PropertyEqualMessage.cs" />
-    <Compile Include="Messages\PropertyValidationMessageBase.cs" />
     <Compile Include="Messages\StringLengthMessage.cs" />
     <Compile Include="Messages\StringNullOrEmptyMessage.cs" />
     <Compile Include="Messages\TextValidationMessage.cs" />

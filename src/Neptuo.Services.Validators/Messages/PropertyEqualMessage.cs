@@ -9,19 +9,27 @@ namespace Neptuo.Services.Validators.Messages
     /// <summary>
     /// Validation message for comparing two properties.
     /// </summary>
-    public class PropertyEqualMessage : PropertyValidationMessageBase
+    public class PropertyEqualMessage : ValidationMessageBase
     {
-        public string OtherProperty { get; private set; }
+        /// <summary>
+        /// Other key that is required to be equal to <see cref="PropertyEqualMessage.Key"/>.
+        /// </summary>
+        public string OtherKey { get; private set; }
 
-        public PropertyEqualMessage(string key, string otherProperty, string propertyName = null)
-            : base(key, propertyName)
+        /// <summary>
+        /// Creates new instance with required equality between <paramref name="key"/> and <paramref name="otherKey"/>.
+        /// </summary>
+        /// <param name="key">Target field key.</param>
+        /// <param name="otherKey">Other key that is required to be equal to <see cref="PropertyEqualMessage.Key"/>.</param>
+        public PropertyEqualMessage(string key, string otherKey)
+            : base(key)
         {
-            OtherProperty = otherProperty;
+            OtherKey = otherKey;
         }
 
         protected override string GetTextMessage()
         {
-            return String.Format("{0} must match {1}.", PropertyName, OtherProperty);
+            return String.Format("{0} must match {1}.", Key, OtherKey);
         }
     }
 }
