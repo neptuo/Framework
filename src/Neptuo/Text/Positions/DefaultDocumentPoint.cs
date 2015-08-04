@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.TextOffsets
+namespace Neptuo.Text.Positions
 {
     /// <summary>
-    /// Default implementation of <see cref="ILineInfo"/>.
+    /// Default implementation of <see cref="IDocumentPoint"/>.
     /// </summary>
-    public class DefaultLineInfo : ILineInfo
+    public class DefaultDocumentPoint : IDocumentPoint
     {
         public int LineIndex { get; private set; }
         public int ColumnIndex { get; private set; }
 
-        public DefaultLineInfo(int lineIndex, int columnIndex)
+        public DefaultDocumentPoint(int lineIndex, int columnIndex)
         {
             LineIndex = lineIndex;
             ColumnIndex = columnIndex;

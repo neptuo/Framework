@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.TextOffsets
+namespace Neptuo.Text.Positions
 {
     /// <summary>
-    /// Default implementation of <see cref="ILineRangeInfo"/>.
+    /// Default implementation of <see cref="IDocumentSpan"/>.
     /// </summary>
-    public class DefaultLineRangeInfo : ILineRangeInfo
+    public class DefaultDocumentSpan : IDocumentSpan
     {
         public int ColumnIndex { get; private set; }
         public int LineIndex { get; private set; }
@@ -18,7 +18,7 @@ namespace Neptuo.ComponentModel.TextOffsets
         public int EndColumnIndex { get; private set; }
         public int EndLineIndex { get; private set; }
 
-        public DefaultLineRangeInfo(int columnIndex, int lineIndex, int endColumnIndex, int endLineIndex)
+        public DefaultDocumentSpan(int columnIndex, int lineIndex, int endColumnIndex, int endLineIndex)
         {
             ColumnIndex = columnIndex;
             LineIndex = lineIndex;

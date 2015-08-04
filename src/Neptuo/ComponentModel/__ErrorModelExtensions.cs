@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel.TextOffsets;
+﻿using Neptuo.Text.Positions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +13,12 @@ namespace Neptuo.ComponentModel
     public static class __ErrorModelExtensions
     {
         ///// <summary>
-        ///// Tries to <see cref="ILineInfo"/> from <paramref name="errorModel"/>.
+        ///// Tries to <see cref="IDocumentPoint"/> from <paramref name="errorModel"/>.
         ///// </summary>
         ///// <param name="errorModel">Source error model.</param>
         ///// <param name="lineInfo">Target output line info.</param>
         ///// <returns><c>true</c> if <paramref name="errorModel"/> contains line info.</returns>
-        //public static bool TryWithLineInfo(this IErrorModel errorModel, out ILineInfo lineInfo)
+        //public static bool TryWithLineInfo(this IErrorModel errorModel, out IDocumentPoint lineInfo)
         //{
         //    Ensure.NotNull(errorModel, "errorModel");
         //    return errorModel.TryWith(out lineInfo);

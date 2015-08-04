@@ -1,5 +1,5 @@
 ﻿using Neptuo.ComponentModel;
-using Neptuo.ComponentModel.TextOffsets;
+using Neptuo.Text.Positions;
 using Neptuo.Tokens;
 using System;
 using System.Collections.Generic;
@@ -44,7 +44,7 @@ as{ProductID ID=5} askdh aksjdh alskdj asldkj alskdj.";
             Console.WriteLine("---");
         }
 
-        static void PrintLineInfo(ILineRangeInfo lineInfo)
+        static void PrintLineInfo(IDocumentSpan lineInfo)
         {
             Console.WriteLine("{0}:{1} -> {2}:{3}", lineInfo.LineIndex, lineInfo.ColumnIndex, lineInfo.EndLineIndex, lineInfo.EndColumnIndex);
         }

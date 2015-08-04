@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.TextOffsets
+namespace Neptuo.Text.Positions
 {
     /// <summary>
-    /// Default implementation of <see cref="IContentRangeInfo"/>.
+    /// Default implementation of <see cref="ITextPoint"/>.
     /// </summary>
-    public class DefaultContentRangeInfo : IContentRangeInfo
+    public class DefaultTextPoint : ITextPoint
     {
         public int StartIndex { get; private set; }
         public int Length { get; private set; }
 
-        public DefaultContentRangeInfo(int startIndex, int length)
+        public DefaultTextPoint(int startIndex, int length)
         {
             StartIndex = startIndex;
             Length = length;

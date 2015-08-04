@@ -1,5 +1,5 @@
 ﻿using Neptuo.ComponentModel;
-using Neptuo.ComponentModel.TextOffsets;
+using Neptuo.Text.Positions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Neptuo.Tokens
     /// Default attributes are in <see cref="Token.DefaultAttributes"/> collection.
     /// Named attributes are in <see cref="Token.Attributes"/> collection.
     /// </summary>
-    public class Token : ILineRangeInfo
+    public class Token : IDocumentSpan
     {
         private readonly List<TokenAttribute> attributes;
         private readonly List<string> defaultAttributes;

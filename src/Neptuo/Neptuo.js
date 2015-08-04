@@ -1889,10 +1889,10 @@ var Neptuo$ComponentModel$Envelope$1 = {
 };
 JsTypes.push(Neptuo$ComponentModel$Envelope$1);
 var Neptuo$ComponentModel$TextOffsets$DefaultContentRangeInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.DefaultContentRangeInfo",
+    fullname: "Neptuo.Text.Positions.DefaultContentRangeInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.TextOffsets.IContentRangeInfo"],
+    interfaceNames: ["Neptuo.Text.Positions.IContentRangeInfo"],
     Kind: "Class",
     definition: {
         ctor: function (startIndex, length){
@@ -1929,10 +1929,10 @@ var Neptuo$ComponentModel$TextOffsets$DefaultContentRangeInfo = {
 };
 JsTypes.push(Neptuo$ComponentModel$TextOffsets$DefaultContentRangeInfo);
 var Neptuo$ComponentModel$TextOffsets$DefaultLineInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.DefaultLineInfo",
+    fullname: "Neptuo.Text.Positions.DefaultLineInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.TextOffsets.ILineInfo"],
+    interfaceNames: ["Neptuo.Text.Positions.IDocumentPoint"],
     Kind: "Class",
     definition: {
         ctor: function (lineIndex, columnIndex){
@@ -1966,10 +1966,10 @@ var Neptuo$ComponentModel$TextOffsets$DefaultLineInfo = {
 };
 JsTypes.push(Neptuo$ComponentModel$TextOffsets$DefaultLineInfo);
 var Neptuo$ComponentModel$TextOffsets$DefaultLineRangeInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.DefaultLineRangeInfo",
+    fullname: "Neptuo.Text.Positions.DefaultLineRangeInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.TextOffsets.ILineRangeInfo"],
+    interfaceNames: ["Neptuo.Text.Positions.ILineRangeInfo"],
     Kind: "Class",
     definition: {
         ctor: function (columnIndex, lineIndex, endColumnIndex, endLineIndex){
@@ -2024,7 +2024,7 @@ var Neptuo$ComponentModel$TextOffsets$DefaultLineRangeInfo = {
 };
 JsTypes.push(Neptuo$ComponentModel$TextOffsets$DefaultLineRangeInfo);
 var Neptuo$ComponentModel$TextOffsets$IContentRangeInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.IContentRangeInfo",
+    fullname: "Neptuo.Text.Positions.IContentRangeInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -2032,20 +2032,20 @@ var Neptuo$ComponentModel$TextOffsets$IContentRangeInfo = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$ComponentModel$TextOffsets$IContentRangeInfo);
-var Neptuo$ComponentModel$TextOffsets$ILineInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.ILineInfo",
+var Neptuo$ComponentModel$TextOffsets$IDocumentPoint = {
+    fullname: "Neptuo.Text.Positions.IDocumentPoint",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$ComponentModel$TextOffsets$ILineInfo);
+JsTypes.push(Neptuo$ComponentModel$TextOffsets$IDocumentPoint);
 var Neptuo$ComponentModel$TextOffsets$ILineRangeInfo = {
-    fullname: "Neptuo.ComponentModel.TextOffsets.ILineRangeInfo",
+    fullname: "Neptuo.Text.Positions.ILineRangeInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.TextOffsets.ILineInfo"],
+    interfaceNames: ["Neptuo.Text.Positions.IDocumentPoint"],
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
@@ -4892,7 +4892,7 @@ var Neptuo$Tokens$Token = {
     fullname: "Neptuo.Tokens.Token",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.TextOffsets.ILineRangeInfo"],
+    interfaceNames: ["Neptuo.Text.Positions.ILineRangeInfo"],
     Kind: "Class",
     definition: {
         ctor: function (){

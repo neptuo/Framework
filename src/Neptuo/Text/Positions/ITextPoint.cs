@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel.TextOffsets
+namespace Neptuo.Text.Positions
 {
     /// <summary>
-    /// Describes position/offset in source global source content.
+    /// Describes text content info.
     /// </summary>
-    public interface ILineInfo
+    public interface ITextPoint
     {
         /// <summary>
-        /// Line index.
+        /// Starting index.
         /// </summary>
-        int LineIndex { get; }
+        int StartIndex { get; }
 
         /// <summary>
-        /// Index at line.
+        /// Length of the content.
         /// </summary>
-        int ColumnIndex { get; }
+        int Length { get; }
     }
 }
