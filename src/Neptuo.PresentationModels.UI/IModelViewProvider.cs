@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels.UI
     /// Collection of model views.
     /// </summary>
     /// <typeparam name="T">Type of rendering context.</typeparam>
-    public interface IModelViewCollection<T>
+    public interface IModelViewProvider<T>
     {
         /// <summary>
         /// Tries to get model view for model definition.

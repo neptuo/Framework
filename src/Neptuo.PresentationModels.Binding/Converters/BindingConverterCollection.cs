@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Binding
 {
-    public class BindingConverterCollection : IBindingConverterCollection
+    public class BindingConverterCollection : IBindingConverterProvider
     {
         protected BindingConverterCollection PreviousCollection { get; private set; }
         protected Dictionary<string, List<IBindingConverter>> Storage { get; private set; }

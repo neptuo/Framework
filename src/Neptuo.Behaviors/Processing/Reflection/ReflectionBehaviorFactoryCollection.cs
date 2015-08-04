@@ -21,7 +21,7 @@ namespace Neptuo.Behaviors.Processing.Reflection
         /// <summary>
         /// Maps <paramref name="behaviorType"/> to be processed by <paramref name="factory" />
         /// </summary>
-        public ReflectionBehaviorFactoryCollection AddProvider(Type behaviorType, IReflectionBehaviorFactory factory)
+        public ReflectionBehaviorFactoryCollection Add(Type behaviorType, IReflectionBehaviorFactory factory)
         {
             Ensure.NotNull(behaviorType, "behaviorType");
             Ensure.NotNull(factory, "provider");

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.TypeModels.Expressions
 {
     /// <summary>
-    /// Default implementation of <see cref="IFieldValueProviderCollection{TModel}"/>
+    /// Default implementation of <see cref="IFieldValueProviderProvider{TModel}"/>
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class FieldValueProviderCollection<TModel> : IFieldValueProviderCollection<TModel>
+    public class FieldValueProviderCollection<TModel> : IFieldValueProviderProvider<TModel>
     {
         private readonly Dictionary<string, IFieldValueProvider<TModel>> storage = new Dictionary<string, IFieldValueProvider<TModel>>();
 

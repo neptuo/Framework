@@ -57,7 +57,7 @@
     <Compile Include="Converters\EnumerableBindingConverter.cs" />
     <Compile Include="Converters\NullBindingConverter.cs" />
     <Compile Include="Converters\IBindingConverter.cs" />
-    <Compile Include="Converters\IBindingConverterCollection.cs" />
+    <Compile Include="Converters\IBindingConverterProvider.cs" />
     <Compile Include="IBindingModelValueStorage.cs" />
     <Compile Include="Converters\StringBindingConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

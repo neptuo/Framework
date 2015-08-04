@@ -9,7 +9,7 @@ namespace Neptuo.PresentationModels.Validators
     /// <summary>
     /// Registry between models and their validators.
     /// </summary>
-    public interface IFieldMetadataValidatorCollection
+    public interface IFieldMetadataValidatorProvider
     {
         /// <summary>
         /// Tries to find validator for <paramref name="metadataKey"/> on field <paramref name="fieldIdentifier"/> of model <paramref name="modelIdentifier"/>.

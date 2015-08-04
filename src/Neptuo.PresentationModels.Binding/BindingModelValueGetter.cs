@@ -10,10 +10,10 @@ namespace Neptuo.PresentationModels.Binding
     public class BindingModelValueGetter : DisposableBase, IModelValueGetter
     {
         protected IBindingModelValueStorage Storage { get; private set; }
-        protected IBindingConverterCollection ConverterCollection { get; private set; }
+        protected IBindingConverterProvider ConverterCollection { get; private set; }
         protected IModelDefinition ModelDefinition { get; private set; }
 
-        public BindingModelValueGetter(IBindingModelValueStorage storage, IBindingConverterCollection converterCollection, IModelDefinition modelDefinition)
+        public BindingModelValueGetter(IBindingModelValueStorage storage, IBindingConverterProvider converterCollection, IModelDefinition modelDefinition)
         {
             Ensure.NotNull(storage, "storage");
             Ensure.NotNull(converterCollection, "converterCollection");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.PresentationModels.Binding
 {
-    public interface IBindingConverterCollection
+    public interface IBindingConverterProvider
     {
         bool TryConvert(string sourceValue, IFieldDefinition targetField, out object targetValue);
     }

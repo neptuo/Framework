@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.TypeModels.Expressions
 {
     /// <summary>
-    /// Collection of <see cref="IFieldValueProviderCollection{TModel}"/>.
+    /// Collection of <see cref="IFieldValueProviderProvider{TModel}"/>.
     /// </summary>
     /// <typeparam name="TModel">Type of model.</typeparam>
-    public interface IFieldValueProviderCollection<TModel>
+    public interface IFieldValueProviderProvider<TModel>
     {
         /// <summary>
         /// Tries to get value provider for field with identifier <paramref name="fieldIdentifier"/>.

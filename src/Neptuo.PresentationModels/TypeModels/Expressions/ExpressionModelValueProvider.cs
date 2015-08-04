@@ -11,9 +11,9 @@ namespace Neptuo.PresentationModels.TypeModels.Expressions
         where TModel : class
     {
         public TModel Model { get; private set; }
-        protected IFieldValueProviderCollection<TModel> ValueProviders { get; private set; }
+        protected IFieldValueProviderProvider<TModel> ValueProviders { get; private set; }
 
-        public ExpressionModelValueProvider(TModel model, IFieldValueProviderCollection<TModel> valueProviders)
+        public ExpressionModelValueProvider(TModel model, IFieldValueProviderProvider<TModel> valueProviders)
         {
             Ensure.NotNull(model, "model");
             Ensure.NotNull(valueProviders, "valueProviders");

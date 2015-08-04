@@ -46,9 +46,9 @@
     <Compile Include="FieldView.cs" />
     <Compile Include="FieldViewCollection.cs" />
     <Compile Include="IFieldView.cs" />
-    <Compile Include="IFieldViewCollection.cs" />
+    <Compile Include="IFieldViewProvider.cs" />
     <Compile Include="IModelView.cs" />
-    <Compile Include="IModelViewCollection.cs" />
+    <Compile Include="IModelViewProvider.cs" />
     <Compile Include="ModelView.cs" />
     <Compile Include="ModelViewCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

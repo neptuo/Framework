@@ -37,7 +37,7 @@ namespace TestConsole.Behaviors
 
             // Create reflection providers.
             IReflectionBehaviorFactory behaviorInstance = new ReflectionBehaviorFactoryCollection()
-                .AddProvider(typeof(ReprocessBehavior), new ReflectionReprocessBehaviorInstanceProvider());
+                .Add(typeof(ReprocessBehavior), new ReflectionReprocessBehaviorInstanceProvider());
 
             // Invoke pipeline.
             //ReflectionMethodInvokePipeline<HelloService, string> pipeline = new ReflectionMethodInvokePipeline<HelloService, string>(interfaceBehaviors, behaviorInstance, "SayHello");

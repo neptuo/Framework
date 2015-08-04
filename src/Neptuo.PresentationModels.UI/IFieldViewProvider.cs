@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels.UI
     /// Collection of field views.
     /// </summary>
     /// <typeparam name="T">Type of rendering context.</typeparam>
-    public interface IFieldViewCollection<T>
+    public interface IFieldViewProvider<T>
     {
         /// <summary>
         /// Tries to get field view for field and model definition.

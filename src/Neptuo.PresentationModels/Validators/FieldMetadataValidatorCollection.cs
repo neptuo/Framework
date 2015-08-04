@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
-    /// Implementation of <see cref="IFieldMetadataValidatorCollection"/>.
+    /// Implementation of <see cref="IFieldMetadataValidatorProvider"/>.
     /// </summary>
-    public class FieldMetadataValidatorCollection : IFieldMetadataValidatorCollection
+    public class FieldMetadataValidatorCollection : IFieldMetadataValidatorProvider
     {
         private readonly Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator> singletons
             = new Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator>();
