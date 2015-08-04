@@ -25,7 +25,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;Javascript</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -42,20 +42,23 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DefaultValidationDispatcher.cs" />
     <Compile Include="DependencyValidationDispatcher.cs" />
     <Compile Include="Handlers\IValidationHandler.cs" />
+    <Compile Include="Internals\DefaultValidationHandlerDefinition.cs" />
     <Compile Include="IValidationDispatcher.cs" />
+    <Compile Include="IValidationHandlerCollection.cs" />
     <Compile Include="IValidationResult.cs" />
     <Compile Include="IValidationResultBuilder.cs" />
     <Compile Include="Messages\IValidationMessage.cs" />
     <Compile Include="Messages\PropertyEqualMessage.cs" />
-    <Compile Include="Messages\PropertyValidationMessageBase.cs" />
     <Compile Include="Messages\StringLengthMessage.cs" />
     <Compile Include="Messages\StringNullOrEmptyMessage.cs" />
     <Compile Include="Messages\TextValidationMessage.cs" />
     <Compile Include="Messages\ValidationMessageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="ValidationDispatcherBase.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="ValidationResult.cs" />
     <Compile Include="ValidationResultBuilder.cs" />
@@ -70,10 +73,6 @@
     <ProjectReference Include="..\Neptuo.Models\Neptuo.Models.csproj">
       <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
       <Name>Neptuo.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Services\Neptuo.Services.csproj">
-      <Project>{21b47c66-1583-4415-b4f0-9fbefcedcd93}</Project>
-      <Name>Neptuo.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>

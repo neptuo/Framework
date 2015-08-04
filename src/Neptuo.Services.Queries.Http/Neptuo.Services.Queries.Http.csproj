@@ -57,14 +57,12 @@
     <Compile Include="HttpQueryDispatcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="Routing\DefaultRouteTable.cs" />
-    <Compile Include="Routing\IRouteTable.cs" />
-    <Compile Include="Routing\RelativeRouteTable.cs" />
-    <Compile Include="Routing\RouteDefinition.cs" />
-    <Compile Include="Routing\RouteMethod.cs" />
-    <Compile Include="Routing\RouteSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Services.HttpUtilities\Neptuo.Services.HttpUtilities.csproj">
+      <Project>{2fbb5921-7ac8-473d-8356-954e0087659f}</Project>
+      <Name>Neptuo.Services.HttpUtilities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Services.Queries\Neptuo.Services.Queries.csproj">
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
       <Name>Neptuo.Services.Queries</Name>

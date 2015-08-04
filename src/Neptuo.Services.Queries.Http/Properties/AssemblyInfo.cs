@@ -2,7 +2,7 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Services.Queries.Http")]
-[assembly: AssemblyDescription("Query over HTTP support.")]
+[assembly: AssemblyDescription("Queries over HTTP support.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]

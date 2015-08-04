@@ -39,11 +39,11 @@ namespace Neptuo.PresentationModels.Validators.Handlers
             return new ValidationResultBuilder(true);
         }
 
-        public virtual IValidationResult Handle(ModelValidatorContext context)
+        public Task<IValidationResult> HandleAsync(ModelValidatorContext context)
         {
             IValidationResultBuilder resultBuilder = CreateResultBuilder();
             ValidateInternal(context.Definition, context.Getter, resultBuilder);
-            return resultBuilder.ToResult();
+            return Task.FromResult(resultBuilder.ToResult());
         }
 
         /// <summary>

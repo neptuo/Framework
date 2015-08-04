@@ -7,14 +7,21 @@ using System.Threading.Tasks;
 namespace Neptuo.Services.Commands
 {
     /// <summary>
-    /// Main entry point to commanding infrastructure.
+    /// Dispatcher for handling commands.
     /// </summary>
     public interface ICommandDispatcher
     {
         /// <summary>
         /// Posts <paramref name="command"/> to command infrastructure for execution.
         /// </summary>
+        /// <remarks>
+        /// Based on concrete implementation, returning from this may mean:
+        /// 1) Command was successfully executed,
+        /// 2) command was successfully stored for late (asynchronous) execution.
+        /// For more on this beahavior, see concrete implementation.
+        /// </remarks>
         /// <param name="command">Instance describing requested operation.</param>
-        void Handle(object command);
+        /// <returns>Continuation task.</returns>
+        Task HandleAsync<TCommand>(TCommand command);
     }
 }

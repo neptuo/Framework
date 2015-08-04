@@ -25,7 +25,9 @@ var Neptuo$Services$Deleters$DefaultDeleteDispatcher = {
     Kind: "Class",
     definition: {
         ctor: function (){
-            this.handlers = Neptuo.Collections.Generic.ConcurrentAwareDictionaryActivator$2.get_Instance().Create();
+            this.handlersLock = new System.Object.ctor();
+            this.searchHandlerLock = new System.Object.ctor();
+            this.handlers = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor);
             this.onSearchHandler = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },

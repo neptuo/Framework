@@ -1,15 +1,15 @@
 ﻿using Neptuo;
-using Neptuo.AppServices;
-using Neptuo.AppServices.Handlers;
-using Neptuo.AppServices.Handlers.Behaviors;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting;
-using Neptuo.AppServices.Handlers.Behaviors.Hosting.Compilation;
-using Neptuo.AppServices.Handlers.Behaviors.Processing;
-using Neptuo.AppServices.Handlers.Behaviors.Processing.Compilation;
+using Neptuo.Services.Jobs;
+using Neptuo.Services.Jobs.Handlers;
+using Neptuo.Services.Jobs.Handlers.Behaviors;
+using Neptuo.Services.Jobs.Handlers.Behaviors.Processing;
+using Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation;
+using Neptuo.Services.Jobs.Handlers.Behaviors.Processing;
+using Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.Compilers;
-using Neptuo.ComponentModel.Behaviors;
-using Neptuo.ComponentModel.Behaviors.Processing.Compilation;
-using Neptuo.ComponentModel.Behaviors.Providers;
+using Neptuo.Behaviors;
+using Neptuo.Behaviors.Processing.Compilation;
+using Neptuo.Behaviors.Providers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,27 +31,29 @@ namespace TestConsole.AppServices
         {
             Console.WriteLine("Current ThreadID: {0}", Thread.CurrentThread.ManagedThreadId);
 
-            IBehaviorCollection behaviors = new BehaviorProviderCollection()
+            IBehaviorProvider behaviors = new BehaviorProviderCollection()
                 .Add(
-                    new AttributeBehaviorProvider()
-                        .AddMapping(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
+                    new AttributeBehaviorCollection()
+                        .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
                 );
 
             ICompilerConfiguration configuration = new CompilerConfiguration()
-                .BaseType(typeof(WorkerPipelineHandler<>))
+                //.BaseType(typeof(WorkerPipelineHandler<>))
                 .TempDirectory(@"C:\Temp\Pipelines");
             
             configuration.References()
                 .AddDirectory(Environment.CurrentDirectory);
 
-            configuration.BehaviorInstance()
-                .AddGenerator(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator());
+            configuration.GetBehaviorGenerator(
+                new CodeDomBehaviorGeneratorCollection()
+                    .Add(typeof(ReprocessAttribute), new CodeDomReprocessBehaviorInstanceGenerator())
+            );
 
             ServiceHandlerCollection collection = new ServiceHandlerCollection();
             //collection.Add(new TempCheckServiceHandler());
             collection.Add(
-                new WorkerServiceCollection()
-                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new CodeDomWorkerPipelineHandler<TempCheckWorkerHandler>(new CodeDomWorkerPipelineConfiguration(behaviors, configuration)))
+                new BackgroundServiceCollection()
+                    .AddIntervalHandler(TimeSpan.FromSeconds(5), new TempCheckWorkerHandler())
             );
             //collection.Add(new Temp2CheckServiceHandler());
 

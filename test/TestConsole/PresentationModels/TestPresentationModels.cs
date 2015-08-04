@@ -71,10 +71,17 @@ namespace TestConsole.PresentationModels
             Console.WriteLine("RoleIDs: {0}", String.Join(", ", model.RoleIDs));
 
             IValidationHandler<ModelValidatorContext> modelValidator = new FieldMetadataModelValidator(fieldMetadataValidators);
-            IValidationResult validationResult = Debug("Validate user", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, valueProvider)));
-            Console.WriteLine(validationResult);
-            validationResult = Debug("Validate user with binding", () => modelValidator.Handle(new ModelValidatorContext(modelDefinition, bindingGetter)));
-            Console.WriteLine(validationResult);
+            Task<IValidationResult> validationResult = Debug("Validate user", () => modelValidator.HandleAsync(new ModelValidatorContext(modelDefinition, valueProvider)));
+            if (!validationResult.IsCompleted)
+                validationResult.RunSynchronously();
+
+            Console.WriteLine(validationResult.Result);
+
+            validationResult = Debug("Validate user with binding", () => modelValidator.HandleAsync(new ModelValidatorContext(modelDefinition, bindingGetter)));
+            if (!validationResult.IsCompleted)
+                validationResult.RunSynchronously();
+
+            Console.WriteLine(validationResult.Result);
         }
     }
 

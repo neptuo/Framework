@@ -1875,10 +1875,10 @@ var Neptuo$PresentationModels$Validators$Handlers$ModelValidator = {
         CreateResultBuilder: function (){
             return new Neptuo.Services.Validators.ValidationResultBuilder.ctor(true);
         },
-        Handle: function (context){
+        HandleAsync: function (context){
             var resultBuilder = this.CreateResultBuilder();
             this.ValidateInternal(context.get_Definition(), context.get_Getter(), resultBuilder);
-            return resultBuilder.ToResult();
+            return System.Threading.Tasks.Task.FromResult$1(Neptuo.Services.Validators.IValidationResult.ctor, resultBuilder.ToResult());
         },
         ValidateInternal: function (modelDefinition, getter, resultBuilder){
             var $it8 = modelDefinition.get_Fields().GetEnumerator();

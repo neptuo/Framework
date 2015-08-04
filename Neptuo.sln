@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
 EndProject
@@ -68,8 +68,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo.Models\Neptuo.Models.csproj", "{37F9B51A-2E66-4A99-950A-17EBF6880ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services", "src\Neptuo.Services\Neptuo.Services.csproj", "{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Deleters", "src\Neptuo.Services.Deleters\Neptuo.Services.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Validators", "src\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
@@ -88,13 +86,31 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries.Htt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "test\UnitTest\UnitTest.csproj", "{57E49676-4746-41FD-B439-B4F41F8AE837}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.AppServices", "src\Neptuo.Services.AppServices\Neptuo.Services.AppServices.csproj", "{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Jobs", "src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj", "{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Logging.Log4net", "src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj", "{6A8E9CAB-4D18-4DEC-9B65-2D589479130A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Localization", "src\Neptuo.Localization\Neptuo.Localization.csproj", "{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "test\TestLibrary\TestLibrary.csproj", "{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Services", "test\UnitTest.Services\UnitTest.Services.csproj", "{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries.Behaviors", "src\Neptuo.Services.Queries.Behaviors\Neptuo.Services.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Behaviors", "src\Neptuo.Services.Commands.Behaviors\Neptuo.Services.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Events.Behaviors", "src\Neptuo.Services.Events.Behaviors\Neptuo.Services.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.HttpUtilities", "src\Neptuo.Services.HttpUtilities\Neptuo.Services.HttpUtilities.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Http", "src\Neptuo.Services.Commands.Http\Neptuo.Services.Commands.Http.csproj", "{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Jobs.Behaviors", "src\Neptuo.Services.Jobs.Behaviors\Neptuo.Services.Jobs.Behaviors.csproj", "{E50BF0B3-514E-4170-98DA-580A2CF8A016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Operations", "src\Neptuo.Services.Operations\Neptuo.Services.Operations.csproj", "{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -194,10 +210,6 @@ Global
 		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -246,6 +258,42 @@ Global
 		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FBB5921-7AC8-473D-8356-954E0087659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FBB5921-7AC8-473D-8356-954E0087659F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E50BF0B3-514E-4170-98DA-580A2CF8A016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E50BF0B3-514E-4170-98DA-580A2CF8A016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E50BF0B3-514E-4170-98DA-580A2CF8A016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E50BF0B3-514E-4170-98DA-580A2CF8A016}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -267,7 +315,6 @@ Global
 		{35F29C01-F567-420B-8E9E-57BD9FC3DE60} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{23E62643-F6C3-4D6A-862B-38999EBC6959} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{37F9B51A-2E66-4A99-950A-17EBF6880ABA} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
-		{21B47C66-1583-4415-B4F0-9FBEFCEDCD93} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{191A52C5-789C-4D8C-9551-0FAE9D632439} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
@@ -279,6 +326,15 @@ Global
 		{D2204DFA-BE95-4C97-88C1-33AE2A5CEA3B} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{6A8E9CAB-4D18-4DEC-9B65-2D589479130A} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{8B01EEA6-3B82-44DB-ADFE-033C36310C1E} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{3B70454A-3537-4696-B2FE-1280CAC029DC} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{9AE39411-759E-4682-9CB1-D1308C868290} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{2FBB5921-7AC8-473D-8356-954E0087659F} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{E50BF0B3-514E-4170-98DA-580A2CF8A016} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{1CFC4D1D-5826-4FA1-A8E3-32D8F9142EA0} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

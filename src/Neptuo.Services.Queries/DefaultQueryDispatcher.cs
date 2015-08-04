@@ -51,7 +51,7 @@ namespace Neptuo.Services.Queries
                 return target.HandleAsync(query);
             }
 
-            throw Ensure.Exception.ArgumentOutOfRange("query", "There isn't query handler query of type '{0}'.", queryType.FullName);
+            throw Ensure.Exception.ArgumentOutOfRange("query", "There isn't query handler for query of type '{0}'.", queryType.FullName);
         }
     }
 }

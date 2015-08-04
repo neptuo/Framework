@@ -45,14 +45,22 @@
     </Compile>
     <Compile Include="DependencyQueryDispatcher.cs" />
     <Compile Include="Handlers\IQueryHandler.cs" />
+    <Compile Include="Handlers\AutoExports\QueryHandlerAttribute.cs" />
+    <Compile Include="Internals\Constant.cs" />
     <Compile Include="Internals\DefaultQueryHandlerDefinition.cs" />
     <Compile Include="IQuery.cs" />
     <Compile Include="IQueryDispatcher.cs" />
     <Compile Include="IQueryHandlerCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="Handlers\AutoExports\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="_QueryHandlerCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Behaviors\Neptuo.Behaviors.csproj">
+      <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
+      <Name>Neptuo.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

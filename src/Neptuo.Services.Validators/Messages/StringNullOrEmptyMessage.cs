@@ -9,20 +9,19 @@ namespace Neptuo.Services.Validators.Messages
     /// <summary>
     /// Validation message for string not 'null or empty'.
     /// </summary>
-    public class StringNullOrEmptyMessage : PropertyValidationMessageBase
+    public class StringNullOrEmptyMessage : ValidationMessageBase
     {
         /// <summary>
         /// Creates new instance for <paramref name="key"/>.
         /// </summary>
         /// <param name="key">Validation message key.</param>
-        /// <param name="propertyName">Optional property name when differs from <paramref name="key"/>.</param>
-        public StringNullOrEmptyMessage(string key, string propertyName = null)
-            : base(key, propertyName)
+        public StringNullOrEmptyMessage(string key)
+            : base(key)
         { }
 
-        protected override string GetTextMessage()
+        protected override string ToString()
         {
-            return String.Format("{0} can't be empty.", PropertyName);
+            return String.Format("{0} can't be empty.", Key);
         }
     }
 }
