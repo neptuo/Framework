@@ -4,8 +4,6 @@ using Neptuo.Services.Jobs.Handlers;
 using Neptuo.Services.Jobs.Handlers.Behaviors;
 using Neptuo.Services.Jobs.Handlers.Behaviors.Processing;
 using Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation;
-using Neptuo.Services.Jobs.Handlers.Behaviors.Processing;
-using Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.Compilers;
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing.Compilation;
@@ -17,9 +15,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestConsole.AppServices
+namespace TestConsole.Services.Jobs
 {
-    class TestAppServices
+    class TestJob
     {
         public static void Test()
         {

@@ -63,7 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppServices\TempCheckServiceHandler.cs" />
+    <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
     <Compile Include="Cloning\TestCloning.cs" />
@@ -116,7 +116,7 @@
     <Compile Include="Services.Queries\TestQueries.cs" />
     <Compile Include="SharpKitCompilers\TestSharpKitCompiler.cs" />
     <Compile Include="Threading\TestMultiLockProvider.cs" />
-    <Compile Include="AppServices\TestAppServices.cs" />
+    <Compile Include="Services.Jobs\TestJob.cs" />
     <Compile Include="Tokens\TestTokens.cs" />
     <Compile Include="Tokens\TestTokenWriter.cs" />
   </ItemGroup>
