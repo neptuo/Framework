@@ -19,7 +19,7 @@ namespace Neptuo.Services.Validators.Messages
             : base(key)
         { }
 
-        protected override string ToString()
+        public override string ToString()
         {
             return String.Format("{0} can't be empty.", Key);
         }

@@ -27,7 +27,7 @@ namespace Neptuo.Services.Validators.Messages
             OtherKey = otherKey;
         }
 
-        protected override string GetTextMessage()
+        public override string ToString()
         {
             return String.Format("{0} must match {1}.", Key, OtherKey);
         }

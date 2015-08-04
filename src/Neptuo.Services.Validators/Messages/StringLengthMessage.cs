@@ -35,7 +35,7 @@ namespace Neptuo.Services.Validators.Messages
             MaxLength = maxLength;
         }
 
-        protected override string GetTextMessage()
+        public override string ToString()
         {
             if (MinLength == null)
                 return String.Format("{0} must be shorter or equal to {1} characters.", Key, MaxLength);
