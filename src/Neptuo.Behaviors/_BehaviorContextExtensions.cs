@@ -23,7 +23,7 @@ namespace Neptuo.Behaviors
         public static IBehaviorContext SetTargetMethod(this IBehaviorContext context, MethodInfo method)
         {
             Ensure.NotNull(context, "context");
-            context.CustomValues.Set("TargetMethod", method);
+            context.CustomValues.Add("TargetMethod", method);
             return context;
         }
 
@@ -40,7 +40,7 @@ namespace Neptuo.Behaviors
         public static IBehaviorContext SetTargetParameters(this IBehaviorContext context, List<object> parameters)
         {
             Ensure.NotNull(context, "context");
-            context.CustomValues.Set("TargetParameters", parameters);
+            context.CustomValues.Add("TargetParameters", parameters);
             return context;
         }
 
@@ -57,7 +57,7 @@ namespace Neptuo.Behaviors
         public static IBehaviorContext SetTargetReturn(this IBehaviorContext context, object output)
         {
             Ensure.NotNull(context, "context");
-            context.CustomValues.Set("TargetReturn", output);
+            context.CustomValues.Add("TargetReturn", output);
             return context;
         }
 

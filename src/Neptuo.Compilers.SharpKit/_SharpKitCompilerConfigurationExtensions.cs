@@ -24,7 +24,7 @@ namespace Neptuo.Compilers
 
             SharpKitPluginCollection collection;
             if (!configuration.TryGet("Plugins", out collection))
-                configuration.Set("Plugins", collection = new SharpKitPluginCollection());
+                configuration.Add("Plugins", collection = new SharpKitPluginCollection());
 
             return collection;
         }
@@ -40,7 +40,7 @@ namespace Neptuo.Compilers
             Ensure.NotNull(configuration, "configuration");
             Ensure.NotNull(plugins, "plugins");
             
-            configuration.Set("Plugins", plugins);
+            configuration.Add("Plugins", plugins);
             return configuration;
         }
 

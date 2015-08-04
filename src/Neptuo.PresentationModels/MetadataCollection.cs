@@ -14,7 +14,7 @@ namespace Neptuo.PresentationModels
     {
         public IMetadataBuilder Add(string identifier, object value)
         {
-            base.Set(identifier, value);
+            base.Add(identifier, value);
             return this;
         }
     }

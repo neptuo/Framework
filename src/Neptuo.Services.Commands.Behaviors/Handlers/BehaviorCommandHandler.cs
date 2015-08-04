@@ -43,7 +43,7 @@ namespace Neptuo.Services.Commands.Handlers
         {
             T instance = handlerFactory.Create();
             IKeyValueCollection customValues = new KeyValueCollection()
-                .Set("Command", command);
+                .Add("Command", command);
 
             return pipeline.ExecuteAsync(instance, customValues);
         }

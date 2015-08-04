@@ -112,9 +112,9 @@ namespace Neptuo.Collections.Specialized
             values.Add(listener);
         }
 
-        public override IKeyValueCollection Set(string key, object value)
+        public override IKeyValueCollection Add(string key, object value)
         {
-            IKeyValueCollection result = base.Set(key, value);
+            IKeyValueCollection result = base.Add(key, value);
 
             foreach (Listener listener in Enumerable.Concat(GetListeners(key), GetListeners(String.Empty)))
                 listener(key, value);
@@ -130,7 +130,7 @@ namespace Neptuo.Collections.Specialized
                 object valueBase;
                 if(provider(key, out valueBase))
                 {
-                    Set(key, valueBase);
+                    Add(key, valueBase);
                     return ConvertTo(valueBase, out value);
                 }
             }

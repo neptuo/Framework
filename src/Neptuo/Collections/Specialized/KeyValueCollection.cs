@@ -53,7 +53,7 @@ namespace Neptuo.Collections.Specialized
                 Add(key, collection[key]);
         }
 
-        public virtual IKeyValueCollection Set(string key, object value)
+        public virtual IKeyValueCollection Add(string key, object value)
         {
             if (IsReadOnly)
                 throw Ensure.Exception.InvalidOperation("Collection is in read-only mode.");

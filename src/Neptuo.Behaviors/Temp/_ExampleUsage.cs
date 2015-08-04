@@ -65,14 +65,14 @@ namespace Neptuo.Behaviors
         async Task IBehavior<T>.ExecuteAsync(T handler, IBehaviorContext context)
         {
             TResult result = await handler.HandleAsync(context.CustomValues.Get<TQuery>("Query"));
-            context.CustomValues.Set("Result", result);
+            context.CustomValues.Add("Result", result);
         }
 
         public async Task<TResult> HandleAsync(TQuery query)
         {
             T instance = handlerFactory.Create();
             IKeyValueCollection customValues = new KeyValueCollection()
-                .Set("Query", query);
+                .Add("Query", query);
 
             await pipeline.ExecuteAsync(instance, customValues);
             return customValues.Get<TResult>("Result");

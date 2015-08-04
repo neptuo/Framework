@@ -36,7 +36,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
         public static ICompilerConfiguration AddBehaviorGenerator(this ICompilerConfiguration configuration, ICodeDomBehaviorGenerator generator)
         {
             Ensure.NotNull(configuration, "configuration");
-            configuration.Set("BehaviorGenerator", generator);
+            configuration.Add("BehaviorGenerator", generator);
             return configuration;
         }
 

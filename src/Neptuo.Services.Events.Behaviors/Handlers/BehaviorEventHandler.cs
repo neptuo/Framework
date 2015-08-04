@@ -43,7 +43,7 @@ namespace Neptuo.Services.Events.Handlers
         {
             T instance = handlerFactory.Create();
             IKeyValueCollection customValues = new KeyValueCollection()
-                .Set("Event", payload);
+                .Add("Event", payload);
 
             return pipeline.ExecuteAsync(instance, customValues);
         }

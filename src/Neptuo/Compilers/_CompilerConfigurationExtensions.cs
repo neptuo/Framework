@@ -26,7 +26,7 @@ namespace Neptuo.Compilers
 
             CompilerReferenceCollection references;
             if (!configuration.TryGet("References", out references))
-                configuration.Set("References", references = new CompilerReferenceCollection());
+                configuration.Add("References", references = new CompilerReferenceCollection());
 
             return references;
         }
@@ -42,7 +42,7 @@ namespace Neptuo.Compilers
             Ensure.NotNull(configuration, "configuration");
             Ensure.NotNull(references, "references");
 
-            configuration.Set("References", references);
+            configuration.Add("References", references);
             return configuration;
         }
 
@@ -70,7 +70,7 @@ namespace Neptuo.Compilers
         public static ICompilerConfiguration IsDebugMode(this ICompilerConfiguration configuration, bool isDebugMode)
         {
             Ensure.NotNull(configuration, "configuration");
-            configuration.Set("IsDebugMode", isDebugMode);
+            configuration.Add("IsDebugMode", isDebugMode);
             return configuration;
         }
 
@@ -98,7 +98,7 @@ namespace Neptuo.Compilers
         public static ICompilerConfiguration TempDirectory(this ICompilerConfiguration configuration, string tempDirectory)
         {
             Ensure.NotNull(configuration, "configuration");
-            configuration.Set("TempDirectory", tempDirectory);
+            configuration.Add("TempDirectory", tempDirectory);
             return configuration;
         }
 
