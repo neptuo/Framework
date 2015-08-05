@@ -19,6 +19,6 @@ namespace Neptuo.FileSystems
         /// <summary>
         /// Item path separator.
         /// </summary>
-        public char PathSeparator { get; }
+        char PathSeparator { get; }
     }
 }
