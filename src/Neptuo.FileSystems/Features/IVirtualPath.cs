@@ -14,6 +14,6 @@ namespace Neptuo.FileSystems.Features
         /// <summary>
         /// Virtual path (excluding this item).
         /// </summary>
-        string Virtual { get; }
+        string VirtualPath { get; }
     }
 }
