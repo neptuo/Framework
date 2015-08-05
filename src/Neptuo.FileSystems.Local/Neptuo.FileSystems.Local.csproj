@@ -53,6 +53,10 @@
       <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
       <Name>Neptuo.FileSystems</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
+      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
+      <Name>Neptuo.Models.Features</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

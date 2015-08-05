@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Neptuo;
+using Neptuo.Models.Features;
+using Neptuo.FileSystems;
+using Neptuo.FileSystems.Features;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -15,6 +19,9 @@ namespace TestConsole.FileSystems
             //Directory.EnumerateDirectories()
             //Path.GetExtension()
             //FileAttributes
+
+            IFile file = null;
+            Ensure.Condition.HasFeature<IFileContentSize>(file);
         }
     }
 }

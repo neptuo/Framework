@@ -47,6 +47,7 @@
     <Compile Include="ObjectFeatureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="_EnsureConditionExtensions.cs" />
     <Compile Include="_FeatureCollectionModelExtensions.cs" />
     <Compile Include="_FeatureModelExtensions.cs" />
   </ItemGroup>
