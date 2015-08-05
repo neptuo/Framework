@@ -44,7 +44,11 @@
     </Compile>
     <Compile Include="Features\IAncestorEnumerator.cs" />
     <Compile Include="Features\IAbsolutePath.cs" />
+    <Compile Include="Features\Searching\IFileNameSearch.cs" />
+    <Compile Include="Features\Searching\IFilePathSearch.cs" />
     <Compile Include="Features\IVirtualPath.cs" />
+    <Compile Include="Features\Searching\TextSearch.cs" />
+    <Compile Include="Features\Searching\TextSearchType.cs" />
     <Compile Include="Features\Timestamps\ICreatedAt.cs" />
     <Compile Include="Features\IDirectoryCreator.cs" />
     <Compile Include="Features\IDirectoryEnumerator.cs" />

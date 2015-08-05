@@ -19,14 +19,6 @@ namespace Neptuo.FileSystems
         /// <returns>Enumeration of all child directories.</returns>
         IEnumerable<IDirectory> FindDirectories(string searchPattern, bool inAllDescendants);
 
-        /// <summary>
-        /// Returns enumeration of all child files.
-        /// </summary>
-        /// <param name="searchPattern">Name for filtering.</param>
-        /// <param name="inAllDescendants">True for not only direct childs.</param>
-        /// <returns>Enumeration of all child files.</returns>
-        IEnumerable<IFile> FindFiles(string searchPattern, bool inAllDescendants);
-
 
         /// <summary>
         /// Returns true if this directory contains directory with <paramref name="directoryName"/>.
@@ -35,11 +27,5 @@ namespace Neptuo.FileSystems
         /// <returns>True if this directory contains directory with <paramref name="directoryName"/>.</returns>
         bool ContainsDirectoryName(string directoryName);
 
-        /// <summary>
-        /// Returns true if this directory contains file with <paramref name="fileName"/>.
-        /// </summary>
-        /// <param name="fileName">File name to test.</param>
-        /// <returns>True if this directory contains file with <paramref name="fileName"/>.</returns>
-        bool ContainsFileName(string fileName);
     }
 }
