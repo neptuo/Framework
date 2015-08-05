@@ -1,5 +1,7 @@
 ﻿using Neptuo.Activators;
 using Neptuo.FileSystems;
+using Neptuo.FileSystems.Features;
+using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,10 +33,11 @@ namespace Neptuo.PresentationModels.Serialization
         /// Creates new instance that reads from <paramref name="xmlFile"/>.
         /// </summary>
         /// <param name="xmlFile">XML document to be used as value source.</param>
-        public XmlModelValueGetterFactory(IReadOnlyFile xmlFile)
+        public XmlModelValueGetterFactory(IFile xmlFile)
         {
             Ensure.Condition.XmlFile(xmlFile, "xmlFile");
-            document = XDocument.Load(xmlFile.GetContentAsStream());
+            Ensure.Condition.HasFeature<IFileContentReader>(xmlFile);
+            document = XDocument.Load(xmlFile.With<IFileContentReader>().GetContentAsStream());
         }
 
         /// <summary>

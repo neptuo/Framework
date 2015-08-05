@@ -1,6 +1,8 @@
 ﻿using Neptuo.Activators;
 using Neptuo.ComponentModel;
 using Neptuo.FileSystems;
+using Neptuo.FileSystems.Features;
+using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,7 +76,7 @@ namespace Neptuo.PresentationModels.Serialization
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 memoryStream.Seek(0, SeekOrigin.Begin);
-                xmlFile.SetContentFromStream(memoryStream);
+                xmlFile.With<IFileContentUpdater>().SetContentFromStream(memoryStream);
             }
         }
 
