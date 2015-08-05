@@ -46,6 +46,7 @@
     <Compile Include="Features\IAbsolutePath.cs" />
     <Compile Include="Features\Attributes\IAttributeReader.cs" />
     <Compile Include="Features\Attributes\IAttributeUpdater.cs" />
+    <Compile Include="Features\IOwnerFileSystem.cs" />
     <Compile Include="Features\Searching\IDirectoryPathSearch.cs" />
     <Compile Include="Features\Searching\IDirectoryNameSearch.cs" />
     <Compile Include="Features\Searching\IFileNameSearch.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="IDirectory.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="IFileSystem.cs" />
-    <Compile Include="IReadOnlyDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="_EnsureExtensions.cs" />
