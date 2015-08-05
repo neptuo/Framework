@@ -20,11 +20,11 @@ namespace Neptuo.FileSystems.Features.Searching
         IEnumerable<IFile> FindFiles(TextSearch fileNamePath, TextSearch fileExtension);
 
         /// <summary>
-        /// Returns true if file with <paramref name="fileNamePath"/> is contained.
+        /// Returns true if descendant file matching <paramref name="fileNamePath"/> is contained.
         /// </summary>
         /// <param name="fileNamePath">Name or path to test.</param>
         /// <param name="fileExtension">Extension to text.</param>
-        /// <returns>True if file with <paramref name="fileNamePath"/> is contained.</returns>
+        /// <returns>True if descendant file matching <paramref name="fileNamePath"/> is contained.</returns>
         bool IsFileContained(TextSearch fileNamePath, TextSearch fileExtension);
     }
 }
