@@ -47,6 +47,7 @@
     <Compile Include="Features\LocalDirectoryEnumerator.cs" />
     <Compile Include="Features\LocalFileCreator.cs" />
     <Compile Include="Features\LocalFileEnumerator.cs" />
+    <Compile Include="Features\Searching\LocalSearchProvider.cs" />
     <Compile Include="Internals\ArrayEnumerator.cs" />
     <Compile Include="Internals\EnumeratorBase.cs" />
     <Compile Include="LocalDirectory.cs" />

@@ -14,6 +14,6 @@ namespace Neptuo.FileSystems.Features.Timestamps
         /// <summary>
         /// Timestamp at which item was modified.
         /// </summary>
-        DateTime CreatedAt { get; }
+        DateTime ModifiedAt { get; }
     }
 }

@@ -12,17 +12,17 @@ namespace Neptuo.FileSystems.Features.Searching
     public interface IDirectoryPathSearch
     {
         /// <summary>
-        /// Returns enumeration of descendant directories matching <paramref name="directoryNamePath"/>.
+        /// Returns enumeration of descendant directories matching <paramref name="directoryPath"/>.
         /// </summary>
-        /// <param name="directoryNamePath">Name or path for filtering.</param>
-        /// <returns>Enumeration of child directories matching <paramref name="directoryNamePath"/>.</returns>
-        IEnumerable<IDirectory> FindDirectories(TextSearch directoryNamePath);
+        /// <param name="directoryPath">Name or path for filtering.</param>
+        /// <returns>Enumeration of child directories matching <paramref name="directoryPath"/>.</returns>
+        IEnumerable<IDirectory> FindDirectories(TextSearch directoryPath);
 
         /// <summary>
-        /// Returns true if descendant directory matching <paramref name="directoryNamePath"/> is contained.
+        /// Returns true if descendant directory matching <paramref name="directoryPath"/> is contained.
         /// </summary>
-        /// <param name="directoryNamePath">Name or path to test.</param>
-        /// <returns>True if directory matching <paramref name="directoryNamePath"/> is contained.</returns>
-        bool IsDirectoryContained(TextSearch directoryNamePath);
+        /// <param name="directoryPath">Name or path to test.</param>
+        /// <returns>True if directory matching <paramref name="directoryPath"/> is contained.</returns>
+        bool IsDirectoryContained(TextSearch directoryPath);
     }
 }

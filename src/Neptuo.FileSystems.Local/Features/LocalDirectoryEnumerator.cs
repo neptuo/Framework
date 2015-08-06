@@ -31,7 +31,7 @@ namespace Neptuo.FileSystems.Features
             return new ArrayEnumerator<IDirectory>(Directory.GetDirectories(parentDirectory), directory => new LocalDirectory(directory));
         }
 
-        IEnumerator IEnumerator.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
         }

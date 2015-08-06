@@ -1,5 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.FileSystems.Features;
+using Neptuo.FileSystems.Features.Timestamps;
 using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,21 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
-    public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, 
+    public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt,
         IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>
     {
         public string Name { get; private set; }
         public string AbsolutePath { get; private set; }
+        
+        public DateTime CreatedAt
+        {
+            get { return Directory.GetCreationTime(AbsolutePath); }
+        }
+
+        public DateTime ModifiedAt
+        {
+            get { return Directory.GetLastWriteTime(AbsolutePath); }
+        }
 
         /// <summary>
         /// Creates new instance that points to the <paramref name="absolutePath"/>.
@@ -89,44 +100,6 @@ namespace Neptuo.FileSystems
                 searchOption = SearchOption.AllDirectories;
 
             return searchOption;
-        }
-
-        public IEnumerable<IDirectory> FindDirectories(string searchPattern, bool inAllDescendants)
-        {
-            Ensure.NotNullOrEmpty(searchPattern, "searchPattern");
-            IEnumerable<string> paths = Directory.GetDirectories(AbsolutePath, searchPattern, GetSearchOption(inAllDescendants));
-            if (!inAllDescendants)
-                return EnumerateChildDirectories(paths);
-
-            return EnumerateAllDirectories(paths);
-        }
-
-        public IEnumerable<IFile> FindFiles(string searchPattern, bool inAllDescendants)
-        {
-            Ensure.NotNullOrEmpty(searchPattern, "searchPattern");
-            IEnumerable<string> paths = Directory.GetFiles(AbsolutePath, searchPattern, GetSearchOption(inAllDescendants));
-            if (!inAllDescendants)
-            {
-                foreach (string path in paths)
-                    yield return new LocalFile(this, path);
-            }
-            else
-            {
-                foreach (string path in paths)
-                    yield return new LocalFile(path);
-            }
-        }
-
-        public bool ContainsDirectoryName(string directoryName)
-        {
-            Ensure.NotNullOrEmpty(directoryName, "directoryName");
-            return Directory.Exists(Path.Combine(AbsolutePath, directoryName));
-        }
-
-        public bool ContainsFileName(string fileName)
-        {
-            Ensure.NotNullOrEmpty(fileName, "fileName");
-            return File.Exists(Path.Combine(AbsolutePath, fileName));
         }
     }
 }
