@@ -60,18 +60,17 @@ namespace Neptuo.FileSystems
         /// <param name="filePath">Path to existing file.</param>
         /// <returns>Static file for <paramref name="filePath"/>.</returns>
         /// <exception cref="FileSystemException">When <paramref name="filePath"/> doesn't point to existing file.</exception>
-        public static IDirectory FromFilePath(string filePath)
+        public static IFile FromFilePath(string filePath)
         {
-            //Ensure.NotNullOrEmpty(filePath, "filePath");
+            Ensure.NotNullOrEmpty(filePath, "filePath");
 
-            //if (!File.Exists(filePath))
-            //    throw Ensure.Exception.ArgumentFileNotExist(filePath, "filePath");
+            if (!File.Exists(filePath))
+                throw Ensure.Exception.ArgumentFileNotExist(filePath, "filePath");
 
-            //if (!Path.IsPathRooted(filePath))
-            //    filePath = Path.Combine(Environment.CurrentDirectory, filePath);
+            if (!Path.IsPathRooted(filePath))
+                filePath = Path.Combine(Environment.CurrentDirectory, filePath);
 
-            //return new LocalFile(filePath);
-            throw new NotImplementedException();
+            return new LocalFile(filePath);
         }
 
         /// <summary>
