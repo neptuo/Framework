@@ -30,10 +30,10 @@ namespace Neptuo.Models.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureGetter">Feature getter.</param>
         /// <returns>Self (for fluency).</returns>
-        public static CollectionFeatureModel Add<T>(this CollectionFeatureModel collection, Func<object> featureGetter)
+        public static CollectionFeatureModel AddGetter<T>(this CollectionFeatureModel collection, Func<object> featureGetter)
         {
             Ensure.NotNull(collection, "collection");
-            return collection.Add(typeof(T), featureGetter);
+            return collection.AddGetter(typeof(T), featureGetter);
         }
 
         /// <summary>
@@ -42,10 +42,10 @@ namespace Neptuo.Models.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureFactory">Feature factory.</param>
         /// <returns>Self (for fluency).</returns>
-        public static CollectionFeatureModel Add<T>(this CollectionFeatureModel collection, IActivator<object> featureFactory)
+        public static CollectionFeatureModel AddFactory<T>(this CollectionFeatureModel collection, IActivator<object> featureFactory)
         {
             Ensure.NotNull(collection, "collection");
-            return collection.Add(typeof(T), featureFactory);
+            return collection.AddFactory(typeof(T), featureFactory);
         }
     }
 }

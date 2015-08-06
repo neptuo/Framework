@@ -75,7 +75,7 @@ namespace Neptuo.Models.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureGetter">Feature provider.</param>
         /// <returns>Self (for fluency).</returns>
-        public CollectionFeatureModel Add(Type featureType, Func<object> featureGetter)
+        public CollectionFeatureModel AddGetter(Type featureType, Func<object> featureGetter)
         {
             Ensure.NotNull(featureType, "featureType");
             Ensure.NotNull(featureGetter, "featureGetter");
@@ -91,7 +91,7 @@ namespace Neptuo.Models.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureFactory">Feature factory.</param>
         /// <returns>Self (for fluency).</returns>
-        public CollectionFeatureModel Add(Type featureType, IActivator<object> featureFactory)
+        public CollectionFeatureModel AddFactory(Type featureType, IActivator<object> featureFactory)
         {
             Ensure.NotNull(featureType, "featureType");
             Ensure.NotNull(featureFactory, "featureFactory");
