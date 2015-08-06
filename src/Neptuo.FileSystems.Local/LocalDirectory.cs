@@ -1,5 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.FileSystems.Features;
+using Neptuo.FileSystems.Features.Searching;
 using Neptuo.FileSystems.Features.Timestamps;
 using Neptuo.Models.Features;
 using System;
@@ -15,7 +16,8 @@ namespace Neptuo.FileSystems
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
     public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt,
-        IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>
+        IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>,
+        IActivator<IFileNameSearch>, IActivator<IFilePathSearch>, IActivator<IDirectoryNameSearch>, IActivator<IDirectoryPathSearch>
     {
         public string Name { get; private set; }
         public string AbsolutePath { get; private set; }
@@ -46,7 +48,11 @@ namespace Neptuo.FileSystems
                 .AddFactory<IFileCreator>(this)
                 .AddFactory<IAncestorEnumerator>(this)
                 .AddFactory<IDirectoryEnumerator>(this)
-                .AddFactory<IFileEnumerator>(this);
+                .AddFactory<IFileEnumerator>(this)
+                .AddFactory<IFileNameSearch>(this)
+                .AddFactory<IFilePathSearch>(this)
+                .AddFactory<IDirectoryNameSearch>(this)
+                .AddFactory<IDirectoryPathSearch>(this);
         }
 
         IDirectoryCreator IActivator<IDirectoryCreator>.Create()
@@ -72,6 +78,26 @@ namespace Neptuo.FileSystems
         IFileEnumerator IActivator<IFileEnumerator>.Create()
         {
             return new LocalFileEnumerator(AbsolutePath);
+        }
+
+        IFileNameSearch IActivator<IFileNameSearch>.Create()
+        {
+            return new LocalSearchProvider(AbsolutePath);
+        }
+
+        IFilePathSearch IActivator<IFilePathSearch>.Create()
+        {
+            return new LocalSearchProvider(AbsolutePath);
+        }
+
+        IDirectoryNameSearch IActivator<IDirectoryNameSearch>.Create()
+        {
+            return new LocalSearchProvider(AbsolutePath);
+        }
+
+        IDirectoryPathSearch IActivator<IDirectoryPathSearch>.Create()
+        {
+            return new LocalSearchProvider(AbsolutePath);
         }
 
         /// <summary>
