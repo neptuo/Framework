@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Neptuo.Activators;
+using Neptuo.FileSystems.Features;
+using Neptuo.Models.Features;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +13,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system implemented as stadart file system.
     /// </summary>
-    public class LocalFileSystem : IFileSystem
+    public class LocalFileSystem : CollectionFeatureModel, IFileSystem, IActivator<IFileSystemConstant>
     {
         private readonly LocalDirectory rootDirectory;
 
@@ -30,12 +33,20 @@ namespace Neptuo.FileSystems
         /// <param name="rootPath">Path to root directory.</param>
         /// <param name="isReadOnly">Whether file system should be read-only.</param>
         public LocalFileSystem(string rootPath, bool isReadOnly)
+            : base(true)
         {
             if (!Path.IsPathRooted(rootPath))
                 throw Ensure.Exception.Argument("rootPath", "Path to file system must be rooted.");
 
             rootDirectory = new LocalDirectory(rootPath);
             IsReadOnly = isReadOnly;
+
+            this.AddFactory<IFileSystemConstant>(this);
+        }
+
+        IFileSystemConstant IActivator<IFileSystemConstant>.Create()
+        {
+            return new LocalFileSystemConstant();
         }
 
         public bool IsWriteable(IDirectory directory)
@@ -80,12 +91,6 @@ namespace Neptuo.FileSystems
                 directoryPath = Path.Combine(Environment.CurrentDirectory, directoryPath);
 
             return new LocalDirectory(directoryPath);
-        }
-
-
-        public char PathSeparator
-        {
-            get { throw new NotImplementedException(); }
         }
     }
 }

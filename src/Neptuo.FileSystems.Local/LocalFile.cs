@@ -14,13 +14,12 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
-    public class LocalFile : CollectionFeatureModel, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, 
+    public class LocalFile : LocalItemBase, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, 
         IActivator<IAncestorEnumerator>,
         IFileContentSize, IFileContentReader, IFileContentUpdater, IFileContentAppender
     {
         public string Name { get; private set; }
         public string Extension { get; private set; }
-        public string AbsolutePath { get; private set; }
 
         public DateTime CreatedAt
         {
@@ -42,14 +41,12 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="absolutePath">Standard file system path to file.</param>
         internal LocalFile(string absolutePath)
-            : base(true)
+            : base(absolutePath)
         {
-            Ensure.NotNullOrEmpty(absolutePath, "fullPath");
+            Ensure.NotNullOrEmpty(absolutePath, "absolutePath");
             SetFileRelatedProperties(absolutePath);
 
             this
-                .Add<IAbsolutePath>(this)
-                .AddFactory<IAncestorEnumerator>(this)
                 .Add<IFileContentSize>(this)
                 .Add<IFileContentReader>(this)
                 .Add<IFileContentUpdater>(this)
@@ -57,22 +54,16 @@ namespace Neptuo.FileSystems
         }
 
         /// <summary>
-        /// Sets file related properties from <paramref name="fullPath"/>.
+        /// Sets file related properties from <paramref name="absolutePath"/>.
         /// </summary>
-        /// <param name="fullPath">Standard file system path to file.</param>
-        private void SetFileRelatedProperties(string fullPath)
+        /// <param name="absolutePath">Standard file system path to file.</param>
+        private void SetFileRelatedProperties(string absolutePath)
         {
-            if (!File.Exists(fullPath))
+            if (!File.Exists(absolutePath))
                 throw Ensure.Exception.Argument("fullPath", "Provided path must be existing file.");
 
-            AbsolutePath = fullPath;
-            Name = Path.GetFileNameWithoutExtension(fullPath);
-            Extension = Path.GetExtension(fullPath);
-        }
-
-        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
-        {
-            return new LocalAncestorEnumerator(AbsolutePath);
+            Name = Path.GetFileNameWithoutExtension(absolutePath);
+            Extension = Path.GetExtension(absolutePath);
         }
 
         #region IFileContentReader

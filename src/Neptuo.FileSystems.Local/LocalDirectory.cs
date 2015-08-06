@@ -15,12 +15,11 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
-    public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt,
+    public class LocalDirectory : LocalItemBase, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt,
         IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>,
         IActivator<IFileNameSearch>, IActivator<IFilePathSearch>, IActivator<IDirectoryNameSearch>, IActivator<IDirectoryPathSearch>
     {
         public string Name { get; private set; }
-        public string AbsolutePath { get; private set; }
         
         public DateTime CreatedAt
         {
@@ -37,16 +36,14 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="absolutePath">Standard file system path to the directory.</param>
         internal LocalDirectory(string absolutePath)
-            : base(true)
+            : base(absolutePath)
         {
             Ensure.NotNullOrEmpty(absolutePath, "absolutePath");
             SetDirectoryRelatedProperties(absolutePath);
 
             this
-                .Add<IAbsolutePath>(this)
                 .AddFactory<IDirectoryCreator>(this)
                 .AddFactory<IFileCreator>(this)
-                .AddFactory<IAncestorEnumerator>(this)
                 .AddFactory<IDirectoryEnumerator>(this)
                 .AddFactory<IFileEnumerator>(this)
                 .AddFactory<IFileNameSearch>(this)
@@ -63,11 +60,6 @@ namespace Neptuo.FileSystems
         IFileCreator IActivator<IFileCreator>.Create()
         {
             return new LocalFileCreator(AbsolutePath);
-        }
-
-        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
-        {
-            return new LocalAncestorEnumerator(AbsolutePath);
         }
 
         IDirectoryEnumerator IActivator<IDirectoryEnumerator>.Create()
@@ -110,7 +102,6 @@ namespace Neptuo.FileSystems
                 throw Ensure.Exception.Argument("absolutePath", "Provided path must be existing directory.");
 
             Name = Path.GetFileName(absolutePath);
-            AbsolutePath = absolutePath;
         }
 
     

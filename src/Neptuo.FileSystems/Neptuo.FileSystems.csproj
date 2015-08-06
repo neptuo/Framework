@@ -46,6 +46,7 @@
     <Compile Include="Features\IAbsolutePath.cs" />
     <Compile Include="Features\Attributes\IAttributeReader.cs" />
     <Compile Include="Features\Attributes\IAttributeUpdater.cs" />
+    <Compile Include="Features\IFileSystemConstant.cs" />
     <Compile Include="Features\IOwnerFileSystem.cs" />
     <Compile Include="Features\Searching\IDirectoryPathSearch.cs" />
     <Compile Include="Features\Searching\IDirectoryNameSearch.cs" />
