@@ -19,7 +19,7 @@ namespace Neptuo.FileSystems
         string Name { get; }
 
         /// <summary>
-        /// File extension (without extensions separator).
+        /// File extension (without extension separator).
         /// </summary>
         string Extension { get; }
     }
