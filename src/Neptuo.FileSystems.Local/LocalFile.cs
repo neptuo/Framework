@@ -122,19 +122,22 @@ namespace Neptuo.FileSystems
 
         #region IFileContentAppender
 
-        public Task AppendContentAsync(string fileContent)
+        public async Task AppendContentAsync(string fileContent)
         {
-            throw new NotImplementedException();
+            using (TextWriter writer = File.AppendText(AbsolutePath))
+                await writer.WriteAsync(fileContent);
         }
 
-        public Task AppendContentFromByteArrayAsync(byte[] fileContent)
+        public async Task AppendContentFromByteArrayAsync(byte[] fileContent)
         {
-            throw new NotImplementedException();
+            using(FileStream writer = new FileStream(AbsolutePath, FileMode.Append))
+                await writer.WriteAsync(fileContent, 0, fileContent.Length);
         }
 
-        public Task AppendContentFromStreamAsync(Stream fileContent)
+        public async Task AppendContentFromStreamAsync(Stream fileContent)
         {
-            throw new NotImplementedException();
+            using (FileStream writer = new FileStream(AbsolutePath, FileMode.Append))
+                await fileContent.CopyToAsync(writer);
         }
 
         #endregion
