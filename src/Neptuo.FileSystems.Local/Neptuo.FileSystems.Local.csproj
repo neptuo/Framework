@@ -42,6 +42,13 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Features\LocalAncestorEnumerator.cs" />
+    <Compile Include="Features\LocalDirectoryCreator.cs" />
+    <Compile Include="Features\LocalDirectoryEnumerator.cs" />
+    <Compile Include="Features\LocalFileCreator.cs" />
+    <Compile Include="Features\LocalFileEnumerator.cs" />
+    <Compile Include="Internals\ArrayEnumerator.cs" />
+    <Compile Include="Internals\EnumeratorBase.cs" />
     <Compile Include="LocalDirectory.cs" />
     <Compile Include="LocalFile.cs" />
     <Compile Include="LocalFileSystem.cs" />
