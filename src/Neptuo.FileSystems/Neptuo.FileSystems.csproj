@@ -51,7 +51,6 @@
     <Compile Include="Features\Searching\IDirectoryNameSearch.cs" />
     <Compile Include="Features\Searching\IFileNameSearch.cs" />
     <Compile Include="Features\Searching\IFilePathSearch.cs" />
-    <Compile Include="Features\IVirtualPath.cs" />
     <Compile Include="Features\Searching\TextSearch.cs" />
     <Compile Include="Features\Searching\TextSearchType.cs" />
     <Compile Include="Features\Timestamps\ICreatedAt.cs" />
