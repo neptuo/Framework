@@ -42,20 +42,17 @@ namespace Neptuo.FileSystems.Features.Searching
             }
         }
 
-        //private string PrepareSearchPattern(TextSearch name, TextSearch suffix)
-        //{
-        //    if (String.IsNullOrEmpty(name.Text))
-        //        return "*." + PrepareSearchPattern(suffix);
-
-        //    if (String.IsNullOrEmpty(suffix.Text))
-        //        return PrepareSearchPattern(name);
-
-        //    return PrepareSearchPattern(name) + "." + PrepareSearchPattern(suffix);
-        //}
-
         private IEnumerable<string> EnumeratedDirectories(TextSearch nameOrPath, SearchOption searchOption)
         {
-            return Directory.EnumerateDirectories(parentDirectory, PrepareSearchPattern(nameOrPath), searchOption);
+            return Directory
+                .EnumerateDirectories(parentDirectory, PrepareSearchPattern(nameOrPath), searchOption);
+        }
+
+        private IEnumerable<string> EnumerateFiles(TextSearch nameOrPath, TextSearch fileExtension, SearchOption searchOption)
+        {
+            return Directory
+                .EnumerateFiles(parentDirectory, PrepareSearchPattern(nameOrPath))
+                .Where(file => IsExtensionMatched(file, fileExtension));
         }
 
         private bool IsExtensionMatched(string filePath, TextSearch search)
@@ -126,29 +123,30 @@ namespace Neptuo.FileSystems.Features.Searching
 
         IEnumerable<IFile> IFileNameSearch.FindFiles(TextSearch fileName, TextSearch fileExtension)
         {
-            return Directory
-                .EnumerateFiles(parentDirectory, PrepareSearchPattern(fileName))
-                .Where(file => IsExtensionMatched(file, fileExtension))
+            return EnumerateFiles(fileName, fileExtension, SearchOption.TopDirectoryOnly)
                 .Select(file => new LocalFile(file));
         }
 
         bool IFileNameSearch.IsFileContained(TextSearch fileName, TextSearch fileExtension)
         {
-            throw new NotImplementedException();
+            return EnumerateFiles(fileName, fileExtension, SearchOption.TopDirectoryOnly)
+                .Any();
         }
 
         #endregion
 
         #region IFilePathSearch
 
-        IEnumerable<IFile> IFilePathSearch.FindFiles(TextSearch fileNamePath, TextSearch fileExtension)
+        IEnumerable<IFile> IFilePathSearch.FindFiles(TextSearch filePath, TextSearch fileExtension)
         {
-            throw new NotImplementedException();
+            return EnumerateFiles(filePath, fileExtension, SearchOption.AllDirectories)
+                .Select(file => new LocalFile(file));
         }
 
-        bool IFilePathSearch.IsFileContained(TextSearch fileNamePath, TextSearch fileExtension)
+        bool IFilePathSearch.IsFileContained(TextSearch filePath, TextSearch fileExtension)
         {
-            throw new NotImplementedException();
+            return EnumerateFiles(filePath, fileExtension, SearchOption.AllDirectories)
+                .Any();
         }
 
         #endregion
