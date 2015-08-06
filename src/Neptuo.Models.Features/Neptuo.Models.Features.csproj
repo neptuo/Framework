@@ -42,7 +42,7 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FeatureCollectionModel.cs" />
+    <Compile Include="CollectionFeatureModel.cs" />
     <Compile Include="IFeatureModel.cs" />
     <Compile Include="ObjectFeatureModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

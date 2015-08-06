@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.ComponentModel;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,27 +9,29 @@ using System.Threading.Tasks;
 namespace Neptuo.Models.Features
 {
     /// <summary>
-    /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrent support.).
+    /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrency support).
     /// </summary>
-    public class FeatureCollectionModel : IFeatureModel
+    public class CollectionFeatureModel : IFeatureModel
     {
         private readonly IDictionary<Type, object> features;
+        private readonly IDictionary<Type, Func<object>> featureGetters;
+        private OutFuncCollection<Type, object, bool> onSearchFeature = new OutFuncCollection<Type, object, bool>();
 
-        /// <summary>
-        /// Invoked when feature was not found.
-        /// Takes typeof requested feture, should return <c>true</c> to indicate success; otherwise <c>false</c>.
-        /// </summary>
-        private OutFunc<Type, bool, object> onSearchFeature;
-
-        public FeatureCollectionModel(bool isSingleThread)
+        public CollectionFeatureModel(bool isSingleThread)
         {
             if (isSingleThread)
+            {
                 features = new Dictionary<Type, object>();
+                featureGetters = new Dictionary<Type, Func<object>>();
+            }
             else
+            {
                 features = new ConcurrentDictionary<Type, object>();
+                featureGetters = new ConcurrentDictionary<Type, Func<object>>();
+            }
         }
 
-        public FeatureCollectionModel(bool isSingleThread, IDictionary<Type, object> features)
+        public CollectionFeatureModel(bool isSingleThread, IDictionary<Type, object> features)
         {
             Ensure.NotNull(features, "features");
             if (isSingleThread)
@@ -40,13 +43,29 @@ namespace Neptuo.Models.Features
         /// <summary>
         /// Adds feature to the collection.
         /// </summary>
-        /// <param name="featureType">Tyoe if feature.</param>
+        /// <param name="featureType">Type of feature.</param>
         /// <param name="feature">Feature instance.</param>
         /// <returns>Self (for fluency).</returns>
-        public FeatureCollectionModel Add(Type featureType, object feature)
+        public CollectionFeatureModel Add(Type featureType, object feature)
         {
             Ensure.NotNull(featureType, "featureType");
+            featureGetters.Remove(featureType);
             features[featureType] = feature;
+            return this;
+        }
+
+        /// <summary>
+        /// Adds feature provider to the collection.
+        /// </summary>
+        /// <param name="featureType">Type of feature.</param>
+        /// <param name="featureGetter">Feature provider.</param>
+        /// <returns>Self (for fluency).</returns>
+        public CollectionFeatureModel Add(Type featureType, Func<object> featureGetter)
+        {
+            Ensure.NotNull(featureType, "featureType");
+            Ensure.NotNull(featureGetter, "featureGetter");
+            features.Remove(featureType);
+            featureGetters[featureType] = featureGetter;
             return this;
         }
 
@@ -56,10 +75,10 @@ namespace Neptuo.Models.Features
         /// and returns <c>true</c> to indicate success; otherwise <c>false</c>.
         /// </summary>
         /// <param name="handler">Handler to register.</param>
-        public void AddSearchHandler(OutFunc<Type, bool, object> handler)
+        public void AddSearchHandler(OutFunc<Type, object, bool> handler)
         {
             Ensure.NotNull(handler, "handler");
-            onSearchFeature += handler;
+            onSearchFeature.Add(handler);
         }
 
         public bool TryWith<TFeature>(out TFeature feature)
@@ -72,17 +91,10 @@ namespace Neptuo.Models.Features
                 return true;
             }
 
-            if (onSearchFeature != null)
+            if(onSearchFeature.TryExecute(featureType, out featureBase)) 
             {
-                foreach (OutFunc<Type, object, bool> handler in onSearchFeature.GetInvocationList())
-                {
-                    if (handler(typeof(TFeature), out featureBase))
-                    {
-                        feature = (TFeature)featureBase;
-                        return true;
-                    }
-                }
-
+                feature = (TFeature)featureBase;
+                return true;
             }
 
             feature = default(TFeature);
