@@ -15,7 +15,7 @@ namespace Neptuo.FileSystems
     /// </summary>
     public abstract class LocalItemBase : CollectionFeatureModel, IAbsolutePath, IActivator<IAncestorEnumerator>
     {
-        public string AbsolutePath { get; private set; }
+        public string AbsolutePath { get; protected set; }
 
         protected LocalItemBase(string absolutePath)
             :  base(true)

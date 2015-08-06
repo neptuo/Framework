@@ -14,7 +14,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
-    public class LocalFile : LocalItemBase, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, 
+    public class LocalFile : LocalItemBase, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, IFileRenamer, IFileDeleter,
         IActivator<IAncestorEnumerator>,
         IFileContentSize, IFileContentReader, IFileContentUpdater, IFileContentAppender
     {
@@ -50,7 +50,9 @@ namespace Neptuo.FileSystems
                 .Add<IFileContentSize>(this)
                 .Add<IFileContentReader>(this)
                 .Add<IFileContentUpdater>(this)
-                .Add<IFileContentAppender>(this);
+                .Add<IFileContentAppender>(this)
+                .Add<IFileRenamer>(this)
+                .Add<IFileDeleter>(this);
         }
 
         /// <summary>
@@ -132,5 +134,26 @@ namespace Neptuo.FileSystems
         }
 
         #endregion
+
+        public void ChangeName(string fileName)
+        {
+            Ensure.NotNullOrEmpty(fileName, "fileName");
+            string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), fileName + Path.GetExtension(AbsolutePath));
+            File.Move(AbsolutePath, newPath);
+            AbsolutePath = newPath;
+        }
+
+        public void ChangeExtension(string fileExtension)
+        {
+            Ensure.NotNullOrEmpty(fileExtension, "fileExtension");
+            string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), Path.GetFileNameWithoutExtension(AbsolutePath) + "." + fileExtension);
+            File.Move(AbsolutePath, newPath);
+            AbsolutePath = newPath;
+        }
+
+        public void Delete()
+        {
+            File.Delete(AbsolutePath);
+        }
     }
 }

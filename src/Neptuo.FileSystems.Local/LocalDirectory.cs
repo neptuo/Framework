@@ -15,7 +15,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
-    public class LocalDirectory : LocalItemBase, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt,
+    public class LocalDirectory : LocalItemBase, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt, IDirectoryRenamer, IDirectoryDeleter,
         IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>,
         IActivator<IFileNameSearch>, IActivator<IFilePathSearch>, IActivator<IDirectoryNameSearch>, IActivator<IDirectoryPathSearch>
     {
@@ -49,7 +49,9 @@ namespace Neptuo.FileSystems
                 .AddFactory<IFileNameSearch>(this)
                 .AddFactory<IFilePathSearch>(this)
                 .AddFactory<IDirectoryNameSearch>(this)
-                .AddFactory<IDirectoryPathSearch>(this);
+                .AddFactory<IDirectoryPathSearch>(this)
+                .Add<IDirectoryRenamer>(this)
+                .Add<IDirectoryDeleter>(this);
         }
 
         IDirectoryCreator IActivator<IDirectoryCreator>.Create()
@@ -104,19 +106,17 @@ namespace Neptuo.FileSystems
             Name = Path.GetFileName(absolutePath);
         }
 
-    
-        /// <summary>
-        /// Returns instance of <see cref="SearchOption"/> from <paramref name="inAllDescendants"/>.
-        /// </summary>
-        /// <param name="inAllDescendants">True for not only direct childs.</param>
-        /// <returns>Instance of <see cref="SearchOption"/> from <paramref name="inAllDescendants"/>.</returns>
-        private SearchOption GetSearchOption(bool inAllDescendants)
+        public void ChangeName(string directoryName)
         {
-            SearchOption searchOption = SearchOption.TopDirectoryOnly;
-            if (inAllDescendants)
-                searchOption = SearchOption.AllDirectories;
+            Ensure.NotNullOrEmpty(directoryName, "directoryName");
+            string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), directoryName);
+            Directory.Move(AbsolutePath, newPath);
+            AbsolutePath = newPath;
+        }
 
-            return searchOption;
+        public void Delete()
+        {
+            Directory.Delete(AbsolutePath, true);
         }
     }
 }

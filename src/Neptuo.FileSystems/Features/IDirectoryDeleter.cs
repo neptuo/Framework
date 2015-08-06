@@ -12,7 +12,7 @@ namespace Neptuo.FileSystems.Features
     public interface IDirectoryDeleter
     {
         /// <summary>
-        /// Deletes current directory.
+        /// Deletes current directory (and all sub directories and files).
         /// </summary>
         void Delete();
     }
