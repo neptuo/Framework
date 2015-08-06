@@ -12,46 +12,32 @@ namespace Neptuo.Models.Features
     /// <summary>
     /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrency support).
     /// When resolving feature, first are searched registered instances, than registered getters (<see cref="Func{T}"/>, 
-    /// than registered factories (<see cref="IActivator{T}"/>) and lastly search handlers.
+    /// than registered factories (<see cref="IActivator{T}"/>), than registered feature models and lastly search handlers.
     /// </summary>
     public class CollectionFeatureModel : IFeatureModel
     {
-        private readonly IDictionary<Type, object> features;
-        private readonly IDictionary<Type, Func<object>> featureGetters;
-        private readonly IDictionary<Type, IActivator<object>> featureFactories;
+        private readonly object storageLock = new object();
+        private readonly Dictionary<Type, object> features;
+        private readonly Dictionary<Type, Func<object>> featureGetters;
+        private readonly Dictionary<Type, IActivator<object>> featureFactories;
+        private readonly List<IFeatureModel> featureModels;
         private OutFuncCollection<Type, object, bool> onSearchFeature = new OutFuncCollection<Type, object, bool>();
 
         public CollectionFeatureModel(bool isSingleThread)
         {
-            if (isSingleThread)
-            {
-                features = new Dictionary<Type, object>();
-                featureGetters = new Dictionary<Type, Func<object>>();
-                featureFactories = new Dictionary<Type, IActivator<object>>();
-            }
-            else
-            {
-                features = new ConcurrentDictionary<Type, object>();
-                featureGetters = new ConcurrentDictionary<Type, Func<object>>();
-                featureFactories = new ConcurrentDictionary<Type, IActivator<object>>();
-            }
+            features = new Dictionary<Type, object>();
+            featureGetters = new Dictionary<Type, Func<object>>();
+            featureFactories = new Dictionary<Type, IActivator<object>>();
+            featureModels = new List<IFeatureModel>();
         }
 
-        public CollectionFeatureModel(bool isSingleThread, IDictionary<Type, object> features)
+        public CollectionFeatureModel(IDictionary<Type, object> features)
         {
             Ensure.NotNull(features, "features");
-            if (isSingleThread)
-            {
-                features = new Dictionary<Type, object>(features);
-                featureGetters = new Dictionary<Type, Func<object>>();
-                featureFactories = new Dictionary<Type, IActivator<object>>();
-            }
-            else
-            {
-                features = new ConcurrentDictionary<Type, object>(features);
-                featureGetters = new ConcurrentDictionary<Type, Func<object>>();
-                featureFactories = new ConcurrentDictionary<Type, IActivator<object>>();
-            }
+            features = new Dictionary<Type, object>(features);
+            featureGetters = new Dictionary<Type, Func<object>>();
+            featureFactories = new Dictionary<Type, IActivator<object>>();
+            featureModels = new List<IFeatureModel>();
         }
 
         /// <summary>
@@ -63,9 +49,12 @@ namespace Neptuo.Models.Features
         public CollectionFeatureModel Add(Type featureType, object feature)
         {
             Ensure.NotNull(featureType, "featureType");
-            featureGetters.Remove(featureType);
-            featureFactories.Remove(featureType);
-            features[featureType] = feature;
+            lock (storageLock)
+            {
+                featureGetters.Remove(featureType);
+                featureFactories.Remove(featureType);
+                features[featureType] = feature;
+            }
             return this;
         }
 
@@ -79,9 +68,12 @@ namespace Neptuo.Models.Features
         {
             Ensure.NotNull(featureType, "featureType");
             Ensure.NotNull(featureGetter, "featureGetter");
-            features.Remove(featureType);
-            featureFactories.Remove(featureType);
-            featureGetters[featureType] = featureGetter;
+            lock (storageLock)
+            {
+                features.Remove(featureType);
+                featureFactories.Remove(featureType);
+                featureGetters[featureType] = featureGetter;
+            }
             return this;
         }
 
@@ -95,9 +87,22 @@ namespace Neptuo.Models.Features
         {
             Ensure.NotNull(featureType, "featureType");
             Ensure.NotNull(featureFactory, "featureFactory");
-            features.Remove(featureType);
-            featureGetters.Remove(featureType);
-            featureFactories[featureType] = featureFactory;
+            lock (storageLock)
+            {
+                features.Remove(featureType);
+                featureGetters.Remove(featureType);
+                featureFactories[featureType] = featureFactory;
+            }
+            return this;
+        }
+
+        public CollectionFeatureModel AddFeatureModel(IFeatureModel featureModel)
+        {
+            Ensure.NotNull(featureModel, "featureModel");
+            lock (storageLock)
+            {
+                featureModels.Add(featureModel);
+            }
             return this;
         }
 
@@ -135,6 +140,12 @@ namespace Neptuo.Models.Features
             {
                 feature = (TFeature)featureFactory.Create();
                 return true;
+            }
+
+            foreach (IFeatureModel featureModel in featureModels)
+            {
+                if (featureModel.TryWith(out feature))
+                    return true;
             }
 
             if(onSearchFeature.TryExecute(featureType, out featureBase)) 
