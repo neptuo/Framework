@@ -14,8 +14,10 @@ namespace UnitTest.FileSystems
         public class Local
         {
             [TestMethod]
-            public void FileSearch()
+            public void CompleteTest()
             {
+                string rootPath = @"C:\Temp\FileSystems";
+
                 IFileNameSearch fileNameSearch = new LocalSearchProvider(@"C:\Temp");
                 IEnumerable<IFile> files = fileNameSearch.FindFiles(TextSearch.CreateSuffixed("M"), TextSearch.CreateSuffixed("t"));
 
