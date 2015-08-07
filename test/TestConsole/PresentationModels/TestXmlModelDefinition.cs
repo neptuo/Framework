@@ -1,4 +1,6 @@
 ﻿using Neptuo.FileSystems;
+using Neptuo.FileSystems.Features;
+using Neptuo.Models.Features;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Serialization;
 using System;
@@ -18,8 +20,8 @@ namespace TestConsole.PresentationModels
             IFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
-            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
-            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, organizationXmlFile).Create();
+            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, new FileContentActivator(personXmlFile)).Create();
+            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, new FileContentActivator(organizationXmlFile)).Create();
 
             XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
             using (StringWriter writer = new StringWriter())
@@ -29,7 +31,7 @@ namespace TestConsole.PresentationModels
             }
 
             IFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
-            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile);
+            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile.With<IFileContentReader>().GetContentAsStream());
 
             XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);
             XmlModelValueGetterCollection organizations = getterFactory.Create(organizationDefinition);
