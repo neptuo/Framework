@@ -75,6 +75,7 @@
     <Compile Include="IFileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="FileContentActivator.cs" />
     <Compile Include="_EnsureExtensions.cs" />
     <Compile Include="Features\_FileContentReaderExtensions.cs" />
   </ItemGroup>

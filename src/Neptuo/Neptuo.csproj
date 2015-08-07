@@ -92,6 +92,7 @@
     <Compile Include="ComponentModel\Disposable.cs" />
     <Compile Include="ComponentModel\DisposableBase.cs" />
     <Compile Include="ComponentModel\Envelope.cs" />
+    <Compile Include="IO\FileContentActivator.cs" />
     <Compile Include="IO\_EnsureConditionExtensions.cs" />
     <Compile Include="Text\Positions\DefaultTextPoint.cs" />
     <Compile Include="Text\Positions\DefaultDocumentPoint.cs" />
