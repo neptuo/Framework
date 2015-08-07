@@ -14,10 +14,11 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
-    public class LocalFile : LocalItemBase, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, IFileRenamer, IFileDeleter,
+    public class LocalFile : CollectionFeatureModel, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, IFileRenamer, IFileDeleter,
         IActivator<IAncestorEnumerator>,
         IFileContentSize, IFileContentReader, IFileContentUpdater, IFileContentAppender
     {
+        public string AbsolutePath { get; protected set; }
         public string Name { get; private set; }
         public string Extension { get; private set; }
 
@@ -41,12 +42,13 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="absolutePath">Standard file system path to file.</param>
         internal LocalFile(string absolutePath)
-            : base(absolutePath)
         {
             Ensure.NotNullOrEmpty(absolutePath, "absolutePath");
             SetFileRelatedProperties(absolutePath);
 
             this
+                .Add<IAbsolutePath>(this)
+                .AddFactory<IAncestorEnumerator>(this)
                 .Add<IFileContentSize>(this)
                 .Add<IFileContentReader>(this)
                 .Add<IFileContentUpdater>(this)
@@ -54,7 +56,6 @@ namespace Neptuo.FileSystems
                 .Add<IFileRenamer>(this)
                 .Add<IFileDeleter>(this);
         }
-
         /// <summary>
         /// Sets file related properties from <paramref name="absolutePath"/>.
         /// </summary>
@@ -64,9 +65,16 @@ namespace Neptuo.FileSystems
             if (!File.Exists(absolutePath))
                 throw Ensure.Exception.Argument("fullPath", "Provided path must be existing file.");
 
+            AbsolutePath = absolutePath;
             Name = Path.GetFileNameWithoutExtension(absolutePath);
             Extension = Path.GetExtension(absolutePath);
         }
+
+        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
+        {
+            return new LocalAncestorEnumerator(AbsolutePath);
+        }
+
 
         #region IFileContentReader
 
@@ -140,7 +148,7 @@ namespace Neptuo.FileSystems
             Ensure.NotNullOrEmpty(fileName, "fileName");
             string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), fileName + Path.GetExtension(AbsolutePath));
             File.Move(AbsolutePath, newPath);
-            AbsolutePath = newPath;
+            SetFileRelatedProperties(newPath);
         }
 
         public void ChangeExtension(string fileExtension)
@@ -148,7 +156,7 @@ namespace Neptuo.FileSystems
             Ensure.NotNullOrEmpty(fileExtension, "fileExtension");
             string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), Path.GetFileNameWithoutExtension(AbsolutePath) + "." + fileExtension);
             File.Move(AbsolutePath, newPath);
-            AbsolutePath = newPath;
+            SetFileRelatedProperties(newPath);
         }
 
         public void Delete()

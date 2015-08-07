@@ -62,6 +62,7 @@ namespace Neptuo.FileSystems.Features
             public override bool MoveNext()
             {
                 path = Path.GetDirectoryName(path);
+                current = null;
                 return Directory.Exists(path);
             }
 

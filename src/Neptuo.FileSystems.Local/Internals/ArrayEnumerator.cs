@@ -38,6 +38,7 @@ namespace Neptuo.FileSystems.Internals
         public override bool MoveNext()
         {
             index++;
+            current = default(T);
             return index < items.Length;
         }
 

@@ -15,32 +15,19 @@ namespace Neptuo.FileSystems
     /// </summary>
     public class LocalFileSystem : CollectionFeatureModel, IFileSystem, IActivator<IFileSystemConstant>
     {
-        private readonly LocalDirectory rootDirectory;
-
-        /// <summary>
-        /// File system root directory.
-        /// </summary>
-        public IDirectory RootDirectory
-        {
-            get { return rootDirectory; }
-        }
-
-        public bool IsReadOnly { get; private set; }
+        public IDirectory RootDirectory { get; private set; }
 
         /// <summary>
         /// Creates new instance with <paramref name="rootPath"/> as root directory.
         /// </summary>
         /// <param name="rootPath">Path to root directory.</param>
         /// <param name="isReadOnly">Whether file system should be read-only.</param>
-        public LocalFileSystem(string rootPath, bool isReadOnly)
-            : base(true)
+        public LocalFileSystem(string rootPath)
         {
             if (!Path.IsPathRooted(rootPath))
                 throw Ensure.Exception.Argument("rootPath", "Path to file system must be rooted.");
 
-            rootDirectory = new LocalDirectory(rootPath);
-            IsReadOnly = isReadOnly;
-
+            RootDirectory = new LocalDirectory(rootPath);
             this.AddFactory<IFileSystemConstant>(this);
         }
 
@@ -49,10 +36,6 @@ namespace Neptuo.FileSystems
             return new LocalFileSystemConstant();
         }
 
-        public bool IsWriteable(IDirectory directory)
-        {
-            return IsReadOnly;
-        }
         
         /// <summary>
         /// Creates static file for <paramref name="filePath"/> of standart file system.

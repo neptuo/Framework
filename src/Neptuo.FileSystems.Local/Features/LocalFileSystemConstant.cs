@@ -12,9 +12,9 @@ namespace Neptuo.FileSystems.Features
     /// </summary>
     public class LocalFileSystemConstant : IFileSystemConstant
     {
-        public char PathSeparator
+        public char DirectorySeparatorChar
         {
-            get { return Path.PathSeparator; }
+            get { return Path.DirectorySeparatorChar; }
         }
 
         public IEnumerable<char> InvalidDirectoryNameChars

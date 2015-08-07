@@ -15,12 +15,13 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
-    public class LocalDirectory : LocalItemBase, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt, IDirectoryRenamer, IDirectoryDeleter,
+    public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt, IDirectoryRenamer, IDirectoryDeleter,
         IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>,
         IActivator<IFileNameSearch>, IActivator<IFilePathSearch>, IActivator<IDirectoryNameSearch>, IActivator<IDirectoryPathSearch>
     {
+        public string AbsolutePath { get; protected set; }
         public string Name { get; private set; }
-        
+
         public DateTime CreatedAt
         {
             get { return Directory.GetCreationTime(AbsolutePath); }
@@ -36,12 +37,13 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="absolutePath">Standard file system path to the directory.</param>
         internal LocalDirectory(string absolutePath)
-            : base(absolutePath)
         {
             Ensure.NotNullOrEmpty(absolutePath, "absolutePath");
             SetDirectoryRelatedProperties(absolutePath);
 
             this
+                .Add<IAbsolutePath>(this)
+                .AddFactory<IAncestorEnumerator>(this)
                 .AddFactory<IDirectoryCreator>(this)
                 .AddFactory<IFileCreator>(this)
                 .AddFactory<IDirectoryEnumerator>(this)
@@ -52,6 +54,26 @@ namespace Neptuo.FileSystems
                 .AddFactory<IDirectoryPathSearch>(this)
                 .Add<IDirectoryRenamer>(this)
                 .Add<IDirectoryDeleter>(this);
+        }
+
+        /// <summary>
+        /// Sets directory related properties from <paramref name="absolutePath"/>.
+        /// </summary>
+        /// <param name="absolutePath">Standard file system path to directory.</param>
+        private void SetDirectoryRelatedProperties(string absolutePath)
+        {
+            if (!Directory.Exists(absolutePath))
+                throw Ensure.Exception.Argument("absolutePath", "Provided path must be existing directory.");
+
+            AbsolutePath = absolutePath;
+            Name = Path.GetFileName(absolutePath);
+            if (String.IsNullOrEmpty(Name))
+                Name = absolutePath;
+        }
+
+        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
+        {
+            return new LocalAncestorEnumerator(AbsolutePath);
         }
 
         IDirectoryCreator IActivator<IDirectoryCreator>.Create()
@@ -94,24 +116,12 @@ namespace Neptuo.FileSystems
             return new LocalSearchProvider(AbsolutePath);
         }
 
-        /// <summary>
-        /// Sets directory related properties from <paramref name="absolutePath"/>.
-        /// </summary>
-        /// <param name="absolutePath">Standard file system path to directory.</param>
-        private void SetDirectoryRelatedProperties(string absolutePath)
-        {
-            if (!Directory.Exists(absolutePath))
-                throw Ensure.Exception.Argument("absolutePath", "Provided path must be existing directory.");
-
-            Name = Path.GetFileName(absolutePath);
-        }
-
         public void ChangeName(string directoryName)
         {
             Ensure.NotNullOrEmpty(directoryName, "directoryName");
             string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), directoryName);
             Directory.Move(AbsolutePath, newPath);
-            AbsolutePath = newPath;
+            SetDirectoryRelatedProperties(newPath);
         }
 
         public void Delete()

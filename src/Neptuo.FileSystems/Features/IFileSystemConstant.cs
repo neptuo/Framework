@@ -14,7 +14,7 @@ namespace Neptuo.FileSystems.Features
         /// <summary>
         /// Item path separator.
         /// </summary>
-        char PathSeparator { get; }
+        char DirectorySeparatorChar { get; }
 
         /// <summary>
         /// Enumeration of invalid characters for directory name.
