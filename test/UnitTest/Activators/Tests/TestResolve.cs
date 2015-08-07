@@ -40,8 +40,8 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer root = CreateContainer();
             root.Definitions
-                .AddNameScopedActivator<string, IActivator<string>>("S1", new InstanceActivator<string>(() => "S1"))
-                .AddNameScopedActivator<string, IActivator<string>>("S2", new InstanceActivator<string>(() => "S2"));
+                .AddNameScopedFactory<string, IFactory<string>>("S1", new InstanceFactory<string>(() => "S1"))
+                .AddNameScopedFactory<string, IFactory<string>>("S2", new InstanceFactory<string>(() => "S2"));
 
             ResolveString(root);
         }

@@ -19,14 +19,14 @@ namespace Neptuo.Services.Commands.Handlers
         where T : ICommandHandler<TCommand>
     {
         private readonly IPipeline<T> pipeline;
-        private readonly IActivator<T> handlerFactory;
+        private readonly IFactory<T> handlerFactory;
 
         /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="pipeline">Behavior pipeline.</param>
         /// <param name="handlerFactory">Inner handler factory.</param>
-        public BehaviorCommandHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
+        public BehaviorCommandHandler(IPipeline<T> pipeline, IFactory<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");

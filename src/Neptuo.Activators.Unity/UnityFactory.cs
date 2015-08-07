@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Implementation of <see cref="IActivator{T}"/> by <see cref="IUnityContainer"/>.
+    /// Implementation of <see cref="IFactory{T}"/> by <see cref="IUnityContainer"/>.
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
-    public class UnityActivator<T> : IActivator<T>
+    public class UnityFactory<T> : IFactory<T>
     {
         private readonly IUnityContainer unityContainer;
         private readonly string name;
@@ -21,7 +21,7 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container to use for instance creation.</param>
         /// <param name="name">Optional registration name.</param>
-        public UnityActivator(IUnityContainer unityContainer, string name = null)
+        public UnityFactory(IUnityContainer unityContainer, string name = null)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;

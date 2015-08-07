@@ -16,8 +16,8 @@ namespace Neptuo.FileSystems
     /// Virtual file system directory implemented as stadart file system directory.
     /// </summary>
     public class LocalDirectory : CollectionFeatureModel, IDirectory, IAbsolutePath, ICreatedAt, IModefiedAt, IDirectoryRenamer, IDirectoryDeleter,
-        IActivator<IDirectoryCreator>, IActivator<IFileCreator>, IActivator<IAncestorEnumerator>, IActivator<IDirectoryEnumerator>, IActivator<IFileEnumerator>,
-        IActivator<IFileNameSearch>, IActivator<IFilePathSearch>, IActivator<IDirectoryNameSearch>, IActivator<IDirectoryPathSearch>
+        IFactory<IDirectoryCreator>, IFactory<IFileCreator>, IFactory<IAncestorEnumerator>, IFactory<IDirectoryEnumerator>, IFactory<IFileEnumerator>,
+        IFactory<IFileNameSearch>, IFactory<IFilePathSearch>, IFactory<IDirectoryNameSearch>, IFactory<IDirectoryPathSearch>
     {
         public string AbsolutePath { get; protected set; }
         public string Name { get; private set; }
@@ -71,47 +71,47 @@ namespace Neptuo.FileSystems
                 Name = absolutePath;
         }
 
-        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
+        IAncestorEnumerator IFactory<IAncestorEnumerator>.Create()
         {
             return new LocalAncestorEnumerator(AbsolutePath);
         }
 
-        IDirectoryCreator IActivator<IDirectoryCreator>.Create()
+        IDirectoryCreator IFactory<IDirectoryCreator>.Create()
         {
             return new LocalDirectoryCreator(AbsolutePath);
         }
 
-        IFileCreator IActivator<IFileCreator>.Create()
+        IFileCreator IFactory<IFileCreator>.Create()
         {
             return new LocalFileCreator(AbsolutePath);
         }
 
-        IDirectoryEnumerator IActivator<IDirectoryEnumerator>.Create()
+        IDirectoryEnumerator IFactory<IDirectoryEnumerator>.Create()
         {
             return new LocalDirectoryEnumerator(AbsolutePath);
         }
 
-        IFileEnumerator IActivator<IFileEnumerator>.Create()
+        IFileEnumerator IFactory<IFileEnumerator>.Create()
         {
             return new LocalFileEnumerator(AbsolutePath);
         }
 
-        IFileNameSearch IActivator<IFileNameSearch>.Create()
+        IFileNameSearch IFactory<IFileNameSearch>.Create()
         {
             return new LocalSearchProvider(AbsolutePath);
         }
 
-        IFilePathSearch IActivator<IFilePathSearch>.Create()
+        IFilePathSearch IFactory<IFilePathSearch>.Create()
         {
             return new LocalSearchProvider(AbsolutePath);
         }
 
-        IDirectoryNameSearch IActivator<IDirectoryNameSearch>.Create()
+        IDirectoryNameSearch IFactory<IDirectoryNameSearch>.Create()
         {
             return new LocalSearchProvider(AbsolutePath);
         }
 
-        IDirectoryPathSearch IActivator<IDirectoryPathSearch>.Create()
+        IDirectoryPathSearch IFactory<IDirectoryPathSearch>.Create()
         {
             return new LocalSearchProvider(AbsolutePath);
         }

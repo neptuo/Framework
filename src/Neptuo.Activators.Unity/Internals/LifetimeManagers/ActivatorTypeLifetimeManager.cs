@@ -28,7 +28,7 @@ namespace Neptuo.Activators.Internals.LifetimeManagers
             object value = innerLifetime.GetValue();
             if (value == null)
             {
-                value = ((IActivator<object>)unityContainer.Resolve(activatorType)).Create();
+                value = ((IFactory<object>)unityContainer.Resolve(activatorType)).Create();
                 SetValue(value);
             }
 

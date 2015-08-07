@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Implementation of <see cref="IActivator{T}"/> for types with parameterless constructor.
+    /// Implementation of <see cref="IFactory{T}"/> for types with parameterless constructor.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DefaultActivator<T> : IActivator<T>
+    public class DefaultFactory<T> : IFactory<T>
         where T : new()
     {
         public T Create()

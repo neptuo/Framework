@@ -122,7 +122,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // Target is activator.
-            IActivator<object> targetActivator = target as IActivator<object>;
+            IFactory<object> targetActivator = target as IFactory<object>;
             if (targetActivator != null)
             {
                 unityContainer.RegisterType(requiredType, new ActivatorLifetimeManager(targetActivator, lifetimeManager));
@@ -138,7 +138,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // Target is type of activator for required type.
-            Type requiredActivator = typeof(IActivator<>).MakeGenericType(requiredType);
+            Type requiredActivator = typeof(IFactory<>).MakeGenericType(requiredType);
             if (requiredActivator.IsAssignableFrom(targetType))
             {
                 unityContainer.RegisterType(requiredActivator, new ActivatorTypeLifetimeManager(unityContainer, requiredActivator, lifetimeManager));

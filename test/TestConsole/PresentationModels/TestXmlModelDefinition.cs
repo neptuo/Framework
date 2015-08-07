@@ -20,8 +20,8 @@ namespace TestConsole.PresentationModels
             IFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
-            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, new FileContentActivator(personXmlFile)).Create();
-            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, new FileContentActivator(organizationXmlFile)).Create();
+            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(personXmlFile)).Create();
+            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(organizationXmlFile)).Create();
 
             XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
             using (StringWriter writer = new StringWriter())

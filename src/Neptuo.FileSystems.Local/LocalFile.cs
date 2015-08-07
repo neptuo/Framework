@@ -15,7 +15,7 @@ namespace Neptuo.FileSystems
     /// Virtual file system file implemented as stadart file system file.
     /// </summary>
     public class LocalFile : CollectionFeatureModel, IFile, IAbsolutePath, ICreatedAt, IModefiedAt, IFileRenamer, IFileDeleter,
-        IActivator<IAncestorEnumerator>,
+        IFactory<IAncestorEnumerator>,
         IFileContentSize, IFileContentReader, IFileContentUpdater, IFileContentAppender
     {
         public string AbsolutePath { get; protected set; }
@@ -72,7 +72,7 @@ namespace Neptuo.FileSystems
                 Extension = Extension.Substring(1);
         }
 
-        IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()
+        IAncestorEnumerator IFactory<IAncestorEnumerator>.Create()
         {
             return new LocalAncestorEnumerator(AbsolutePath);
         }

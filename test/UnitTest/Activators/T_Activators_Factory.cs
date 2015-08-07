@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     [TestClass]
-    public class T_Activators_Activator
+    public class T_Activators_Factory
     {
         [TestMethod]
         public void InstanceActivator()
         {
             int count = 0;
-            IActivator<string> activator = new InstanceActivator<string>(() =>
+            IFactory<string> activator = new InstanceFactory<string>(() =>
             {
                 if (count > 0)
                     Assert.Fail("Method must be called only once.");
@@ -31,7 +31,7 @@ namespace Neptuo.Activators
         public void GetterActivator()
         {
             int count = 0;
-            IActivator<string> activator = new GetterActivator<string>(() => String.Format("S{0}", count++));
+            IFactory<string> activator = new GetterFactory<string>(() => String.Format("S{0}", count++));
 
             Assert.AreEqual("S0", activator.Create());
             Assert.AreEqual("S1", activator.Create());
@@ -44,7 +44,7 @@ namespace Neptuo.Activators
         [TestMethod]
         public void GetterActivatorWithContext()
         {
-            IActivator<string, int> activator = new GetterActivator<string, int>((context) => String.Format("S{0}", context));
+            IFactory<string, int> activator = new GetterFactory<string, int>((context) => String.Format("S{0}", context));
 
             Assert.AreEqual("S0", activator.Create(0));
             Assert.AreEqual("S1", activator.Create(1));

@@ -14,7 +14,7 @@ namespace Neptuo.PresentationModels.Serialization
     /// XML based factory pro creating model definitions from XML files.
     /// XML format must valid againts <see cref="XmlNameDefinition.XmlnsUri"/>.
     /// </summary>
-    public class XmlModelDefinitionFactory : IActivator<IModelDefinition, Stream>
+    public class XmlModelDefinitionFactory : IFactory<IModelDefinition, Stream>
     {
         private readonly XmlTypeMappingCollection typeMappings;
 

@@ -51,7 +51,7 @@
     <Compile Include="Activators\DependencyServiceProvider.cs" />
     <Compile Include="Activators\AutoExports\ExportLifetimeAttribute.cs" />
     <Compile Include="Activators\AutoExports\ExportTransientAttribute.cs" />
-    <Compile Include="Activators\GetterActivator.cs" />
+    <Compile Include="Activators\GetterFactory.cs" />
     <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
     <Compile Include="Activators\IDependencyDefinition.cs" />
     <Compile Include="Activators\IDependencyDefinitionReadOnlyCollection.cs" />
@@ -92,7 +92,7 @@
     <Compile Include="Disposable.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="Components\Envelope.cs" />
-    <Compile Include="FileSystems\LocalFileContentActivator.cs" />
+    <Compile Include="FileSystems\LocalFileContentFactory.cs" />
     <Compile Include="FileSystems\_EnsureConditionExtensions.cs" />
     <Compile Include="Text\Positions\DefaultTextPoint.cs" />
     <Compile Include="Text\Positions\DefaultDocumentPoint.cs" />
@@ -104,13 +104,13 @@
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
-    <Compile Include="Activators\DefaultActivator.cs" />
-    <Compile Include="Activators\DependencyActivator.cs" />
+    <Compile Include="Activators\DefaultFactory.cs" />
+    <Compile Include="Activators\DependencyFactory.cs" />
     <Compile Include="Activators\_DependencyProviderExtensions.cs" />
     <Compile Include="Exceptions\Helpers\EnsureConditionHelper.cs" />
     <Compile Include="Globalization\_CultureInfoExtensions.cs" />
     <Compile Include="ICloneable.cs" />
-    <Compile Include="Activators\InstanceActivator.cs" />
+    <Compile Include="Activators\InstanceFactory.cs" />
     <Compile Include="Diagnostics\DebugBase.cs" />
     <Compile Include="Diagnostics\DebugHelper.cs" />
     <Compile Include="Exceptions\_EnsureArgumentExtensions.cs" />
@@ -121,7 +121,7 @@
     <Compile Include="IDisposable.cs" />
     <Compile Include="Identifiers\IUniqueNameProvider.cs" />
     <Compile Include="Globalization\CultureInfoParser.cs" />
-    <Compile Include="Activators\IActivator.cs" />
+    <Compile Include="Activators\IFactory.cs" />
     <Compile Include="Activators\IDependencyContainer.cs" />
     <Compile Include="Activators\IDependencyProvider.cs" />
     <Compile Include="Localization\L.cs" />

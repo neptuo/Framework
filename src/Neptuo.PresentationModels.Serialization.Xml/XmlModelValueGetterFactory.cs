@@ -12,7 +12,7 @@ namespace Neptuo.PresentationModels.Serialization
     /// <summary>
     /// Factory for reading and writing XML files and creating model value getters and setters from it.
     /// </summary>
-    public class XmlModelValueGetterFactory : IActivator<XmlModelValueGetterCollection, IModelDefinition>
+    public class XmlModelValueGetterFactory : IFactory<XmlModelValueGetterCollection, IModelDefinition>
     {
         private readonly XDocument document;
 

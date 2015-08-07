@@ -10,7 +10,7 @@ namespace Neptuo.Activators
     /// Activator for <typeparamref name="T"/>
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
-    public interface IActivator<out T>
+    public interface IFactory<out T>
     {
         /// <summary>
         /// Creates service of type <typeparamref name="T"/>.
@@ -24,7 +24,7 @@ namespace Neptuo.Activators
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
     /// <typeparam name="TContext">Type of context for activation.</typeparam>
-    public interface IActivator<out T, in TContext>
+    public interface IFactory<out T, in TContext>
     {
         /// <summary>
         /// Creates service of type <typeparamref name="T"/> with posibility to use <paramref name="context"/> for inicialization.

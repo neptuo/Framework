@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators.Internals
 {
     /// <summary>
-    /// Storage for scoped instances/activators.
+    /// Storage for scoped instances/factories.
     /// </summary>
     internal class InstanceStorage
     {
         private readonly Dictionary<string, object> objectStorage = new Dictionary<string, object>();
-        private readonly Dictionary<string, IActivator<object>> activatorStorage = new Dictionary<string,IActivator<object>>();
+        private readonly Dictionary<string, IFactory<object>> factoryStorage = new Dictionary<string, IFactory<object>>();
 
         public InstanceStorage AddObject(string key, object instance)
         {
@@ -22,11 +22,11 @@ namespace Neptuo.Activators.Internals
             return this;
         }
 
-        public InstanceStorage AddActivator(string key, IActivator<object> activator)
+        public InstanceStorage AddFactory(string key, IFactory<object> factory)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            Ensure.NotNull(activator, "activator");
-            activatorStorage[key] = activator;
+            Ensure.NotNull(factory, "factory");
+            factoryStorage[key] = factory;
             return this;
         }
 
@@ -41,12 +41,12 @@ namespace Neptuo.Activators.Internals
             return null;
         }
 
-        public IActivator<object> TryGetActivator(string key)
+        public IFactory<object> TryGetFactory(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
 
-            IActivator<object> result;
-            if (activatorStorage.TryGetValue(key, out result))
+            IFactory<object> result;
+            if (factoryStorage.TryGetValue(key, out result))
                 return result;
 
             return null;

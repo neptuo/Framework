@@ -14,7 +14,7 @@ namespace Neptuo.FileSystems
     /// Implementation of factory for file streams.
     /// Takes single file and provides its content.
     /// </summary>
-    public class FileContentActivator : IActivator<Stream>
+    public class FileContentFactory : IFactory<Stream>
     {
         private readonly IFile file;
 
@@ -22,7 +22,7 @@ namespace Neptuo.FileSystems
         /// Creates new instance that reads content from <paramref name="file"/>.
         /// </summary>
         /// <param name="file"></param>
-        public FileContentActivator(IFile file)
+        public FileContentFactory(IFile file)
         {
             Ensure.NotNull(file, "file");
             this.file = file;

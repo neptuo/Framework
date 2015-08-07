@@ -11,7 +11,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// Base implementation for building <see cref="IModelDefinition"/>.
     /// </summary>
-    public abstract class ModelDefinitionBuilderBase : IActivator<IModelDefinition>
+    public abstract class ModelDefinitionBuilderBase : IFactory<IModelDefinition>
     {
         /// <summary>
         /// Provides model identifier.

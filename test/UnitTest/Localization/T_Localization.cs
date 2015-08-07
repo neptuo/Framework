@@ -35,7 +35,7 @@ namespace Neptuo.Localization
         [TestMethod]
         public void PlainTextReaderActivator()
         {
-            PlainTextTranslationReaderActivator factory = new PlainTextTranslationReaderActivator();
+            PlainTextTranslationReaderFactory factory = new PlainTextTranslationReaderFactory();
             using (MemoryStream fileContent = new MemoryStream())
             using (TextWriter writer = new StreamWriter(fileContent))
             {
@@ -57,7 +57,7 @@ namespace Neptuo.Localization
         [TestMethod]
         public void TranslateTextUsingL()
         {
-            PlainTextTranslationReaderActivator factory = new PlainTextTranslationReaderActivator();
+            PlainTextTranslationReaderFactory factory = new PlainTextTranslationReaderFactory();
             using (MemoryStream fileContent = new MemoryStream())
             using (TextWriter writer = new StreamWriter(fileContent))
             {

@@ -19,14 +19,14 @@ namespace Neptuo.Services.Events.Handlers
         where T : IEventHandler<TEvent>
     {
         private readonly IPipeline<T> pipeline;
-        private readonly IActivator<T> handlerFactory;
+        private readonly IFactory<T> handlerFactory;
 
         /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="pipeline">Behavior pipeline.</param>
         /// <param name="handlerFactory">Inner handler factory.</param>
-        public BehaviorEventHandler(IPipeline<T> pipeline, IActivator<T> handlerFactory)
+        public BehaviorEventHandler(IPipeline<T> pipeline, IFactory<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");

@@ -62,7 +62,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Activators\T_Activators_Activator.cs" />
+    <Compile Include="Activators\T_Activators_Factory.cs" />
     <Compile Include="Activators\Tests\TestBase.cs" />
     <Compile Include="Activators\Tests\TestRegistration.cs" />
     <Compile Include="Activators\T_Activators_AutoExports.cs" />

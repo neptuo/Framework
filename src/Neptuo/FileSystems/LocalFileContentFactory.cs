@@ -12,7 +12,7 @@ namespace Neptuo.FileSystems
     /// Implementation of activator that creates instance of stream containing content of file.
     /// Streams must be disposed by the caller.
     /// </summary>
-    public class LocalFileContentActivator : IActivator<Stream>
+    public class LocalFileContentFactory : IFactory<Stream>
     {
         private readonly string filePath;
         private readonly FileMode fileMode;
@@ -22,7 +22,7 @@ namespace Neptuo.FileSystems
         /// </summary>
         /// <param name="filePath">File path.</param>
         /// <param name="fileMode">File model to use when creating stream.</param>
-        public LocalFileContentActivator(string filePath, FileMode fileMode)
+        public LocalFileContentFactory(string filePath, FileMode fileMode)
         {
             Ensure.NotNullOrEmpty(filePath, "filePath");
             this.filePath = filePath;

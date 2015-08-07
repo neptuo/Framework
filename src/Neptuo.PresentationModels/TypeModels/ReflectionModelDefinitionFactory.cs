@@ -12,7 +12,7 @@ namespace Neptuo.PresentationModels.TypeModels
     /// - Fields are created from properties.
     /// - Metadata are created from attributes.
     /// </summary>
-    public class ReflectionModelDefinitionFactory : IActivator<IModelDefinition, Type>
+    public class ReflectionModelDefinitionFactory : IFactory<IModelDefinition, Type>
     {
         /// <summary>
         /// Collection attribute metadata readers.

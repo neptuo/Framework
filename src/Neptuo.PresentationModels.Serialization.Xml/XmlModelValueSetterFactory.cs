@@ -12,7 +12,7 @@ namespace Neptuo.PresentationModels.Serialization
     /// <summary>
     /// Factory for creating XML documents.
     /// </summary>
-    public class XmlModelValueSetterFactory : IActivator<IModelValueSetter, IModelDefinition>
+    public class XmlModelValueSetterFactory : IFactory<IModelValueSetter, IModelDefinition>
     {
         private readonly string rootElementName;
         private XDocument document;

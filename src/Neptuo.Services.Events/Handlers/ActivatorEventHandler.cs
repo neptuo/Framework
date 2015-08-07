@@ -15,14 +15,14 @@ namespace Neptuo.Services.Events.Handlers
     public class ActivatorEventHandler<TEventHandler, TEvent> : IEventHandler<TEvent>
         where TEventHandler : IEventHandler<TEvent>
     {
-        private readonly IActivator<TEventHandler> innerHandlerFactory;
+        private readonly IFactory<TEventHandler> innerHandlerFactory;
 
         /// <summary>
         /// Creates new instance and uses <paramref name="innerHandlerFactory"/> 
         /// to resolve inner handler of type <typeparamref name="TEventHandler"/>.
         /// </summary>
         /// <param name="innerHandlerFactory">Instance provider for inner handler of type <typeparamref name="TEventHandler"/>.</param>
-        public ActivatorEventHandler(IActivator<TEventHandler> innerHandlerFactory)
+        public ActivatorEventHandler(IFactory<TEventHandler> innerHandlerFactory)
         {
             Ensure.NotNull(innerHandlerFactory, "innerHandlerFactory");
             this.innerHandlerFactory = innerHandlerFactory;

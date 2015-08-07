@@ -12,7 +12,7 @@ namespace Neptuo.Localization.GetText
     /// Creates <see cref="ITranslationReader"/> from files structured as Key=Value.
     /// Use \= to escape '=' that should not be treated as key-value separator.
     /// </summary>
-    public class PlainTextTranslationReaderActivator : IActivator<ITranslationReader, Stream>, IActivator<ITranslationReader, string>
+    public class PlainTextTranslationReaderFactory : IFactory<ITranslationReader, Stream>, IFactory<ITranslationReader, string>
     {
         /// <summary>
         /// Creates translation reader from file path.

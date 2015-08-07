@@ -69,7 +69,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // Target is activator.
-            IActivator<object> targetActivator = target as IActivator<object>;
+            IFactory<object> targetActivator = target as IFactory<object>;
             if (targetActivator != null)
             {
                 DependencyDefinition definition = new DependencyDefinition(
@@ -77,7 +77,7 @@ namespace Neptuo.Activators.Internals
                     lifetime,
                     targetActivator
                 );
-                instances.AddActivator(definition.Key, targetActivator);
+                instances.AddFactory(definition.Key, targetActivator);
                 AddDefinition(definition);
                 return this;
             }

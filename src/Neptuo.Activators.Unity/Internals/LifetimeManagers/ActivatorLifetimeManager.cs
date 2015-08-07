@@ -9,10 +9,10 @@ namespace Neptuo.Activators.Internals.LifetimeManagers
 {
     internal class ActivatorLifetimeManager : LifetimeManager
     {
-        private readonly IActivator<object> activator;
+        private readonly IFactory<object> activator;
         private readonly LifetimeManager innerLifetime;
 
-        public ActivatorLifetimeManager(IActivator<object> activator, LifetimeManager innerLifetime)
+        public ActivatorLifetimeManager(IFactory<object> activator, LifetimeManager innerLifetime)
         {
             Ensure.NotNull(activator, "activator");
             Ensure.NotNull(innerLifetime, "innerLifetime");

@@ -28,19 +28,19 @@ namespace Neptuo.Activators
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddTransientActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection, TActivator activator)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddTransientFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, TFactory factory)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.Transient, activator);
+            collection.Add(typeof(TInterface), DependencyLifetime.Transient, factory);
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddTransientActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddTransientFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.Transient, typeof(TActivator));
+            collection.Add(typeof(TInterface), DependencyLifetime.Transient, typeof(TFactory));
             return collection;
         }
 
@@ -63,19 +63,19 @@ namespace Neptuo.Activators
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddScopedActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection, TActivator activator)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, TFactory factory)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.Scope, activator);
+            collection.Add(typeof(TInterface), DependencyLifetime.Scope, factory);
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddScopedActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.Scope, typeof(TActivator));
+            collection.Add(typeof(TInterface), DependencyLifetime.Scope, typeof(TFactory));
             return collection;
         }
 
@@ -105,19 +105,19 @@ namespace Neptuo.Activators
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScopedActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection, string scopeName, TActivator activator)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddNameScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName, TFactory factory)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(scopeName), activator);
+            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(scopeName), factory);
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScopedActivator<TInterface, TActivator>(this IDependencyDefinitionCollection collection, string scopeName)
-            where TActivator : IActivator<TInterface>
+        public static IDependencyDefinitionCollection AddNameScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName)
+            where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
-            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(scopeName), typeof(TActivator));
+            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(scopeName), typeof(TFactory));
             return collection;
         }
 

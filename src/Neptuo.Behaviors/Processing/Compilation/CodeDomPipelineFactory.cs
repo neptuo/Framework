@@ -13,7 +13,7 @@ namespace Neptuo.Behaviors.Processing.Compilation
     /// <summary>
     /// Factory for generating compiled class based implementation of <see cref="IPipeline{T}"/>.
     /// </summary>
-    public class CodeDomPipelineFactory<T> : IActivator<IPipeline<T>>
+    public class CodeDomPipelineFactory<T> : IFactory<IPipeline<T>>
     {
         private readonly IBehaviorProvider behaviorProvider;
         private readonly ICompilerConfiguration compilerConfiguration;

@@ -16,20 +16,20 @@ namespace Neptuo.PresentationModels.UI
     /// </summary>
     public class ModelViewCollection<T> : IModelViewProvider<T>
     {
-        private readonly Dictionary<string, IActivator<IModelView<T>>> storage = new Dictionary<string, IActivator<IModelView<T>>>();
-        private readonly OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool> onSearchView = new OutFuncCollection<IModelDefinition, IActivator<IModelView<T>>, bool>();
+        private readonly Dictionary<string, IFactory<IModelView<T>>> storage = new Dictionary<string, IFactory<IModelView<T>>>();
+        private readonly OutFuncCollection<IModelDefinition, IFactory<IModelView<T>>, bool> onSearchView = new OutFuncCollection<IModelDefinition, IFactory<IModelView<T>>, bool>();
 
         /// <summary>
-        /// Pairs model definition identified by <paramref name="modelIdentifier"/> with view provided by <paramref name="modelViewActivator"/>.
+        /// Pairs model definition identified by <paramref name="modelIdentifier"/> with view provided by <paramref name="modelViewFactory"/>.
         /// </summary>
         /// <param name="modelIdentifier">Model identifier.</param>
-        /// <param name="modelViewActivator">Activator for creating model view instances.</param>
+        /// <param name="modelViewFactory">Activator for creating model view instances.</param>
         /// <returns>Self (for fluency).</returns>
-        public ModelViewCollection<T> Add(string modelIdentifier, IActivator<IModelView<T>> modelViewActivator)
+        public ModelViewCollection<T> Add(string modelIdentifier, IFactory<IModelView<T>> modelViewFactory)
         {
             Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
-            Ensure.NotNull(modelViewActivator, "modelViewActivator");
-            storage[modelIdentifier] = modelViewActivator;
+            Ensure.NotNull(modelViewFactory, "modelViewFactory");
+            storage[modelIdentifier] = modelViewFactory;
             return this;
         }
 
@@ -38,7 +38,7 @@ namespace Neptuo.PresentationModels.UI
         /// </summary>
         /// <param name="searchHandler">Search delegate for providing model view activator.</param>
         /// <returns>Self (for fluency).</returns>
-        public ModelViewCollection<T> AddSearchHandler(OutFunc<IModelDefinition, IActivator<IModelView<T>>, bool> searchHandler)
+        public ModelViewCollection<T> AddSearchHandler(OutFunc<IModelDefinition, IFactory<IModelView<T>>, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
             onSearchView.Add(searchHandler);
@@ -48,7 +48,7 @@ namespace Neptuo.PresentationModels.UI
         public bool TryGet(IModelDefinition modelDefinition, out IModelView<T> modelView)
         {
             Ensure.NotNull(modelDefinition, "modelDefinition");
-            IActivator<IModelView<T>> modelViewActivator;
+            IFactory<IModelView<T>> modelViewActivator;
             if (storage.TryGetValue(modelDefinition.Identifier, out modelViewActivator))
             {
                 modelView = modelViewActivator.Create();

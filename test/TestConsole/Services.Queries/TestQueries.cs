@@ -18,7 +18,7 @@ namespace TestConsole.Services.Queries
                 .Add(typeof(LogAttribute), typeof(LogBehavior));
 
             ReflectionPipeline<ProductQueryHandler> pipeline = new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory());
-            IQueryHandler<ProductQuery, Product> queryHandler = new BehaviorQueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultActivator<ProductQueryHandler>());
+            IQueryHandler<ProductQuery, Product> queryHandler = new BehaviorQueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultFactory<ProductQueryHandler>());
 
             Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" });
             if (!task.IsCompleted)

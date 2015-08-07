@@ -14,17 +14,17 @@ namespace Neptuo.PresentationModels.Serialization
     /// XML source based implementation of model definition builder.
     /// XML format must valid against <see cref="XmlNameDefinition.XmlnsUri"/>.
     /// </summary>
-    public class XmlModelDefinitionBuilder : IActivator<IModelDefinition>
+    public class XmlModelDefinitionBuilder : IFactory<IModelDefinition>
     {
         private readonly XmlModelDefinitionFactory factory;
-        private readonly IActivator<Stream> contentFactory;
+        private readonly IFactory<Stream> contentFactory;
 
         /// <summary>
         /// Creates new instance of model definition builder from XML content.
         /// </summary>
         /// <param name="typeMappings">Collection of type name mappings.</param>
         /// <param name="contentFactory">Source XML activator.</param>
-        public XmlModelDefinitionBuilder(XmlTypeMappingCollection typeMappings, IActivator<Stream> contentFactory)
+        public XmlModelDefinitionBuilder(XmlTypeMappingCollection typeMappings, IFactory<Stream> contentFactory)
         {
             Ensure.NotNull(contentFactory, "contentFactory");
             this.factory = new XmlModelDefinitionFactory(typeMappings);
@@ -35,7 +35,7 @@ namespace Neptuo.PresentationModels.Serialization
         /// Creates new instance of model definition builder from XML content.
         /// </summary>
         /// <param name="contentFactory">Source XML activator.</param>
-        public XmlModelDefinitionBuilder(IActivator<Stream> contentFactory)
+        public XmlModelDefinitionBuilder(IFactory<Stream> contentFactory)
             : this(new XmlTypeMappingCollection(), contentFactory)
         { }
 

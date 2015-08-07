@@ -67,7 +67,7 @@ namespace Neptuo.Activators.Internals
             }
 
             // When mapped to the instance of activator.
-            IActivator<object> activator = instances.TryGetActivator(definition.Key);
+            IFactory<object> activator = instances.TryGetFactory(definition.Key);
             if (activator != null)
                 return activator.Create();
 

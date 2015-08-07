@@ -13,7 +13,7 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Virtual file system implemented as stadart file system.
     /// </summary>
-    public class LocalFileSystem : CollectionFeatureModel, IFileSystem, IActivator<IFileSystemConstant>
+    public class LocalFileSystem : CollectionFeatureModel, IFileSystem, IFactory<IFileSystemConstant>
     {
         public IDirectory RootDirectory { get; private set; }
 
@@ -33,7 +33,7 @@ namespace Neptuo.FileSystems
             this.AddFactory<IFileSystemConstant>(this);
         }
 
-        IFileSystemConstant IActivator<IFileSystemConstant>.Create()
+        IFileSystemConstant IFactory<IFileSystemConstant>.Create()
         {
             return new LocalFileSystemConstant();
         }

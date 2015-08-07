@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Implementation of <see cref="IActivator{T}"/> that for every call to create instance calls passed delegate.
+    /// Implementation of <see cref="IFactory{T}"/> that for every call to create instance calls passed delegate.
     /// </summary>
-    public class GetterActivator<T> : IActivator<T>
+    public class GetterFactory<T> : IFactory<T>
     {
         private readonly Func<T> getter;
 
@@ -18,7 +18,7 @@ namespace Neptuo.Activators
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
         /// </summary>
         /// <param name="getter">Instances provider delegate.</param>
-        public GetterActivator(Func<T> getter)
+        public GetterFactory(Func<T> getter)
         {
             Ensure.NotNull(getter, "getter");
             this.getter = getter;
@@ -31,9 +31,9 @@ namespace Neptuo.Activators
     }
 
     /// <summary>
-    /// Implementation of <see cref="IActivator{T, TContext}"/> that for every call to create instance calls passed delegate.
+    /// Implementation of <see cref="IFactory{T, TContext}"/> that for every call to create instance calls passed delegate.
     /// </summary>
-    public class GetterActivator<T, TContext> : IActivator<T, TContext>
+    public class GetterFactory<T, TContext> : IFactory<T, TContext>
     {
         private readonly Func<TContext, T> getter;
 
@@ -41,7 +41,7 @@ namespace Neptuo.Activators
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
         /// </summary>
         /// <param name="getter">Instances provider delegate.</param>
-        public GetterActivator(Func<TContext, T> getter)
+        public GetterFactory(Func<TContext, T> getter)
         {
             Ensure.NotNull(getter, "getter");
             this.getter = getter;

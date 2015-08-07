@@ -10,7 +10,7 @@ namespace Neptuo.Activators
     /// Singleton activator with support for creating singleton from function (on first call).
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
-    public class InstanceActivator<T> : IActivator<T>
+    public class InstanceFactory<T> : IFactory<T>
     {
         private T instance;
         private readonly Func<T> instanceGetter;
@@ -19,7 +19,7 @@ namespace Neptuo.Activators
         /// Create new instance from already created singleton object.
         /// </summary>
         /// <param name="instance">Singleton object.</param>
-        public InstanceActivator(T instance)
+        public InstanceFactory(T instance)
         {
             Ensure.NotNull(instance, "instance");
             this.instance = instance;
@@ -29,7 +29,7 @@ namespace Neptuo.Activators
         /// Creates new instance from <paramref name="innerGetter"/>.
         /// </summary>
         /// <param name="instanceGetter">Function to access singleton object.</param>
-        public InstanceActivator(Func<T> instanceGetter)
+        public InstanceFactory(Func<T> instanceGetter)
         {
             Ensure.NotNull(instanceGetter, "instanceGetter");
             this.instanceGetter = instanceGetter;

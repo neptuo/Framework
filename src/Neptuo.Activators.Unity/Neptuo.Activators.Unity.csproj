@@ -61,7 +61,7 @@
     <Compile Include="Internals\Mapper.cs" />
     <Compile Include="Internals\LifetimeManagers\SingletonLifetimeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnityActivator.cs" />
+    <Compile Include="UnityFactory.cs" />
     <Compile Include="UnityDependencyContainer.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Internals\DependencyDefinitionCollection.cs" />

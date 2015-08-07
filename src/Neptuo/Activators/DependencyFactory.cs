@@ -10,7 +10,7 @@ namespace Neptuo.Activators
     /// Implementation of <see cref="IActivator<T>"/> using <see cref="IDependencyProvider"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class DependencyActivator<T> : IActivator<T>
+    public class DependencyFactory<T> : IFactory<T>
     {
         private readonly IDependencyProvider dependencyProvider;
 
@@ -18,7 +18,7 @@ namespace Neptuo.Activators
         /// Creates new instance that resolves instance using <paramref name="dependencyProvider"/>.
         /// </summary>
         /// <param name="dependencyProvider">Instance resolution provider.</param>
-        public DependencyActivator(IDependencyProvider dependencyProvider)
+        public DependencyFactory(IDependencyProvider dependencyProvider)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;

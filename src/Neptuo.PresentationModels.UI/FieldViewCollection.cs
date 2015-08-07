@@ -20,21 +20,21 @@ namespace Neptuo.PresentationModels.UI
     /// </summary>
     public class FieldViewCollection<T> : IFieldViewProvider<T>
     {
-        private readonly Dictionary<Key, IActivator<IFieldView<T>, IFieldDefinition>> builders
-            = new Dictionary<Key, IActivator<IFieldView<T>, IFieldDefinition>>(new KeyComparer());
+        private readonly Dictionary<Key, IFactory<IFieldView<T>, IFieldDefinition>> builders
+            = new Dictionary<Key, IFactory<IFieldView<T>, IFieldDefinition>>(new KeyComparer());
 
-        private readonly OutFuncCollection<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool> onSearchView
-            = new OutFuncCollection<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool>();
+        private readonly OutFuncCollection<Key, IFactory<IFieldView<T>, IFieldDefinition>, bool> onSearchView
+            = new OutFuncCollection<Key, IFactory<IFieldView<T>, IFieldDefinition>, bool>();
 
-        public FieldViewCollection<T> Add(string modelIdentifier, string fieldIdentifier, string uiHint, Type fieldType, IActivator<IFieldView<T>, IFieldDefinition> fieldViewActivator)
+        public FieldViewCollection<T> Add(string modelIdentifier, string fieldIdentifier, string uiHint, Type fieldType, IFactory<IFieldView<T>, IFieldDefinition> fieldViewFactory)
         {
             Ensure.NotNull(fieldType, "fieldType");
-            Ensure.NotNull(fieldViewActivator, "fieldViewActivator");
-            builders[new Key(modelIdentifier, fieldIdentifier, uiHint, fieldType)] = fieldViewActivator;
+            Ensure.NotNull(fieldViewFactory, "fieldViewFactory");
+            builders[new Key(modelIdentifier, fieldIdentifier, uiHint, fieldType)] = fieldViewFactory;
             return this;
         }
 
-        public FieldViewCollection<T> AddSearchHandler(OutFunc<Key, IActivator<IFieldView<T>, IFieldDefinition>, bool> searchHandler)
+        public FieldViewCollection<T> AddSearchHandler(OutFunc<Key, IFactory<IFieldView<T>, IFieldDefinition>, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
             onSearchView.Add(searchHandler);
@@ -46,7 +46,7 @@ namespace Neptuo.PresentationModels.UI
             Ensure.NotNull(modelDefinition, "modelDefinition");
             Ensure.NotNull(fieldDefinition, "fieldDefinition");
 
-            IActivator<IFieldView<T>, IFieldDefinition> modelViewActivator;
+            IFactory<IFieldView<T>, IFieldDefinition> modelViewActivator;
             foreach (Key key in LazyEnumerateKeys(modelDefinition, fieldDefinition))
             {
                 if (builders.TryGetValue(key, out modelViewActivator))
