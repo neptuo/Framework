@@ -44,7 +44,7 @@ namespace TestConsole.DependencyContainers
         {
             //IDependencyContainer container = new UnityDependencyContainer()
             //    .AddTransient<IHelloService, HiService>()
-            //    .AddNameScoped<IMessageWriter, ConsoleWriterActivator>("Request", new ConsoleWriterActivator())
+            //    .AddScoped<IMessageWriter, ConsoleWriterActivator>("Request", new ConsoleWriterActivator())
             //    .AddTransient<Presenter>();
 
 
@@ -52,7 +52,7 @@ namespace TestConsole.DependencyContainers
             IDependencyContainer container = new UnityDependencyContainer();
             container.Definitions
                 .AddScoped<IHelloService, HiService>()
-                .AddNameScopedFactory<IMessageWriter, ConsoleWriterFactory>("Request")
+                .AddScopedFactory<IMessageWriter, ConsoleWriterFactory>("Request")
                 .AddTransient<Presenter>();
 
             using (IDependencyProvider provider = container.Scope("Request"))

@@ -14,7 +14,7 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer container = CreateContainer();
             container.Definitions
-                .AddNameScoped<IMessageFormatter, StringMessageFormatter>(container.ScopeName)
+                .AddScoped<IMessageFormatter, StringMessageFormatter>(container.ScopeName)
                 .AddTransient<IHelloService, HiService>()
                 .AddScoped<IOutputWriter, StringOutputWriter>()
                 .AddTransient<Presenter>();
@@ -50,8 +50,8 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer root = CreateContainer();
             root.Definitions
-                .AddNameScoped<string>("S1", "Hello")
-                .AddNameScoped<int>("S2", 5);
+                .AddScoped<string>("S1", "Hello")
+                .AddScoped<int>("S2", 5);
 
             IDependencyDefinition definition;
 

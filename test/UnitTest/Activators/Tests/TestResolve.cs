@@ -29,8 +29,8 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer root = CreateContainer();
             root.Definitions
-                .AddNameScoped<string>("S1", "S1")
-                .AddNameScoped<string>("S2", "S2");
+                .AddScoped<string>("S1", "S1")
+                .AddScoped<string>("S2", "S2");
 
             ResolveString(root);
         }
@@ -40,8 +40,8 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer root = CreateContainer();
             root.Definitions
-                .AddNameScopedFactory<string, IFactory<string>>("S1", new InstanceFactory<string>(() => "S1"))
-                .AddNameScopedFactory<string, IFactory<string>>("S2", new InstanceFactory<string>(() => "S2"));
+                .AddScopedFactory<string, IFactory<string>>("S1", new InstanceFactory<string>(() => "S1"))
+                .AddScopedFactory<string, IFactory<string>>("S2", new InstanceFactory<string>(() => "S2"));
 
             ResolveString(root);
         }
@@ -51,8 +51,8 @@ namespace Neptuo.Activators.Tests
         {
             IDependencyContainer root = CreateContainer();
             root.Definitions
-                .AddNameScoped<IOutputWriter, StringOutputWriter>("S1")
-                .AddNameScoped<IOutputWriter, ConsoleOutputWriter>("S2");
+                .AddScoped<IOutputWriter, StringOutputWriter>("S1")
+                .AddScoped<IOutputWriter, ConsoleOutputWriter>("S2");
 
             IOutputWriter writer;
             using (IDependencyProvider s1 = root.Scope("S1"))
@@ -88,7 +88,7 @@ namespace Neptuo.Activators.Tests
             IDependencyContainer root = CreateContainer();
             root.Definitions
                 .AddTransient<IHelloService, HiService>()
-                .AddNameScoped<IMessageFormatter, StringMessageFormatter>("S1");
+                .AddScoped<IMessageFormatter, StringMessageFormatter>("S1");
 
             IHelloService helloService;
             TryCatchUnResolvable<IHelloService>(root);

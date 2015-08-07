@@ -566,27 +566,27 @@ var Neptuo$Activators$_DependencyRegistrationExtensions = {
             collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.Scope, Typeof(TActivator));
             return collection;
         },
-        AddNameScoped$2$$IDependencyDefinitionCollection$$String: function (TInterface, TImplementation, collection, scopeName){
+        AddScoped$2$$IDependencyDefinitionCollection$$String: function (TInterface, TImplementation, collection, scopeName){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TImplementation));
             return collection;
         },
-        AddNameScoped$1$$IDependencyDefinitionCollection$$String: function (TImplementation, collection, scopeName){
+        AddScoped$1$$IDependencyDefinitionCollection$$String: function (TImplementation, collection, scopeName){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TImplementation));
             return collection;
         },
-        AddNameScoped$1$$IDependencyDefinitionCollection$$String$$TImplementation: function (TImplementation, collection, scopeName, instance){
+        AddScoped$1$$IDependencyDefinitionCollection$$String$$TImplementation: function (TImplementation, collection, scopeName, instance){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(Typeof(TImplementation), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), instance);
             return collection;
         },
-        AddNameScopedActivator$2$$IDependencyDefinitionCollection$$String$$TActivator: function (TInterface, TActivator, collection, scopeName, activator){
+        AddScopedActivator$2$$IDependencyDefinitionCollection$$String$$TActivator: function (TInterface, TActivator, collection, scopeName, activator){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), activator);
             return collection;
         },
-        AddNameScopedActivator$2$$IDependencyDefinitionCollection$$String: function (TInterface, TActivator, collection, scopeName){
+        AddScopedActivator$2$$IDependencyDefinitionCollection$$String: function (TInterface, TActivator, collection, scopeName){
             Neptuo.Ensure.NotNull$$Object$$String(collection, "collection");
             collection.Add(Typeof(TInterface), Neptuo.Activators.DependencyLifetime.NameScope(scopeName), Typeof(TActivator));
             return collection;

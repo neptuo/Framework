@@ -81,9 +81,9 @@ namespace Neptuo.Activators
 
         #endregion
 
-        #region AddNameScoped
+        #region AddScoped
 
-        public static IDependencyDefinitionCollection AddNameScoped<TInterface, TImplementation>(this IDependencyDefinitionCollection collection, string scopeName)
+        public static IDependencyDefinitionCollection AddScoped<TInterface, TImplementation>(this IDependencyDefinitionCollection collection, string scopeName)
             where TImplementation : TInterface
         {
             Ensure.NotNull(collection, "collection");
@@ -91,21 +91,21 @@ namespace Neptuo.Activators
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScoped<TImplementation>(this IDependencyDefinitionCollection collection, string scopeName)
+        public static IDependencyDefinitionCollection AddScoped<TImplementation>(this IDependencyDefinitionCollection collection, string scopeName)
         {
             Ensure.NotNull(collection, "collection");
             collection.Add(typeof(TImplementation), DependencyLifetime.NameScope(scopeName), typeof(TImplementation));
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScoped<TImplementation>(this IDependencyDefinitionCollection collection, string scopeName, TImplementation instance)
+        public static IDependencyDefinitionCollection AddScoped<TImplementation>(this IDependencyDefinitionCollection collection, string scopeName, TImplementation instance)
         {
             Ensure.NotNull(collection, "collection");
             collection.Add(typeof(TImplementation), DependencyLifetime.NameScope(scopeName), instance);
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName, TFactory factory)
+        public static IDependencyDefinitionCollection AddScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName, TFactory factory)
             where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");
@@ -113,7 +113,7 @@ namespace Neptuo.Activators
             return collection;
         }
 
-        public static IDependencyDefinitionCollection AddNameScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName)
+        public static IDependencyDefinitionCollection AddScopedFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, string scopeName)
             where TFactory : IFactory<TInterface>
         {
             Ensure.NotNull(collection, "collection");

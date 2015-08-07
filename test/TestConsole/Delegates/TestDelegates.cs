@@ -20,7 +20,7 @@ namespace TestConsole.Delegates
         {
             IDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer.Definitions
-                .AddNameScoped<ResolveUrl>(dependencyContainer.ScopeName, new ResolveUrl(ResolveUrl));
+                .AddScoped<ResolveUrl>(dependencyContainer.ScopeName, new ResolveUrl(ResolveUrl));
 
             ResolveUrl resolveUrl = dependencyContainer.Resolve<ResolveUrl>();
             resolveUrl("~/root");

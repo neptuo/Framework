@@ -34,8 +34,8 @@ namespace TestConsole.BootstrapTasks
         {
             IDependencyContainer dependencyContainer = new UnityDependencyContainer();
             dependencyContainer.Definitions
-                .AddNameScoped<string>(dependencyContainer.ScopeName, "Hi")
-                .AddNameScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);
+                .AddScoped<string>(dependencyContainer.ScopeName, "Hi")
+                .AddScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);
 
             SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
