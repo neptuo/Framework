@@ -11,23 +11,20 @@ namespace Neptuo.Models.Features
 {
     /// <summary>
     /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrency support).
-    /// When resolving feature, first are searched registered instances, than registered getters (<see cref="Func{T}"/>, 
-    /// than registered factories (<see cref="IActivator{T}"/>), than registered feature models and lastly search handlers.
+    /// When resolving feature, first are searched registered instances, than registered getters (<see cref="Func{T}"/>, than registered feature models and lastly search handlers.
     /// </summary>
     public class CollectionFeatureModel : IFeatureModel
     {
         private readonly object storageLock = new object();
         private readonly Dictionary<Type, object> features;
         private readonly Dictionary<Type, Func<object>> featureGetters;
-        private readonly Dictionary<Type, IActivator<object>> featureFactories;
         private readonly List<IFeatureModel> featureModels;
         private OutFuncCollection<Type, object, bool> onSearchFeature = new OutFuncCollection<Type, object, bool>();
 
-        public CollectionFeatureModel(bool isSingleThread)
+        public CollectionFeatureModel()
         {
             features = new Dictionary<Type, object>();
             featureGetters = new Dictionary<Type, Func<object>>();
-            featureFactories = new Dictionary<Type, IActivator<object>>();
             featureModels = new List<IFeatureModel>();
         }
 
@@ -36,7 +33,6 @@ namespace Neptuo.Models.Features
             Ensure.NotNull(features, "features");
             features = new Dictionary<Type, object>(features);
             featureGetters = new Dictionary<Type, Func<object>>();
-            featureFactories = new Dictionary<Type, IActivator<object>>();
             featureModels = new List<IFeatureModel>();
         }
 
@@ -52,7 +48,6 @@ namespace Neptuo.Models.Features
             lock (storageLock)
             {
                 featureGetters.Remove(featureType);
-                featureFactories.Remove(featureType);
                 features[featureType] = feature;
             }
             return this;
@@ -71,27 +66,7 @@ namespace Neptuo.Models.Features
             lock (storageLock)
             {
                 features.Remove(featureType);
-                featureFactories.Remove(featureType);
                 featureGetters[featureType] = featureGetter;
-            }
-            return this;
-        }
-
-        /// <summary>
-        /// Adds feature factory to the collection.
-        /// </summary>
-        /// <param name="featureType">Type of feature.</param>
-        /// <param name="featureFactory">Feature factory.</param>
-        /// <returns>Self (for fluency).</returns>
-        public CollectionFeatureModel AddFactory(Type featureType, IActivator<object> featureFactory)
-        {
-            Ensure.NotNull(featureType, "featureType");
-            Ensure.NotNull(featureFactory, "featureFactory");
-            lock (storageLock)
-            {
-                features.Remove(featureType);
-                featureGetters.Remove(featureType);
-                featureFactories[featureType] = featureFactory;
             }
             return this;
         }
@@ -132,13 +107,6 @@ namespace Neptuo.Models.Features
             if (featureGetters.TryGetValue(featureType, out featureGetter))
             {
                 feature = (TFeature)featureGetter();
-                return true;
-            }
-
-            IActivator<object> featureFactory;
-            if (featureFactories.TryGetValue(featureType, out featureFactory))
-            {
-                feature = (TFeature)featureFactory.Create();
                 return true;
             }
 

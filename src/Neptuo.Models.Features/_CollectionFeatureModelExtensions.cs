@@ -42,10 +42,11 @@ namespace Neptuo.Models.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureFactory">Feature factory.</param>
         /// <returns>Self (for fluency).</returns>
-        public static CollectionFeatureModel AddFactory<T>(this CollectionFeatureModel collection, IActivator<object> featureFactory)
+        public static CollectionFeatureModel AddFactory<T>(this CollectionFeatureModel collection, IActivator<T> featureFactory)
+            where T : class
         {
             Ensure.NotNull(collection, "collection");
-            return collection.AddFactory(typeof(T), featureFactory);
+            return collection.AddGetter(typeof(T), (Func<object>)featureFactory.Create);
         }
     }
 }
