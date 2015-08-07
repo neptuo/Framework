@@ -31,7 +31,7 @@ namespace Neptuo.FileSystems.Features
                     throw Ensure.Exception.ArgumentOutOfRange("fileExtension", "File extension '{0}' contains invalid char '{1}'.", fileExtension, invalidChar);
             }
 
-            string newPath = Path.Combine(parentDirectory, String.Join("{0}.{1}", fileName, fileExtension));
+            string newPath = Path.Combine(parentDirectory, String.Format("{0}.{1}", fileName, fileExtension));
             File.Create(newPath).Dispose();
             return new LocalFile(newPath);
         }

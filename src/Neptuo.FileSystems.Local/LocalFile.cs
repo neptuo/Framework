@@ -68,6 +68,8 @@ namespace Neptuo.FileSystems
             AbsolutePath = absolutePath;
             Name = Path.GetFileNameWithoutExtension(absolutePath);
             Extension = Path.GetExtension(absolutePath);
+            if (Extension.StartsWith("."))
+                Extension = Extension.Substring(1);
         }
 
         IAncestorEnumerator IActivator<IAncestorEnumerator>.Create()

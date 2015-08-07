@@ -25,5 +25,10 @@ namespace Neptuo.FileSystems.Features
         /// Enumeration of invalid characters for file name.
         /// </summary>
         IEnumerable<char> InvalidFileNameChars { get; }
+
+        /// <summary>
+        /// Whether file system is case sensitive.
+        /// </summary>
+        bool IsCaseSensitive { get; }
     }
 }

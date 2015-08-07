@@ -6,6 +6,7 @@ using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace UnitTest.FileSystems
 {
@@ -28,29 +29,85 @@ namespace UnitTest.FileSystems
                 Assert.AreEqual('\\', constants.DirectorySeparatorChar);
 
                 // Create directory
-                IDirectory t1 = rootDirectory.With<IDirectoryCreator>().Create("T1");
-                Assert.AreEqual("T1", t1.Name);
-                Assert.AreEqual(Path.Combine(rootPath, "T1"), t1.With<IAbsolutePath>().AbsolutePath);
-                EnsureAncestors(t1.With<IAncestorEnumerator>(), "FileSystems", "Temp", "C:\\");
+                IDirectory d1 = rootDirectory.With<IDirectoryCreator>().Create("D1");
+                Assert.AreEqual("D1", d1.Name);
+                Assert.AreEqual(Path.Combine(rootPath, "D1"), d1.With<IAbsolutePath>().AbsolutePath);
+                EnsureAncestors(d1.With<IAncestorEnumerator>(), "FileSystems", "Temp", "C:\\");
 
                 // Rename directory.
-                t1.With<IDirectoryRenamer>().ChangeName("T1.1");
-                Assert.AreEqual("T1.1", t1.Name);
-                Assert.AreEqual(Path.Combine(rootPath, "T1.1"), t1.With<IAbsolutePath>().AbsolutePath);
+                d1.With<IDirectoryRenamer>().ChangeName("D1.1");
+                Assert.AreEqual("D1.1", d1.Name);
+                Assert.AreEqual(Path.Combine(rootPath, "D1.1"), d1.With<IAbsolutePath>().AbsolutePath);
+                Assert.AreEqual(false, Directory.Exists(Path.Combine(rootPath, "D1")));
+                Assert.AreEqual(true, Directory.Exists(Path.Combine(rootPath, "D1.1")));
+
+
+                // Create file
+                IFile f1 = d1.With<IFileCreator>().Create("F1", "txt");
+                Assert.AreEqual(true, File.Exists(Path.Combine(rootPath, d1.Name, "F1.txt")));
+                Assert.AreEqual(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.txt"), f1.With<IAbsolutePath>().AbsolutePath);
+                Assert.AreEqual("F1", f1.Name);
+                Assert.AreEqual("txt", f1.Extension);
+                Assert.AreEqual(0, f1.With<IFileContentSize>().FileSize);
+
+                // Write to file
+                f1.With<IFileContentUpdater>().SetContent("Text");
+                Assert.AreEqual("Text", File.ReadAllText(f1.With<IAbsolutePath>().AbsolutePath));
+
+                // Append to file
+                f1.With<IFileContentAppender>().AppendContent(".T1");
+                Assert.AreEqual("Text.T1", File.ReadAllText(f1.With<IAbsolutePath>().AbsolutePath));
+
+                // Override file content
+                f1.With<IFileContentUpdater>().SetContent("T2");
+                Assert.AreEqual("T2", File.ReadAllText(f1.With<IAbsolutePath>().AbsolutePath));
+
+                // Read file content
+                Assert.AreEqual("T2", f1.With<IFileContentReader>().GetContent());
+                Assert.AreEqual(2, f1.With<IFileContentSize>().FileSize);
+
+                //Rename file
+                f1.With<IFileRenamer>().ChangeName("F1.1");
+                Assert.AreEqual("F1.1", f1.Name);
+                Assert.AreEqual("txt", f1.Extension);
+                Assert.AreEqual(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.1.txt"), f1.With<IAbsolutePath>().AbsolutePath);
+                Assert.AreEqual(false, File.Exists(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.txt")));
+                Assert.AreEqual(true, File.Exists(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.1.txt")));
+
+                // Create files and directories.
+                IFile f2 = d1.With<IFileCreator>().Create("F2", "txt");
+                IFile f3 = d1.With<IFileCreator>().Create("F3", "rtf");
+                IFile f4 = d1.With<IFileCreator>().Create("f4", "rtf");
+
+                IDirectory d12 = d1.With<IDirectoryCreator>().Create("D2");
+                IFile f121 = d12.With<IFileCreator>().Create("F1", "txt");
+                IFile f122 = d12.With<IFileCreator>().Create("F2", "txt");
+                IFile f123 = d12.With<IFileCreator>().Create("F3", "rtf");
+                IFile f124 = d12.With<IFileCreator>().Create("f4", "rtf");
+
+                // Searching directories
+                IEnumerable<IDirectory> s1 = rootDirectory.With<IDirectoryNameSearch>().FindDirectories(TextSearch.CreatePrefixed("D"));
+                Assert.AreEqual(1, s1.Count());
+
+                IEnumerable<IDirectory> s2 = rootDirectory.With<IDirectoryPathSearch>().FindDirectories(TextSearch.CreatePrefixed("D"));
+                Assert.AreEqual(2, s2.Count());
+
+                IEnumerable<IDirectory> s3 = rootDirectory.With<IDirectoryPathSearch>().FindDirectories(TextSearch.CreateSuffixed("2"));
+                Assert.AreEqual(1, s3.Count());
+
+                IEnumerable<IDirectory> s4 = rootDirectory.With<IDirectoryPathSearch>().FindDirectories(TextSearch.CreateEmpty());
+                Assert.AreEqual(2, s4.Count());
+
+                // Searching files
+
+
+
+                // Delete file
+                f1.With<IFileDeleter>().Delete();
 
                 //Delete directory
-                t1.With<IDirectoryDeleter>().Delete();
+                d1.With<IDirectoryDeleter>().Delete();
                 Assert.AreEqual(false, Directory.Exists(Path.Combine(rootPath, "T1")));
-                
-
-
-
-                IFileNameSearch fileNameSearch = new LocalSearchProvider(@"C:\Temp");
-                IEnumerable<IFile> files = fileNameSearch.FindFiles(TextSearch.CreateSuffixed("M"), TextSearch.CreateSuffixed("t"));
-
-                foreach (IFile file in files)
-                    Console.WriteLine(file);
-                    //Console.WriteLine(file.With<IAbsolutePath>().AbsolutePath); 
             }
 
             private void CleanUpFileSystem(string rootPath)

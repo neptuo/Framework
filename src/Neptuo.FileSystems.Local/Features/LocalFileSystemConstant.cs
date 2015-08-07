@@ -26,5 +26,11 @@ namespace Neptuo.FileSystems.Features
         {
             get { return Path.GetInvalidFileNameChars(); }
         }
+
+        public bool IsCaseSensitive
+        {
+            // For windows only.
+            get { return false; }
+        }
     }
 }

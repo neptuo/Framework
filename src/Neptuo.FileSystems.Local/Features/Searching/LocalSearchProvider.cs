@@ -30,9 +30,9 @@ namespace Neptuo.FileSystems.Features.Searching
             switch (search.Type)
             {
                 case TextSearchType.Prefixed:
-                    return "*" + search.Text;
-                case TextSearchType.Suffixed:
                     return search.Text + "*";
+                case TextSearchType.Suffixed:
+                    return "*" + search.Text;
                 case TextSearchType.Contained:
                     return "*" + search.Text + "*";
                 case TextSearchType.Matched:
@@ -66,11 +66,9 @@ namespace Neptuo.FileSystems.Features.Searching
             if (search.Text == String.Empty)
                 return String.IsNullOrEmpty(fileExtension);
 
-            if (!search.IsCaseSensitive)
-            {
-                fileExtension = fileExtension.ToLowerInvariant();
-                searchExtension = searchExtension.ToLowerInvariant();
-            }
+            // For local system, 
+            fileExtension = fileExtension.ToLowerInvariant();
+            searchExtension = searchExtension.ToLowerInvariant();
 
             switch (search.Type)
             {
