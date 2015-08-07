@@ -14,8 +14,8 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            IReadOnlyFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
-            IReadOnlyFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
+            IFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
+            IFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
             IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
@@ -28,7 +28,7 @@ namespace TestConsole.PresentationModels
                 Console.WriteLine(writer);
             }
 
-            IReadOnlyFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
+            IFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
             XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile);
 
             XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);

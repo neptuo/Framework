@@ -5,33 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.FileSystems
+namespace Neptuo.FileSystems.Features
 {
     /// <summary>
-    /// Represents (not updateable) file in virtual file system.
+    /// Provides contract for reading file content.
     /// </summary>
-    public interface IReadOnlyFile
+    public interface IFileContentReader
     {
-        /// <summary>
-        /// File name without extension.
-        /// </summary>
-        string Name { get; }
-
-        /// <summary>
-        /// File extension.
-        /// </summary>
-        string Extension { get; }
-
-        /// <summary>
-        /// Link to parent directory.
-        /// </summary>
-        IDirectory Parent { get; }
-
-        /// <summary>
-        /// Size of file in bytes.
-        /// </summary>
-        long FileSize { get; }
-
         /// <summary>
         /// Returns file content.
         /// </summary>

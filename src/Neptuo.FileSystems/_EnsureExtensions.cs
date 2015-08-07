@@ -1,4 +1,5 @@
 ﻿using Neptuo.Exceptions.Helpers;
+using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,7 +39,7 @@ namespace Neptuo.FileSystems
         /// <param name="condition"></param>
         /// <param name="xmlFile">File to test.</param>
         /// <param name="argumentName">File argument name.</param>
-        public static void XmlFile(this EnsureConditionHelper condition, IReadOnlyFile xmlFile, string argumentName)
+        public static void XmlFile(this EnsureConditionHelper condition, IFile xmlFile, string argumentName)
         {
             Ensure.NotNull(condition, "condition");
             Ensure.NotNull(xmlFile, argumentName);

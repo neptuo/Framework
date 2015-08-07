@@ -1,8 +1,8 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Collections.Specialized;
-using Neptuo.FileSystems;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace Neptuo.PresentationModels.Serialization
     /// XML based factory pro creating model definitions from XML files.
     /// XML format must valid againts <see cref="XmlNameDefinition.XmlnsUri"/>.
     /// </summary>
-    public class XmlModelDefinitionFactory : IActivator<IModelDefinition, IReadOnlyFile>
+    public class XmlModelDefinitionFactory : IActivator<IModelDefinition, Stream>
     {
         private readonly XmlTypeMappingCollection typeMappings;
 
@@ -40,12 +40,10 @@ namespace Neptuo.PresentationModels.Serialization
         /// </summary>
         /// <param name="xmlFile">XML file to create model definition from.</param>
         /// <returns>Model definition from XML <paramref name="xmlFile"/>.</returns>
-        public IModelDefinition Create(IReadOnlyFile xmlFile)
+        public IModelDefinition Create(Stream content)
         {
-            if (xmlFile.Extension.ToLowerInvariant() != ".xml")
-                Ensure.Exception.FileSystem("Only xml files are supported, but got file named '{0}{1}'.", xmlFile.Name, xmlFile.Extension);
-
-            XDocument document = XDocument.Load(xmlFile.GetContentAsStream());
+            Ensure.NotNull(content, "content");
+            XDocument document = XDocument.Load(content);
             return BuildModelDefinition(document.Root);
         }
 

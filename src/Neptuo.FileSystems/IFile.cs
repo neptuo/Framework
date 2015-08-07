@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Models.Features;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,24 +11,16 @@ namespace Neptuo.FileSystems
     /// <summary>
     /// Represents file in virtual file system.
     /// </summary>
-    public interface IFile : IReadOnlyFile
+    public interface IFile : IFeatureModel
     {
         /// <summary>
-        /// Overrides file content to <paramref name="fileContent"/>.
+        /// File name without extension.
         /// </summary>
-        /// <param name="fileContent">New file content.</param>
-        Task SetContentAsync(string fileContent);
+        string Name { get; }
 
         /// <summary>
-        /// Overrides file content to <paramref name="fileContent"/>.
+        /// File extension (without extension separator).
         /// </summary>
-        /// <param name="fileContent">New file content.</param>
-        Task SetContentFromByteArrayAsync(byte[] fileContent);
-
-        /// <summary>
-        /// Overrides file content to <paramref name="fileContent"/>.
-        /// </summary>
-        /// <param name="fileContent">New file content.</param>
-        Task SetContentFromStreamAsync(Stream fileContent);
+        string Extension { get; }
     }
 }

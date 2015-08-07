@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileSystems\TestLocal.cs" />
     <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />
     <Compile Include="BootstrapTasks\TestBootstrap.cs" />
@@ -129,6 +130,10 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.FileSystems.Local\Neptuo.FileSystems.Local.csproj">
+      <Project>{90e35420-d546-4b7f-bd44-3db0fe95c2e0}</Project>
+      <Name>Neptuo.FileSystems.Local</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.FileSystems\Neptuo.FileSystems.csproj">
       <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
       <Name>Neptuo.FileSystems</Name>
@@ -136,6 +141,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
+      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
+      <Name>Neptuo.Models.Features</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>

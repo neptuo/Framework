@@ -42,32 +42,53 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Features\IAncestorEnumerator.cs" />
+    <Compile Include="Features\IAbsolutePath.cs" />
+    <Compile Include="Features\Attributes\IAttributeReader.cs" />
+    <Compile Include="Features\Attributes\IAttributeUpdater.cs" />
+    <Compile Include="Features\IDirectoryDeleter.cs" />
+    <Compile Include="Features\IDirectoryRenamer.cs" />
+    <Compile Include="Features\IFileDeleter.cs" />
+    <Compile Include="Features\IFileRenamer.cs" />
+    <Compile Include="Features\IFileSystemConstant.cs" />
+    <Compile Include="Features\Searching\IDirectoryPathSearch.cs" />
+    <Compile Include="Features\Searching\IDirectoryNameSearch.cs" />
+    <Compile Include="Features\Searching\IFileNameSearch.cs" />
+    <Compile Include="Features\Searching\IFilePathSearch.cs" />
+    <Compile Include="Features\Searching\TextSearch.cs" />
+    <Compile Include="Features\Searching\TextSearchType.cs" />
+    <Compile Include="Features\Timestamps\ICreatedAt.cs" />
+    <Compile Include="Features\IDirectoryCreator.cs" />
+    <Compile Include="Features\IDirectoryEnumerator.cs" />
+    <Compile Include="Features\IFileContentAppender.cs" />
+    <Compile Include="Features\IFileContentReader.cs" />
+    <Compile Include="Features\IFileCreator.cs" />
+    <Compile Include="Features\IFileEnumerator.cs" />
+    <Compile Include="Features\IFileContentUpdater.cs" />
+    <Compile Include="Features\IFileContentSize.cs" />
+    <Compile Include="Features\Timestamps\IModefiedAt.cs" />
+    <Compile Include="Features\_FileContentAppenderExtensions.cs" />
+    <Compile Include="Features\_FileContentUpdaterExtensions.cs" />
     <Compile Include="FileSystemException.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IFile.cs" />
     <Compile Include="IFileSystem.cs" />
-    <Compile Include="IReadOnlyDirectory.cs" />
-    <Compile Include="IReadOnlyFile.cs" />
-    <Compile Include="LocalDirectory.cs" />
-    <Compile Include="LocalFile.cs" />
-    <Compile Include="LocalFileSystem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="FileContentActivator.cs" />
     <Compile Include="_EnsureExtensions.cs" />
-    <Compile Include="_FileContentExtensions.cs" />
+    <Compile Include="Features\_FileContentReaderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
+      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
+      <Name>Neptuo.Models.Features</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>
