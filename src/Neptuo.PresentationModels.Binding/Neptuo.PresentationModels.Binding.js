@@ -35,7 +35,7 @@ var Neptuo$PresentationModels$Binding$BindingConverterCollection = {
     fullname: "Neptuo.PresentationModels.Binding.BindingConverterCollection",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels.Binding",
-    interfaceNames: ["Neptuo.PresentationModels.Binding.IBindingConverterCollection"],
+    interfaceNames: ["Neptuo.PresentationModels.Binding.IBindingConverterProvider"],
     Kind: "Class",
     definition: {
         ctor: function (previousCollection){
@@ -183,7 +183,7 @@ var Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage = {
 JsTypes.push(Neptuo$PresentationModels$Binding$BindingDictionaryValueStorage);
 var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
     fullname: "Neptuo.PresentationModels.Binding.BindingModelValueGetter",
-    baseTypeName: "Neptuo.Components.DisposableBase",
+    baseTypeName: "Neptuo.DisposableBase",
     assemblyName: "Neptuo.PresentationModels.Binding",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueGetter"],
     Kind: "Class",
@@ -192,7 +192,7 @@ var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
             this._Storage = null;
             this._ConverterCollection = null;
             this._ModelDefinition = null;
-            Neptuo.Components.DisposableBase.ctor.call(this);
+            Neptuo.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(storage, "storage");
             Neptuo.Ensure.NotNull$$Object$$String(converterCollection, "converterCollection");
             Neptuo.Ensure.NotNull$$Object$$String(modelDefinition, "modelDefinition");
@@ -207,7 +207,7 @@ var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
         set_Storage: function (value){
             this._Storage = value;
         },
-        ConverterCollection$$: "Neptuo.PresentationModels.Binding.IBindingConverterCollection",
+        ConverterCollection$$: "Neptuo.PresentationModels.Binding.IBindingConverterProvider",
         get_ConverterCollection: function (){
             return this._ConverterCollection;
         },
@@ -245,7 +245,7 @@ var Neptuo$PresentationModels$Binding$BindingModelValueGetter = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.PresentationModels.Binding.IBindingModelValueStorage", "Neptuo.PresentationModels.Binding.IBindingConverterCollection", "Neptuo.PresentationModels.IModelDefinition"]
+        parameters: ["Neptuo.PresentationModels.Binding.IBindingModelValueStorage", "Neptuo.PresentationModels.Binding.IBindingConverterProvider", "Neptuo.PresentationModels.IModelDefinition"]
     }
     ],
     IsAbstract: false
@@ -663,15 +663,15 @@ var Neptuo$PresentationModels$Binding$IBindingConverter = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$PresentationModels$Binding$IBindingConverter);
-var Neptuo$PresentationModels$Binding$IBindingConverterCollection = {
-    fullname: "Neptuo.PresentationModels.Binding.IBindingConverterCollection",
+var Neptuo$PresentationModels$Binding$IBindingConverterProvider = {
+    fullname: "Neptuo.PresentationModels.Binding.IBindingConverterProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo.PresentationModels.Binding",
     Kind: "Interface",
     ctors: [],
     IsAbstract: true
 };
-JsTypes.push(Neptuo$PresentationModels$Binding$IBindingConverterCollection);
+JsTypes.push(Neptuo$PresentationModels$Binding$IBindingConverterProvider);
 var Neptuo$PresentationModels$Binding$IBindingModelValueStorage = {
     fullname: "Neptuo.PresentationModels.Binding.IBindingModelValueStorage",
     baseTypeName: "System.Object",

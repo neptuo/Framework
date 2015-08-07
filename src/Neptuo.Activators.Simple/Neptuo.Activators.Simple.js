@@ -95,10 +95,10 @@ var Neptuo$Activators$Internals$DependencyDefinitionCollection = {
                 this.AddDefinition(definition);
                 return this;
             }
-            var targetActivator = As(target, Neptuo.Activators.IActivator$1.ctor);
+            var targetActivator = As(target, Neptuo.Activators.IFactory$1.ctor);
             if (targetActivator != null){
                 var definition = new Neptuo.Activators.Internals.DependencyDefinition.ctor$$Type$$DependencyLifetime$$Object(requiredType, lifetime, targetActivator);
-                this.instances.AddActivator(definition.get_Key(), targetActivator);
+                this.instances.AddFactory(definition.get_Key(), targetActivator);
                 this.AddDefinition(definition);
                 return this;
             }
@@ -428,7 +428,7 @@ var Neptuo$Activators$Internals$InstanceResolver = {
                 this.FillDependencyProperties(definition, instance);
                 return instance;
             }
-            var activator = this.instances.TryGetActivator(definition.get_Key());
+            var activator = this.instances.TryGetFactory(definition.get_Key());
             if (activator != null)
                 return activator.Create();
             throw $CreateException(new System.NotImplementedException.ctor(), new Error());
@@ -467,7 +467,7 @@ var Neptuo$Activators$Internals$InstanceStorage = {
     definition: {
         ctor: function (){
             this.objectStorage = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Object.ctor);
-            this.activatorStorage = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Activators.IActivator$1.ctor);
+            this.factoryStorage = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Activators.IFactory$1.ctor);
             System.Object.ctor.call(this);
         },
         AddObject: function (key, instance){
@@ -476,10 +476,10 @@ var Neptuo$Activators$Internals$InstanceStorage = {
             this.objectStorage.set_Item$$TKey(key, instance);
             return this;
         },
-        AddActivator: function (key, activator){
+        AddFactory: function (key, factory){
             Neptuo.Ensure.NotNullOrEmpty(key, "key");
-            Neptuo.Ensure.NotNull$$Object$$String(activator, "activator");
-            this.activatorStorage.set_Item$$TKey(key, activator);
+            Neptuo.Ensure.NotNull$$Object$$String(factory, "factory");
+            this.factoryStorage.set_Item$$TKey(key, factory);
             return this;
         },
         TryGetObject: function (key){
@@ -496,14 +496,14 @@ var Neptuo$Activators$Internals$InstanceStorage = {
                 return result;
             return null;
         },
-        TryGetActivator: function (key){
+        TryGetFactory: function (key){
             Neptuo.Ensure.NotNullOrEmpty(key, "key");
             var result;
             if ((function (){
                 var $1 = {
                     Value: result
                 };
-                var $res = this.activatorStorage.TryGetValue(key, $1);
+                var $res = this.factoryStorage.TryGetValue(key, $1);
                 result = $1.Value;
                 return $res;
             }).call(this))
@@ -543,7 +543,7 @@ var Neptuo$Activators$Simple$VersionInfo = {
 JsTypes.push(Neptuo$Activators$Simple$VersionInfo);
 var Neptuo$Activators$SimpleDependencyContainer = {
     fullname: "Neptuo.Activators.SimpleDependencyContainer",
-    baseTypeName: "Neptuo.Components.DisposableBase",
+    baseTypeName: "Neptuo.DisposableBase",
     assemblyName: "Neptuo.Activators.Simple",
     interfaceNames: ["Neptuo.Activators.IDependencyContainer"],
     Kind: "Class",
@@ -560,7 +560,7 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             this.scopeName = null;
             this.definitions = null;
             this.resolver = null;
-            Neptuo.Components.DisposableBase.ctor.call(this);
+            Neptuo.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNullOrEmpty(scopeName, "scopeName");
             this.scopeName = scopeName;
             this.parentContainer = parentContainer;

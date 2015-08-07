@@ -28,35 +28,6 @@ if (typeof ($CreateAnonymousDelegate) == 'undefined') {
     }
 }
 
-if (typeof($CreateDelegate)=='undefined'){
-    if(typeof($iKey)=='undefined') var $iKey = 0;
-    if(typeof($pKey)=='undefined') var $pKey = String.fromCharCode(1);
-    var $CreateDelegate = function(target, func){
-        if (target == null || func == null) 
-            return func;
-        if(func.target==target && func.func==func)
-            return func;
-        if (target.$delegateCache == null)
-            target.$delegateCache = {};
-        if (func.$key == null)
-            func.$key = $pKey + String(++$iKey);
-        var delegate;
-        if(target.$delegateCache!=null)
-            delegate = target.$delegateCache[func.$key];
-        if (delegate == null){
-            delegate = function(){
-                return func.apply(target, arguments);
-            };
-            delegate.func = func;
-            delegate.target = target;
-            delegate.isDelegate = true;
-            if(target.$delegateCache!=null)
-                target.$delegateCache[func.$key] = delegate;
-        }
-        return delegate;
-    }
-}
-
 
 if (typeof(JsTypes) == "undefined")
     var JsTypes = [];
@@ -163,7 +134,7 @@ var Neptuo$Services$Events$Handlers$ActivatorEventHandler$2 = {
     },
     ctors: [{
         name: "ctor",
-        parameters: ["Neptuo.Activators.IActivator"]
+        parameters: ["Neptuo.Activators.IFactory"]
     }
     ],
     IsAbstract: false
@@ -181,9 +152,9 @@ var Neptuo$Services$Events$Handlers$DefaultEventHandlerContext$1 = {
             this._Payload = null;
             this._EventHandlers = null;
             this._Dispatcher = null;
-            Neptuo.Services.Events.Handlers.DefaultEventHandlerContext$1.ctor$$Envelope$1$$IEventHandlerCollection$$IEventDispatcher.call(this, this.TEvent, Neptuo.ComponentModel.Envelope.Create$1(this.TEvent, payload), eventHandlers, dispatcher);
+            Neptuo.Services.Events.Handlers.DefaultEventHandlerContext$1.ctor$$Envelope$1$$IEventHandlerCollection$$IEventDispatcher.call(this, this.TEvent, Neptuo.Components.Envelope.Create$1(this.TEvent, payload), eventHandlers, dispatcher);
         },
-        Payload$$: "Neptuo.ComponentModel.Envelope`1[[`0]]",
+        Payload$$: "Neptuo.Components.Envelope`1[[`0]]",
         get_Payload: function (){
             return this._Payload;
         },
@@ -223,7 +194,7 @@ var Neptuo$Services$Events$Handlers$DefaultEventHandlerContext$1 = {
         parameters: ["TEvent", "Neptuo.Services.Events.IEventHandlerCollection", "Neptuo.Services.Events.IEventDispatcher"]
     }, {
         name: "ctor$$Envelope$$IEventHandlerCollection$$IEventDispatcher",
-        parameters: ["Neptuo.ComponentModel.Envelope", "Neptuo.Services.Events.IEventHandlerCollection", "Neptuo.Services.Events.IEventDispatcher"]
+        parameters: ["Neptuo.Components.Envelope", "Neptuo.Services.Events.IEventHandlerCollection", "Neptuo.Services.Events.IEventDispatcher"]
     }
     ],
     IsAbstract: false
@@ -496,7 +467,7 @@ var Neptuo$Services$Events$Internals$TypeResolverResult = {
             if (targetType.get_IsGenericType()){
                 var genericType = targetType.GetGenericTypeDefinition();
                 this.set_IsContext(contextType.IsAssignableFrom(genericType));
-                this.set_IsEnvelope(Typeof(Neptuo.ComponentModel.Envelope$1.ctor).IsAssignableFrom(genericType));
+                this.set_IsEnvelope(Typeof(Neptuo.Components.Envelope$1.ctor).IsAssignableFrom(genericType));
                 this.set_DataType(System.Linq.Enumerable.First$1$$IEnumerable$1(System.Type.ctor, targetType.GetGenericArguments()));
             }
             else {
@@ -538,10 +509,10 @@ var Neptuo$Services$Events$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.Services.Events.VersionInfo.Version = "0.1.0";
+            Neptuo.Services.Events.VersionInfo.Version = "1.0.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("0.1.0");
+            return new System.Version.ctor$$String("1.0.0");
         }
     },
     assemblyName: "Neptuo.Services.Events",
@@ -555,71 +526,4 @@ var Neptuo$Services$Events$VersionInfo = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Services$Events$VersionInfo);
-var Neptuo$Services$Events$_EventHandlerCollectionExtensions = {
-    fullname: "Neptuo.Services.Events._EventHandlerCollectionExtensions",
-    baseTypeName: "System.Object",
-    staticDefinition: {
-        Using$1: function (TEvent, collection, eventHandler){
-            return new Neptuo.Services.Events.UsignEventHandlerSubscriber$1.ctor(TEvent, collection, eventHandler);
-        },
-        SubscribeAll: function (collection, handler){
-            Neptuo.Ensure.NotNull$$Object$$String(collection, "eventRegistry");
-            Neptuo.Ensure.NotNull$$Object$$String(handler, "handler");
-            var genericHandlerType = Typeof(Neptuo.Services.Events.Handlers.IEventHandler$1.ctor);
-            var $it1 = handler.GetType().GetInterfaces().GetEnumerator();
-            while ($it1.MoveNext()){
-                var interfaceType = $it1.get_Current();
-                if (interfaceType.get_IsGenericType() && genericHandlerType.IsAssignableFrom(interfaceType)){
-                    var arguments = interfaceType.GetGenericArguments();
-                    if (arguments.get_Length() != 1)
-                        continue;
-                    var subscribeName = Neptuo.Linq.Expressions.TypeHelper.MethodName$3$$Expression$1(Neptuo.Services.Events.IEventHandlerCollection.ctor, Neptuo.Services.Events.Handlers.IEventHandler$1.ctor, Neptuo.Services.Events.IEventHandlerCollection.ctor, function (c){
-                        return $CreateDelegate(c, c.Subscribe$1);
-                    });
-                    var subscribe = collection.GetType().GetMethod$$String(subscribeName).MakeGenericMethod(arguments[0]);
-                    subscribe.Invoke$$Object$$Object$Array(collection, [handler]);
-                }
-            }
-            return collection;
-        }
-    },
-    assemblyName: "Neptuo.Services.Events",
-    Kind: "Class",
-    definition: {
-        ctor: function (){
-            System.Object.ctor.call(this);
-        }
-    },
-    ctors: [],
-    IsAbstract: true
-};
-JsTypes.push(Neptuo$Services$Events$_EventHandlerCollectionExtensions);
-var Neptuo$Services$Events$UsignEventHandlerSubscriber$1 = {
-    fullname: "Neptuo.Services.Events.UsignEventHandlerSubscriber$1",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
-    assemblyName: "Neptuo.Services.Events",
-    Kind: "Class",
-    definition: {
-        ctor: function (TEvent, eventRegistry, eventHandler){
-            this.TEvent = TEvent;
-            this.eventRegistry = null;
-            this.eventHandler = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
-            this.eventRegistry = eventRegistry;
-            this.eventHandler = eventHandler;
-            eventRegistry.Subscribe$1(this.TEvent, eventHandler);
-        },
-        DisposeManagedResources: function (){
-            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
-            this.eventRegistry.UnSubscribe$1(this.TEvent, this.eventHandler);
-        }
-    },
-    ctors: [{
-        name: "ctor",
-        parameters: ["Neptuo.Services.Events.IEventHandlerCollection", "Neptuo.Services.Events.Handlers.IEventHandler"]
-    }
-    ],
-    IsAbstract: false
-};
-JsTypes.push(Neptuo$Services$Events$UsignEventHandlerSubscriber$1);
 

@@ -258,10 +258,10 @@ var Neptuo$Services$Queries$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.Services.Queries.VersionInfo.Version = "0.1.0";
+            Neptuo.Services.Queries.VersionInfo.Version = "1.0.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("0.1.0");
+            return new System.Version.ctor$$String("1.0.0");
         }
     },
     assemblyName: "Neptuo.Services.Queries",

@@ -28,7 +28,7 @@ var Neptuo$Services$Deleters$DefaultDeleteDispatcher = {
             this.handlersLock = new System.Object.ctor();
             this.searchHandlerLock = new System.Object.ctor();
             this.handlers = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor);
-            this.onSearchHandler = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, System.Boolean.ctor);
+            this.onSearchHandler = new Neptuo.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },
         Add: function (objectType, handler){
@@ -58,7 +58,7 @@ var Neptuo$Services$Deleters$DefaultDeleteDispatcher = {
                 var $1 = {
                     Value: handler
                 };
-                var $res = Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, this.onSearchHandler, key.get_Type(), $1);
+                var $res = Neptuo._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.Services.Deleters.Handlers.IDeleteHandler.ctor, this.onSearchHandler, key.get_Type(), $1);
                 handler = $1.Value;
                 return $res;
             }).call(this))
@@ -142,6 +142,15 @@ var Neptuo$Services$Deleters$IDeleteDispatcher = {
     IsAbstract: true
 };
 JsTypes.push(Neptuo$Services$Deleters$IDeleteDispatcher);
+var Neptuo$Services$Deleters$IDeleteHandlerCollection = {
+    fullname: "Neptuo.Services.Deleters.IDeleteHandlerCollection",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.Services.Deleters",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(Neptuo$Services$Deleters$IDeleteHandlerCollection);
 var Neptuo$Services$Deleters$IDeleteReference = {
     fullname: "Neptuo.Services.Deleters.IDeleteReference",
     baseTypeName: "System.Object",
@@ -196,10 +205,10 @@ var Neptuo$Services$Deleters$VersionInfo = {
     baseTypeName: "System.Object",
     staticDefinition: {
         cctor: function (){
-            Neptuo.Services.Deleters.VersionInfo.Version = "0.1.0";
+            Neptuo.Services.Deleters.VersionInfo.Version = "1.0.0";
         },
         GetVersion: function (){
-            return new System.Version.ctor$$String("0.1.0");
+            return new System.Version.ctor$$String("1.0.0");
         }
     },
     assemblyName: "Neptuo.Services.Deleters",
