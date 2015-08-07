@@ -79,7 +79,7 @@
     <Compile Include="Providers\MappingBehaviorProviderBase.cs" />
     <Compile Include="Providers\_AttributeBehaviorProviderExtensions.cs" />
     <Compile Include="Providers\_BehaviorCollectionExtensions.cs" />
-    <Compile Include="Providers\_InterfaceBehaviorProviderExtensions.cs" />
+    <Compile Include="Providers\_InterfaceBehaviorCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

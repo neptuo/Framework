@@ -9,7 +9,7 @@ namespace Neptuo.Behaviors.Providers
     /// <summary>
     /// Common extensions for <see cref="InterfaceBehaviorCollection"/>.
     /// </summary>
-    public static class _InterfaceBehaviorProviderExtensions
+    public static class _InterfaceBehaviorCollectionExtensions
     {
         /// <summary>
         /// Adds mapping with <typeparamref name="TBehaviorContract"/> as contract and <typeparamref name="TBehaviorImplementation"/> as implementation type.
