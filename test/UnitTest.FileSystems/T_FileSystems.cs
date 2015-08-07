@@ -99,7 +99,20 @@ namespace UnitTest.FileSystems
                 Assert.AreEqual(2, s4.Count());
 
                 // Searching files
+                IEnumerable<IFile> s5 = rootDirectory.With<IFileNameSearch>().FindFiles(TextSearch.CreatePrefixed("f1"), TextSearch.CreateEmpty());
+                Assert.AreEqual(0, s5.Count());
 
+                IEnumerable<IFile> s6 = d1.With<IFileNameSearch>().FindFiles(TextSearch.CreatePrefixed("f1"), TextSearch.CreateEmpty());
+                Assert.AreEqual(1, s6.Count());
+
+                IEnumerable<IFile> s7 = d1.With<IFileNameSearch>().FindFiles(TextSearch.CreateEmpty(), TextSearch.CreateMatched("txt"));
+                Assert.AreEqual(2, s7.Count());
+
+                IEnumerable<IFile> s8 = d1.With<IFileNameSearch>().FindFiles(TextSearch.CreateContained("f"), TextSearch.CreateEmpty());
+                Assert.AreEqual(4, s8.Count());
+
+                IEnumerable<IFile> s9 = rootDirectory.With<IFilePathSearch>().FindFiles(TextSearch.CreateSuffixed("2"), TextSearch.CreateEmpty());
+                Assert.AreEqual(2, s9.Count());
 
 
                 // Delete file

@@ -50,14 +50,21 @@ namespace Neptuo.FileSystems.Features.Searching
 
         private IEnumerable<string> EnumerateFiles(TextSearch nameOrPath, TextSearch fileExtension, SearchOption searchOption)
         {
+            bool isSuffixed = nameOrPath.Type == TextSearchType.Suffixed;
+            if (isSuffixed)
+                nameOrPath = TextSearch.CreateContained(nameOrPath.Text, nameOrPath.IsCaseSensitive);
+
             return Directory
-                .EnumerateFiles(parentDirectory, PrepareSearchPattern(nameOrPath))
-                .Where(file => IsExtensionMatched(file, fileExtension));
+                .EnumerateFiles(parentDirectory, PrepareSearchPattern(nameOrPath), searchOption)
+                .Where(file => IsExtensionMatched(file, fileExtension) && (!isSuffixed || IsFileSuffixMatched(file, nameOrPath)));
         }
 
         private bool IsExtensionMatched(string filePath, TextSearch search)
         {
             string fileExtension = Path.GetExtension(filePath);
+            if (fileExtension.StartsWith("."))
+                fileExtension = fileExtension.Substring(1);
+
             string searchExtension = search.Text;
 
             if (search.Text == null)
@@ -66,7 +73,7 @@ namespace Neptuo.FileSystems.Features.Searching
             if (search.Text == String.Empty)
                 return String.IsNullOrEmpty(fileExtension);
 
-            // For local system, 
+            // For local system.
             fileExtension = fileExtension.ToLowerInvariant();
             searchExtension = searchExtension.ToLowerInvariant();
 
@@ -83,6 +90,24 @@ namespace Neptuo.FileSystems.Features.Searching
                 default:
                     throw Ensure.Exception.NotSupported("TextSearchType '{0}' is not supported.", search.Type);
             }
+        }
+
+        private bool IsFileSuffixMatched(string file, TextSearch nameOrPath)
+        {
+            string fileName = Path.GetFileNameWithoutExtension(file);
+            string searchName = nameOrPath.Text;
+
+            if (searchName == null)
+                return true;
+
+            if (searchName == String.Empty)
+                return String.IsNullOrEmpty(fileName);
+
+            // For local system.
+            fileName = fileName.ToLowerInvariant();
+            searchName = searchName.ToLowerInvariant();
+
+            return fileName.EndsWith(searchName);
         }
 
         #region IDirectoryNameSearch
