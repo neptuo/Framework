@@ -97,14 +97,14 @@ namespace Neptuo.Converters
 
             if (converter == null)
             {
+                if (targetType == typeof(string))
+                {
+                    targetValue = sourceValue.ToString();
+                    return true;
+                }
+
                 targetValue = null;
                 return false;
-            }
-
-            if (targetType == typeof(string))
-            {
-                targetValue = sourceValue.ToString();
-                return true;
             }
 
             return converter.TryConvertGeneral(sourceType, targetType, sourceValue, out targetValue);

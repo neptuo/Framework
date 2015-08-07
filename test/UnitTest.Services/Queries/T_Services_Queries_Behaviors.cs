@@ -71,12 +71,14 @@ namespace Neptuo.Services.Queries
         [TestMethod]
         public void ReflectionPipeline()
         {
+            TestBehavior.count = 0;
             TestPipeline(behaviorProvider => new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory()));
         }
 
         [TestMethod]
         public void CodeDomPipeline()
         {
+            TestBehavior.count = 0;
             ICompilerConfiguration configuration = new CompilerConfiguration();
             configuration.References().AddDirectory(Environment.CurrentDirectory);
 

@@ -186,10 +186,10 @@ namespace Neptuo.Logging
             string message;
             DateTime now = DateTime.Now;
             message = formatter.Format("Application", LogLevel.Debug, "M1");
-            Assert.AreEqual(String.Format("{0} Application(DEBUG){1}{1}M1", now, Environment.NewLine), message);
+            Assert.AreEqual(String.Format("{0} Application(DEBUG){1}{1}M1{1}", now, Environment.NewLine), message);
 
             message = formatter.Format("Application", LogLevel.Info, new ExceptionModel("M2", Ensure.Exception.NotImplemented()));
-            Assert.AreEqual(String.Format("{0} Application(INFO){1}{1}M2{1}System.NotImplementedException: The method or operation is not implemented.{1}", now, Environment.NewLine), message);
+            Assert.AreEqual(String.Format("{0} Application(INFO){1}{1}M2{1}System.NotImplementedException: The method or operation is not implemented.{1}{1}", now, Environment.NewLine), message);
         }
 
         [TestMethod]
