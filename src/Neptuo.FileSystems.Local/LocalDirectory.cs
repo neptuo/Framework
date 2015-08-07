@@ -119,6 +119,7 @@ namespace Neptuo.FileSystems
         public void ChangeName(string directoryName)
         {
             Ensure.NotNullOrEmpty(directoryName, "directoryName");
+            LocalDirectoryCreator.EnsureValidName(directoryName);
             string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), directoryName);
             Directory.Move(AbsolutePath, newPath);
             SetDirectoryRelatedProperties(newPath);

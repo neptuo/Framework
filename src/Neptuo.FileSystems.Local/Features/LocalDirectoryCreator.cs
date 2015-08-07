@@ -24,12 +24,7 @@ namespace Neptuo.FileSystems.Features
         public IDirectory Create(string directoryName)
         {
             Ensure.NotNullOrEmpty(directoryName, "directoryName");
-
-            foreach (char invalidChar in Path.GetInvalidPathChars())
-            {
-                if (directoryName.Contains(invalidChar))
-                    throw Ensure.Exception.ArgumentOutOfRange("directoryName", "Directory name '{0}' contains invalid char '{1}'.", directoryName, invalidChar);
-            }
+            EnsureValidName(directoryName);
 
             string newPath = Path.Combine(parentDirectory, directoryName);
             Directory.CreateDirectory(newPath);
@@ -38,13 +33,26 @@ namespace Neptuo.FileSystems.Features
 
         public bool IsValidName(string directoryName)
         {
-            foreach (char invalidChar in Path.GetInvalidPathChars())
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
             {
                 if (directoryName.Contains(invalidChar))
                     return false;
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="directoryName"/> is not valid directory name.
+        /// </summary>
+        /// <param name="directoryName">Directory name to test.</param>
+        public static void EnsureValidName(string directoryName)
+        {
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
+            {
+                if (directoryName.Contains(invalidChar))
+                    throw Ensure.Exception.ArgumentOutOfRange("directoryName", "Directory name '{0}' contains invalid char '{1}'.", directoryName, invalidChar);
+            }
         }
     }
 }

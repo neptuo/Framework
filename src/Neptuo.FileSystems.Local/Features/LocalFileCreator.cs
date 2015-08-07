@@ -23,15 +23,7 @@ namespace Neptuo.FileSystems.Features
 
         public IFile Create(string fileName, string fileExtension)
         {
-            foreach (char invalidChar in Path.GetInvalidFileNameChars())
-            {
-                if (fileName != null && fileName.Contains(invalidChar))
-                        throw Ensure.Exception.ArgumentOutOfRange("fileName", "File name '{0}' contains invalid char '{1}'.", fileName, invalidChar);
-
-                if (fileExtension != null && fileExtension.Contains(invalidChar))
-                    throw Ensure.Exception.ArgumentOutOfRange("fileExtension", "File extension '{0}' contains invalid char '{1}'.", fileExtension, invalidChar);
-            }
-
+            EnsureValidName(fileName, fileExtension);
             string newPath = Path.Combine(parentDirectory, String.Format("{0}.{1}", fileName, fileExtension));
             File.Create(newPath).Dispose();
             return new LocalFile(newPath);
@@ -49,6 +41,23 @@ namespace Neptuo.FileSystems.Features
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Throws <see cref="ArgumentOutOfRangeException"/> if <paramref name="fileName"/> and <paramref name="fileExtension"/> is not valid file name.
+        /// </summary>
+        /// <param name="fileName">File name to test.</param>
+        /// <param name="fileExtension">File extension to test.</param>
+        public static void EnsureValidName(string fileName, string fileExtension)
+        {
+            foreach (char invalidChar in Path.GetInvalidFileNameChars())
+            {
+                if (fileName != null && fileName.Contains(invalidChar))
+                    throw Ensure.Exception.ArgumentOutOfRange("fileName", "File name '{0}' contains invalid char '{1}'.", fileName, invalidChar);
+
+                if (fileExtension != null && fileExtension.Contains(invalidChar))
+                    throw Ensure.Exception.ArgumentOutOfRange("fileExtension", "File extension '{0}' contains invalid char '{1}'.", fileExtension, invalidChar);
+            }
         }
     }
 }

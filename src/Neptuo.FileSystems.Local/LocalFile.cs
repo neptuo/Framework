@@ -148,6 +148,8 @@ namespace Neptuo.FileSystems
         public void ChangeName(string fileName)
         {
             Ensure.NotNullOrEmpty(fileName, "fileName");
+            LocalFileCreator.EnsureValidName(fileName, null);
+
             string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), fileName + Path.GetExtension(AbsolutePath));
             File.Move(AbsolutePath, newPath);
             SetFileRelatedProperties(newPath);
@@ -155,8 +157,13 @@ namespace Neptuo.FileSystems
 
         public void ChangeExtension(string fileExtension)
         {
-            Ensure.NotNullOrEmpty(fileExtension, "fileExtension");
-            string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath), Path.GetFileNameWithoutExtension(AbsolutePath) + "." + fileExtension);
+            LocalFileCreator.EnsureValidName(null, fileExtension);
+
+            string newFileName = Path.GetFileNameWithoutExtension(AbsolutePath);
+            if (!String.IsNullOrEmpty(fileExtension))
+                newFileName += "." + fileExtension;
+
+            string newPath = Path.Combine(Path.GetDirectoryName(AbsolutePath));
             File.Move(AbsolutePath, newPath);
             SetFileRelatedProperties(newPath);
         }
