@@ -19,12 +19,6 @@ namespace Neptuo.Services.Deleters
         private Dictionary<string, IDeleteHandler> handlers = new Dictionary<string, IDeleteHandler>();
         private OutFuncCollection<string, IDeleteHandler, bool> onSearchHandler = new OutFuncCollection<string, IDeleteHandler, bool>();
 
-        /// <summary>
-        /// Registers <paramref name="handler"/> to be executed for keys with type <paramref name="objectType"/>.
-        /// </summary>
-        /// <param name="objectType">Type of object to be handled by <paramref name="handler"/>.</param>
-        /// <param name="handler">Handler to be executed for keys with type <paramref name="objectType"/>.</param>
-        /// <returns>Self (for fluency).</returns>
         public DefaultDeleteDispatcher Add(string objectType, IDeleteHandler handler)
         {
             Ensure.NotNull(objectType, "objectType");

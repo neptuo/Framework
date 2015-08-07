@@ -2,7 +2,7 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Services.Jobs.Behaviors")]
-[assembly: AssemblyDescription("Behaviors extension for AppServices.")]
+[assembly: AssemblyDescription("Behaviors extension for Jobs.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]

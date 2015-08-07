@@ -2,7 +2,7 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Compilers.SharpKit")]
-[assembly: AssemblyDescription("Inproce SharpKit compiler.")]
+[assembly: AssemblyDescription("In-proc SharpKit compiler.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]

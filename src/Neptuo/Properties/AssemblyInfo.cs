@@ -1,7 +1,7 @@
 ﻿using Neptuo;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo Framework")]
+[assembly: AssemblyTitle("Neptuo")]
 [assembly: AssemblyDescription("Common utils by Neptuo.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

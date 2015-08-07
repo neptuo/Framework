@@ -2,7 +2,7 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.FileSystems.Local")]
-[assembly: AssemblyDescription("Local FS implementation of file system.")]
+[assembly: AssemblyDescription("Local (System.IO) implementation of abstract file system.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]

@@ -52,7 +52,6 @@
     <Compile Include="Keys\KeyBase.cs" />
     <Compile Include="Keys\StringKey.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="_Temp\PersonRepository.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Repositories\IReadOnlyRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />

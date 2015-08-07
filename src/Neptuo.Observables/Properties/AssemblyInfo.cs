@@ -1,4 +1,4 @@
-﻿using Neptuo;
+﻿using Neptuo.Observables;
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Observables")]
