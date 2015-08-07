@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.IO
+namespace Neptuo.FileSystems
 {
     /// <summary>
     /// Implementation of activator that creates instance of stream containing content of file.
     /// Streams must be disposed by the caller.
     /// </summary>
-    public class FileContentActivator : IActivator<Stream>
+    public class LocalFileContentActivator : IActivator<Stream>
     {
         private readonly string filePath;
         private readonly FileMode fileMode;
@@ -20,11 +20,11 @@ namespace Neptuo.IO
         /// <summary>
         /// Creates new instance that creates stream from file at <paramref name="filePath"/>.
         /// </summary>
-        /// <param name="filePath">File path. Must point to existing file.</param>
+        /// <param name="filePath">File path.</param>
         /// <param name="fileMode">File model to use when creating stream.</param>
-        public FileContentActivator(string filePath, FileMode fileMode)
+        public LocalFileContentActivator(string filePath, FileMode fileMode)
         {
-            Ensure.Condition.FileExists(filePath, "filePath");
+            Ensure.NotNullOrEmpty(filePath, "filePath");
             this.filePath = filePath;
             this.fileMode = fileMode;
         }

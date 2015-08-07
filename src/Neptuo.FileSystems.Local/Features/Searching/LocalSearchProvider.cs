@@ -1,5 +1,4 @@
-﻿using Neptuo.IO;
-using Neptuo.FileSystems.Internals;
+﻿using Neptuo.FileSystems.Internals;
 using System;
 using System.Collections.Generic;
 using System.IO;

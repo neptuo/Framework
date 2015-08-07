@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.IO
+namespace Neptuo.FileSystems
 {
     /// <summary>
     /// IO extensions for <see cref="Ensure.Condition"/>.
