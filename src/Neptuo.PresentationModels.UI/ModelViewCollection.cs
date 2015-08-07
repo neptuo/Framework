@@ -1,6 +1,5 @@
 ﻿using Neptuo;
 using Neptuo.Activators;
-using Neptuo.ComponentModel;
 using Neptuo.PresentationModels;
 using System;
 using System.Collections.Generic;

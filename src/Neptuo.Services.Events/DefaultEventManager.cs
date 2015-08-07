@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.Components;
 using Neptuo.Services.Events.Handlers;
 using Neptuo.Services.Events.Internals;
 using System;

@@ -1358,10 +1358,10 @@ var Neptuo$Converters$_ConverterRepositoryExtensions = {
 };
 JsTypes.push(Neptuo$Converters$_ConverterRepositoryExtensions);
 var Neptuo$ComponentModel$ErrorInfo = {
-    fullname: "Neptuo.ComponentModel.ErrorInfo",
+    fullname: "Neptuo.Components.ErrorInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.IErrorInfo"],
+    interfaceNames: ["Neptuo.Components.IErrorInfo"],
     Kind: "Class",
     definition: {
         ctor$$Int32$$Int32$$String$$String: function (lineNumber, columnIndex, errorNumber, errorText){
@@ -1411,7 +1411,7 @@ var Neptuo$ComponentModel$ErrorInfo = {
             this._ColumnIndex = 0;
             this._ErrorNumber = null;
             this._ErrorText = null;
-            Neptuo.ComponentModel.ErrorInfo.ctor$$Int32$$Int32$$String$$String.call(this, lineNumber, columnIndex, null, errorText);
+            Neptuo.Components.ErrorInfo.ctor$$Int32$$Int32$$String$$String.call(this, lineNumber, columnIndex, null, errorText);
         }
     },
     ctors: [{
@@ -1426,7 +1426,7 @@ var Neptuo$ComponentModel$ErrorInfo = {
 };
 JsTypes.push(Neptuo$ComponentModel$ErrorInfo);
 var Neptuo$ComponentModel$IErrorInfo = {
-    fullname: "Neptuo.ComponentModel.IErrorInfo",
+    fullname: "Neptuo.Components.IErrorInfo",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -1690,19 +1690,19 @@ var Neptuo$Converters$IConverterRepository = {
 };
 JsTypes.push(Neptuo$Converters$IConverterRepository);
 var Neptuo$ComponentModel$Disposable$1 = {
-    fullname: "Neptuo.ComponentModel.Disposable$1",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    fullname: "Neptuo.Components.Disposable$1",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo",
     Kind: "Class",
     definition: {
         ctor: function (T, target){
             this.T = T;
             this.reference = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             this.reference = new System.WeakReference$1.ctor$$T(this.T, target);
         },
         DisposeManagedResources: function (){
-            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            Neptuo.Components.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
             var target;
             if ((function (){
                 var $1 = {
@@ -1724,7 +1724,7 @@ var Neptuo$ComponentModel$Disposable$1 = {
 };
 JsTypes.push(Neptuo$ComponentModel$Disposable$1);
 var Neptuo$ComponentModel$DisposableBase = {
-    fullname: "Neptuo.ComponentModel.DisposableBase",
+    fullname: "Neptuo.Components.DisposableBase",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.IDisposable"],
@@ -1768,11 +1768,11 @@ var Neptuo$ComponentModel$DisposableBase = {
 };
 JsTypes.push(Neptuo$ComponentModel$DisposableBase);
 var Neptuo$ComponentModel$Envelope = {
-    fullname: "Neptuo.ComponentModel.Envelope",
+    fullname: "Neptuo.Components.Envelope",
     baseTypeName: "System.Object",
     staticDefinition: {
         Create$1: function (T, body){
-            return new Neptuo.ComponentModel.Envelope$1.ctor$$T(T, body);
+            return new Neptuo.Components.Envelope$1.ctor$$T(T, body);
         }
     },
     assemblyName: "Neptuo",
@@ -1787,7 +1787,7 @@ var Neptuo$ComponentModel$Envelope = {
 };
 JsTypes.push(Neptuo$ComponentModel$Envelope);
 var Neptuo$ComponentModel$Envelope$1 = {
-    fullname: "Neptuo.ComponentModel.Envelope$1",
+    fullname: "Neptuo.Components.Envelope$1",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -1798,7 +1798,7 @@ var Neptuo$ComponentModel$Envelope$1 = {
             this._Delay = new System.TimeSpan.ctor();
             this._TimeToLive = new System.TimeSpan.ctor();
             this._SourceID = null;
-            Neptuo.ComponentModel.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan.call(this, this.T, body, delay, timeToLive);
+            Neptuo.Components.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan.call(this, this.T, body, delay, timeToLive);
             this.set_SourceID(sourceID);
         },
         Body$$: "`0",
@@ -1850,7 +1850,7 @@ var Neptuo$ComponentModel$Envelope$1 = {
             this._Delay = new System.TimeSpan.ctor();
             this._TimeToLive = new System.TimeSpan.ctor();
             this._SourceID = null;
-            Neptuo.ComponentModel.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan$$String.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero, sourceID);
+            Neptuo.Components.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan$$String.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero, sourceID);
         },
         ctor$$T: function (T, body){
             this.T = T;
@@ -1858,7 +1858,7 @@ var Neptuo$ComponentModel$Envelope$1 = {
             this._Delay = new System.TimeSpan.ctor();
             this._TimeToLive = new System.TimeSpan.ctor();
             this._SourceID = null;
-            Neptuo.ComponentModel.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero);
+            Neptuo.Components.Envelope$1.ctor$$T$$TimeSpan$$TimeSpan.call(this, this.T, body, System.TimeSpan.Zero, System.TimeSpan.Zero);
         }
     },
     ctors: [{
@@ -2042,7 +2042,7 @@ var Neptuo$Text$Positions$IDocumentSpan = {
 };
 JsTypes.push(Neptuo$Text$Positions$IDocumentSpan);
 var Neptuo$ComponentModel$OutFuncCollection$3 = {
-    fullname: "Neptuo.ComponentModel.OutFuncCollection$3",
+    fullname: "Neptuo.Components.OutFuncCollection$3",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     interfaceNames: ["System.Collections.Generic.IEnumerable$1"],
@@ -2094,7 +2094,7 @@ var Neptuo$ComponentModel$OutFuncCollection$3 = {
 };
 JsTypes.push(Neptuo$ComponentModel$OutFuncCollection$3);
 var Neptuo$ComponentModel$ReturnTypeAttribute = {
-    fullname: "Neptuo.ComponentModel.ReturnTypeAttribute",
+    fullname: "Neptuo.Components.ReturnTypeAttribute",
     baseTypeName: "System.Attribute",
     assemblyName: "Neptuo",
     Kind: "Class",
@@ -2174,7 +2174,7 @@ var Neptuo$Converters$AutoExports$_TypeExecutorServiceExtensions = {
 };
 JsTypes.push(Neptuo$Converters$AutoExports$_TypeExecutorServiceExtensions);
 var Neptuo$ComponentModel$_OutFuncCollectionExtensions = {
-    fullname: "Neptuo.ComponentModel._OutFuncCollectionExtensions",
+    fullname: "Neptuo.Components._OutFuncCollectionExtensions",
     baseTypeName: "System.Object",
     staticDefinition: {
         TryExecute$2: function (T, TOutput, list, parameter, output){
@@ -2802,10 +2802,10 @@ var Neptuo$Ensure = {
 };
 JsTypes.push(Neptuo$Ensure);
 var Neptuo$ComponentModel$GuidUniqueNameProvider = {
-    fullname: "Neptuo.ComponentModel.GuidUniqueNameProvider",
+    fullname: "Neptuo.Components.GuidUniqueNameProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.IUniqueNameProvider"],
+    interfaceNames: ["Neptuo.Components.IUniqueNameProvider"],
     Kind: "Class",
     definition: {
         ctor: function (){
@@ -2834,7 +2834,7 @@ var Neptuo$IDisposable = {
 };
 JsTypes.push(Neptuo$IDisposable);
 var Neptuo$ComponentModel$IUniqueNameProvider = {
-    fullname: "Neptuo.ComponentModel.IUniqueNameProvider",
+    fullname: "Neptuo.Components.IUniqueNameProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
     Kind: "Interface",
@@ -3792,7 +3792,7 @@ var Neptuo$Reflection$DefaultReflectionService = {
 JsTypes.push(Neptuo$Reflection$DefaultReflectionService);
 var Neptuo$Reflection$DefaultTypeExecutorService = {
     fullname: "Neptuo.Reflection.DefaultTypeExecutorService",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo",
     interfaceNames: ["Neptuo.Reflection.ITypeExecutorService"],
     Kind: "Class",
@@ -3801,7 +3801,7 @@ var Neptuo$Reflection$DefaultTypeExecutorService = {
             this.service = null;
             this.addPermanentExecutor = null;
             this.executor = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             this.service = service;
             this.addPermanentExecutor = addPermanentExecutor;
             this.executor = new Neptuo.Reflection.ListTypeExector.ctor();
@@ -3814,7 +3814,7 @@ var Neptuo$Reflection$DefaultTypeExecutorService = {
             return this;
         },
         DisposeManagedResources: function (){
-            Neptuo.ComponentModel.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
+            Neptuo.Components.DisposableBase.commonPrototype.DisposeManagedResources.call(this);
             var $it16 = this.service.EnumerateAssemblies().GetEnumerator();
             while ($it16.MoveNext()){
                 var assembly = $it16.get_Current();
@@ -4440,10 +4440,10 @@ var Neptuo$Linq$Expressions$TypeHelper = {
 };
 JsTypes.push(Neptuo$Linq$Expressions$TypeHelper);
 var Neptuo$ComponentModel$SequenceUniqueNameProvider = {
-    fullname: "Neptuo.ComponentModel.SequenceUniqueNameProvider",
+    fullname: "Neptuo.Components.SequenceUniqueNameProvider",
     baseTypeName: "System.Object",
     assemblyName: "Neptuo",
-    interfaceNames: ["Neptuo.ComponentModel.IUniqueNameProvider"],
+    interfaceNames: ["Neptuo.Components.IUniqueNameProvider"],
     Kind: "Class",
     definition: {
         ctor: function (prefix, offset){

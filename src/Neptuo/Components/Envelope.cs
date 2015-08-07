@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel
+namespace Neptuo.Components
 {
     /// <summary>
     /// The factory helper for creating envelopes.

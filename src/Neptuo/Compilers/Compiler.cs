@@ -1,4 +1,4 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.Compilers.Errors;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;

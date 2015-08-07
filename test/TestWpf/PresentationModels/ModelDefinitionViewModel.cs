@@ -1,5 +1,4 @@
 ﻿using Neptuo;
-using Neptuo.ComponentModel;
 using Neptuo.Observables;
 using Neptuo.Observables.Collections;
 using Neptuo.PresentationModels;

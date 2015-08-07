@@ -1,5 +1,4 @@
-﻿using Neptuo.ComponentModel;
-using Neptuo.PresentationModels;
+﻿using Neptuo.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,4 @@
-﻿using Neptuo.ComponentModel;
-using Neptuo.PresentationModels.TypeModels.ValueUpdates;
+﻿using Neptuo.PresentationModels.TypeModels.ValueUpdates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

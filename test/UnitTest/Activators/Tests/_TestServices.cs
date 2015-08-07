@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators.AutoExports;
-using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

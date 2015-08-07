@@ -170,14 +170,14 @@ var Neptuo$PresentationModels$CopyModelValueProvider = {
 JsTypes.push(Neptuo$PresentationModels$CopyModelValueProvider);
 var Neptuo$PresentationModels$DictionaryModelValueProvider = {
     fullname: "Neptuo.PresentationModels.DictionaryModelValueProvider",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
     Kind: "Class",
     definition: {
         ctor: function (){
             this._Storage = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             this.set_Storage(new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, System.Object.ctor));
         },
         Storage$$: "System.Collections.Generic.Dictionary`2[[System.String],[System.Object]]",
@@ -466,7 +466,7 @@ var Neptuo$PresentationModels$ModelDefinitionCollection = {
             this.storageLock = new System.Object.ctor();
             this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor);
             this.builders = new System.Collections.Generic.Dictionary$2.ctor(System.String.ctor, Neptuo.Activators.IActivator$1.ctor);
-            this.onSearchDefinition = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
+            this.onSearchDefinition = new Neptuo.Components.OutFuncCollection$3.ctor(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },
         Add$$IModelDefinition: function (modelDefinition){
@@ -501,7 +501,7 @@ var Neptuo$PresentationModels$ModelDefinitionCollection = {
                 this.singletons.set_Item$$TKey(modelIdentifier, modelDefinition.Value = builder.Create());
                 return true;
             }
-            if (Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, this.onSearchDefinition, modelIdentifier, modelDefinition)){
+            if (Neptuo.Components._OutFuncCollectionExtensions.TryExecute$2(System.String.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, this.onSearchDefinition, modelIdentifier, modelDefinition)){
                 this.singletons.set_Item$$TKey(modelIdentifier, modelDefinition.Value);
                 return true;
             }
@@ -557,7 +557,7 @@ var Neptuo$PresentationModels$ObservableModelValueProvider = {
 JsTypes.push(Neptuo$PresentationModels$ObservableModelValueProvider);
 var Neptuo$PresentationModels$ObservableModelValueSetter = {
     fullname: "Neptuo.PresentationModels.ObservableModelValueSetter",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueSetter", "System.ComponentModel.INotifyPropertyChanged"],
     Kind: "Class",
@@ -565,7 +565,7 @@ var Neptuo$PresentationModels$ObservableModelValueSetter = {
         ctor: function (innerSetter){
             this.innerSetter = null;
             this.PropertyChanged = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(innerSetter, "innerSetter");
             this.innerSetter = innerSetter;
         },
@@ -819,7 +819,7 @@ var Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderCollection = {
 JsTypes.push(Neptuo$PresentationModels$TypeModels$AttributeMetadataReaderCollection);
 var Neptuo$PresentationModels$TypeModels$Expressions$ExpressionModelValueProvider$1 = {
     fullname: "Neptuo.PresentationModels.TypeModels.Expressions.ExpressionModelValueProvider$1",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
     Kind: "Class",
@@ -828,7 +828,7 @@ var Neptuo$PresentationModels$TypeModels$Expressions$ExpressionModelValueProvide
             this.TModel = TModel;
             this._Model = null;
             this._ValueProviders = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
             Neptuo.Ensure.NotNull$$Object$$String(valueProviders, "valueProviders");
             this.set_Model(model);
@@ -1130,7 +1130,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
         ctor: function (){
             this.storageLock = new System.Object.ctor();
             this.singletons = new System.Collections.Generic.Dictionary$2.ctor(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor);
-            this.onSearchDefinition = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
+            this.onSearchDefinition = new Neptuo.Components.OutFuncCollection$3.ctor(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },
         Add: function (modelType, modelDefinition){
@@ -1148,7 +1148,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
             Neptuo.Ensure.NotNull$$Object$$String(modelType, "modelType");
             if (this.singletons.TryGetValue(modelType, modelDefinition))
                 return true;
-            if (Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, this.onSearchDefinition, modelType, modelDefinition)){
+            if (Neptuo.Components._OutFuncCollectionExtensions.TryExecute$2(System.Type.ctor, Neptuo.PresentationModels.IModelDefinition.ctor, this.onSearchDefinition, modelType, modelDefinition)){
                 this.singletons.set_Item$$TKey(modelType, modelDefinition.Value);
                 return true;
             }
@@ -1166,7 +1166,7 @@ var Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection = {
 JsTypes.push(Neptuo$PresentationModels$TypeModels$TypeModelDefinitionCollection);
 var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider$1 = {
     fullname: "Neptuo.PresentationModels.TypeModels.ReflectionModelValueProvider$1",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo.PresentationModels",
     interfaceNames: ["Neptuo.PresentationModels.IModelValueProvider"],
     Kind: "Class",
@@ -1206,7 +1206,7 @@ var Neptuo$PresentationModels$TypeModels$ReflectionModelValueProvider$1 = {
             this._ValueUpdater = null;
             this._ModelType = null;
             this._Model = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNull$$Object$$String(model, "model");
             Neptuo.Ensure.NotNull$$Object$$String(valueUpdater, "valueUpdater");
             this.set_Model(model);
@@ -1796,7 +1796,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorCollection = {
         ctor: function (){
             this.singletons = new System.Collections.Generic.Dictionary$2.ctor(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor);
             this.builders = new System.Collections.Generic.Dictionary$2.ctor(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.Activators.IActivator$1.ctor);
-            this.onSearchValidator = new Neptuo.ComponentModel.OutFuncCollection$3.ctor(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, System.Boolean.ctor);
+            this.onSearchValidator = new Neptuo.Components.OutFuncCollection$3.ctor(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, System.Boolean.ctor);
             System.Object.ctor.call(this);
         },
         Add$$String$$String$$String$$IFieldMetadataValidator: function (modelIdentifier, fieldIdentifier, metadataKey, validator){
@@ -1830,7 +1830,7 @@ var Neptuo$PresentationModels$Validators$FieldMetadataValidatorCollection = {
                     validator.Value = builder.Create();
                     return true;
                 }
-                if (Neptuo.ComponentModel._OutFuncCollectionExtensions.TryExecute$2(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, this.onSearchValidator, key, validator))
+                if (Neptuo.Components._OutFuncCollectionExtensions.TryExecute$2(Neptuo.PresentationModels.Validators.FieldMetadataValidatorKey.ctor, Neptuo.PresentationModels.Validators.IFieldMetadataValidator.ctor, this.onSearchValidator, key, validator))
                     return true;
             }
             validator.Value = null;

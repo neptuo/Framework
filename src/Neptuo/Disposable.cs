@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel
+namespace Neptuo
 {
     /// <summary>
     /// Wrapper for <see cref="System.IDisposable"/> to <see cref="Neptuo.IDisposable"/>.

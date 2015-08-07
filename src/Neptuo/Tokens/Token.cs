@@ -1,5 +1,4 @@
-﻿using Neptuo.ComponentModel;
-using Neptuo.Text.Positions;
+﻿using Neptuo.Text.Positions;
 using System;
 using System.Collections.Generic;
 using System.Linq;

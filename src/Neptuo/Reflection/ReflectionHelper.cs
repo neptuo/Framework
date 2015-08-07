@@ -75,23 +75,6 @@ namespace Neptuo.Reflection
             return type.GetGenericArguments()[index];
         }
 
-        public static bool CanBeUsedInMarkup(Type type, bool requireDefaultCtor = true)
-        {
-            if (type.IsInterface)
-                return false;
-
-            if (type.IsAbstract)
-                return false;
-
-            if (requireDefaultCtor)
-            {
-                if (type.GetConstructor(new Type[] { }) == null)
-                    return false;
-            }
-
-            return true;
-        }
-
         #region Expression Helper
 
         public static string PropertyName(Expression<Func<object>> propertyGetter)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.ComponentModel
+namespace Neptuo
 {
     /// <summary>
     /// Represents collection of output functions.

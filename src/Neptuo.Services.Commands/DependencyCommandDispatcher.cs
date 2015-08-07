@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel;
 using Neptuo.Services.Commands.Handlers;
 using System;
 using System.Collections.Generic;

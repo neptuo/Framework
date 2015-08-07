@@ -543,7 +543,7 @@ var Neptuo$Activators$Simple$VersionInfo = {
 JsTypes.push(Neptuo$Activators$Simple$VersionInfo);
 var Neptuo$Activators$SimpleDependencyContainer = {
     fullname: "Neptuo.Activators.SimpleDependencyContainer",
-    baseTypeName: "Neptuo.ComponentModel.DisposableBase",
+    baseTypeName: "Neptuo.Components.DisposableBase",
     assemblyName: "Neptuo.Activators.Simple",
     interfaceNames: ["Neptuo.Activators.IDependencyContainer"],
     Kind: "Class",
@@ -560,7 +560,7 @@ var Neptuo$Activators$SimpleDependencyContainer = {
             this.scopeName = null;
             this.definitions = null;
             this.resolver = null;
-            Neptuo.ComponentModel.DisposableBase.ctor.call(this);
+            Neptuo.Components.DisposableBase.ctor.call(this);
             Neptuo.Ensure.NotNullOrEmpty(scopeName, "scopeName");
             this.scopeName = scopeName;
             this.parentContainer = parentContainer;

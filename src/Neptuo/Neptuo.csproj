@@ -81,17 +81,17 @@
     <Compile Include="Converters\CollectionConverter.cs" />
     <Compile Include="Converters\AutoExports\ConverterAttribute.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
-    <Compile Include="ComponentModel\ErrorInfo.cs" />
-    <Compile Include="ComponentModel\IErrorInfo.cs" />
+    <Compile Include="Compilers\Errors\ErrorInfo.cs" />
+    <Compile Include="Compilers\Errors\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
     <Compile Include="Converters\ConverterBase.cs" />
     <Compile Include="Converters\ConverterRepository.cs" />
     <Compile Include="Converters\ConverterSearchDelegate.cs" />
     <Compile Include="Converters\IConverter.cs" />
     <Compile Include="Converters\IConverterRepository.cs" />
-    <Compile Include="ComponentModel\Disposable.cs" />
-    <Compile Include="ComponentModel\DisposableBase.cs" />
-    <Compile Include="ComponentModel\Envelope.cs" />
+    <Compile Include="Disposable.cs" />
+    <Compile Include="DisposableBase.cs" />
+    <Compile Include="Components\Envelope.cs" />
     <Compile Include="FileSystems\LocalFileContentActivator.cs" />
     <Compile Include="FileSystems\_EnsureConditionExtensions.cs" />
     <Compile Include="Text\Positions\DefaultTextPoint.cs" />
@@ -100,10 +100,9 @@
     <Compile Include="Text\Positions\IDocumentPoint.cs" />
     <Compile Include="Text\Positions\ITextPoint.cs" />
     <Compile Include="Text\Positions\IDocumentSpan.cs" />
-    <Compile Include="ComponentModel\OutFuncCollection.cs" />
-    <Compile Include="ComponentModel\ReturnTypeAttribute.cs" />
+    <Compile Include="OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
-    <Compile Include="ComponentModel\_OutFuncCollectionExtensions.cs" />
+    <Compile Include="_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultActivator.cs" />
     <Compile Include="Activators\DependencyActivator.cs" />
@@ -118,9 +117,9 @@
     <Compile Include="Exceptions\Helpers\EnsureExceptionHelper.cs" />
     <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
     <Compile Include="Ensure.cs" />
-    <Compile Include="ComponentModel\GuidUniqueNameProvider.cs" />
+    <Compile Include="Identifiers\GuidUniqueNameProvider.cs" />
     <Compile Include="IDisposable.cs" />
-    <Compile Include="ComponentModel\IUniqueNameProvider.cs" />
+    <Compile Include="Identifiers\IUniqueNameProvider.cs" />
     <Compile Include="Globalization\CultureInfoParser.cs" />
     <Compile Include="Activators\IActivator.cs" />
     <Compile Include="Activators\IDependencyContainer.cs" />
@@ -167,7 +166,7 @@
     <Compile Include="Reflection\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Security\Cryptography\HashFactory.cs" />
     <Compile Include="Linq\Expressions\TypeHelper.cs" />
-    <Compile Include="ComponentModel\SequenceUniqueNameProvider.cs" />
+    <Compile Include="Identifiers\SequenceUniqueNameProvider.cs" />
     <Compile Include="Security\Cryptography\HashFunc.cs" />
     <Compile Include="Security\Cryptography\HashProvider.cs" />
     <Compile Include="StateMachines\IStateMachineState.cs" />
@@ -193,9 +192,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="IO\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>

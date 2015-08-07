@@ -1,5 +1,5 @@
 ﻿using Neptuo.Compilers.Internals.Processing;
-using Neptuo.ComponentModel;
+using Neptuo.Identifiers;
 using System;
 using System.CodeDom;
 using System.CodeDom.Compiler;
