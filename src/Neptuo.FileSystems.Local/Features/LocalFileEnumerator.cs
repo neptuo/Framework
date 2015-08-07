@@ -1,4 +1,5 @@
-﻿using Neptuo.FileSystems.Internals;
+﻿using Neptuo.IO;
+using Neptuo.FileSystems.Internals;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace Neptuo.FileSystems.Features
         /// <param name="parentDirectory">Directory to enumerate children of.</param>
         public LocalFileEnumerator(string parentDirectory)
         {
-            Ensure.NotNullOrEmpty(parentDirectory, "parentDirectory");
+            Ensure.Condition.DirectoryExists(parentDirectory, "parentDirectory");
             this.parentDirectory = parentDirectory;
         }
 

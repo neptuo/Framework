@@ -1,5 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.FileSystems.Features;
+using Neptuo.IO;
 using Neptuo.Models.Features;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Neptuo.FileSystems
         /// <param name="isReadOnly">Whether file system should be read-only.</param>
         public LocalFileSystem(string rootPath)
         {
+            Ensure.Condition.DirectoryExists(rootPath, "rootPath");
+
             if (!Path.IsPathRooted(rootPath))
                 throw Ensure.Exception.Argument("rootPath", "Path to file system must be rooted.");
 

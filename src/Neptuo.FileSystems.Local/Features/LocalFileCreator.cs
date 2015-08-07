@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.IO;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Neptuo.FileSystems.Features
 
         public LocalFileCreator(string parentDirectory)
         {
-            Ensure.NotNullOrEmpty(parentDirectory, "parentDirectory");
+            Ensure.Condition.DirectoryExists(parentDirectory, "parentDirectory");
             this.parentDirectory = parentDirectory;
         }
 

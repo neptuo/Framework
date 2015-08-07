@@ -1,4 +1,5 @@
-﻿using Neptuo.FileSystems.Internals;
+﻿using Neptuo.IO;
+using Neptuo.FileSystems.Internals;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace Neptuo.FileSystems.Features.Searching
         /// <param name="parentDirectory">Root directory to search in.</param>
         public LocalSearchProvider(string parentDirectory)
         {
-            Ensure.NotNullOrEmpty(parentDirectory, "parentDirectory");
+            Ensure.Condition.DirectoryExists(parentDirectory, "parentDirectory");
             this.parentDirectory = parentDirectory;
         }
 
