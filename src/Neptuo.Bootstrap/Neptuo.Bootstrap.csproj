@@ -82,7 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.Bootstrap.js" />
-    <None Include="Neptuo.Bootstrap.xml" />
+    <None Include="Neptuo.Bootstrap.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

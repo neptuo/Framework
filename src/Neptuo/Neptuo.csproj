@@ -187,7 +187,6 @@
     <Compile Include="Tokens\TokenWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.js" />
     <None Include="Neptuo.xml">
       <SubType>Designer</SubType>
     </None>

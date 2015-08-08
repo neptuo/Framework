@@ -95,7 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.PresentationModels.js" />
-    <None Include="Neptuo.PresentationModels.xml" />
+    <None Include="Neptuo.PresentationModels.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">

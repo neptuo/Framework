@@ -14,7 +14,7 @@ copy "$(TargetDir)$(TargetName).*" "$(SolutionDir)\artifacts\$(ConfigurationName
 if "$(DefineConstants.Contains('Javascript'))"=="True" (
 
 	mkdir "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
-	copy "$(ProjectDir)*.js" "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
+	copy "$(ProjectDir)\bin\*.js" "$(SolutionDir)\artifacts\$(ConfigurationName)\javascript"
 	
 )
 
