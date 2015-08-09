@@ -66,21 +66,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="index.html" />
-    <Content Include="Javascript\Neptuo.Activators.Simple.js" />
-    <Content Include="Javascript\Neptuo.Bootstrap.js" />
-    <Content Include="Javascript\Neptuo.js" />
-    <Content Include="Javascript\Neptuo.Models.js" />
-    <Content Include="Javascript\Neptuo.PresentationModels.Binding.js" />
-    <Content Include="Javascript\Neptuo.PresentationModels.js" />
-    <Content Include="Javascript\Neptuo.Services.Commands.js" />
-    <Content Include="Javascript\Neptuo.Services.Deleters.js" />
-    <Content Include="Javascript\Neptuo.Services.Events.js" />
-    <Content Include="Javascript\Neptuo.Services.Queries.js" />
-    <Content Include="Javascript\Neptuo.Services.Validators.js" />
     <Content Include="Javascript\Neptuo.System.Client.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\JavascriptHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>
