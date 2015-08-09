@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Tokens
+namespace Neptuo.Text.Tokens
 {
     /// <summary>
     /// Internal token parser realized as state machine.

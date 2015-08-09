@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.Tokens
+namespace Neptuo.Text.Tokens
 {
     /// <summary>
     /// When parser finds token, this object describes newly found token, original text value and token position in that text.

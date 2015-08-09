@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.Tokens
+namespace Neptuo.Text.Tokens
 {
     /// <summary>
     /// Describes parsed token. Name of token is splitted into <see cref="Token.Prefix"/> and <see cref="Token.Name"/>, <see cref="Token.Fullname"/> joins both.

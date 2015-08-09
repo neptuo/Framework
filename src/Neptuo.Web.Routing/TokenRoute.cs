@@ -1,4 +1,4 @@
-﻿using Neptuo.Tokens;
+﻿using Neptuo.Text.Tokens;
 using Neptuo.Web.Routing.Segments;
 using System;
 using System.Collections.Generic;

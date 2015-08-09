@@ -178,13 +178,13 @@
     <Compile Include="Threading\DisposableLock.cs" />
     <Compile Include="Threading\LockProvider.cs" />
     <Compile Include="Threading\MultiLockProvider.cs" />
-    <Compile Include="Tokens\Token.cs" />
-    <Compile Include="Tokens\TokenAttribute.cs" />
-    <Compile Include="Tokens\TokenEventArgs.cs" />
-    <Compile Include="Tokens\TokenParser.cs" />
-    <Compile Include="Tokens\TokenParserConfiguration.cs" />
-    <Compile Include="Tokens\TokenStateMachine.cs" />
-    <Compile Include="Tokens\TokenWriter.cs" />
+    <Compile Include="Text\Tokens\Token.cs" />
+    <Compile Include="Text\Tokens\TokenAttribute.cs" />
+    <Compile Include="Text\Tokens\TokenEventArgs.cs" />
+    <Compile Include="Text\Tokens\TokenParser.cs" />
+    <Compile Include="Text\Tokens\TokenParserConfiguration.cs" />
+    <Compile Include="Text\Tokens\TokenStateMachine.cs" />
+    <Compile Include="Text\Tokens\TokenWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.nuspec" />

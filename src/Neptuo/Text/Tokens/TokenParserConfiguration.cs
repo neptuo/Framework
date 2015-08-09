@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Tokens
+namespace Neptuo.Text.Tokens
 {
     /// <summary>
     /// Feature configuration of <see cref="TokenParser"/>.

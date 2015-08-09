@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Tokens
+namespace Neptuo.Text.Tokens
 {
     /// <summary>
     /// String formatter using tokens.
