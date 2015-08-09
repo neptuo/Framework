@@ -8,7 +8,7 @@ namespace Neptuo.Bootstrap.Dependencies.Providers.Exporters
 {
     public class EmptyDependencyExporter : IDependencyExporter
     {
-        public void Export(IDependencyExportDescriptor export, object value)
+        public void Export(IDependencyExportDescriptor exportDescriptor, object value)
         { }
     }
 }

@@ -4,6 +4,7 @@
     <Namespace Target="Neptuo.Compilers" Export="False" />
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
     <Namespace Target="Neptuo.Threading" Export="False" />
+    <Type Target="Neptuo.Activators.DependencyServiceProvider" Export="False" />
     <Type Target="Neptuo.CodeDom.Compiler.CsCodeDomCompiler" Export="False" />
     <Type Target="Neptuo.Collections.Specialized.NameValueReadOnlyDictionary" Export="False" />
 </Exugin>

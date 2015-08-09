@@ -89,33 +89,33 @@ namespace Neptuo.Bootstrap
 
         private void ProcessImports(BootstrapTaskDescriptor descriptor)
         {
-            foreach (IDependencyImportDescriptor import in descriptor.Imports)
+            foreach (IDependencyImportDescriptor importDescriptor in descriptor.Imports)
             {
-                Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> export = FindExportDescriptor(import.Target);
-                if(export == null)
-                    throw Ensure.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", import.Target.Type.FullName);
+                Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> exportTuple = FindExportDescriptor(importDescriptor.Target);
+                if(exportTuple == null)
+                    throw Ensure.Exception.InvalidOperation("Missing import for type '{0}', implement factory or environment import.", importDescriptor.Target.Type.FullName);
 
-                if (!export.Item2.IsExecuted)
-                    ExecuteDescriptor(export.Item2);
+                if (!exportTuple.Item2.IsExecuted)
+                    ExecuteDescriptor(exportTuple.Item2);
 
-                import.SetValue(descriptor.Instance, export.Item1.GetValue(export.Item2.Instance));
+                importDescriptor.SetValue(descriptor.Instance, exportTuple.Item1.GetValue(exportTuple.Item2.Instance));
             }
         }
 
         private void ProcessExports(BootstrapTaskDescriptor descriptor, IBootstrapTask task)
         {
-            foreach (IDependencyExportDescriptor export in descriptor.Exports)
-                context.DependencyExporter.Export(export, export.GetValue(task));
+            foreach (IDependencyExportDescriptor exportDescriptor in descriptor.Exports)
+                context.DependencyExporter.Export(exportDescriptor, exportDescriptor.GetValue(task));
         }
 
         private Tuple<IDependencyExportDescriptor, BootstrapTaskDescriptor> FindExportDescriptor(IDependencyTarget target)
         {
             foreach (BootstrapTaskDescriptor descriptor in descriptors)
             {
-                foreach (IDependencyExportDescriptor export in descriptor.Exports)
+                foreach (IDependencyExportDescriptor exportDescriptor in descriptor.Exports)
                 {
-                    if (export.Target.Equals(target))
-                        return new Tuple<IDependencyExportDescriptor,BootstrapTaskDescriptor>(export, descriptor);
+                    if (exportDescriptor.Target.Equals(target))
+                        return new Tuple<IDependencyExportDescriptor,BootstrapTaskDescriptor>(exportDescriptor, descriptor);
                 }
             }
 
