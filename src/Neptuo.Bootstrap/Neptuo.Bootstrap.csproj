@@ -81,7 +81,6 @@
     <Compile Include="SequenceBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Bootstrap.js" />
     <None Include="Neptuo.Bootstrap.xml">
       <SubType>Designer</SubType>
     </None>

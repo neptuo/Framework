@@ -59,6 +59,7 @@
     <Compile Include="_XmlTypeMappingCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.PresentationModels.Serialization.Xml.nuspec" />
     <None Include="Neptuo.PresentationModels.ModelDefinition.xsd">
       <SubType>Designer</SubType>
     </None>

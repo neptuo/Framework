@@ -60,9 +60,7 @@
     <None Include="Neptuo.Models.xml">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Neptuo.Models.js" />
+    <None Include="Neptuo.Models.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">

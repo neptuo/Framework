@@ -67,6 +67,7 @@
     <Compile Include="Internals\DependencyDefinitionCollection.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Activators.Unity.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

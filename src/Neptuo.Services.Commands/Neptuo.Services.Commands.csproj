@@ -59,6 +59,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Services.Commands.nuspec" />
     <None Include="Neptuo.Services.Commands.xml">
       <SubType>Designer</SubType>
     </None>

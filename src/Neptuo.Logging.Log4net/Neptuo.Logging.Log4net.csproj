@@ -55,6 +55,7 @@
     <Compile Include="_LogFactoryExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Logging.Log4net.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

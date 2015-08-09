@@ -94,7 +94,7 @@
     <Compile Include="_ModelDefinitionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.PresentationModels.js" />
+    <None Include="Neptuo.PresentationModels.nuspec" />
     <None Include="Neptuo.PresentationModels.xml">
       <SubType>Designer</SubType>
     </None>

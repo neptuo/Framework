@@ -63,6 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Services.Events.nuspec" />
     <None Include="Neptuo.Services.Events.xml">
       <SubType>Designer</SubType>
     </None>

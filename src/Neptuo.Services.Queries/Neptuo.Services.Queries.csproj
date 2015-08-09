@@ -67,6 +67,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Services.Queries.nuspec" />
     <None Include="Neptuo.Services.Queries.xml">
       <SubType>Designer</SubType>
     </None>

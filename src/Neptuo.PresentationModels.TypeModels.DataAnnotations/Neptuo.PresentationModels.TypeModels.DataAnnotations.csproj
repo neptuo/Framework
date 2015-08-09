@@ -67,7 +67,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.PresentationModels.TypeModels.DataAnnotations.js" />
+    <None Include="Neptuo.PresentationModels.TypeModels.DataAnnotations.nuspec" />
     <None Include="Neptuo.PresentationModels.TypeModels.DataAnnotations.xml">
       <SubType>Designer</SubType>
     </None>

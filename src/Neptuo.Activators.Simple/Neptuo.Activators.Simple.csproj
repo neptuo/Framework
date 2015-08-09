@@ -59,7 +59,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Activators.Simple.js" />
     <None Include="Neptuo.Activators.Simple.xml">
       <SubType>Designer</SubType>
     </None>

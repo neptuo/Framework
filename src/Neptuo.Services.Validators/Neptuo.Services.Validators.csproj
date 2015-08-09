@@ -65,6 +65,7 @@
     <Compile Include="_ValidationResultBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.Services.Validators.nuspec" />
     <None Include="Neptuo.Services.Validators.xml">
       <SubType>Designer</SubType>
     </None>

@@ -74,7 +74,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.PresentationModels.Binding.js" />
+    <None Include="Neptuo.PresentationModels.Binding.nuspec" />
     <None Include="Neptuo.PresentationModels.Binding.xml">
       <SubType>Designer</SubType>
     </None>
