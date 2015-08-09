@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.filesystems</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/neptuo.filesystems</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.presentationmodels.ui</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.presentationmodels.ui</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo FileSystems</tags>
+        <tags>Neptuo PresentatioModels</tags>
     </metadata>
 </package>
