@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.PresentationModels
+namespace Neptuo.PresentationModels.Serialization.Xml
 {
     public static class VersionInfo
     {

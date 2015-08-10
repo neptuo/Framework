@@ -32,18 +32,18 @@ namespace TestConsole.BootstrapTasks
 
         private static HelloService Sequence()
         {
-            UnityDependencyContainer dependencyContainer = new UnityDependencyContainer();
-            dependencyContainer
-                .Map(typeof(string), DependencyLifetime.AnyScope, "Hi")
-                .Map(typeof(TextWriter), DependencyLifetime.AnyScope, Console.Out)
-                .Map(typeof(EngineEnvironment), DependencyLifetime.AnyScope, Engine.Environment);
+            IDependencyContainer dependencyContainer = new UnityDependencyContainer();
+            dependencyContainer.Definitions
+                .AddScoped<string>(dependencyContainer.ScopeName, "Hi")
+                .AddScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);
 
             SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
             bootstrapper.Register<Sequence.HelloBootstrapTask>();
             bootstrapper.Initialize();
 
-            return Engine.Environment.With<HelloService>();
+            //return Engine.Environment.With<HelloService>();
+            throw new NotImplementedException();
         }
 
         private static HelloService Hierarchical()
@@ -58,7 +58,8 @@ namespace TestConsole.BootstrapTasks
             bootstrapper.Register(new Hierarchical.WriterBootstrapTask(Console.Out));
             bootstrapper.Initialize();
 
-            return Engine.Environment.With<HelloService>();
+            //return Engine.Environment.With<HelloService>();
+            throw new NotImplementedException();
         }
     }
 
@@ -104,37 +105,37 @@ namespace TestConsole.BootstrapTasks
     {
         public class HelloBootstrapTask : IBootstrapTask
         {
-            private readonly EngineEnvironment environment;
-            private readonly string helloText;
-            private readonly WriterService writerService;
+            //private readonly EngineEnvironment environment;
+            //private readonly string helloText;
+            //private readonly WriterService writerService;
 
-            public HelloBootstrapTask(EngineEnvironment environment, string helloText, WriterService writerService)
-            {
-                this.environment = environment;
-                this.helloText = helloText;
-                this.writerService = writerService;
-            }
+            //public HelloBootstrapTask(EngineEnvironment environment, string helloText, WriterService writerService)
+            //{
+            //    this.environment = environment;
+            //    this.helloText = helloText;
+            //    this.writerService = writerService;
+            //}
 
             public void Initialize()
             {
-                environment.Use(new HelloService(helloText, writerService));
+            //    environment.Use(new HelloService(helloText, writerService));
             }
         }
 
         public class WriterBootstrapTask : IBootstrapTask
         {
-            private readonly EngineEnvironment environment;
-            private readonly TextWriter writer;
+            //private readonly EngineEnvironment environment;
+            //private readonly TextWriter writer;
 
-            public WriterBootstrapTask(EngineEnvironment environment, TextWriter writer)
-            {
-                this.environment = environment;
-                this.writer = writer;
-            }
+            //public WriterBootstrapTask(EngineEnvironment environment, TextWriter writer)
+            //{
+            //    this.environment = environment;
+            //    this.writer = writer;
+            //}
 
             public void Initialize()
             {
-                environment.Use(new WriterService(writer));
+            //    environment.Use(new WriterService(writer));
             }
         }
     }

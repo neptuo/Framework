@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestConsole.AppServices;
+using TestConsole.Services.Jobs;
 using TestConsole.Behaviors;
 using TestConsole.BootstrapTasks;
 using TestConsole.Cloning;
@@ -19,6 +19,8 @@ using TestConsole.Delegates;
 using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
+using TestConsole.Localization;
+using TestConsole.Logging;
 using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
 using TestConsole.SharpKitCompilers;
@@ -34,8 +36,8 @@ namespace TestConsole
             //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
-            //TestPresentationModels.Test();
-            TestXmlModelDefinition.Test();
+            TestPresentationModels.Test();
+            //TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
             //TestConfiguration.Test();
             //TestCommands.Test();
@@ -52,6 +54,9 @@ namespace TestConsole
             //TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
+            //TestLog4net.Test();
+            //TestLocalization.Test();
+            //Services.Queries.TestQueries.Test();
 
             Console.ReadKey(true);
         }

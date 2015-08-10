@@ -1,6 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel;
-using Neptuo.FileSystems;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +12,7 @@ namespace Neptuo.PresentationModels.Serialization
     /// <summary>
     /// Factory for creating XML documents.
     /// </summary>
-    public class XmlModelValueSetterFactory : IActivator<IModelValueSetter, IModelDefinition>
+    public class XmlModelValueSetterFactory : IFactory<IModelValueSetter, IModelDefinition>
     {
         private readonly string rootElementName;
         private XDocument document;
@@ -58,24 +56,6 @@ namespace Neptuo.PresentationModels.Serialization
             XElement element = new XElement(modelDefinition.Identifier);
             document.Root.Add(element);
             return new XmlModelValueSetter(modelDefinition, element);
-        }
-
-        /// <summary>
-        /// Saves XML document to file.
-        /// </summary>
-        /// <param name="xmlFile">Target file.</param>
-        public void SaveToFile(IFile xmlFile)
-        {
-            Ensure.NotNull(xmlFile, "xmlFile");
-
-            if (xmlFile.Extension.ToLowerInvariant() != ".xml")
-                Ensure.Exception.FileSystem("Only xml files are supported, but got file named '{0}{1}'.", xmlFile.Name, xmlFile.Extension);
-
-            using (MemoryStream memoryStream = new MemoryStream())
-            {
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                xmlFile.SetContentFromStream(memoryStream);
-            }
         }
 
         /// <summary>

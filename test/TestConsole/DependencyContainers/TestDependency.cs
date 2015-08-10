@@ -1,7 +1,6 @@
 ﻿using Microsoft.Practices.Unity;
 using Neptuo;
 using Neptuo.Activators;
-using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,10 +42,18 @@ namespace TestConsole.DependencyContainers
 
         private static void TestUnity()
         {
-            IDependencyContainer container = new UnityDependencyContainer()
-                .Map<IHelloService>().InAnyScope().ToType<HiService>()
-                .Map<IMessageWriter>().InNamedScope("Request").ToActivator(new ConsoleWriterActivator())
-                .Map<Presenter>().InTransient().ToSelf();
+            //IDependencyContainer container = new UnityDependencyContainer()
+            //    .AddTransient<IHelloService, HiService>()
+            //    .AddScoped<IMessageWriter, ConsoleWriterActivator>("Request", new ConsoleWriterActivator())
+            //    .AddTransient<Presenter>();
+
+
+
+            IDependencyContainer container = new UnityDependencyContainer();
+            container.Definitions
+                .AddScoped<IHelloService, HiService>()
+                .AddScopedFactory<IMessageWriter, ConsoleWriterFactory>("Request")
+                .AddTransient<Presenter>();
 
             using (IDependencyProvider provider = container.Scope("Request"))
             {

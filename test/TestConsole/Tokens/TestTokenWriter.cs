@@ -1,5 +1,5 @@
 ﻿using Neptuo.Collections.Specialized;
-using Neptuo.Tokens;
+using Neptuo.Text.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace TestConsole.Tokens
         public static void Test()
         {
             TokenWriter writer = new TokenWriter("Hello, my name is {Name} and I am from {City}.");
-            string result = writer.Format(new KeyValueCollection().Set("Name", "Peter").Set("City", "Prague"));
+            string result = writer.Format(new KeyValueCollection().Add("Name", "Peter").Add("City", "Prague"));
             Console.WriteLine(result);
         }
     }

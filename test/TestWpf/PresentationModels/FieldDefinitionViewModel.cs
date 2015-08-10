@@ -1,6 +1,6 @@
 ﻿using Neptuo;
-using Neptuo.Collections.ObjectModel;
-using Neptuo.ComponentModel;
+using Neptuo.Observables;
+using Neptuo.Observables.Collections;
 using Neptuo.PresentationModels;
 using System;
 using System.Collections.Generic;

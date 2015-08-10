@@ -80,6 +80,7 @@
     <Compile Include="System\EventArgs.cs" />
     <Compile Include="System\Exception.cs" />
     <Compile Include="System\Exceptions.cs" />
+    <Compile Include="System\IComparable.cs" />
     <Compile Include="System\IDisposable.cs" />
     <Compile Include="System\Interfaces.cs" />
     <Compile Include="System\IO\Path.cs" />

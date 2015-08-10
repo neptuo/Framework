@@ -1,4 +1,4 @@
-﻿using Neptuo.Pipelines.Validators;
+﻿using Neptuo.Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +9,20 @@ namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
     /// Metadata based field validator.
-    /// Uses <see cref="IFieldMetadataValidatorCollection"/> to get registered metadata validators and execute them.
+    /// Uses <see cref="IFieldMetadataValidatorProvider"/> to get registered metadata validators and execute them.
     /// </summary>
     public class MetadataFieldValidator : IFieldValidator
     {
         /// <summary>
         /// Collection of field validators.
         /// </summary>
-        protected IFieldMetadataValidatorCollection Validators { get; private set; }
+        protected IFieldMetadataValidatorProvider Validators { get; private set; }
 
         /// <summary>
         /// Creates new instance for validating <see cref="IFieldDefinition"/> with collection of metadata validators <paramref name="validators"/>.
         /// </summary>
         /// <param name="validators">Collection of metadata validators.</param>
-        public MetadataFieldValidator(IFieldMetadataValidatorCollection validators)
+        public MetadataFieldValidator(IFieldMetadataValidatorProvider validators)
         {
             Ensure.NotNull(validators, "validators");
             Validators = validators;

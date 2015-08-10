@@ -1,4 +1,6 @@
 ﻿using Neptuo.FileSystems;
+using Neptuo.FileSystems.Features;
+using Neptuo.Models.Features;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Serialization;
 using System;
@@ -14,12 +16,12 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            IReadOnlyFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
-            IReadOnlyFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
+            IFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
+            IFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
-            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
-            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, organizationXmlFile).Create();
+            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(personXmlFile)).Create();
+            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(organizationXmlFile)).Create();
 
             XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
             using (StringWriter writer = new StringWriter())
@@ -28,8 +30,8 @@ namespace TestConsole.PresentationModels
                 Console.WriteLine(writer);
             }
 
-            IReadOnlyFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
-            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile);
+            IFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
+            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile.With<IFileContentReader>().GetContentAsStream());
 
             XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);
             XmlModelValueGetterCollection organizations = getterFactory.Create(organizationDefinition);

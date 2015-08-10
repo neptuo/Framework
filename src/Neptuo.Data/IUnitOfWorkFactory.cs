@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data
 {
-    public interface IUnitOfWorkFactory : IActivator<IUnitOfWork>
+    public interface IUnitOfWorkFactory : IFactory<IUnitOfWork>
     { }
 }

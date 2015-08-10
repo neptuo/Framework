@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.FileSystems;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,28 +12,18 @@ namespace Neptuo.PresentationModels.Serialization
     /// <summary>
     /// Factory for reading and writing XML files and creating model value getters and setters from it.
     /// </summary>
-    public class XmlModelValueGetterFactory : IActivator<XmlModelValueGetterCollection, IModelDefinition>
+    public class XmlModelValueGetterFactory : IFactory<XmlModelValueGetterCollection, IModelDefinition>
     {
         private readonly XDocument document;
 
         /// <summary>
         /// Creates new instance that reads from <paramref name="stream"/>.
         /// </summary>
-        /// <param name="stream">XML document content to be used as value source</param>
+        /// <param name="stream">XML document content to be used as value source. Instance is used only in constructor and should disposed by caller.</param>
         public XmlModelValueGetterFactory(Stream stream)
         {
             Ensure.NotNull(stream, "stream");
             document = XDocument.Load(stream);
-        }
-
-        /// <summary>
-        /// Creates new instance that reads from <paramref name="xmlFile"/>.
-        /// </summary>
-        /// <param name="xmlFile">XML document to be used as value source.</param>
-        public XmlModelValueGetterFactory(IReadOnlyFile xmlFile)
-        {
-            Ensure.Condition.XmlFile(xmlFile, "xmlFile");
-            document = XDocument.Load(xmlFile.GetContentAsStream());
         }
 
         /// <summary>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.presentationmodels.binding</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.presentationmodels.binding</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>$description$</description>
+        <tags>Neptuo PresentatioModels</tags>
+    </metadata>
+</package>

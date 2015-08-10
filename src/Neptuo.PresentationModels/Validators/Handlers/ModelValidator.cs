@@ -1,5 +1,5 @@
-﻿using Neptuo.Pipelines.Validators;
-using Neptuo.Pipelines.Validators.Handlers;
+﻿using Neptuo.Services.Validators;
+using Neptuo.Services.Validators.Handlers;
 using Neptuo.PresentationModels.Validation;
 using System;
 using System.Collections.Generic;
@@ -39,11 +39,11 @@ namespace Neptuo.PresentationModels.Validators.Handlers
             return new ValidationResultBuilder(true);
         }
 
-        public virtual IValidationResult Handle(ModelValidatorContext context)
+        public Task<IValidationResult> HandleAsync(ModelValidatorContext context)
         {
             IValidationResultBuilder resultBuilder = CreateResultBuilder();
             ValidateInternal(context.Definition, context.Getter, resultBuilder);
-            return resultBuilder.ToResult();
+            return Task.FromResult(resultBuilder.ToResult());
         }
 
         /// <summary>

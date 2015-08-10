@@ -1,4 +1,5 @@
-﻿using Neptuo.ComponentModel;
+﻿using Neptuo.Compilers.Errors;
+using Neptuo.Identifiers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;

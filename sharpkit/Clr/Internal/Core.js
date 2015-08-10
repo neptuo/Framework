@@ -1309,6 +1309,15 @@ var System$ArgumentOutOfRangeException = {
     IsAbstract: false
 };
 JsTypes.push(System$ArgumentOutOfRangeException);
+var System$IComparable = {
+    fullname: "System.IComparable",
+    baseTypeName: "System.Object",
+    assemblyName: "Neptuo.System.Client",
+    Kind: "Interface",
+    ctors: [],
+    IsAbstract: true
+};
+JsTypes.push(System$IComparable);
 var System$IDisposable = {
     fullname: "System.IDisposable",
     baseTypeName: "System.Object",

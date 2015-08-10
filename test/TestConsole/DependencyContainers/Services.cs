@@ -50,7 +50,7 @@ namespace TestConsole.DependencyContainers
         }
     }
 
-    public class ConsoleWriterActivator : IActivator<TextMessageWriter>
+    public class ConsoleWriterFactory : IFactory<TextMessageWriter>
     {
         public TextMessageWriter Create()
         {

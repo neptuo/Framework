@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +8,15 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.Validators
 {
     /// <summary>
-    /// Implementation of <see cref="IFieldMetadataValidatorCollection"/>.
+    /// Implementation of <see cref="IFieldMetadataValidatorProvider"/>.
     /// </summary>
-    public class FieldMetadataValidatorCollection : IFieldMetadataValidatorCollection
+    public class FieldMetadataValidatorCollection : IFieldMetadataValidatorProvider
     {
         private readonly Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator> singletons
             = new Dictionary<FieldMetadataValidatorKey, IFieldMetadataValidator>();
 
-        private readonly Dictionary<FieldMetadataValidatorKey, IActivator<IFieldMetadataValidator>> builders
-            = new Dictionary<FieldMetadataValidatorKey, IActivator<IFieldMetadataValidator>>();
+        private readonly Dictionary<FieldMetadataValidatorKey, IFactory<IFieldMetadataValidator>> builders
+            = new Dictionary<FieldMetadataValidatorKey, IFactory<IFieldMetadataValidator>>();
 
         private readonly OutFuncCollection<FieldMetadataValidatorKey, IFieldMetadataValidator, bool> onSearchValidator
             = new OutFuncCollection<FieldMetadataValidatorKey, IFieldMetadataValidator, bool>();
@@ -44,7 +43,7 @@ namespace Neptuo.PresentationModels.Validators
         /// <param name="metadataKey">Field metadata validator key.</param>
         /// <param name="validator">Validator factory.</param>
         /// <returns>Self (for fluency).</returns>
-        public FieldMetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IActivator<IFieldMetadataValidator> validator)
+        public FieldMetadataValidatorCollection Add(string modelIdentifier, string fieldIdentifier, string metadataKey, IFactory<IFieldMetadataValidator> validator)
         {
             builders[new FieldMetadataValidatorKey(modelIdentifier, fieldIdentifier, metadataKey)] = validator;
             return this;
@@ -68,7 +67,7 @@ namespace Neptuo.PresentationModels.Validators
                 if (singletons.TryGetValue(key, out validator))
                     return true;
 
-                IActivator<IFieldMetadataValidator> builder;
+                IFactory<IFieldMetadataValidator> builder;
                 if (builders.TryGetValue(key, out builder))
                 {
                     validator = builder.Create();

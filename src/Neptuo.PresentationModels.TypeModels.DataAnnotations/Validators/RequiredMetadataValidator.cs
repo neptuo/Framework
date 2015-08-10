@@ -1,13 +1,13 @@
 ﻿using Neptuo.Collections.Specialized;
 using Neptuo.PresentationModels.Validators;
-using Neptuo.Pipelines.Validators;
+using Neptuo.Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Neptuo.Pipelines.Validators.Messages;
+using Neptuo.Services.Validators.Messages;
 
 namespace Neptuo.PresentationModels.TypeModels.DataAnnotations.Validators
 {

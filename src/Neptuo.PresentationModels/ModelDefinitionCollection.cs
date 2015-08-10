@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace Neptuo.PresentationModels
         private readonly object storageLock = new object();
 
         private readonly Dictionary<string, IModelDefinition> singletons = new Dictionary<string, IModelDefinition>();
-        private readonly Dictionary<string, IActivator<IModelDefinition>> builders = new Dictionary<string, IActivator<IModelDefinition>>();
+        private readonly Dictionary<string, IFactory<IModelDefinition>> builders = new Dictionary<string, IFactory<IModelDefinition>>();
         private readonly OutFuncCollection<string, IModelDefinition, bool> onSearchDefinition = new OutFuncCollection<string, IModelDefinition, bool>();
 
         /// <summary>
@@ -44,7 +43,7 @@ namespace Neptuo.PresentationModels
         /// <param name="modelIdentifier">Identifier to register <paramref name="modelDefinitionBuilder"/> with.</param>
         /// <param name="modelDefinitionBuilder">Model definition builder used to create singleton instance.</param>
         /// <returns>Self (for fluency).</returns>
-        public ModelDefinitionCollection Add(string modelIdentifier, IActivator<IModelDefinition> modelDefinitionBuilder)
+        public ModelDefinitionCollection Add(string modelIdentifier, IFactory<IModelDefinition> modelDefinitionBuilder)
         {
             Ensure.NotNullOrEmpty(modelIdentifier, "modelIdentifier");
             Ensure.NotNull(modelDefinitionBuilder, "modelDefinitionBuilder");
@@ -90,7 +89,7 @@ namespace Neptuo.PresentationModels
             lock (storageLock)
             {
                 // Search in builders.
-                IActivator<IModelDefinition> builder;
+                IFactory<IModelDefinition> builder;
                 if (builders.TryGetValue(modelIdentifier, out builder))
                 {
                     singletons[modelIdentifier] = modelDefinition = builder.Create();

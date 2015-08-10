@@ -104,6 +104,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.Observables\Neptuo.Observables.csproj">
+      <Project>{eda4c50e-2873-4237-a84b-f73a15c27cd6}</Project>
+      <Name>Neptuo.Observables</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj">
       <Project>{c4909618-fa01-4e6f-b34b-9f1d24239c87}</Project>
       <Name>Neptuo.PresentationModels.TypeModels.DataAnnotations</Name>

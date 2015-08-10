@@ -1,5 +1,5 @@
-﻿using Neptuo.Activators;
-using Neptuo.ComponentModel;
+﻿using Neptuo;
+using Neptuo.Activators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +66,12 @@ namespace TestConsole.DependencyContainers
         {
             Type type = typeof(T);
             return (T)Build(type);
+        }
+
+
+        public IDependencyDefinitionReadOnlyCollection Definitions
+        {
+            get { throw new NotImplementedException(); }
         }
     }
 

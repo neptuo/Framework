@@ -6,22 +6,13 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Activators.Internals
 {
+    /// <summary>
+    /// Storage for scoped instances/factories.
+    /// </summary>
     internal class InstanceStorage
     {
-        private readonly Dictionary<string, object> objectStorage;
-        private readonly Dictionary<string, IActivator<object>> activatorStorage;
-
-        public InstanceStorage()
-            : this(new Dictionary<string, object>(), new Dictionary<string,IActivator<object>>())
-        { }
-
-        public InstanceStorage(Dictionary<string, object> storage, Dictionary<string, IActivator<object>> activatorStorage)
-        {
-            Ensure.NotNull(storage, "storage");
-            Ensure.NotNull(activatorStorage, "activatorStorage");
-            this.objectStorage = storage;
-            this.activatorStorage = activatorStorage;
-        }
+        private readonly Dictionary<string, object> objectStorage = new Dictionary<string, object>();
+        private readonly Dictionary<string, IFactory<object>> factoryStorage = new Dictionary<string, IFactory<object>>();
 
         public InstanceStorage AddObject(string key, object instance)
         {
@@ -31,48 +22,34 @@ namespace Neptuo.Activators.Internals
             return this;
         }
 
-        public InstanceStorage AddActivator(string key, IActivator<object> activator)
+        public InstanceStorage AddFactory(string key, IFactory<object> factory)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            Ensure.NotNull(activator, "activator");
-            activatorStorage[key] = activator;
+            Ensure.NotNull(factory, "factory");
+            factoryStorage[key] = factory;
             return this;
         }
 
         public object TryGetObject(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return objectStorage[key];
+
+            object result;
+            if (objectStorage.TryGetValue(key, out result))
+                return result;
+
+            return null;
         }
 
-        public IActivator<object> TryGetActivator(string key)
+        public IFactory<object> TryGetFactory(string key)
         {
             Ensure.NotNullOrEmpty(key, "key");
-            return activatorStorage[key];
-        }
 
-        public Dictionary<string, object> CopyObjects(IEnumerable<string> keysToSkip)
-        {
-            Dictionary<string, object> result = new Dictionary<string, object>();
-            foreach (KeyValuePair<string, object> item in objectStorage)
-            {
-                if (!keysToSkip.Contains(item.Key))
-                    result.Add(item.Key, item.Value);
-            }
+            IFactory<object> result;
+            if (factoryStorage.TryGetValue(key, out result))
+                return result;
 
-            return result;
-        }
-
-        public Dictionary<string, IActivator<object>> CopyActivators(IEnumerable<string> keysToSkip)
-        {
-            Dictionary<string, IActivator<object>> result = new Dictionary<string, IActivator<object>>();
-            foreach (KeyValuePair<string, IActivator<object>> item in activatorStorage)
-            {
-                if (!keysToSkip.Contains(item.Key))
-                    result.Add(item.Key, item.Value);
-            }
-
-            return result;
+            return null;
         }
     }
 }

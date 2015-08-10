@@ -37,9 +37,9 @@ namespace Neptuo.Compilers
 
         #region ICompilerConfiguration
 
-        public IKeyValueCollection Set(string key, object value)
+        public IKeyValueCollection Add(string key, object value)
         {
-            Configuration.Set(key, value);
+            Configuration.Add(key, value);
             return this;
         }
 

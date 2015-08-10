@@ -1,6 +1,5 @@
 using Microsoft.Practices.Unity;
 using Neptuo.Activators.Internals;
-using Neptuo.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +14,14 @@ namespace Neptuo.Activators
     public class UnityDependencyContainer : DisposableBase, IDependencyContainer
     {
         private readonly IUnityContainer unityContainer;
-        private readonly RegistrationMapper mapper;
+        private readonly DependencyDefinitionCollection definitions;
 
-        public string ScopeName
+        /// <summary>
+        /// Wrapped unity container.
+        /// </summary>
+        public IUnityContainer UnityContainer
         {
-            get { return mapper.ScopeName; }
+            get { return unityContainer; }
         }
 
         /// <summary>
@@ -34,38 +36,65 @@ namespace Neptuo.Activators
         /// </summary>
         /// <param name="unityContainer">Unity container.</param>
         public UnityDependencyContainer(IUnityContainer unityContainer)
-            : this(DependencyLifetime.RootScopeName, new MappingCollection(), unityContainer)
+            : this(DependencyLifetime.RootScopeName, new DependencyDefinitionCollection(unityContainer, DependencyLifetime.RootScopeName), unityContainer)
         { }
 
-        private UnityDependencyContainer(string scopeName, MappingCollection mappings, IUnityContainer unityContainer)
+        private UnityDependencyContainer(string scopeName, DependencyDefinitionCollection definitions, IUnityContainer unityContainer)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.unityContainer = unityContainer;
-            this.mapper = new RegistrationMapper(unityContainer, mappings, scopeName);
+            this.definitions = definitions;
 
             unityContainer.RegisterInstance<IDependencyProvider>(this, new ExternallyControlledLifetimeManager());
             unityContainer.RegisterInstance<IDependencyContainer>(this, new ExternallyControlledLifetimeManager());
         }
 
-        public IDependencyContainer Map(Type requiredType, DependencyLifetime lifetime, object target)
+        #region IDependencyContainer
+
+        public IDependencyDefinitionCollection Definitions
         {
-            mapper.Map(new MappingModel(requiredType, lifetime, target));
-            return this;
+            get { return definitions; }
         }
 
-        public IDependencyContainer Scope(string scopeName)
+        #endregion
+
+        #region IDependencyProvider
+
+        string IDependencyProvider.ScopeName
         {
+            get { return definitions.Mapper.ScopeName; }
+        }
+
+        IDependencyDefinitionReadOnlyCollection IDependencyProvider.Definitions
+        {
+            get { return Definitions; }
+        }
+
+        IDependencyContainer IDependencyProvider.Scope(string scopeName)
+        {
+            IUnityContainer childContainer = unityContainer.CreateChildContainer();
             return new UnityDependencyContainer(
                 scopeName,
-                mapper.Mappings, 
-                unityContainer.CreateChildContainer()
+                new DependencyDefinitionCollection(childContainer, scopeName, definitions),
+                childContainer
             );
         }
 
-        public object Resolve(Type requiredType)
+        object IDependencyProvider.Resolve(Type requiredType)
         {
-            return unityContainer.Resolve(requiredType);
+            Ensure.NotNull(requiredType, "requiredType");
+
+            try
+            {
+                return unityContainer.Resolve(requiredType);
+            }
+            catch(ResolutionFailedException e)
+            {
+                throw Ensure.Exception.NotResolvable(requiredType, e);
+            }
         }
+
+        #endregion
 
         protected override void DisposeManagedResources()
         {

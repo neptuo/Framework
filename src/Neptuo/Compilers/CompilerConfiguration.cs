@@ -45,9 +45,9 @@ namespace Neptuo.Compilers
                 object value = this.Get<object>(key);
                 ICloneable<object> cloneable = value as ICloneable<object>;
                 if (cloneable != null)
-                    result.Set(key, cloneable.Clone());
+                    result.Add(key, cloneable.Clone());
                 else
-                    result.Set(key, value);
+                    result.Add(key, value);
             }
 
             return result;

@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="CopyModelValueProvider.cs" />
     <Compile Include="DictionaryModelValueProvider.cs" />
     <Compile Include="FieldDefinition.cs" />
@@ -63,13 +66,18 @@
     <Compile Include="TypeModels\Expressions\FieldValueProviderCollection.cs" />
     <Compile Include="TypeModels\Expressions\FuncFieldValueProvider.cs" />
     <Compile Include="TypeModels\Expressions\IFieldValueProvider.cs" />
-    <Compile Include="TypeModels\Expressions\IFieldValueProviderCollection.cs" />
+    <Compile Include="TypeModels\Expressions\IFieldValueProviderProvider.cs" />
     <Compile Include="TypeModels\IAttributeMetadataReader.cs" />
     <Compile Include="TypeModels\IMetadataReader.cs" />
+    <Compile Include="TypeModels\ValueUpdates\IReflectionValueUpdater.cs" />
     <Compile Include="TypeModels\ReflectionModelDefinitionBuilder.cs" />
     <Compile Include="TypeModels\ReflectionModelDefinitionFactory.cs" />
     <Compile Include="TypeModels\TypeModelDefinitionCollection.cs" />
     <Compile Include="TypeModels\ReflectionModelValueProvider.cs" />
+    <Compile Include="TypeModels\ValueUpdates\CollectionItemReflectionValueUpdater.cs" />
+    <Compile Include="TypeModels\ValueUpdates\EmptyReflectionValueUpdater.cs" />
+    <Compile Include="TypeModels\ValueUpdates\ReflectionValueUpdaterCollection.cs" />
+    <Compile Include="TypeModels\ValueUpdates\_ReflectionValueUpdaterCollectionExtensions.cs" />
     <Compile Include="TypeModels\_AttributeMetadataReaderCollectionExtensions.cs" />
     <Compile Include="TypeModels\_TypeModelDefinitionCollectionExtensions.cs" />
     <Compile Include="Validators\FieldMetadataValidatorBase.cs" />
@@ -79,17 +87,23 @@
     <Compile Include="Validators\MetadataFieldValidator.cs" />
     <Compile Include="Validators\ModelValidatorContext.cs" />
     <Compile Include="Validators\IFieldMetadataValidator.cs" />
-    <Compile Include="Validators\IFieldMetadataValidatorCollection.cs" />
+    <Compile Include="Validators\IFieldMetadataValidatorProvider.cs" />
     <Compile Include="Validators\Handlers\FieldMetadataModelValidator.cs" />
     <Compile Include="Validators\FieldMetadataValidatorCollection.cs" />
     <Compile Include="Validators\Handlers\ModelValidator.cs" />
     <Compile Include="_ModelDefinitionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.PresentationModels.js" />
-    <None Include="Neptuo.PresentationModels.xml" />
+    <None Include="Neptuo.PresentationModels.nuspec" />
+    <None Include="Neptuo.PresentationModels.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
+      <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
+      <Name>Neptuo.Services.Validators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>

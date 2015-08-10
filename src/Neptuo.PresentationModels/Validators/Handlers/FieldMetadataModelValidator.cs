@@ -1,4 +1,4 @@
-﻿using Neptuo.Pipelines.Validators;
+﻿using Neptuo.Services.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace Neptuo.PresentationModels.Validators.Handlers
     /// </summary>
     public class FieldMetadataModelValidator : ModelValidator
     {
-        public FieldMetadataModelValidator(IFieldMetadataValidatorCollection validators)
+        public FieldMetadataModelValidator(IFieldMetadataValidatorProvider validators)
             : base(new MetadataFieldValidator(validators))
         { }
     }

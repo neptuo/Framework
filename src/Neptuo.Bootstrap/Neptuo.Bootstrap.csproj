@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>Properties\_AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AutomaticBootstrapper.cs" />
     <Compile Include="BootstrapperBase.cs" />
     <Compile Include="Constraints\ConstraintAttribute.cs" />
@@ -52,7 +55,6 @@
     <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
     <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
     <Compile Include="Dependencies\Providers\Exporters\EmptyDependencyExporter.cs" />
-    <Compile Include="Dependencies\Providers\Exporters\EnvironmentDependencyExporter.cs" />
     <Compile Include="Dependencies\ExportAttribute.cs" />
     <Compile Include="Dependencies\Providers\Targets\ExportAttributeTarget.cs" />
     <Compile Include="Dependencies\ImportAttribute.cs" />
@@ -79,8 +81,9 @@
     <Compile Include="SequenceBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Bootstrap.js" />
-    <None Include="Neptuo.Bootstrap.xml" />
+    <None Include="Neptuo.Bootstrap.xml">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
