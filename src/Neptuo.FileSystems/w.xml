@@ -1,0 +1,586 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Neptuo.FileSystems</name>
+    </assembly>
+    <members>
+        <member name="T:Neptuo.FileSystems.Features.IAncestorEnumerator">
+            <summary>
+            Provides enumeration of current item ancestors.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IAbsolutePath">
+            <summary>
+            Provides absolute path (excluding this item).
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IAbsolutePath.AbsolutePath">
+            <summary>
+            Absolute path (excluding this item).
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Attributes.IAttributeReader">
+            <summary>
+            Defines contract for reading attributes.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Attributes.IAttributeUpdater">
+            <summary>
+            Defines contract for modified attributes.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IDirectoryDeleter">
+            <summary>
+            Contract for deleting current directory.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IDirectoryDeleter.Delete">
+            <summary>
+            Deletes current directory (and all sub directories and files).
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IDirectoryRenamer">
+            <summary>
+            Contract for renaming directory.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IDirectoryRenamer.ChangeName(System.String)">
+            <summary>
+            Changes directory name to <paramref name="directoryName" />
+            </summary>
+            <param name="directoryName">New directory name.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileDeleter">
+            <summary>
+            Contract for deleting current file.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileDeleter.Delete">
+            <summary>
+            Deletes current file.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileRenamer">
+            <summary>
+            Contract for renaming current file.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileRenamer.ChangeName(System.String)">
+            <summary>
+            Changes file name (without extension) to <paramref name="fileName" />
+            </summary>
+            <param name="fileName">New file name (without extension).</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileRenamer.ChangeExtension(System.String)">
+            <summary>
+            Changes file extension to <paramref name="fileExtension" />
+            </summary>
+            <param name="fileExtension">New extension.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileSystemConstant">
+            <summary>
+            Defines contants for file system.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IFileSystemConstant.DirectorySeparatorChar">
+            <summary>
+            Item path separator.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IFileSystemConstant.InvalidDirectoryNameChars">
+            <summary>
+            Enumeration of invalid characters for directory name.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IFileSystemConstant.InvalidFileNameChars">
+            <summary>
+            Enumeration of invalid characters for file name.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IFileSystemConstant.IsCaseSensitive">
+            <summary>
+            Whether file system is case sensitive.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.IDirectoryPathSearch">
+            <summary>
+            Defines contract for searching directories directly in directory.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IDirectoryPathSearch.FindDirectories(Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns enumeration of descendant directories matching <paramref name="directoryPath"/>.
+            </summary>
+            <param name="directoryPath">Name or path for filtering.</param>
+            <returns>Enumeration of child directories matching <paramref name="directoryPath"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IDirectoryPathSearch.IsDirectoryContained(Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns true if descendant directory matching <paramref name="directoryPath"/> is contained.
+            </summary>
+            <param name="directoryPath">Name or path to test.</param>
+            <returns>True if directory matching <paramref name="directoryPath"/> is contained.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.IDirectoryNameSearch">
+            <summary>
+            Defines contract for searching directories directly in directory.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IDirectoryNameSearch.FindDirectories(Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns enumeration of child directories matching <paramref name="directoryName"/>.
+            </summary>
+            <param name="directoryName">Name for filtering.</param>
+            <returns>Enumeration of child directories matching <paramref name="directoryName"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IDirectoryNameSearch.IsDirectoryContained(Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns true if directory with <paramref name="directoryName"/> is contained.
+            </summary>
+            <param name="directoryName">Name to test.</param>
+            <returns>True if directory with <paramref name="directoryName"/> is contained.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.IFileNameSearch">
+            <summary>
+            Defines contract for searching files directly in directory.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IFileNameSearch.FindFiles(Neptuo.FileSystems.Features.Searching.TextSearch,Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns enumeration of child files matching <paramref name="fileName"/> and <paramref name="fileExtension"/>.
+            </summary>
+            <param name="fileName">Name for filtering.</param>
+            <param name="fileExtension">Extension for filtering.</param>
+            <returns>Enumeration of child files matching <paramref name="fileName"/> and <paramref name="fileExtension"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IFileNameSearch.IsFileContained(Neptuo.FileSystems.Features.Searching.TextSearch,Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns true if file with <paramref name="fileName"/> and <paramref name="fileExtension"/> is contained.
+            </summary>
+            <param name="fileName">Name to test.</param>
+            <param name="fileExtension">Extension to text.</param>
+            <returns>True if file with <paramref name="fileName"/> and <paramref name="fileExtension"/> is contained.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.IFilePathSearch">
+            <summary>
+            Defines contract for searching files in file system sub-tree.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IFilePathSearch.FindFiles(Neptuo.FileSystems.Features.Searching.TextSearch,Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns enumeration of descendant files matching <paramref name="filePath"/>.
+            </summary>
+            <param name="filePath">Name or path for filtering.</param>
+            <param name="fileExtension">Extension for filtering.</param>
+            <returns>Enumeration of all child files.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.IFilePathSearch.IsFileContained(Neptuo.FileSystems.Features.Searching.TextSearch,Neptuo.FileSystems.Features.Searching.TextSearch)">
+            <summary>
+            Returns true if descendant file matching <paramref name="filePath"/> is contained.
+            </summary>
+            <param name="filePath">Name or path to test.</param>
+            <param name="fileExtension">Extension to text.</param>
+            <returns>True if descendant file matching <paramref name="filePath"/> is contained.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.TextSearch">
+            <summary>
+            Describes text searching options.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.Create(System.String,Neptuo.FileSystems.Features.Searching.TextSearchType,System.Boolean)">
+            <summary>
+            Creates new instance.
+            </summary>
+            <param name="text">Searched text.</param>
+            <param name="type">Search type.</param>
+            <param name="isCaseSensitive">Whether is search case sensitive.</param>
+            <returns>Instance of <see cref="T:Neptuo.FileSystems.Features.Searching.TextSearch"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.CreateEmpty">
+            <summary>
+            Creates new instance that matches all items.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.CreatePrefixed(System.String,System.Boolean)">
+            <summary>
+            Cretes new instance that uses prefix search.
+            </summary>
+            <param name="text">Searched text.</param>
+            <param name="isCaseSensitive">Whether is search case sensitive.</param>
+            <returns>Instance of <see cref="T:Neptuo.FileSystems.Features.Searching.TextSearch"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.CreateSuffixed(System.String,System.Boolean)">
+            <summary>
+            Cretes new instance that uses suffix search.
+            </summary>
+            <param name="text">Searched text.</param>
+            <param name="isCaseSensitive">Whether is search case sensitive.</param>
+            <returns>Instance of <see cref="T:Neptuo.FileSystems.Features.Searching.TextSearch"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.CreateMatched(System.String,System.Boolean)">
+            <summary>
+            Cretes new instance that uses match search.
+            </summary>
+            <param name="text">Searched text.</param>
+            <param name="isCaseSensitive">Whether is search case sensitive.</param>
+            <returns>Instance of <see cref="T:Neptuo.FileSystems.Features.Searching.TextSearch"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.Searching.TextSearch.CreateContained(System.String,System.Boolean)">
+            <summary>
+            Cretes new instance that uses contains search.
+            </summary>
+            <param name="text">Searched text.</param>
+            <param name="isCaseSensitive">Whether is search case sensitive.</param>
+            <returns>Instance of <see cref="T:Neptuo.FileSystems.Features.Searching.TextSearch"/>.</returns>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.Searching.TextSearch.Text">
+            <summary>
+            Searched text.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.Searching.TextSearch.Type">
+            <summary>
+            Search type.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.Searching.TextSearch.IsCaseSensitive">
+            <summary>
+            Whether is search case sensitive.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Searching.TextSearchType">
+            <summary>
+            Enumeration of support text search types.
+            </summary>
+        </member>
+        <member name="F:Neptuo.FileSystems.Features.Searching.TextSearchType.Prefixed">
+            <summary>
+            Searched value must be prefixed with used value.
+            </summary>
+        </member>
+        <member name="F:Neptuo.FileSystems.Features.Searching.TextSearchType.Suffixed">
+            <summary>
+            Searched value must suffixed with used value.
+            </summary>
+        </member>
+        <member name="F:Neptuo.FileSystems.Features.Searching.TextSearchType.Contained">
+            <summary>
+            Search value must contain used value.
+            </summary>
+        </member>
+        <member name="F:Neptuo.FileSystems.Features.Searching.TextSearchType.Matched">
+            <summary>
+            Searched value must exactly match used value.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Timestamps.ICreatedAt">
+            <summary>
+            Provides timestamp at which item was created.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.Timestamps.ICreatedAt.ModifiedAt">
+            <summary>
+            Timestamp at which item was created.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IDirectoryCreator">
+            <summary>
+            New directory creator.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IDirectoryCreator.Create(System.String)">
+            <summary>
+            Creates new directory name.
+            </summary>
+            <param name="directoryName">New directory name.</param>
+            <returns>Newly created directory.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IDirectoryCreator.IsValidName(System.String)">
+            <summary>
+            Returns <c>true</c> if <paramref name="directoryName"/> is directory name.
+            </summary>
+            <param name="directoryName">File name (without extension).</param>
+            <returns><c>true</c> if <paramref name="directoryName"/> is directory name; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IDirectoryEnumerator">
+            <summary>
+            Provides enumeration of directories.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileContentAppender">
+            <summary>
+            Provides contract for appending to file content.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentAppender.AppendContentAsync(System.String)">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentAppender.AppendContentFromByteArrayAsync(System.Byte[])">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentAppender.AppendContentFromStreamAsync(System.IO.Stream)">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileContentReader">
+            <summary>
+            Provides contract for reading file content.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentReader.GetContentAsync">
+            <summary>
+            Returns file content.
+            </summary>
+            <returns>File content.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentReader.GetContentAsByteArrayAsync">
+            <summary>
+            Returns file content as byte array.
+            </summary>
+            <returns>File content as byte array.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentReader.GetContentAsStreamAsync">
+            <summary>
+            Returns file content as stream.
+            </summary>
+            <returns>File content as stream.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileCreator">
+            <summary>
+            New file creator.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileCreator.Create(System.String,System.String)">
+            <summary>
+            Creates new empty file.
+            </summary>
+            <param name="fileName">File name (without extension).</param>
+            <param name="fileExtension">File extension (without extension separator).</param>
+            <returns>Newly created file.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileCreator.IsValidName(System.String,System.String)">
+            <summary>
+            Returns <c>true</c> if <paramref name="fileName"/> with <paramref name="fileExtension" /> is valid file name.
+            </summary>
+            <param name="fileName">File name (without extension).</param>
+            <param name="fileExtension">File extension (without extension separator).</param>
+            <returns><c>true</c> if <paramref name="fileName"/> with <paramref name="fileExtension" /> is valid file name; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileEnumerator">
+            <summary>
+            Provides enumeration of files.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileContentUpdater">
+            <summary>
+            Provides contract for overriding file content.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentUpdater.SetContentAsync(System.String)">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentUpdater.SetContentFromByteArrayAsync(System.Byte[])">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features.IFileContentUpdater.SetContentFromStreamAsync(System.IO.Stream)">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.IFileContentSize">
+            <summary>
+            Contract for reading file size.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.IFileContentSize.FileSize">
+            <summary>
+            Size of file in bytes.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features.Timestamps.IModefiedAt">
+            <summary>
+            Provides timestamp at which item was modified.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.Features.Timestamps.IModefiedAt.ModifiedAt">
+            <summary>
+            Timestamp at which item was modified.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features._FileContentAppenderExtensions">
+            <summary>
+            Extensions for writing file content to <see cref="T:Neptuo.FileSystems.Features.IFileContentAppender"/>.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentAppenderExtensions.AppendContent(Neptuo.FileSystems.Features.IFileContentAppender,System.String)">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentAppenderExtensions.AppendContentFromByteArray(Neptuo.FileSystems.Features.IFileContentAppender,System.Byte[])">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentAppenderExtensions.AppendContentFromStream(Neptuo.FileSystems.Features.IFileContentAppender,System.IO.Stream)">
+            <summary>
+            Appends <paramref name="fileContent"/> to the file content.
+            </summary>
+            <param name="fileContent">Content to append to the file.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features._FileContentUpdaterExtensions">
+            <summary>
+            Extensions for writing file content to <see cref="T:Neptuo.FileSystems.Features.IFileContentUpdater"/>.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentUpdaterExtensions.SetContent(Neptuo.FileSystems.Features.IFileContentUpdater,System.String)">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentUpdaterExtensions.SetContentFromByteArray(Neptuo.FileSystems.Features.IFileContentUpdater,System.Byte[])">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentUpdaterExtensions.SetContentFromStream(Neptuo.FileSystems.Features.IFileContentUpdater,System.IO.Stream)">
+            <summary>
+            Overrides file content to <paramref name="fileContent"/>.
+            </summary>
+            <param name="fileContent">New file content.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.FileSystemException">
+            <summary>
+            Generic exception that can occur in virtual file systems.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.FileSystemException.#ctor(System.String)">
+            <summary>
+            Create new instance with <paramref name="message"/> as context information.
+            </summary>
+            <param name="message">Context information.</param>
+        </member>
+        <member name="M:Neptuo.FileSystems.FileSystemException.#ctor(System.String,System.Exception)">
+            <summary>
+            Create new instance with <paramref name="message"/> as context information 
+            and <paramref name="innerException"/> as inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">Context information.</param>
+            <param name="innerException">Inner exception that is the cause of this exception.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.IDirectory">
+            <summary>
+            Represents directory in virtual file system.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.IDirectory.Name">
+            <summary>
+            Directory name.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.IFile">
+            <summary>
+            Represents file in virtual file system.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.IFile.Name">
+            <summary>
+            File name without extension.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.IFile.Extension">
+            <summary>
+            File extension (without extension separator).
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.IFileSystem">
+            <summary>
+            Virtual file system.
+            </summary>
+        </member>
+        <member name="P:Neptuo.FileSystems.IFileSystem.RootDirectory">
+            <summary>
+            File system root directory.
+            </summary>
+        </member>
+        <member name="T:Neptuo.FileSystems.FileContentFactory">
+            <summary>
+            Implementation of factory for file streams.
+            Takes single file and provides its content.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.FileContentFactory.#ctor(Neptuo.FileSystems.IFile)">
+            <summary>
+            Creates new instance that reads content from <paramref name="file"/>.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="T:Neptuo.FileSystems._EnsureExtensions">
+            <summary>
+            Exceptions extensions on file systems.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems._EnsureExtensions.FileSystem(Neptuo.Exceptions.Helpers.EnsureExceptionHelper,System.String,System.Object[])">
+            <summary>
+            Creates exception <see cref="T:Neptuo.FileSystems.FileSystemException"/> 
+            and message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
+            </summary>
+            <param name="guard"></param>
+            <param name="format"></param>
+            <param name="formatParameters"></param>
+            <returns><see cref="T:Neptuo.FileSystems.FileSystemException"/>.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems._EnsureExtensions.XmlFile(Neptuo.Exceptions.Helpers.EnsureConditionHelper,Neptuo.FileSystems.IFile,System.String)">
+            <summary>
+            Throws <see cref="T:System.ArgumentNullException"/> when <paramref name="xmlFile"/> is <c>null</c>
+            and <see cref="T:Neptuo.FileSystems.FileSystemException"/> when <paramref name="xmlFile"/> is not XML file.
+            </summary>
+            <param name="condition"></param>
+            <param name="xmlFile">File to test.</param>
+            <param name="argumentName">File argument name.</param>
+        </member>
+        <member name="T:Neptuo.FileSystems.Features._FileContentReaderExtensions">
+            <summary>
+            Extensions for reading file content from <see cref="T:Neptuo.FileSystems.Features.IFileContentReader"/>.
+            </summary>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentReaderExtensions.GetContent(Neptuo.FileSystems.Features.IFileContentReader)">
+            <summary>
+            Returns file content.
+            </summary>
+            <returns>File content.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentReaderExtensions.GetContentAsByteArray(Neptuo.FileSystems.Features.IFileContentReader)">
+            <summary>
+            Returns file content as byte array.
+            </summary>
+            <returns>File content as byte array.</returns>
+        </member>
+        <member name="M:Neptuo.FileSystems.Features._FileContentReaderExtensions.GetContentAsStream(Neptuo.FileSystems.Features.IFileContentReader)">
+            <summary>
+            Returns file content as stream.
+            </summary>
+            <returns>File content as stream.</returns>
+        </member>
+    </members>
+</doc>
