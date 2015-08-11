@@ -53,6 +53,10 @@
     <Compile Include="Validators\RequiredMetadataValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj">
+      <Project>{0834dfd1-3536-4305-9e23-21061c5c0414}</Project>
+      <Name>Neptuo.PresentationModels.Validators</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
       <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
       <Name>Neptuo.Services.Validators</Name>
