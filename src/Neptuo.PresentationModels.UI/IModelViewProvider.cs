@@ -16,7 +16,8 @@ namespace Neptuo.PresentationModels.UI
         /// <summary>
         /// Tries to get model view for model definition.
         /// </summary>
-        /// <param name="modelView">Instance of registered model view..</param>
+        /// <param name="modelDefinition">Model definition.</param>
+        /// <param name="modelView">Instance of registered model view.</param>
         /// <returns><c>true</c> if field view was found; <c>false</c> otherwise.</returns>
         bool TryGet(IModelDefinition modelDefinition, out IModelView<T> modelView);
     }

@@ -18,7 +18,7 @@ namespace Neptuo.PresentationModels.UI
         /// </summary>
         /// <param name="modelDefinition">Model definition that contains <paramref name="fieldDefinition" /></param>
         /// <param name="fieldDefinition">Field definition to find field view for.</param>
-        /// <param name="fieldView">Instance of registered field view..</param>
+        /// <param name="fieldView">Instance of registered field view.</param>
         /// <returns><c>true</c> if field view was found; <c>false</c> otherwise.</returns>
         bool TryGet(IModelDefinition modelDefinition, IFieldDefinition fieldDefinition, out IFieldView<T> fieldView);
     }
