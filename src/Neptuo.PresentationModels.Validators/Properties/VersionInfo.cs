@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Neptuo.PresentationModels
+namespace Neptuo.PresentationModels.Validators
 {
     public static class VersionInfo
     {
-        internal const string Version = "7.0.0";
+        internal const string Version = "1.0.0";
 
         public static Version GetVersion()
         {
