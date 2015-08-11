@@ -42,6 +42,10 @@
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
       <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
+    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -69,12 +73,6 @@
   <ItemGroup>
     <None Include="Neptuo.Activators.Unity.nuspec" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
-      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
-      <Name>Neptuo</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
