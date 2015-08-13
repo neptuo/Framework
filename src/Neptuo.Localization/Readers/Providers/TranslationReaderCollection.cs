@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers.Providers
 {
     /// <summary>
     /// In-memory (collection) implementation of <see cref="ITranslationReaderProvider"/>.
@@ -15,10 +15,18 @@ namespace Neptuo.Localization.GetText
     {
         private readonly Dictionary<CultureInfo, Dictionary<string, List<ITranslationReader>>> storage = new Dictionary<CultureInfo, Dictionary<string, List<ITranslationReader>>>();
 
-        private void Add(CultureInfo culture, string assemblyName, ITranslationReader reader)
+        /// <summary>
+        /// Adds <paramref name="reader"/> for <paramref name="culture"/> and <paramref name="assemblyName"/>.
+        /// </summary>
+        /// <param name="culture">Culture to add <paramref name="reader"/> for.</param>
+        /// <param name="assemblyName">Name of the assembly to add <paramref name="reader"/> for.</param>
+        /// <param name="reader">Translation reader.</param>
+        /// <returns>Self (for fluency).</returns>
+        public TranslationReaderCollection Add(CultureInfo culture, string assemblyName, ITranslationReader reader)
         {
             Ensure.NotNull(culture, "culture");
             Ensure.NotNull(reader, "reader");
+
             Dictionary<string, List<ITranslationReader>> cultureReaders;
             if (!storage.TryGetValue(culture, out cultureReaders))
                 storage[culture] = cultureReaders = new Dictionary<string, List<ITranslationReader>>();
@@ -28,6 +36,7 @@ namespace Neptuo.Localization.GetText
                 cultureReaders[assemblyName] = assemblyReaders = new List<ITranslationReader>();
 
             assemblyReaders.Add(reader);
+            return this;
         }
 
         /// <summary>
@@ -69,11 +78,11 @@ namespace Neptuo.Localization.GetText
             if (assemblyReaders != null || globalReaders != null)
             {
                 if (assemblyReaders == null)
-                    reader = new CompositeTranslationReader(globalReaders);
+                    reader = new EnumerationTranslationReader(globalReaders);
                 else if (globalReaders == null)
-                    reader = new CompositeTranslationReader(assemblyReaders);
+                    reader = new EnumerationTranslationReader(assemblyReaders);
                 else
-                    reader = new CompositeTranslationReader(Enumerable.Concat(assemblyReaders, globalReaders));
+                    reader = new EnumerationTranslationReader(Enumerable.Concat(assemblyReaders, globalReaders));
 
                 return true;
             }

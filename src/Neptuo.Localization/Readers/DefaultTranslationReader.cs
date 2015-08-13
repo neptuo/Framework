@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers
 {
     /// <summary>
     /// Implementation of <see cref="ITranslationReader"/> based on in-memory key-value collection.

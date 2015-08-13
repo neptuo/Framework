@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers.Providers
 {
     /// <summary>
     /// Provides <see cref="ITranslationReader"/> based on culture and assembly.

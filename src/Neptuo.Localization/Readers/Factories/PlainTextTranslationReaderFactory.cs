@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers
 {
     /// <summary>
     /// Creates <see cref="ITranslationReader"/> from files structured as Key=Value.

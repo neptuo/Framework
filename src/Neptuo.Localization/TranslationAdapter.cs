@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neptuo.Localization.Readers;
+using Neptuo.Localization.Readers.Providers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization
 {
     /// <summary>
     /// Adapter between <see cref="Neptuo.Localization.Translate"/> and GetText implementation of localizations.
