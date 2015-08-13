@@ -43,10 +43,11 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Readers\DefaultTranslationReader.cs" />
+    <Compile Include="Readers\Factories\DirectoryTranslationReaderProviderFactory.cs" />
     <Compile Include="Readers\ITranslationReader.cs" />
     <Compile Include="Readers\Providers\ITranslationReaderProvider.cs" />
     <Compile Include="Readers\EnumerationTranslationReader.cs" />
-    <Compile Include="Readers\PlainTextTranslationReaderFactory.cs" />
+    <Compile Include="Readers\Factories\PlainTextTranslationReaderFactory.cs" />
     <Compile Include="TranslationAdapter.cs" />
     <Compile Include="Readers\Providers\TranslationReaderCollection.cs" />
     <Compile Include="ICultureProvider.cs" />
