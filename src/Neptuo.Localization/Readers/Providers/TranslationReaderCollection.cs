@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers.Providers
 {
     /// <summary>
     /// In-memory (collection) implementation of <see cref="ITranslationReaderProvider"/>.
@@ -69,11 +69,11 @@ namespace Neptuo.Localization.GetText
             if (assemblyReaders != null || globalReaders != null)
             {
                 if (assemblyReaders == null)
-                    reader = new CompositeTranslationReader(globalReaders);
+                    reader = new EnumerationTranslationReader(globalReaders);
                 else if (globalReaders == null)
-                    reader = new CompositeTranslationReader(assemblyReaders);
+                    reader = new EnumerationTranslationReader(assemblyReaders);
                 else
-                    reader = new CompositeTranslationReader(Enumerable.Concat(assemblyReaders, globalReaders));
+                    reader = new EnumerationTranslationReader(Enumerable.Concat(assemblyReaders, globalReaders));
 
                 return true;
             }

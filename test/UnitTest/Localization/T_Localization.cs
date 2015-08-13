@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Neptuo.Localization.GetText;
+using Neptuo.Localization.Readers;
+using Neptuo.Localization.Readers.Providers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

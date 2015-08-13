@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Localization.GetText
+namespace Neptuo.Localization.Readers
 {
     /// <summary>
     /// Implementation of <see cref="ITranslationReader"/> that reads from multiple readers.
     /// </summary>
-    public class CompositeTranslationReader : ITranslationReader
+    public class EnumerationTranslationReader : ITranslationReader
     {
         private readonly IEnumerable<ITranslationReader> readers;
 
@@ -18,7 +18,7 @@ namespace Neptuo.Localization.GetText
         /// Creates new instance that reads from <paramref name="readers"/>.
         /// </summary>
         /// <param name="readers">Enumeration of readers to read from.</param>
-        public CompositeTranslationReader(IEnumerable<ITranslationReader> readers)
+        public EnumerationTranslationReader(IEnumerable<ITranslationReader> readers)
         {
             Ensure.NotNull(readers, "readers");
             this.readers = readers;

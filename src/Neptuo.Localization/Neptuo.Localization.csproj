@@ -42,13 +42,13 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="GetText\DefaultTranslationReader.cs" />
-    <Compile Include="GetText\ITranslationReader.cs" />
-    <Compile Include="GetText\ITranslationReaderProvider.cs" />
-    <Compile Include="GetText\CompositeTranslationReader.cs" />
-    <Compile Include="GetText\PlainTextTranslationReaderFactory.cs" />
-    <Compile Include="GetText\TranslationAdapter.cs" />
-    <Compile Include="GetText\TranslationReaderCollection.cs" />
+    <Compile Include="Readers\DefaultTranslationReader.cs" />
+    <Compile Include="Readers\ITranslationReader.cs" />
+    <Compile Include="Readers\Providers\ITranslationReaderProvider.cs" />
+    <Compile Include="Readers\EnumerationTranslationReader.cs" />
+    <Compile Include="Readers\PlainTextTranslationReaderFactory.cs" />
+    <Compile Include="TranslationAdapter.cs" />
+    <Compile Include="Readers\Providers\TranslationReaderCollection.cs" />
     <Compile Include="ICultureProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
@@ -64,6 +64,7 @@
   <ItemGroup>
     <None Include="Neptuo.Localization.nuspec" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>

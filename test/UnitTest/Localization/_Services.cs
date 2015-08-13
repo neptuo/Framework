@@ -1,4 +1,5 @@
-﻿using Neptuo.Localization.GetText;
+﻿using Neptuo.Localization;
+using Neptuo.Localization.Readers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
