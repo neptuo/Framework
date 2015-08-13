@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.Globalization;
 using Neptuo.Localization.Readers;
 using Neptuo.Localization.Readers.Factories;
 using Neptuo.Localization.Readers.Providers;
@@ -27,7 +28,7 @@ namespace Neptuo.Localization
         public void TranslationCollection()
         {
             TranslationReaderCollection collection = new TranslationReaderCollection()
-                .Add(new CultureInfo("cs-CZ"), new EmptyTranslationReader { Culture = new CultureInfo("cs-CZ") });
+                .Add(new CultureInfo("cs-CZ"), new EmptyTranslationReader());
 
             ITranslationReader reader;
             Assert.AreEqual(true, collection.TryGetReader(new CultureInfo("cs-CZ"), Assembly.GetCallingAssembly(), out reader));
@@ -35,7 +36,7 @@ namespace Neptuo.Localization
         }
 
         [TestMethod]
-        public void PlainTextReaderActivator()
+        public void PlainTextReaderFactory()
         {
             PlainTextTranslationReaderFactory factory = new PlainTextTranslationReaderFactory();
             using (MemoryStream fileContent = new MemoryStream())
@@ -92,7 +93,7 @@ namespace Neptuo.Localization
             File.WriteAllText(Path.Combine(rootPath, "UnitTest.cs-CZ.txt"), "Hello, World!=Ahoj!");
 
 
-            /// ------------------
+            /// EN ------------------
             ITranslationReaderProvider provider = factory.Create(rootPath);
             ITranslationReader reader;
             Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("en-US"), Assembly.GetExecutingAssembly(), out reader));
@@ -102,10 +103,42 @@ namespace Neptuo.Localization
             Assert.AreEqual("Hello, World!", translatedText);
 
 
-            /// ------------------
+            /// CS ------------------
             Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("cs-CZ"), Assembly.GetExecutingAssembly(), out reader));
             Assert.AreEqual(true, reader.TryGet("Hello, World!", out translatedText));
             Assert.AreEqual("Ahoj!", translatedText);
+        }
+
+        [TestMethod]
+        public void GetText()
+        {
+            TranslationReaderCollection collection = new TranslationReaderCollection()
+                .Add(new CultureInfo("cs-CZ"), new DefaultTranslationReader().Add("Hello, World!", "Ahoj všichni!"));
+
+            ITranslationReaderProvider provider = new GetTextTranslationReaderProvider(
+                new EnumerationCultureProvider(new CultureInfo("en-US").ParentsWithSelf()), 
+                collection
+            );
+
+
+            /// EN ------------------
+            ITranslationReader reader;
+            Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("en-US"), Assembly.GetExecutingAssembly(), out reader));
+            string translatedText;
+            Assert.AreEqual(true, reader.TryGet("Hello, World!", out translatedText));
+            Assert.AreEqual("Hello, World!", translatedText);
+
+            Assert.AreEqual(true, reader.TryGet("Hello!", out translatedText));
+            Assert.AreEqual("Hello!", translatedText);
+
+
+            /// CS ------------------
+            Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("cs-CZ"), Assembly.GetExecutingAssembly(), out reader));
+            Assert.AreEqual(true, reader.TryGet("Hello, World!", out translatedText));
+            Assert.AreEqual("Ahoj všichni!", translatedText);
+
+            Assert.AreEqual(false, reader.TryGet("Hello!", out translatedText));
+            Assert.AreEqual(null, translatedText);
         }
     }
 }

@@ -42,9 +42,12 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EnumerationCultureProvider.cs" />
     <Compile Include="Readers\DefaultTranslationReader.cs" />
+    <Compile Include="Readers\EmptyTranslationReader.cs" />
     <Compile Include="Readers\Factories\DirectoryTranslationReaderProviderFactory.cs" />
     <Compile Include="Readers\ITranslationReader.cs" />
+    <Compile Include="Readers\Providers\GetTextTranslationReaderProvider.cs" />
     <Compile Include="Readers\Providers\ITranslationReaderProvider.cs" />
     <Compile Include="Readers\EnumerationTranslationReader.cs" />
     <Compile Include="Readers\Factories\PlainTextTranslationReaderFactory.cs" />

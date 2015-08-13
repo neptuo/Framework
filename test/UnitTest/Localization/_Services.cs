@@ -13,8 +13,6 @@ namespace Neptuo.Localization
 {
     class EmptyTranslationReader : ITranslationReader
     {
-        public CultureInfo Culture { get; set; }
-
         public bool TryGet(string originalText, out string translatedText)
         {
             translatedText = null;
