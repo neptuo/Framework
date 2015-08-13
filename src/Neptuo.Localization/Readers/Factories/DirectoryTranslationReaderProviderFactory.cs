@@ -77,6 +77,8 @@ namespace Neptuo.Localization.Readers.Factories
             // Everything before last '.' use as assembly name; everthing behind last '.' use as culture info.
             string assemblyName = Path.GetFileNameWithoutExtension(fileName);
             string cultureName = Path.GetExtension(fileName);
+            if (cultureName.StartsWith("."))
+                cultureName = cultureName.Substring(1);
 
             if(CultureInfoParser.TryParse(cultureName, out culture))
             {

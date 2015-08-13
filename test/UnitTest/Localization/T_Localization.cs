@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Localization.Readers;
+using Neptuo.Localization.Readers.Factories;
 using Neptuo.Localization.Readers.Providers;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,38 @@ namespace Neptuo.Localization
 
                 Assert.AreEqual("Ahoj světe!", (L)"Hello, World!");
             }
+        }
+
+        [TestMethod]
+        public void DirectoryProviderFactory()
+        {
+            DirectoryTranslationReaderProviderFactory factory = new DirectoryTranslationReaderProviderFactory(
+                new PlainTextTranslationReaderFactory(), 
+                "*.txt"
+            );
+
+            string rootPath = @"C:\\Temp\\Localization";
+            Assert.AreEqual(true, Directory.Exists(rootPath));
+
+            File.WriteAllText(Path.Combine(rootPath, "en-US.txt"), "Hello, World!=Hello, World!");
+            File.WriteAllText(Path.Combine(rootPath, "cs-CZ.txt"), "Hello, World!=Ahoj všichni!");
+            File.WriteAllText(Path.Combine(rootPath, "UnitTest.cs-CZ.txt"), "Hello, World!=Ahoj!");
+
+
+            /// ------------------
+            ITranslationReaderProvider provider = factory.Create(rootPath);
+            ITranslationReader reader;
+            Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("en-US"), Assembly.GetExecutingAssembly(), out reader));
+
+            string translatedText;
+            Assert.AreEqual(true, reader.TryGet("Hello, World!", out translatedText));
+            Assert.AreEqual("Hello, World!", translatedText);
+
+
+            /// ------------------
+            Assert.AreEqual(true, provider.TryGetReader(new CultureInfo("cs-CZ"), Assembly.GetExecutingAssembly(), out reader));
+            Assert.AreEqual(true, reader.TryGet("Hello, World!", out translatedText));
+            Assert.AreEqual("Ahoj!", translatedText);
         }
     }
 }
