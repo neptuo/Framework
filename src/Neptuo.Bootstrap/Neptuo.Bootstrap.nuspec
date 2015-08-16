@@ -1,16 +1,14 @@
 <?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <projectUrl>http://www.neptuo.com</projectUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
-    <tags>Neptuo Bootstrap</tags>
-  </metadata>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.bootstrap</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.bootstrap</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>$description$</description>
+        <tags>Neptuo</tags>
+    </metadata>
 </package>
