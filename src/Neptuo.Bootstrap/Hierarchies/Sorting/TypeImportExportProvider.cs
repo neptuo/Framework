@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies.Sorting
+namespace Neptuo.Bootstrap.Hierarchies.Sorting
 {
     public class TypeImportExportProvider : ISortInputProvider, ISortOutputProvider
     {

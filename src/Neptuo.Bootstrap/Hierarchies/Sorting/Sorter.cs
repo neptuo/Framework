@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies.Sorting
+namespace Neptuo.Bootstrap.Hierarchies.Sorting
 {
-    public class HierarchySorter
+    public class Sorter
     {
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
 
-        public HierarchySorter(ISortInputProvider inputProvider, ISortOutputProvider outputProvider)
+        public Sorter(ISortInputProvider inputProvider, ISortOutputProvider outputProvider)
         {
             this.inputProvider = inputProvider;
             this.outputProvider = outputProvider;

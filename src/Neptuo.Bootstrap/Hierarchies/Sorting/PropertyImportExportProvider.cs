@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap.Dependencies.Sorting
+namespace Neptuo.Bootstrap.Hierarchies.Sorting
 {
     /// <summary>
     /// Implementation of <see cref="ISortInputProvider"/> and <see cref="ISortOutputProvider"/> based on properties decorated 
