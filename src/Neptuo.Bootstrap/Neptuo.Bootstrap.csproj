@@ -80,6 +80,7 @@
     <Compile Include="Hierarchies\Sorting\PropertyImportExportProvider.cs" />
     <Compile Include="Hierarchies\Sorting\ISortInputProvider.cs" />
     <Compile Include="IBootstrapper.cs" />
+    <Compile Include="IBootstrapTaskCollection.cs" />
     <Compile Include="IBootstrapTaskRegistry.cs" />
     <Compile Include="IBootstrapTask.cs" />
     <Compile Include="Constraints\IgnoreAutomaticConstraintAttribute.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="ProxyBootstrapTask.cs" />
     <Compile Include="SequenceBootstrapper.cs" />
+    <Compile Include="_BootstrapTaskCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.Bootstrap.nuspec" />

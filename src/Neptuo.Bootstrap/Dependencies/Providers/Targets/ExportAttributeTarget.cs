@@ -17,7 +17,7 @@ namespace Neptuo.Bootstrap.Dependencies.Providers.Targets
             Ensure.NotNull(propertyInfo, "propertyInfo");
             Ensure.NotNull(attribute, "attribute");
             Type = propertyInfo.PropertyType;
-            Name = attribute.Name;
+            //Name = attribute.Name;
         }
 
         public bool Equals(IDependencyTarget other)

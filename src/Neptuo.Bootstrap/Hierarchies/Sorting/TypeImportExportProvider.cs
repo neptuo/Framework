@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Dependencies;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
