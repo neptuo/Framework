@@ -53,7 +53,7 @@ namespace Neptuo.Bootstrap
 
         protected virtual void InitializeTask(IBootstrapHandler task)
         {
-            task.Initialize();
+            task.HandleAsync();
         }
     }
 }

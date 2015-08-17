@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
+    /// <summary>
+    /// Application initializer facade.
+    /// </summary>
     public interface IBootstrapper
     {
-        void Initialize();
+        /// <summary>
+        /// Processes initialization.
+        /// </summary>
+        /// <returns>Continuation task.</returns>
+        Task Initialize();
     }
 }

@@ -19,11 +19,13 @@ namespace Neptuo.Bootstrap
             this.factory = factory;
         }
 
-        public void Initialize()
+        public Task HandleAsync()
         {
-            IBootstrapHandler task = factory();
-            if (task != null)
-                task.Initialize();
+            IBootstrapHandler handler = factory();
+            if (handler != null)
+                return handler.HandleAsync();
+
+            return Task.FromResult(false);
         }
     }
 }

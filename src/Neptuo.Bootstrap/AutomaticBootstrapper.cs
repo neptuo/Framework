@@ -36,7 +36,7 @@ namespace Neptuo.Bootstrap
             }
 
             foreach (IBootstrapHandler task in Tasks)
-                task.Initialize();
+                task.HandleAsync();
         }
 
         protected virtual IEnumerable<Type> FindTypes()

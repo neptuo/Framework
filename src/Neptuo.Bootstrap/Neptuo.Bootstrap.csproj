@@ -84,6 +84,7 @@
     <Compile Include="Dependencies\__Providers\PropertyExportDescriptor.cs" />
     <Compile Include="Dependencies\__Providers\PropertyImportDescriptor.cs" />
     <Compile Include="Dependencies\__Providers\PropertyDescriptorProvider.cs" />
+    <Compile Include="Handlers\BootstrapHandlerBase.cs" />
     <Compile Include="Hierarchies\Bootstrapper.cs" />
     <Compile Include="Hierarchies\Sorting\ConstructorSortInputProvider.cs" />
     <Compile Include="Hierarchies\Sorting\Sorter.cs" />

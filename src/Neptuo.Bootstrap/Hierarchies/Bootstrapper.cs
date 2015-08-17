@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Hierarchies
 {
+    /// <summary>
+    /// Hierarchical (input->output auto sorting) based implementation of <see cref="IBootstrapper"/>.
+    /// </summary>
     public class Bootstrapper : IBootstrapper, IBootstrapTaskCollection
     {
         private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
@@ -72,7 +75,7 @@ namespace Neptuo.Bootstrap.Hierarchies
             return AddDefaultDependency(typeof(T));
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
             // Sort tasks.
             IEnumerable<Type> sourceTypes = storage.Keys;
@@ -88,11 +91,8 @@ namespace Neptuo.Bootstrap.Hierarchies
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(null, null));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
-                //pipeline.ExecuteAsync(task);
-                //TODO: continue here.
+                await pipeline.ExecuteAsync(task);
             }
         }
-
-        
     }
 }

@@ -77,7 +77,7 @@ namespace Neptuo.Bootstrap
             if (AreConstraintsSatisfied(descriptor.Instance))
             {
                 // Run task.
-                descriptor.Instance.Initialize();
+                descriptor.Instance.HandleAsync();
 
                 // Export.
                 ProcessExports(descriptor, descriptor.Instance);

@@ -6,8 +6,15 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Handlers
 {
+    /// <summary>
+    /// Single bootstrap step handler.
+    /// </summary>
     public interface IBootstrapHandler
     {
-        void Initialize();
+        /// <summary>
+        /// Called to process intialization.
+        /// </summary>
+        /// <returns>Continuation task.</returns>
+        Task HandleAsync();
     }
 }
