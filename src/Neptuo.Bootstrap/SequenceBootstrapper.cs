@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Neptuo.Bootstrap
 {
     public class SequenceBootstrapper : ManualBootstrapper
     {
-        public SequenceBootstrapper(Func<Type, IBootstrapTask> factory)
+        public SequenceBootstrapper(Func<Type, IBootstrapHandler> factory)
             : base(factory)
         { }
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap
+namespace Neptuo.Bootstrap.Handlers
 {
-    public interface IBootstrapTask
+    public interface IBootstrapHandler
     {
         void Initialize();
     }

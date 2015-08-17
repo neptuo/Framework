@@ -3,6 +3,7 @@ using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Constraints.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Neptuo.Bootstrap
 {
     public class HierarchicalBuilder : IHierarchicalBuilderActivator, IHierarchicalBuilderConstraint, IHierarchicalBuilderDescriptor, IHierarchicalBuilderExporter
     {
-        private Func<Type, IBootstrapTask> activator;
+        private Func<Type, IBootstrapHandler> activator;
         private IBootstrapConstraintProvider constraintProvider;
         private IDependencyDescriptorProvider descriptorProvider;
 
@@ -22,11 +23,11 @@ namespace Neptuo.Bootstrap
         public IHierarchicalBuilderConstraint WithActivator(IDependencyProvider dependencyProvider)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
-            activator = type => (IBootstrapTask)dependencyProvider.Resolve(type);
+            activator = type => (IBootstrapHandler)dependencyProvider.Resolve(type);
             return this;
         }
 
-        public IHierarchicalBuilderConstraint WithActivator(Func<Type, IBootstrapTask> activator)
+        public IHierarchicalBuilderConstraint WithActivator(Func<Type, IBootstrapHandler> activator)
         {
             Ensure.NotNull(activator, "activator");
             this.activator = activator;
@@ -35,7 +36,7 @@ namespace Neptuo.Bootstrap
 
         public IHierarchicalBuilderConstraint WithSystemActivator()
         {
-            activator = type => (IBootstrapTask)Activator.CreateInstance(type);
+            activator = type => (IBootstrapHandler)Activator.CreateInstance(type);
             return this;
         }
 
@@ -102,7 +103,7 @@ namespace Neptuo.Bootstrap
     public interface IHierarchicalBuilderActivator
     {
         IHierarchicalBuilderConstraint WithActivator(IDependencyProvider dependencyProvider);
-        IHierarchicalBuilderConstraint WithActivator(Func<Type, IBootstrapTask> activator);
+        IHierarchicalBuilderConstraint WithActivator(Func<Type, IBootstrapHandler> activator);
         IHierarchicalBuilderConstraint WithSystemActivator();
     }
 

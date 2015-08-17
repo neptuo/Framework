@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace Neptuo.Bootstrap.Constraints
         /// <param name="bootstrapTask">Task, where <paramref name="constraints"/> was defined.</param>
         /// <param name="context">Context of evaluation.</param>
         /// <returns>If any constraint will not satisfies, returns <c>false</c>; if all satisfies, returns <c>true</c>.</returns>
-        public static bool IsSatisfied(this IEnumerable<IBootstrapConstraint> constraints, IBootstrapTask bootstrapTask, IBootstrapConstraintContext context)
+        public static bool IsSatisfied(this IEnumerable<IBootstrapConstraint> constraints, IBootstrapHandler bootstrapTask, IBootstrapConstraintContext context)
         {
             foreach (IBootstrapConstraint constraint in constraints)
             {

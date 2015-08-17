@@ -37,7 +37,7 @@ namespace TestConsole.BootstrapTasks
                 .AddScoped<string>(dependencyContainer.ScopeName, "Hi")
                 .AddScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);
 
-            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapTask>(task));
+            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapHandler>(task));
             bootstrapper.Register<Sequence.WriterBootstrapTask>();
             bootstrapper.Register<Sequence.HelloBootstrapTask>();
             bootstrapper.Initialize();
@@ -103,7 +103,7 @@ namespace TestConsole.BootstrapTasks
 
     namespace Sequence
     {
-        public class HelloBootstrapTask : IBootstrapTask
+        public class HelloBootstrapTask : IBootstrapHandler
         {
             //private readonly EngineEnvironment environment;
             //private readonly string helloText;
@@ -122,7 +122,7 @@ namespace TestConsole.BootstrapTasks
             }
         }
 
-        public class WriterBootstrapTask : IBootstrapTask
+        public class WriterBootstrapTask : IBootstrapHandler
         {
             //private readonly EngineEnvironment environment;
             //private readonly TextWriter writer;
@@ -142,7 +142,7 @@ namespace TestConsole.BootstrapTasks
 
     namespace Hierarchical
     {
-        public class HelloBootstrapTask : IBootstrapTask
+        public class HelloBootstrapTask : IBootstrapHandler
         {
             private readonly string helloText;
 
@@ -163,7 +163,7 @@ namespace TestConsole.BootstrapTasks
             }
         }
 
-        public class WriterBootstrapTask : IBootstrapTask
+        public class WriterBootstrapTask : IBootstrapHandler
         {
             private readonly TextWriter writer;
 

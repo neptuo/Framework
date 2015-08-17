@@ -1,4 +1,9 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Behaviors.Processing;
+using Neptuo.Behaviors.Processing.Reflection;
+using Neptuo.Behaviors.Providers;
+using Neptuo.Bootstrap.Behaviors;
+using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
 using System;
 using System.Collections.Generic;
@@ -10,7 +15,7 @@ namespace Neptuo.Bootstrap.Hierarchies
 {
     public class Bootstrapper : IBootstrapper, IBootstrapTaskCollection
     {
-        private readonly Dictionary<Type, IFactory<IBootstrapTask>> storage = new Dictionary<Type, IFactory<IBootstrapTask>>();
+        private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
         private readonly List<Type> defaultDependencies = new List<Type>();
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
@@ -24,7 +29,7 @@ namespace Neptuo.Bootstrap.Hierarchies
         }
 
         public IBootstrapTaskCollection Add<T>(IFactory<T> factory)
-            where T : class, IBootstrapTask
+            where T : class, IBootstrapHandler
         {
             Ensure.NotNull(factory, "factory");
             storage[typeof(T)] = factory;
@@ -32,9 +37,9 @@ namespace Neptuo.Bootstrap.Hierarchies
         }
 
         public bool TryGet<T>(out IFactory<T> factory)
-            where T : class, IBootstrapTask
+            where T : class, IBootstrapHandler
         {
-            IFactory<IBootstrapTask> innerFactory;
+            IFactory<IBootstrapHandler> innerFactory;
             if (storage.TryGetValue(typeof(T), out innerFactory))
             {
                 factory = (IFactory<T>)innerFactory;
@@ -77,9 +82,17 @@ namespace Neptuo.Bootstrap.Hierarchies
             // Create instances (if needed).
             foreach (Type targetType in targetTypes)
             {
-                IBootstrapTask task = storage[targetType].Create();
-                task.Initialize();
+                IBootstrapHandler task = storage[targetType].Create();
+
+                IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(new BehaviorProviderCollection(), new DefaultReflectionBehaviorFactory());
+                pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(null, null));
+                pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
+
+                //pipeline.ExecuteAsync(task);
+                //TODO: continue here.
             }
         }
+
+        
     }
 }

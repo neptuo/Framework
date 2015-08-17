@@ -1,4 +1,5 @@
 ﻿using Neptuo.Bootstrap.Dependencies.Providers.Targets;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Neptuo.Bootstrap.Dependencies.Providers
             TargetProperty = targetProperty;
         }
 
-        public object GetValue(IBootstrapTask task)
+        public object GetValue(IBootstrapHandler task)
         {
             return TargetProperty.GetValue(task);
         }

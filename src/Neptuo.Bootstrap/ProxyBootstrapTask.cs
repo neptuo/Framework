@@ -1,4 +1,5 @@
 ﻿using Neptuo.Bootstrap.Constraints;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 namespace Neptuo.Bootstrap
 {
     [IgnoreAutomaticConstraint]
-    internal class ProxyBootstrapTask : IBootstrapTask
+    internal class ProxyBootstrapTask : IBootstrapHandler
     {
-        private Func<IBootstrapTask> factory;
+        private Func<IBootstrapHandler> factory;
 
-        public ProxyBootstrapTask(Func<IBootstrapTask> factory)
+        public ProxyBootstrapTask(Func<IBootstrapHandler> factory)
         {
             Ensure.NotNull(factory, "factory");
             this.factory = factory;
@@ -20,7 +21,7 @@ namespace Neptuo.Bootstrap
 
         public void Initialize()
         {
-            IBootstrapTask task = factory();
+            IBootstrapHandler task = factory();
             if (task != null)
                 task.Initialize();
         }

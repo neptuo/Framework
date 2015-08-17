@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Bootstrap
 {
     /// <summary>
-    /// Collection of <see cref="IBootstrapTask"/>.
+    /// Collection of <see cref="IBootstrapHandler"/>.
     /// </summary>
     public interface IBootstrapTaskCollection
     {
@@ -19,7 +20,7 @@ namespace Neptuo.Bootstrap
         /// <param name="factory">Provider for bootstrap task of type <typeparamref name="T"/>.</param>
         /// <returns>Self (for fluency).</returns>
         IBootstrapTaskCollection Add<T>(IFactory<T> factory)
-            where T : class, IBootstrapTask;
+            where T : class, IBootstrapHandler;
 
         /// <summary>
         /// Returns <c>true</c> when <paramref name="factory"/> for bootstrap task of type <paramref name="T"/> is registered.
@@ -28,6 +29,6 @@ namespace Neptuo.Bootstrap
         /// <param name="factory">Provider for bootstrap task of type <typeparamref name="T"/>.</param>
         /// <returns><c>true</c>when <paramref name="factory"/> for bootstrap task of type <paramref name="T"/> is registered; <c>false</c> otherwise.</returns>
         bool TryGet<T>(out IFactory<T> factory)
-            where T : class, IBootstrapTask;
+            where T : class, IBootstrapHandler;
     }
 }

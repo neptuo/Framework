@@ -2,6 +2,7 @@
 using Neptuo.Bootstrap.Dependencies;
 using Neptuo.Bootstrap.Dependencies.Providers;
 using Neptuo.Bootstrap.Dependencies.Providers.Targets;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace Neptuo.Bootstrap
             this.context = context;
         }
 
-        public void Register(IBootstrapTask task)
+        public void Register(IBootstrapHandler task)
         {
             Ensure.NotNull(task, "task");
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(task.GetType());
@@ -43,7 +44,7 @@ namespace Neptuo.Bootstrap
         }
 
         public void Register<T>() 
-            where T : IBootstrapTask
+            where T : IBootstrapHandler
         {
             BootstrapTaskDescriptor descriptor = new BootstrapTaskDescriptor(typeof(T));
             descriptor.Imports.AddRange(context.DescriptorProvider.GetImports(descriptor.Type));
@@ -102,7 +103,7 @@ namespace Neptuo.Bootstrap
             }
         }
 
-        private void ProcessExports(BootstrapTaskDescriptor descriptor, IBootstrapTask task)
+        private void ProcessExports(BootstrapTaskDescriptor descriptor, IBootstrapHandler task)
         {
             foreach (IDependencyExportDescriptor exportDescriptor in descriptor.Exports)
                 context.DependencyExporter.Export(exportDescriptor, exportDescriptor.GetValue(task));
@@ -146,7 +147,7 @@ namespace Neptuo.Bootstrap
         private class BootstrapTaskDescriptor
         {
             public Type Type { get; private set; }
-            public IBootstrapTask Instance { get; set; }
+            public IBootstrapHandler Instance { get; set; }
 
             public List<IDependencyImportDescriptor> Imports { get; private set; }
             public List<IDependencyExportDescriptor> Exports { get; private set; }

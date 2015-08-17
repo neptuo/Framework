@@ -1,4 +1,5 @@
 ﻿using Neptuo.Bootstrap.Constraints;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,11 @@ namespace Neptuo.Bootstrap
     {
         private IEnumerable<Type> types;
 
-        public AutomaticBootstrapper(Func<Type, IBootstrapTask> factory, IBootstrapConstraintProvider provider = null)
+        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IBootstrapConstraintProvider provider = null)
             : base(factory, provider)
         { }
 
-        public AutomaticBootstrapper(Func<Type, IBootstrapTask> factory, IEnumerable<Type> types, IBootstrapConstraintProvider provider = null)
+        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IEnumerable<Type> types, IBootstrapConstraintProvider provider = null)
             : base(factory, provider)
         {
             this.types = AddSupportedTypes(new List<Type>(), types);
@@ -29,12 +30,12 @@ namespace Neptuo.Bootstrap
 
             foreach (Type type in types)
             {
-                IBootstrapTask instance = CreateInstance(type);
+                IBootstrapHandler instance = CreateInstance(type);
                 if (AreConstraintsSatisfied(instance))
                     Tasks.Add(instance);
             }
 
-            foreach (IBootstrapTask task in Tasks)
+            foreach (IBootstrapHandler task in Tasks)
                 task.Initialize();
         }
 
@@ -63,7 +64,7 @@ namespace Neptuo.Bootstrap
             if (target == null)
                 target = new List<Type>();
 
-            Type bootstrapInterfaceType = typeof(IBootstrapTask);
+            Type bootstrapInterfaceType = typeof(IBootstrapHandler);
             foreach (Type type in sourceTypes)
             {
                 if (bootstrapInterfaceType.IsAssignableFrom(type) && bootstrapInterfaceType != type && !type.IsAbstract && !type.IsInterface)

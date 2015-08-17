@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Neptuo.Bootstrap
 {
     public class ManualBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
     {
-        public ManualBootstrapper(Func<Type, IBootstrapTask> factory)
+        public ManualBootstrapper(Func<Type, IBootstrapHandler> factory)
             : base(factory)
         { }
 
@@ -18,12 +19,12 @@ namespace Neptuo.Bootstrap
         }
 
         public void Register<T>()
-            where T : IBootstrapTask
+            where T : IBootstrapHandler
         {
             Register(typeof(T));
         }
 
-        public virtual void Register(IBootstrapTask task)
+        public virtual void Register(IBootstrapHandler task)
         {
             if (task != null)
                 Tasks.Add(task);

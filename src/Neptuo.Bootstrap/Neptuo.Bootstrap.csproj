@@ -11,6 +11,8 @@
     <AssemblyName>Neptuo.Bootstrap</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +33,14 @@
     <DocumentationFile>bin\Release\Neptuo.Bootstrap.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Neptuo.Behaviors, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Behaviors.1.0.1\lib\net45\Neptuo.Behaviors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +54,8 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutomaticBootstrapper.cs" />
+    <Compile Include="Behaviors\InitializeBehavior.cs" />
+    <Compile Include="Behaviors\DependencyPropertyBehavior.cs" />
     <Compile Include="BootstrapperBase.cs" />
     <Compile Include="Constraints\ConstraintAttribute.cs" />
     <Compile Include="Constraints\Providers\AttributeConstraintProvider.cs" />
@@ -85,7 +97,7 @@
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTaskCollection.cs" />
     <Compile Include="IBootstrapTaskRegistry.cs" />
-    <Compile Include="IBootstrapTask.cs" />
+    <Compile Include="Handlers\IBootstrapHandler.cs" />
     <Compile Include="Constraints\IgnoreAutomaticConstraintAttribute.cs" />
     <Compile Include="ManualBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,14 +111,16 @@
     <None Include="Neptuo.Bootstrap.xml">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
-      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
-      <Name>Neptuo</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
 </Project>

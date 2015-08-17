@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Bootstrap.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Neptuo.Bootstrap
 {
     public interface IBootstrapTaskRegistry
     {
-        void Register(IBootstrapTask task);
-        void Register<T>() where T : IBootstrapTask;
+        void Register(IBootstrapHandler task);
+        void Register<T>() where T : IBootstrapHandler;
     }
 }

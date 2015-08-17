@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,7 @@ namespace Neptuo.Bootstrap
         /// <param name="task">Task to be added.</param>
         /// <returns><paramref name="collection"/>.</returns>
         public static IBootstrapTaskCollection Add<T>(this IBootstrapTaskCollection collection, T task)
-            where T : class, IBootstrapTask
+            where T : class, IBootstrapHandler
         {
             Ensure.NotNull(collection, "collection");
             Ensure.NotNull(task, "task");
@@ -35,7 +36,7 @@ namespace Neptuo.Bootstrap
         /// <param name="taskGetter">Func to provide instance of task.</param>
         /// <returns><paramref name="collection"/>.</returns>
         public static IBootstrapTaskCollection Add<T>(this IBootstrapTaskCollection collection, Func<T> taskGetter)
-            where T : class, IBootstrapTask
+            where T : class, IBootstrapHandler
         {
             Ensure.NotNull(collection, "collection");
             Ensure.NotNull(taskGetter, "taskGetter");
@@ -50,7 +51,7 @@ namespace Neptuo.Bootstrap
         /// <param name="dependencyProvider">Provider used to create instance of <see cref="DependencyFactory{T}"/>.</param>
         /// <returns><paramref name="collection"/>.</returns>
         public static IBootstrapTaskCollection Add<T>(this IBootstrapTaskCollection collection, IDependencyProvider dependencyProvider)
-            where T : class, IBootstrapTask
+            where T : class, IBootstrapHandler
         {
             Ensure.NotNull(collection, "collection");
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
@@ -64,7 +65,7 @@ namespace Neptuo.Bootstrap
         /// <param name="collection">Collection of tasks.</param>
         /// <returns><paramref name="collection"/>.</returns>
         public static IBootstrapTaskCollection Add<T>(this IBootstrapTaskCollection collection)
-            where T : class, IBootstrapTask, new()
+            where T : class, IBootstrapHandler, new()
         {
             Ensure.NotNull(collection, "collection");
             return collection.Add(new DefaultFactory<T>());

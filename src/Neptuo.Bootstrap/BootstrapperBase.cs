@@ -1,5 +1,6 @@
 ﻿using Neptuo.Bootstrap.Constraints;
 using Neptuo.Bootstrap.Constraints.Providers;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,30 +12,30 @@ namespace Neptuo.Bootstrap
     public abstract class BootstrapperBase : IBootstrapper
     {
         private IBootstrapConstraintProvider provider;
-        private Func<Type, IBootstrapTask> factory;
+        private Func<Type, IBootstrapHandler> factory;
 
-        protected List<IBootstrapTask> Tasks { get; private set; }
+        protected List<IBootstrapHandler> Tasks { get; private set; }
 
-        public BootstrapperBase(Func<Type, IBootstrapTask> factory, IBootstrapConstraintProvider provider = null)
+        public BootstrapperBase(Func<Type, IBootstrapHandler> factory, IBootstrapConstraintProvider provider = null)
         {
             Ensure.NotNull(factory, "factory");
             this.factory = factory;
             this.provider = provider ?? new NullObjectConstrainProvider();
-            Tasks = new List<IBootstrapTask>();
+            Tasks = new List<IBootstrapHandler>();
         }
 
-        protected IBootstrapTask CreateInstance(Type type)
+        protected IBootstrapHandler CreateInstance(Type type)
         {
             return factory(type);
         }
 
-        protected IBootstrapTask CreateInstance<T>()
-            where T : IBootstrapTask
+        protected IBootstrapHandler CreateInstance<T>()
+            where T : IBootstrapHandler
         {
             return factory(typeof(T));
         }
 
-        protected bool AreConstraintsSatisfied(IBootstrapTask task)
+        protected bool AreConstraintsSatisfied(IBootstrapHandler task)
         {
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
             return provider.GetConstraints(task.GetType()).IsSatisfied(task, context);
@@ -43,14 +44,14 @@ namespace Neptuo.Bootstrap
         public virtual void Initialize()
         {
             IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
-            foreach (IBootstrapTask task in Tasks)
+            foreach (IBootstrapHandler task in Tasks)
             {
                 if (provider.GetConstraints(task.GetType()).IsSatisfied(task, context))
                     InitializeTask(task);
             }
         }
 
-        protected virtual void InitializeTask(IBootstrapTask task)
+        protected virtual void InitializeTask(IBootstrapHandler task)
         {
             task.Initialize();
         }
