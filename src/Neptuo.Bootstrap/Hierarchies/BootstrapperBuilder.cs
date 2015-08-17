@@ -28,24 +28,24 @@ namespace Neptuo.Bootstrap.Hierarchies
         /// <summary>
         /// Adds handler input dependency sorting provider.
         /// </summary>
-        /// <param name="inputSorter">Component providing handler inputs.</param>
+        /// <param name="inputProvider">Component providing handler inputs.</param>
         /// <returns>Self (for fluency).</returns>
-        public BootstrapperBuilder AddInputSorter(ISortInputProvider inputSorter)
+        public BootstrapperBuilder AddSortInputProvider(ISortInputProvider inputProvider)
         {
-            Ensure.NotNull(inputSorter, "inputSorter");
-            this.inputSorter = inputSorter;
+            Ensure.NotNull(inputProvider, "inputProvider");
+            this.inputSorter = inputProvider;
             return this;
         }
 
         /// <summary>
         /// Adds handler output (product) sorting provider.
         /// </summary>
-        /// <param name="outputSorter">Component providing handler outputs.</param>
+        /// <param name="outputProvider">Component providing handler outputs.</param>
         /// <returns>Self (for fluency).</returns>
-        public BootstrapperBuilder AddOutputSorter(ISortOutputProvider outputSorter)
+        public BootstrapperBuilder AddSortOutputProvider(ISortOutputProvider outputProvider)
         {
-            Ensure.NotNull(outputSorter, "outputSorter");
-            this.outputSorter = outputSorter;
+            Ensure.NotNull(outputProvider, "outputProvider");
+            this.outputSorter = outputProvider;
             return this;
         }
 
