@@ -54,6 +54,8 @@
     <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
     <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
     <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
+    <Compile Include="Dependencies\ExportTypeAttribute.cs" />
+    <Compile Include="Dependencies\ImportTypeAttribute.cs" />
     <Compile Include="Dependencies\Providers\Exporters\EmptyDependencyExporter.cs" />
     <Compile Include="Dependencies\ExportAttribute.cs" />
     <Compile Include="Dependencies\Providers\Targets\ExportAttributeTarget.cs" />
@@ -67,9 +69,14 @@
     <Compile Include="Dependencies\Providers\PropertyExportDescriptor.cs" />
     <Compile Include="Dependencies\Providers\PropertyImportDescriptor.cs" />
     <Compile Include="Dependencies\Providers\PropertyDescriptorProvider.cs" />
+    <Compile Include="Dependencies\Sorting\ConstructorSortInputProvider.cs" />
+    <Compile Include="Dependencies\Sorting\ISortOutputProvider.cs" />
+    <Compile Include="Dependencies\Sorting\TypeImportExportProvider.cs" />
     <Compile Include="HierarchicalBootstrapper.cs" />
     <Compile Include="HierarchicalBuilder.cs" />
     <Compile Include="HierarchicalContext.cs" />
+    <Compile Include="Dependencies\Sorting\PropertyImportExportProvider.cs" />
+    <Compile Include="Dependencies\Sorting\ISortInputProvider.cs" />
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTaskRegistry.cs" />
     <Compile Include="IBootstrapTask.cs" />
