@@ -19,16 +19,18 @@ namespace Neptuo.Bootstrap.Hierarchies
     public class Bootstrapper : IBootstrapper, IBootstrapTaskCollection
     {
         private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
-        private readonly List<Type> defaultDependencies = new List<Type>();
+        private readonly List<Type> defaultDependencies;
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
 
-        public Bootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider)
+        public Bootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider, IEnumerable<Type> defaultDependencies)
         {
             Ensure.NotNull(inputProvider, "inputProvider");
             Ensure.NotNull(outputProvider, "outputProvider");
+            Ensure.NotNull(defaultDependencies, "defaultDependencies");
             this.inputProvider = inputProvider;
             this.outputProvider = outputProvider;
+            this.defaultDependencies = new List<Type>(defaultDependencies);
         }
 
         public IBootstrapTaskCollection Add<T>(IFactory<T> factory)
