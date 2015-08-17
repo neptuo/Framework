@@ -3,6 +3,7 @@ using Neptuo.Behaviors.Processing;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
 using Neptuo.Bootstrap.Behaviors;
+using Neptuo.Bootstrap.Dependencies.Handlers;
 using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
 using System;
@@ -22,15 +23,29 @@ namespace Neptuo.Bootstrap.Hierarchies
         private readonly List<Type> defaultDependencies;
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
+        private readonly IDependencyImporter dependencyImporter;
+        private readonly IDependencyExporter dependencyExporter;
+        private readonly IBehaviorProvider behaviorProvider;
+        private readonly IReflectionBehaviorFactory reflectionBehaviorFactory;
 
-        public Bootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider, IEnumerable<Type> defaultDependencies)
+        internal Bootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider, IEnumerable<Type> defaultDependencies, 
+            IDependencyImporter dependencyImporter, IDependencyExporter dependencyExporter, 
+            IBehaviorProvider behaviorProvider, IReflectionBehaviorFactory reflectionBehaviorFactory)
         {
             Ensure.NotNull(inputProvider, "inputProvider");
             Ensure.NotNull(outputProvider, "outputProvider");
             Ensure.NotNull(defaultDependencies, "defaultDependencies");
+            Ensure.NotNull(dependencyImporter, "dependencyImporter");
+            Ensure.NotNull(dependencyExporter, "dependencyExporter");
+            Ensure.NotNull(behaviorProvider, "behaviorProvider");
+            Ensure.NotNull(reflectionBehaviorFactory, "reflectionBehaviorFactory");
             this.inputProvider = inputProvider;
             this.outputProvider = outputProvider;
             this.defaultDependencies = new List<Type>(defaultDependencies);
+            this.dependencyImporter = dependencyImporter;
+            this.dependencyExporter = dependencyExporter;
+            this.behaviorProvider = behaviorProvider;
+            this.reflectionBehaviorFactory = reflectionBehaviorFactory;
         }
 
         public IBootstrapTaskCollection Add<T>(IFactory<T> factory)
@@ -89,8 +104,8 @@ namespace Neptuo.Bootstrap.Hierarchies
             {
                 IBootstrapHandler task = storage[targetType].Create();
 
-                IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(new BehaviorProviderCollection(), new DefaultReflectionBehaviorFactory());
-                pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(null, null));
+                IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(behaviorProvider, reflectionBehaviorFactory);
+                pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
                 await pipeline.ExecuteAsync(task);
