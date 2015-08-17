@@ -6,17 +6,32 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap.Hierarchies.Sorting
 {
-    public class Sorter
+    /// <summary>
+    /// Provides sorting alogorithm.
+    /// For every input, output provider is executed first.
+    /// </summary>
+    internal class Sorter
     {
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
 
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="inputProvider">Input parameter provider.</param>
+        /// <param name="outputProvider">Output parameter provider.</param>
         public Sorter(ISortInputProvider inputProvider, ISortOutputProvider outputProvider)
         {
             this.inputProvider = inputProvider;
             this.outputProvider = outputProvider;
         }
 
+        /// <summary>
+        /// Sorts <paramref name="types"/> so "every input, output provider is executed first".
+        /// </summary>
+        /// <param name="types">Types to sort.</param>
+        /// <param name="defaultOutputs">Default (already available) inputs.</param>
+        /// <returns>Sorted <paramref name="types"/>.</returns>
         public IEnumerable<Type> Sort(IEnumerable<Type> types, List<Type> defaultOutputs)
         {
             Ensure.NotNull(types, "types");
