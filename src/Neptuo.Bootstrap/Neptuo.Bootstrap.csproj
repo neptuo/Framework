@@ -70,6 +70,7 @@
     <Compile Include="Dependencies\Providers\PropertyImportDescriptor.cs" />
     <Compile Include="Dependencies\Providers\PropertyDescriptorProvider.cs" />
     <Compile Include="Dependencies\Sorting\ConstructorSortInputProvider.cs" />
+    <Compile Include="Dependencies\Sorting\Sorter.cs" />
     <Compile Include="Dependencies\Sorting\ISortOutputProvider.cs" />
     <Compile Include="Dependencies\Sorting\TypeImportExportProvider.cs" />
     <Compile Include="HierarchicalBootstrapper.cs" />
