@@ -1,5 +1,6 @@
 ﻿using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
+using Neptuo.Bootstrap.Behaviors;
 using Neptuo.Bootstrap.Dependencies.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Bootstrap.Hierarchies
 {
     /// <summary>
-    /// Builder for <see cref="BootstrapperS"/>.
+    /// Builder for <see cref="AutomaticBootstrapper"/> and <see cref="ManualBootstrapper"/>.
     /// Methods <see cref="BootstrapperBuilder.AddDependencyImporter"/> and <see cref="BootstrapperBuilder.AddDependencyExporter"/> must be called.
     /// Other components can be omitted.
     /// </summary>
@@ -24,6 +25,15 @@ namespace Neptuo.Bootstrap.Hierarchies
         private List<Type> defaultDependencies;
         private IBehaviorProvider behaviorProvider;
         private IReflectionBehaviorFactory reflectionBehaviorFactory;
+
+        public BootstrapperBuilder()
+        {
+            behaviorProvider = new BehaviorProviderCollection()
+                .Add(
+                    new AttributeBehaviorCollection()
+                        .Add<IgnoreAutomaticAttribute, IgnoreAutomaticBehavior>()
+                );
+        }
 
         /// <summary>
         /// Adds handler input dependency sorting provider.
@@ -178,7 +188,13 @@ namespace Neptuo.Bootstrap.Hierarchies
         public AutomaticBootstrapper ToAutomaticBootstrapper()
         {
             return new AutomaticBootstrapper(
-
+                inputSorter ?? new PropertyImportExportProvider(),
+                outputSorter ?? new PropertyImportExportProvider(),
+                defaultDependencies ?? new List<Type>(),
+                dependencyImporter,
+                dependencyExporter,
+                behaviorProvider ?? new BehaviorProviderCollection(),
+                reflectionBehaviorFactory ?? new DefaultReflectionBehaviorFactory()
             );
         }
     }

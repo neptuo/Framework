@@ -6,6 +6,7 @@ using Neptuo.Bootstrap.Behaviors;
 using Neptuo.Bootstrap.Dependencies.Handlers;
 using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,7 @@ namespace Neptuo.Bootstrap.Hierarchies
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
-                await pipeline.ExecuteAsync(task);
+                await pipeline.ExecuteAsync(task, new KeyValueCollection().Add("IsAutomatic", true));
             }
         }
     }

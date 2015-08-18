@@ -1,5 +1,4 @@
-﻿using Neptuo.Bootstrap.Constraints;
-using Neptuo.Bootstrap.Handlers;
+﻿using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,17 +12,17 @@ namespace Neptuo.Bootstrap
     {
         private IEnumerable<Type> types;
 
-        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IBootstrapConstraintProvider provider = null)
-            : base(factory, provider)
+        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory)
+            : base(factory)
         { }
 
-        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IEnumerable<Type> types, IBootstrapConstraintProvider provider = null)
-            : base(factory, provider)
+        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IEnumerable<Type> types)
+            : base(factory)
         {
             this.types = AddSupportedTypes(new List<Type>(), types);
         }
 
-        public override void Initialize()
+        public async override Task Initialize()
         {
             if (types == null)
                 types = FindTypes();
@@ -31,12 +30,11 @@ namespace Neptuo.Bootstrap
             foreach (Type type in types)
             {
                 IBootstrapHandler instance = CreateInstance(type);
-                if (AreConstraintsSatisfied(instance))
-                    Tasks.Add(instance);
+                Tasks.Add(instance);
             }
 
             foreach (IBootstrapHandler task in Tasks)
-                task.HandleAsync();
+                await task.HandleAsync();
         }
 
         protected virtual IEnumerable<Type> FindTypes()

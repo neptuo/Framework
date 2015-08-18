@@ -54,18 +54,11 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AutomaticBootstrapper.cs" />
+    <Compile Include="Behaviors\IgnoreAutomaticBehavior.cs" />
+    <Compile Include="IgnoreAutomaticAttribute.cs" />
     <Compile Include="Behaviors\InitializeBehavior.cs" />
     <Compile Include="Behaviors\DependencyPropertyBehavior.cs" />
     <Compile Include="BootstrapperBase.cs" />
-    <Compile Include="Constraints\ConstraintAttribute.cs" />
-    <Compile Include="Constraints\Providers\AttributeConstraintProvider.cs" />
-    <Compile Include="Constraints\Providers\CachingConstraintProvider.cs" />
-    <Compile Include="Constraints\DefaultBootstrapConstraintContext.cs" />
-    <Compile Include="Constraints\IBootstrapConstraint.cs" />
-    <Compile Include="Constraints\IBootstrapConstraintContext.cs" />
-    <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
-    <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
-    <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
     <Compile Include="Dependencies\ExportTypeAttribute.cs" />
     <Compile Include="Dependencies\Handlers\CompositeDependencyImporter.cs" />
     <Compile Include="Dependencies\Handlers\DependencyContainerHandler.cs" />
@@ -82,16 +75,12 @@
     <Compile Include="Hierarchies\Sorting\Sorter.cs" />
     <Compile Include="Hierarchies\Sorting\ISortOutputProvider.cs" />
     <Compile Include="Hierarchies\Sorting\TypeImportExportProvider.cs" />
-    <Compile Include="HierarchicalBootstrapper.cs" />
-    <Compile Include="HierarchicalBuilder.cs" />
-    <Compile Include="HierarchicalContext.cs" />
     <Compile Include="Hierarchies\Sorting\PropertyImportExportProvider.cs" />
     <Compile Include="Hierarchies\Sorting\ISortInputProvider.cs" />
     <Compile Include="IBootstrapper.cs" />
     <Compile Include="IBootstrapTaskCollection.cs" />
     <Compile Include="IBootstrapTaskRegistry.cs" />
     <Compile Include="Handlers\IBootstrapHandler.cs" />
-    <Compile Include="Constraints\IgnoreAutomaticConstraintAttribute.cs" />
     <Compile Include="ManualBootstrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />

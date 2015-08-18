@@ -1,6 +1,4 @@
-﻿using Neptuo.Bootstrap.Constraints;
-using Neptuo.Bootstrap.Constraints.Providers;
-using Neptuo.Bootstrap.Handlers;
+﻿using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,16 +9,14 @@ namespace Neptuo.Bootstrap
 {
     public abstract class BootstrapperBase : IBootstrapper
     {
-        private IBootstrapConstraintProvider provider;
         private Func<Type, IBootstrapHandler> factory;
 
         protected List<IBootstrapHandler> Tasks { get; private set; }
 
-        public BootstrapperBase(Func<Type, IBootstrapHandler> factory, IBootstrapConstraintProvider provider = null)
+        public BootstrapperBase(Func<Type, IBootstrapHandler> factory)
         {
             Ensure.NotNull(factory, "factory");
             this.factory = factory;
-            this.provider = provider ?? new NullObjectConstrainProvider();
             Tasks = new List<IBootstrapHandler>();
         }
 
@@ -35,25 +31,15 @@ namespace Neptuo.Bootstrap
             return factory(typeof(T));
         }
 
-        protected bool AreConstraintsSatisfied(IBootstrapHandler task)
+        public async virtual Task Initialize()
         {
-            IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
-            return provider.GetConstraints(task.GetType()).IsSatisfied(task, context);
-        }
-
-        public virtual void Initialize()
-        {
-            IBootstrapConstraintContext context = new DefaultBootstrapConstraintContext(this);
             foreach (IBootstrapHandler task in Tasks)
-            {
-                if (provider.GetConstraints(task.GetType()).IsSatisfied(task, context))
-                    InitializeTask(task);
-            }
+                await InitializeTask(task);
         }
 
-        protected virtual void InitializeTask(IBootstrapHandler task)
+        protected virtual Task InitializeTask(IBootstrapHandler task)
         {
-            task.HandleAsync();
+            return task.HandleAsync();
         }
     }
 }

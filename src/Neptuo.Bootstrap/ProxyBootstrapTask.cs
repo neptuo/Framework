@@ -1,5 +1,4 @@
-﻿using Neptuo.Bootstrap.Constraints;
-using Neptuo.Bootstrap.Handlers;
+﻿using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    [IgnoreAutomaticConstraint]
+    [IgnoreAutomatic]
     internal class ProxyBootstrapTask : IBootstrapHandler
     {
         private Func<IBootstrapHandler> factory;

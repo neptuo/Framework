@@ -1,4 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
     <Export Filename="Neptuo.Bootstrap.js" FilenameFormat="~/bin/{0}" />
+    <Namespace Target="Neptuo.Bootstrap.Behaviors.*" Export="False"/>
+    <Namespace Target="Neptuo.Bootstrap.Dependencies.*" Export="False"/>
+    <Namespace Target="Neptuo.Bootstrap.Hierarchies.*" Export="False"/>
 </Exugin>
