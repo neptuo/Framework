@@ -1,4 +1,5 @@
-﻿using Neptuo.Bootstrap.Handlers;
+﻿using Neptuo.Activators;
+using Neptuo.Bootstrap.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,27 +8,47 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public class ManualBootstrapper : BootstrapperBase, IBootstrapper, IBootstrapTaskRegistry
+    /// <summary>
+    /// Simple manual bootstrapper.
+    /// Tasks are run synchronously and registered manually to <see cref="IBootstrapHandlerCollection"/>.
+    /// </summary>
+    public class ManualBootstrapper : IBootstrapper, IBootstrapHandlerCollection
     {
-        public ManualBootstrapper(Func<Type, IBootstrapHandler> factory)
-            : base(factory)
-        { }
+        private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
 
-        public virtual void Register(Type type)
+        public IBootstrapHandlerCollection Add<T>(IFactory<T> factory) 
+            where T : class, IBootstrapHandler
         {
-            Register(CreateInstance(type));
+            Ensure.NotNull(factory, "factory");
+            storage[typeof(T)] = factory;
+            return this;
         }
 
-        public void Register<T>()
-            where T : IBootstrapHandler
+        public bool TryGet<T>(out IFactory<T> factory) 
+            where T : class, IBootstrapHandler
         {
-            Register(typeof(T));
+            IFactory<IBootstrapHandler> innerFactory;
+            if (storage.TryGetValue(typeof(T), out innerFactory))
+            {
+                factory = (IFactory<T>)innerFactory;
+                return true;
+            }
+
+            factory = null;
+            return true;
         }
 
-        public virtual void Register(IBootstrapHandler task)
+        public Task Initialize()
         {
-            if (task != null)
-                Handlers.Add(task);
+            foreach (IFactory<IBootstrapHandler> handlerFactory in storage.Values)
+            {
+                IBootstrapHandler handler = handlerFactory.Create();
+                Task task = handler.HandleAsync();
+                if (!task.IsCompleted && !task.IsCanceled)
+                    task.RunSynchronously();
+            }
+
+            return Task.FromResult(true);
         }
     }
 }

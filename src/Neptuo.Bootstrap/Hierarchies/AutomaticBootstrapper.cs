@@ -73,13 +73,13 @@ namespace Neptuo.Bootstrap.Hierarchies
             // Create instances (if needed).
             foreach (Type targetType in targetTypes)
             {
-                IBootstrapHandler task = (IBootstrapHandler)Activator.CreateInstance(targetType);
+                IBootstrapHandler handler = (IBootstrapHandler)Activator.CreateInstance(targetType);
 
                 IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(behaviorProvider, reflectionBehaviorFactory);
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
-                await pipeline.ExecuteAsync(task, new KeyValueCollection().Add("IsManual", true));
+                await pipeline.ExecuteAsync(handler, new KeyValueCollection().Add("IsManual", true));
             }
         }
     }

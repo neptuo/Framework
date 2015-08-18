@@ -1,4 +1,6 @@
 ﻿using Neptuo.Bootstrap.Handlers;
+using Neptuo.Reflection;
+using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,67 +10,37 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Bootstrap
 {
-    public class AutomaticBootstrapper : BootstrapperBase, IBootstrapper
+    /// <summary>
+    /// Simple automatic bootstrapper.
+    /// Tasks are run synchronously and registered automatically from current app domain.
+    /// </summary>
+    public class AutomaticBootstrapper : IBootstrapper
     {
-        private IEnumerable<Type> types;
-
-        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory)
-            : base(factory)
-        { }
-
-        public AutomaticBootstrapper(Func<Type, IBootstrapHandler> factory, IEnumerable<Type> types)
-            : base(factory)
+        public Task Initialize()
         {
-            this.types = AddSupportedTypes(new List<Type>(), types);
-        }
-
-        public async override Task Initialize()
-        {
-            if (types == null)
-                types = FindTypes();
-
-            foreach (Type type in types)
+            // Get tasks.
+            List<Type> sourceTypes = new List<Type>();
+            using (ITypeExecutorService typeExecutors = ReflectionFactory.FromCurrentAppDomain().PrepareTypeExecutors())
             {
-                IBootstrapHandler instance = CreateInstance(type);
-                Handlers.Add(instance);
+                typeExecutors
+                    .AddFiltered(false)
+                    .AddFilterNotAbstract()
+                    .AddFilterNotInterface()
+                    .AddFilterHasDefaultConstructor()
+                    .AddFilter(t => typeof(IBootstrapHandler).IsAssignableFrom(t))
+                    .AddHandler(sourceTypes.Add);
             }
 
-            foreach (IBootstrapHandler task in Handlers)
-                await task.HandleAsync();
-        }
-
-        protected virtual IEnumerable<Type> FindTypes()
-        {
-            List<Type> types = new List<Type>();
-            SearchAssemblies(types);
-            return types;
-        }
-
-        protected virtual IEnumerable<Type> SearchAssemblies(List<Type> types)
-        {
-            foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
+            // Create instances (if needed).
+            foreach (Type targetType in sourceTypes)
             {
-                try
-                {
-                    AddSupportedTypes(types, assembly.GetTypes());
-                }
-                catch (Exception) { }
+                IBootstrapHandler handler = (IBootstrapHandler)Activator.CreateInstance(targetType);
+                Task task = handler.HandleAsync();
+                if (!task.IsCompleted && !task.IsCanceled)
+                    task.RunSynchronously();
             }
-            return types;
-        }
 
-        protected virtual List<Type> AddSupportedTypes(List<Type> target, IEnumerable<Type> sourceTypes)
-        {
-            if (target == null)
-                target = new List<Type>();
-
-            Type bootstrapInterfaceType = typeof(IBootstrapHandler);
-            foreach (Type type in sourceTypes)
-            {
-                if (bootstrapInterfaceType.IsAssignableFrom(type) && bootstrapInterfaceType != type && !type.IsAbstract && !type.IsInterface)
-                    target.Add(type);
-            }
-            return target;
+            return Task.FromResult(true);
         }
     }
 }
