@@ -2,6 +2,7 @@
 using Neptuo.Behaviors.Providers;
 using Neptuo.Bootstrap.Behaviors;
 using Neptuo.Bootstrap.Dependencies.Handlers;
+using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Neptuo.Bootstrap.Hierarchies
             behaviorProvider = new BehaviorProviderCollection()
                 .Add(
                     new AttributeBehaviorCollection()
-                        .Add<IgnoreAutomaticAttribute, IgnoreAutomaticBehavior>()
+                        .Add<IgnoreAutomaticAttribute, IBootstrapHandler, IgnoreAutomaticBehavior>()
                 );
         }
 
