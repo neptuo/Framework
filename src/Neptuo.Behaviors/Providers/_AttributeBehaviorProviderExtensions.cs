@@ -12,30 +12,67 @@ namespace Neptuo.Behaviors.Providers
     public static class _AttributeBehaviorProviderExtensions
     {
         /// <summary>
-        /// Adds mapping with <typeparamref name="TBehaviorContract"/> as contract and <typeparamref name="TBehaviorImplementation"/> as implementation type.
+        /// Adds mapping for handlers of type <typeparamref name="THandler" /> decorated with <typeparamref name="TAttribute"/> to have behavior of type <typeparamref name="TBehaviorImplementation"/>.
         /// </summary>
-        /// <typeparam name="TBehaviorContract">Behavior attribute contract.</typeparam>
+        /// <typeparam name="TAttribute">Behavior attribute contract.</typeparam>
+        /// <typeparam name="THandler">Type of handler</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
-        /// <returns>Self (for fluency).</returns>>
-        public static AttributeBehaviorCollection Add<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorCollection provider)
-            where TBehaviorImplementation : IBehavior<TBehaviorContract>
+        /// <param name="collection">Target behavior collection.</param>
+        /// <param name="index">Index to insert mapping at.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static AttributeBehaviorCollection Add<TAttribute, THandler, TBehaviorImplementation>(this AttributeBehaviorCollection collection)
+            where TAttribute : Attribute
+            where TBehaviorImplementation : IBehavior<THandler>
         {
-            Ensure.NotNull(provider, "provider");
-            return provider.Add(typeof(TBehaviorContract), typeof(TBehaviorImplementation));
+            Ensure.NotNull(collection, "collection");
+            return collection.Add(typeof(TAttribute), typeof(TBehaviorImplementation));
         }
 
         /// <summary>
-        /// Adds mapping with <typeparamref name="TBehaviorContract"/> as contract and <typeparamref name="TBehaviorImplementation"/> as implementation type.
+        /// Adds mapping for all handlers decorated with <typeparamref name="TAttribute"/> to have behavior of type <typeparamref name="TBehaviorImplementation"/>.
         /// </summary>
-        /// <typeparam name="TBehaviorContract">Behavior attribute contract.</typeparam>
+        /// <typeparam name="TAttribute">Behavior attribute contract.</typeparam>
         /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
-        /// <returns>Self (for fluency).</returns>>
-        public static AttributeBehaviorCollection Insert<TBehaviorContract, TBehaviorImplementation>(this AttributeBehaviorCollection provider, int index)
-            where TBehaviorContract : Attribute
-            where TBehaviorImplementation : IBehavior<TBehaviorContract>
+        /// <param name="collection">Target behavior collection.</param>
+        /// <param name="index">Index to insert mapping at.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static AttributeBehaviorCollection Add<TAttribute, TBehaviorImplementation>(this AttributeBehaviorCollection collection)
+            where TAttribute : Attribute
+            where TBehaviorImplementation : IBehavior<object>
         {
-            Ensure.NotNull(provider, "provider");
-            return provider.Insert(index, typeof(TBehaviorContract), typeof(TBehaviorImplementation));
+            return Add<TAttribute, object, TBehaviorImplementation>(collection);
+        }
+
+        /// <summary>
+        /// Adds mapping for handlers of type <typeparamref name="THandler" /> decorated with <typeparamref name="TAttribute"/> to have behavior of type <typeparamref name="TBehaviorImplementation"/>.
+        /// </summary>
+        /// <typeparam name="TAttribute">Behavior attribute contract.</typeparam>
+        /// <typeparam name="THandler">Type of handler</typeparam>
+        /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
+        /// <param name="collection">Target behavior collection.</param>
+        /// <param name="index">Index to insert mapping at.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static AttributeBehaviorCollection Insert<TAttribute, THandler, TBehaviorImplementation>(this AttributeBehaviorCollection collection, int index)
+            where TAttribute : Attribute
+            where TBehaviorImplementation : class, IBehavior<THandler>
+        {
+            Ensure.NotNull(collection, "collection");
+            return collection.Insert(index, typeof(TAttribute), typeof(TBehaviorImplementation));
+        }
+
+        /// <summary>
+        /// Adds mapping for all handlers decorated with <typeparamref name="TAttribute"/> to have behavior of type <typeparamref name="TBehaviorImplementation"/>.
+        /// </summary>
+        /// <typeparam name="TAttribute">Behavior attribute contract.</typeparam>
+        /// <typeparam name="TBehaviorImplementation">Behavior contract implementor.</typeparam>
+        /// <param name="collection">Target behavior collection.</param>
+        /// <param name="index">Index to insert mapping at.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static AttributeBehaviorCollection Insert<TAttribute, TBehaviorImplementation>(this AttributeBehaviorCollection collection, int index)
+            where TAttribute : Attribute
+            where TBehaviorImplementation : class, IBehavior<object>
+        {
+            return Insert<TAttribute, object, TBehaviorImplementation>(collection, index);
         }
     }
 }
