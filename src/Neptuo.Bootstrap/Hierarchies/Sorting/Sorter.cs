@@ -63,14 +63,20 @@ namespace Neptuo.Bootstrap.Hierarchies.Sorting
                 return;
 
             if (current.Contains(type))
-                throw new Exception(); //TODO: Correct exception for circular reference.
+                throw Ensure.Exception.InvalidOperation("Unnable to sort task '{0}' because cyclic dependency will be created.", type.FullName);
 
             current.Push(type);
 
             foreach (Type inputType in inputs[type])
             {
-                Type providerType = outputs[inputType]; //TODO: Can cause exception.
-                InsertType(result, providerType, inputs, outputs, defaultOutputs, current);
+                if (defaultOutputs.Contains(inputType))
+                    continue;
+
+                Type providerType;
+                if (outputs.TryGetValue(inputType, out providerType))
+                    InsertType(result, providerType, inputs, outputs, defaultOutputs, current);
+                else
+                    throw Ensure.Exception.InvalidOperation("Missing provider for dependency of type '{0}'.", inputType.FullName);
             }
 
             result.Add(type);

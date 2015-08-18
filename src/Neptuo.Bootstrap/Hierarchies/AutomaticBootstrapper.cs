@@ -7,6 +7,7 @@ using Neptuo.Bootstrap.Dependencies.Handlers;
 using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
 using Neptuo.Reflection;
+using Neptuo.Reflection.Enumerators.Executors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,6 +58,9 @@ namespace Neptuo.Bootstrap.Hierarchies
             {
                 typeExecutors
                     .AddFiltered(false)
+                    .AddFilterNotAbstract()
+                    .AddFilterNotInterface()
+                    .AddFilterHasDefaultConstructor()
                     .AddFilter(t => typeof(IBootstrapHandler).IsAssignableFrom(t))
                     .AddHandler(sourceTypes.Add);
             }
