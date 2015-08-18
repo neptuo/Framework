@@ -159,12 +159,12 @@ namespace Neptuo.Bootstrap.Hierarchies
         }
 
         /// <summary>
-        /// Creates instance of bootstrapper.
+        /// Creates instance of manual bootstrapper.
         /// </summary>
-        /// <returns>Configurated instance of <see cref="Bootstrapper"/>.</returns>
-        public Bootstrapper ToBootstrapper()
+        /// <returns>Configurated instance of <see cref="ManualBootstrapper"/>.</returns>
+        public ManualBootstrapper ToManualBootstrapper()
         {
-            return new Bootstrapper(
+            return new ManualBootstrapper(
                 inputSorter ?? new PropertyImportExportProvider(),
                 outputSorter ?? new PropertyImportExportProvider(),
                 defaultDependencies ?? new List<Type>(),
@@ -172,6 +172,13 @@ namespace Neptuo.Bootstrap.Hierarchies
                 dependencyExporter,
                 behaviorProvider ?? new BehaviorProviderCollection(),
                 reflectionBehaviorFactory ?? new DefaultReflectionBehaviorFactory()
+            );
+        }
+
+        public AutomaticBootstrapper ToAutomaticBootstrapper()
+        {
+            return new AutomaticBootstrapper(
+
             );
         }
     }

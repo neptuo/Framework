@@ -6,6 +6,7 @@ using Neptuo.Bootstrap.Behaviors;
 using Neptuo.Bootstrap.Dependencies.Handlers;
 using Neptuo.Bootstrap.Handlers;
 using Neptuo.Bootstrap.Hierarchies.Sorting;
+using Neptuo.Reflection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ using System.Threading.Tasks;
 namespace Neptuo.Bootstrap.Hierarchies
 {
     /// <summary>
-    /// Hierarchical (input->output auto sorting) based implementation of <see cref="IBootstrapper"/>.
+    /// Hierarchical (input->output auto sorting) based implementation of <see cref="IBootstrapper"/> with automatic (scanning) handler registration.
+    /// Supports only default contructor handlers.
     /// </summary>
-    public class Bootstrapper : IBootstrapper, IBootstrapTaskCollection
+    public class AutomaticBootstrapper : IBootstrapper
     {
-        private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
         private readonly List<Type> defaultDependencies;
         private readonly ISortInputProvider inputProvider;
         private readonly ISortOutputProvider outputProvider;
@@ -28,7 +29,7 @@ namespace Neptuo.Bootstrap.Hierarchies
         private readonly IBehaviorProvider behaviorProvider;
         private readonly IReflectionBehaviorFactory reflectionBehaviorFactory;
 
-        internal Bootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider, IEnumerable<Type> defaultDependencies, 
+        internal AutomaticBootstrapper(ISortInputProvider inputProvider, ISortOutputProvider outputProvider, IEnumerable<Type> defaultDependencies, 
             IDependencyImporter dependencyImporter, IDependencyExporter dependencyExporter, 
             IBehaviorProvider behaviorProvider, IReflectionBehaviorFactory reflectionBehaviorFactory)
         {
@@ -48,61 +49,26 @@ namespace Neptuo.Bootstrap.Hierarchies
             this.reflectionBehaviorFactory = reflectionBehaviorFactory;
         }
 
-        public IBootstrapTaskCollection Add<T>(IFactory<T> factory)
-            where T : class, IBootstrapHandler
-        {
-            Ensure.NotNull(factory, "factory");
-            storage[typeof(T)] = factory;
-            return this;
-        }
-
-        public bool TryGet<T>(out IFactory<T> factory)
-            where T : class, IBootstrapHandler
-        {
-            IFactory<IBootstrapHandler> innerFactory;
-            if (storage.TryGetValue(typeof(T), out innerFactory))
-            {
-                factory = (IFactory<T>)innerFactory;
-                return true;
-            }
-
-            factory = null;
-            return true;
-        }
-
-        /// <summary>
-        /// Adds <paramref name="type"/> to be known dependency by default.
-        /// </summary>
-        /// <param name="type">Known dependency.</param>
-        /// <returns>Self (for fluency).</returns>
-        public Bootstrapper AddDefaultDependency(Type type)
-        {
-            Ensure.NotNull(type, "type");
-            defaultDependencies.Add(type);
-            return this;
-        }
-
-        /// <summary>
-        /// Adds <typeparamref name="T" /> to be known dependency by default.
-        /// </summary>
-        /// <typeparam name="T">Type of known dependency.</typeparam>
-        /// <returns>Self (for fluency).</returns>
-        public Bootstrapper AddDefaultDependency<T>()
-        {
-            return AddDefaultDependency(typeof(T));
-        }
-
         public async Task Initialize()
         {
+            // Get tasks.
+            List<Type> sourceTypes = new List<Type>();
+            using (ITypeExecutorService typeExecutors = ReflectionFactory.FromCurrentAppDomain().PrepareTypeExecutors())
+            {
+                typeExecutors
+                    .AddFiltered(false)
+                    .AddFilter(t => typeof(IBootstrapHandler).IsAssignableFrom(t))
+                    .AddHandler(sourceTypes.Add);
+            }
+
             // Sort tasks.
-            IEnumerable<Type> sourceTypes = storage.Keys;
             Sorter sorter = new Sorter(inputProvider, outputProvider);
             IEnumerable<Type> targetTypes = sorter.Sort(sourceTypes, defaultDependencies);
 
             // Create instances (if needed).
             foreach (Type targetType in targetTypes)
             {
-                IBootstrapHandler task = storage[targetType].Create();
+                IBootstrapHandler task = (IBootstrapHandler)Activator.CreateInstance(targetType);
 
                 IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(behaviorProvider, reflectionBehaviorFactory);
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));

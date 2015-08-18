@@ -75,7 +75,8 @@
     <Compile Include="Dependencies\ExportAttribute.cs" />
     <Compile Include="Dependencies\ImportAttribute.cs" />
     <Compile Include="Handlers\BootstrapHandlerBase.cs" />
-    <Compile Include="Hierarchies\Bootstrapper.cs" />
+    <Compile Include="Hierarchies\AutomaticBootstrapper.cs" />
+    <Compile Include="Hierarchies\ManualBootstrapper.cs" />
     <Compile Include="Hierarchies\BootstrapperBuilder.cs" />
     <Compile Include="Hierarchies\Sorting\ConstructorSortInputProvider.cs" />
     <Compile Include="Hierarchies\Sorting\Sorter.cs" />
