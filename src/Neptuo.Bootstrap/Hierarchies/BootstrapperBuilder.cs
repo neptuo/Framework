@@ -27,6 +27,9 @@ namespace Neptuo.Bootstrap.Hierarchies
         private IBehaviorProvider behaviorProvider;
         private IReflectionBehaviorFactory reflectionBehaviorFactory;
 
+        /// <summary>
+        /// Creates new instance of builder.
+        /// </summary>
         public BootstrapperBuilder()
         {
             behaviorProvider = new BehaviorProviderCollection()

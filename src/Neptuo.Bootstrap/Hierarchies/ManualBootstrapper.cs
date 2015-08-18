@@ -18,7 +18,7 @@ namespace Neptuo.Bootstrap.Hierarchies
     /// <summary>
     /// Hierarchical (input->output auto sorting) based implementation of <see cref="IBootstrapper"/> with manual handler registration.
     /// </summary>
-    public class ManualBootstrapper : IBootstrapper, IBootstrapTaskCollection
+    public class ManualBootstrapper : IBootstrapper, IBootstrapHandlerCollection
     {
         private readonly Dictionary<Type, IFactory<IBootstrapHandler>> storage = new Dictionary<Type, IFactory<IBootstrapHandler>>();
         private readonly List<Type> defaultDependencies;
@@ -49,7 +49,7 @@ namespace Neptuo.Bootstrap.Hierarchies
             this.reflectionBehaviorFactory = reflectionBehaviorFactory;
         }
 
-        public IBootstrapTaskCollection Add<T>(IFactory<T> factory)
+        public IBootstrapHandlerCollection Add<T>(IFactory<T> factory)
             where T : class, IBootstrapHandler
         {
             Ensure.NotNull(factory, "factory");

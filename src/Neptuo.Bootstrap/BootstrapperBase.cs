@@ -11,13 +11,13 @@ namespace Neptuo.Bootstrap
     {
         private Func<Type, IBootstrapHandler> factory;
 
-        protected List<IBootstrapHandler> Tasks { get; private set; }
+        protected List<IBootstrapHandler> Handlers { get; private set; }
 
         public BootstrapperBase(Func<Type, IBootstrapHandler> factory)
         {
             Ensure.NotNull(factory, "factory");
             this.factory = factory;
-            Tasks = new List<IBootstrapHandler>();
+            Handlers = new List<IBootstrapHandler>();
         }
 
         protected IBootstrapHandler CreateInstance(Type type)
@@ -33,11 +33,11 @@ namespace Neptuo.Bootstrap
 
         public async virtual Task Initialize()
         {
-            foreach (IBootstrapHandler task in Tasks)
-                await InitializeTask(task);
+            foreach (IBootstrapHandler handler in Handlers)
+                await InitializeHandler(handler);
         }
 
-        protected virtual Task InitializeTask(IBootstrapHandler task)
+        protected virtual Task InitializeHandler(IBootstrapHandler task)
         {
             return task.HandleAsync();
         }

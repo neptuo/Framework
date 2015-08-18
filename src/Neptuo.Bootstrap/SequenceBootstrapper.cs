@@ -15,7 +15,7 @@ namespace Neptuo.Bootstrap
 
         public override void Register(Type type)
         {
-            base.Register(new ProxyBootstrapTask(() => CreateInstance(type)));
+            base.Register(new ProxyBootstrapHandler(() => CreateInstance(type)));
         }
     }
 }

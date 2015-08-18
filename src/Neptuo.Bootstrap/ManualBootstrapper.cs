@@ -27,7 +27,7 @@ namespace Neptuo.Bootstrap
         public virtual void Register(IBootstrapHandler task)
         {
             if (task != null)
-                Tasks.Add(task);
+                Handlers.Add(task);
         }
     }
 }

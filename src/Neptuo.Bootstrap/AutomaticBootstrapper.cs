@@ -30,10 +30,10 @@ namespace Neptuo.Bootstrap
             foreach (Type type in types)
             {
                 IBootstrapHandler instance = CreateInstance(type);
-                Tasks.Add(instance);
+                Handlers.Add(instance);
             }
 
-            foreach (IBootstrapHandler task in Tasks)
+            foreach (IBootstrapHandler task in Handlers)
                 await task.HandleAsync();
         }
 

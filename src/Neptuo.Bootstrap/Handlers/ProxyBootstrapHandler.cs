@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Bootstrap
+namespace Neptuo.Bootstrap.Handlers
 {
     [IgnoreAutomatic]
-    internal class ProxyBootstrapTask : IBootstrapHandler
+    internal class ProxyBootstrapHandler : IBootstrapHandler
     {
         private Func<IBootstrapHandler> factory;
 
-        public ProxyBootstrapTask(Func<IBootstrapHandler> factory)
+        public ProxyBootstrapHandler(Func<IBootstrapHandler> factory)
         {
             Ensure.NotNull(factory, "factory");
             this.factory = factory;

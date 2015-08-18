@@ -11,7 +11,7 @@ namespace Neptuo.Bootstrap
     /// <summary>
     /// Collection of <see cref="IBootstrapHandler"/>.
     /// </summary>
-    public interface IBootstrapTaskCollection
+    public interface IBootstrapHandlerCollection
     {
         /// <summary>
         /// Adds <paramref name="factory"/>
@@ -19,7 +19,7 @@ namespace Neptuo.Bootstrap
         /// <typeparam name="T">Type of bootstrap task provided by <paramref name="factory"/>.</typeparam>
         /// <param name="factory">Provider for bootstrap task of type <typeparamref name="T"/>.</param>
         /// <returns>Self (for fluency).</returns>
-        IBootstrapTaskCollection Add<T>(IFactory<T> factory)
+        IBootstrapHandlerCollection Add<T>(IFactory<T> factory)
             where T : class, IBootstrapHandler;
 
         /// <summary>
