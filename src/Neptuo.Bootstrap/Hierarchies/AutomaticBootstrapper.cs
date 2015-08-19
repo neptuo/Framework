@@ -51,7 +51,7 @@ namespace Neptuo.Bootstrap.Hierarchies
             this.reflectionBehaviorFactory = reflectionBehaviorFactory;
         }
 
-        public async Task Initialize()
+        public void Initialize()
         {
             // Get tasks.
             List<Type> sourceTypes = new List<Type>();
@@ -79,7 +79,9 @@ namespace Neptuo.Bootstrap.Hierarchies
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
-                await pipeline.ExecuteAsync(handler, new KeyValueCollection().Add("IsManual", true));
+                Task task = pipeline.ExecuteAsync(handler, new KeyValueCollection().Add("IsManual", true));
+                if (!task.IsCompleted && !task.IsCanceled)
+                    task.RunSynchronously();
             }
         }
     }

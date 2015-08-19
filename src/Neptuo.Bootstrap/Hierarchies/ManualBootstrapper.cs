@@ -93,7 +93,7 @@ namespace Neptuo.Bootstrap.Hierarchies
             return AddDefaultDependency(typeof(T));
         }
 
-        public async Task Initialize()
+        public void Initialize()
         {
             // Sort tasks.
             IEnumerable<Type> sourceTypes = storage.Keys;
@@ -103,13 +103,15 @@ namespace Neptuo.Bootstrap.Hierarchies
             // Create instances (if needed).
             foreach (Type targetType in targetTypes)
             {
-                IBootstrapHandler task = storage[targetType].Create();
+                IBootstrapHandler handler = storage[targetType].Create();
 
                 IPipeline<IBootstrapHandler> pipeline = new ReflectionPipeline<IBootstrapHandler>(behaviorProvider, reflectionBehaviorFactory);
                 pipeline.AddBehavior(PipelineBehaviorPosition.Before, new DependencyPropertyBehavior(dependencyImporter, dependencyExporter));
                 pipeline.AddBehavior(PipelineBehaviorPosition.After, new InitializeBehavior());
 
-                await pipeline.ExecuteAsync(task, new KeyValueCollection().Add("IsAutomatic", true));
+                Task task = pipeline.ExecuteAsync(handler, new KeyValueCollection().Add("IsAutomatic", true));
+                if (!task.IsCompleted && !task.IsCanceled)
+                    task.RunSynchronously();
             }
         }
     }

@@ -14,7 +14,6 @@ namespace Neptuo.Bootstrap
         /// <summary>
         /// Processes initialization.
         /// </summary>
-        /// <returns>Continuation task.</returns>
-        Task Initialize();
+        void Initialize();
     }
 }

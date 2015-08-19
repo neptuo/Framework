@@ -38,17 +38,13 @@ namespace Neptuo.Bootstrap
             return true;
         }
 
-        public Task Initialize()
+        public void Initialize()
         {
             foreach (IFactory<IBootstrapHandler> handlerFactory in storage.Values)
             {
                 IBootstrapHandler handler = handlerFactory.Create();
-                Task task = handler.HandleAsync();
-                if (!task.IsCompleted && !task.IsCanceled)
-                    task.RunSynchronously();
+                handler.Handle();
             }
-
-            return Task.FromResult(true);
         }
     }
 }

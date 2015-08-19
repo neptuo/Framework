@@ -14,7 +14,6 @@ namespace Neptuo.Bootstrap.Handlers
         /// <summary>
         /// Called to process intialization.
         /// </summary>
-        /// <returns>Continuation task.</returns>
-        Task HandleAsync();
+        void Handle();
     }
 }

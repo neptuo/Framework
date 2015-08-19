@@ -16,7 +16,7 @@ namespace Neptuo.Bootstrap
     /// </summary>
     public class AutomaticBootstrapper : IBootstrapper
     {
-        public Task Initialize()
+        public void Initialize()
         {
             // Get tasks.
             List<Type> sourceTypes = new List<Type>();
@@ -35,12 +35,8 @@ namespace Neptuo.Bootstrap
             foreach (Type targetType in sourceTypes)
             {
                 IBootstrapHandler handler = (IBootstrapHandler)Activator.CreateInstance(targetType);
-                Task task = handler.HandleAsync();
-                if (!task.IsCompleted && !task.IsCanceled)
-                    task.RunSynchronously();
+                handler.Handle();
             }
-
-            return Task.FromResult(true);
         }
     }
 }

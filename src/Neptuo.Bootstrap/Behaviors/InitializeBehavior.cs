@@ -12,7 +12,7 @@ namespace Neptuo.Bootstrap.Behaviors
     {
         public Task ExecuteAsync(IBootstrapHandler handler, IBehaviorContext context)
         {
-            handler.HandleAsync();
+            handler.Handle();
             return Task.FromResult(true);
         }
     }
