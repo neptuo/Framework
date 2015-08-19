@@ -1,12 +1,10 @@
 ﻿using Neptuo;
 using Neptuo.Activators;
 using Neptuo.Bootstrap;
-using Neptuo.Bootstrap.Constraints;
-using Neptuo.Bootstrap.Constraints.Providers;
-using Neptuo.Bootstrap.Dependencies;
-using Neptuo.Bootstrap.Dependencies.Providers;
-using Neptuo.Bootstrap.Dependencies.Providers.Exporters;
 using Neptuo.Bootstrap.Handlers;
+using Neptuo.Bootstrap.Handlers.Metadata;
+using Neptuo.Bootstrap.Hierarchies;
+using Neptuo.Bootstrap.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -24,6 +22,19 @@ namespace TestConsole.BootstrapTasks
             //HelloService hello = Sequence();
             HelloService hello = Hierarchical();
             hello.SayHello("Peter");
+
+
+
+            ManualLoaderBuilder builder = new Builder()
+                .ToSimple()
+                .ToManual();
+
+            builder
+                .Add<Sequence.HelloBootstrapTask>();
+
+            builder
+                .ToBootstrapper()
+                .Initialize();
         }
 
         private static HelloService Static()
@@ -38,9 +49,9 @@ namespace TestConsole.BootstrapTasks
                 .AddScoped<string>(dependencyContainer.ScopeName, "Hi")
                 .AddScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);
 
-            SequenceBootstrapper bootstrapper = new SequenceBootstrapper(task => dependencyContainer.Resolve<IBootstrapHandler>(task));
-            bootstrapper.Register<Sequence.WriterBootstrapTask>();
-            bootstrapper.Register<Sequence.HelloBootstrapTask>();
+            Neptuo.Bootstrap.Sequences.ManualBootstrapper bootstrapper = new Neptuo.Bootstrap.Sequences.ManualBootstrapper();
+            bootstrapper.Add(new DependencyFactory<Sequence.WriterBootstrapTask>(dependencyContainer));
+            bootstrapper.Add(new DependencyFactory<Sequence.HelloBootstrapTask>(dependencyContainer));
             bootstrapper.Initialize();
 
             //return Engine.Environment.With<HelloService>();
@@ -49,15 +60,16 @@ namespace TestConsole.BootstrapTasks
 
         private static HelloService Hierarchical()
         {
-            HierarchicalBootstrapper bootstrapper = new HierarchicalBuilder()
-                .WithSystemActivator()
-                .WithConstraintProvider(new AttributeConstraintProvider(type => (IBootstrapConstraint)Activator.CreateInstance(type)))
-                .WithPropertyDescriptorProvider()
-                .WithEnvironmentExporter();
+            IDependencyContainer dependencyContainer = new UnityDependencyContainer();
 
-            bootstrapper.Register(new Hierarchical.HelloBootstrapTask("Hi"));
-            bootstrapper.Register(new Hierarchical.WriterBootstrapTask(Console.Out));
-            bootstrapper.Initialize();
+            //Neptuo.Bootstrap.Hierarchies.ManualBootstrapper bootstrapper = new Neptuo.Bootstrap.Hierarchies.DependencyValueProvider()
+            //    .AddDependencyImporter(new DependencyValueProvider(dependencyContainer))
+            //    .AddDependencyImporter(new DependencyValueProvider(dependencyContainer))
+            //    .ToManual();
+
+            //bootstrapper.Add(new Hierarchical.HelloBootstrapTask("Hi"));
+            //bootstrapper.Add(new Hierarchical.WriterBootstrapTask(Console.Out));
+            //bootstrapper.Initialize();
 
             //return Engine.Environment.With<HelloService>();
             throw new NotImplementedException();
@@ -117,7 +129,7 @@ namespace TestConsole.BootstrapTasks
             //    this.writerService = writerService;
             //}
 
-            public void Initialize()
+            public void Handle()
             {
             //    environment.Use(new HelloService(helloText, writerService));
             }
@@ -134,7 +146,7 @@ namespace TestConsole.BootstrapTasks
             //    this.writer = writer;
             //}
 
-            public void Initialize()
+            public void Handle()
             {
             //    environment.Use(new WriterService(writer));
             }
@@ -158,7 +170,7 @@ namespace TestConsole.BootstrapTasks
                 this.helloText = helloText;
             }
 
-            public void Initialize()
+            public void Handle()
             {
                 HelloService = new HelloService(helloText, WriterService);
             }
@@ -176,7 +188,7 @@ namespace TestConsole.BootstrapTasks
                 this.writer = writer;
             }
 
-            public void Initialize()
+            public void Handle()
             {
                 WriterService = new WriterService(writer);
             }

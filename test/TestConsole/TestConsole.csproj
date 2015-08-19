@@ -63,6 +63,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BootstrapTasks\TestBuilder.cs" />
     <Compile Include="FileSystems\TestLocal.cs" />
     <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />

@@ -1,4 +1,4 @@
-﻿using Neptuo.Bootstrap.Handlers;
+﻿using Neptuo.Bootstrap.Handlers.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
