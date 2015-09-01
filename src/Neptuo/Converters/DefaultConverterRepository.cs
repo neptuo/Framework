@@ -6,18 +6,30 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Converters
 {
-    public class ConverterRepository : IConverterRepository
+    /// <summary>
+    /// Default implmentation of <see cref="IConverterRepository"/>.
+    /// </summary>
+    public class DefaultConverterRepository : IConverterRepository
     {
-        protected Dictionary<Type, Dictionary<Type, IConverter>> Storage { get; private set; }
+        private readonly Dictionary<Type, Dictionary<Type, IConverter>> storage;
+        private readonly OutFuncCollection<Type, IConverter, bool> onSearchConverter;
 
-        public ConverterRepository()
+        /// <summary>
+        /// Cretes new empty instance.
+        /// </summary>
+        public DefaultConverterRepository()
             : this(new Dictionary<Type, Dictionary<Type, IConverter>>())
         { }
 
-        public ConverterRepository(Dictionary<Type, Dictionary<Type, IConverter>> storage)
+        /// <summary>
+        /// Creates instance with default converter registrations.
+        /// </summary>
+        /// <param name="storage">'First is the source type, second key is the target type' storage.</param>
+        public DefaultConverterRepository(Dictionary<Type, Dictionary<Type, IConverter>> storage)
         {
             Ensure.NotNull(storage, "storage");
-            Storage = storage;
+            this.storage = storage;
+            this.onSearchConverter = new OutFuncCollection<Type, IConverter, bool>();
         }
 
         public IConverterRepository Add(Type sourceType, Type targetType, IConverter converter)
@@ -26,15 +38,20 @@ namespace Neptuo.Converters
             Ensure.NotNull(targetType, "targetType");
             Ensure.NotNull(converter, "converter");
 
-            Dictionary<Type, IConverter> storage;
-            if (!Storage.TryGetValue(sourceType, out storage))
-                storage = Storage[sourceType] = new Dictionary<Type, IConverter>();
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage))
+                storage[sourceType] = sourceStorage = new Dictionary<Type, IConverter>();
 
-            storage[targetType] = converter;
+            sourceStorage[targetType] = converter;
             return this;
         }
 
-        public event ConverterSearchDelegate OnSearchConverter;
+        public IConverterRepository AddSearchHandler(OutFunc<Type, IConverter, bool> searchHandler)
+        {
+            Ensure.NotNull(searchHandler, "searchHandler");
+            onSearchConverter.Add(searchHandler);
+            return this;
+        }
 
         public bool TryConvert<TSource, TTarget>(TSource sourceValue, out TTarget targetValue)
         {
@@ -42,12 +59,9 @@ namespace Neptuo.Converters
             Type targetType = typeof(TTarget);
 
             IConverter converter = null;
-            Dictionary<Type, IConverter> storage;
-            if (!Storage.TryGetValue(sourceType, out storage) || !storage.TryGetValue(targetType, out converter))
-            {
-                if (OnSearchConverter != null)
-                    converter = OnSearchConverter(sourceType, targetType);
-            }
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(sourceType, out converter);
 
             if (converter == null)
             {
@@ -88,12 +102,9 @@ namespace Neptuo.Converters
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             IConverter converter = null;
-            Dictionary<Type, IConverter> storage;
-            if (!Storage.TryGetValue(sourceType, out storage) || !storage.TryGetValue(targetType, out converter))
-            {
-                if (OnSearchConverter != null)
-                    converter = OnSearchConverter(sourceType, targetType);
-            }
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(sourceType, out converter);
 
             if (converter == null)
             {
