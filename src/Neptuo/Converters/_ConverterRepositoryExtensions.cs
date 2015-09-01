@@ -12,7 +12,7 @@ namespace Neptuo.Converters
     public static class _ConverterRepositoryExtensions
     {
         /// <summary>
-        /// Registers <paramref name="converter"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
+        /// Adds <paramref name="converter"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
         /// <typeparam name="TTarget">Target type.</typeparam>
@@ -24,6 +24,21 @@ namespace Neptuo.Converters
             Ensure.NotNull(repository, "repository");
             repository.Add(typeof(TSource), typeof(TTarget), converter);
             return repository;
+        }
+
+        /// <summary>
+        /// Adds <paramref name="tryConvert"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
+        /// </summary>
+        /// <typeparam name="TSource">Source type.</typeparam>
+        /// <typeparam name="TTarget">Target type.</typeparam>
+        /// <param name="repository">The repository to register converter to.</param>
+        /// <param name="converter">The converter delegate.</param>
+        /// <returns><paramref name="repository"/>.</returns>
+        public static IConverterRepository Add<TSource, TTarget>(this IConverterRepository repository, OutFunc<TSource, TTarget, bool> tryConvert)
+        {
+            Ensure.NotNull(repository, "repository");
+            Ensure.NotNull(tryConvert, "tryConvert");
+            return Add(repository, new ConverterBase<TSource, TTarget>(tryConvert));
         }
     }
 }
