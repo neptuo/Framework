@@ -86,7 +86,6 @@
     <Compile Include="Compilers\IStaticCompiler.cs" />
     <Compile Include="Converters\ConverterBase.cs" />
     <Compile Include="Converters\ConverterRepository.cs" />
-    <Compile Include="Converters\ConverterSearchDelegate.cs" />
     <Compile Include="Converters\IConverter.cs" />
     <Compile Include="Converters\IConverterRepository.cs" />
     <Compile Include="Disposable.cs" />

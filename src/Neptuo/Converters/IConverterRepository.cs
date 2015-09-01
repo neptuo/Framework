@@ -12,18 +12,20 @@ namespace Neptuo.Converters
     public interface IConverterRepository
     {
         /// <summary>
-        /// Registers <paramref name="converter"/> for conversion from <paramref name="sourceType"/> to <paramref name="targetType"/>.
+        /// Adds <paramref name="converter"/> for conversion from <paramref name="sourceType"/> to <paramref name="targetType"/>.
         /// </summary>
         /// <param name="sourceType">Source type.</param>
         /// <param name="targetType">Target type.</param>
         /// <param name="converter">Converter.</param>
-        /// <returns>Self.</returns>
+        /// <returns>Self (for fluency).</returns>
         IConverterRepository Add(Type sourceType, Type targetType, IConverter converter);
 
         /// <summary>
-        /// Event used to find converter for unregistered pair of source and target type.
+        /// Adds <paramref name="searchHandler"/> to be executed when converter was not found.
         /// </summary>
-        event ConverterSearchDelegate OnSearchConverter;
+        /// <param name="searchHandler">Converter provider method.</param>
+        /// <returns>Self (for fluency).</returns>
+        IConverterRepository AddSearchHandler(OutFunc<Type, IConverter, bool> searchHandler);
 
         /// <summary>
         /// Tries to convert <paramref name="sourceValue"/> of type <typeparamref name="TSource"/> to target type <typeparamref name="TTarget"/>.
