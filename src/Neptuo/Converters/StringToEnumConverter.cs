@@ -29,7 +29,7 @@ namespace Neptuo.Converters
             this.isCaseSensitive = isCaseSensitive;
         }
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (sourceType == typeof(string) && targetType.IsEnum)
             {

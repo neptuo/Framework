@@ -10,18 +10,23 @@ namespace Neptuo.Converters
     /// <summary>
     /// Converter for converting string value (splitted using defined separator) to one of supported collection types.
     /// </summary>
-    /// <typeparam name="TItemTarget">Target collection item value.</typeparam>
-    public class StringToCollectionConverter<TItemTarget> : IConverter<string, TItemTarget>, IConverter<string, IEnumerable<TItemTarget>>, IConverter<string, List<TItemTarget>>
+    /// <typeparam name="TTargetItem">Target collection item value.</typeparam>
+    public class StringToCollectionConverter<TTargetItem> :
+        IConverter<string, TTargetItem>, 
+        IConverter<string, List<TTargetItem>>,
+        IConverter<string, IList<TTargetItem>>, 
+        IConverter<string, ICollection<TTargetItem>>,
+        IConverter<string, IEnumerable<TTargetItem>>
     {
         private readonly string separator;
-        private readonly IConverter<string, TItemTarget> itemConverter;
+        private readonly IConverter<string, TTargetItem> itemConverter;
 
         /// <summary>
         /// Creates new instance with item <paramref name="separator"/> and inner <paramref name="itemConverter"/>.
         /// </summary>
         /// <param name="separator">Item separator.</param>
         /// <param name="itemConverter">Converter for single item.</param>
-        public StringToCollectionConverter(string separator, IConverter<string, TItemTarget> itemConverter)
+        public StringToCollectionConverter(string separator, IConverter<string, TTargetItem> itemConverter)
         {
             Ensure.NotNullOrEmpty(separator, "separator");
             Ensure.NotNull(itemConverter, "itemConverter");
@@ -29,6 +34,11 @@ namespace Neptuo.Converters
             this.itemConverter = itemConverter;
         }
 
+        /// <summary>
+        /// Splits <paramref name="sourceValue"/> to enumeration of items.
+        /// </summary>
+        /// <param name="sourceValue">Source value.</param>
+        /// <returns><paramref name="sourceValue"/> splitted be the defined separator.</returns>
         protected IEnumerable<string> SplitSourceValue(string sourceValue)
         {
             if (String.IsNullOrEmpty(sourceValue))
@@ -37,14 +47,20 @@ namespace Neptuo.Converters
             return sourceValue.Split(new string[] { separator }, StringSplitOptions.RemoveEmptyEntries);
         }
 
-        protected bool TryConvertList(string sourceValue, out List<TItemTarget> targetValue)
+        /// <summary>
+        /// Tries to convert <paramref name="sourceValue"/> to list of items of <typeparamref name="TTargetItem"/>.
+        /// </summary>
+        /// <param name="sourceValue">Source value.</param>
+        /// <param name="targetValue">Target value.</param>
+        /// <returns><c>true</c> if <paramref name="sourceValue"/> can be converted to list of items of <typeparamref name="TTargetItem"/>.</returns>
+        protected bool TryConvertList(string sourceValue, out List<TTargetItem> targetValue)
         {
             bool hasError = false;
-            List<TItemTarget> result = new List<TItemTarget>();
+            List<TTargetItem> result = new List<TTargetItem>();
             IEnumerable<string> sourceValues = SplitSourceValue(sourceValue);
             foreach (string itemValue in sourceValues)
             {
-                TItemTarget item;
+                TTargetItem item;
                 if (itemConverter.TryConvert(itemValue, out item))
                 {
                     result.Add(item);
@@ -63,7 +79,7 @@ namespace Neptuo.Converters
             return !hasError;
         }
 
-        bool IConverter.TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        bool IConverter.TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if(sourceType != typeof(string))
             {
@@ -74,7 +90,7 @@ namespace Neptuo.Converters
             // Not generic typ return as list.
             if (sourceType != typeof(IEnumerable))
             {
-                List<TItemTarget> result;
+                List<TTargetItem> result;
                 bool success = TryConvertList((string)sourceValue, out result);
                 targetValue = result;
                 return success;
@@ -90,7 +106,7 @@ namespace Neptuo.Converters
             Type genericType = targetType.GetGenericTypeDefinition();
             if (genericType.IsAssignableFrom(typeof(List<>)))
             {
-                List<TItemTarget> result;
+                List<TTargetItem> result;
                 bool success = TryConvertList((string)sourceValue, out result);
                 targetValue = result;
                 return success;
@@ -100,23 +116,45 @@ namespace Neptuo.Converters
             return false;
         }
 
-        bool IConverter<string, TItemTarget>.TryConvert(string sourceValue, out TItemTarget targetValue)
+        bool IConverter<string, TTargetItem>.TryConvert(string sourceValue, out TTargetItem targetValue)
         {
             return itemConverter.TryConvert(sourceValue, out targetValue);
         }
 
-        bool IConverter<string, IEnumerable<TItemTarget>>.TryConvert(string sourceValue, out IEnumerable<TItemTarget> targetValue)
+        bool IConverter<string, List<TTargetItem>>.TryConvert(string sourceValue, out List<TTargetItem> targetValue)
         {
-            List<TItemTarget> result;
+            List<TTargetItem> result;
             bool success = TryConvertList(sourceValue, out result);
 
             targetValue = result;
             return success;
         }
 
-        bool IConverter<string, List<TItemTarget>>.TryConvert(string sourceValue, out List<TItemTarget> targetValue)
+        bool IConverter<string, IList<TTargetItem>>.TryConvert(string sourceValue, out IList<TTargetItem> targetValue)
         {
-            return TryConvertList(sourceValue, out targetValue);
+            List<TTargetItem> result;
+            bool success = TryConvertList(sourceValue, out result);
+
+            targetValue = result;
+            return success;
+        }
+
+        bool IConverter<string, ICollection<TTargetItem>>.TryConvert(string sourceValue, out ICollection<TTargetItem> targetValue)
+        {
+            List<TTargetItem> result;
+            bool success = TryConvertList(sourceValue, out result);
+
+            targetValue = result;
+            return success;
+        }
+
+        bool IConverter<string, IEnumerable<TTargetItem>>.TryConvert(string sourceValue, out IEnumerable<TTargetItem> targetValue)
+        {
+            List<TTargetItem> result;
+            bool success = TryConvertList(sourceValue, out result);
+
+            targetValue = result;
+            return success;
         }
     }
 }

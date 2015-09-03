@@ -74,7 +74,7 @@ namespace Neptuo.Converters
                 return genericConverter.TryConvert(sourceValue, out targetValue);
 
             object targetObject;
-            if (converter.TryConvertGeneral(sourceType, targetType, sourceValue, out targetObject))
+            if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
             {
                 targetValue = (TTarget)targetObject;
                 return true;
@@ -97,7 +97,7 @@ namespace Neptuo.Converters
                 return false;
             }
 
-            return converter.TryConvertGeneral(sourceType, targetType, sourceValue, out targetValue);
+            return converter.TryConvert(sourceType, targetType, sourceValue, out targetValue);
         }
     }
 }

@@ -88,12 +88,12 @@ namespace Neptuo.Converters
             this.isWhitespaceAccepted = isWhitespaceAccepted;
         }
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (sourceType == typeof(string) && targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 Type innerType = targetType.GetGenericArguments()[0];
-                if (converter.TryConvertGeneral(sourceType, innerType, sourceValue, out targetValue))
+                if (converter.TryConvert(sourceType, innerType, sourceValue, out targetValue))
                     return true;
 
                 string stringSourceValue = (string)sourceValue;

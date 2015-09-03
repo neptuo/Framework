@@ -63,6 +63,26 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
+        /// Adds <paramref name="tryConvert"/> for convertion of string value separated by <paramref name="separator"/> 
+        /// to <see cref="List{TTargetItem}"/>, <see cref="IList{TTargetItem}"/>, <see cref="ICollection{TTargetItem}"/> and <see cref="IEnumerable{TTargetItem}"/>.
+        /// </summary>
+        /// <typeparam name="TTargetItem">Type of collection item.</typeparam>
+        /// <param name="repository">The repository to register converter to.</param>
+        /// <param name="tryConvert">The converter delegate.</param>
+        /// <param name="separator">Item separator.</param>
+        /// <returns><paramref name="repository"/>.</returns>
+        public static IConverterRepository AddStringToCollection<TTargetItem>(this IConverterRepository repository, OutFunc<string, TTargetItem, bool> tryConvert, string separator = ",")
+        {
+            Ensure.NotNull(repository, "repository");
+            StringToCollectionConverter<TTargetItem> converter = new StringToCollectionConverter<TTargetItem>(separator, new ConverterBase<string, TTargetItem>(tryConvert));
+            return repository
+                .Add<string, List<TTargetItem>>(converter)
+                .Add<string, IList<TTargetItem>>(converter)
+                .Add<string, ICollection<TTargetItem>>(converter)
+                .Add<string, IEnumerable<TTargetItem>>(converter);
+        }
+
+        /// <summary>
         /// Adds converter for conversion from <typeparamref name="TSource"/> to <see cref="String"/>.
         /// If <paramref name="format"/> is not <c>null</c>, then it is used as format string, eg. yyyy-MM-dd.
         /// </summary>

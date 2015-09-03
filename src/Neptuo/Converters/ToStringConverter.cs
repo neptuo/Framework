@@ -60,7 +60,7 @@ namespace Neptuo.Converters
             this.format = format;
         }
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (targetType == typeof(string))
             {
