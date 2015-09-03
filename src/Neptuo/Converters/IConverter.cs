@@ -28,7 +28,7 @@ namespace Neptuo.Converters
     /// </summary>
     /// <typeparam name="TSource">Type of source value.</typeparam>
     /// <typeparam name="TTarget">Type of target value.</typeparam>
-    public interface IConverter<TSource, TTarget> : IConverter
+    public interface IConverter<in TSource, TTarget> : IConverter
     {
         /// <summary>
         /// Tries to convert <paramref name="sourceValue"/>, of type <typeparamref name="TSource"/>, to <typeparamref name="TTarget"/>.

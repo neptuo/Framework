@@ -88,7 +88,7 @@
     <Compile Include="Compilers\Errors\ErrorInfo.cs" />
     <Compile Include="Compilers\Errors\IErrorInfo.cs" />
     <Compile Include="Compilers\IStaticCompiler.cs" />
-    <Compile Include="Converters\ConverterBase.cs" />
+    <Compile Include="Converters\DefaultConverter.cs" />
     <Compile Include="Converters\DefaultConverterRepository.cs" />
     <Compile Include="Converters\IConverter.cs" />
     <Compile Include="Converters\IConverterRepository.cs" />

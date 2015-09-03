@@ -16,7 +16,7 @@ namespace Neptuo.Converters
     /// Inner converter is called the first, after that null checks are executed.
     /// </summary>
     /// <typeparam name="TTarget">Target type.</typeparam>
-    public class StringToNullableConverter<TTarget> : ConverterBase<string, TTarget?>
+    public class StringToNullableConverter<TTarget> : DefaultConverter<string, TTarget?>
         where TTarget : struct
     {
         private readonly IConverter<string, TTarget> converter;

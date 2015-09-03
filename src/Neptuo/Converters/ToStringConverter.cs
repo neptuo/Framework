@@ -9,7 +9,7 @@ namespace Neptuo.Converters
     /// <summary>
     /// Any type to <see cref="String"/> converter with formatting support.
     /// </summary>
-    public class ToStringConverter<TSource> : ConverterBase<TSource, string>
+    public class ToStringConverter<TSource> : DefaultConverter<TSource, string>
     {
         private readonly string format;
 

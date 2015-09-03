@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Reflection
 {
     [Converter]
-    public class IntToStringConverter : ConverterBase<int, string>
+    public class IntToStringConverter : DefaultConverter<int, string>
     {
         public override bool TryConvert(int sourceValue, out string targetValue)
         {

@@ -14,21 +14,21 @@ namespace Neptuo.Converters
     /// </summary>
     /// <typeparam name="TSource">Type of source value.</typeparam>
     /// <typeparam name="TTarget">Type of target value.</typeparam>
-    public class ConverterBase<TSource, TTarget> : IConverter<TSource, TTarget>
+    public class DefaultConverter<TSource, TTarget> : IConverter<TSource, TTarget>
     {
         private readonly OutFunc<TSource, TTarget, bool> tryConvert;
 
         /// <summary>
         /// Creates new instance that requires overriding <see cref="IConverter{TSource, TTarget}.TryConvert"/>.
         /// </summary>
-        public ConverterBase()
+        public DefaultConverter()
         { }
 
         /// <summary>
         /// Creates new instance that converts by <paramref name="tryConvert"/>.
         /// </summary>
         /// <param name="tryConvert">Delegate for conversion of <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.</param>
-        public ConverterBase(OutFunc<TSource, TTarget, bool> tryConvert)
+        public DefaultConverter(OutFunc<TSource, TTarget, bool> tryConvert)
         {
             Ensure.NotNull(tryConvert, "converter");
             this.tryConvert = tryConvert;

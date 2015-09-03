@@ -10,7 +10,7 @@ namespace Neptuo.Logging.Serialization.Converters
     /// <summary>
     /// Converter from <see cref="ExceptionModel"/> to <see cref="string"/>.
     /// </summary>
-    public class ExceptionModelConverter : ConverterBase<ExceptionModel, string>
+    public class ExceptionModelConverter : DefaultConverter<ExceptionModel, string>
     {
         public override bool TryConvert(ExceptionModel sourceValue, out string targetValue)
         {

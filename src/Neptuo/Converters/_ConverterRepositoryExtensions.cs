@@ -38,7 +38,7 @@ namespace Neptuo.Converters
         {
             Ensure.NotNull(repository, "repository");
             Ensure.NotNull(tryConvert, "tryConvert");
-            return Add(repository, new ConverterBase<TSource, TTarget>(tryConvert));
+            return Add(repository, new DefaultConverter<TSource, TTarget>(tryConvert));
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Neptuo.Converters
             Ensure.NotNull(repository, "repository");
             Ensure.NotNull(tryConvert, "tryConvert");
 
-            IConverter<string, TTarget> converter = new ConverterBase<string, TTarget>(tryConvert);
+            IConverter<string, TTarget> converter = new DefaultConverter<string, TTarget>(tryConvert);
             return repository
                 .Add<string, TTarget>(converter)
                 .Add<string, TTarget?>(new StringToNullableConverter<TTarget>(converter, isWhitespaceAccepted));
@@ -74,7 +74,7 @@ namespace Neptuo.Converters
         public static IConverterRepository AddStringToCollection<TTargetItem>(this IConverterRepository repository, OutFunc<string, TTargetItem, bool> tryConvert, string separator = ",")
         {
             Ensure.NotNull(repository, "repository");
-            StringToCollectionConverter<TTargetItem> converter = new StringToCollectionConverter<TTargetItem>(separator, new ConverterBase<string, TTargetItem>(tryConvert));
+            StringToCollectionConverter<TTargetItem> converter = new StringToCollectionConverter<TTargetItem>(separator, new DefaultConverter<string, TTargetItem>(tryConvert));
             return repository
                 .Add<string, List<TTargetItem>>(converter)
                 .Add<string, IList<TTargetItem>>(converter)
