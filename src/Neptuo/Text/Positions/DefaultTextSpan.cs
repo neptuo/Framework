@@ -8,14 +8,19 @@ using System.Threading.Tasks;
 namespace Neptuo.Text.Positions
 {
     /// <summary>
-    /// Default implementation of <see cref="ITextPoint"/>.
+    /// Default implementation of <see cref="ITextSpan"/>.
     /// </summary>
-    public class DefaultTextPoint : ITextPoint
+    public class DefaultTextSpan : ITextSpan
     {
         public int StartIndex { get; private set; }
         public int Length { get; private set; }
 
-        public DefaultTextPoint(int startIndex, int length)
+        /// <summary>
+        /// Create new instance.
+        /// </summary>
+        /// <param name="startIndex">Starting index.</param>
+        /// <param name="length">Length of the span.</param>
+        public DefaultTextSpan(int startIndex, int length)
         {
             StartIndex = startIndex;
             Length = length;

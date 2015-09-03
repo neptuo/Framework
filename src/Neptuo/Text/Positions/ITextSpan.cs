@@ -9,7 +9,7 @@ namespace Neptuo.Text.Positions
     /// <summary>
     /// Describes text content info.
     /// </summary>
-    public interface ITextPoint
+    public interface ITextSpan
     {
         /// <summary>
         /// Starting index.
@@ -17,7 +17,7 @@ namespace Neptuo.Text.Positions
         int StartIndex { get; }
 
         /// <summary>
-        /// Length of the content.
+        /// Length of the span.
         /// </summary>
         int Length { get; }
     }

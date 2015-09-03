@@ -9,19 +9,21 @@ namespace Neptuo.Text.Positions
     /// <summary>
     /// Default implementation of <see cref="IDocumentSpan"/>.
     /// </summary>
-    public class DefaultDocumentSpan : IDocumentSpan
+    public class DefaultDocumentSpan : DefaultDocumentPoint, IDocumentSpan
     {
-        public int ColumnIndex { get; private set; }
-        public int LineIndex { get; private set; }
-
-        public int EndColumnIndex { get; private set; }
         public int EndLineIndex { get; private set; }
+        public int EndColumnIndex { get; private set; }
 
-        public DefaultDocumentSpan(int columnIndex, int lineIndex, int endColumnIndex, int endLineIndex)
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="lineIndex">Line index.</param>
+        /// <param name="columnIndex">Index at line.</param>
+        /// <param name="endLineIndex">Line index of range end.</param>
+        /// <param name="endColumnIndex">Index at line of range end.</param>
+        public DefaultDocumentSpan(int lineIndex, int columnIndex, int endLineIndex, int endColumnIndex)
+            : base(lineIndex, columnIndex)
         {
-            ColumnIndex = columnIndex;
-            LineIndex = lineIndex;
-
             EndColumnIndex = endColumnIndex;
             EndLineIndex = endLineIndex;
         }

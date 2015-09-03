@@ -97,11 +97,11 @@
     <Compile Include="Components\Envelope.cs" />
     <Compile Include="FileSystems\LocalFileContentFactory.cs" />
     <Compile Include="FileSystems\_EnsureConditionExtensions.cs" />
-    <Compile Include="Text\Positions\DefaultTextPoint.cs" />
+    <Compile Include="Text\Positions\DefaultTextSpan.cs" />
     <Compile Include="Text\Positions\DefaultDocumentPoint.cs" />
     <Compile Include="Text\Positions\DefaultDocumentSpan.cs" />
     <Compile Include="Text\Positions\IDocumentPoint.cs" />
-    <Compile Include="Text\Positions\ITextPoint.cs" />
+    <Compile Include="Text\Positions\ITextSpan.cs" />
     <Compile Include="Text\Positions\IDocumentSpan.cs" />
     <Compile Include="OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
