@@ -12,7 +12,7 @@ namespace Neptuo.Converters
     public class DefaultConverterRepository : IConverterRepository
     {
         private readonly Dictionary<Type, Dictionary<Type, IConverter>> storage;
-        private readonly OutFuncCollection<Type, IConverter, bool> onSearchConverter;
+        private readonly OutFuncCollection<ConverterSearchContext, IConverter, bool> onSearchConverter;
 
         /// <summary>
         /// Cretes new empty instance.
@@ -29,7 +29,7 @@ namespace Neptuo.Converters
         {
             Ensure.NotNull(storage, "storage");
             this.storage = storage;
-            this.onSearchConverter = new OutFuncCollection<Type, IConverter, bool>();
+            this.onSearchConverter = new OutFuncCollection<ConverterSearchContext, IConverter, bool>();
         }
 
         public IConverterRepository Add(Type sourceType, Type targetType, IConverter converter)
@@ -46,7 +46,7 @@ namespace Neptuo.Converters
             return this;
         }
 
-        public IConverterRepository AddSearchHandler(OutFunc<Type, IConverter, bool> searchHandler)
+        public IConverterRepository AddSearchHandler(OutFunc<ConverterSearchContext, IConverter, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
             onSearchConverter.Add(searchHandler);
@@ -61,22 +61,10 @@ namespace Neptuo.Converters
             IConverter converter = null;
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
-                onSearchConverter.TryExecute(sourceType, out converter);
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
             if (converter == null)
             {
-                if (sourceValue == null)
-                {
-                    targetValue = default(TTarget);
-                    return true;
-                }
-
-                if (targetType == typeof(string))
-                {
-                    targetValue = (TTarget)(object)sourceValue.ToString();
-                    return true;
-                }
-
                 targetValue = default(TTarget);
                 return false;
             }
@@ -88,11 +76,8 @@ namespace Neptuo.Converters
             object targetObject;
             if (converter.TryConvertGeneral(sourceType, targetType, sourceValue, out targetObject))
             {
-                if (targetObject is TTarget)
-                {
-                    targetValue = (TTarget)targetObject;
-                    return true;
-                }
+                targetValue = (TTarget)targetObject;
+                return true;
             }
 
             targetValue = default(TTarget);
@@ -104,16 +89,10 @@ namespace Neptuo.Converters
             IConverter converter = null;
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
-                onSearchConverter.TryExecute(sourceType, out converter);
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
             if (converter == null)
             {
-                if (targetType == typeof(string))
-                {
-                    targetValue = sourceValue.ToString();
-                    return true;
-                }
-
                 targetValue = null;
                 return false;
             }

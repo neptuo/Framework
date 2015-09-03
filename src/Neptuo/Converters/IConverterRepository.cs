@@ -25,7 +25,7 @@ namespace Neptuo.Converters
         /// </summary>
         /// <param name="searchHandler">Converter provider method.</param>
         /// <returns>Self (for fluency).</returns>
-        IConverterRepository AddSearchHandler(OutFunc<Type, IConverter, bool> searchHandler);
+        IConverterRepository AddSearchHandler(OutFunc<ConverterSearchContext, IConverter, bool> searchHandler);
 
         /// <summary>
         /// Tries to convert <paramref name="sourceValue"/> of type <typeparamref name="TSource"/> to target type <typeparamref name="TTarget"/>.
