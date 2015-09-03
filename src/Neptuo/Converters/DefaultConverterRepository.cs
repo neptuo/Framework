@@ -58,21 +58,39 @@ namespace Neptuo.Converters
             Type sourceType = typeof(TSource);
             Type targetType = typeof(TTarget);
 
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+            {
+                targetValue = (TTarget)(object)sourceValue;
+                return true;
+            }
+
+            // If source value is null, return default value.
+            if (sourceValue == null)
+            {
+                targetValue = default(TTarget);
+                return true;
+            }
+
+            // Find converter, look in storage or find using search handler.
             IConverter converter = null;
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
+            // If no converter was found, conversion is not possible.
             if (converter == null)
             {
                 targetValue = default(TTarget);
                 return false;
             }
 
+            // Try cast to generic converter.
             IConverter<TSource, TTarget> genericConverter = converter as IConverter<TSource, TTarget>;
             if (genericConverter != null)
                 return genericConverter.TryConvert(sourceValue, out targetValue);
 
+            // Convert using general converter.
             object targetObject;
             if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
             {
@@ -80,23 +98,48 @@ namespace Neptuo.Converters
                 return true;
             }
 
+            // No other options for conversion.
             targetValue = default(TTarget);
             return false;
         }
 
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
+            Ensure.NotNull(sourceType, "sourceType");
+            Ensure.NotNull(targetType, "targetType");
+
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+            {
+                targetValue = sourceValue;
+                return true;
+            }
+
+            // If source value is null, return default value.
+            if (sourceValue == null)
+            {
+                if (targetType.IsValueType)
+                    targetValue = Activator.CreateInstance(targetType);
+                else
+                    targetValue = null;
+
+                return true;
+            }
+
+            // Find converter, look in storage or find using search handler.
             IConverter converter = null;
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
+            // If no converter was found, conversion is not possible.
             if (converter == null)
             {
                 targetValue = null;
                 return false;
             }
 
+            // Convert using general converter.
             return converter.TryConvert(sourceType, targetType, sourceValue, out targetValue);
         }
     }

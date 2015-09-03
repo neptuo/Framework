@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo
 {
     /// <summary>
-    /// Util for converting between types.
+    /// Singleton utilility for converting between types.
     /// </summary>
     public static class Converts
     {
@@ -16,7 +16,7 @@ namespace Neptuo
         private static IConverterRepository repository;
 
         /// <summary>
-        /// Repository containing all registered converters.
+        /// Singleton converter repository.
         /// </summary>
         public static IConverterRepository Repository
         {
@@ -28,13 +28,6 @@ namespace Neptuo
                     {
                         if (repository == null)
                             repository = new DefaultConverterRepository();
-
-                        repository
-                            .Add(new ConverterBase<string, bool>(Boolean.TryParse))
-                            .Add(new ConverterBase<string, int>(Int32.TryParse))
-                            .Add(new ConverterBase<string, long>(Int64.TryParse))
-                            .Add(new ConverterBase<string, double>(Double.TryParse))
-                            .Add(new ConverterBase<string, decimal>(Decimal.TryParse));
                     }
                 }
                 return repository;
@@ -81,7 +74,7 @@ namespace Neptuo
             if (Try(sourceValue, out targetValue))
                 return targetValue;
 
-            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
+            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type '{0}' can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
         }
 
         /// <summary>
@@ -95,27 +88,16 @@ namespace Neptuo
         public static object To(Type sourceType, Type targetType, object sourceValue)
         {
             object targetValue;
-            if (targetType.IsAssignableFrom(sourceType))
-                return sourceValue;
-
             if (Try(sourceType, targetType, sourceValue, out targetValue))
                 return targetValue;
 
-            if (sourceValue == null)
-            {
-                if (targetType.IsValueType)
-                    return Activator.CreateInstance(targetType);
-
-                return null;
-            }
-
             Ensure.NotNull(targetType, "targetType");
-            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type ('{0}') can't constructed from value '{1}'.", targetType.FullName, sourceValue);
+            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type '{0}' can't constructed from value '{1}'.", targetType.FullName, sourceValue);
         }
 
         /// <summary>
         /// Tries to convert <paramref name="sourceValue"/> to target type <paramref name="targetType"/>.
-        /// If conversion is not possible, throws exception <see cref="ArgumentOutOfRangeException"/>.
+        /// If conversion is not possible, throws <see cref="ArgumentOutOfRangeException"/>.
         /// </summary>
         /// <param name="targetType">Type of target value.</param>
         /// <param name="sourceValue">Source value.</param>

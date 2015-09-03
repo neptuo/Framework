@@ -44,6 +44,9 @@ namespace Neptuo.Converters
 
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
+            Ensure.NotNull(sourceType, "sourceType");
+            Ensure.NotNull(targetType, "targetType");
+
             TTarget target;
             if (TryConvert((TSource)sourceValue, out target))
             {
