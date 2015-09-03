@@ -59,5 +59,28 @@ namespace Neptuo.Converters
             Assert.AreEqual(true, Converts.Try(" ", out int2));
             Assert.AreEqual(true, Converts.Try(String.Empty, out int2));
         }
+
+        [TestMethod]
+        public void StringToCollection()
+        {
+            Converts.Repository
+                .AddStringToCollection<int>(Int32.TryParse);
+
+            List<int> values1;
+            Assert.AreEqual(true, Converts.Try("1,2,3", out values1));
+            Assert.AreEqual(true, Converts.Try("1, 2, 3", out values1));
+
+            IList<int> values2;
+            Assert.AreEqual(true, Converts.Try("1,2,3", out values2));
+            Assert.AreEqual(true, Converts.Try("1, 2, 3", out values2));
+
+            ICollection<int> values3;
+            Assert.AreEqual(true, Converts.Try("1,2,3", out values3));
+            Assert.AreEqual(true, Converts.Try("1, 2, 3", out values3));
+
+            IEnumerable<int> values4;
+            Assert.AreEqual(true, Converts.Try("1,2,3", out values4));
+            Assert.AreEqual(true, Converts.Try("1, 2, 3", out values4));
+        }
     }
 }
