@@ -27,7 +27,7 @@ namespace Neptuo
                     lock (lockRepository)
                     {
                         if (repository == null)
-                            repository = new ConverterRepository();
+                            repository = new DefaultConverterRepository();
 
                         repository
                             .Add(new ConverterBase<string, bool>(Boolean.TryParse))

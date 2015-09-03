@@ -6,28 +6,43 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Converters
 {
+    /// <summary>
+    /// Base implementation of <see cref="IConverter{TSource, TTarget}"/>.
+    /// Supports converting to two way:
+    /// 1) By passing delegate of type <see cref="OutFunc{TSource, TTarget, T}"/>.
+    /// 2) By overring method <see cref="IConverter{TSource, TTarget}.TryConvert"/>.
+    /// </summary>
+    /// <typeparam name="TSource">Type of source value.</typeparam>
+    /// <typeparam name="TTarget">Type of target value.</typeparam>
     public class ConverterBase<TSource, TTarget> : IConverter<TSource, TTarget>
     {
-        protected OutFunc<TSource, TTarget, bool> Converter { get; set; }
+        private readonly OutFunc<TSource, TTarget, bool> tryConvert;
 
+        /// <summary>
+        /// Creates new instance that requires overriding <see cref="IConverter{TSource, TTarget}.TryConvert"/>.
+        /// </summary>
         public ConverterBase()
         { }
 
-        public ConverterBase(OutFunc<TSource, TTarget, bool> converter)
+        /// <summary>
+        /// Creates new instance that converts by <paramref name="tryConvert"/>.
+        /// </summary>
+        /// <param name="tryConvert">Delegate for conversion of <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.</param>
+        public ConverterBase(OutFunc<TSource, TTarget, bool> tryConvert)
         {
-            Ensure.NotNull(converter, "converter");
-            Converter = converter;
+            Ensure.NotNull(tryConvert, "converter");
+            this.tryConvert = tryConvert;
         }
 
         public virtual bool TryConvert(TSource sourceValue, out TTarget targetValue)
         {
-            if (Converter != null)
-                return Converter(sourceValue, out targetValue);
+            if (tryConvert != null)
+                return tryConvert(sourceValue, out targetValue);
 
             throw Ensure.Exception.InvalidOperation("Override TryConvert method or provider Converter function.");
         }
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             TTarget target;
             if (TryConvert((TSource)sourceValue, out target))
