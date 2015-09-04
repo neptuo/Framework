@@ -26,6 +26,7 @@ using TestConsole.PresentationModels;
 using TestConsole.SharpKitCompilers;
 using TestConsole.Threading;
 using TestConsole.Tokens;
+using TestConsole.DispatcherExceptions;
 
 namespace TestConsole
 {
@@ -36,7 +37,7 @@ namespace TestConsole
             //TestTokens.Test();
             //TestTokenWriter.Test();
             //TestEntity.Test();
-            TestPresentationModels.Test();
+            //TestPresentationModels.Test();
             //TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
             //TestConfiguration.Test();
@@ -57,6 +58,7 @@ namespace TestConsole
             //TestLog4net.Test();
             //TestLocalization.Test();
             //Services.Queries.TestQueries.Test();
+            TestDispatcherException.Test();
 
             Console.ReadKey(true);
         }
