@@ -53,6 +53,7 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Features\Attributes\_AttributeFeatureExtensions.cs" />
     <Compile Include="Features\IAncestorEnumerator.cs" />
     <Compile Include="Features\IAbsolutePath.cs" />
     <Compile Include="Features\Attributes\IAttributeReader.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Features\Searching\IFilePathSearch.cs" />
     <Compile Include="Features\Searching\TextSearch.cs" />
     <Compile Include="Features\Searching\TextSearchType.cs" />
+    <Compile Include="Features\Searching\_SearchFeatureExtensions.cs" />
     <Compile Include="Features\Timestamps\ICreatedAt.cs" />
     <Compile Include="Features\IDirectoryCreator.cs" />
     <Compile Include="Features\IDirectoryEnumerator.cs" />
@@ -78,8 +80,11 @@
     <Compile Include="Features\IFileContentUpdater.cs" />
     <Compile Include="Features\IFileContentSize.cs" />
     <Compile Include="Features\Timestamps\IModefiedAt.cs" />
+    <Compile Include="Features\Timestamps\_TimestampFeatureExtensions.cs" />
+    <Compile Include="Features\_DirectoryFeatureExtensions.cs" />
     <Compile Include="Features\_FileContentAppenderExtensions.cs" />
     <Compile Include="Features\_FileContentUpdaterExtensions.cs" />
+    <Compile Include="Features\_FileSystemFeatureExtensions.cs" />
     <Compile Include="FileSystemException.cs" />
     <Compile Include="IDirectory.cs" />
     <Compile Include="IFile.cs" />
@@ -89,6 +94,7 @@
     <Compile Include="FileContentFactory.cs" />
     <Compile Include="_EnsureExtensions.cs" />
     <Compile Include="Features\_FileContentReaderExtensions.cs" />
+    <Compile Include="Features\_FileFeatureExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.FileSystems.nuspec" />
