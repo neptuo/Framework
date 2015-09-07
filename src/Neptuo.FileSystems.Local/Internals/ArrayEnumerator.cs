@@ -10,7 +10,7 @@ namespace Neptuo.FileSystems.Internals
     {
         private readonly string[] items;
         private readonly Func<string, T> itemGetter;
-        private int index;
+        private int index = -1;
         private T current;
 
         public ArrayEnumerator(string[] items, Func<string, T> itemGetter)
@@ -25,7 +25,7 @@ namespace Neptuo.FileSystems.Internals
             {
                 if (current == null)
                 {
-                    if (index < items.Length)
+                    if (index >= 0 && index < items.Length)
                         current = itemGetter(items[index]);
                     else
                         throw Ensure.Exception.NotSupported("Enumeration is out of bounds.");
@@ -44,7 +44,7 @@ namespace Neptuo.FileSystems.Internals
 
         public override void Reset()
         {
-            index = 0;
+            index = -1;
         }
     }
 }

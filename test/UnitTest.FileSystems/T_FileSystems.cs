@@ -66,13 +66,17 @@ namespace UnitTest.FileSystems
                 Assert.AreEqual("T2", f1.With<IFileContentReader>().GetContent());
                 Assert.AreEqual(2, f1.With<IFileContentSize>().FileSize);
 
-                //Rename file
+                // Rename file
                 f1.With<IFileRenamer>().ChangeName("F1.1");
                 Assert.AreEqual("F1.1", f1.Name);
                 Assert.AreEqual("txt", f1.Extension);
                 Assert.AreEqual(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.1.txt"), f1.With<IAbsolutePath>().AbsolutePath);
                 Assert.AreEqual(false, File.Exists(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.txt")));
                 Assert.AreEqual(true, File.Exists(Path.Combine(d1.With<IAbsolutePath>().AbsolutePath, "F1.1.txt")));
+
+                // Enumerate files.
+                IFileEnumerator fe1 = d1.With<IFileEnumerator>();
+                Assert.AreEqual(1, fe1.Count());
 
                 // Create files and directories.
                 IFile f2 = d1.With<IFileCreator>().Create("F2", "txt");
@@ -84,6 +88,10 @@ namespace UnitTest.FileSystems
                 IFile f122 = d12.With<IFileCreator>().Create("F2", "txt");
                 IFile f123 = d12.With<IFileCreator>().Create("F3", "rtf");
                 IFile f124 = d12.With<IFileCreator>().Create("f4", "rtf");
+
+                // Enumerate directories.
+                IDirectoryEnumerator de1 = d1.With<IDirectoryEnumerator>();
+                Assert.AreEqual(1, de1.Count());
 
                 // Searching directories
                 IEnumerable<IDirectory> s1 = rootDirectory.With<IDirectoryNameSearch>().FindDirectories(TextSearch.CreatePrefixed("D"));
