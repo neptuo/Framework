@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace Neptuo.FileSystems.Features
 {
     /// <summary>
-    /// Provides absolute path (excluding this item).
+    /// Provides absolute path (including this item).
     /// </summary>
     public interface IAbsolutePath
     {
         /// <summary>
-        /// Absolute path (excluding this item).
+        /// Absolute path (including this item).
         /// </summary>
         string AbsolutePath { get; }
     }
