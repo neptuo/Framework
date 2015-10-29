@@ -46,13 +46,15 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ComponentDispatcherHotKeyCollection.cs" />
+    <Compile Include="HotkeyCollectionBase.cs" />
     <Compile Include="IHotkeyCollection.cs" />
     <Compile Include="Internals\HandlerList.cs" />
     <Compile Include="Internals\KeyModel.cs" />
     <Compile Include="Internals\Win32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="WindowHotkeyCollection.cs" />
+    <Compile Include="WindowHotKeyCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
