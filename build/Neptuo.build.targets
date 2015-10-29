@@ -18,7 +18,7 @@ if "$(DefineConstants.Contains('Javascript'))"=="True" (
 	
 )
 
-if exists $(SolutionDir)\.nuget\NuGet.exe (
+if exist $(SolutionDir)\.nuget\NuGet.exe (
 	mkdir $(SolutionDir)\artifacts\$(ConfigurationName)\nuget
 	$(SolutionDir)\.nuget\NuGet.exe pack $(ProjectPath) -Prop Configuration=$(ConfigurationName) -OutputDirectory $(SolutionDir)\artifacts\$(ConfigurationName)\nuget -Symbols
 )
