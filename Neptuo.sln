@@ -128,6 +128,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit.Client", "test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.Validators", "src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj", "{0834DFD1-3536-4305-9E23-21061C5C0414}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.HotKeys", "src\Neptuo.Windows.HotKeys\Neptuo.Windows.HotKeys.csproj", "{F22B45A9-CE8E-49D8-8C43-99351AC4595F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -338,6 +340,10 @@ Global
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -384,6 +390,7 @@ Global
 		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
 		{C5958F2E-3480-42BE-A670-6E7D8FC30573} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
 		{0834DFD1-3536-4305-9E23-21061C5C0414} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
+		{F22B45A9-CE8E-49D8-8C43-99351AC4595F} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
