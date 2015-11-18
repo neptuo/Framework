@@ -1,8 +1,8 @@
 ﻿using Neptuo;
 using Neptuo.Services.Commands;
 using Neptuo.Services.Commands.Handlers;
-using Neptuo.Services.Events;
-using Neptuo.Services.Events.Handlers;
+using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Activators;
 using System;
 using System.Collections.Generic;

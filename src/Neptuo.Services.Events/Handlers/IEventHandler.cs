@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Handlers
+namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Handler for events of type <typeparamref name="TEvent"/>.

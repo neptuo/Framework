@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Events.Behaviors;
+﻿using Neptuo.Events.Behaviors;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Events.Behaviors")]
+[assembly: AssemblyTitle("Neptuo.Events.Behaviors")]
 [assembly: AssemblyDescription("Behaviors extension for event handling.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

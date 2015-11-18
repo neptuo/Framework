@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Events.Behaviors
+namespace Neptuo.Events.Behaviors
 {
     public static class VersionInfo
     {

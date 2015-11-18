@@ -51,9 +51,9 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Services.Events\Neptuo.Services.Events.csproj">
+    <ProjectReference Include="..\Neptuo.Services.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
-      <Name>Neptuo.Services.Events</Name>
+      <Name>Neptuo.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>

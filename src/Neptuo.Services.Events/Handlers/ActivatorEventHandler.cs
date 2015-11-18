@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Handlers
+namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Wrapper for <typeparamref name="TEventHandler"/> with resolve using <see cref="IDependencyProvider"/> for each event handling.

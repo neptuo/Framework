@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Handlers
+namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Factory class for event handlers from actions and functions.

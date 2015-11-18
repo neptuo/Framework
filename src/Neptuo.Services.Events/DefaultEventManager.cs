@@ -1,6 +1,6 @@
 ﻿using Neptuo.Components;
-using Neptuo.Services.Events.Handlers;
-using Neptuo.Services.Events.Internals;
+using Neptuo.Events.Handlers;
+using Neptuo.Events.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events
+namespace Neptuo.Events
 {
     /// <summary>
     /// Default implementation of <see cref="IEventDispatcher"/> and <see cref="IEventHandlerCollection"/>.

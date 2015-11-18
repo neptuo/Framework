@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Handlers
+namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Describes whole event processing context.

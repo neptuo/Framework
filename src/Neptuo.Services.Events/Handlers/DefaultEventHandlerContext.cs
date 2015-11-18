@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Handlers
+namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Default implmentation of <see cref="IEventHandlerContext{TEvent}"/>.

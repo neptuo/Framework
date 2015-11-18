@@ -7,8 +7,8 @@
     <ProjectGuid>{FE22167D-A8F5-400E-941D-4437EF22CECE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Events</RootNamespace>
-    <AssemblyName>Neptuo.Services.Events</AssemblyName>
+    <RootNamespace>Neptuo.Events</RootNamespace>
+    <AssemblyName>Neptuo.Events</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -63,8 +63,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Events.nuspec" />
-    <None Include="Neptuo.Services.Events.xml">
+    <None Include="Neptuo.Events.nuspec" />
+    <None Include="Neptuo.Events.xml">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

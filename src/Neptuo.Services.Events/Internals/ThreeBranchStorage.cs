@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events.Internals
+namespace Neptuo.Events.Internals
 {
     internal class ThreeBranchStorage
     {

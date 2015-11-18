@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Events
+namespace Neptuo.Events
 {
     /// <summary>
     /// Provides ability to publish events.
