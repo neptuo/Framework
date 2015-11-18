@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
+    <Export Filename="Neptuo.Commands.js" FilenameFormat="~/bin/{0}" />
+</Exugin>

@@ -157,9 +157,9 @@
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
       <Name>Neptuo.Services.Jobs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Commands\Neptuo.Services.Commands.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj">
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
-      <Name>Neptuo.Services.Commands</Name>
+      <Name>Neptuo.Commands</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>

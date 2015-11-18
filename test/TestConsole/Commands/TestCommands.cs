@@ -1,6 +1,6 @@
 ﻿using Neptuo;
-using Neptuo.Services.Commands;
-using Neptuo.Services.Commands.Handlers;
+using Neptuo.Commands;
+using Neptuo.Commands.Handlers;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
 using Neptuo.Activators;
