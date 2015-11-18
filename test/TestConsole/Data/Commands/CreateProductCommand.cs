@@ -1,4 +1,4 @@
-﻿using Neptuo.Services.Commands;
+﻿using Neptuo.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;

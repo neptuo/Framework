@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands.Handlers
+namespace Neptuo.Commands.Handlers
 {
     /// <summary>
     /// Pipeline based implementation of query handler.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands.Internals
+namespace Neptuo.Commands.Internals
 {
     /// <summary>
     /// Definition of command handler inside <see cref="DefaultCommandDispatcher"/>.

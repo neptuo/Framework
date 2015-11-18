@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands.Handlers
+namespace Neptuo.Commands.Handlers
 {
     /// <summary>
     /// Implementation of <see cref="ICommandHandler{TCommand}"/> that transfers commands over HTTP.

@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Commands.Http;
+﻿using Neptuo.Commands.Http;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Commands.Http")]
+[assembly: AssemblyTitle("Neptuo.Commands.Http")]
 [assembly: AssemblyDescription("Commands over HTTP support.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

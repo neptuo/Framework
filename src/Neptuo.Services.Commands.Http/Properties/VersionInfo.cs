@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Commands.Http
+namespace Neptuo.Commands.Http
 {
     public static class VersionInfo
     {

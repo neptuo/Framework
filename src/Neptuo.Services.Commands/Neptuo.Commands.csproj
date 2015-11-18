@@ -7,8 +7,8 @@
     <ProjectGuid>{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Commands</RootNamespace>
-    <AssemblyName>Neptuo.Services.Commands</AssemblyName>
+    <RootNamespace>Neptuo.Commands</RootNamespace>
+    <AssemblyName>Neptuo.Commands</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Commands;
+﻿using Neptuo.Commands;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Commands")]
+[assembly: AssemblyTitle("Neptuo.Commands")]
 [assembly: AssemblyDescription("Command support.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

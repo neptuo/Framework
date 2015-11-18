@@ -1,12 +1,12 @@
-﻿using Neptuo.Services.Commands.Handlers;
-using Neptuo.Services.Commands.Internals;
+﻿using Neptuo.Commands.Handlers;
+using Neptuo.Commands.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands
+namespace Neptuo.Commands
 {
     /// <summary>
     /// Default implementation of <see cref="ICommandDispatcher"/> and <see cref="ICommandHandlerCollection"/>.

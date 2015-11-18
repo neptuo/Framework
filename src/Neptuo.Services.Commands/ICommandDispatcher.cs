@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands
+namespace Neptuo.Commands
 {
     /// <summary>
     /// Dispatcher for handling commands.

@@ -1,12 +1,12 @@
 ﻿using Neptuo.Activators;
-using Neptuo.Services.Commands.Handlers;
+using Neptuo.Commands.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands
+namespace Neptuo.Commands
 {
     /// <summary>
     /// Command dispatcher based on registration from <see cref="IDependencyProvider"/>.

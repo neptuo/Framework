@@ -74,7 +74,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Validators"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries", "src\Neptuo.Services.Queries\Neptuo.Services.Queries.csproj", "{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands", "src\Neptuo.Services.Commands\Neptuo.Services.Commands.csproj", "{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands", "src\Neptuo.Services.Commands\Neptuo.Commands.csproj", "{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Events", "src\Neptuo.Events\Neptuo.Events.csproj", "{FE22167D-A8F5-400E-941D-4437EF22CECE}"
 EndProject

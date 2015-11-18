@@ -5,8 +5,8 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.services.commands</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/neptuo.services.commands</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/Neptuo.Commands</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Commands</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <tags>Neptuo Services Commands</tags>

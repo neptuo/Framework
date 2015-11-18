@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Commands
+namespace Neptuo.Commands
 {
     /// <summary>
     /// Implementation of <see cref="ICommandDispatcher"/> that transfers commands over HTTP.
