@@ -28,6 +28,7 @@
     <DefineConstants>TRACE;Javascript</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Neptuo.Validators.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,7 +52,7 @@
     <Compile Include="IValidationResult.cs" />
     <Compile Include="IValidationResultBuilder.cs" />
     <Compile Include="Messages\IValidationMessage.cs" />
-    <Compile Include="Messages\PropertyEqualMessage.cs" />
+    <Compile Include="Messages\KeyValuesMustMatchMessage.cs" />
     <Compile Include="Messages\StringLengthMessage.cs" />
     <Compile Include="Messages\StringNullOrEmptyMessage.cs" />
     <Compile Include="Messages\TextValidationMessage.cs" />
