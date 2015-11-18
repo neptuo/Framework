@@ -1,11 +1,11 @@
-﻿using Neptuo.Services.Validators.Handlers;
+﻿using Neptuo.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators
+namespace Neptuo.Validators
 {
     /// <summary>
     /// Collection of registered validation handlers.

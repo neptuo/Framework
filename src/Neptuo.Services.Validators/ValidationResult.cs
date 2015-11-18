@@ -1,12 +1,12 @@
-﻿using Neptuo.Services.Validators;
-using Neptuo.Services.Validators.Messages;
+﻿using Neptuo.Validators;
+using Neptuo.Validators.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators
+namespace Neptuo.Validators
 {
     /// <summary>
     /// Base implementation of <see cref="IValidationResult"/>.

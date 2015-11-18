@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators.Messages
+namespace Neptuo.Validators.Messages
 {
     /// <summary>
     /// Validation message for minimal and maximal string length.

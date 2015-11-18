@@ -7,8 +7,8 @@
     <ProjectGuid>{191A52C5-789C-4D8C-9551-0FAE9D632439}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Validators</RootNamespace>
-    <AssemblyName>Neptuo.Services.Validators</AssemblyName>
+    <RootNamespace>Neptuo.Validators</RootNamespace>
+    <AssemblyName>Neptuo.Validators</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -65,8 +65,8 @@
     <Compile Include="_ValidationResultBuilderExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Validators.nuspec" />
-    <None Include="Neptuo.Services.Validators.xml">
+    <None Include="Neptuo.Validators.nuspec" />
+    <None Include="Neptuo.Validators.xml">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

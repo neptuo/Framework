@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.services.validators</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/neptuo.services.validators</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.validators</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.validators</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Validators</tags>
+        <tags>Neptuo Validators</tags>
     </metadata>
 </package>

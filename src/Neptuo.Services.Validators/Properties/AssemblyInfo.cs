@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Validators;
+﻿using Neptuo.Validators;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Validators")]
+[assembly: AssemblyTitle("Neptuo.Validators")]
 [assembly: AssemblyDescription("Validation facade.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

@@ -177,9 +177,9 @@
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
       <Name>Neptuo.Services.Queries</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Validators\Neptuo.Services.Validators.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Services.Validators\Neptuo.Validators.csproj">
       <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
-      <Name>Neptuo.Services.Validators</Name>
+      <Name>Neptuo.Validators</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Unity\Neptuo.Activators.Unity.csproj">
       <Project>{a9d02667-9762-4c91-a403-41de7b8a4efe}</Project>

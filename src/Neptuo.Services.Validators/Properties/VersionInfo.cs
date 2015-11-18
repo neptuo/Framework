@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Validators
+namespace Neptuo.Validators
 {
     public static class VersionInfo
     {

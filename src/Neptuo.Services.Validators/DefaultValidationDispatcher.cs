@@ -1,12 +1,12 @@
-﻿using Neptuo.Services.Validators.Handlers;
-using Neptuo.Services.Validators.Internals;
+﻿using Neptuo.Validators.Handlers;
+using Neptuo.Validators.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators
+namespace Neptuo.Validators
 {
     /// <summary>
     /// Default implementation of <see cref="IValidationDispatcher"/> and <see cref="IValidationHandlerCollection"/>.
