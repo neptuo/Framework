@@ -8,7 +8,7 @@ namespace Neptuo.Events.Handlers
 {
     /// <summary>
     /// Wrapper for <see cref="IEventHandler{TEvent}"/> to
-    /// support inner handler garbage collection with support to auto-unsubscribe.
+    /// support inner handler garbage collection with auto-unsubscribe.
     /// </summary>
     /// <typeparam name="TEvent">Type of event data.</typeparam>
     public class WeakEventHandler<TEvent> : IEventHandler<IEventHandlerContext<TEvent>>
@@ -31,7 +31,7 @@ namespace Neptuo.Events.Handlers
             if (innerHandler.TryGetTarget(out target))
                 return target.HandleAsync(context.Payload.Body);
             else
-                context.EventHandlers.Remove(this);
+                context.Handlers.Remove(this);
 
             return Task.FromResult(false);
         }

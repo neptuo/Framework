@@ -21,7 +21,7 @@ namespace Neptuo.Events.Handlers
         /// <summary>
         /// Current collection of event subscriptions.
         /// </summary>
-        IEventHandlerCollection EventHandlers { get; }
+        IEventHandlerCollection Handlers { get; }
 
         /// <summary>
         /// Current event dispatcher.
