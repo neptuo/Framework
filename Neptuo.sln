@@ -102,13 +102,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors", "src\Nep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries.Behaviors", "src\Neptuo.Services.Queries.Behaviors\Neptuo.Services.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Behaviors", "src\Neptuo.Services.Commands.Behaviors\Neptuo.Services.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Behaviors", "src\Neptuo.Services.Commands.Behaviors\Neptuo.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Events.Behaviors", "src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.HttpUtilities", "src\Neptuo.Services.HttpUtilities\Neptuo.Services.HttpUtilities.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Commands.Http", "src\Neptuo.Services.Commands.Http\Neptuo.Services.Commands.Http.csproj", "{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Http", "src\Neptuo.Services.Commands.Http\Neptuo.Commands.Http.csproj", "{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Jobs.Behaviors", "src\Neptuo.Services.Jobs.Behaviors\Neptuo.Services.Jobs.Behaviors.csproj", "{E50BF0B3-514E-4170-98DA-580A2CF8A016}"
 EndProject
