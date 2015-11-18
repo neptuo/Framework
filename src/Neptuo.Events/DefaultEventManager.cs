@@ -85,7 +85,7 @@ namespace Neptuo.Events
             return Task.Factory.ContinueWhenAll(tasks, (items) => Task.FromResult(true));
         }
 
-        public IEventHandlerCollection Subscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventHandlerCollection Add<TEvent>(IEventHandler<TEvent> handler)
         {
             Ensure.NotNull(handler, "handler");
 
@@ -102,7 +102,7 @@ namespace Neptuo.Events
             return this;
         }
 
-        public IEventHandlerCollection UnSubscribe<TEvent>(IEventHandler<TEvent> handler)
+        public IEventHandlerCollection Remove<TEvent>(IEventHandler<TEvent> handler)
         {
             Ensure.NotNull(handler, "handler");
 

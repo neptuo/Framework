@@ -17,13 +17,13 @@ namespace Neptuo.Events
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        IEventHandlerCollection Subscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventHandlerCollection Add<TEvent>(IEventHandler<TEvent> handler);
 
         /// <summary>
         /// Unsubscribes <paramref name="handler"/> from events of type <typeparamref name="TEvent"/>.
         /// </summary>
         /// <typeparam name="TEvent">Type of event data.</typeparam>
         /// <param name="handler">Event handler.</param>
-        IEventHandlerCollection UnSubscribe<TEvent>(IEventHandler<TEvent> handler);
+        IEventHandlerCollection Remove<TEvent>(IEventHandler<TEvent> handler);
     }
 }
