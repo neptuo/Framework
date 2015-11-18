@@ -58,7 +58,8 @@ namespace TestConsole
             //TestLog4net.Test();
             //TestLocalization.Test();
             //Services.Queries.TestQueries.Test();
-            TestDispatcherException.Test();
+            //TestDispatcherException.Test();
+            TestEventManager.Test();
 
             Console.ReadKey(true);
         }

@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispatcherExceptions\TestDispatcherException.cs" />
+    <Compile Include="Events\EventData.cs" />
+    <Compile Include="Events\TestEventManager.cs" />
     <Compile Include="FileSystems\TestLocal.cs" />
     <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="DependencyContainers\SimpleDependencyProvider.cs" />
     <Compile Include="DependencyContainers\TestDependency.cs" />
     <Compile Include="Disposable\TestDisposable.cs" />
-    <Compile Include="Events\TestEvents.cs" />
+    <Compile Include="Events\TestEventGarbageCollection.cs" />
     <Compile Include="Hashing\TestHash.cs" />
     <Compile Include="Localization\TestLocalization.cs" />
     <Compile Include="Logging\TestLog4net.cs" />
@@ -159,9 +161,9 @@
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
       <Name>Neptuo.Services.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Events\Neptuo.Services.Events.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
-      <Name>Neptuo.Services.Events</Name>
+      <Name>Neptuo.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Services.Queries.Behaviors\Neptuo.Services.Queries.Behaviors.csproj">
       <Project>{f1deaa68-6740-42ec-9c02-6946cda4ce26}</Project>
