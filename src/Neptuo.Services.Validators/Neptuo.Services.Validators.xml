@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
-    <Export Filename="Neptuo.Services.Validators.js" FilenameFormat="~/bin/{0}" />
-    <Type Target="Neptuo.Services.Validators.ValidationDispatcherBase" Export="False" />
-    <Type Target="Neptuo.Services.Validators.DefaultValidationDispatcher" Export="False" />
-    <Type Target="Neptuo.Services.Validators.DependencyValidationDispatcher" Export="False" />
-</Exugin>

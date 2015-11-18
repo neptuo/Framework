@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators.Internals
+namespace Neptuo.Validators.Internals
 {
     /// <summary>
     /// Definition of command handler inside <see cref="DefaultValidationDispatcher"/>.

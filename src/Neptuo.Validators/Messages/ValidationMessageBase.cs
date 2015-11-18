@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Validators.Messages
+namespace Neptuo.Validators.Messages
 {
     /// <summary>
-    /// Validation message with custom text message.
+    /// Base implementation of <see cref="IValidationMessage"/>.
     /// </summary>
-    public class TextValidationMessage : ValidationMessageBase
+    public abstract class ValidationMessageBase : IValidationMessage
     {
+        public string Key { get; private set; }
+
         /// <summary>
         /// Creates new instance for <paramref name="key"/> with message in <paramref name="message"/>.
         /// </summary>
         /// <param name="key">Validation message key.</param>
-        /// <param name="message">Text representation of validation message.</param>
-        public TextValidationMessage(string key, string message)
-            : base(key, message)
-        { }
+        public ValidationMessageBase(string key)
+        {
+            Key = key;
+        }
     }
 }

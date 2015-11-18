@@ -20,7 +20,7 @@
 //using TestConsole.Data.Commands.Handlers;
 //using TestConsole.Data.Commands.Validators.Handlers;
 //using TestConsole.Data.Queries;
-//using Neptuo.Services.Validators;
+//using Neptuo.Validators;
 //using Neptuo.Events;
 
 //namespace TestConsole.Data
