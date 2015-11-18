@@ -70,7 +70,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Deleters", "src\Neptuo.Services.Deleters\Neptuo.Services.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Validators", "src\Neptuo.Services.Validators\Neptuo.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Validators", "src\Neptuo.Validators\Neptuo.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Services.Queries", "src\Neptuo.Services.Queries\Neptuo.Services.Queries.csproj", "{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}"
 EndProject
