@@ -11,13 +11,22 @@ namespace Neptuo.Services.Validators.Messages
     /// </summary>
     public class TextValidationMessage : ValidationMessageBase
     {
+        private readonly string message;
+
         /// <summary>
         /// Creates new instance for <paramref name="key"/> with message in <paramref name="message"/>.
         /// </summary>
         /// <param name="key">Validation message key.</param>
         /// <param name="message">Text representation of validation message.</param>
         public TextValidationMessage(string key, string message)
-            : base(key, message)
-        { }
+            : base(key)
+        {
+            this.message = message;
+        }
+
+        public override string ToString()
+        {
+            return message;
+        }
     }
 }

@@ -60,7 +60,9 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Commands.nuspec" />
+    <None Include="Neptuo.Services.Commands.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Neptuo.Services.Commands.xml">
       <SubType>Designer</SubType>
     </None>
