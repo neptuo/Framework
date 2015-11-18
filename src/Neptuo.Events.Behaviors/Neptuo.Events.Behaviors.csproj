@@ -7,8 +7,8 @@
     <ProjectGuid>{9AE39411-759E-4682-9CB1-D1308C868290}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Events</RootNamespace>
-    <AssemblyName>Neptuo.Services.Events.Behaviors</AssemblyName>
+    <RootNamespace>Neptuo.Events</RootNamespace>
+    <AssemblyName>Neptuo.Events.Behaviors</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -51,7 +51,7 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Services.Events\Neptuo.Events.csproj">
+    <ProjectReference Include="..\Neptuo.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
       <Name>Neptuo.Events</Name>
     </ProjectReference>
@@ -61,7 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Events.Behaviors.nuspec" />
+    <None Include="Neptuo.Events.Behaviors.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />

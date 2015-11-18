@@ -73,7 +73,7 @@
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
       <Name>Neptuo.Services.Deleters</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Events\Neptuo.Events.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
       <Name>Neptuo.Events</Name>
     </ProjectReference>
