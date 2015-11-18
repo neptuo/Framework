@@ -59,7 +59,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.Services.Commands\Neptuo.Commands.csproj">
+    <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj">
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
       <Name>Neptuo.Commands</Name>
     </ProjectReference>

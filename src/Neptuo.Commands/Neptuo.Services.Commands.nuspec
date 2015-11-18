@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/Neptuo.Commands.behaviors</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Commands.behaviors</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.commands</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.commands</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Commands Behaviors</tags>
+        <tags>Neptuo Commands</tags>
     </metadata>
 </package>

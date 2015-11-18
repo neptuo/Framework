@@ -5,8 +5,8 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/Neptuo.Events</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Events</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.events</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.events</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <tags>Neptuo Events</tags>
