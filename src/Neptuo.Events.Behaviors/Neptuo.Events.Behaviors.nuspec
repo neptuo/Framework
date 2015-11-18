@@ -9,6 +9,6 @@
         <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Events.behaviors</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Events Behaviors</tags>
+        <tags>Neptuo Events Behaviors</tags>
     </metadata>
 </package>

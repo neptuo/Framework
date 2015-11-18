@@ -9,6 +9,6 @@
         <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Events</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Events</tags>
+        <tags>Neptuo Events</tags>
     </metadata>
 </package>
