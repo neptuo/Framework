@@ -6,7 +6,7 @@
     <ProjectGuid>{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services</RootNamespace>
+    <RootNamespace>Neptuo</RootNamespace>
     <AssemblyName>UnitTest.Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,10 +50,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Events\T_Events_Sync.cs" />
+    <Compile Include="Events\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\T_Services_Queries_AutoExport.cs" />
-    <Compile Include="Queries\T_Services_Queries_Behaviors.cs" />
-    <Compile Include="Queries\T_Service_Queries_AddAll.cs" />
+    <Compile Include="Queries\T_Queries_AutoExport.cs" />
+    <Compile Include="Queries\T_Queries_Behaviors.cs" />
+    <Compile Include="Queries\T_Queries_AddAll.cs" />
     <Compile Include="Queries\_Services.cs" />
   </ItemGroup>
   <ItemGroup>

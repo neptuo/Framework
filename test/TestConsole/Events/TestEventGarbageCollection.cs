@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestConsole.Events
 {
-    class TestEvents : TestClass
+    class TestEventGarbageCollection : TestClass
     {
         public static void Test()
         {

@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispatcherExceptions\TestDispatcherException.cs" />
+    <Compile Include="Events\EventData.cs" />
+    <Compile Include="Events\TestEventManager.cs" />
     <Compile Include="FileSystems\TestLocal.cs" />
     <Compile Include="Services.Jobs\TempCheckServiceHandler.cs" />
     <Compile Include="Behaviors\TestBehaviors.cs" />
@@ -99,7 +101,7 @@
     <Compile Include="DependencyContainers\SimpleDependencyProvider.cs" />
     <Compile Include="DependencyContainers\TestDependency.cs" />
     <Compile Include="Disposable\TestDisposable.cs" />
-    <Compile Include="Events\TestEvents.cs" />
+    <Compile Include="Events\TestEventGarbageCollection.cs" />
     <Compile Include="Hashing\TestHash.cs" />
     <Compile Include="Localization\TestLocalization.cs" />
     <Compile Include="Logging\TestLog4net.cs" />
