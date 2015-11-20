@@ -1,7 +1,7 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
-using Neptuo.Services.Queries.Handlers;
+using Neptuo.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

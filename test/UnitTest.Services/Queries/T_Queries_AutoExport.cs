@@ -1,15 +1,15 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
 using Neptuo.Reflection;
-using Neptuo.Services.Queries.Handlers;
-using Neptuo.Services.Queries.Handlers.AutoExports;
+using Neptuo.Queries.Handlers;
+using Neptuo.Queries.Handlers.AutoExports;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     [TestClass]
     public class T_Services_Queries_AutoExport
