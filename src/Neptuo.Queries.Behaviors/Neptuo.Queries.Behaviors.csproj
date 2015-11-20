@@ -62,7 +62,9 @@
     <Compile Include="Handlers\BehaviorQueryHandler.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Queries.Behaviors.nuspec" />
+    <None Include="Neptuo.Queries.Behaviors.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

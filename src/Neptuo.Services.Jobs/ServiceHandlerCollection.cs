@@ -54,7 +54,6 @@ namespace Neptuo.Services.Jobs
                     disposableService.Dispose();
             }
 
-
             base.DisposeManagedResources();
         }
     }
