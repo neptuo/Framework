@@ -63,7 +63,7 @@
       <Project>{2fbb5921-7ac8-473d-8356-954e0087659f}</Project>
       <Name>Neptuo.Services.HttpUtilities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Services.Queries\Neptuo.Queries.csproj">
+    <ProjectReference Include="..\Neptuo.Queries\Neptuo.Queries.csproj">
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
       <Name>Neptuo.Queries</Name>
     </ProjectReference>
