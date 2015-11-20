@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
-    <Export Filename="Neptuo.Services.Queries.js" FilenameFormat="~/bin/{0}" />
-    <Type Target="Neptuo.Services.Queries.DependencyQueryDispatcher" Export="False" />
+    <Export Filename="Neptuo.Queries.js" FilenameFormat="~/bin/{0}" />
+    <Type Target="Neptuo.Queries.DependencyQueryDispatcher" Export="False" />
 </Exugin>

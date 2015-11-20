@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Internals
+namespace Neptuo.Queries.Internals
 {
     internal class Constant
     {

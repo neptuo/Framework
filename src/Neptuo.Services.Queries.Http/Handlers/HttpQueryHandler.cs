@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Handlers
+namespace Neptuo.Queries.Handlers
 {
     /// <summary>
     /// Implementation of <see cref="IQueryHandler{TQuery, TResult}"/> that transfers queries over HTTP.

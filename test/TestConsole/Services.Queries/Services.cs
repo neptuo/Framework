@@ -1,5 +1,5 @@
-﻿using Neptuo.Services.Queries;
-using Neptuo.Services.Queries.Handlers;
+﻿using Neptuo.Queries;
+using Neptuo.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;

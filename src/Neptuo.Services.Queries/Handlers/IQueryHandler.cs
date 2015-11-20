@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Handlers
+namespace Neptuo.Queries.Handlers
 {
     /// <summary>
     /// Handler for query of type <typeparamref name="TQuery"/>.

@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Queries.Behaviors;
+﻿using Neptuo.Queries.Behaviors;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Queries.Behaviors")]
+[assembly: AssemblyTitle("Neptuo.Queries.Behaviors")]
 [assembly: AssemblyDescription("Behaviors extension for query handling.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

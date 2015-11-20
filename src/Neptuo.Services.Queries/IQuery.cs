@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     public interface IQuery<TResult>
     { }

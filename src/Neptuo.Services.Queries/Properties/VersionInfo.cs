@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     public static class VersionInfo
     {

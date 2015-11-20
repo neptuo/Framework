@@ -1,6 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Linq.Expressions;
-using Neptuo.Services.Queries.Handlers;
+using Neptuo.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     /// <summary>
     /// Implementation of <see cref="IQueryDispatcher"/> which uses <see cref="IDependencyProvider"/> to read registrations from.

@@ -3,7 +3,7 @@ using Neptuo.Activators.AutoExports;
 using Neptuo.Reflection;
 using Neptuo.Reflection.Enumerators;
 using Neptuo.Reflection.Enumerators.Executors;
-using Neptuo.Services.Queries.Internals;
+using Neptuo.Queries.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries.Handlers.AutoExports
+namespace Neptuo.Queries.Handlers.AutoExports
 {
     /// <summary>
     /// Auto-wiring query handlers extensions for <see cref="ITypeExecutorService"/>.

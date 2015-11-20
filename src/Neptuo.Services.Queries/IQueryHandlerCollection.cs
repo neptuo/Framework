@@ -1,11 +1,11 @@
-﻿using Neptuo.Services.Queries.Handlers;
+﻿using Neptuo.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     /// <summary>
     /// Collection of registered query handlers.

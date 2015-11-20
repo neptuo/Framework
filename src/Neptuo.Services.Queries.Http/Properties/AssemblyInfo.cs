@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Queries.Http;
+﻿using Neptuo.Queries.Http;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Queries.Http")]
+[assembly: AssemblyTitle("Neptuo.Queries.Http")]
 [assembly: AssemblyDescription("Queries over HTTP support.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

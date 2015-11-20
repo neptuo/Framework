@@ -11,7 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     /// <summary>
     /// Implementation of <see cref="IQueryDispatcher"/> that transfers queries over HTTP.

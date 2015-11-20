@@ -1,5 +1,5 @@
-﻿using Neptuo.Services.Queries.Handlers;
-using Neptuo.Services.Queries.Internals;
+﻿using Neptuo.Queries.Handlers;
+using Neptuo.Queries.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     /// <summary>
     /// Common extensions for <see cref="IQueryHandlerCollection"/>.

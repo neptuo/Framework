@@ -1,12 +1,12 @@
-﻿using Neptuo.Services.Queries.Handlers;
-using Neptuo.Services.Queries.Internals;
+﻿using Neptuo.Queries.Handlers;
+using Neptuo.Queries.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     /// <summary>
     /// Default implementation of <see cref="IQueryDispatcher"/> and <see cref="IQueryHandlerCollection"/>.

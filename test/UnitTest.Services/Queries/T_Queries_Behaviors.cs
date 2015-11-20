@@ -6,14 +6,14 @@ using Neptuo.Behaviors.Processing.Compilation;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
 using Neptuo.Compilers;
-using Neptuo.Services.Queries.Handlers;
+using Neptuo.Queries.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Queries
+namespace Neptuo.Queries
 {
     public class ProductQuery : IQuery<Product>
     {
