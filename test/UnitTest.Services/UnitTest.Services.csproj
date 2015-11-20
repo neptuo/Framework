@@ -71,7 +71,7 @@
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
       <Name>Neptuo.Services.Jobs</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Deleters\Neptuo.Models.Deleters.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj">
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
       <Name>Neptuo.Models.Deleters</Name>
     </ProjectReference>
