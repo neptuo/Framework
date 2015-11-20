@@ -79,15 +79,15 @@
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
       <Name>Neptuo.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj">
       <Project>{f1deaa68-6740-42ec-9c02-6946cda4ce26}</Project>
       <Name>Neptuo.Queries.Behaviors</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Queries.Http\Neptuo.Queries.Http.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Queries.Http\Neptuo.Queries.Http.csproj">
       <Project>{8ec49c59-5f97-4877-95ca-f1bb2254f332}</Project>
       <Name>Neptuo.Queries.Http</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Queries\Neptuo.Queries.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Queries\Neptuo.Queries.csproj">
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
       <Name>Neptuo.Queries</Name>
     </ProjectReference>

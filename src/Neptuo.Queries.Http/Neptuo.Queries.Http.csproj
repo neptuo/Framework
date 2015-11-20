@@ -30,8 +30,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Neptuo.Queries.Http.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -66,10 +71,6 @@
     <ProjectReference Include="..\Neptuo.Queries\Neptuo.Queries.csproj">
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
       <Name>Neptuo.Queries</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
-      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
-      <Name>Neptuo</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
