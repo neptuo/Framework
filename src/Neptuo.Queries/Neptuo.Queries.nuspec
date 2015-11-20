@@ -9,6 +9,6 @@
         <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Queries</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Queries</tags>
+        <tags>Neptuo Queries</tags>
     </metadata>
 </package>
