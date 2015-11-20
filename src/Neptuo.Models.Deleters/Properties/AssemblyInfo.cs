@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Deleters;
+﻿using Neptuo.Models.Deleters;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Deleters")]
+[assembly: AssemblyTitle("Neptuo.Models.Deleters")]
 [assembly: AssemblyDescription("Deleter facade.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

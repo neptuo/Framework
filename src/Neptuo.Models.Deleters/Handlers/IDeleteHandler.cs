@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Deleters.Handlers
+namespace Neptuo.Models.Deleters.Handlers
 {
     /// <summary>
-    /// Executes deletion.
+    /// Prepares <see cref="IDeleteContext"/>.
     /// </summary>
-    public interface IDeleteExecutionHandler
+    public interface IDeleteHandler
     {
         /// <summary>
-        /// Executes delete operation.
-        /// This method should be called <see cref="IDeleteContext"/> has set <see cref="IDeleteContext.CanDelete"/> to <c>true</c>.
+        /// Prepares <see cref="IDeleteContext"/> for <paramref name="key"/>.
         /// </summary>
         /// <param name="key">Key of the object to delete.</param>
-        void Handle(IKey key);
+        /// <returns>Deletion context.</returns>
+        IDeleteContext Handle(IKey key);
     }
 }

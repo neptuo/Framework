@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.services.deleters</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/neptuo.services.deleters</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.models.deleters</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.models.deleters</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Deleters</tags>
+        <tags>Neptuo Models Deleters</tags>
     </metadata>
 </package>

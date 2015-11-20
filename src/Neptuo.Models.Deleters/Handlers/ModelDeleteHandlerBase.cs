@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Deleters.Handlers
+namespace Neptuo.Models.Deleters.Handlers
 {
     /// <summary>
     /// Base implementation of <see cref="IDeleteHandler"/> when model instance is required for preparing <see cref="IDeleteContext"/>.

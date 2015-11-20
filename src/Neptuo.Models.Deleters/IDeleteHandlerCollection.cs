@@ -1,11 +1,11 @@
-﻿using Neptuo.Services.Deleters.Handlers;
+﻿using Neptuo.Models.Deleters.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Deleters
+namespace Neptuo.Models.Deleters
 {
     /// <summary>
     /// Collection of registered delete handlers.

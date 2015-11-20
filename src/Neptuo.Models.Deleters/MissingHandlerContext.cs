@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Deleters
+namespace Neptuo.Models.Deleters
 {
     /// <summary>
     /// Implementation of <see cref="IDeleteContext"/> for missing delete handler.
