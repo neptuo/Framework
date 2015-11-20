@@ -7,8 +7,8 @@
     <ProjectGuid>{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.Deleters</RootNamespace>
-    <AssemblyName>Neptuo.Services.Deleters</AssemblyName>
+    <RootNamespace>Neptuo.Models.Deleters</RootNamespace>
+    <AssemblyName>Neptuo.Models.Deleters</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,8 +55,8 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Deleters.nuspec" />
-    <None Include="Neptuo.Services.Deleters.xml">
+    <None Include="Neptuo.Models.Deleters.nuspec" />
+    <None Include="Neptuo.Models.Deleters.xml">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

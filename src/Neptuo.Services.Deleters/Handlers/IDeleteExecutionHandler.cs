@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Deleters.Handlers
+namespace Neptuo.Models.Deleters.Handlers
 {
     /// <summary>
     /// Executes deletion.

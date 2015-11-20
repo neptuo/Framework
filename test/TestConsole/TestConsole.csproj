@@ -233,9 +233,9 @@
       <Project>{671bf5ef-9e1c-4ef9-ae7c-57c9f960650b}</Project>
       <Name>Neptuo.PresentationModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Deleters\Neptuo.Services.Deleters.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Services.Deleters\Neptuo.Models.Deleters.csproj">
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
-      <Name>Neptuo.Services.Deleters</Name>
+      <Name>Neptuo.Models.Deleters</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj">
       <Project>{0a82625a-bb41-48ce-b3ad-0141dd3cb779}</Project>

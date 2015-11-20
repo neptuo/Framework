@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Deleters
+namespace Neptuo.Models.Deleters
 {
     public static class VersionInfo
     {
