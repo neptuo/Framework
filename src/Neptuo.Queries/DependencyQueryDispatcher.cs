@@ -15,7 +15,7 @@ namespace Neptuo.Queries
     /// </summary>
     public class DependencyQueryDispatcher : IQueryDispatcher
     {
-        private static string handleAsyncMethodName = TypeHelper.MethodName<IQueryHandler<IQuery<object>, object>, IQuery<object>, object>(q => q.HandleAsync);
+        private static string handleAsyncMethodName = "HandleAsync"; //TypeHelper.MethodName<IQueryHandler<IQuery<object>, object>, IQuery<object>, object>(q => q.HandleAsync);
         private IDependencyProvider dependencyProvider;
         
         /// <summary>

@@ -64,8 +64,8 @@
     <Compile Include="_QueryHandlerCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.Services.Queries.nuspec" />
-    <None Include="Neptuo.Services.Queries.xml">
+    <None Include="Neptuo.Queries.nuspec" />
+    <None Include="Neptuo.Queries.xml">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
