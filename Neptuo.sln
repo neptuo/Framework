@@ -68,7 +68,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.U
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo.Models\Neptuo.Models.csproj", "{37F9B51A-2E66-4A99-950A-17EBF6880ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models.Deleters", "src\Neptuo.Services.Deleters\Neptuo.Models.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models.Deleters", "src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Validators", "src\Neptuo.Validators\Neptuo.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
 EndProject
