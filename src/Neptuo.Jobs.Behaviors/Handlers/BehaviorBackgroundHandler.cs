@@ -14,7 +14,7 @@ namespace Neptuo.Jobs.Handlers
     /// Pipeline based implementation of <see cref="IBackgroundHandler"/>.
     /// </summary>
     /// <typeparam name="T">Type of inner handler.</typeparam>
-    public class BehaviorServiceHandler<T> : DisposableBase, IBackgroundHandler, IBehavior<T>
+    public class BehaviorBackgroundHandler<T> : DisposableBase, IBackgroundHandler, IBehavior<T>
         where T : IBackgroundHandler
     {
         private readonly IPipeline<T> pipeline;
@@ -25,7 +25,7 @@ namespace Neptuo.Jobs.Handlers
         /// </summary>
         /// <param name="pipeline">Behavior pipeline.</param>
         /// <param name="handlerFactory">Inner handler factory.</param>
-        public BehaviorServiceHandler(IPipeline<T> pipeline, IFactory<T> handlerFactory)
+        public BehaviorBackgroundHandler(IPipeline<T> pipeline, IFactory<T> handlerFactory)
         {
             Ensure.NotNull(pipeline, "pipeline");
             Ensure.NotNull(handlerFactory, "handlerFactory");
