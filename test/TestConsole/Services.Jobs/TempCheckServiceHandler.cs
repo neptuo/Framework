@@ -1,5 +1,5 @@
-﻿using Neptuo.Services.Jobs.Handlers.Behaviors;
-using Neptuo.Services.Jobs.Handlers;
+﻿using Neptuo.Jobs.Handlers.Behaviors;
+using Neptuo.Jobs.Handlers;
 using System;
 using System.Collections.Generic;
 using System.IO;
