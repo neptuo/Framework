@@ -64,9 +64,9 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.Services.HttpUtilities\Neptuo.Services.HttpUtilities.csproj">
+    <ProjectReference Include="..\Neptuo.Net.Http.Clients\Neptuo.Net.Http.Clients.csproj">
       <Project>{2fbb5921-7ac8-473d-8356-954e0087659f}</Project>
-      <Name>Neptuo.Services.HttpUtilities</Name>
+      <Name>Neptuo.Net.Http.Clients</Name>
     </ProjectReference>
     <ProjectReference Include="..\Neptuo.Queries\Neptuo.Queries.csproj">
       <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>

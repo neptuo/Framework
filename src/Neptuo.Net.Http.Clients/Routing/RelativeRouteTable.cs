@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.HttpUtilities.Routing
+namespace Neptuo.Net.Http.Clients.Routing
 {
     /// <summary>
     /// Implementation of <see cref="IRouteTable"/> which uses inner route table

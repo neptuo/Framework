@@ -1,4 +1,4 @@
-﻿using Neptuo.Services.HttpUtilities.Routing;
+﻿using Neptuo.Net.Http.Clients.Routing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,13 +10,18 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.HttpUtilities
+namespace Neptuo.Net.Http.Clients
 {
     /// <summary>
     /// Adapter between service input object and <see cref="HttpClient"/>.
     /// </summary>
     public class HttpClientAdapter
     {
+        private const string headerContentType = "Content-type";
+
+        private const string xmlContentType = "text/xml";
+        private const string jsonContentType = "text/json";
+
         private readonly IRouteTable routeTable;
 
         /// <summary>
@@ -41,19 +46,19 @@ namespace Neptuo.Services.HttpUtilities
             switch (route.Serialization)
             {
                 case RouteSerialization.Xml:
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/xml"));
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(xmlContentType));
                     if (route.Method != RouteMethod.Get)
-                        httpClient.DefaultRequestHeaders.Add("Content-type", "text/xml");
+                        httpClient.DefaultRequestHeaders.Add(headerContentType, xmlContentType);
 
                     break;
                 case RouteSerialization.Json:
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/json"));
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(jsonContentType));
                     if (route.Method != RouteMethod.Get)
-                        httpClient.DefaultRequestHeaders.Add("Content-type", "text/json");
+                        httpClient.DefaultRequestHeaders.Add(headerContentType, jsonContentType);
 
                     break;
                 default:
-                    throw Ensure.Exception.NotSupported("Not supported serialization type '{0}'.", route.Serialization);
+                    throw Ensure.Exception.NotSupportedSerialization(route.Serialization);
             }
 
             return httpClient;
@@ -74,7 +79,7 @@ namespace Neptuo.Services.HttpUtilities
                 case RouteSerialization.Json:
                     return new ObjectContent(data.GetType(), data, new JsonMediaTypeFormatter());
                 default:
-                    throw Ensure.Exception.NotSupported("Not supported serialization type '{0}'.", route.Serialization);
+                    throw Ensure.Exception.NotSupportedSerialization(route.Serialization);
             }
         }
 
@@ -100,7 +105,7 @@ namespace Neptuo.Services.HttpUtilities
                 case RouteMethod.Get:
                     return httpClient.GetAsync(PrepareGetUrl(route.Url, content));
                 default:
-                    throw Ensure.Exception.NotSupported("Not supported route method '{0}'.", route.Method);
+                    throw Ensure.Exception.NotSupportedMethod(route.Method);
             }
         }
 
