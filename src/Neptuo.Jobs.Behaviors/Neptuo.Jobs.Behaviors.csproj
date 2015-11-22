@@ -41,6 +41,10 @@
       <HintPath>..\..\packages\Neptuo.Behaviors.1.0.2\lib\net45\Neptuo.Behaviors.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Neptuo.Jobs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Jobs.1.0.0\lib\net45\Neptuo.Jobs.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
