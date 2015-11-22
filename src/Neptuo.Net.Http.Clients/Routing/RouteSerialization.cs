@@ -4,15 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.HttpUtilities.Routing
+namespace Neptuo.Net.Http.Clients.Routing
 {
     /// <summary>
-    /// Enumeration of supported HTTP methods.
+    /// Enumeration of supported serialization.
     /// </summary>
-    public enum RouteMethod
+    public enum RouteSerialization
     {
-        Post,
-        Put,
-        Get
+        Xml,
+        Json
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{2FBB5921-7AC8-473D-8356-954E0087659F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Services.HttpUtilities</RootNamespace>
-    <AssemblyName>Neptuo.Services.HttpUtilities</AssemblyName>
+    <RootNamespace>Neptuo.Net.Http.Clients</RootNamespace>
+    <AssemblyName>Neptuo.Net.Http.Clients</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -32,6 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -62,15 +66,10 @@
     <Compile Include="Routing\RouteDefinition.cs" />
     <Compile Include="Routing\RouteMethod.cs" />
     <Compile Include="Routing\RouteSerialization.cs" />
+    <Compile Include="_EnsureExceptionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
-      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
-      <Name>Neptuo</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Neptuo.Services.HttpUtilities.nuspec" />
+    <None Include="Neptuo.Net.Http.Clients.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

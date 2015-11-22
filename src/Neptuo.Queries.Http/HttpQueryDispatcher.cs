@@ -1,5 +1,5 @@
-﻿using Neptuo.Services.HttpUtilities;
-using Neptuo.Services.HttpUtilities.Routing;
+﻿using Neptuo.Net.Http.Clients;
+using Neptuo.Net.Http.Clients.Routing;
 using System;
 using System.Collections;
 using System.Collections.Generic;

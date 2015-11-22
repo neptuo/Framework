@@ -1,4 +1,4 @@
-﻿using Neptuo.Services.HttpUtilities.Routing;
+﻿using Neptuo.Net.Http.Clients.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
