@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Neptuo.Jobs</RootNamespace>
-    <AssemblyName>Neptuo.Jobs.Behaviors.Behaviors</AssemblyName>
+    <AssemblyName>Neptuo.Jobs.Behaviors</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Neptuo.Jobs.Behaviors.Behaviors.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Neptuo.Jobs.Behaviors.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
