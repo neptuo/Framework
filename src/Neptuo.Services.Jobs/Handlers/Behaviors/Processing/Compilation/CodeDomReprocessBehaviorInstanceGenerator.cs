@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation
+namespace Neptuo.Jobs.Handlers.Behaviors.Processing.Compilation
 {
     /// <summary>
     /// Code generator for <see cref="ReprocessAttribute"/> and <see cref="ReprocessBehavior"/>.

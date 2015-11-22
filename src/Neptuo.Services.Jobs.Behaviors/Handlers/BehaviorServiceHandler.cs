@@ -1,14 +1,14 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing;
-using Neptuo.Services.Jobs.Handlers;
+using Neptuo.Jobs.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers
+namespace Neptuo.Jobs.Handlers
 {
     /// <summary>
     /// Pipeline based implementation of <see cref="IBackgroundHandler"/>.

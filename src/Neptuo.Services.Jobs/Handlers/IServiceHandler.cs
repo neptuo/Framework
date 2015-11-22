@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers
+namespace Neptuo.Jobs.Handlers
 {
     /// <summary>
     /// Base contract for application service.

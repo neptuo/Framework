@@ -1,11 +1,11 @@
-﻿using Neptuo.Services.Jobs.Handlers;
+﻿using Neptuo.Jobs.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs
+namespace Neptuo.Jobs
 {
     /// <summary>
     /// Registry for <see cref="IServiceHandler"/>.
@@ -41,9 +41,6 @@ namespace Neptuo.Services.Jobs
         protected override void DisposeManagedResources()
         {
             bool wasRunning = IsRunning;
-            if (wasRunning)
-                Stop();
-
             foreach (IServiceHandler service in services)
             {
                 if (wasRunning)

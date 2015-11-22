@@ -1,12 +1,12 @@
-﻿using Neptuo.Services.Jobs.Handlers;
-using Neptuo.Services.Jobs.Triggers;
+﻿using Neptuo.Jobs.Handlers;
+using Neptuo.Jobs.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs
+namespace Neptuo.Jobs
 {
     /// <summary>
     /// Collection of <see cref="IBackgroundHandler"/> that are invoked by <see cref="IServiceTrigger"/>.

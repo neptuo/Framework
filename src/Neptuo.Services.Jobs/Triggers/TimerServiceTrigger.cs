@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Triggers
+namespace Neptuo.Jobs.Triggers
 {
     /// <summary>
     /// Implementation of <see cref="IServiceTrigger"/> for <see cref="System.Threading.Timer"/> and specified interval.

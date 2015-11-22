@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.Services.Jobs.Behaviors
+namespace Neptuo.Jobs.Behaviors
 {
     public static class VersionInfo
     {

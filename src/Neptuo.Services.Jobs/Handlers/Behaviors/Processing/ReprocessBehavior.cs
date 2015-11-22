@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers.Behaviors.Processing
+namespace Neptuo.Jobs.Handlers.Behaviors.Processing
 {
     /// <summary>
     /// Behavior which restart processing after exception.

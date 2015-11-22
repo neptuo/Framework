@@ -153,9 +153,9 @@
       <Project>{0834dfd1-3536-4305-9e23-21061c5c0414}</Project>
       <Name>Neptuo.PresentationModels.Validators</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Services.Jobs.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.Services.Jobs\Neptuo.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
-      <Name>Neptuo.Services.Jobs</Name>
+      <Name>Neptuo.Jobs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj">
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>

@@ -1,4 +1,4 @@
-﻿using Neptuo.Services.Jobs.Handlers;
+﻿using Neptuo.Jobs.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers
+namespace Neptuo.Jobs.Handlers
 {
     /// <summary>
     /// Defines service running in its own thread.

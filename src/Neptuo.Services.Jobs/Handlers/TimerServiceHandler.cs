@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Handlers
+namespace Neptuo.Jobs.Handlers
 {
     /// <summary>
     /// Periodical service handler based on timer.

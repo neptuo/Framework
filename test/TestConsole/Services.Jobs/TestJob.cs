@@ -1,9 +1,9 @@
 ﻿using Neptuo;
-using Neptuo.Services.Jobs;
-using Neptuo.Services.Jobs.Handlers;
-using Neptuo.Services.Jobs.Handlers.Behaviors;
-using Neptuo.Services.Jobs.Handlers.Behaviors.Processing;
-using Neptuo.Services.Jobs.Handlers.Behaviors.Processing.Compilation;
+using Neptuo.Jobs;
+using Neptuo.Jobs.Handlers;
+using Neptuo.Jobs.Handlers.Behaviors;
+using Neptuo.Jobs.Handlers.Behaviors.Processing;
+using Neptuo.Jobs.Handlers.Behaviors.Processing.Compilation;
 using Neptuo.Compilers;
 using Neptuo.Behaviors;
 using Neptuo.Behaviors.Processing.Compilation;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs.Triggers
+namespace Neptuo.Jobs.Triggers
 {
     /// <summary>
     /// Service execution trigger.

@@ -1,7 +1,7 @@
-﻿using Neptuo.Services.Jobs;
+﻿using Neptuo.Jobs;
 using System.Reflection;
 
-[assembly: AssemblyTitle("Neptuo.Services.Jobs")]
+[assembly: AssemblyTitle("Neptuo.Jobs")]
 [assembly: AssemblyDescription("Application (backend and recurring) services support.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]

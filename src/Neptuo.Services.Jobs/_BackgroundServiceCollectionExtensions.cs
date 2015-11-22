@@ -1,17 +1,17 @@
-﻿using Neptuo.Services.Jobs.Handlers;
-using Neptuo.Services.Jobs.Triggers;
+﻿using Neptuo.Jobs.Handlers;
+using Neptuo.Jobs.Triggers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Services.Jobs
+namespace Neptuo.Jobs
 {
     /// <summary>
     /// Common trigger extensions for <see cref="BackgroundServiceCollection"/>.
     /// </summary>
-    public static class _WorkerServiceCollectionExtensions
+    public static class _BackgroundServiceCollectionExtensions
     {
         /// <summary>
         /// Adds <paramref name="handler"/> triggered every <paramref name="interval"/>.
