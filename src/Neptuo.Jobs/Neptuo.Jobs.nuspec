@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/Neptuo.Jobs</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Jobs</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.jobs</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.jobs</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Jobs</tags>
+        <tags>Neptuo Jobs</tags>
     </metadata>
 </package>

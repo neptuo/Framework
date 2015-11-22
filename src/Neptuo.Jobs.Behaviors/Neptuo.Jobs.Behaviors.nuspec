@@ -5,10 +5,10 @@
         <version>$version$</version>
         <authors>$author$</authors>
         <owners>$author$</owners>
-        <licenseUrl>http://www.neptuo.com/project/dev/Neptuo.Jobs.behaviors</licenseUrl>
-        <projectUrl>http://www.neptuo.com/project/dev/Neptuo.Jobs.behaviors</projectUrl>
+        <licenseUrl>http://www.neptuo.com/project/dev/neptuo.jobs.behaviors</licenseUrl>
+        <projectUrl>http://www.neptuo.com/project/dev/neptuo.jobs.behaviors</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <tags>Neptuo Services Jobs Behaviors</tags>
+        <tags>Neptuo Jobs Behaviors</tags>
     </metadata>
 </package>
