@@ -132,6 +132,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.HotKeys", "s
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Deprecated", "_Deprecated", "{C7A50EF1-96E9-4AF2-9DA8-DBC46FC2B5CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FileSystems.Events.Local", "src\Neptuo.FileSystems.Events.Local\Neptuo.FileSystems.Events.Local.csproj", "{5EDC8298-58B5-48A0-83CE-28650BAE9270}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -346,6 +348,10 @@ Global
 		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F22B45A9-CE8E-49D8-8C43-99351AC4595F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EDC8298-58B5-48A0-83CE-28650BAE9270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EDC8298-58B5-48A0-83CE-28650BAE9270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EDC8298-58B5-48A0-83CE-28650BAE9270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EDC8298-58B5-48A0-83CE-28650BAE9270}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -395,6 +401,7 @@ Global
 		{C5958F2E-3480-42BE-A670-6E7D8FC30573} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
 		{0834DFD1-3536-4305-9E23-21061C5C0414} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{F22B45A9-CE8E-49D8-8C43-99351AC4595F} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
+		{5EDC8298-58B5-48A0-83CE-28650BAE9270} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
