@@ -53,6 +53,12 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Events\DirectoryRenamed.cs" />
+    <Compile Include="Events\DirectoryDeleted.cs" />
+    <Compile Include="Events\DirectoryCreated.cs" />
+    <Compile Include="Events\FileCreated.cs" />
+    <Compile Include="Events\FileDeleted.cs" />
+    <Compile Include="Events\FileRenamed.cs" />
     <Compile Include="Features\Attributes\_AttributeFeatureExtensions.cs" />
     <Compile Include="Features\IAncestorEnumerator.cs" />
     <Compile Include="Features\IAbsolutePath.cs" />

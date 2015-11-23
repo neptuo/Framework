@@ -56,6 +56,7 @@ namespace Neptuo.FileSystems
                 .Add<IFileRenamer>(this)
                 .Add<IFileDeleter>(this);
         }
+
         /// <summary>
         /// Sets file related properties from <paramref name="absolutePath"/>.
         /// </summary>

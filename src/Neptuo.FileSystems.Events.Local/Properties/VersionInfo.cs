@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Neptuo.FileSystems
+namespace Neptuo.FileSystems.Events.Local
 {
     public static class VersionInfo
     {
-        internal const string Version = "1.1.0";
+        internal const string Version = "1.0.0";
 
         public static Version GetVersion()
         {
