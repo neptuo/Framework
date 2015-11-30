@@ -56,7 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Base.cs" />
+    <Compile Include="T_Data_Sql_Base.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_Services.cs" />
   </ItemGroup>

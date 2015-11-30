@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Sql
+namespace Neptuo.Data.Sql.Columns
 {
-    public class PrimaryKeyColumn<T> : IColumn<T>, IReadableColumn<T>
+    public class TableColumn<T> : IColumn<T>, IReadableColumn<T>, IInsertableColumn<T>, IUpdateableColumn<T>
     {
         public IColumnPath Path { get; private set; }
 
-        public PrimaryKeyColumn(IColumnPath path)
+        public TableColumn(IColumnPath path)
         {
             Ensure.NotNull(path, "path");
             Path = path;

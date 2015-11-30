@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Data.Sql
+namespace Neptuo.Data.Sql.Columns
 {
     /// <summary>
     /// Describes column path (including joins and etc).

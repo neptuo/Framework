@@ -45,15 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IColumn.cs" />
-    <Compile Include="IColumnPath.cs" />
-    <Compile Include="IInsertableColumn.cs" />
-    <Compile Include="IReadableColumn.cs" />
-    <Compile Include="IUpdateableColumn.cs" />
-    <Compile Include="PrimaryKeyColumn.cs" />
+    <Compile Include="Columns\ForeignKeyColumn.cs" />
+    <Compile Include="Columns\IColumn.cs" />
+    <Compile Include="Columns\IColumnPath.cs" />
+    <Compile Include="IDataInserterItem.cs" />
+    <Compile Include="Columns\IInsertableColumn.cs" />
+    <Compile Include="Columns\IReadableColumn.cs" />
+    <Compile Include="Columns\IUpdateableColumn.cs" />
+    <Compile Include="Columns\PrimaryKeyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IDataReaderItem.cs" />
-    <Compile Include="TableColumn.cs" />
+    <Compile Include="Columns\TableColumn.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Syntax\" />
