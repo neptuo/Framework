@@ -136,6 +136,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FileSystems.Events.L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Data.Sql", "src\Neptuo.Data.Sql\Neptuo.Data.Sql.csproj", "{1970CD22-BFCC-4AEE-B559-6BACC6B51FD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Data.Sql", "test\UnitTest.Data.Sql\UnitTest.Data.Sql.csproj", "{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -358,6 +360,10 @@ Global
 		{1970CD22-BFCC-4AEE-B559-6BACC6B51FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1970CD22-BFCC-4AEE-B559-6BACC6B51FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1970CD22-BFCC-4AEE-B559-6BACC6B51FD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -409,6 +415,7 @@ Global
 		{F22B45A9-CE8E-49D8-8C43-99351AC4595F} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 		{5EDC8298-58B5-48A0-83CE-28650BAE9270} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
 		{1970CD22-BFCC-4AEE-B559-6BACC6B51FD4} = {45933E25-016D-477C-964A-029C9FC7724E}
+		{5A3EEACF-A164-43E0-93A9-0E5263A7DB4D} = {45933E25-016D-477C-964A-029C9FC7724E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35

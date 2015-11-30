@@ -47,7 +47,10 @@
   <ItemGroup>
     <Compile Include="IColumn.cs" />
     <Compile Include="IColumnPath.cs" />
+    <Compile Include="IReadableColumn.cs" />
+    <Compile Include="PrimaryKeyColumn.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IDataReaderItem.cs" />
     <Compile Include="TableColumn.cs" />
   </ItemGroup>
   <ItemGroup>

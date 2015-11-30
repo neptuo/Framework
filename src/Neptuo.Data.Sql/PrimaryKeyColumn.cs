@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Sql
 {
-    public class TableColumn<T> : IColumn<T>, IReadableColumn<T>
+    public class PrimaryKeyColumn<T> : IColumn<T>, IReadableColumn<T>
     {
         public IColumnPath Path { get; private set; }
 
-        public TableColumn(IColumnPath path)
+        public PrimaryKeyColumn(IColumnPath path)
         {
             Ensure.NotNull(path, "path");
             Path = path;
