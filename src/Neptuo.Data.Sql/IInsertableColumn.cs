@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Data.Sql
 {
     /// <summary>
-    /// Marker interface for making column available for reading value.
+    /// Marker interface for making column available for inserting value.
     /// </summary>
     /// <typeparam name="T">Value type of the column</typeparam>
-    public interface IReadableColumn<T> : IColumn<T>
+    public interface IInsertableColumn<T> : IColumn<T>
     { }
 }
