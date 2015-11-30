@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace UnitTest.Data.Sql
 {
-    public class ProductTable<TIdType>
+    public class ProductTable<TIdColumn>
     {
-        public TIdType Id { get; private set; }
+        public TIdColumn Id { get; private set; }
         public TableColumn<string> Name { get; private set; }
         public TableColumn<decimal?> Price { get; private set; }
     }
