@@ -30,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Neptuo.EventSourcing.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -53,7 +54,14 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Models\Domains\AggregateRoot.cs" />
+    <Compile Include="Models\Repositories\IAggregateRootFactory.cs" />
     <Compile Include="Models\Keys\GuidKey.cs" />
+    <Compile Include="Models\Keys\_EnsureConditionExtensions.cs" />
+    <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
+    <Compile Include="Models\Repositories\EventModel.cs" />
+    <Compile Include="Models\Repositories\IEventSerializer.cs" />
+    <Compile Include="Models\Repositories\IEventStore.cs" />
+    <Compile Include="Models\Repositories\ReflectionAggregateRootFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
