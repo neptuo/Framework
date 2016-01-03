@@ -36,6 +36,8 @@ namespace Neptuo.Models.Repositories
                 IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(model.Key, serializer.Serialize(e)));
                 store.Save(eventModels);
             }
+
+            // TODO: Raise on dispatcher.
         }
 
         public T Find(GuidKey key)
