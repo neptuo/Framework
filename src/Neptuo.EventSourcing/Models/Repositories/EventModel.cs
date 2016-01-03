@@ -23,10 +23,17 @@ namespace Neptuo.Models.Repositories
         public string Payload { get; set; }
 
         /// <summary>
+        /// Date and time when this event has raised.
+        /// </summary>
+        public DateTime RaisedAt { get; set; }
+
+        /// <summary>
         /// Creates new empty instance.
         /// </summary>
         public EventModel()
-        { }
+        {
+            RaisedAt = DateTime.Now;
+        }
 
         /// <summary>
         /// Creates new instance and fills values.
@@ -34,6 +41,7 @@ namespace Neptuo.Models.Repositories
         /// <param name="aggregateKey">Key to the aggregate where the original event raised.</param>
         /// <param name="payload">Serialized event payload.</param>
         public EventModel(GuidKey aggregateKey, string payload)
+            : this()
         {
             Ensure.NotNull(aggregateKey, "aggregateKey");
             Ensure.NotNull(payload, "payload");
