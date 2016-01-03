@@ -37,6 +37,10 @@
       <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Neptuo.Events, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Neptuo.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Models.1.0.0\lib\net45\Neptuo.Models.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +58,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Models\Domains\AggregateRoot.cs" />
+    <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
     <Compile Include="Models\Repositories\IAggregateRootFactory.cs" />
     <Compile Include="Models\Keys\GuidKey.cs" />
     <Compile Include="Models\Keys\_EnsureConditionExtensions.cs" />

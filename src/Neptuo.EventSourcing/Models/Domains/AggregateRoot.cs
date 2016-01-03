@@ -1,7 +1,10 @@
-﻿using Neptuo.Models.Keys;
+﻿using Neptuo.Events.Handlers;
+using Neptuo.Linq.Expressions;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +15,7 @@ namespace Neptuo.Models.Domains
     /// </summary>
     public class AggregateRoot : IDomainModel<GuidKey>
     {
+        private static readonly AggregateRootHandlerCollection handlers = new AggregateRootHandlerCollection();
         private readonly List<object> events = new List<object>();
 
         /// <summary>
@@ -32,6 +36,7 @@ namespace Neptuo.Models.Domains
         /// </summary>
         public AggregateRoot()
         {
+            EnsureHandlerRegistration();
             Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
         }
 
@@ -42,15 +47,34 @@ namespace Neptuo.Models.Domains
         /// <param name="events">The enumeration of events describing current state.</param>
         public AggregateRoot(GuidKey key, IEnumerable<object> events)
         {
-            Ensure.Condition.NotEmpty(key, "key");
+            Ensure.Condition.NotEmptyKey(key, "key");
+            Ensure.Condition.SameKeyType(key, GetType().Name, "key");
             Ensure.NotNull(events, "events");
-
-            if (key.Type != GetType().Name)
-                throw Ensure.Exception.ArgumentOutOfRange("key", "Passed key of different aggregate type '{0}' to the '{1}'.", key.Type, GetType().Name);
-
+            EnsureHandlerRegistration();
             Key = key;
 
-            //TODO: Replay events.
+            foreach (object payload in events)
+                handlers.Publish(this, payload);
+        }
+
+        /// <summary>
+        /// Ensures registration of event handlers for current type from implementations of <see cref="IEventHandler{T}"/>.
+        /// </summary>
+        private void EnsureHandlerRegistration()
+        {
+            Type type = GetType();
+            if (!handlers.Has(type))
+                handlers.Map(type);
+        }
+
+        /// <summary>
+        /// Stores <paramref name="payload"/> and executes handler for state modification.
+        /// </summary>
+        /// <param name="payload">The event payload to publish.</param>
+        protected void Publish(object payload)
+        {
+            handlers.Publish(this, payload);
+            events.Add(payload);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace Neptuo.Models.Repositories
 
         public T Find(GuidKey key)
         {
-            Ensure.Condition.NotEmpty(key, "key");
+            Ensure.Condition.NotEmptyKey(key, "key");
 
             IEnumerable<EventModel> eventModels = store.Get(key);
             IEnumerable<object> events = eventModels.Select(e => serializer.Deserialize(e.Payload));

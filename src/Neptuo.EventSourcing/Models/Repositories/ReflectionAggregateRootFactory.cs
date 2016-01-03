@@ -31,7 +31,7 @@ namespace Neptuo.Models.Repositories
 
         public T Create(GuidKey aggregateKey, IEnumerable<object> events)
         {
-            Ensure.Condition.NotEmpty(aggregateKey, "aggregateKey");
+            Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
             Ensure.NotNull(events, "events");
             return (T)constructorInfo.Invoke(new object[] { aggregateKey, events });
         }
