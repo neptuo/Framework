@@ -20,12 +20,17 @@ namespace Neptuo.Models.Domains
         public AggregateRootHandlerCollection Map(Type type)
         {
             Ensure.NotNull(type, "type");
+
             foreach (Type interfaceType in type.GetInterfaces())
             {
                 if (interfaceType.IsGenericType && interfaceType.GetGenericTypeDefinition() == typeof(IEventHandler<>))
                 {
                     Type eventType = interfaceType.GetGenericArguments()[0];
-                    MethodInfo eventMethod = type.GetMethod(eventHandlerMethodName, new Type[] { eventType });
+                    
+                    //MethodInfo eventMethod = type.GetMethod(eventHandlerMethodName, new Type[] { eventType });
+                    // EndsWith is here because explicitly implemented methods have very complicated name.
+                    MethodInfo eventMethod = type.GetInterfaceMap(interfaceType).TargetMethods
+                        .FirstOrDefault(m => m.Name.EndsWith(eventHandlerMethodName));
 
                     Dictionary<Type, Action<object, object>> typeHandlers;
                     if (!storage.TryGetValue(type, out typeHandlers))
@@ -49,7 +54,7 @@ namespace Neptuo.Models.Domains
             Ensure.NotNull(model, "model");
             Ensure.NotNull(payload, "payload");
 
-            Type type = GetType();
+            Type type = model.GetType();
             Type eventType = payload.GetType();
 
             Dictionary<Type, Action<object, object>> typeHandlers;

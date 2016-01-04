@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.EventSourcing.Events;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +15,17 @@ namespace Neptuo.EventSourcing
         [TestMethod]
         public void RegisteringHandlers()
         {
+            Order order1 = new Order();
+            order1.AddItem(GuidKey.Create(Guid.NewGuid(), "Product"), 5);
 
+            IEnumerator<object> eventEnumerator = order1.Events.GetEnumerator();
+            Assert.AreEqual(true, eventEnumerator.MoveNext());
+            Assert.AreEqual(typeof(OrderPlaced), eventEnumerator.Current.GetType());
+            Assert.AreEqual(true, eventEnumerator.MoveNext());
+            Assert.AreEqual(typeof(OrderItemAdded), eventEnumerator.Current.GetType());
+            Assert.AreEqual(true, eventEnumerator.MoveNext());
+            Assert.AreEqual(typeof(OrderTotalRecalculated), eventEnumerator.Current.GetType());
+            Assert.AreEqual(false, eventEnumerator.MoveNext());
         }
     }
 }
