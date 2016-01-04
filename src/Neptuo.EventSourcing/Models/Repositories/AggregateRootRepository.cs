@@ -1,6 +1,7 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
+using Neptuo.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Models.Repositories
 {
-    public class AggregateRootRepository<T> : IRepository<T, StringKey>
+    public class AggregateRootRepository<T> : IRepository<T, IKey>
         where T : AggregateRoot
     {
         private readonly IEventStore store;
@@ -40,7 +41,7 @@ namespace Neptuo.Models.Repositories
             // TODO: Raise on dispatcher.
         }
 
-        public T Find(StringKey key)
+        public T Find(IKey key)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
 

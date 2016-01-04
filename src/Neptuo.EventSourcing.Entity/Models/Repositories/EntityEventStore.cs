@@ -18,12 +18,16 @@ namespace Neptuo.Models.Repositories
             this.context = context;
         }
 
-        public IEnumerable<EventModel> Get(StringKey aggregateKey)
+        public IEnumerable<EventModel> Get(IKey aggregateKey)
         {
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
 
+            StringKey key = aggregateKey as StringKey;
+            if (key == null)
+                throw Ensure.Exception.NotStringKey(aggregateKey.GetType(), "aggregateKey");
+
             IEnumerable<EventEntity> entities = context.Events
-                .Where(e => e.AggregateType == aggregateKey.Type && e.AggregateID == aggregateKey.Identifier)
+                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Identifier)
                 .OrderBy(e => e.RaisedAt);
 
             return entities.Select(e => e.ToModel());

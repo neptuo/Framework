@@ -1,6 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.Activators;
 using Neptuo.EventSourcing.Events;
+using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Repositories;
+using Neptuo.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +30,26 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(true, eventEnumerator.MoveNext());
             Assert.AreEqual(typeof(OrderTotalRecalculated), eventEnumerator.Current.GetType());
             Assert.AreEqual(false, eventEnumerator.MoveNext());
+        }
+
+        [TestMethod]
+        public void SaveAndLoadWithRepository()
+        {
+            MockEventStore eventStore = new MockEventStore();
+
+            AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
+                eventStore, 
+                new BinaryEventSerializer(), 
+                new ReflectionAggregateRootFactory<Order>()
+            );
+
+            Order order = new Order();
+            order.AddItem(GuidKey.Create(Guid.NewGuid(), "Product"), 5);
+
+            repository.Save(order);
+
+            IEnumerable<EventModel> serializedEvents = eventStore.Get(order.Key);
+            Assert.AreEqual(3, serializedEvents.Count());
         }
     }
 }

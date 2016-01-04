@@ -28,10 +28,15 @@ namespace Neptuo.Data.Entity
         public static EventEntity FromModel(EventModel model)
         {
             Ensure.NotNull(model, "model");
+
+            StringKey key = model.AggregateKey as StringKey;
+            if (key == null)
+                throw Ensure.Exception.NotStringKey(model.AggregateKey.GetType(), "aggregateKey");
+            
             return new EventEntity()
             {
-                AggregateID = model.AggregateKey.Identifier,
-                AggregateType = model.AggregateKey.Type,
+                AggregateID = key.Identifier,
+                AggregateType = key.Type,
                 Payload = model.Payload,
                 RaisedAt = model.RaisedAt
             };

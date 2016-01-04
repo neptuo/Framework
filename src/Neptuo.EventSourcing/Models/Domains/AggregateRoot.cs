@@ -1,4 +1,5 @@
-﻿using Neptuo.Events.Handlers;
+﻿using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Linq.Expressions;
 using Neptuo.Models.Keys;
 using System;
@@ -13,20 +14,25 @@ namespace Neptuo.Models.Domains
     /// <summary>
     /// Base for aggregate root model.
     /// </summary>
-    public class AggregateRoot : IDomainModel<StringKey>
+    public class AggregateRoot : IAggregateRoot
     {
         private static readonly AggregateRootHandlerCollection handlers = new AggregateRootHandlerCollection();
-        private readonly List<object> events = new List<object>();
+        private readonly List<IEvent> events = new List<IEvent>();
 
         /// <summary>
-        /// Aggregate root unique key.
+        /// The aggregate root unique key.
         /// </summary>
-        public StringKey Key { get; private set; }
+        public IKey Key { get; private set; }
 
         /// <summary>
-        /// Enumeration of unsaved events.
+        /// The current version of the aggregate root.
         /// </summary>
-        public IEnumerable<object> Events
+        public int Version { get; private set; }
+
+        /// <summary>
+        /// The enumeration of unpublished events.
+        /// </summary>
+        public IEnumerable<IEvent> Events
         {
             get { return events; }
         }
@@ -45,7 +51,7 @@ namespace Neptuo.Models.Domains
         /// </summary>
         /// <param name="key">The key of this instance.</param>
         /// <param name="events">The enumeration of events describing current state.</param>
-        public AggregateRoot(StringKey key, IEnumerable<object> events)
+        public AggregateRoot(IKey key, IEnumerable<IEvent> events)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
             Ensure.Condition.SameKeyType(key, GetType().Name, "key");
@@ -53,7 +59,7 @@ namespace Neptuo.Models.Domains
             EnsureHandlerRegistration();
             Key = key;
 
-            foreach (object payload in events)
+            foreach (IEvent payload in events)
                 handlers.Publish(this, payload);
         }
 
@@ -71,8 +77,15 @@ namespace Neptuo.Models.Domains
         /// Stores <paramref name="payload"/> and executes handler for state modification.
         /// </summary>
         /// <param name="payload">The event payload to publish.</param>
-        protected void Publish(object payload)
+        protected void Publish(IEvent payload)
         {
+            Event supportedPayload = payload as Event;
+            if (supportedPayload != null)
+            {
+                supportedPayload.AggregateKey = Key;
+                supportedPayload.Version = Version + 1;
+            }
+
             handlers.Publish(this, payload);
             events.Add(payload);
         }

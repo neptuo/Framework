@@ -1,4 +1,5 @@
-﻿using Neptuo.Events.Handlers;
+﻿using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,7 @@ namespace Neptuo.Models.Domains
             return storage.ContainsKey(type);
         }
 
-        public AggregateRootHandlerCollection Publish(AggregateRoot model, object payload)
+        public AggregateRootHandlerCollection Publish(AggregateRoot model, IEvent payload)
         {
             Ensure.NotNull(model, "model");
             Ensure.NotNull(payload, "payload");

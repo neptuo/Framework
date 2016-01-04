@@ -1,4 +1,5 @@
-﻿using Neptuo.Models.Domains;
+﻿using Neptuo.Events;
+using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Repositories
+namespace Neptuo.Activators
 {
     /// <summary>
     /// Reflection based implementation of <see cref="IAggregateRootFactory{T}"/>.
@@ -24,12 +25,12 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         public ReflectionAggregateRootFactory()
         {
-            constructorInfo = typeof(T).GetConstructor(new Type[] { typeof(GuidKey), typeof(IEnumerable<object>) });
+            constructorInfo = typeof(T).GetConstructor(new Type[] { typeof(IKey), typeof(IEnumerable<IEvent>) });
             if (constructorInfo == null)
-                throw Ensure.Exception.InvalidOperation("Reflection aggregate factory can operate only on types which have constructor with GuidKey and IEnumerable<object> parameters, '{0}' doesn't have.", typeof(T).FullName);
+                throw Ensure.Exception.InvalidOperation("Reflection aggregate factory can operate only on types which have constructor with IKey and IEnumerable<IEvent> parameters, '{0}' doesn't have.", typeof(T).FullName);
         }
 
-        public T Create(StringKey aggregateKey, IEnumerable<object> events)
+        public T Create(IKey aggregateKey, IEnumerable<object> events)
         {
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
             Ensure.NotNull(events, "events");

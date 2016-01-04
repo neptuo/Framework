@@ -1,7 +1,9 @@
-﻿using Neptuo.Events.Handlers;
+﻿using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.EventSourcing.Events;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,60 +14,48 @@ namespace Neptuo.EventSourcing
 {
     namespace Events
     {
-        public class OrderPlaced
-        {
-            public IKey OrderKey { get; private set; }
+        [Serializable]
+        public class OrderPlaced : Event
+        { }
 
-            public OrderPlaced(IKey orderKey)
-            {
-                Ensure.Condition.NotEmptyKey(orderKey, "orderKey");
-                OrderKey = orderKey;
-            }
-        }
-
-        public class OrderItemAdded
+        [Serializable]
+        public class OrderItemAdded : Event
         {
             public IKey OrderKey { get; private set; }
             public IKey ProductKey { get; private set; }
             public int Count { get; private set; }
 
-            public OrderItemAdded(IKey orderKey, IKey productKey, int count)
+            public OrderItemAdded(IKey productKey, int count)
             {
-                Ensure.Condition.NotEmptyKey(orderKey, "orderKey");
                 Ensure.Condition.NotEmptyKey(productKey, "productKey");
                 Ensure.Positive(count, "count");
-                OrderKey = orderKey;
                 ProductKey = productKey;
                 Count = count;
             }
         }
 
-        public class OrderItemExtended
+        [Serializable]
+        public class OrderItemExtended : Event
         {
-            public IKey OrderKey { get; private set; }
             public IKey ProductKey { get; private set; }
             public int Count { get; private set; }
 
-            public OrderItemExtended(IKey orderKey, IKey productKey, int count)
+            public OrderItemExtended(IKey productKey, int count)
             {
-                Ensure.Condition.NotEmptyKey(orderKey, "orderKey");
                 Ensure.Condition.NotEmptyKey(productKey, "productKey");
                 Ensure.Positive(count, "count");
-                OrderKey = orderKey;
                 ProductKey = productKey;
                 Count = count;
             }
         }
 
-        public class OrderTotalRecalculated
+        [Serializable]
+        public class OrderTotalRecalculated : Event
         {
-            public IKey OrderKey { get; private set; }
-            public decimal TotalPrice {get; private set;}
+            public decimal TotalPrice { get; private set; }
 
-            public OrderTotalRecalculated(IKey orderKey, decimal totalPrice)
+            public OrderTotalRecalculated(decimal totalPrice)
             {
-                Ensure.Condition.NotEmptyKey(orderKey, "orderKey");
-                OrderKey = orderKey;
                 TotalPrice = totalPrice;
             }
         }
@@ -82,10 +72,10 @@ namespace Neptuo.EventSourcing
 
         public Order()
         {
-            Publish(new OrderPlaced(Key));
+            Publish(new OrderPlaced());
         }
 
-        public Order(StringKey key, IEnumerable<object> events)
+        public Order(IKey key, IEnumerable<IEvent> events)
             : base(key, events)
         { }
 
@@ -96,16 +86,16 @@ namespace Neptuo.EventSourcing
 
             OrderItem existingItem = items.FirstOrDefault(i => i.ProductKey == productKey);
             if (existingItem == null)
-                Publish(new OrderItemAdded(Key, productKey, count));
+                Publish(new OrderItemAdded(productKey, count));
             else
-                Publish(new OrderItemExtended(Key, productKey, count));
+                Publish(new OrderItemExtended(productKey, count));
 
             RecalculatePrice();
         }
 
         private void RecalculatePrice()
         {
-            Publish(new OrderTotalRecalculated(Key, items.Count() * items.Sum(i => i.Count) * 100));
+            Publish(new OrderTotalRecalculated(items.Count() * items.Sum(i => i.Count) * 100));
         }
 
         #region Rebuilding state from events
@@ -155,4 +145,32 @@ namespace Neptuo.EventSourcing
             Count += count;
         }
     }
+
+    public class MockEventStore : IEventStore
+    {
+        private readonly Dictionary<IKey, List<EventModel>> storage = new Dictionary<IKey, List<EventModel>>();
+
+        public IEnumerable<EventModel> Get(IKey aggregateKey)
+        {
+            List<EventModel> events;
+            if (storage.TryGetValue(aggregateKey, out events))
+                return events;
+
+            return Enumerable.Empty<EventModel>();
+        }
+
+        public void Save(IEnumerable<EventModel> events)
+        {
+            EventModel payload = events.FirstOrDefault();
+            if (payload != null)
+            {
+                List<EventModel> entities;
+                if (!storage.TryGetValue(payload.AggregateKey, out entities))
+                    storage[payload.AggregateKey] = entities = new List<EventModel>();
+
+                entities.AddRange(events);
+            }
+        }
+    }
+
 }
