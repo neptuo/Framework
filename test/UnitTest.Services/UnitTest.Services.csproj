@@ -50,6 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventSourcing\T_EventSourcing_AggregateRoot.cs" />
+    <Compile Include="EventSourcing\_Services.cs" />
     <Compile Include="Events\T_Events_Sync.cs" />
     <Compile Include="Events\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +69,10 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj">
+      <Project>{9af3cc63-a2e4-4801-a511-f3a631f95c7e}</Project>
+      <Name>Neptuo.EventSourcing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Jobs\Neptuo.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
       <Name>Neptuo.Jobs</Name>
@@ -78,6 +84,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
       <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
       <Name>Neptuo.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj">
+      <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
+      <Name>Neptuo.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj">
       <Project>{f1deaa68-6740-42ec-9c02-6946cda4ce26}</Project>
