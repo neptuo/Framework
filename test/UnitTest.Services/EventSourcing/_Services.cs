@@ -1,4 +1,5 @@
-﻿using Neptuo.EventSourcing.Events;
+﻿using Neptuo.Events.Handlers;
+using Neptuo.EventSourcing.Events;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using System;
@@ -70,7 +71,10 @@ namespace Neptuo.EventSourcing
         }
     }
 
-    public class Order : AggregateRoot
+    public class Order : AggregateRoot, 
+        IEventHandler<OrderItemAdded>, 
+        IEventHandler<OrderItemExtended>, 
+        IEventHandler<OrderTotalRecalculated>
     {
         private readonly List<OrderItem> items = new List<OrderItem>();
         private decimal totalPrice = 0;
@@ -102,6 +106,29 @@ namespace Neptuo.EventSourcing
         {
             Publish(new OrderTotalRecalculated(Key, items.Count() * items.Sum(i => i.Count) * 100));
         }
+
+        #region Rebuilding state from events
+
+        Task IEventHandler<OrderItemAdded>.HandleAsync(OrderItemAdded payload)
+        {
+            items.Add(new OrderItem(payload.ProductKey, payload.Count));
+            return Task.FromResult(true);
+        }
+
+        Task IEventHandler<OrderItemExtended>.HandleAsync(OrderItemExtended payload)
+        {
+            OrderItem item = items.First(i => i.ProductKey == payload.ProductKey);
+            item.Extend(payload.Count);
+            return Task.FromResult(true);
+        }
+
+        Task IEventHandler<OrderTotalRecalculated>.HandleAsync(OrderTotalRecalculated payload)
+        {
+            totalPrice = payload.TotalPrice;
+            return Task.FromResult(true);
+        }
+
+        #endregion
     }
 
     public class OrderItem 
