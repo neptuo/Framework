@@ -22,7 +22,6 @@ namespace Neptuo.EventSourcing
         [Serializable]
         public class OrderItemAdded : Event
         {
-            public IKey OrderKey { get; private set; }
             public IKey ProductKey { get; private set; }
             public int Count { get; private set; }
 
