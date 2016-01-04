@@ -75,7 +75,6 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Keys\" />
     <Folder Include="Serialization\" />
   </ItemGroup>
   <ItemGroup>
