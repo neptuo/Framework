@@ -1,7 +1,9 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Events;
+using Neptuo.Events.Formatters;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
-using Neptuo.Serialization;
+using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,10 +16,10 @@ namespace Neptuo.Models.Repositories
         where T : AggregateRoot
     {
         private readonly IEventStore store;
-        private readonly IEventSerializer serializer;
+        private readonly IEventFormatter serializer;
         private readonly IAggregateRootFactory<T> factory;
 
-        public AggregateRootRepository(IEventStore store, IEventSerializer serializer, IAggregateRootFactory<T> factory)
+        public AggregateRootRepository(IEventStore store, IEventFormatter serializer, IAggregateRootFactory<T> factory)
         {
             Ensure.NotNull(store, "store");
             Ensure.NotNull(serializer, "serializer");
@@ -31,7 +33,7 @@ namespace Neptuo.Models.Repositories
         {
             Ensure.NotNull(model, "model");
 
-            IEnumerable<object> events = model.Events;
+            IEnumerable<IEvent> events = model.Events;
             if (events.Any())
             {
                 IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(model.Key, serializer.Serialize(e)));

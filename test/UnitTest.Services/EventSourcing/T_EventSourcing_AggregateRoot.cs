@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
+using Neptuo.Events.Formatters;
 using Neptuo.EventSourcing.Events;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
-using Neptuo.Serialization;
+using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;

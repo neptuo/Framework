@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Serialization
+namespace Neptuo.Events.Formatters
 {
     /// <summary>
     /// Serializes and deserializes event payloads.
     /// </summary>
-    public interface IEventSerializer
+    public interface IEventFormatter
     {
-        string Serialize(object payload);
-        object Deserialize(string payload);
+        string Serialize(IEvent payload);
+        IEvent Deserialize(string payload);
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Repositories
+namespace Neptuo.Models.Repositories.Data
 {
     /// <summary>
     /// Describes serialized event.

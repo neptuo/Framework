@@ -4,6 +4,7 @@ using Neptuo.EventSourcing.Events;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
