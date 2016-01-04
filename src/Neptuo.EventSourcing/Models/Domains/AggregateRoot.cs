@@ -13,7 +13,7 @@ namespace Neptuo.Models.Domains
     /// <summary>
     /// Base for aggregate root model.
     /// </summary>
-    public class AggregateRoot : IDomainModel<GuidKey>
+    public class AggregateRoot : IDomainModel<StringKey>
     {
         private static readonly AggregateRootHandlerCollection handlers = new AggregateRootHandlerCollection();
         private readonly List<object> events = new List<object>();
@@ -21,7 +21,7 @@ namespace Neptuo.Models.Domains
         /// <summary>
         /// Aggregate root unique key.
         /// </summary>
-        public GuidKey Key { get; private set; }
+        public StringKey Key { get; private set; }
 
         /// <summary>
         /// Enumeration of unsaved events.
@@ -37,7 +37,7 @@ namespace Neptuo.Models.Domains
         public AggregateRoot()
         {
             EnsureHandlerRegistration();
-            Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
+            Key = StringKey.Create(Guid.NewGuid().ToString(), GetType().Name);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Neptuo.Models.Domains
         /// </summary>
         /// <param name="key">The key of this instance.</param>
         /// <param name="events">The enumeration of events describing current state.</param>
-        public AggregateRoot(GuidKey key, IEnumerable<object> events)
+        public AggregateRoot(StringKey key, IEnumerable<object> events)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
             Ensure.Condition.SameKeyType(key, GetType().Name, "key");

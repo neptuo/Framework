@@ -21,6 +21,6 @@ namespace Neptuo.Models.Repositories
         /// <param name="aggregateKey">The key of the aggreage.</param>
         /// <param name="events">The enumeration of the events representing current state.</param>
         /// <returns>The refreshed instance of the aggregate root.</returns>
-        T Create(GuidKey aggregateKey, IEnumerable<object> events);
+        T Create(StringKey aggregateKey, IEnumerable<object> events);
     }
 }

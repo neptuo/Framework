@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Models.Repositories
 {
-    public class AggregateRootRepository<T> : IRepository<T, GuidKey>
+    public class AggregateRootRepository<T> : IRepository<T, StringKey>
         where T : AggregateRoot
     {
         private readonly IEventStore store;
@@ -40,7 +40,7 @@ namespace Neptuo.Models.Repositories
             // TODO: Raise on dispatcher.
         }
 
-        public T Find(GuidKey key)
+        public T Find(StringKey key)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
 

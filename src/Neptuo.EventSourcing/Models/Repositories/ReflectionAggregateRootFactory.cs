@@ -29,7 +29,7 @@ namespace Neptuo.Models.Repositories
                 throw Ensure.Exception.InvalidOperation("Reflection aggregate factory can operate only on types which have constructor with GuidKey and IEnumerable<object> parameters, '{0}' doesn't have.", typeof(T).FullName);
         }
 
-        public T Create(GuidKey aggregateKey, IEnumerable<object> events)
+        public T Create(StringKey aggregateKey, IEnumerable<object> events)
         {
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
             Ensure.NotNull(events, "events");

@@ -13,5 +13,10 @@ namespace Neptuo.Data.Entity
     public class EventContext : DbContext, IEventContext
     {
         public IDbSet<EventEntity> Events { get; private set; }
+
+        public new void SaveChanges()
+        {
+            SaveChanges();
+        }
     }
 }

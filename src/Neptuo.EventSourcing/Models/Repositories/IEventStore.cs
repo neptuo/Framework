@@ -17,7 +17,7 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         /// <param name="aggregateKey">Key to the aggregate to load events of.</param>
         /// <returns>Enumeration of all events raised on <paramref name="aggregateKey"/>.</returns>
-        IEnumerable<EventModel> Get(GuidKey aggregateKey);
+        IEnumerable<EventModel> Get(StringKey aggregateKey);
 
         /// <summary>
         /// Saves <paramref name="events"/>.

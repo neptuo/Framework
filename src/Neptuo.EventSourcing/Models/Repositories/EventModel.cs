@@ -15,7 +15,7 @@ namespace Neptuo.Models.Repositories
         /// <summary>
         /// Key to the aggregate where the original event raised.
         /// </summary>
-        public GuidKey AggregateKey { get; set; }
+        public StringKey AggregateKey { get; set; }
         
         /// <summary>
         /// Serialized event payload.
@@ -40,7 +40,7 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         /// <param name="aggregateKey">Key to the aggregate where the original event raised.</param>
         /// <param name="payload">Serialized event payload.</param>
-        public EventModel(GuidKey aggregateKey, string payload)
+        public EventModel(StringKey aggregateKey, string payload)
             : this()
         {
             Ensure.NotNull(aggregateKey, "aggregateKey");
