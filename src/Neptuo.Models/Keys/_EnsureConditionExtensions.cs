@@ -34,7 +34,7 @@ namespace Neptuo.Models.Keys
         /// <param name="key">The to test.</param>
         /// <param name="type">The required key type.</param>
         /// <param name="argumentName">The name of the key argument.</param>
-        public static void SameKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
+        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
         {
             Ensure.NotNull(condition, "condition");
             Ensure.NotNull(key, "key");

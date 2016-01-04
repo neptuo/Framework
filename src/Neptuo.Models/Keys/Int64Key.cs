@@ -53,7 +53,7 @@ namespace Neptuo.Models.Keys
         protected override bool Equals(KeyBase other)
         {
             Int64Key key;
-            if (Converts.Try<IKey, Int64Key>(other, out key))
+            if (!TryConvert(other, out key))
                 return false;
 
             return ID == key.ID;
@@ -62,7 +62,7 @@ namespace Neptuo.Models.Keys
         protected override int CompareValueTo(KeyBase other)
         {
             Int64Key key;
-            if (Converts.Try<IKey, Int64Key>(other, out key))
+            if (!TryConvert(other, out key))
                 return 1;
 
             return ID.CompareTo(key.ID);
@@ -71,6 +71,11 @@ namespace Neptuo.Models.Keys
         protected override int GetValueHashCode()
         {
             return ID.GetHashCode();
+        }
+
+        protected override string ToStringValue()
+        {
+            return ID.ToString();
         }
     }
 }

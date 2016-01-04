@@ -107,5 +107,35 @@ namespace Neptuo.Models.Keys
         /// </summary>
         /// <returns>Hash code for this key value.</returns>
         protected abstract int GetValueHashCode();
+
+        /// <summary>
+        /// Tries to cast <paramref name="other"/> to <typeparamref name="T"/> or convert it using <see cref="Converts"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the target key.</typeparam>
+        /// <param name="other">The key to convert.</param>
+        /// <param name="key">The converter key.</param>
+        /// <returns><c>true</c> if conversion was successful and <paramref name="key"/> is set; otherwise <c>false</c> and <paramref name="key"/> is <c>null</c>.</returns>
+        protected bool TryConvert<T>(KeyBase other, out T key)
+            where T : KeyBase
+        {
+            key = other as T;
+            if (other == null && !Converts.Try<IKey, T>(other, out key))
+                return false;
+
+            return true;
+        }
+
+        public override string ToString()
+        {
+            string value = "";
+            if (IsEmpty)
+                value = "empty";
+            else
+                value = ToStringValue();
+
+            return String.Format("{0}({1}, {2})", GetType().Name, Type, value);
+        }
+
+        protected abstract string ToStringValue();
     }
 }

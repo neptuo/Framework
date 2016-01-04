@@ -58,13 +58,13 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\Formatters\DictionaryEventFormatter.cs" />
+    <Compile Include="Events\Formatters\DictionaryEventFormatterCollection.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Models\Domains\AggregateRoot.cs" />
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
     <Compile Include="Activators\IAggregateRootFactory.cs" />
     <Compile Include="Models\Domains\IAggregateRoot.cs" />
-    <Compile Include="Models\Keys\GuidKey.cs" />
-    <Compile Include="Models\Keys\_EnsureConditionExtensions.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Models\Repositories\Data\EventModel.cs" />
     <Compile Include="Events\Formatters\BinaryEventSerializer.cs" />
@@ -75,6 +75,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Keys\" />
     <Folder Include="Serialization\" />
   </ItemGroup>
   <ItemGroup>
