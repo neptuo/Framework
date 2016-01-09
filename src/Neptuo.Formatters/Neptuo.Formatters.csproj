@@ -42,6 +42,10 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="IDeserializer.cs" />
+    <Compile Include="IDeserializerContext.cs" />
+    <Compile Include="ISerializer.cs" />
+    <Compile Include="ISerializerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
