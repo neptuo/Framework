@@ -15,5 +15,10 @@ namespace Neptuo.Formatters
         /// The deserialized object.
         /// </summary>
         object Output { get; set; }
+
+        /// <summary>
+        /// The type that is required to deserialize.
+        /// </summary>
+        Type OutputType { get; }
     }
 }

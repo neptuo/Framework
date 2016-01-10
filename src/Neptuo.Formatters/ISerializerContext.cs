@@ -16,5 +16,10 @@ namespace Neptuo.Formatters
         /// The serialization output.
         /// </summary>
         Stream Output { get; }
+
+        /// <summary>
+        /// The type to serialize.
+        /// </summary>
+        Type IntputType { get; }
     }
 }
