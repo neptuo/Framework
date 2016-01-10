@@ -12,11 +12,11 @@ namespace Neptuo.Formatters
     public interface ISerializer
     {
         /// <summary>
-        /// Serializes <paramref name="intput"/> to the <paramref name="context"/>.
+        /// Serializes <paramref name="input"/> to the <paramref name="context"/>.
         /// </summary>
-        /// <param name="intput">The object to serialize.</param>
+        /// <param name="input">The object to serialize.</param>
         /// <param name="context">The serialization context.</param>
         /// <returns>The continuation task containing information about serialization success.</returns>
-        Task<bool> TrySerializeAsync(object intput, ISerializerContext context);
+        Task<bool> TrySerializeAsync(object input, ISerializerContext context);
     }
 }
