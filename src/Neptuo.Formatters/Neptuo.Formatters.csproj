@@ -48,6 +48,9 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collections\DefaultFormatterCollection.cs" />
+    <Compile Include="Collections\IDeserializerCollection.cs" />
+    <Compile Include="Collections\ISerializerCollection.cs" />
     <Compile Include="DefaultDeserializerContext.cs" />
     <Compile Include="DefaultSerializerContext.cs" />
     <Compile Include="IDeserializer.cs" />
