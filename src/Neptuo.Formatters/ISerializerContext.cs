@@ -20,6 +20,6 @@ namespace Neptuo.Formatters
         /// <summary>
         /// The type to serialize.
         /// </summary>
-        Type IntputType { get; }
+        Type InputType { get; }
     }
 }
