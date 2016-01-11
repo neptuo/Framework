@@ -58,8 +58,6 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Events\Event.cs" />
-    <Compile Include="Events\Formatters\DictionaryEventFormatter.cs" />
-    <Compile Include="Events\Formatters\DictionaryEventFormatterCollection.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Models\Domains\AggregateRoot.cs" />
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
