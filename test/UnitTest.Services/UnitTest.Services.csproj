@@ -51,6 +51,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="EventSourcing\T_EventSourcing_AggregateRoot.cs" />
+    <Compile Include="EventSourcing\T_EventSourcing_DictionaryEventFormatter.cs" />
     <Compile Include="EventSourcing\_Services.cs" />
     <Compile Include="Events\T_Events_Sync.cs" />
     <Compile Include="Events\_Services.cs" />
