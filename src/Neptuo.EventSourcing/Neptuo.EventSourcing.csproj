@@ -65,6 +65,7 @@
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
     <Compile Include="Activators\IAggregateRootFactory.cs" />
     <Compile Include="Models\Domains\IAggregateRoot.cs" />
+    <Compile Include="Models\Events\_EnsureConditionExtensions.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Models\Repositories\Data\EventModel.cs" />
     <Compile Include="Events\Formatters\BinaryEventSerializer.cs" />

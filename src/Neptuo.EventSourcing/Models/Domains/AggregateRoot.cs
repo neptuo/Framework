@@ -54,7 +54,7 @@ namespace Neptuo.Models.Domains
         public AggregateRoot(IKey key, IEnumerable<IEvent> events)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
-            Ensure.Condition.SameKeyType(key, GetType().Name, "key");
+            Ensure.Condition.NotDifferentKeyType(key, GetType().Name, "key");
             Ensure.NotNull(events, "events");
             EnsureHandlerRegistration();
             Key = key;

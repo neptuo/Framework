@@ -79,6 +79,7 @@
     <Compile Include="Localization\_Services.cs" />
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
+    <Compile Include="Models\T_Models_Keys_Comparing.cs" />
     <Compile Include="Observables\T_Observables_PropertyChangedObserver.cs" />
     <Compile Include="Observables\_Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj">
+      <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
+      <Name>Neptuo.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Observables\Neptuo.Observables.csproj">
       <Project>{eda4c50e-2873-4237-a84b-f73a15c27cd6}</Project>
