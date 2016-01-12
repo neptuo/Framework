@@ -142,6 +142,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Json", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Xml", "src\Neptuo.Formatters.Xml\Neptuo.Formatters.Xml.csproj", "{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite", "src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj", "{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -372,6 +374,10 @@ Global
 		{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -425,6 +431,7 @@ Global
 		{200D385F-DC27-4695-AACB-B345D9E7917D} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
 		{536384AD-4F85-436A-9FF8-88CE375FD7CE} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
 		{98636A95-D17E-41D5-BE8E-B8857DFB8B5C} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
