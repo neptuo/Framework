@@ -12,6 +12,9 @@ namespace UnitTest.Formatters.Composite
     [CompositeType("Test.UserModel")]
     public class UserModel
     {
+        [CompositeVersion]
+        public int Version { get; private set; }
+
         [CompositeProperty(1, Version = 2)]
         public int Id { get; private set; }
 
@@ -30,6 +33,7 @@ namespace UnitTest.Formatters.Composite
             Ensure.NotNullOrEmpty(password, "password");
             UserName = userName;
             Password = password;
+            Version = 1;
         }
 
         [CompositeConstructor(Version = 2)]
@@ -41,6 +45,7 @@ namespace UnitTest.Formatters.Composite
             Id = id;
             UserName = userName;
             Password = password;
+            Version = 2;
         }
     }
 }

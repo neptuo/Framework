@@ -56,6 +56,7 @@
     <Compile Include="Metadata\CompositeType.cs" />
     <Compile Include="Metadata\CompositeTypeAttribute.cs" />
     <Compile Include="Metadata\CompositeVersion.cs" />
+    <Compile Include="Metadata\CompositeVersionAttribute.cs" />
     <Compile Include="Metadata\ICompositeDelegateFactory.cs" />
     <Compile Include="Metadata\ICompositeTypeProvider.cs" />
     <Compile Include="Metadata\ManualCompositeTypeProvider.cs" />
