@@ -66,7 +66,7 @@ namespace Neptuo.Formatters.Metadata
                 if(propertyInfo == null)
                     throw Ensure.Exception.NotSupported();
 
-                Properties.Add(new CompositeProperty(Properties.Count, propertyInfo));
+                Properties.Add(new CompositeProperty(Properties.Count, instance => propertyInfo.GetValue(instance)));
                 return this;
             }
 

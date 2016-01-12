@@ -9,12 +9,12 @@ namespace Neptuo.Formatters.Metadata
 {
     public class CompositeConstructor
     {
-        public ConstructorInfo ConstructorInfo { get; private set; }
+        public Func<object[], object> Factory { get; private set; }
 
-        public CompositeConstructor(ConstructorInfo constructorInfo)
+        public CompositeConstructor(Func<object[], object> factory)
         {
-            Ensure.NotNull(constructorInfo, "constructorInfo");
-            ConstructorInfo = constructorInfo;
+            Ensure.NotNull(factory, "factory");
+            Factory = factory;
         }
     }
 }

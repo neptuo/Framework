@@ -11,6 +11,13 @@ namespace Neptuo.Formatters.Metadata
     {
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
+        private readonly ICompositeDelegateFactory delegateFactory;
+
+        public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory)
+        {
+            Ensure.NotNull(delegateFactory, "delegateFactory");
+            this.delegateFactory = delegateFactory;
+        }
 
         #region ICompositeTypeProvider
 
@@ -59,7 +66,7 @@ namespace Neptuo.Formatters.Metadata
                     if (!properties.TryGetValue(propertyAttribute.Version, out versionProperties))
                         properties[propertyAttribute.Version] = versionProperties = new List<CompositeProperty>();
 
-                    versionProperties.Add(new CompositeProperty(propertyAttribute.Index, propertyInfo));
+                    versionProperties.Add(new CompositeProperty(propertyAttribute.Index, delegateFactory.CreatePropertyGetter(propertyInfo)));
                 }
             }
 
@@ -69,7 +76,7 @@ namespace Neptuo.Formatters.Metadata
             {
                 CompositeConstructorAttribute constructorAttribute = constructorInfo.GetCustomAttribute<CompositeConstructorAttribute>();
                 if (constructorAttribute != null)
-                    constructors[constructorAttribute.Version] = new CompositeConstructor(constructorInfo);
+                    constructors[constructorAttribute.Version] = new CompositeConstructor(delegateFactory.CreateConstructorFactory(constructorInfo));
             }
 
             List<CompositeVersion> versions = new List<CompositeVersion>();
