@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C5958F2E-3480-42BE-A670-6E7D8FC30573}</ProjectGuid>
+    <ProjectGuid>{5E6FBC06-2110-47D3-A0E2-ACD99D7E8D41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UnitTest.FileSystems</RootNamespace>
-    <AssemblyName>UnitTest.FileSystems</AssemblyName>
+    <RootNamespace>UnitTest.Formatters</RootNamespace>
+    <AssemblyName>UnitTest.Formatters</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -52,21 +56,21 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="T_FileSystems.cs" />
+    <Compile Include="Composite\_Services.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Neptuo.FileSystems.Local\Neptuo.FileSystems.Local.csproj">
-      <Project>{90e35420-d546-4b7f-bd44-3db0fe95c2e0}</Project>
-      <Name>Neptuo.FileSystems.Local</Name>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj">
+      <Project>{51be86f0-1512-4d63-9e8b-bf53dc96e7ad}</Project>
+      <Name>Neptuo.Formatters.Composite</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.FileSystems\Neptuo.FileSystems.csproj">
-      <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
-      <Name>Neptuo.FileSystems</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
-      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
-      <Name>Neptuo.Models.Features</Name>
+    <ProjectReference Include="..\..\src\Neptuo.Formatters\Neptuo.Formatters.csproj">
+      <Project>{200d385f-dc27-4695-aacb-b345d9e7917d}</Project>
+      <Name>Neptuo.Formatters</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

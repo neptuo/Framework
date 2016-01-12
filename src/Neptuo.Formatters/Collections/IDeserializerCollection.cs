@@ -17,7 +17,7 @@ namespace Neptuo.Formatters.Collections
         /// <param name="key">The key to register <paramref name="deserializer"/> with.</param>
         /// <param name="deserializer">The deserializer to register.</param>
         /// <returns>Self (for fluency).</returns>
-        IDeserializerCollection<TKey> Map(TKey key, IDeserializer deserializer);
+        IDeserializerCollection<TKey> Add(TKey key, IDeserializer deserializer);
 
         /// <summary>
         /// Tries to get deserializer registered with <paramref name="key"/>.

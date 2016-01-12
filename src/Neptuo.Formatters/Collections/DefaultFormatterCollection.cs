@@ -14,7 +14,7 @@ namespace Neptuo.Formatters.Collections
         private readonly Dictionary<TKey, ISerializer> serializers = new Dictionary<TKey, ISerializer>();
         private readonly Dictionary<TKey, IDeserializer> deserializers = new Dictionary<TKey, IDeserializer>();
 
-        public ISerializerCollection<TKey> Map(TKey key, ISerializer serializer)
+        public ISerializerCollection<TKey> Add(TKey key, ISerializer serializer)
         {
             Ensure.NotNull(key, "key");
             Ensure.NotNull(serializer, "serializer");
@@ -22,7 +22,7 @@ namespace Neptuo.Formatters.Collections
             return this;
         }
 
-        public IDeserializerCollection<TKey> Map(TKey key, IDeserializer deserializer)
+        public IDeserializerCollection<TKey> Add(TKey key, IDeserializer deserializer)
         {
             Ensure.NotNull(key, "key");
             Ensure.NotNull(deserializer, "deserializer");
