@@ -54,6 +54,7 @@ namespace Neptuo.Formatters.Metadata
 
             IEnumerable<ConstructorInfo> constructorInfos = type.GetConstructors();
             IEnumerable<PropertyInfo> propertyInfos = type.GetProperties();
+            CompositeProperty versionProperty = null;
 
             // Composite properties by version.
             Dictionary<int, List<CompositeProperty>> properties = new Dictionary<int, List<CompositeProperty>>();
@@ -68,7 +69,26 @@ namespace Neptuo.Formatters.Metadata
 
                     versionProperties.Add(new CompositeProperty(propertyAttribute.Index, delegateFactory.CreatePropertyGetter(propertyInfo)));
                 }
+
+                CompositeVersionAttribute versionAttribute = propertyInfo.GetCustomAttribute<CompositeVersionAttribute>();
+                if (versionAttribute != null)
+                {
+                    Func<object, object> getter = delegateFactory.CreatePropertyGetter(propertyInfo);
+
+                    // Use setter for version only when setter method is present and is public.
+                    Action<object, object> setter = null;
+                    if (propertyInfo.CanWrite && propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsPublic)
+                        setter = delegateFactory.CreatePropertySetter(propertyInfo);
+
+                    if (setter == null)
+                        versionProperty = new CompositeProperty(0, getter);
+                    else
+                        versionProperty = new CompositeProperty(0, getter, setter);
+                }
             }
+
+            if(versionProperty == null)
+                throw new MissingVersionPropertyException(type);
 
             // Constructors by version.
             Dictionary<int, CompositeConstructor> constructors = new Dictionary<int, CompositeConstructor>();
@@ -90,7 +110,8 @@ namespace Neptuo.Formatters.Metadata
                 versions.Add(version);
             }
 
-            return new CompositeType(typeName, type, versions);
+            versions.Sort((v1, v2) => v1.Version.CompareTo(v2.Version));
+            return new CompositeType(typeName, type, versions, versionProperty);
         }
     }
 }

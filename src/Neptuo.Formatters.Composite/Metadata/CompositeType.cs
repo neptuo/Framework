@@ -12,14 +12,18 @@ namespace Neptuo.Formatters.Metadata
         public Type Type { get; private set; }
         public IEnumerable<CompositeVersion> Versions { get; private set; }
 
-        public CompositeType(string name, Type type, IEnumerable<CompositeVersion> versions)
+        public CompositeProperty VersionProperty { get; private set; }
+
+        public CompositeType(string name, Type type, IEnumerable<CompositeVersion> versions, CompositeProperty versionProperty)
         {
             Ensure.NotNullOrEmpty(name, "name");
             Ensure.NotNull(type, "type");
             Ensure.NotNull(versions, "versions");
+            Ensure.NotNull(versionProperty, "versionProperty");
             Name = name;
             Type = type;
             Versions = versions;
+            VersionProperty = versionProperty;
         }
     }
 }

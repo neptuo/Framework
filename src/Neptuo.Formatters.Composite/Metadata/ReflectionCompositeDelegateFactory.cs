@@ -14,11 +14,17 @@ namespace Neptuo.Formatters.Metadata
     {
         public Func<object, object> CreatePropertyGetter(PropertyInfo propertyInfo)
         {
+            if (propertyInfo.GetMethod == null)
+                return null;
+
             return instance => propertyInfo.GetValue(instance);
         }
 
         public Action<object, object> CreatePropertySetter(PropertyInfo propertyInfo)
         {
+            if (propertyInfo.SetMethod == null)
+                return null;
+
             return (instance, value) => propertyInfo.SetValue(instance, value);
         }
 

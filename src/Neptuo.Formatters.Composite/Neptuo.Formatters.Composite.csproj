@@ -61,6 +61,7 @@
     <Compile Include="Metadata\ICompositeTypeProvider.cs" />
     <Compile Include="Metadata\ManualCompositeTypeProvider.cs" />
     <Compile Include="Metadata\MissingVersionConstructorException.cs" />
+    <Compile Include="Metadata\MissingVersionPropertyException.cs" />
     <Compile Include="Metadata\ReflectionCompositeDelegateFactory.cs" />
     <Compile Include="Metadata\ReflectionCompositeTypeProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
