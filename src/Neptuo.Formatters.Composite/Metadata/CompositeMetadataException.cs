@@ -11,7 +11,7 @@ namespace Neptuo.Formatters.Metadata
     /// Base metadata related exception.
     /// </summary>
     [Serializable]
-    public class CompositeMetadataException : Exception
+    public class CompositeMetadataException : CompositeException
     {
         public CompositeMetadataException() 
         { }

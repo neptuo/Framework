@@ -18,7 +18,6 @@ namespace UnitTest.Formatters
             Assert.AreEqual(true, provider.TryGet(typeof(UserModel), out compositeType));
             Assert.IsNotNull(compositeType);
 
-
             Assert.AreEqual("Test.UserModel", compositeType.Name);
             Assert.AreEqual(typeof(UserModel), compositeType.Type);
 
