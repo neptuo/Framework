@@ -67,7 +67,12 @@ namespace Neptuo.Formatters.Metadata
                     if (!properties.TryGetValue(propertyAttribute.Version, out versionProperties))
                         properties[propertyAttribute.Version] = versionProperties = new List<CompositeProperty>();
 
-                    versionProperties.Add(new CompositeProperty(propertyAttribute.Index, delegateFactory.CreatePropertyGetter(propertyInfo)));
+                    versionProperties.Add(new CompositeProperty(
+                        propertyAttribute.Index, 
+                        propertyInfo.Name, 
+                        propertyInfo.PropertyType, 
+                        delegateFactory.CreatePropertyGetter(propertyInfo)
+                    ));
                 }
 
                 CompositeVersionAttribute versionAttribute = propertyInfo.GetCustomAttribute<CompositeVersionAttribute>();
@@ -81,9 +86,9 @@ namespace Neptuo.Formatters.Metadata
                         setter = delegateFactory.CreatePropertySetter(propertyInfo);
 
                     if (setter == null)
-                        versionProperty = new CompositeProperty(0, getter);
+                        versionProperty = new CompositeProperty(0, propertyInfo.Name, propertyInfo.PropertyType, getter);
                     else
-                        versionProperty = new CompositeProperty(0, getter, setter);
+                        versionProperty = new CompositeProperty(0, propertyInfo.Name, propertyInfo.PropertyType, getter, setter);
                 }
             }
 

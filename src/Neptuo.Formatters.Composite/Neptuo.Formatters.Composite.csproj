@@ -49,6 +49,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompositeFormatter.cs" />
+    <Compile Include="ICompositeStorage.cs" />
     <Compile Include="Metadata\CompositeConstructor.cs" />
     <Compile Include="Metadata\CompositeConstructorAttribute.cs" />
     <Compile Include="CompositeException.cs" />
