@@ -19,7 +19,7 @@ namespace UnitTest.Formatters.Composite.Json
             JsonEnumConverter converter = new JsonEnumConverter(JsonEnumConverterType.UseInderlayingValue);
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(ListSortDirection), typeof(JValue), ListSortDirection.Descending, out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(ListSortDirection), typeof(JValue), ListSortDirection.Descending, out value));
             Assert.IsInstanceOfType(value, typeof(JValue));
 
             JValue jValue = (JValue)value;
@@ -34,14 +34,14 @@ namespace UnitTest.Formatters.Composite.Json
             ListSortDirection? direction = ListSortDirection.Descending;
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(ListSortDirection?), typeof(JValue), direction, out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(ListSortDirection?), typeof(JValue), direction, out value));
             Assert.IsInstanceOfType(value, typeof(JValue));
 
             JValue jValue = (JValue)value;
             Assert.AreEqual(JTokenType.Integer, jValue.Type);
             Assert.AreEqual((long)ListSortDirection.Descending, jValue.Value);
 
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(ListSortDirection?), typeof(JValue), null, out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(ListSortDirection?), typeof(JValue), null, out value));
             Assert.AreEqual(null, value);
         }
 
@@ -51,7 +51,7 @@ namespace UnitTest.Formatters.Composite.Json
             JsonEnumConverter converter = new JsonEnumConverter(JsonEnumConverterType.UseInderlayingValue);
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(JValue), typeof(ListSortDirection), new JValue((int)ListSortDirection.Descending), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(JValue), typeof(ListSortDirection), new JValue((int)ListSortDirection.Descending), out value));
             Assert.AreEqual(ListSortDirection.Descending, value);
         }
 
@@ -61,7 +61,7 @@ namespace UnitTest.Formatters.Composite.Json
             JsonEnumConverter converter = new JsonEnumConverter(JsonEnumConverterType.UseInderlayingValue);
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(JValue), typeof(ListSortDirection?), new JValue((object)null), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(JValue), typeof(ListSortDirection?), new JValue((object)null), out value));
             Assert.AreEqual(null, value);
         }
     }

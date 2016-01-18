@@ -18,13 +18,13 @@ namespace UnitTest.Formatters.Composite.Json
             JsonPrimitiveConverter converter = new JsonPrimitiveConverter();
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(int), typeof(JValue), 1, out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(int), typeof(JValue), 1, out value));
             Assert.AreEqual(new JValue(1), value);
 
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(string), typeof(JValue), "Test", out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(string), typeof(JValue), "Test", out value));
             Assert.AreEqual(new JValue("Test"), value);
 
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(TimeSpan), typeof(JValue), TimeSpan.FromSeconds(6620), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(TimeSpan), typeof(JValue), TimeSpan.FromSeconds(6620), out value));
             Assert.AreEqual(new JValue(TimeSpan.FromSeconds(6620)), value);
         }
 
@@ -34,13 +34,13 @@ namespace UnitTest.Formatters.Composite.Json
             JsonPrimitiveConverter converter = new JsonPrimitiveConverter();
 
             object value;
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(JValue), typeof(int), JValue.Parse("1"), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(JValue), typeof(int), JValue.Parse("1"), out value));
             Assert.AreEqual(1, value);
 
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(JValue), typeof(string), new JValue("Test"), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(JValue), typeof(string), new JValue("Test"), out value));
             Assert.AreEqual("Test", value);
 
-            Assert.AreEqual(true, converter.TryConvertGeneral(typeof(JValue), typeof(TimeSpan), new JValue(TimeSpan.FromSeconds(6620)), out value));
+            Assert.AreEqual(true, converter.TryConvert(typeof(JValue), typeof(TimeSpan), new JValue(TimeSpan.FromSeconds(6620)), out value));
             Assert.AreEqual(TimeSpan.FromSeconds(6620), value);
         }
     }

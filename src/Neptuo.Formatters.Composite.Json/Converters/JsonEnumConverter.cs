@@ -21,7 +21,7 @@ namespace Neptuo.Formatters.Converters
             this.type = type;
         }
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (sourceType == typeof(JValue))
                 return TryConvertFromJson(targetType, (JValue)sourceValue, out targetValue);
