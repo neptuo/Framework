@@ -48,6 +48,27 @@ namespace Neptuo.Formatters
 
         public bool TryGetValue(ICompositeStorage storage, string key, Type valueType, out object value)
         {
+            if (typeof(ICompositeModel).IsAssignableFrom(valueType))
+            {
+                value = Activator.CreateInstance(valueType);
+                ICompositeModel compositeModel = value as ICompositeModel;
+                if (compositeModel == null)
+                {
+                    value = null;
+                    return false;
+                }
+
+                ICompositeStorage modelStorage;
+                if (storage.TryGet(key, out modelStorage))
+                {
+                    compositeModel.Load(modelStorage);
+                    return true;
+                }
+
+                value = null;
+                return false;
+            }
+
             object objectValue;
             if (!storage.TryGet(key, out objectValue))
             {
@@ -80,7 +101,17 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object propertyValue = property.Getter(input);
-                valueStorage.Add(property.Name, propertyValue.ToString());
+
+                ICompositeModel compositeModel = propertyValue as ICompositeModel;
+                if (compositeModel == null)
+                {
+                    valueStorage.Add(property.Name, propertyValue);
+                }
+                else
+                {
+                    ICompositeStorage modelStorage = valueStorage.Add(property.Name);
+                    compositeModel.Save(modelStorage);
+                }
             }
 
             storage.Store(context.Output);
