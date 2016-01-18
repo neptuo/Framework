@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnitTest.Formatters.Composite;
 
-namespace UnitTest.Formatters
+namespace UnitTest.Formatters.Composite
 {
     [TestClass]
     public class BuildCompositeModel

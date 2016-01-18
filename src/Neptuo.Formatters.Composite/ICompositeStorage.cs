@@ -31,7 +31,7 @@ namespace Neptuo.Formatters
         /// <param name="key">The key to associate <paramref name="value"/> with.</param>
         /// <param name="value">The value to store.</param>
         /// <returns>Self (for fluency).</returns>
-        ICompositeStorage Add(string key, string value);
+        ICompositeStorage Add(string key, object value);
 
         /// <summary>
         /// Creates sub-storage with <paramref name="key"/>.
@@ -47,7 +47,7 @@ namespace Neptuo.Formatters
         /// <param name="key">The key to retrieve a value of.</param>
         /// <param name="value">The associated value.</param>
         /// <returns><c>true</c> if <paramref name="key"/> was found; <c>false</c> otherwise.</returns>
-        bool TryGet(string key, out string value);
+        bool TryGet(string key, out object value);
 
         /// <summary>
         /// Tries to get child storage associated with <paramref name="key"/>.

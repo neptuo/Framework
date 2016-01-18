@@ -56,19 +56,23 @@ namespace Neptuo.Formatters
 
         public void Load(Stream input)
         {
+            Ensure.NotNull(input, "input");
+
             using (StreamReader reader = new StreamReader(input))
                 root = JObject.Parse(reader.ReadToEnd());
         }
 
         public void Store(Stream output)
         {
-            using (StreamWriter writer = new StreamWriter())
+            Ensure.NotNull(output, "output");
+
+            using (StreamWriter writer = new StreamWriter(output, Encoding.UTF8, 1024, true))
                 writer.Write(root.ToString(formatting));
         }
 
-        public ICompositeStorage Add(string key, string value)
+        public ICompositeStorage Add(string key, object value)
         {
-            root[key] = value;
+            root[key] = new JValue(value);
             return this;
         }
 
@@ -79,12 +83,13 @@ namespace Neptuo.Formatters
             return new JsonCompositeStorage(child, loadSettings, formatting);
         }
 
-        public bool TryGet(string key, out string value)
+        public bool TryGet(string key, out object value)
         {
             JToken valueToken;
-            if(root.TryGetValue(key, out valueToken))
+            JValue valueValue;
+            if (root.TryGetValue(key, out valueToken) && (valueValue = valueToken as JValue) != null)
             {
-                value = valueToken.ToString();
+                value = valueValue.Value;
                 return true;
             }
 

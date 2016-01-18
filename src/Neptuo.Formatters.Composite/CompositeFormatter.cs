@@ -35,27 +35,27 @@ namespace Neptuo.Formatters
 
         public bool TryGetValue<T>(ICompositeStorage storage, string key, out T value)
         {
-            string stringValue;
-            if (!storage.TryGet(key, out stringValue))
+            object objectValue;
+            if (!storage.TryGet(key, out objectValue))
             {
                 value = default(T);
                 return false;
             }
 
-            value = (T)(object)stringValue;
+            value = (T)(object)objectValue;
             return true;
         }
 
         public bool TryGetValue(ICompositeStorage storage, string key, Type valueType, out object value)
         {
-            string stringValue;
-            if (!storage.TryGet(key, out stringValue))
+            object objectValue;
+            if (!storage.TryGet(key, out objectValue))
             {
                 value = null;
                 return false;
             }
 
-            value = (object)stringValue;
+            value = (object)objectValue;
             return true;
         }
 
