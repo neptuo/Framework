@@ -33,7 +33,6 @@ namespace Neptuo.Formatters
         /// <param name="formatting">The indention formatting for serialization.</param>
         public JsonCompositeStorage(Formatting formatting)
         {
-            Ensure.NotNull(loadSettings, "loadSettings");
             this.loadSettings = new JsonLoadSettings();
             this.formatting = formatting;
             root = new JObject();

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo;
 using Neptuo.Formatters;
+using Neptuo.Formatters.Converters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,10 @@ namespace UnitTest.Formatters.Composite.Json
         [TestMethod]
         public void Base()
         {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonPrimitivesSearchHandler();
+
             ICompositeStorage storage = new JsonCompositeStorage();
             storage.Add("Name", "Test.UserModel");
             storage.Add("Version", 1);
@@ -39,7 +44,7 @@ namespace UnitTest.Formatters.Composite.Json
                 storage.Load(stream);
             }
 
-            object value;
+            string value;
 
             Assert.AreEqual(true, storage.TryGet("Name", out value));
             Assert.AreEqual("Test.UserModel", value);
