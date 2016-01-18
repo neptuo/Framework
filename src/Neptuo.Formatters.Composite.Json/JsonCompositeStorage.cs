@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Neptuo.Collections.Specialized;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,15 @@ namespace Neptuo.Formatters
                 writer.Write(root.ToString(formatting));
         }
 
+        public IEnumerable<string> Keys
+        {
+            get
+            {
+                foreach (var item in root)
+                    yield return item.Key;
+            }
+        }
+
         public ICompositeStorage Add(string key, object value)
         {
             root[key] = new JValue(value);
@@ -83,17 +93,26 @@ namespace Neptuo.Formatters
             return new JsonCompositeStorage(child, loadSettings, formatting);
         }
 
-        public bool TryGet(string key, out object value)
+        IKeyValueCollection IKeyValueCollection.Add(string key, object value)
+        {
+            return Add(key, value);
+        }
+
+        public bool TryGet<T>(string key, out T value)
         {
             JToken valueToken;
             JValue valueValue;
             if (root.TryGetValue(key, out valueToken) && (valueValue = valueToken as JValue) != null)
             {
-                value = valueValue.Value;
+                if (typeof(T) == typeof(object))
+                    value = (T)valueValue.Value;
+                else
+                    value = valueValue.Value<T>();
+
                 return true;
             }
 
-            value = null;
+            value = default(T);
             return false;
         }
 

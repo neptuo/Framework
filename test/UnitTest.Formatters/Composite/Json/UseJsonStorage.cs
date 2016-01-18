@@ -41,8 +41,9 @@ namespace UnitTest.Formatters.Composite.Json
             Assert.AreEqual(true, storage.TryGet("Name", out value));
             Assert.AreEqual("Test.UserModel", value);
 
-            Assert.AreEqual(true, storage.TryGet("Version", out value));
-            Assert.AreEqual(1, value);
+            int version;
+            Assert.AreEqual(true, storage.TryGet("Version", out version));
+            Assert.AreEqual(1, version);
 
             Assert.AreEqual(true, storage.TryGet("Payload", out payloadStorage));
 

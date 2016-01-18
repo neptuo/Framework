@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Neptuo.Formatters
     /// <summary>
     /// The key-value storage of composite values.
     /// </summary>
-    public interface ICompositeStorage
+    public interface ICompositeStorage : IKeyValueCollection
     {
         /// <summary>
         /// Truncates current state and loads content from <paramref name="input"/>.
@@ -40,14 +41,6 @@ namespace Neptuo.Formatters
         /// <param name="key">The key to associate new storage with.</param>
         /// <returns>The child storage.</returns>
         ICompositeStorage Add(string key);
-
-        /// <summary>
-        /// Tries to get <paramref name="value"/> associated with <paramref name="key"/>.
-        /// </summary>
-        /// <param name="key">The key to retrieve a value of.</param>
-        /// <param name="value">The associated value.</param>
-        /// <returns><c>true</c> if <paramref name="key"/> was found; <c>false</c> otherwise.</returns>
-        bool TryGet(string key, out object value);
 
         /// <summary>
         /// Tries to get child storage associated with <paramref name="key"/>.
