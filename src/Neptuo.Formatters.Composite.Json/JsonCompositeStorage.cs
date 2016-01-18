@@ -17,39 +17,30 @@ namespace Neptuo.Formatters
     {
         private JObject root;
 
-        private readonly JsonLoadSettings loadSettings;
         private readonly Formatting formatting;
+        private readonly JsonLoadSettings loadSettings;
         
         /// <summary>
         /// Creates new instance with default settings and <see cref="Formatting.None"/> for serialization.
         /// </summary>
         public JsonCompositeStorage()
-            : this(new JsonLoadSettings())
+            : this(Formatting.None)
         { }
 
         /// <summary>
-        /// Creates new instance with <paramref name="settings" /> and <see cref="Formatting.None"/> for serialization.
+        /// Creates new instance with <paramref name="formatting" />.
         /// </summary>
-        /// <param name="settings">The serializer and deserializer configuration.</param>
-        public JsonCompositeStorage(JsonLoadSettings settings)
-            : this(settings, Formatting.None)
-        { }
-
-        /// <summary>
-        /// Create new instance with <paramref name="settings"/> and <paramref name="formatting"/>.
-        /// </summary>
-        /// <param name="settings">The serializer and deserializer configuration.</param>
         /// <param name="formatting">The indention formatting for serialization.</param>
-        public JsonCompositeStorage(JsonLoadSettings loadSettings, Formatting formatting)
+        public JsonCompositeStorage(Formatting formatting)
         {
             Ensure.NotNull(loadSettings, "loadSettings");
-            this.loadSettings = loadSettings;
+            this.loadSettings = new JsonLoadSettings();
             this.formatting = formatting;
             root = new JObject();
         }
 
-        private JsonCompositeStorage(JObject root, JsonLoadSettings loadSettings, Formatting formatting)
-            : this(loadSettings, formatting)
+        private JsonCompositeStorage(JObject root, Formatting formatting)
+            : this(formatting)
         {
             Ensure.NotNull(root, "root");
             this.root = root;
@@ -60,7 +51,7 @@ namespace Neptuo.Formatters
             Ensure.NotNull(input, "input");
 
             using (StreamReader reader = new StreamReader(input))
-                root = JObject.Parse(reader.ReadToEnd());
+                root = JObject.Parse(reader.ReadToEnd(), loadSettings);
         }
 
         public void Store(Stream output)
@@ -90,7 +81,7 @@ namespace Neptuo.Formatters
         {
             JObject child = new JObject();
             root[key] = child;
-            return new JsonCompositeStorage(child, loadSettings, formatting);
+            return new JsonCompositeStorage(child, formatting);
         }
 
         IKeyValueCollection IKeyValueCollection.Add(string key, object value)
@@ -100,17 +91,10 @@ namespace Neptuo.Formatters
 
         public bool TryGet<T>(string key, out T value)
         {
-            JToken valueToken;
-            JValue valueValue;
-            if (root.TryGetValue(key, out valueToken) && (valueValue = valueToken as JValue) != null)
-            {
-                if (typeof(T) == typeof(object))
-                    value = (T)valueValue.Value;
-                else
-                    value = valueValue.Value<T>();
-
-                return true;
-            }
+            JToken jToken;
+            JValue jValue;
+            if (root.TryGetValue(key, out jToken) && (jValue = jToken as JValue) != null)
+                return Converts.Try<JValue, T>(jValue, out value);
 
             value = default(T);
             return false;
@@ -122,7 +106,7 @@ namespace Neptuo.Formatters
             JObject valueObject;
             if (root.TryGetValue(key, out valueToken) && (valueObject = valueToken as JObject) != null)
             {
-                storage = new JsonCompositeStorage(valueObject, loadSettings, formatting);
+                storage = new JsonCompositeStorage(valueObject, formatting);
                 return true;
             }
 

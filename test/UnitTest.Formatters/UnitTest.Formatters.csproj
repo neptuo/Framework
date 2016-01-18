@@ -37,8 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+    <Reference Include="Neptuo, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.1\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,9 +60,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Composite\Json\UseJsonStorage.cs" />
+    <Compile Include="Composite\Json\T_Formatters_EnumConverter.cs" />
+    <Compile Include="Composite\Json\T_Formatters_CompositeStorage.cs" />
+    <Compile Include="Composite\Json\T_Formatters_PrimitiveConverter.cs" />
     <Compile Include="Composite\_Services.cs" />
-    <Compile Include="Composite\BuildCompositeModel.cs" />
+    <Compile Include="Composite\T_Formatters_CompositeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

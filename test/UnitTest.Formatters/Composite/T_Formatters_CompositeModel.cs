@@ -8,7 +8,7 @@ using UnitTest.Formatters.Composite;
 namespace UnitTest.Formatters.Composite
 {
     [TestClass]
-    public class BuildCompositeModel
+    public class T_Formatters_CompositeModel
     {
         [TestMethod]
         public void Base()

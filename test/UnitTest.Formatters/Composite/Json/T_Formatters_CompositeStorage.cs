@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo;
 using Neptuo.Formatters;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 namespace UnitTest.Formatters.Composite.Json
 {
     [TestClass]
-    public class UseJsonStorage
+    public class T_Formatters_CompositeStorage
     {
         [TestMethod]
         public void Base()
@@ -22,6 +24,7 @@ namespace UnitTest.Formatters.Composite.Json
             ICompositeStorage payloadStorage = storage.Add("Payload");
             payloadStorage.Add("FirstName", "John");
             payloadStorage.Add("LastName", "Doe");
+            payloadStorage.Add("Direction", ListSortDirection.Descending);
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -52,6 +55,11 @@ namespace UnitTest.Formatters.Composite.Json
 
             Assert.AreEqual(true, payloadStorage.TryGet("LastName", out value));
             Assert.AreEqual("Doe", value);
+
+            ListSortDirection direction;
+            Assert.AreEqual(true, payloadStorage.TryGet("Direction", out direction));
+            Assert.AreEqual(ListSortDirection.Descending, direction);
+
         }
     }
 }
