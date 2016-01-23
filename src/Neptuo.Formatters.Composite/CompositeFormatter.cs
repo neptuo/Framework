@@ -1,5 +1,6 @@
 ﻿using Neptuo.Activators;
 using Neptuo.Formatters.Metadata;
+using Neptuo.Formatters.Storages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,11 @@ namespace Neptuo.Formatters
         private readonly IFactory<ICompositeStorage> storageFactory;
 
         /// <summary>
+        /// Gets the collection of value type formatters.
+        /// </summary>
+        public CompositeStorageFormatterCollection StorageFormatters { get; private set; }
+
+        /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="provider">The provider for reading composite type definitions.</param>
@@ -25,7 +31,10 @@ namespace Neptuo.Formatters
         public CompositeFormatter(ICompositeTypeProvider provider, IFactory<ICompositeStorage> storageFactory)
         {
             Ensure.NotNull(provider, "provider");
+            Ensure.NotNull(storageFactory, "storageFactory");
             this.provider = provider;
+            this.storageFactory = storageFactory;
+            StorageFormatters = new CompositeStorageFormatterCollection();
         }
 
         public void AddValue(ICompositeStorage storage, string key, object value)
@@ -43,40 +52,6 @@ namespace Neptuo.Formatters
             }
 
             value = (T)(object)objectValue;
-            return true;
-        }
-
-        public bool TryGetValue(ICompositeStorage storage, string key, Type valueType, out object value)
-        {
-            if (typeof(ICompositeModel).IsAssignableFrom(valueType))
-            {
-                value = Activator.CreateInstance(valueType);
-                ICompositeModel compositeModel = value as ICompositeModel;
-                if (compositeModel == null)
-                {
-                    value = null;
-                    return false;
-                }
-
-                ICompositeStorage modelStorage;
-                if (storage.TryGet(key, out modelStorage))
-                {
-                    compositeModel.Load(modelStorage);
-                    return true;
-                }
-
-                value = null;
-                return false;
-            }
-
-            object objectValue;
-            if (!storage.TryGet(key, out objectValue))
-            {
-                value = null;
-                return false;
-            }
-
-            value = (object)objectValue;
             return true;
         }
 
@@ -154,7 +129,7 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object value;
-                if(TryGetValue(valueStorage, property.Name, property.Type, out value))
+                if (StorageFormatters.TryGet(valueStorage, property.Name, property.Type, out value))
                     throw Ensure.Exception.NotImplemented();
 
                 values.Add(value);

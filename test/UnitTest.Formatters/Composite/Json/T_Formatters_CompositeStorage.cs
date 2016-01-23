@@ -2,6 +2,7 @@
 using Neptuo;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
+using Neptuo.Formatters.Storages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,7 @@ namespace UnitTest.Formatters.Composite.Json
             payloadStorage.Add("FirstName", "John");
             payloadStorage.Add("LastName", "Doe");
             payloadStorage.Add("Direction", ListSortDirection.Descending);
+            payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
 
             using (MemoryStream stream = new MemoryStream())
             {

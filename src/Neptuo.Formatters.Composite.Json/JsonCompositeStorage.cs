@@ -1,4 +1,5 @@
 ﻿using Neptuo.Collections.Specialized;
+using Neptuo.Formatters.Storages;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -72,7 +73,14 @@ namespace Neptuo.Formatters
 
         public ICompositeStorage Add(string key, object value)
         {
-            root[key] = new JValue(value);
+            object targetValue = null;
+            JValue jValue = null;
+            if(value == null)
+                jValue = null;
+            else if (Converts.Try(value.GetType(), typeof(JValue), value, out targetValue))
+                jValue = (JValue)targetValue;
+
+            root[key] = jValue;
             return this;
         }
 
