@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// Base metadata related exception.
+    /// Base composite exception.
     /// </summary>
     [Serializable]
     public class CompositeException : Exception

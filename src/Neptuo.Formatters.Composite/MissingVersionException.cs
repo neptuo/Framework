@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// Raised composite type hasn't defined specified version.
+    /// Raised when composite type hasn't defined specified version.
     /// </summary>
     public class MissingVersionException : CompositeException
     {

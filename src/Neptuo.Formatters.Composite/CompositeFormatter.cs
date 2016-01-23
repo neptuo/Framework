@@ -37,24 +37,6 @@ namespace Neptuo.Formatters
             StorageFormatters = new CompositeStorageFormatterCollection();
         }
 
-        public void AddValue(ICompositeStorage storage, string key, object value)
-        {
-            storage.Add(key, value.ToString());
-        }
-
-        public bool TryGetValue<T>(ICompositeStorage storage, string key, out T value)
-        {
-            object objectValue;
-            if (!storage.TryGet(key, out objectValue))
-            {
-                value = default(T);
-                return false;
-            }
-
-            value = (T)(object)objectValue;
-            return true;
-        }
-
         public Task<bool> TrySerializeAsync(object input, ISerializerContext context)
         {
             CompositeType type;
@@ -66,27 +48,18 @@ namespace Neptuo.Formatters
             return TrySerializeAsync(input, context, type, typeVersion);
         }
 
-        protected Task<bool> TrySerializeAsync(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion)
+        protected virtual Task<bool> TrySerializeAsync(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion)
         {
             ICompositeStorage storage = storageFactory.Create();
-            AddValue(storage, "Name", type.Name);
-            AddValue(storage, "Version", type.VersionProperty.Getter(input));
+            storage.Add("Name", type.Name);
+            storage.Add("Version", type.VersionProperty.Getter(input));
 
             ICompositeStorage valueStorage = storage.Add("Payload");
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object propertyValue = property.Getter(input);
-
-                ICompositeModel compositeModel = propertyValue as ICompositeModel;
-                if (compositeModel == null)
-                {
-                    valueStorage.Add(property.Name, propertyValue);
-                }
-                else
-                {
-                    ICompositeStorage modelStorage = valueStorage.Add(property.Name);
-                    compositeModel.Save(modelStorage);
-                }
+                if (StorageFormatters.TrySerialize(valueStorage, property.Name, propertyValue))
+                    throw new NotSupportedValueException(property.Type);
             }
 
             storage.Store(context.Output);
@@ -111,26 +84,26 @@ namespace Neptuo.Formatters
             return TryDeserializeAsync(input, context, type);
         }
 
-        protected Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
+        protected virtual Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
         {
             ICompositeStorage storage = storageFactory.Create();
             storage.Load(input);
 
             int version;
-            if (!TryGetValue(storage, "Version", out version))
+            if (!storage.TryGet("Version", out version))
                 throw Ensure.Exception.NotImplemented();
 
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.OutputType);
             ICompositeStorage valueStorage;
             if(!storage.TryGet("Payload", out valueStorage))
-                throw Ensure.Exception.NotImplemented();
+                throw new MissingPayloadException();
 
             List<object> values = new List<object>();
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object value;
-                if (StorageFormatters.TryGet(valueStorage, property.Name, property.Type, out value))
-                    throw Ensure.Exception.NotImplemented();
+                if (!StorageFormatters.TryDeserialize(valueStorage, property.Name, property.Type, out value))
+                    throw new NotSupportedValueException(property.Type);
 
                 values.Add(value);
             }

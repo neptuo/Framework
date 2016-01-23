@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Formatters.Storages
 {
+    /// <summary>
+    /// The implementation of <see cref="ICompositeStorageFormatter"/> that enables to register formatters for concrete types
+    /// and register search handler.
+    /// </summary>
     public class CompositeStorageFormatterCollection : ICompositeStorageFormatter
     {
         private readonly Dictionary<Type, ICompositeStorageFormatter> formatters = new Dictionary<Type, ICompositeStorageFormatter>();
@@ -26,21 +30,51 @@ namespace Neptuo.Formatters.Storages
             return this;
         }
 
-        public bool TryGet(ICompositeStorage storage, string key, Type valueType, out object value)
+        private ICompositeStorageFormatter FindFormatter(Type valueType)
+        {
+            ICompositeStorageFormatter formatter;
+            if (!formatters.TryGetValue(valueType, out formatter))
+                onSearchFormatter.TryExecute(valueType, out formatter);
+
+            return formatter;
+        }
+
+        public bool TryDeserialize(ICompositeStorage storage, string key, Type valueType, out object value)
         {
             Ensure.NotNull(storage, "storage");
             Ensure.NotNullOrEmpty(key, "key");
             Ensure.NotNull(valueType, "valueType");
 
-            ICompositeStorageFormatter formatter;
-            if (formatters.TryGetValue(valueType, out formatter))
-                return formatter.TryGet(storage, key, valueType, out value);
+            ICompositeStorageFormatter formatter = FindFormatter(valueType);
+            if (formatter == null)
+            {
+                value = null;
+                return false;
+            }
 
-            if(onSearchFormatter.TryExecute(valueType, out formatter))
-                return formatter.TryGet(storage, key, valueType, out value);
+            return formatter.TryDeserialize(storage, key, valueType, out value);
+        }
 
-            value = null;
-            return false;
+        public bool TrySerialize(ICompositeStorage storage, string key, object value)
+        {
+            Ensure.NotNull(storage, "storage");
+            Ensure.NotNullOrEmpty(key, "key");
+
+            if (value == null)
+            {
+                storage.Add(key, null);
+                return true;
+            }
+
+            Type valueType = value.GetType();
+            ICompositeStorageFormatter formatter = FindFormatter(valueType);
+            if (formatter == null)
+            {
+                value = null;
+                return false;
+            }
+
+            return formatter.TrySerialize(storage, key, value);
         }
     }
 }

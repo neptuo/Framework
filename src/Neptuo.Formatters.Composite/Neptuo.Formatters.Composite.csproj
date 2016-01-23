@@ -50,6 +50,8 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompositeFormatter.cs" />
+    <Compile Include="MissingPayloadException.cs" />
+    <Compile Include="NotSupportedValueException.cs" />
     <Compile Include="Storages\CompositeModelStorageFormatter.cs" />
     <Compile Include="Storages\CompositeStorageFormatterCollection.cs" />
     <Compile Include="ICompositeModel.cs" />
