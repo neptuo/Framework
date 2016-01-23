@@ -22,7 +22,7 @@ namespace Neptuo.Formatters.Converters
 
         private static bool TryGetJsonPrimitiveConverter(ConverterSearchContext context, out IConverter converter)
         {
-            if(context.SourceType == typeof(JValue) || context.TargetType == typeof(JValue))
+            if (context.SourceType == typeof(JToken) || context.TargetType == typeof(JToken))
             {
                 converter = new JsonPrimitiveConverter();
                 return true;
@@ -42,14 +42,14 @@ namespace Neptuo.Formatters.Converters
         {
             bool isSuccess = false;
 
-            if (context.SourceType == typeof(JValue))
+            if (context.SourceType == typeof(JToken))
             {
                 if (context.TargetType.IsEnum)
                     isSuccess = true;
                 else if (context.TargetType.IsNullableType() && context.TargetType.GetGenericArguments()[0].IsEnum)
                     isSuccess = true;
             }
-            else if (context.TargetType == typeof(JValue))
+            else if (context.TargetType == typeof(JToken))
             {
                 if (context.SourceType.IsEnum)
                     isSuccess = true;

@@ -31,7 +31,7 @@ namespace UnitTest.Formatters.Composite.Json
             payloadStorage.Add("FirstName", "John");
             payloadStorage.Add("LastName", "Doe");
             payloadStorage.Add("Direction", ListSortDirection.Descending);
-            payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
+            //payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
 
             using (MemoryStream stream = new MemoryStream())
             {

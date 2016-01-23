@@ -74,11 +74,11 @@ namespace Neptuo.Formatters
         public ICompositeStorage Add(string key, object value)
         {
             object targetValue = null;
-            JValue jValue = null;
+            JToken jValue = null;
             if(value == null)
                 jValue = null;
-            else if (Converts.Try(value.GetType(), typeof(JValue), value, out targetValue))
-                jValue = (JValue)targetValue;
+            else if (Converts.Try(value.GetType(), typeof(JToken), value, out targetValue))
+                jValue = (JToken)targetValue;
 
             root[key] = jValue;
             return this;
@@ -99,9 +99,9 @@ namespace Neptuo.Formatters
         public bool TryGet<T>(string key, out T value)
         {
             JToken jToken;
-            JValue jValue;
-            if (root.TryGetValue(key, out jToken) && (jValue = jToken as JValue) != null)
-                return Converts.Try<JValue, T>(jValue, out value);
+            JToken jValue;
+            if (root.TryGetValue(key, out jToken) && (jValue = jToken as JToken) != null)
+                return Converts.Try<JToken, T>(jValue, out value);
 
             value = default(T);
             return false;
