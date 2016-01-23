@@ -91,12 +91,12 @@ namespace Neptuo.Formatters
 
             int version;
             if (!storage.TryGet("Version", out version))
-                throw Ensure.Exception.NotImplemented();
+                throw new MissingVersionValueException();
 
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.OutputType);
             ICompositeStorage valueStorage;
             if(!storage.TryGet("Payload", out valueStorage))
-                throw new MissingPayloadException();
+                throw new MissingPayloadValueException();
 
             List<object> values = new List<object>();
             foreach (CompositeProperty property in typeVersion.Properties)
