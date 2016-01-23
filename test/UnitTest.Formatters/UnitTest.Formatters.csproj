@@ -60,6 +60,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Composite\Json\T_Formatters_CompositeFormatter.cs" />
     <Compile Include="Composite\Json\T_Formatters_EnumConverter.cs" />
     <Compile Include="Composite\Json\T_Formatters_CompositeStorage.cs" />
     <Compile Include="Composite\Json\T_Formatters_PrimitiveConverter.cs" />

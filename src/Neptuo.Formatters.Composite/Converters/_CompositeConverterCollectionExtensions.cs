@@ -4,29 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters.Storages
+namespace Neptuo.Formatters.Converters
 {
     /// <summary>
-    /// Common extensions for <see cref="CompositeStorageFormatterCollection"/>.
+    /// Common extensions for <see cref="CompositeConverterCollection"/>.
     /// </summary>
-    public static class _CompositeStorageFormatterCollectionExtensions
+    public static class _CompositeConverterCollectionExtensions
     {
         /// <summary>
         /// Adds search handler for types implementing <see cref="ICompositeModel"/> to be serialized/deserialized like composite model on <paramref name="collection"/>.
         /// </summary>
         /// <param name="collection">The collection to register handler in.</param>
         /// <returns><paramref name="collection"/>.</returns>
-        public static CompositeStorageFormatterCollection AddCompositeModel(this CompositeStorageFormatterCollection collection)
+        public static CompositeConverterCollection AddCompositeModel(this CompositeConverterCollection collection)
         {
             Ensure.NotNull(collection, "collection");
             return collection.AddSearchHandler(TryGetCompositeModel);
         }
 
-        private static bool TryGetCompositeModel(Type valueType, out ICompositeStorageFormatter formatter)
+        private static bool TryGetCompositeModel(Type valueType, out ICompositeConverter formatter)
         {
             if (typeof(ICompositeModel).IsAssignableFrom(valueType))
             {
-                formatter = new CompositeModelStorageFormatter();
+                formatter = new ModelCompositeConverter();
                 return true;
             }
 
@@ -39,15 +39,15 @@ namespace Neptuo.Formatters.Storages
         /// </summary>
         /// <param name="collection">The collection to register handler in.</param>
         /// <returns><paramref name="collection"/>.</returns>
-        public static CompositeStorageFormatterCollection AddDefault(this CompositeStorageFormatterCollection collection)
+        public static CompositeConverterCollection AddDefault(this CompositeConverterCollection collection)
         {
             Ensure.NotNull(collection, "collection");
             return collection.AddSearchHandler(TryGetDefault);
         }
 
-        private static bool TryGetDefault(Type valueType, out ICompositeStorageFormatter formatter)
+        private static bool TryGetDefault(Type valueType, out ICompositeConverter formatter)
         {
-            formatter = new DefaultCompositeStorageFormatter();
+            formatter = new DefaultCompositeConverter();
             return true;
         }
     }

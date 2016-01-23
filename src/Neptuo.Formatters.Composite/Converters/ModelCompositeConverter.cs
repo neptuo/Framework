@@ -4,17 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters.Storages
+namespace Neptuo.Formatters.Converters
 {
-    /// <summary>
-    /// The implementation of <see cref="ICompositeStorageFormatter"/> that requires value type to implement <see cref="ICompositeModel"/>
-    /// and uses its <see cref="ICompositeModel.Save"/> and <see cref="ICompositeModel.Load"/> methods.
-    /// </summary>
-    public class CompositeModelStorageFormatter : ICompositeStorageFormatter
+    public class ModelCompositeConverter : CompositeConverterBase
     {
-        public bool TryDeserialize(ICompositeStorage storage, string key, Type valueType, out object value)
+        protected override bool TryDeserialize(CompositeDeserializerContext context, out object value)
         {
-            value = Activator.CreateInstance(valueType);
+            value = Activator.CreateInstance(context.ValueType);
             ICompositeModel compositeModel = value as ICompositeModel;
             if (compositeModel == null)
             {
@@ -23,7 +19,7 @@ namespace Neptuo.Formatters.Storages
             }
 
             ICompositeStorage modelStorage;
-            if (storage.TryGet(key, out modelStorage))
+            if (context.Storage.TryGet(context.Key, out modelStorage))
             {
                 if (modelStorage == null)
                     value = null;
@@ -37,19 +33,19 @@ namespace Neptuo.Formatters.Storages
             return false;
         }
 
-        public bool TrySerialize(ICompositeStorage storage, string key, object value)
+        protected override bool TrySerialize(CompositeSerializerContext context)
         {
-            if (value == null)
+            if (context.Value == null)
             {
-                storage.Add(key, null);
+                context.Storage.Add(context.Key, null);
                 return true;
             }
 
-            ICompositeModel compositeModel = value as ICompositeModel;
+            ICompositeModel compositeModel = context.Value as ICompositeModel;
             if (compositeModel == null)
                 return false;
 
-            ICompositeStorage modelStorage = storage.Add(key);
+            ICompositeStorage modelStorage = context.Storage.Add(context.Key);
             compositeModel.Save(modelStorage);
             return true;
         }

@@ -18,16 +18,19 @@ namespace Neptuo.Formatters.Metadata
         public CompositeProperty(int index, string name, Type type, Func<object, object> getter)
         {
             Ensure.PositiveOrZero(index, "index");
+            Ensure.NotNullOrEmpty(name, "name");
+            Ensure.NotNull(type, "type");
             Ensure.NotNull(getter, "getter");
+            Index = index;
+            Name = name;
+            Type = type;
             Getter = getter;
         }
 
         public CompositeProperty(int index, string name, Type type, Func<object, object> getter, Action<object, object> setter)
+            : this(index, name, type, getter)
         {
-            Ensure.PositiveOrZero(index, "index");
-            Ensure.NotNull(getter, "getter");
             Ensure.NotNull(setter, "setter");
-            Getter = getter;
             Setter = setter;
         }
     }

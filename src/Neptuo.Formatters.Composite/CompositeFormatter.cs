@@ -1,6 +1,6 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Metadata;
-using Neptuo.Formatters.Storages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,11 +19,6 @@ namespace Neptuo.Formatters
         private readonly IFactory<ICompositeStorage> storageFactory;
 
         /// <summary>
-        /// Gets the collection of value type formatters.
-        /// </summary>
-        public CompositeStorageFormatterCollection StorageFormatters { get; private set; }
-
-        /// <summary>
         /// Creates new instance.
         /// </summary>
         /// <param name="provider">The provider for reading composite type definitions.</param>
@@ -34,7 +29,6 @@ namespace Neptuo.Formatters
             Ensure.NotNull(storageFactory, "storageFactory");
             this.provider = provider;
             this.storageFactory = storageFactory;
-            StorageFormatters = new CompositeStorageFormatterCollection();
         }
 
         public Task<bool> TrySerializeAsync(object input, ISerializerContext context)
@@ -58,7 +52,8 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object propertyValue = property.Getter(input);
-                if (StorageFormatters.TrySerialize(valueStorage, property.Name, propertyValue))
+                bool isSuccess;
+                if (!Converts.Try(new CompositeSerializerContext(valueStorage, property.Name, propertyValue), out isSuccess))
                     throw new NotSupportedValueException(property.Type);
             }
 
@@ -102,7 +97,7 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object value;
-                if (!StorageFormatters.TryDeserialize(valueStorage, property.Name, property.Type, out value))
+                if (!Converts.Try(new CompositeDeserializerContext(valueStorage, property.Name, property.Type), out value))
                     throw new NotSupportedValueException(property.Type);
 
                 values.Add(value);
