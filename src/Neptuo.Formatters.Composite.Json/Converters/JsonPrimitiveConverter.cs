@@ -16,6 +16,28 @@ namespace Neptuo.Formatters.Converters
     /// </summary>
     public class JsonPrimitiveConverter : IConverter
     {
+        public static readonly Type[] Supported = new Type[] {
+            typeof(int),
+            typeof(long),
+            typeof(double),
+            typeof(float),
+            typeof(string),
+            typeof(bool),
+            typeof(decimal),
+            typeof(DateTime),
+            typeof(TimeSpan),
+            typeof(Uri),
+            
+            typeof(int?),
+            typeof(long?),
+            typeof(double?),
+            typeof(float?),
+            typeof(bool?),
+            typeof(decimal?),
+            typeof(DateTime?),
+            typeof(TimeSpan?),
+        };
+
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (sourceType == typeof(JToken))
@@ -29,6 +51,12 @@ namespace Neptuo.Formatters.Converters
 
         private bool TryConvertFromJson(Type targetType, JValue jValue, out object targetValue)
         {
+            if (!Supported.Contains(targetType))
+            {
+                targetValue = null;
+                return false;
+            }
+
             bool isNullable = false;
             if (targetType.IsNullableType())
             {

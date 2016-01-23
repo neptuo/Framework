@@ -55,6 +55,7 @@
     </Compile>
     <Compile Include="Converters\JsonEnumConverter.cs" />
     <Compile Include="Converters\JsonEnumConverterType.cs" />
+    <Compile Include="Converters\JsonObjectConverter.cs" />
     <Compile Include="Converters\JsonPrimitiveConverter.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="JsonCompositeStorage.cs" />

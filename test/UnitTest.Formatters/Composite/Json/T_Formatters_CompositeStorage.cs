@@ -21,7 +21,8 @@ namespace UnitTest.Formatters.Composite.Json
         {
             Converts.Repository
                 .AddJsonEnumSearchHandler()
-                .AddJsonPrimitivesSearchHandler();
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
 
             ICompositeStorage storage = new JsonCompositeStorage();
             storage.Add("Name", "Test.UserModel");
@@ -31,7 +32,7 @@ namespace UnitTest.Formatters.Composite.Json
             payloadStorage.Add("FirstName", "John");
             payloadStorage.Add("LastName", "Doe");
             payloadStorage.Add("Direction", ListSortDirection.Descending);
-            //payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
+            payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -67,6 +68,12 @@ namespace UnitTest.Formatters.Composite.Json
             Assert.AreEqual(true, payloadStorage.TryGet("Direction", out direction));
             Assert.AreEqual(ListSortDirection.Descending, direction);
 
+            int[] ids;
+            Assert.AreEqual(true, payloadStorage.TryGet("IDs", out ids));
+            Assert.IsNotNull(ids);
+            Assert.AreEqual(1, ids[0]);
+            Assert.AreEqual(2, ids[1]);
+            Assert.AreEqual(3, ids[2]);
         }
     }
 }

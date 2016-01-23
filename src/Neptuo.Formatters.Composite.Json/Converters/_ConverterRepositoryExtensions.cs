@@ -22,48 +22,97 @@ namespace Neptuo.Formatters.Converters
 
         private static bool TryGetJsonPrimitiveConverter(ConverterSearchContext context, out IConverter converter)
         {
-            if (context.SourceType == typeof(JToken) || context.TargetType == typeof(JToken))
-            {
-                converter = new JsonPrimitiveConverter();
-                return true;
-            }
-
-            converter = null;
-            return false;
-        }
-
-        public static IConverterRepository AddJsonEnumSearchHandler(this IConverterRepository repository)
-        {
-            Ensure.NotNull(repository, "repository");
-            return repository.AddSearchHandler(TryGetJsonEnumConverter);
-        }
-
-        private static bool TryGetJsonEnumConverter(ConverterSearchContext context, out IConverter converter)
-        {
             bool isSuccess = false;
 
             if (context.SourceType == typeof(JToken))
             {
-                if (context.TargetType.IsEnum)
-                    isSuccess = true;
-                else if (context.TargetType.IsNullableType() && context.TargetType.GetGenericArguments()[0].IsEnum)
+                if (JsonPrimitiveConverter.Supported.Contains(context.TargetType))
                     isSuccess = true;
             }
             else if (context.TargetType == typeof(JToken))
             {
-                if (context.SourceType.IsEnum)
-                    isSuccess = true;
-                else if (context.SourceType.IsNullableType() && context.SourceType.GetGenericArguments()[0].IsEnum)
+                if (JsonPrimitiveConverter.Supported.Contains(context.SourceType))
                     isSuccess = true;
             }
 
-            // TODO: Continue here...
             if (isSuccess)
-                converter = new JsonEnumConverter(JsonEnumConverterType.UseInderlayingValue);
+                converter = new JsonPrimitiveConverter();
             else
                 converter = null;
 
-            return isSuccess;    
+            return isSuccess;
+        }
+
+        public static IConverterRepository AddJsonEnumSearchHandler(this IConverterRepository repository, JsonEnumConverterType converterType = JsonEnumConverterType.UseInderlayingValue)
+        {
+            Ensure.NotNull(repository, "repository");
+            return repository.AddSearchHandler(new TryGetJsonEnumConverter(converterType).TryFind);
+        }
+
+        private class TryGetJsonEnumConverter
+        {
+            private readonly JsonEnumConverterType converterType;
+
+            public TryGetJsonEnumConverter(JsonEnumConverterType converterType)
+            {
+                Ensure.NotNull(converterType, "converterType");
+                this.converterType = converterType;
+            }
+
+            public bool TryFind(ConverterSearchContext context, out IConverter converter)
+            {
+                bool isSuccess = false;
+
+                if (context.SourceType == typeof(JToken))
+                {
+                    if (context.TargetType.IsEnum)
+                        isSuccess = true;
+                    else if (context.TargetType.IsNullableType() && context.TargetType.GetGenericArguments()[0].IsEnum)
+                        isSuccess = true;
+                }
+                else if (context.TargetType == typeof(JToken))
+                {
+                    if (context.SourceType.IsEnum)
+                        isSuccess = true;
+                    else if (context.SourceType.IsNullableType() && context.SourceType.GetGenericArguments()[0].IsEnum)
+                        isSuccess = true;
+                }
+
+                if (isSuccess)
+                    converter = new JsonEnumConverter(converterType);
+                else
+                    converter = null;
+
+                return isSuccess;
+            }
+        }
+
+        public static IConverterRepository AddJsonObjectSearchHandler(this IConverterRepository repository)
+        {
+            Ensure.NotNull(repository, "repository");
+            return repository.AddSearchHandler(TryGetJsonObjectConverter);
+        }
+
+        private static bool TryGetJsonObjectConverter(ConverterSearchContext context, out IConverter converter)
+        {
+            bool isSuccess = false;
+            if(context.SourceType == typeof(JToken))
+            {
+                if (context.TargetType.IsClass && !context.TargetType.IsAbstract)
+                    isSuccess = true;
+            }
+            else if (context.TargetType == typeof(JToken))
+            {
+                if (context.SourceType.IsClass && !context.SourceType.IsAbstract)
+                    isSuccess = true;
+            }
+
+            if (isSuccess)
+                converter = new JsonObjectConverter();
+            else
+                converter = null;
+
+            return isSuccess;
         }
     }
 }
