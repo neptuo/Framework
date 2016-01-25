@@ -42,7 +42,7 @@ namespace Neptuo.Formatters.Converters
         /// <returns><c>true</c> if <paramref name="CompositeSerializerContext.Value"/> was successfully stored; <c>false</c> otherwise.</returns>
         protected abstract bool TrySerialize(CompositeSerializerContext context);
 
-        public bool TryConvertGeneral(Type sourceType, Type targetType, object sourceValue, out object targetValue)
+        public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
             if (sourceType == typeof(CompositeDeserializerContext))
             {
