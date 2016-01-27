@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// Base class for implementing <see cref="ISerializer"/> and <see cref="IDeserializer"/> as composite formatter.
+    /// The implementation of <see cref="ISerializer"/> and <see cref="IDeserializer"/> with support for versioned types described as <see cref="CompositeType"/>.
     /// </summary>
-    public class CompositeFormatter : ISerializer, IDeserializer
+    public class CompositeTypeFormatter : ISerializer, IDeserializer
     {
         private readonly ICompositeTypeProvider provider;
         private readonly IFactory<ICompositeStorage> storageFactory;
@@ -23,7 +23,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="provider">The provider for reading composite type definitions.</param>
         /// <param name="storageFactory">The factory for storage.</param>
-        public CompositeFormatter(ICompositeTypeProvider provider, IFactory<ICompositeStorage> storageFactory)
+        public CompositeTypeFormatter(ICompositeTypeProvider provider, IFactory<ICompositeStorage> storageFactory)
         {
             Ensure.NotNull(provider, "provider");
             Ensure.NotNull(storageFactory, "storageFactory");

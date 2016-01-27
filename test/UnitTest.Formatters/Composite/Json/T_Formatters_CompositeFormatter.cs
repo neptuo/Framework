@@ -31,7 +31,7 @@ namespace UnitTest.Formatters.Composite.Json
                 .AddDefault();
 
             UserModel model = new UserModel("John", "Doe");
-            CompositeFormatter formatter = new CompositeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
+            CompositeTypeFormatter formatter = new CompositeTypeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
 
             using (MemoryStream stream = new MemoryStream())
             {

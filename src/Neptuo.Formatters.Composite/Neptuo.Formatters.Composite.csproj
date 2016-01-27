@@ -49,7 +49,7 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CompositeFormatter.cs" />
+    <Compile Include="CompositeTypeFormatter.cs" />
     <Compile Include="CompositeModelFormatter.cs" />
     <Compile Include="Converters\CompositeConverterBase.cs" />
     <Compile Include="Converters\CompositeConverterCollection.cs" />
