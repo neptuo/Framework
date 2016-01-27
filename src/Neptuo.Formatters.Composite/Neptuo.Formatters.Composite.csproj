@@ -51,15 +51,6 @@
     </Compile>
     <Compile Include="CompositeTypeFormatter.cs" />
     <Compile Include="CompositeModelFormatter.cs" />
-    <Compile Include="Converters\CompositeConverterBase.cs" />
-    <Compile Include="Converters\CompositeConverterCollection.cs" />
-    <Compile Include="Converters\CompositeDeserializerContext.cs" />
-    <Compile Include="Converters\CompositeSerializerContext.cs" />
-    <Compile Include="Converters\DefaultCompositeConverter.cs" />
-    <Compile Include="Converters\ICompositeConverter.cs" />
-    <Compile Include="Converters\ModelCompositeConverter.cs" />
-    <Compile Include="Converters\_CompositeConverterCollectionExtensions.cs" />
-    <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="MissingVersionValueException.cs" />
     <Compile Include="MissingPayloadValueException.cs" />
     <Compile Include="NotSupportedValueException.cs" />

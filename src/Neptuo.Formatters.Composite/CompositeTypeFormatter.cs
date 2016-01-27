@@ -1,10 +1,11 @@
 ﻿using Neptuo.Activators;
-using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Metadata;
+using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -52,12 +53,17 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object propertyValue = property.Getter(input);
-                bool isSuccess;
-                if (!Converts.Try(new CompositeSerializerContext(valueStorage, property.Name, propertyValue), out isSuccess))
+                if (!TryStoreValue(valueStorage, property.Name, propertyValue))
                     throw new NotSupportedValueException(property.Type);
             }
 
             await storage.StoreAsync(context.Output);
+            return true;
+        }
+
+        protected virtual bool TryStoreValue(ICompositeStorage storage, string key, object value)
+        {
+            storage.Add(key, value);
             return true;
         }
 
@@ -97,7 +103,7 @@ namespace Neptuo.Formatters
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object value;
-                if (!Converts.Try(new CompositeDeserializerContext(valueStorage, property.Name, property.Type), out value))
+                if (!TryLoadValue(valueStorage, property.Name, property.Type, out value))
                     throw new NotSupportedValueException(property.Type);
 
                 values.Add(value);
@@ -105,6 +111,32 @@ namespace Neptuo.Formatters
 
             context.Output = typeVersion.Constructor.Factory(values.ToArray());
             return true;
+        }
+
+        private static readonly string tryGetMethodName = "TryGet";
+        private readonly Dictionary<Type, MethodInfo> tryGetCache = new Dictionary<Type, MethodInfo>();
+
+        protected virtual bool TryLoadValue(ICompositeStorage storage, string key, Type type, out object value)
+        {
+            MethodInfo methodInfo;
+            if (!tryGetCache.TryGetValue(type, out methodInfo))
+            {
+                methodInfo = storage.GetType().GetMethods().FirstOrDefault(m => m.Name == tryGetMethodName && m.IsGenericMethod);
+                if (methodInfo == null)
+                {
+                    value = null;
+                    return false;
+                }
+
+                methodInfo = methodInfo.MakeGenericMethod(type);
+                tryGetCache[type] = methodInfo;
+            }
+
+            object[] parameters = new object[2] { key, null };
+            bool result = (bool)methodInfo.Invoke(storage, parameters);
+
+            value = parameters[1];
+            return result;
         }
     }
 }

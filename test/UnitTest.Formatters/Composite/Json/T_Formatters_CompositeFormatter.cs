@@ -25,11 +25,6 @@ namespace UnitTest.Formatters.Composite.Json
                 .AddJsonPrimitivesSearchHandler()
                 .AddJsonObjectSearchHandler();
 
-            Converts.Repository
-                .AddComposite()
-                .AddCompositeModel()
-                .AddDefault();
-
             UserModel model = new UserModel("John", "Doe");
             CompositeTypeFormatter formatter = new CompositeTypeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
 
