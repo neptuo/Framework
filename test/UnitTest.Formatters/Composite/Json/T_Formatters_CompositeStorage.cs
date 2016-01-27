@@ -36,7 +36,7 @@ namespace UnitTest.Formatters.Composite.Json
 
             using (MemoryStream stream = new MemoryStream())
             {
-                storage.Store(stream);
+                storage.StoreAsync(stream).Wait();
                 stream.Seek(0, SeekOrigin.Begin);
 
                 string json = null;
@@ -44,7 +44,7 @@ namespace UnitTest.Formatters.Composite.Json
                     json = reader.ReadToEnd();
 
                 stream.Seek(0, SeekOrigin.Begin);
-                storage.Load(stream);
+                storage.LoadAsync(stream).Wait();
             }
 
             string value;

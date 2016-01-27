@@ -50,6 +50,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="CompositeFormatter.cs" />
+    <Compile Include="CompositeModelFormatter.cs" />
     <Compile Include="Converters\CompositeConverterBase.cs" />
     <Compile Include="Converters\CompositeConverterCollection.cs" />
     <Compile Include="Converters\CompositeDeserializerContext.cs" />

@@ -42,7 +42,7 @@ namespace Neptuo.Formatters
             return TrySerializeAsync(input, context, type, typeVersion);
         }
 
-        protected virtual Task<bool> TrySerializeAsync(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion)
+        protected virtual async Task<bool> TrySerializeAsync(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion)
         {
             ICompositeStorage storage = storageFactory.Create();
             storage.Add("Name", type.Name);
@@ -57,8 +57,8 @@ namespace Neptuo.Formatters
                     throw new NotSupportedValueException(property.Type);
             }
 
-            storage.Store(context.Output);
-            return Task.FromResult(true);
+            await storage.StoreAsync(context.Output);
+            return true;
         }
 
         private CompositeVersion GetCompositeVersion(CompositeType type, int version, Type inputType)
@@ -79,10 +79,10 @@ namespace Neptuo.Formatters
             return TryDeserializeAsync(input, context, type);
         }
 
-        protected virtual Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
+        protected virtual async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
         {
             ICompositeStorage storage = storageFactory.Create();
-            storage.Load(input);
+            await storage.LoadAsync(input);
 
             int version;
             if (!storage.TryGet("Version", out version))
@@ -104,7 +104,7 @@ namespace Neptuo.Formatters
             }
 
             context.Output = typeVersion.Constructor.Factory(values.ToArray());
-            return Task.FromResult(true);
+            return true;
         }
     }
 }

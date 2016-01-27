@@ -45,20 +45,20 @@ namespace Neptuo.Formatters
             this.root = root;
         }
 
-        public void Load(Stream input)
+        public async Task LoadAsync(Stream input)
         {
             Ensure.NotNull(input, "input");
 
             using (StreamReader reader = new StreamReader(input))
-                root = JObject.Parse(reader.ReadToEnd(), loadSettings);
+                root = JObject.Parse(await reader.ReadToEndAsync(), loadSettings);
         }
 
-        public void Store(Stream output)
+        public async Task StoreAsync(Stream output)
         {
             Ensure.NotNull(output, "output");
 
             using (StreamWriter writer = new StreamWriter(output, Encoding.UTF8, 1024, true))
-                writer.Write(root.ToString(formatting));
+                await writer.WriteAsync(root.ToString(formatting));
         }
 
         public IEnumerable<string> Keys

@@ -17,13 +17,13 @@ namespace Neptuo.Formatters
         /// Truncates current state and loads content from <paramref name="input"/>.
         /// </summary>
         /// <param name="input">The serialized storage.</param>
-        void Load(Stream input);
+        Task LoadAsync(Stream input);
 
         /// <summary>
         /// Stores current state to the <paramref name="output"/>.
         /// </summary>
         /// <param name="output">The stream to serialize to.</param>
-        void Store(Stream output);
+        Task StoreAsync(Stream output);
 
         /// <summary>
         /// Stores <paramref name="value"/> with <paramref name="key"/>.
