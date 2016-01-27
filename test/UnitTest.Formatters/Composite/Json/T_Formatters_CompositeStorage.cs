@@ -32,6 +32,7 @@ namespace UnitTest.Formatters.Composite.Json
             payloadStorage.Add("LastName", "Doe");
             payloadStorage.Add("Direction", ListSortDirection.Descending);
             payloadStorage.Add("IDs", new int[] { 1, 2, 3 });
+            payloadStorage.Add("Keys", new List<int>() { 4, 5, 6 });
 
             using (MemoryStream stream = new MemoryStream())
             {
@@ -73,6 +74,13 @@ namespace UnitTest.Formatters.Composite.Json
             Assert.AreEqual(1, ids[0]);
             Assert.AreEqual(2, ids[1]);
             Assert.AreEqual(3, ids[2]);
+
+            List<int> keys;
+            Assert.AreEqual(true, payloadStorage.TryGet("Keys", out keys));
+            Assert.IsNotNull(ids);
+            Assert.AreEqual(4, keys[0]);
+            Assert.AreEqual(5, keys[1]);
+            Assert.AreEqual(6, keys[2]);
         }
     }
 }

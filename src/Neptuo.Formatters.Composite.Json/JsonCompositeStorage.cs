@@ -98,9 +98,8 @@ namespace Neptuo.Formatters
         public bool TryGet<T>(string key, out T value)
         {
             JToken jToken;
-            JToken jValue;
-            if (root.TryGetValue(key, out jToken) && (jValue = jToken as JToken) != null)
-                return Converts.Try<JToken, T>(jValue, out value);
+            if (root.TryGetValue(key, out jToken))
+                return Converts.Try<JToken, T>(jToken, out value);
 
             value = default(T);
             return false;
@@ -108,11 +107,11 @@ namespace Neptuo.Formatters
 
         public bool TryGet(string key, out ICompositeStorage storage)
         {
-            JToken valueToken;
-            JObject valueObject;
-            if (root.TryGetValue(key, out valueToken) && (valueObject = valueToken as JObject) != null)
+            JToken jToken;
+            JObject jObject;
+            if (root.TryGetValue(key, out jToken) && (jObject = jToken as JObject) != null)
             {
-                storage = new JsonCompositeStorage(valueObject, formatting);
+                storage = new JsonCompositeStorage(jObject, formatting);
                 return true;
             }
 
