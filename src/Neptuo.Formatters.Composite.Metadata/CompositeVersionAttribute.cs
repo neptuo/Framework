@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Metadata
 {
     /// <summary>
-    /// Marks current version property.
+    /// Marks model version property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
     public class CompositeVersionAttribute : Attribute

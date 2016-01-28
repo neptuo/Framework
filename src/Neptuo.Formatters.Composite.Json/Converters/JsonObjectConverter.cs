@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Formatters.Converters
 {
+    /// <summary>
+    /// Converts value of type <see cref="JToken"/> to any type and vice versa.
+    /// </summary>
     public class JsonObjectConverter : IConverter
     {
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)

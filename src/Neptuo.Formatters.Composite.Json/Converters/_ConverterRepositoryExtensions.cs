@@ -14,6 +14,11 @@ namespace Neptuo.Formatters.Converters
     /// </summary>
     public static class _ConverterRepositoryExtensions
     {
+        /// <summary>
+        /// Adds search handler to the <paramref name="repository"/> for converting primitive types (<see cref="JsonPrimitiveConverter.Supported"/>) from and to <see cref="JToken"/>.
+        /// </summary>
+        /// <param name="repository">The repository to register handler to.</param>
+        /// <returns><paramref name="repository"/>.</returns>
         public static IConverterRepository AddJsonPrimitivesSearchHandler(this IConverterRepository repository) 
         {
             Ensure.NotNull(repository, "repository");
@@ -43,6 +48,12 @@ namespace Neptuo.Formatters.Converters
             return isSuccess;
         }
 
+        /// <summary>
+        /// Adds search handler to the <paramref name="repository"/> for converting enum types from and to <see cref="JToken"/>.
+        /// </summary>
+        /// <param name="repository">The repository to register handler to.</param>
+        /// <param name="converterType">The way how to serialize and deserialize enum values.</param>
+        /// <returns><paramref name="repository"/>.</returns>
         public static IConverterRepository AddJsonEnumSearchHandler(this IConverterRepository repository, JsonEnumConverterType converterType = JsonEnumConverterType.UseInderlayingValue)
         {
             Ensure.NotNull(repository, "repository");
@@ -87,6 +98,11 @@ namespace Neptuo.Formatters.Converters
             }
         }
 
+        /// <summary>
+        /// Adds search handler to the <paramref name="repository"/> for converting any object type (not abstract and class) as <see cref="JObject"/>.
+        /// </summary>
+        /// <param name="repository">The repository to register handler to.</param>
+        /// <returns><paramref name="repository"/>.</returns>
         public static IConverterRepository AddJsonObjectSearchHandler(this IConverterRepository repository)
         {
             Ensure.NotNull(repository, "repository");
