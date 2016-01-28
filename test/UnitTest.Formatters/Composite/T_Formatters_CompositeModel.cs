@@ -113,7 +113,11 @@ namespace UnitTest.Formatters.Composite
                         .WithProperty(u => u.Id)
                         .WithProperty(u => u.UserName)
                         .WithProperty(u => u.Password)
-                        .WithConstructor((id, userName, password) => new UserModel(id, userName, password));
+                        .WithConstructor((id, userName, password) => new UserModel(id, userName, password))
+                .Add<SingleVersion>(s => s.Version)
+                    .AddVersion(1)
+                        .WithProperty(s => s.FullName)
+                        .WithConstructor(f => new SingleVersion(f));
 
         }
     }
