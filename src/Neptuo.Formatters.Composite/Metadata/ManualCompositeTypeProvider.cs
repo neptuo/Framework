@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Metadata
 {
     /// <summary>
-    /// The implementation of <see cref="ICompositeTypeProvider"/> which uses manual declarations for building a composite types.
+    /// The implementation of <see cref="ICompositeTypeProvider"/> which uses manual declarations for building composite types.
     /// </summary>
-    public class ManualCompositeTypeProvider : ICompositeTypeProvider
+    public partial class ManualCompositeTypeProvider : ICompositeTypeProvider
     {
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
@@ -33,51 +33,43 @@ namespace Neptuo.Formatters.Metadata
 
         #endregion
 
-        private readonly List<ManualCompositeTypeProvider.VersionBuilder> builders = new List<VersionBuilder>();
+        private readonly List<ManualCompositeTypeProvider.Builder> builders = new List<Builder>();
 
-        public ManualCompositeTypeProvider.VersionBuilder<T> Add<T>(int version)
+        public ManualCompositeTypeProvider.TypeBuilder<T> Add<T>(Expression<Func<T, int>> versionGetter)
         {
-            VersionBuilder<T> builder = new VersionBuilder<T>(version);
+            TypeBuilder<T> builder = new TypeBuilder<T>(this, versionGetter);
             builders.Add(builder);
             return builder;
         }
 
-        public class VersionBuilder
+        public ManualCompositeTypeProvider.TypeBuilder<T> Add<T>(string typeName, Expression<Func<T, int>> versionGetter)
         {
-            internal Type Type { get; private set; }
-            internal int Version { get; private set; }
-            internal List<CompositeProperty> Properties { get; private set; }
-
-            internal VersionBuilder(Type type, int version)
-            {
-                Type = type;
-                Version = version;
-                Properties = new List<CompositeProperty>();
-            }
+            TypeBuilder<T> builder = new TypeBuilder<T>(this, versionGetter, typeName);
+            builders.Add(builder);
+            return builder;
         }
 
-        public class VersionBuilder<T> : VersionBuilder
+        private void AddOrReplace(Type type, string typeName, CompositeType definition)
         {
-            internal VersionBuilder(int version)
-                : base(typeof(T), version)
-            { }
+            storageByType[type] = definition;
+            storageByName[typeName] = definition;
+        }
 
-            public VersionBuilder<T> WithProperty<TValue>(Expression<Func<T, TValue>> getter)
+        internal bool TryAddVersion(Type type, string typeName, CompositeVersion version, CompositeProperty versionProperty)
+        {
+            CompositeType definition;
+            if (TryGet(type, out definition))
             {
-                Ensure.NotNull(getter, "getter");
-                PropertyInfo propertyInfo = Type.GetProperty(TypeHelper.PropertyName(getter));
-                if (propertyInfo == null)
-                    throw Ensure.Exception.NotSupported();
-
-                Properties.Add(new CompositeProperty(Properties.Count, propertyInfo.Name, propertyInfo.PropertyType, instance => propertyInfo.GetValue(instance)));
-                return this;
+                List<CompositeVersion> versions = new List<CompositeVersion>(definition.Versions);
+                versions.Add(version);
+                AddOrReplace(type, typeName, new CompositeType(typeName, type, versions, definition.VersionProperty));
+            }
+            else
+            {
+                AddOrReplace(type, typeName, new CompositeType(typeName, type, new List<CompositeVersion>() { version }, versionProperty));
             }
 
-            public ManualCompositeTypeProvider WithConstructor(Expression<Func<T>> factory)
-            {
-                Ensure.NotNull(factory, "factory");
-                throw new NotImplementedException();
-            }
+            return true;
         }
     }
 }

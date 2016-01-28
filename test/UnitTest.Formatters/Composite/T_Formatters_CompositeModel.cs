@@ -3,6 +3,7 @@ using Neptuo.Formatters.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UnitTest.Formatters.Composite;
 
 namespace UnitTest.Formatters.Composite
@@ -101,11 +102,19 @@ namespace UnitTest.Formatters.Composite
         [TestMethod]
         public void Manual_FullyDefined()
         {
-            ManualCompositeTypeProvider provider = new ManualCompositeTypeProvider()
-                .Add<UserModel>(1)
-                .WithProperty(u => u.UserName)
-                .WithProperty(u => u.Password)
-                .WithConstructor(() => new UserModel(null, null));
+            ManualCompositeTypeProvider provider = new ManualCompositeTypeProvider();
+            provider
+                .Add<UserModel>("Test.UserModel", u => u.Version)
+                    .AddVersion(1)
+                        .WithProperty(u => u.UserName)
+                        .WithProperty(u => u.Password)
+                        .WithConstructor((u, p) => new UserModel(u, p))
+                    .AddVersion(2)
+                        .WithProperty(u => u.Id)
+                        .WithProperty(u => u.UserName)
+                        .WithProperty(u => u.Password)
+                        .WithConstructor((id, userName, password) => new UserModel(id, userName, password));
+
         }
     }
 }
