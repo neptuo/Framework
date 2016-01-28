@@ -11,7 +11,7 @@ namespace UnitTest.Formatters.Composite
     public class T_Formatters_CompositeModel
     {
         [TestMethod]
-        public void Base()
+        public void FullyDefined()
         {
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
@@ -37,6 +37,65 @@ namespace UnitTest.Formatters.Composite
             version = versionEnumerator.Current;
             Assert.AreEqual(2, version.Version);
             Assert.AreEqual(3, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void SingleModel()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(SingleModel), out compositeType));
+
+            Assert.AreEqual(typeof(SingleModel), compositeType.Type);
+            Assert.AreEqual(1, compositeType.Versions.Count());
+
+            IEnumerator<CompositeVersion> versionEnumerator = compositeType.Versions.GetEnumerator();
+
+            Assert.AreEqual(true, versionEnumerator.MoveNext());
+            CompositeVersion version = versionEnumerator.Current;
+            Assert.AreEqual(1, version.Version);
+            Assert.AreEqual(1, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void SingleVersion()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(SingleVersion), out compositeType));
+
+            Assert.AreEqual(typeof(SingleVersion), compositeType.Type);
+            Assert.AreEqual(1, compositeType.Versions.Count());
+
+            IEnumerator<CompositeVersion> versionEnumerator = compositeType.Versions.GetEnumerator();
+
+            Assert.AreEqual(true, versionEnumerator.MoveNext());
+            CompositeVersion version = versionEnumerator.Current;
+            Assert.AreEqual(1, version.Version);
+            Assert.AreEqual(1, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void TwoVersionWithFirstImplied()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(TwoVersionWithFirstImplied), out compositeType));
+
+            Assert.AreEqual(typeof(TwoVersionWithFirstImplied), compositeType.Type);
+            Assert.AreEqual(2, compositeType.Versions.Count());
+
+            IEnumerator<CompositeVersion> versionEnumerator = compositeType.Versions.GetEnumerator();
+
+            Assert.AreEqual(true, versionEnumerator.MoveNext());
+            CompositeVersion version = versionEnumerator.Current;
+            Assert.AreEqual(1, version.Version);
+            Assert.AreEqual(1, version.Properties.Count());
+
+            Assert.AreEqual(true, versionEnumerator.MoveNext());
+            version = versionEnumerator.Current;
+            Assert.AreEqual(2, version.Version);
+            Assert.AreEqual(2, version.Properties.Count());
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Formatters.Metadata
 {
-    public class ReflectionCompositeTypeProvider : ICompositeTypeProvider
+    public partial class ReflectionCompositeTypeProvider : ICompositeTypeProvider
     {
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
@@ -52,71 +52,161 @@ namespace Neptuo.Formatters.Metadata
             if (typeAttribute != null)
                 typeName = typeAttribute.Name;
 
-            IEnumerable<ConstructorInfo> constructorInfos = type.GetConstructors();
-            IEnumerable<PropertyInfo> propertyInfos = type.GetProperties();
-            CompositeProperty versionProperty = null;
-
-            // Composite properties by version.
-            Dictionary<int, List<CompositeProperty>> properties = new Dictionary<int, List<CompositeProperty>>();
-            foreach (PropertyInfo propertyInfo in propertyInfos)
-            {
-                IEnumerable<CompositePropertyAttribute> propertyAttributes = propertyInfo.GetCustomAttributes<CompositePropertyAttribute>();
-                foreach (CompositePropertyAttribute propertyAttribute in propertyAttributes)
-                {
-                    List<CompositeProperty> versionProperties;
-                    if (!properties.TryGetValue(propertyAttribute.Version, out versionProperties))
-                        properties[propertyAttribute.Version] = versionProperties = new List<CompositeProperty>();
-
-                    versionProperties.Add(new CompositeProperty(
-                        propertyAttribute.Index, 
-                        propertyInfo.Name, 
-                        propertyInfo.PropertyType, 
-                        delegateFactory.CreatePropertyGetter(propertyInfo)
-                    ));
-                }
-
-                CompositeVersionAttribute versionAttribute = propertyInfo.GetCustomAttribute<CompositeVersionAttribute>();
-                if (versionAttribute != null)
-                {
-                    Func<object, object> getter = delegateFactory.CreatePropertyGetter(propertyInfo);
-
-                    // Use setter for version only when setter method is present and is public.
-                    Action<object, object> setter = null;
-                    if (propertyInfo.CanWrite && propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsPublic)
-                        setter = delegateFactory.CreatePropertySetter(propertyInfo);
-
-                    if (setter == null)
-                        versionProperty = new CompositeProperty(0, propertyInfo.Name, propertyInfo.PropertyType, getter);
-                    else
-                        versionProperty = new CompositeProperty(0, propertyInfo.Name, propertyInfo.PropertyType, getter, setter);
-                }
-            }
-
-            if(versionProperty == null)
-                throw new MissingVersionPropertyException(type);
-
-            // Constructors by version.
-            Dictionary<int, CompositeConstructor> constructors = new Dictionary<int, CompositeConstructor>();
-            foreach (ConstructorInfo constructorInfo in constructorInfos)
-            {
-                CompositeConstructorAttribute constructorAttribute = constructorInfo.GetCustomAttribute<CompositeConstructorAttribute>();
-                if (constructorAttribute != null)
-                    constructors[constructorAttribute.Version] = new CompositeConstructor(delegateFactory.CreateConstructorFactory(constructorInfo));
-            }
+            Dictionary<int, ConstructorInfo> constructors = GetConstructors(type);
+            IEnumerable<PropertyDescriptor> properties = GetProperties(type);
 
             List<CompositeVersion> versions = new List<CompositeVersion>();
-            foreach (KeyValuePair<int, List<CompositeProperty>> versionProperties in properties)
+            foreach (KeyValuePair<int, ConstructorInfo> constructor in constructors)
             {
-                CompositeConstructor versionConstructor;
-                if (!constructors.TryGetValue(versionProperties.Key, out versionConstructor))
-                    throw new MissingVersionConstructorException(type, versionProperties.Key);
+                IEnumerable<PropertyDescriptor> versionProperties;
 
-                CompositeVersion version = new CompositeVersion(versionProperties.Key, versionConstructor, versionProperties.Value);
-                versions.Add(version);
+                // Create version from annotated properties.
+                if (TryFindAnnotatedProperties(properties, constructor.Value.GetParameters().Length, constructor.Key, out versionProperties))
+                {
+                    versions.Add(BuildVersion(constructor.Key, constructor.Value, versionProperties));
+                    continue;
+                }
+
+                // Create version from property name match.
+                if(TryFindNamedProperties(properties, constructor.Value.GetParameters(), out versionProperties))
+                {
+                    versions.Add(BuildVersion(constructor.Key, constructor.Value, versionProperties));
+                    continue;
+                }
+
+                throw new MismatchVersionConstructorException(type, constructor.Key);
+            }
+
+            CompositeProperty versionProperty = null;
+            PropertyDescriptor versionPropertyDescriptor = properties.FirstOrDefault(p => p.PropertyInfo.GetCustomAttribute<CompositeVersionAttribute>() != null);
+            if (versionPropertyDescriptor == null)
+            {
+                if (versions.Count == 1)
+                    versionProperty = new CompositeProperty(0, "_Version", typeof(int), model => 1);
+                else
+                    throw new MissingVersionPropertyException(type);
+            }
+            else
+            {
+                Func<object, object> getter = delegateFactory.CreatePropertyGetter(versionPropertyDescriptor.PropertyInfo);
+
+                // Use setter for version only when setter method is present and is public.
+                Action<object, object> setter = null;
+                if (versionPropertyDescriptor.PropertyInfo.CanWrite && versionPropertyDescriptor.PropertyInfo.SetMethod != null && versionPropertyDescriptor.PropertyInfo.SetMethod.IsPublic)
+                    setter = delegateFactory.CreatePropertySetter(versionPropertyDescriptor.PropertyInfo);
+
+                if (setter == null)
+                    versionProperty = new CompositeProperty(0, versionPropertyDescriptor.PropertyInfo.Name, versionPropertyDescriptor.PropertyInfo.PropertyType, getter);
+                else
+                    versionProperty = new CompositeProperty(0, versionPropertyDescriptor.PropertyInfo.Name, versionPropertyDescriptor.PropertyInfo.PropertyType, getter, setter);
             }
 
             versions.Sort((v1, v2) => v1.Version.CompareTo(v2.Version));
             return new CompositeType(typeName, type, versions, versionProperty);
+        }
+
+        private bool TryFindAnnotatedProperties(IEnumerable<PropertyDescriptor> allProperties, int count, int version, out IEnumerable<PropertyDescriptor> versionProperties)
+        {
+            versionProperties = allProperties.Where(p => p.Attribute != null && p.Attribute.Version == version);
+            return versionProperties.Count() == count;
+        }
+
+        private bool TryFindNamedProperties(IEnumerable<PropertyDescriptor> allProperties, ParameterInfo[] parameterInfos, out IEnumerable<PropertyDescriptor> versionProperties)
+        {
+            IEnumerable<string> propertyNames = parameterInfos.Select(p => p.Name.ToLowerInvariant());
+            List<PropertyDescriptor> result = new List<PropertyDescriptor>();
+            int index = 0;
+            foreach (string propertyName in propertyNames)
+            {
+                PropertyDescriptor property = allProperties.FirstOrDefault(p => p.PropertyInfo.Name.ToLowerInvariant() == propertyName);
+                if(property != null)
+                {
+                    result.Add(property);
+                }
+
+                index++;
+            }
+
+            if (result.Count == propertyNames.Count())
+            {
+                versionProperties = result;
+                return true;
+            }
+
+            versionProperties = null;
+            return false;
+        }
+
+        private CompositeVersion BuildVersion(int version, ConstructorInfo constructorInfo, IEnumerable<PropertyDescriptor> properties)
+        {
+            return new CompositeVersion(
+                version,
+                new CompositeConstructor(delegateFactory.CreateConstructorFactory(constructorInfo)),
+                properties
+                    .Select(p => new CompositeProperty(p.Attribute.Index, p.PropertyInfo.Name, p.PropertyInfo.PropertyType, delegateFactory.CreatePropertyGetter(p.PropertyInfo)))
+                    .ToList()
+            );
+        }
+
+        private Dictionary<int, ConstructorInfo> GetConstructors(Type type)
+        {
+            IEnumerable<ConstructorInfo> constructorInfos = type.GetConstructors();
+            ConstructorInfo defaultConstructor = null;
+
+            Dictionary<int, ConstructorInfo> constructors = new Dictionary<int, ConstructorInfo>();
+            foreach (ConstructorInfo constructorInfo in constructorInfos)
+            {
+                CompositeConstructorAttribute constructorAttribute = constructorInfo.GetCustomAttribute<CompositeConstructorAttribute>();
+                if (constructorAttribute == null)
+                {
+                    defaultConstructor = constructorInfo;
+                }
+                else
+                {
+                    constructors[constructorAttribute.Version] = constructorInfo;
+                    defaultConstructor = null;
+                }
+            }
+
+            if (defaultConstructor != null)
+                constructors[1] = defaultConstructor;
+
+            return constructors;
+        }
+
+        private IEnumerable<PropertyDescriptor> GetProperties(Type type)
+        {
+            List<PropertyDescriptor> properties = new List<PropertyDescriptor>();
+            IEnumerable<PropertyInfo> propertyInfos = type.GetProperties();
+
+            foreach (PropertyInfo propertyInfo in propertyInfos)
+            {
+                bool any = false;
+                IEnumerable<CompositePropertyAttribute> attributes = propertyInfo.GetCustomAttributes<CompositePropertyAttribute>();
+                foreach (CompositePropertyAttribute attribute in attributes)
+                {
+                    any = true;
+                    properties.Add(new PropertyDescriptor()
+                    {
+                        PropertyInfo = propertyInfo,
+                        Attribute = attribute
+                    });
+                }
+
+                if (!any)
+                {
+                    properties.Add(new PropertyDescriptor()
+                    {
+                        PropertyInfo = propertyInfo,
+                        Attribute = new CompositePropertyAttribute(1) 
+                        { 
+                            Version = 1
+                        }
+                    });
+                }
+            }
+
+            return properties;
         }
     }
 }
