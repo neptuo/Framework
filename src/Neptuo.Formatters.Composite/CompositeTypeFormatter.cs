@@ -133,6 +133,10 @@ namespace Neptuo.Formatters
             }
 
             context.Output = typeVersion.Constructor.Factory(values.ToArray());
+
+            if (type.VersionProperty.Setter != null)
+                type.VersionProperty.Setter(context.Output, version);
+
             return true;
         }
 

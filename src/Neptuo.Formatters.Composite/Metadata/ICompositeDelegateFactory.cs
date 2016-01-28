@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Metadata
 {
     /// <summary>
-    /// Factory for delegates for fast access.
+    /// The factory for delegates for fast access.
     /// </summary>
     public interface ICompositeDelegateFactory
     {

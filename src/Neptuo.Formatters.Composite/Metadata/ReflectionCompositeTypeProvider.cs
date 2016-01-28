@@ -7,12 +7,20 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Formatters.Metadata
 {
+    /// <summary>
+    /// The implementation of <see cref="ICompositeTypeProvider"/> which uses reflection and attributes from <see cref="Neptuo.Formatters.Metadata"/>
+    /// to compose composite types on the fly, without the to register types manually.
+    /// </summary>
     public partial class ReflectionCompositeTypeProvider : ICompositeTypeProvider
     {
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
         private readonly ICompositeDelegateFactory delegateFactory;
 
+        /// <summary>
+        /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
+        /// </summary>
+        /// <param name="delegateFactory">The factory for delegates for fast access.</param>
         public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory)
         {
             Ensure.NotNull(delegateFactory, "delegateFactory");

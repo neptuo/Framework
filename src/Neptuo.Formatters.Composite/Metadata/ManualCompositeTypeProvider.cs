@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Formatters.Metadata
 {
+    /// <summary>
+    /// The implementation of <see cref="ICompositeTypeProvider"/> which uses manual declarations for building a composite types.
+    /// </summary>
     public class ManualCompositeTypeProvider : ICompositeTypeProvider
     {
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
