@@ -23,31 +23,31 @@ namespace Neptuo.Formatters.Metadata
 
         public interface IVersionBuilder<T, TValue1>
         {
-            IVersionBuilder<T, TValue1, TValue> WithProperty<TValue>(Expression<Func<T, TValue1, TValue>> getter);
+            IVersionBuilder<T, TValue1, TValue> WithProperty<TValue>(Expression<Func<T, TValue>> getter);
             ITypeBuilder<T> WithConstructor(Expression<Func<TValue1, T>> factory);
         }
 
         public interface IVersionBuilder<T, TValue1, TValue2>
         {
-            IVersionBuilder<T, TValue1, TValue2, TValue> WithProperty<TValue>(Expression<Func<T, TValue1, TValue>> getter);
+            IVersionBuilder<T, TValue1, TValue2, TValue> WithProperty<TValue>(Expression<Func<T, TValue>> getter);
             ITypeBuilder<T> WithConstructor(Expression<Func<TValue1, TValue2, T>> factory);
         }
 
         public interface IVersionBuilder<T, TValue1, TValue2, TValue3>
         {
-            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue> WithProperty<TValue>(Expression<Func<T, TValue1, TValue>> getter);
+            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue> WithProperty<TValue>(Expression<Func<T, TValue>> getter);
             ITypeBuilder<T> WithConstructor(Expression<Func<TValue1, TValue2, TValue3, T>> factory);
         }
 
         public interface IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4>
         {
-            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4, TValue> WithProperty<TValue>(Expression<Func<T, TValue1, TValue>> getter);
+            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4, TValue> WithProperty<TValue>(Expression<Func<T, TValue>> getter);
             ITypeBuilder<T> WithConstructor(Expression<Func<TValue1, TValue2, TValue3, TValue4, T>> factory);
         }
 
         public interface IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4, TValue5>
         {
-            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4, TValue> WithProperty<TValue>(Expression<Func<T, TValue1, TValue>> getter);
+            IVersionBuilder<T, TValue1, TValue2, TValue3, TValue4, TValue5, TValue> WithProperty<TValue>(Expression<Func<T, TValue>> getter);
             ITypeBuilder<T> WithConstructor(Expression<Func<TValue1, TValue2, TValue3, TValue4, TValue5, T>> factory);
         }
 

@@ -100,7 +100,7 @@ namespace Neptuo.Formatters.Metadata
 
             public IVersionBuilder<T> AddVersion(int version)
             {
-                return new VersionBuilder<T>(State.Provider, version, State.VersionProperty);
+                return new VersionBuilder<T>(State.Provider, version, State.VersionProperty, State.TypeName);
             }
 
             public ITypeBuilder<TOther> Add<TOther>(Expression<Func<TOther, int>> versionGetter)
@@ -121,10 +121,12 @@ namespace Neptuo.Formatters.Metadata
             private ManualCompositeTypeProvider manualCompositeTypeProvider;
             private Expression<Func<T, int>> versionGetter;
 
-            internal VersionBuilder(ManualCompositeTypeProvider provider, int version, CompositeProperty versionProperty)
+            internal VersionBuilder(ManualCompositeTypeProvider provider, int version, CompositeProperty versionProperty, string typeName = null)
             {
                 State = new BuilderState();
                 State.Provider = provider;
+                State.Type = typeof(T);
+                State.TypeName = typeName ?? typeof(T).FullName;
                 State.Version = version;
                 State.VersionProperty = versionProperty;
             }
