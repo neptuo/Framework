@@ -39,11 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\_AssemblyInfo.cs">
@@ -57,15 +53,11 @@
     <Compile Include="ICompositeModel.cs" />
     <Compile Include="ICompositeStorage.cs" />
     <Compile Include="Metadata\CompositeConstructor.cs" />
-    <Compile Include="Metadata\CompositeConstructorAttribute.cs" />
     <Compile Include="CompositeException.cs" />
     <Compile Include="Metadata\CompositeMetadataException.cs" />
     <Compile Include="Metadata\CompositeProperty.cs" />
-    <Compile Include="Metadata\CompositePropertyAttribute.cs" />
     <Compile Include="Metadata\CompositeType.cs" />
-    <Compile Include="Metadata\CompositeTypeAttribute.cs" />
     <Compile Include="Metadata\CompositeVersion.cs" />
-    <Compile Include="Metadata\CompositeVersionAttribute.cs" />
     <Compile Include="Metadata\ICompositeDelegateFactory.cs" />
     <Compile Include="Metadata\ICompositeTypeProvider.cs" />
     <Compile Include="Metadata\ManualCompositeTypeProvider.cs" />
@@ -78,6 +70,10 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj">
+      <Project>{56d82cbb-6da5-4986-acc0-58b27789d374}</Project>
+      <Name>Neptuo.Formatters.Composite.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj">
       <Project>{200d385f-dc27-4695-aacb-b345d9e7917d}</Project>
       <Name>Neptuo.Formatters</Name>

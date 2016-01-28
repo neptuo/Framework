@@ -76,6 +76,10 @@
       <Project>{8f0929a3-b0dd-4c95-a465-ce896fcaaa4a}</Project>
       <Name>Neptuo.Formatters.Composite.Json</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj">
+      <Project>{56d82cbb-6da5-4986-acc0-58b27789d374}</Project>
+      <Name>Neptuo.Formatters.Composite.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj">
       <Project>{51be86f0-1512-4d63-9e8b-bf53dc96e7ad}</Project>
       <Name>Neptuo.Formatters.Composite</Name>
