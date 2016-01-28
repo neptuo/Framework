@@ -11,7 +11,7 @@ namespace UnitTest.Formatters.Composite
     public class T_Formatters_CompositeModel
     {
         [TestMethod]
-        public void FullyDefined()
+        public void Reflection_Reflection_FullyDefined()
         {
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
@@ -40,7 +40,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
-        public void SingleModel()
+        public void Reflection_SingleModel()
         {
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
@@ -58,7 +58,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
-        public void SingleVersion()
+        public void Reflection_SingleVersion()
         {
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
@@ -76,7 +76,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
-        public void TwoVersionWithFirstImplied()
+        public void Reflection_TwoVersionWithFirstImplied()
         {
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
@@ -96,6 +96,16 @@ namespace UnitTest.Formatters.Composite
             version = versionEnumerator.Current;
             Assert.AreEqual(2, version.Version);
             Assert.AreEqual(2, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void Manual_FullyDefined()
+        {
+            ManualCompositeTypeProvider provider = new ManualCompositeTypeProvider()
+                .Add<UserModel>(1)
+                .WithProperty(u => u.UserName)
+                .WithProperty(u => u.Password)
+                .WithConstructor(() => new UserModel(null, null));
         }
     }
 }
