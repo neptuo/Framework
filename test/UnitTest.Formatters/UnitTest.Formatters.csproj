@@ -65,7 +65,7 @@
     <Compile Include="Composite\Json\T_Formatters_CompositeStorage.cs" />
     <Compile Include="Composite\Json\T_Formatters_PrimitiveConverter.cs" />
     <Compile Include="T_Formatters_Perf.cs" />
-    <Compile Include="Composite\_Services.cs" />
+    <Compile Include="_Services.cs" />
     <Compile Include="Composite\T_Formatters_CompositeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

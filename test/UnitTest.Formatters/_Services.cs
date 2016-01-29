@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace UnitTest.Formatters.Composite
+namespace UnitTest.Formatters
 {
     [CompositeType("Test.UserModel")]
     public class UserModel
