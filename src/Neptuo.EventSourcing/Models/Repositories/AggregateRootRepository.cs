@@ -60,7 +60,7 @@ namespace Neptuo.Models.Repositories
             {
                 Task<bool> result = formatter.TrySerializeAsync(payload, new DefaultSerializerContext(payload.GetType(), stream));
                 if (!result.IsCompleted)
-                    result.RunSynchronously();
+                    result.Wait();
 
                 if (result.Result)
                 {
@@ -90,7 +90,7 @@ namespace Neptuo.Models.Repositories
                 DefaultDeserializerContext context = new DefaultDeserializerContext(eventType);
                 Task<bool> result = formatter.TryDeserializeAsync(stream, context);
                 if (!result.IsCompleted)
-                    result.RunSynchronously();
+                    result.Wait();
 
                 if (result.Result)
                     return (IEvent)context.Output;

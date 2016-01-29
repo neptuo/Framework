@@ -10,7 +10,7 @@ namespace Neptuo.Models.Keys
     /// <summary>
     /// Keys extensions of <see cref="Ensure.Condition"/>.
     /// </summary>
-    public static class _EnsureConditionExtensions
+    internal static class _EnsureConditionExtensions
     {
         /// <summary>
         /// Throws <see cref="ArgumentOutOfRangeException"/> when <paramref name="key"/> is <see cref="IKey.Empty"/> (= true).
