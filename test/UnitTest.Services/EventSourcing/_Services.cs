@@ -1,10 +1,10 @@
-﻿using Neptuo.Events;
+﻿using Neptuo.Data;
+using Neptuo.Events;
 using Neptuo.Events.Handlers;
 using Neptuo.EventSourcing.Events;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
-using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +15,9 @@ namespace Neptuo.EventSourcing
 {
     namespace Events
     {
-        [Serializable]
         public class OrderPlaced : Event
         { }
 
-        [Serializable]
         public class OrderItemAdded : Event
         {
             public IKey ProductKey { get; private set; }
@@ -34,7 +32,6 @@ namespace Neptuo.EventSourcing
             }
         }
 
-        [Serializable]
         public class OrderItemExtended : Event
         {
             public IKey ProductKey { get; private set; }
@@ -49,7 +46,6 @@ namespace Neptuo.EventSourcing
             }
         }
 
-        [Serializable]
         public class OrderTotalRecalculated : Event
         {
             public decimal TotalPrice { get; private set; }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
+using Neptuo.Data;
 using Neptuo.Events.Formatters;
 using Neptuo.EventSourcing.Events;
+using Neptuo.Formatters;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
@@ -40,7 +42,7 @@ namespace Neptuo.EventSourcing
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore, 
-                new BinaryEventSerializer(), 
+                new JsonFormatter(), 
                 new ReflectionAggregateRootFactory<Order>()
             );
 
