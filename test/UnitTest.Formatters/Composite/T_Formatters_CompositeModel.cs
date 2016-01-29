@@ -63,12 +63,9 @@ namespace UnitTest.Formatters.Composite
             Assert.AreEqual(1, version.Properties.Count());
         }
 
-        [TestMethod]
-        public void Reflection_SingleVersion()
+        private void AssertSingleVersion(CompositeType compositeType)
         {
-            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
-            CompositeType compositeType;
-            Assert.AreEqual(true, provider.TryGet(typeof(SingleVersion), out compositeType));
+            Assert.IsNotNull(compositeType);
 
             Assert.AreEqual(typeof(SingleVersion), compositeType.Type);
             Assert.AreEqual(1, compositeType.Versions.Count());
@@ -79,6 +76,15 @@ namespace UnitTest.Formatters.Composite
             CompositeVersion version = versionEnumerator.Current;
             Assert.AreEqual(1, version.Version);
             Assert.AreEqual(1, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void Reflection_SingleVersion()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(SingleVersion), out compositeType));
+            AssertSingleVersion(compositeType);
         }
 
         [TestMethod]
@@ -105,7 +111,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
-        public void Manual_FullyDefined()
+        public void Manual_FullTest()
         {
             ManualCompositeTypeProvider provider = new ManualCompositeTypeProvider();
             provider
@@ -127,6 +133,9 @@ namespace UnitTest.Formatters.Composite
             CompositeType compositeType;
             Assert.AreEqual(true, provider.TryGet(typeof(UserModel), out compositeType));
             AssertUserModel(compositeType);
+
+            Assert.AreEqual(true, provider.TryGet(typeof(SingleVersion), out compositeType));
+            AssertSingleVersion(compositeType);
         }
     }
 }
