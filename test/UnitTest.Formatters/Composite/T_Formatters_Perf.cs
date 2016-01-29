@@ -29,7 +29,7 @@ namespace UnitTest.Formatters.Composite
             long buildCompositeType = BuildComposityType();
             long composite = CompositeTypeFormatter(count);
             long compositeStorage = CompositeStorage(count);
-            long wrappedXml = WrappedXml(count);
+            //long wrappedXml = WrappedXml(count);
 
             if (Directory.Exists("C:/Temp"))
             {
@@ -39,8 +39,8 @@ namespace UnitTest.Formatters.Composite
                     String.Format("Newtonsoft.Json wrapped:     {0}ms", wrappedNewtonSoft),
                     String.Format("Build composite type:        {0}ms", buildCompositeType),
                     String.Format("Composite+Newtonsoft.Json:   {0}ms", composite),
-                    String.Format("CompositeStorage:            {0}ms", compositeStorage),
-                    String.Format("XML wrapped:                 {0}ms", wrappedXml)
+                    String.Format("CompositeStorage:            {0}ms", compositeStorage)//,
+                    //String.Format("XML wrapped:                 {0}ms", wrappedXml)
                 });
             }
         }
