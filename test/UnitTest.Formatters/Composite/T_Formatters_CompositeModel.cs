@@ -11,12 +11,8 @@ namespace UnitTest.Formatters.Composite
     [TestClass]
     public class T_Formatters_CompositeModel
     {
-        [TestMethod]
-        public void Reflection_Reflection_FullyDefined()
+        private void AssertUserModel(CompositeType compositeType)
         {
-            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
-            CompositeType compositeType;
-            Assert.AreEqual(true, provider.TryGet(typeof(UserModel), out compositeType));
             Assert.IsNotNull(compositeType);
 
             Assert.AreEqual("Test.UserModel", compositeType.Name);
@@ -38,6 +34,15 @@ namespace UnitTest.Formatters.Composite
             version = versionEnumerator.Current;
             Assert.AreEqual(2, version.Version);
             Assert.AreEqual(3, version.Properties.Count());
+        }
+
+        [TestMethod]
+        public void Reflection_Reflection_FullyDefined()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(UserModel), out compositeType));
+            AssertUserModel(compositeType);
         }
 
         [TestMethod]
@@ -119,6 +124,9 @@ namespace UnitTest.Formatters.Composite
                         .WithProperty(s => s.FullName)
                         .WithConstructor(f => new SingleVersion(f));
 
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(UserModel), out compositeType));
+            AssertUserModel(compositeType);
         }
     }
 }
