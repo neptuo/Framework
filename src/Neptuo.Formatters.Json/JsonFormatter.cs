@@ -49,7 +49,7 @@ namespace Neptuo.Formatters
 
             //TODO: Catch exceptions.
             string result = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(input, formatting, settings));
-            using (StreamWriter writer = new StreamWriter(context.Output))
+            using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
                 await writer.WriteAsync(result);
 
             return true;
