@@ -45,13 +45,20 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Collections\DefaultDeserializerCollection.cs" />
     <Compile Include="Collections\DefaultFormatterCollection.cs" />
+    <Compile Include="Collections\DefaultSerializerCollection.cs" />
     <Compile Include="Collections\IDeserializerCollection.cs" />
+    <Compile Include="Collections\IDeserializerProvider.cs" />
+    <Compile Include="Collections\IFormatterCollection.cs" />
+    <Compile Include="Collections\IFormatterProvider.cs" />
     <Compile Include="Collections\ISerializerCollection.cs" />
+    <Compile Include="Collections\ISerializerProvider.cs" />
     <Compile Include="DefaultDeserializerContext.cs" />
     <Compile Include="DefaultSerializerContext.cs" />
     <Compile Include="IDeserializer.cs" />
     <Compile Include="IDeserializerContext.cs" />
+    <Compile Include="IFormatter.cs" />
     <Compile Include="ISerializer.cs" />
     <Compile Include="ISerializerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

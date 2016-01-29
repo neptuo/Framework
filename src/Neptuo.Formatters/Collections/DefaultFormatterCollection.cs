@@ -7,39 +7,51 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Collections
 {
     /// <summary>
-    /// Default implementation of <see cref="ISerializerCollection"/> and <see cref="IDeserializerCollection"/>.
+    /// Default implementation of <see cref="IFormatterCollection{TKey}"/>, <see cref="ISerializerProvider{TKey}"/> and <see cref="IDeserializerProvider{TKey}"/>.
+    /// Writing to this collection is not thread-safe, reading is thread-safe.
     /// </summary>
-    public class DefaultFormatterCollection<TKey> : ISerializerCollection<TKey>, IDeserializerCollection<TKey>
+    public class DefaultFormatterCollection<TKey> : IFormatterCollection<TKey>, ISerializerProvider<TKey>, IDeserializerProvider<TKey>
     {
-        private readonly Dictionary<TKey, ISerializer> serializers = new Dictionary<TKey, ISerializer>();
-        private readonly Dictionary<TKey, IDeserializer> deserializers = new Dictionary<TKey, IDeserializer>();
+        private readonly Dictionary<TKey, IFormatter> storage = new Dictionary<TKey, IFormatter>();
 
-        public ISerializerCollection<TKey> Add(TKey key, ISerializer serializer)
+        public IFormatterCollection<TKey> Add(TKey key, IFormatter formatter)
         {
             Ensure.NotNull(key, "key");
-            Ensure.NotNull(serializer, "serializer");
-            serializers[key] = serializer;
+            Ensure.NotNull(formatter, "formatter");
+            storage[key] = formatter;
             return this;
         }
 
-        public IDeserializerCollection<TKey> Add(TKey key, IDeserializer deserializer)
+        public bool TryGet(TKey key, out IFormatter formatter)
         {
             Ensure.NotNull(key, "key");
-            Ensure.NotNull(deserializer, "deserializer");
-            deserializers[key] = deserializer;
-            return this;
+            return storage.TryGetValue(key, out formatter);
         }
 
         public bool TryGet(TKey key, out ISerializer serializer)
         {
-            Ensure.NotNull(key, "key");
-            return serializers.TryGetValue(key, out serializer);
+            IFormatter formatter;
+            if (TryGet(key, out formatter))
+            {
+                serializer = formatter;
+                return true;
+            }
+
+            serializer = null;
+            return false;
         }
 
         public bool TryGet(TKey key, out IDeserializer deserializer)
         {
-            Ensure.NotNull(key, "key");
-            return deserializers.TryGetValue(key, out deserializer);
+            IFormatter formatter;
+            if (TryGet(key, out formatter))
+            {
+                deserializer = formatter;
+                return true;
+            }
+
+            deserializer = null;
+            return false;
         }
     }
 }

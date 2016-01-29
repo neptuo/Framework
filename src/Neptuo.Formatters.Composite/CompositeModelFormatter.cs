@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The implementation of <see cref="ISerializer"/> and <see cref="IDeserializer"/> which works on types implementing <see cref="ICompositeModel"/>.
+    /// The implementation of <see cref="IFormatter"/> which works on types implementing <see cref="ICompositeModel"/>.
     /// </summary>
-    public class CompositeModelFormatter : ISerializer, IDeserializer
+    public class CompositeModelFormatter : IFormatter, ISerializer, IDeserializer
     {
         private readonly Func<Type, object> modelFactory;
         private readonly IFactory<ICompositeStorage> storageFactory;

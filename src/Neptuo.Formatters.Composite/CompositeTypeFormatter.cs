@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The implementation of <see cref="ISerializer"/> and <see cref="IDeserializer"/> with support for versioned types described as <see cref="CompositeType"/>.
+    /// The implementation of <see cref="IFormatter"/> with support for versioned types described as <see cref="CompositeType"/>.
     /// </summary>
-    public class CompositeTypeFormatter : ISerializer, IDeserializer
+    public class CompositeTypeFormatter : IFormatter, ISerializer, IDeserializer
     {
         private readonly ICompositeTypeProvider provider;
         private readonly IFactory<ICompositeStorage> storageFactory;

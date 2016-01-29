@@ -10,9 +10,9 @@ using System.Xml.Serialization;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// System.Xml implementation of <see cref="ISerializer"/> and <see cref="IDeserializer"/>.
+    /// System.Xml implementation of <see cref="IFormatter"/>.
     /// </summary>
-    public class XmlFormatter : ISerializer, IDeserializer
+    public class XmlFormatter : IFormatter, ISerializer, IDeserializer
     {
         /// <summary>
         /// Tries to catch XML related exceptions and process them as <c>false</c> result.

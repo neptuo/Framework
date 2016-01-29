@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// Newtonsoft.Json implementation of <see cref="ISerializer"/> and <see cref="IDeserializer"/>.
+    /// Newtonsoft.Json implementation of <see cref="IFormatter"/>.
     /// </summary>
-    public class JsonFormatter : ISerializer, IDeserializer
+    public class JsonFormatter : IFormatter, ISerializer, IDeserializer
     {
         private readonly JsonSerializerSettings settings;
         private readonly Formatting formatting;
