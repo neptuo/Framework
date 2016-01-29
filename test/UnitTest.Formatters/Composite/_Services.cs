@@ -1,6 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Metadata;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [CompositeConstructor(Version = 2)]
+        [JsonConstructor]
         public UserModel(int id, string userName, string password)
         {
             Ensure.Positive(id, "id");
