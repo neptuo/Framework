@@ -141,6 +141,10 @@
       <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
       <Name>Neptuo.FileSystems</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Jobs.Behaviors\Neptuo.Jobs.Behaviors.csproj">
+      <Project>{e50bf0b3-514e-4170-98da-580a2cf8a016}</Project>
+      <Name>Neptuo.Jobs.Behaviors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
