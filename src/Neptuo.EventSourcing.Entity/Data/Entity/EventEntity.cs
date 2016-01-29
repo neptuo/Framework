@@ -1,5 +1,6 @@
 ﻿using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
