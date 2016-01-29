@@ -1,6 +1,5 @@
 ﻿using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
-using Neptuo.Models.Repositories.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,11 +15,12 @@ namespace Neptuo.Data.Entity
         public string AggregateID { get; set; }
         public string AggregateType { get; set; }
         public string Payload { get; set; }
+        public string PayloadType { get; set; }
         public DateTime RaisedAt { get; set; }
 
         public EventModel ToModel()
         {
-            return new EventModel(StringKey.Create(AggregateID, AggregateType), Payload)
+            return new EventModel(StringKey.Create(AggregateID, AggregateType), Type.GetType(PayloadType), Payload)
             {
                 RaisedAt = RaisedAt
             };
@@ -39,6 +39,7 @@ namespace Neptuo.Data.Entity
                 AggregateID = key.Identifier,
                 AggregateType = key.Type,
                 Payload = model.Payload,
+                PayloadType = model.PayloadType.AssemblyQualifiedName,
                 RaisedAt = model.RaisedAt
             };
         }

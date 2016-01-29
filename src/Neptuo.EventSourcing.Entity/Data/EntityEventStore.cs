@@ -1,4 +1,5 @@
-﻿using Neptuo.Data.Entity;
+﻿using Neptuo.Data;
+using Neptuo.Data.Entity;
 using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Repositories
+namespace Neptuo.Data
 {
     public class EntityEventStore : IEventStore
     {
