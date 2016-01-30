@@ -14,6 +14,15 @@ namespace Neptuo.Data.Entity
     {
         public IDbSet<EventEntity> Events { get; private set; }
 
+        static EventContext()
+        {
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<EventContext>());
+        }
+
+        public EventContext(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        { }
+
         public new void SaveChanges()
         {
             SaveChanges();

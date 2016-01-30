@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
 using Neptuo.Data;
+using Neptuo.Data.Entity;
 using Neptuo.EventSourcing.Events;
 using Neptuo.Formatters;
 using Neptuo.Models.Domains;
@@ -34,13 +35,33 @@ namespace Neptuo.EventSourcing
         }
 
         [TestMethod]
-        public void SaveAndLoadWithRepository()
+        public void SaveAndLoadWithMockRepository()
         {
             MockEventStore eventStore = new MockEventStore();
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore, 
                 new JsonFormatter(), 
+                new ReflectionAggregateRootFactory<Order>()
+            );
+
+            Order order = new Order();
+            order.AddItem(GuidKey.Create(Guid.NewGuid(), "Product"), 5);
+
+            repository.Save(order);
+
+            IEnumerable<EventModel> serializedEvents = eventStore.Get(order.Key);
+            Assert.AreEqual(3, serializedEvents.Count());
+        }
+
+        [TestMethod]
+        public void SaveAndLoadWithEntityRepository()
+        {
+            EntityEventStore eventStore = new EntityEventStore(new EventContext(@"Data Source=.\SQLEXPRESS; Initial Catalog=EventStore;Integrated Security=SSPI"));
+
+            AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
+                eventStore,
+                new JsonFormatter(),
                 new ReflectionAggregateRootFactory<Order>()
             );
 
