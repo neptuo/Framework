@@ -12,6 +12,8 @@ namespace Neptuo.Data.Entity
     public class EventEntity
     {
         [Key]
+        public int ID { get; set; }
+
         public string AggregateID { get; set; }
         public string AggregateType { get; set; }
         public string Payload { get; set; }

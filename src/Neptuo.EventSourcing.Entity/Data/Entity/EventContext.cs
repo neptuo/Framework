@@ -21,11 +21,13 @@ namespace Neptuo.Data.Entity
 
         public EventContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
-        { }
+        {
+            Events = Set<EventEntity>();
+        }
 
         public new void SaveChanges()
         {
-            SaveChanges();
+            base.SaveChanges();
         }
     }
 }
