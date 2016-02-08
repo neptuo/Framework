@@ -66,7 +66,7 @@ namespace Neptuo.Formatters
                     throw new NotSupportedValueException(property.Type);
             }
 
-            await storage.StoreAsync(context.Output);
+            await storage.StoreAsync(context.Output).ConfigureAwait(false);
             return true;
         }
 
@@ -111,7 +111,7 @@ namespace Neptuo.Formatters
         protected virtual async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
         {
             ICompositeStorage storage = storageFactory.Create();
-            await storage.LoadAsync(input);
+            await storage.LoadAsync(input).ConfigureAwait(false);
 
             int version;
             if (!storage.TryGet("Version", out version))

@@ -41,7 +41,7 @@ namespace Neptuo.Formatters
             ICompositeStorage storage = storageFactory.Create();
             model.Save(storage);
 
-            await storage.StoreAsync(context.Output);
+            await storage.StoreAsync(context.Output).ConfigureAwait(false);
             return true;
         }
 
@@ -55,7 +55,7 @@ namespace Neptuo.Formatters
                 return false;
 
             ICompositeStorage storage = storageFactory.Create();
-            await storage.LoadAsync(input);
+            await storage.LoadAsync(input).ConfigureAwait(false);
 
             model.Load(storage);
             context.Output = model;

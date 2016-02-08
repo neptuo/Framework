@@ -27,6 +27,7 @@ namespace UnitTest.Formatters
 
             long rawNewtonSoft = RawNewtonsoftJson(count);
             KeyValuePair<long, long> wrappedNewtonSoft = WrappedNewtonsoftJson(count);
+            KeyValuePair<long, long> wrappedNewtonSoftSync = WrappedNewtonsoftJsonSync(count);
             long buildCompositeType = BuildComposityType();
             KeyValuePair<long, long> composite = CompositeTypeFormatter(count);
             KeyValuePair<long, long> compositeStorage = CompositeStorage(count);
@@ -36,14 +37,16 @@ namespace UnitTest.Formatters
             {
                 File.WriteAllLines("C:/Temp/FormatterPerf.txt", new string[] 
                 {
-                    String.Format("Newtonsoft.Json directly:             {0}ms", rawNewtonSoft),
-                    String.Format("Newtonsoft.Json wrapped:              {0}ms", wrappedNewtonSoft.Key),
-                    String.Format("Newtonsoft.Json wrapped (stream):     {0}ms", wrappedNewtonSoft.Value),
-                    String.Format("Build composite type:                 {0}ms", buildCompositeType),
-                    String.Format("Composite+Newtonsoft.Json:            {0}ms", composite.Key),
-                    String.Format("Composite+Newtonsoft.Json (stream):   {0}ms", composite.Value),
-                    String.Format("CompositeStorage:                     {0}ms", compositeStorage.Key),
-                    String.Format("CompositeStorage (stream):            {0}ms", compositeStorage.Value)//,
+                    String.Format("Newtonsoft.Json directly:                {0}ms", rawNewtonSoft),
+                    String.Format("Newtonsoft.Json wrapped:                 {0}ms", wrappedNewtonSoft.Key),
+                    String.Format("Newtonsoft.Json wrapped (stream):        {0}ms", wrappedNewtonSoft.Value),
+                    String.Format("Newtonsoft.Json SYNC wrapped:            {0}ms", wrappedNewtonSoftSync.Key),
+                    String.Format("Newtonsoft.Json SYNC wrapped (stream):   {0}ms", wrappedNewtonSoftSync.Value),
+                    String.Format("Build composite type:                    {0}ms", buildCompositeType),
+                    String.Format("Composite+Newtonsoft.Json:               {0}ms", composite.Key),
+                    String.Format("Composite+Newtonsoft.Json (stream):      {0}ms", composite.Value),
+                    String.Format("CompositeStorage:                        {0}ms", compositeStorage.Key),
+                    String.Format("CompositeStorage (stream):               {0}ms", compositeStorage.Value)//,
                     //String.Format("XML wrapped:                 {0}ms", wrappedXml)
                 });
             }
@@ -102,6 +105,40 @@ namespace UnitTest.Formatters
         {
             JsonFormatter formatter = new JsonFormatter();
             return ReadWriteUsingFormatter(count, formatter, formatter);
+        }
+
+        private KeyValuePair<long, long> WrappedNewtonsoftJsonSync(int count)
+        {
+            JsonFormatter formatter = new JsonFormatter();
+
+            Stopwatch sw = new Stopwatch();
+            Stopwatch streamSw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < count; i++)
+            {
+                UserModel model = new UserModel(1, "UserName", "Password");
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    bool isSerializedTask = formatter.TrySerialize(model, new DefaultSerializerContext(typeof(UserModel), stream));
+
+                    streamSw.Start();
+                    stream.Seek(0, SeekOrigin.Begin);
+
+                    string json = null;
+                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true))
+                        json = reader.ReadToEnd();
+
+                    stream.Seek(0, SeekOrigin.Begin);
+                    streamSw.Stop();
+
+                    IDeserializerContext context = new DefaultDeserializerContext(typeof(UserModel));
+                    bool isDeserializedTask = formatter.TryDeserialize(stream, context);
+
+                    model = (UserModel)context.Output;
+                }
+            }
+            sw.Stop();
+            return new KeyValuePair<long, long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
         }
 
         private KeyValuePair<long, long> WrappedXml(int count)
