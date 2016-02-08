@@ -83,7 +83,39 @@ namespace UnitTest.Formatters
                 }
             }
             sw.Stop();
-            return new KeyValuePair<long,long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
+            return new KeyValuePair<long, long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
+        }
+
+        private KeyValuePair<long, long> ReadWriteUsingFormatterSync(int count, ISerializer serializer, IDeserializer deserializer)
+        {
+            Stopwatch sw = new Stopwatch();
+            Stopwatch streamSw = new Stopwatch();
+            sw.Start();
+            for (int i = 0; i < count; i++)
+            {
+                UserModel model = new UserModel(1, "UserName", "Password");
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    bool isSerializedTask = serializer.TrySerialize(model, new DefaultSerializerContext(typeof(UserModel), stream));
+
+                    streamSw.Start();
+                    stream.Seek(0, SeekOrigin.Begin);
+
+                    string json = null;
+                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true))
+                        json = reader.ReadToEnd();
+
+                    stream.Seek(0, SeekOrigin.Begin);
+                    streamSw.Stop();
+
+                    IDeserializerContext context = new DefaultDeserializerContext(typeof(UserModel));
+                    bool isDeserializedTask = deserializer.TryDeserialize(stream, context);
+
+                    model = (UserModel)context.Output;
+                }
+            }
+            sw.Stop();
+            return new KeyValuePair<long, long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
         }
 
         private long RawNewtonsoftJson(int count)
@@ -110,35 +142,7 @@ namespace UnitTest.Formatters
         private KeyValuePair<long, long> WrappedNewtonsoftJsonSync(int count)
         {
             JsonFormatter formatter = new JsonFormatter();
-
-            Stopwatch sw = new Stopwatch();
-            Stopwatch streamSw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < count; i++)
-            {
-                UserModel model = new UserModel(1, "UserName", "Password");
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    bool isSerializedTask = formatter.TrySerialize(model, new DefaultSerializerContext(typeof(UserModel), stream));
-
-                    streamSw.Start();
-                    stream.Seek(0, SeekOrigin.Begin);
-
-                    string json = null;
-                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true))
-                        json = reader.ReadToEnd();
-
-                    stream.Seek(0, SeekOrigin.Begin);
-                    streamSw.Stop();
-
-                    IDeserializerContext context = new DefaultDeserializerContext(typeof(UserModel));
-                    bool isDeserializedTask = formatter.TryDeserialize(stream, context);
-
-                    model = (UserModel)context.Output;
-                }
-            }
-            sw.Stop();
-            return new KeyValuePair<long, long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
+            return ReadWriteUsingFormatterSync(count, formatter, formatter);
         }
 
         private KeyValuePair<long, long> WrappedXml(int count)

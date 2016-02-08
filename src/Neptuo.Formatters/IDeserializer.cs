@@ -12,6 +12,8 @@ namespace Neptuo.Formatters
     /// </summary>
     public interface IDeserializer
     {
+        bool TryDeserialize(Stream input, IDeserializerContext context);
+
         /// <summary>
         /// Deserializes <paramref name="input"/> into <paramref name="context"/>.
         /// </summary>
