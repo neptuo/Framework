@@ -17,11 +17,27 @@ namespace Neptuo.Commands
         private readonly object storageLock = new object();
         private readonly Thread worker;
         private readonly ICommandDispatcher innerDispatcher;
+        private readonly SerialCommandDispatcherConfiguration configuration;
 
+        /// <summary>
+        /// Creates new instance with default configuration and <paramref name="innerDispatcher"/>.
+        /// </summary>
+        /// <param name="innerDispatcher">The dispatcher for processing commands (invoked in serie).</param>
         public SerialCommandDispatcher(ICommandDispatcher innerDispatcher)
+            : this(innerDispatcher, new SerialCommandDispatcherConfiguration())
+        { }
+
+        /// <summary>
+        /// Creates new instance with custom configuration and <paramref name="innerDispatcher"/>.
+        /// </summary>
+        /// <param name="innerDispatcher">The dispatcher for processing commands (invoked in serie).</param>
+        /// <param name="configuration">The dispatcher configuration.</param>
+        public SerialCommandDispatcher(ICommandDispatcher innerDispatcher, SerialCommandDispatcherConfiguration configuration)
         {
             Ensure.NotNull(innerDispatcher, "innerDispatcher");
+            Ensure.NotNull(configuration, "configuration");
             this.innerDispatcher = innerDispatcher;
+            this.configuration = configuration;
 
             worker = new Thread(OnThread);
             worker.Start();
@@ -54,7 +70,7 @@ namespace Neptuo.Commands
                 }
 
                 if (!isCommandProcessed)
-                    Thread.Sleep(100);
+                    Thread.Sleep(configuration.ThreadSleepMilliseconds);
             }
         }
 
