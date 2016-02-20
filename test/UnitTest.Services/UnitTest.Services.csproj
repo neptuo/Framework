@@ -96,6 +96,10 @@
       <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
       <Name>Neptuo.Behaviors</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj">
+      <Project>{8997cf9a-2985-407e-a7b8-5282df052a28}</Project>
+      <Name>Neptuo.EventSourcing.Domains</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj">
       <Project>{4ff6188f-8010-47eb-a4bc-3aa7a17a517d}</Project>
       <Name>Neptuo.EventSourcing.Entity</Name>
