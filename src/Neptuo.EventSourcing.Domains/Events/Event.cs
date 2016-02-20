@@ -12,6 +12,7 @@ namespace Neptuo.Events
     /// </summary>
     public abstract class Event : IEvent
     {
+        public IKey Key { get; private set; }
         public IKey AggregateKey { get; internal set; }
         public int Version { get; internal set; }
 
@@ -19,7 +20,9 @@ namespace Neptuo.Events
         /// Creates new empty instance.
         /// </summary>
         protected Event()
-        { }
+        {
+            Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
+        }
 
         /// <summary>
         /// Creates new instance.
@@ -27,6 +30,7 @@ namespace Neptuo.Events
         /// <param name="aggreagateKey">The key of the aggregate where originated.</param>
         /// <param name="version">The version of the aggregate.</param>
         protected Event(IKey aggreagateKey, int version)
+            : this()
         {
             Ensure.Condition.NotEmptyKey(aggreagateKey, "aggreagateKey");
             AggregateKey = aggreagateKey;

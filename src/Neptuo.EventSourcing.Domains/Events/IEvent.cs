@@ -13,6 +13,11 @@ namespace Neptuo.Events
     public interface IEvent
     {
         /// <summary>
+        /// The key of this event.
+        /// </summary>
+        IKey Key { get; }
+
+        /// <summary>
         /// The key of the aggregate where originated.
         /// </summary>
         IKey AggregateKey { get; }
