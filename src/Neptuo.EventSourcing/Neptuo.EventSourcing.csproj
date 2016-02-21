@@ -62,6 +62,8 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
+    <Compile Include="Events\EventPublishBackgroundHandler.cs" />
+    <Compile Include="Events\EventQueue.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Data\EventModel.cs" />
     <Compile Include="Data\IEventStore.cs" />
@@ -70,9 +72,7 @@
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="__EnsureConditionExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\Keys\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Neptuo.EventSourcing.nuspec">
       <SubType>Designer</SubType>
@@ -83,6 +83,10 @@
     <ProjectReference Include="..\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj">
       <Project>{8997cf9a-2985-407e-a7b8-5282df052a28}</Project>
       <Name>Neptuo.EventSourcing.Domains</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Neptuo.Jobs\Neptuo.Jobs.csproj">
+      <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
+      <Name>Neptuo.Jobs</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -23,6 +23,7 @@ namespace Neptuo.Models.Repositories
         private readonly IEventStore store;
         private readonly IFormatter formatter;
         private readonly IAggregateRootFactory<T> factory;
+        private readonly IEventDispatcher eventDispatcher;
 
         /// <summary>
         /// Creates new instance.
@@ -30,14 +31,16 @@ namespace Neptuo.Models.Repositories
         /// <param name="store">The underlaying event store.</param>
         /// <param name="formatter">The formatter for serializing and deserializing event payloads.</param>
         /// <param name="factory">The aggregate root factory.</param>
-        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory)
+        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher)
         {
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
             Ensure.NotNull(factory, "factory");
+            Ensure.NotNull(eventDispatcher, "eventDispatcher");
             this.store = store;
             this.formatter = formatter;
             this.factory = factory;
+            this.eventDispatcher = eventDispatcher;
         }
 
         public void Save(T model)
@@ -51,7 +54,8 @@ namespace Neptuo.Models.Repositories
                 store.Save(eventModels);
             }
 
-            // TODO: Raise on dispatcher.
+            IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
+            Task.WaitAll(tasks.ToArray());
         }
 
         private string SerializeEvent(IEvent payload)
