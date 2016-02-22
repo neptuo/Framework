@@ -2,11 +2,12 @@
 using Neptuo.Activators;
 using Neptuo.Data;
 using Neptuo.Data.Entity;
-using Neptuo.EventSourcing.Events;
 using Neptuo.Formatters;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Orders.Domains;
+using Orders.Domains.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,8 +42,9 @@ namespace Neptuo.EventSourcing
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore, 
-                new JsonFormatter(), 
-                new ReflectionAggregateRootFactory<Order>()
+                new JsonFormatter(),
+                new ReflectionAggregateRootFactory<Order>(),
+                null
             );
 
             Order order = new Order();
@@ -62,7 +64,8 @@ namespace Neptuo.EventSourcing
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore,
                 new JsonFormatter(),
-                new ReflectionAggregateRootFactory<Order>()
+                new ReflectionAggregateRootFactory<Order>(),
+                null
             );
 
             Order order = new Order();

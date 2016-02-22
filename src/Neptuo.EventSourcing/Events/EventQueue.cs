@@ -19,6 +19,7 @@ namespace Neptuo.Events
 
         public bool TryPop(out IEvent e)
         {
+            throw new NotImplementedException();
         }
     }
 }

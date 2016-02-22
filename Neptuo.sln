@@ -156,6 +156,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.EventSourcing.Orders.Domains", "test\Test.EventSourcing.Orders.Domains\Test.EventSourcing.Orders.Domains.csproj", "{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -414,6 +416,10 @@ Global
 		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -474,6 +480,7 @@ Global
 		{8F0929A3-B0DD-4C95-A465-CE896FCAAA4A} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
 		{56D82CBB-6DA5-4986-ACC0-58B27789D374} = {C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}
 		{8997CF9A-2985-407E-A7B8-5282DF052A28} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
