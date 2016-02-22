@@ -53,10 +53,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddOrderItem.cs" />
+    <Compile Include="Commands\CreateOrder.cs" />
+    <Compile Include="Commands\Handlers\AddOrderItemHandler.cs" />
+    <Compile Include="Commands\Handlers\CreateOrderHandler.cs" />
     <Compile Include="Events\OrderItemAdded.cs" />
     <Compile Include="Events\OrderItemExtended.cs" />
     <Compile Include="Events\OrderPlaced.cs" />
     <Compile Include="Events\OrderTotalRecalculated.cs" />
+    <Compile Include="MissingOrderException.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +79,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
