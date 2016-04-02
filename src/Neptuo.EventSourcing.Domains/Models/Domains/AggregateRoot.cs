@@ -83,7 +83,7 @@ namespace Neptuo.Models.Domains
             if (supportedPayload != null)
             {
                 supportedPayload.AggregateKey = Key;
-                supportedPayload.Version = Version + 1;
+                supportedPayload.Version = ++Version;
             }
 
             handlers.Publish(this, payload);

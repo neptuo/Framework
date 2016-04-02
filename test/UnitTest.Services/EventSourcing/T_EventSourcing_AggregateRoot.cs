@@ -2,6 +2,7 @@
 using Neptuo.Activators;
 using Neptuo.Data;
 using Neptuo.Data.Entity;
+using Neptuo.Events;
 using Neptuo.Formatters;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
@@ -44,7 +45,7 @@ namespace Neptuo.EventSourcing
                 eventStore, 
                 new JsonFormatter(),
                 new ReflectionAggregateRootFactory<Order>(),
-                null
+                new DefaultEventManager()
             );
 
             Order order = new Order();

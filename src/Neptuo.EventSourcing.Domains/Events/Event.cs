@@ -27,13 +27,13 @@ namespace Neptuo.Events
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="aggreagateKey">The key of the aggregate where originated.</param>
+        /// <param name="aggregateKey">The key of the aggregate where originated.</param>
         /// <param name="version">The version of the aggregate.</param>
-        protected Event(IKey aggreagateKey, int version)
+        protected Event(IKey aggregateKey, int version)
             : this()
         {
-            Ensure.Condition.NotEmptyKey(aggreagateKey, "aggreagateKey");
-            AggregateKey = aggreagateKey;
+            Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
+            AggregateKey = aggregateKey;
             Version = version;
         }
     }
