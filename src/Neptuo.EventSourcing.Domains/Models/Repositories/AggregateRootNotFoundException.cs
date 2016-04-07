@@ -10,7 +10,7 @@ namespace Neptuo.Models.Repositories
     /// <summary>
     /// Exception raised when to such aggregate root exists,
     /// </summary>
-    public class AggregateNotFoundException : Exception
+    public class AggregateRootNotFoundException : AggregateRootException
     {
         /// <summary>
         /// The aggregate root key which is not found in the repository.
@@ -21,7 +21,7 @@ namespace Neptuo.Models.Repositories
         /// Creates new instance.
         /// </summary>
         /// <param name="aggregateKey">The aggregate root key which is not found in the repository.</param>
-        public AggregateNotFoundException(IKey aggregateKey)
+        public AggregateRootNotFoundException(IKey aggregateKey)
         {
             AggregateKey = aggregateKey;
         }

@@ -57,10 +57,11 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Models\AggregateRootException.cs" />
     <Compile Include="Models\Domains\AggregateRoot.cs" />
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
     <Compile Include="Models\Domains\IAggregateRoot.cs" />
-    <Compile Include="Models\Repositories\AggregateNotFoundException.cs" />
+    <Compile Include="Models\Repositories\AggregateRootNotFoundException.cs" />
     <Compile Include="Models\Repositories\_RepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />

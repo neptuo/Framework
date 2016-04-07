@@ -89,5 +89,27 @@ namespace Neptuo.Models.Domains
             handlers.Publish(this, payload);
             events.Add(payload);
         }
+
+        /// <summary>
+        /// Updates aggregate root inner state.
+        /// Any raised exceptions are wrapped in <see cref="AggregateRootException"/>.
+        /// </summary>
+        /// <param name="handler"></param>
+        protected Task UpdateState(Action handler)
+        {
+            try
+            {
+                handler();
+            }
+            catch (Exception e)
+            {
+                if (e is AggregateRootException)
+                    throw e;
+                else
+                    throw new AggregateRootException("The error raised during updating state.", e);
+            }
+
+            return Task.FromResult(true);
+        }
     }
 }

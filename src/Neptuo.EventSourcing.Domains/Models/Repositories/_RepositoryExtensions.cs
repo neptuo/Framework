@@ -15,14 +15,14 @@ namespace Neptuo.Models.Repositories
     {
         /// <summary>
         /// Returns instance of type <typeparamref name="TDomainModel"/> associated with the <paramref name="key"/> in the <paramref name="repository"/>.
-        /// If no such instance exists, throws <see cref="AggregateNotFoundException"/>.
+        /// If no such instance exists, throws <see cref="AggregateRootNotFoundException"/>.
         /// </summary>
         /// <typeparam name="TDomainModel">The type of the model to return.</typeparam>
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <param name="repository">The repository.</param>
         /// <param name="key">The key to model associated with.</param>
         /// <returns>The instance of model associated with the <paramref name="key"/>.</returns>
-        /// <exception cref="AggregateNotFoundException">When no such model is associated with the <paramref name="key"/>.</exception>
+        /// <exception cref="AggregateRootNotFoundException">When no such model is associated with the <paramref name="key"/>.</exception>
         public static TDomainModel Get<TDomainModel, TKey>(this IReadOnlyRepository<TDomainModel, TKey> repository, TKey key)
             where TDomainModel : IDomainModel<TKey>
             where TKey : IKey
@@ -31,7 +31,7 @@ namespace Neptuo.Models.Repositories
 
             TDomainModel model = repository.Find(key);
             if (model == null)
-                throw new AggregateNotFoundException(key);
+                throw new AggregateRootNotFoundException(key);
 
             return model;
         }
