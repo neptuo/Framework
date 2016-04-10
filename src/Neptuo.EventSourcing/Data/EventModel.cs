@@ -18,6 +18,11 @@ namespace Neptuo.Data
         public IKey AggregateKey { get; set; }
 
         /// <summary>
+        /// The key of the event.
+        /// </summary>
+        public IKey EventKey { get; set; }
+
+        /// <summary>
         /// The type of the payload.
         /// </summary>
         public Type PayloadType { get; set; }
@@ -44,15 +49,18 @@ namespace Neptuo.Data
         /// Creates new instance and fills values.
         /// </summary>
         /// <param name="aggregateKey">The key to the aggregate where the original event raised.</param>
+        /// <param name="eventKey">The key of the event.</param>
         /// <param name="payloadType">The of the payload.</param>
         /// <param name="payload">Serialized event payload.</param>
-        public EventModel(IKey aggregateKey, Type payloadType, string payload)
+        public EventModel(IKey aggregateKey, IKey eventKey, Type payloadType, string payload)
             : this()
         {
             Ensure.NotNull(aggregateKey, "aggregateKey");
+            Ensure.NotNull(eventKey, "eventKey");
             Ensure.NotNull(payloadType, "payloadType");
             Ensure.NotNull(payload, "payload");
             AggregateKey = aggregateKey;
+            EventKey = eventKey;
             PayloadType = payloadType;
             Payload = payload;
         }

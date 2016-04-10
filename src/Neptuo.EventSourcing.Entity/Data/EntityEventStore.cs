@@ -23,13 +23,13 @@ namespace Neptuo.Data
         {
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
 
-            StringKey key = aggregateKey as StringKey;
+            GuidKey key = aggregateKey as GuidKey;
             if (key == null)
-                throw Ensure.Exception.NotStringKey(aggregateKey.GetType(), "aggregateKey");
+                throw Ensure.Exception.NotGuidKey(aggregateKey.GetType(), "aggregateKey");
 
             IEnumerable<EventEntity> entities = context.Events
-                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Identifier)
-                .OrderBy(e => e.RaisedAt);
+                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid.ToString())
+                .OrderBy(e => e.ID);
 
             return entities.Select(e => e.ToModel());
         }

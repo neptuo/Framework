@@ -12,7 +12,7 @@ namespace Neptuo.Data.Entity
     public class EventEntity
     {
         [Key]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
 
         public string AggregateID { get; set; }
         public string AggregateType { get; set; }
@@ -22,7 +22,8 @@ namespace Neptuo.Data.Entity
 
         public EventModel ToModel()
         {
-            return new EventModel(StringKey.Create(AggregateID, AggregateType), Type.GetType(PayloadType), Payload)
+            //TODO: Fix PayloadType, maybe it is the typu to use in KEY.
+            return new EventModel(GuidKey.Create(ID, PayloadType), GuidKey.Create(Guid.Parse(AggregateID), AggregateType), Type.GetType(PayloadType), Payload)
             {
                 RaisedAt = RaisedAt
             };
