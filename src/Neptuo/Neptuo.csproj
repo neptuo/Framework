@@ -95,6 +95,7 @@
     <Compile Include="Disposable.cs" />
     <Compile Include="DisposableBase.cs" />
     <Compile Include="Components\Envelope.cs" />
+    <Compile Include="Envelope.cs" />
     <Compile Include="FileSystems\LocalFileContentFactory.cs" />
     <Compile Include="FileSystems\_EnsureConditionExtensions.cs" />
     <Compile Include="Text\Positions\DefaultTextSpan.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Text\Positions\IDocumentSpan.cs" />
     <Compile Include="OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="_EnvelopeExtensions.cs" />
     <Compile Include="_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultFactory.cs" />
