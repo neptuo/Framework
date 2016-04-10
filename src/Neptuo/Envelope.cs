@@ -41,7 +41,7 @@ namespace Neptuo
         public IKeyValueCollection Metadata { get; private set; }
 
         /// <summary>
-        /// Creates new instance with <paramref name="body"/>.
+        /// Creates new instance with the <paramref name="body"/>.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         public Envelope(T body)
@@ -49,6 +49,19 @@ namespace Neptuo
             Ensure.NotNull(body, "body");
             Body = body;
             Metadata = new KeyValueCollection();
+        }
+
+        /// <summary>
+        /// Creates new instance with the <paramref name="body"/> and the <paramref name="metadata"/>.
+        /// </summary>
+        /// <param name="body">The body of the evelope.</param>
+        /// <param name="metadata">The collection of the metadata. Reference is used (instead of copying items).</param>
+        public Envelope(T body, IKeyValueCollection metadata)
+        {
+            Ensure.NotNull(body, "body");
+            Ensure.NotNull(metadata, "metadata");
+            Body = body;
+            Metadata = metadata;
         }
     }
 }
