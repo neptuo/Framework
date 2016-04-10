@@ -1,4 +1,5 @@
-﻿using Neptuo.Models.Keys;
+﻿using Neptuo.Models.Domains;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace Neptuo.Events
         /// </summary>
         protected Event()
         {
-            Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
+            Key = KeyFactory.Create(GetType());
         }
 
         /// <summary>

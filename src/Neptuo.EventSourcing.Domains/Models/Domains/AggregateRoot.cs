@@ -43,7 +43,7 @@ namespace Neptuo.Models.Domains
         public AggregateRoot()
         {
             EnsureHandlerRegistration();
-            Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
+            Key = KeyFactory.Create(GetType());
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Neptuo.Commands
         /// </summary>
         protected Command()
         {
-            Key = GuidKey.Create(Guid.NewGuid(), GetType().Name);
+            Key = KeyFactory.Create(GetType());
         }
     }
 }
