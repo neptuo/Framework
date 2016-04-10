@@ -13,17 +13,17 @@ namespace Neptuo.Data.Entity
     {
         [Key]
         public Guid ID { get; set; }
+        public string Type { get; set; }
 
-        public string AggregateID { get; set; }
+        public Guid AggregateID { get; set; }
         public string AggregateType { get; set; }
         public string Payload { get; set; }
-        public string PayloadType { get; set; }
         public DateTime RaisedAt { get; set; }
 
         public EventModel ToModel()
         {
             //TODO: Fix PayloadType, maybe it is the typu to use in KEY.
-            return new EventModel(GuidKey.Create(ID, PayloadType), GuidKey.Create(Guid.Parse(AggregateID), AggregateType), Type.GetType(PayloadType), Payload)
+            return new EventModel(GuidKey.Create(AggregateID, AggregateType), GuidKey.Create(ID, Type), Payload)
             {
                 RaisedAt = RaisedAt
             };
@@ -33,16 +33,23 @@ namespace Neptuo.Data.Entity
         {
             Ensure.NotNull(model, "model");
 
-            StringKey key = model.AggregateKey as StringKey;
-            if (key == null)
-                throw Ensure.Exception.NotStringKey(model.AggregateKey.GetType(), "aggregateKey");
+            GuidKey aggregateKey = model.AggregateKey as GuidKey;
+            if (aggregateKey == null)
+                throw Ensure.Exception.NotGuidKey(model.AggregateKey.GetType(), "aggregateKey");
+
+            GuidKey eventKey = model.EventKey as GuidKey;
+            if(eventKey == null)
+                throw Ensure.Exception.NotGuidKey(model.EventKey.GetType(), "eventKey");
             
             return new EventEntity()
             {
-                AggregateID = key.Identifier,
-                AggregateType = key.Type,
+                ID = eventKey.Guid,
+                Type = eventKey.Type,
+
+                AggregateID = aggregateKey.Guid,
+                AggregateType = aggregateKey.Type,
+
                 Payload = model.Payload,
-                PayloadType = model.PayloadType.AssemblyQualifiedName,
                 RaisedAt = model.RaisedAt
             };
         }

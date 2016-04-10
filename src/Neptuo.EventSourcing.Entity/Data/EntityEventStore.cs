@@ -28,7 +28,7 @@ namespace Neptuo.Data
                 throw Ensure.Exception.NotGuidKey(aggregateKey.GetType(), "aggregateKey");
 
             IEnumerable<EventEntity> entities = context.Events
-                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid.ToString())
+                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid)
                 .OrderBy(e => e.ID);
 
             return entities.Select(e => e.ToModel());

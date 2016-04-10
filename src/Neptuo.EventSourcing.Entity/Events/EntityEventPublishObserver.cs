@@ -18,9 +18,13 @@ namespace Neptuo.Events
             this.context = context;
         }
 
-        public void OnPublish(IKey eventKey, string handlerIdentifier)
+        public void OnPublish(IKey key, string handlerIdentifier)
         {
-            UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.ID == eventKey);
+            GuidKey eventKey = key as GuidKey;
+            if (eventKey == null)
+                throw Ensure.Exception.NotGuidKey(eventKey.GetType(), "key");
+
+            UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.Type == eventKey.Type && e.Event.ID == eventKey.Guid);
             if (entity == null)
                 return;
 

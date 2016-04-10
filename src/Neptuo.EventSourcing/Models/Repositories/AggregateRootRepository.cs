@@ -31,6 +31,7 @@ namespace Neptuo.Models.Repositories
         /// <param name="store">The underlaying event store.</param>
         /// <param name="formatter">The formatter for serializing and deserializing event payloads.</param>
         /// <param name="factory">The aggregate root factory.</param>
+        /// <param name="eventDispatcher">The dispatcher for newly created events in the aggregates.</param>
         public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher)
         {
             Ensure.NotNull(store, "store");
@@ -50,7 +51,7 @@ namespace Neptuo.Models.Repositories
             IEnumerable<IEvent> events = model.Events;
             if (events.Any())
             {
-                IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(model.Key, e.GetType(), SerializeEvent(e)));
+                IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, SerializeEvent(e)));
                 store.Save(eventModels);
             }
 
@@ -81,7 +82,7 @@ namespace Neptuo.Models.Repositories
             Ensure.Condition.NotEmptyKey(key, "key");
 
             IEnumerable<EventModel> eventModels = store.Get(key);
-            IEnumerable<object> events = eventModels.Select(e => DeserializeEvent(e.PayloadType, e.Payload));
+            IEnumerable<object> events = eventModels.Select(e => DeserializeEvent(Type.GetType(e.EventKey.Type), e.Payload));
             
             T instance = factory.Create(key, events);
             return instance;
