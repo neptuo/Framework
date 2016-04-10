@@ -94,7 +94,6 @@
     <Compile Include="Converters\IConverterRepository.cs" />
     <Compile Include="Disposable.cs" />
     <Compile Include="DisposableBase.cs" />
-    <Compile Include="Components\Envelope.cs" />
     <Compile Include="Envelope.cs" />
     <Compile Include="FileSystems\LocalFileContentFactory.cs" />
     <Compile Include="FileSystems\_EnsureConditionExtensions.cs" />
