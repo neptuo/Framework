@@ -62,8 +62,6 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
-    <Compile Include="Events\EventPublishBackgroundHandler.cs" />
-    <Compile Include="Events\EventQueue.cs" />
     <Compile Include="Events\IEventPublishObserver.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Data\EventModel.cs" />
