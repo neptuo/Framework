@@ -39,7 +39,10 @@ namespace Neptuo.Data
             Ensure.NotNull(events, "events");
 
             foreach (EventEntity entity in events.Select(EventEntity.FromModel))
+            {
                 context.Events.Add(entity);
+                context.UnPublishedEvents.Add(new UnPublishedEventEntity(entity));
+            }
 
             context.SaveChanges();
         }

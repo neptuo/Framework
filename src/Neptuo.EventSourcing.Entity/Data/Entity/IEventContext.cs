@@ -13,9 +13,14 @@ namespace Neptuo.Data.Entity
     public interface IEventContext
     {
         /// <summary>
-        /// Stream of events.
+        /// The stream of events.
         /// </summary>
         IDbSet<EventEntity> Events { get; }
+
+        /// <summary>
+        /// The stream of events that needs to be published on the dispatcher.
+        /// </summary>
+        IDbSet<UnPublishedEventEntity> UnPublishedEvents { get; }
 
         /// <summary>
         /// Saves change to the storage.

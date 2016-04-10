@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace Neptuo.Data.Entity
 {
     /// <summary>
-    /// Default implementation of <see cref="IEventContext"/>.
+    /// The default implementation of <see cref="IEventContext"/>.
     /// </summary>
     public class EventContext : DbContext, IEventContext
     {
         public IDbSet<EventEntity> Events { get; private set; }
+        public IDbSet<UnPublishedEventEntity> UnPublishedEvents { get; private set; }
 
         static EventContext()
         {
@@ -23,6 +24,7 @@ namespace Neptuo.Data.Entity
             : base(nameOrConnectionString)
         {
             Events = Set<EventEntity>();
+            UnPublishedEvents = Set<UnPublishedEventEntity>();
         }
 
         public new void SaveChanges()

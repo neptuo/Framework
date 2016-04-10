@@ -41,16 +41,16 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
+    <Reference Include="Neptuo, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.0.1\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Events, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Models.1.0.0\lib\net45\Neptuo.Models.dll</HintPath>
+    <Reference Include="Neptuo.Models, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Models.1.1.0\lib\net45\Neptuo.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -70,9 +70,11 @@
     <Compile Include="Data\Entity\EventEntity.cs" />
     <Compile Include="Data\Entity\IEventContext.cs" />
     <Compile Include="Data\EntityEventStore.cs" />
+    <Compile Include="Data\Entity\PublishedToHandlerEntity.cs" />
+    <Compile Include="Data\Entity\UnPublishedEventEntity.cs" />
+    <Compile Include="Events\EntityEventPublishObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="__EnsureConditionExtensions.cs" />
     <Compile Include="_EnsureExceptionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
