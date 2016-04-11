@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
     <Compile Include="Events\IEventPublishObserver.cs" />
+    <Compile Include="Events\PersistentEventDispatcher.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Data\EventModel.cs" />
     <Compile Include="Data\IEventStore.cs" />
