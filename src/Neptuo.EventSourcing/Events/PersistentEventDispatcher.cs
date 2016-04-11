@@ -1,4 +1,6 @@
 ﻿using Neptuo.Events.Handlers;
+using Neptuo.Internals;
+using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,19 @@ namespace Neptuo.Events
     /// </summary>
     public class PersistentEventDispatcher : IEventDispatcher, IEventHandlerCollection
     {
+        private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
         private readonly IEventPublishObserver publishObserver;
+        private readonly HandlerDescriptorProvider descriptorProvider;
 
         public PersistentEventDispatcher(IEventPublishObserver publishObserver)
         {
             Ensure.NotNull(publishObserver, "publishObserver");
             this.publishObserver = publishObserver;
+            this.descriptorProvider = new HandlerDescriptorProvider(
+                typeof(IEventHandler<>),
+                typeof(IEventHandlerContext<>),
+                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync)
+            );
         }
 
         public IEventHandlerCollection Add<TEvent>(IEventHandler<TEvent> handler)
@@ -28,16 +37,26 @@ namespace Neptuo.Events
             // TODO:
             // - Store complex handler descriptor (only for those which has identifier, publishment to the observer will be executed).
             // - Determine handler identifier.
-            // - Build lambda function used to publish event to the handler.
-            // - Store information about Envelope or EventHandlerContext requirement.
+            HandlerDescriptor descriptor = descriptorProvider.Create(handler, typeof(TEvent));
 
-            throw new NotImplementedException();
+            HashSet<HandlerDescriptor> handlers;
+            if (!storage.TryGetValue(descriptor.ArgumentType, out handlers))
+                storage[descriptor.ArgumentType] = handlers = new HashSet<HandlerDescriptor>();
+
+            handlers.Add(descriptor);
+            return this;
         }
 
         public IEventHandlerCollection Remove<TEvent>(IEventHandler<TEvent> handler)
         {
             Ensure.NotNull(handler, "handler");
-            throw new NotImplementedException();
+
+            HandlerDescriptor descriptor = descriptorProvider.Create(handler, typeof(TEvent));
+            HashSet<HandlerDescriptor> handlers;
+            if (storage.TryGetValue(descriptor.ArgumentType, out handlers))
+                handlers.Remove(descriptor);
+
+            return this;
         }
 
         public Task PublishAsync<TEvent>(TEvent payload)

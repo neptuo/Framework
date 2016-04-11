@@ -17,9 +17,14 @@ namespace Neptuo.Internals
         public object Handler { get; private set; }
 
         /// <summary>
+        /// The type of the parameter to the execute method.
+        /// </summary>
+        public Type ArgumentType { get; private set; }
+
+        /// <summary>
         /// The method that executes handler with parameter.
         /// </summary>
-        public Action<object> Execute { get; private set; }
+        protected Action<object, object> ExecuteMethod { get; private set; }
 
 
         /// <summary>
@@ -40,15 +45,46 @@ namespace Neptuo.Internals
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        public HandlerDescriptor(object handler, Action<object> execute, bool isPlain, bool isEnvelope, bool isContext)
+        public HandlerDescriptor(object handler, Type argumentType, Action<object, object> execute, bool isPlain, bool isEnvelope, bool isContext)
         {
             Ensure.NotNull(handler, "handler");
+            Ensure.NotNull(argumentType, "argumentType");
             Ensure.NotNull(execute, "execute");
             Handler = handler;
-            Execute = execute;
+            ArgumentType = argumentType;
+            ExecuteMethod = execute;
             IsPlain = isPlain;
             IsEnvelope = isEnvelope;
             IsContext = isContext;
+        }
+
+        /// <summary>
+        /// Executes handler method with <paramref name="parameter"/>.
+        /// </summary>
+        /// <param name="parameter">The argument to the handle method.</param>
+        public void Execute(object parameter)
+        {
+            ExecuteMethod(Handler, parameter);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 7;
+                hash = 13 * hash * Handler.GetHashCode();
+                hash = 13 * hash * ArgumentType.GetHashCode();
+                return hash;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            HandlerDescriptor other = obj as HandlerDescriptor;
+            if (other == null)
+                return false;
+
+            return Handler == other.Handler && ArgumentType == other.ArgumentType;
         }
     }
 }
