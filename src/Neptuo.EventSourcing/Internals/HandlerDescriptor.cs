@@ -17,14 +17,6 @@ namespace Neptuo.Internals
         public string HandlerIdentifier { get; private set; }
 
         /// <summary>
-        /// Gets whether <see cref="Handler"/> has defined unique identifier.
-        /// </summary>
-        public bool HasHandlerIdentifier
-        {
-            get { return !String.IsNullOrEmpty(HandlerIdentifier); }
-        }
-
-        /// <summary>
         /// The instance itself.
         /// </summary>
         public object Handler { get; private set; }
@@ -41,6 +33,7 @@ namespace Neptuo.Internals
         public HandlerDescriptor(string handlerIdentifier, object handler, Type argumentType, Func<object, object, Task> execute, bool isPlain, bool isEnvelope, bool isContext)
             : base(argumentType, isPlain, isEnvelope, isContext)
         {
+            Ensure.NotNullOrEmpty(handlerIdentifier, "handlerIdentifier");
             Ensure.NotNull(handler, "handler");
             Ensure.NotNull(execute, "execute");
             HandlerIdentifier = handlerIdentifier;

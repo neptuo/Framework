@@ -75,7 +75,7 @@ namespace Neptuo.Events
                 if (argument.IsContext)
                 {
                     // If passed argument is context, throw.
-                    throw Ensure.Exception.NotSupported("The PersistentEventDispatcher doesn't support passing in an event handler context.");
+                    throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
                 }
                 else
                 {
@@ -110,9 +110,9 @@ namespace Neptuo.Events
                     else if (handler.IsPlain)
                         await handler.Execute(eventPayload);
                     else
-                        throw Ensure.Exception.InvalidOperation("Handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HasHandlerIdentifier ? handler.HandlerIdentifier : handler.Handler.GetType().AssemblyQualifiedName);
+                        throw Ensure.Exception.InvalidOperation("The handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HandlerIdentifier);
 
-                    if (handler.HasHandlerIdentifier && eventWithKey != null)
+                    if (eventWithKey != null)
                         await publishObserver.OnPublishAsync(eventWithKey.Key, handler.HandlerIdentifier);
                 }
             }
