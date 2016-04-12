@@ -9,17 +9,25 @@ namespace Neptuo.Internals
     /// <summary>
     /// Provides description of (command or event) handler.
     /// </summary>
-    internal class HandlerDescriptor
+    internal class HandlerDescriptor : ArgumentDescriptor
     {
+        /// <summary>
+        /// The unique handler identifier.
+        /// </summary>
+        public string HandlerIdentifier { get; private set; }
+
+        /// <summary>
+        /// Gets whether <see cref="Handler"/> has defined unique identifier.
+        /// </summary>
+        public bool HasHandlerIdentifier
+        {
+            get { return !String.IsNullOrEmpty(HandlerIdentifier); }
+        }
+
         /// <summary>
         /// The instance itself.
         /// </summary>
         public object Handler { get; private set; }
-
-        /// <summary>
-        /// The type of the parameter to the execute method.
-        /// </summary>
-        public Type ArgumentType { get; private set; }
 
         /// <summary>
         /// The method that executes handler with parameter.
@@ -28,34 +36,16 @@ namespace Neptuo.Internals
 
 
         /// <summary>
-        /// Whether is plain command/event handler.
-        /// </summary>
-        public bool IsPlain { get; private set; }
-
-        /// <summary>
-        /// Whether requires envelope wrapper.
-        /// </summary>
-        public bool IsEnvelope { get; private set; }
-
-        /// <summary>
-        /// Whether required context wrapper.
-        /// </summary>
-        public bool IsContext { get; private set; }
-
-        /// <summary>
         /// Creates new instance.
         /// </summary>
-        public HandlerDescriptor(object handler, Type argumentType, Action<object, object> execute, bool isPlain, bool isEnvelope, bool isContext)
+        public HandlerDescriptor(string handlerIdentifier, object handler, Type argumentType, Action<object, object> execute, bool isPlain, bool isEnvelope, bool isContext)
+            : base(argumentType, isPlain, isEnvelope, isContext)
         {
             Ensure.NotNull(handler, "handler");
-            Ensure.NotNull(argumentType, "argumentType");
             Ensure.NotNull(execute, "execute");
+            HandlerIdentifier = handlerIdentifier;
             Handler = handler;
-            ArgumentType = argumentType;
             ExecuteMethod = execute;
-            IsPlain = isPlain;
-            IsEnvelope = isEnvelope;
-            IsContext = isContext;
         }
 
         /// <summary>

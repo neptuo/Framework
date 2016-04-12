@@ -24,21 +24,37 @@ namespace Neptuo.Internals
             this.methodName = methodName;
         }
 
-        public HandlerDescriptor Create(object handler, Type argumentType)
+        public HandlerDescriptor Get(object handler, Type argumentType)
         {
             Ensure.NotNull(handler, "handler");
             Type handlerType = handler.GetType();
+
+            string handlerIdentifier = FindIdentifier(handlerType);
             
             MethodInfo method = handlerType.GetInterfaceMap(interfaceType.MakeGenericType(argumentType)).TargetMethods
                 .FirstOrDefault(m => m.Name.EndsWith(methodName));
 
+            ArgumentDescriptor argument = Get(argumentType);
+            return new HandlerDescriptor(
+                handlerIdentifier,
+                handler,
+                argument.ArgumentType,
+                (h, p) => method.Invoke(h, new object[] { p }),
+                argument.IsPlain,
+                argument.IsEnvelope,
+                argument.IsContext
+            );
+        }
+
+        public ArgumentDescriptor Get(Type argumentType)
+        {
             bool isEnvelope = false;
             bool isContext = false;
             if (argumentType.IsGenericType)
             {
                 Type argumentGenericType = argumentType.GetGenericTypeDefinition();
                 Type[] arguments = argumentType.GetGenericArguments();
-                if(arguments.Length == 1)
+                if (arguments.Length == 1)
                 {
                     isContext = argumentGenericType == contextGenericType;
                     if (isContext)
@@ -54,14 +70,40 @@ namespace Neptuo.Internals
                 }
             }
 
-            return new HandlerDescriptor(
-                handler,
+            return new ArgumentDescriptor(
                 argumentType,
-                (h, p) => method.Invoke(h, new object[] { p }),
                 isEnvelope || isContext,
                 isEnvelope,
                 isContext
             );
+        }
+
+        public Type UnWrapArgumentType(Type argumentType)
+        {
+            if (argumentType.IsGenericType)
+            {
+                Type argumentGenericType = argumentType.GetGenericTypeDefinition();
+                Type[] arguments = argumentType.GetGenericArguments();
+                if (arguments.Length == 1)
+                {
+                    if (argumentGenericType == contextGenericType)
+                        argumentType = arguments[0];
+                    else if (argumentGenericType == typeof(Envelope<>))
+                        argumentType = arguments[0];
+                }
+            }
+
+            return argumentType;
+        }
+
+        private string FindIdentifier(Type handlerType)
+        {
+            string identifier = handlerType.AssemblyQualifiedName;
+            IdentifierAttribute attribute = handlerType.GetCustomAttribute<IdentifierAttribute>();
+            if (attribute != null)
+                identifier = attribute.Value;
+
+            return identifier;
         }
     }
 }
