@@ -1,5 +1,4 @@
-﻿using Neptuo.Components;
-using Neptuo.Events.Handlers;
+﻿using Neptuo.Events.Handlers;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
 using System;
@@ -56,10 +55,10 @@ namespace Neptuo.Events
             return this;
         }
 
-        public Task PublishAsync<TEvent>(TEvent payload)
+        public async Task PublishAsync<TEvent>(TEvent eventPayload)
         {
             //TODO: Execute on different thread!
-
+            
             ArgumentDescriptor argument = descriptorProvider.Get(typeof(TEvent));
 
             // 1) Find all handlers.
@@ -69,13 +68,14 @@ namespace Neptuo.Events
                 bool hasContextHandler = handlers.Any(d => d.IsContext);
                 bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
 
+                object payload = eventPayload;
                 object context = null;
                 object envelope = null;
 
                 if (argument.IsContext)
                 {
                     // If passed argument is context, throw.
-                    throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
+                    throw Ensure.Exception.NotSupported("The PersistentEventDispatcher doesn't support passing in an event handler context.");
                 }
                 else
                 {
@@ -84,13 +84,13 @@ namespace Neptuo.Events
                     {
                         // If passed argument is envelope, extract payload.
                         envelope = payload;
-                        payload = default(TEvent); //TODO: Extract payload from envelope.
+                        payload = ((Envelope)envelope).Body;
                     }
                     else
                     {
                         // If passed argument is not envelope, try to create it if needed.
                         if (hasEnvelopeHandler)
-                            envelope = Envelope.Create(payload);
+                            envelope = Envelope.Create(eventPayload);
                     }
 
                     if (hasContextHandler)
@@ -100,29 +100,22 @@ namespace Neptuo.Events
                     }
                 }
 
-                IEvent eventPayload = payload as IEvent;
+                IEvent eventWithKey = payload as IEvent;
                 foreach (HandlerDescriptor handler in handlers)
                 {
-                    Task task = null;
                     if (handler.IsContext)
-                        task = handler.Execute(context);
+                        await handler.Execute(context);
                     else if (handler.IsEnvelope)
-                        task = handler.Execute(envelope);
+                        await handler.Execute(envelope);
                     else if (handler.IsPlain)
-                        task = handler.Execute(payload);
+                        await handler.Execute(eventPayload);
                     else
                         throw Ensure.Exception.InvalidOperation("Handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HasHandlerIdentifier ? handler.HandlerIdentifier : handler.Handler.GetType().AssemblyQualifiedName);
 
-                    task.Wait();
-                    if (handler.HasHandlerIdentifier && eventPayload != null)
-                    {
-                        task = publishObserver.OnPublishAsync(eventPayload.Key, handler.HandlerIdentifier);
-                        task.Wait();
-                    }
+                    if (handler.HasHandlerIdentifier && eventWithKey != null)
+                        await publishObserver.OnPublishAsync(eventWithKey.Key, handler.HandlerIdentifier);
                 }
             }
-
-            return Task.FromResult(true);
         }
     }
 }
