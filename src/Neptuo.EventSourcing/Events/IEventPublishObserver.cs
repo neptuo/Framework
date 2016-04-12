@@ -17,6 +17,6 @@ namespace Neptuo.Events
         /// </summary>
         /// <param name="eventKey">The published event key.</param>
         /// <param name="handlerIdentifier">The idenfier of the handler where event was published.</param>
-        void OnPublish(IKey eventKey, string handlerIdentifier);
+        Task OnPublishAsync(IKey eventKey, string handlerIdentifier);
     }
 }

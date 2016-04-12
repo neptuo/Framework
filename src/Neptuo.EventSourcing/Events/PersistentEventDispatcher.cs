@@ -58,6 +58,8 @@ namespace Neptuo.Events
 
         public Task PublishAsync<TEvent>(TEvent payload)
         {
+            //TODO: Execute on different thread!
+
             ArgumentDescriptor argument = descriptorProvider.Get(typeof(TEvent));
 
             // 1) Find all handlers.
@@ -97,10 +99,26 @@ namespace Neptuo.Events
                         context = default(TEvent); // TODO: Create instance of the context.
                 }
 
-                // TODO: Publish to handlers in the order of the registration (? May be it is not important).
-                // 2) After publishing to each one, call publishObserver.
-                // - Store complex handler descriptor (only for those which has identifier, publishment to the observer will be executed).
-                throw new NotImplementedException();
+                IEvent eventPayload = payload as IEvent;
+                foreach (HandlerDescriptor handler in handlers)
+                {
+                    Task task = null;
+                    if (handler.IsContext)
+                        task = handler.Execute(context);
+                    else if (handler.IsEnvelope)
+                        task = handler.Execute(envelope);
+                    else if (handler.IsPlain)
+                        task = handler.Execute(payload);
+                    else
+                        throw Ensure.Exception.InvalidOperation("Handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HasHandlerIdentifier ? handler.HandlerIdentifier : handler.Handler.GetType().AssemblyQualifiedName);
+
+                    task.Wait();
+                    if (handler.HasHandlerIdentifier && eventPayload != null)
+                    {
+                        task = publishObserver.OnPublishAsync(eventPayload.Key, handler.HandlerIdentifier);
+                        task.Wait();
+                    }
+                }
             }
 
             return Task.FromResult(true);

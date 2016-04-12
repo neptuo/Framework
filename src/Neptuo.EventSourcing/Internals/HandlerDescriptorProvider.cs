@@ -39,7 +39,7 @@ namespace Neptuo.Internals
                 handlerIdentifier,
                 handler,
                 argument.ArgumentType,
-                (h, p) => method.Invoke(h, new object[] { p }),
+                (h, p) => (Task)method.Invoke(h, new object[] { p }),
                 argument.IsPlain,
                 argument.IsEnvelope,
                 argument.IsContext
