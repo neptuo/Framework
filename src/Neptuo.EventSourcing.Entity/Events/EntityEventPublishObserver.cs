@@ -29,8 +29,7 @@ namespace Neptuo.Events
                 return Task.FromResult(true);
 
             entity.PublishedToHandlers.Add(new PublishedToHandlerEntity(handlerIdentifier));
-            context.SaveChanges();
-            return Task.FromResult(true);
+            return context.SaveAsync();
         }
     }
 }

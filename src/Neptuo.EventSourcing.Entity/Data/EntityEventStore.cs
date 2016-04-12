@@ -44,7 +44,7 @@ namespace Neptuo.Data
                 context.UnPublishedEvents.Add(new UnPublishedEventEntity(entity));
             }
 
-            context.SaveChanges();
+            context.Save();
         }
     }
 }

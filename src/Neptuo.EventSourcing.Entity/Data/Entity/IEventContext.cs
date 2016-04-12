@@ -25,11 +25,11 @@ namespace Neptuo.Data.Entity
         /// <summary>
         /// Saves changes to the storage.
         /// </summary>
-        void SaveChanges();
+        void Save();
 
         /// <summary>
         /// Saves changes to the storage asynchronously.
         /// </summary>
-        Task SaveChangesAsync();
+        Task SaveAsync();
     }
 }
