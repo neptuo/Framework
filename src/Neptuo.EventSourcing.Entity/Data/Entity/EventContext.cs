@@ -27,12 +27,12 @@ namespace Neptuo.Data.Entity
             UnPublishedEvents = Set<UnPublishedEventEntity>();
         }
 
-        public new void Save()
+        public void Save()
         {
             base.SaveChanges();
         }
 
-        public new Task SaveAsync()
+        public Task SaveAsync()
         {
             return base.SaveChangesAsync();
         }
