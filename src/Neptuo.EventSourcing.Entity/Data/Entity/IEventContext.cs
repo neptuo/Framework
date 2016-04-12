@@ -23,8 +23,13 @@ namespace Neptuo.Data.Entity
         IDbSet<UnPublishedEventEntity> UnPublishedEvents { get; }
 
         /// <summary>
-        /// Saves change to the storage.
+        /// Saves changes to the storage.
         /// </summary>
         void SaveChanges();
+
+        /// <summary>
+        /// Saves changes to the storage asynchronously.
+        /// </summary>
+        Task SaveChangesAsync();
     }
 }

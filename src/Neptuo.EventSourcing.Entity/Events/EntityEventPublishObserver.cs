@@ -18,7 +18,7 @@ namespace Neptuo.Events
             this.context = context;
         }
 
-        public void OnPublish(IKey key, string handlerIdentifier)
+        public Task OnPublishAsync(IKey key, string handlerIdentifier)
         {
             GuidKey eventKey = key as GuidKey;
             if (eventKey == null)
@@ -26,10 +26,11 @@ namespace Neptuo.Events
 
             UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.Type == eventKey.Type && e.Event.ID == eventKey.Guid);
             if (entity == null)
-                return;
+                return Task.FromResult(true);
 
             entity.PublishedToHandlers.Add(new PublishedToHandlerEntity(handlerIdentifier));
             context.SaveChanges();
+            return Task.FromResult(true);
         }
     }
 }

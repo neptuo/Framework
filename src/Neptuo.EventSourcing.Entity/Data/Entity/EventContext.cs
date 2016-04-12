@@ -31,5 +31,10 @@ namespace Neptuo.Data.Entity
         {
             base.SaveChanges();
         }
+
+        public new Task SaveChangesAsync()
+        {
+            base.SaveChangesAsync();
+        }
     }
 }
