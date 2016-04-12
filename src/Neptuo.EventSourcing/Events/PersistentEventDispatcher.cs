@@ -74,10 +74,8 @@ namespace Neptuo.Events
 
                 if (argument.IsContext)
                 {
-                    // If passed argument is context, extract envelope and payload.
-                    context = payload;
-                    envelope = default(TEvent); //TODO: Extract envelope from context.
-                    payload = default(TEvent); //TODO: Extract payload from context.
+                    // If passed argument is context, throw.
+                    throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
                 }
                 else
                 {
@@ -96,7 +94,10 @@ namespace Neptuo.Events
                     }
 
                     if (hasContextHandler)
-                        context = default(TEvent); // TODO: Create instance of the context.
+                    {
+                        Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
+                        context = Activator.CreateInstance(contextType, envelope, this, this);
+                    }
                 }
 
                 IEvent eventPayload = payload as IEvent;
