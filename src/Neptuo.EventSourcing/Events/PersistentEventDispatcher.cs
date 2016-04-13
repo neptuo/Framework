@@ -1,4 +1,6 @@
-﻿using Neptuo.Events.Handlers;
+﻿using Neptuo.Data;
+using Neptuo.Events.Handlers;
+using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
 using System;
@@ -16,13 +18,13 @@ namespace Neptuo.Events
     public class PersistentEventDispatcher : IEventDispatcher, IEventHandlerCollection
     {
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
-        private readonly IEventPublishObserver publishObserver;
+        private readonly IEventPublishingStore eventStore;
         private readonly HandlerDescriptorProvider descriptorProvider;
 
-        public PersistentEventDispatcher(IEventPublishObserver publishObserver)
+        public PersistentEventDispatcher(IEventPublishingStore eventStore)
         {
-            Ensure.NotNull(publishObserver, "publishObserver");
-            this.publishObserver = publishObserver;
+            Ensure.NotNull(eventStore, "eventStore");
+            this.eventStore = eventStore;
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),
@@ -61,60 +63,87 @@ namespace Neptuo.Events
             
             ArgumentDescriptor argument = descriptorProvider.Get(typeof(TEvent));
 
-            // 1) Find all handlers.
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
+                await PublishToHandlersAsync(handlers, argument, eventPayload);
+        }
+
+        private async Task PublishToHandlersAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload)
+        {
+            bool hasContextHandler = handlers.Any(d => d.IsContext);
+            bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
+
+            object payload = eventPayload;
+            object context = null;
+            object envelope = null;
+
+            if (argument.IsContext)
             {
-                bool hasContextHandler = handlers.Any(d => d.IsContext);
-                bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
-
-                object payload = eventPayload;
-                object context = null;
-                object envelope = null;
-
-                if (argument.IsContext)
+                // If passed argument is context, throw.
+                throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
+            }
+            else
+            {
+                // If passed argument is not context, try to create it if needed.
+                if (argument.IsEnvelope)
                 {
-                    // If passed argument is context, throw.
-                    throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
+                    // If passed argument is envelope, extract payload.
+                    envelope = payload;
+                    payload = ((Envelope)envelope).Body;
                 }
                 else
                 {
-                    // If passed argument is not context, try to create it if needed.
-                    if (argument.IsEnvelope)
-                    {
-                        // If passed argument is envelope, extract payload.
-                        envelope = payload;
-                        payload = ((Envelope)envelope).Body;
-                    }
-                    else
-                    {
-                        // If passed argument is not envelope, try to create it if needed.
-                        if (hasEnvelopeHandler)
-                            envelope = Envelope.Create(eventPayload);
-                    }
-
-                    if (hasContextHandler)
-                    {
-                        Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
-                        context = Activator.CreateInstance(contextType, envelope, this, this);
-                    }
+                    // If passed argument is not envelope, try to create it if needed.
+                    if (hasEnvelopeHandler)
+                        envelope = Envelope.Create(eventPayload);
                 }
 
-                IEvent eventWithKey = payload as IEvent;
-                foreach (HandlerDescriptor handler in handlers)
+                if (hasContextHandler)
                 {
-                    if (handler.IsContext)
-                        await handler.Execute(context);
-                    else if (handler.IsEnvelope)
-                        await handler.Execute(envelope);
-                    else if (handler.IsPlain)
-                        await handler.Execute(eventPayload);
-                    else
-                        throw Ensure.Exception.InvalidOperation("The handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HandlerIdentifier);
-
-                    if (eventWithKey != null)
-                        await publishObserver.OnPublishAsync(eventWithKey.Key, handler.HandlerIdentifier);
+                    Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
+                    context = Activator.CreateInstance(contextType, envelope, this, this);
                 }
+            }
+
+            IEvent eventWithKey = payload as IEvent;
+            foreach (HandlerDescriptor handler in handlers)
+            {
+                if (handler.IsContext)
+                    await handler.Execute(context);
+                else if (handler.IsEnvelope)
+                    await handler.Execute(envelope);
+                else if (handler.IsPlain)
+                    await handler.Execute(eventPayload);
+                else
+                    throw Ensure.Exception.InvalidOperation("The handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HandlerIdentifier);
+
+                if (eventWithKey != null)
+                    await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
+            }
+        }
+
+        public async Task RecoverAsync(IFormatter formatter)
+        {
+            IEnumerable<EventPublishingModel> models = await eventStore.GetAsync();
+            foreach (EventPublishingModel model in models)
+            {
+                IEvent eventModel = formatter.DeserializeEvent(Type.GetType(model.Event.EventKey.Type), model.Event.Payload);
+                await RecoverEventAsync(eventModel, model.PublishedHandlerIdentifiers);
+            }
+
+            await eventStore.ClearAsync();
+        }
+
+        private async Task RecoverEventAsync(IEvent model, IEnumerable<string> handlerIdentifiers)
+        {
+            ArgumentDescriptor argument = descriptorProvider.Get(model.GetType());
+
+            HashSet<HandlerDescriptor> handlers;
+            if (storage.TryGetValue(argument.ArgumentType, out handlers))
+            {
+                IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !handlerIdentifiers.Contains(h.HandlerIdentifier));
+                if (unPublishedHandlers.Any())
+                    await PublishToHandlersAsync(unPublishedHandlers, argument, model);
             }
         }
     }

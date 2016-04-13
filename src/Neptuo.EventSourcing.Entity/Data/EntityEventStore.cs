@@ -3,13 +3,14 @@ using Neptuo.Data.Entity;
 using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Neptuo.Data
 {
-    public class EntityEventStore : IEventStore
+    public class EntityEventStore : IEventStore, IEventPublishingStore
     {
         private readonly IEventContext context;
 
@@ -45,6 +46,35 @@ namespace Neptuo.Data
             }
 
             context.Save();
+        }
+
+        public async Task<IEnumerable<EventPublishingModel>> GetAsync()
+        {
+            return await context.UnPublishedEvents
+                .Select(e => new EventPublishingModel(e.Event.ToModel(), e.PublishedToHandlers.Select(h => h.HandlerIdentifier)))
+                .ToListAsync();
+        }
+
+        public Task PublishedAsync(IKey key, string handlerIdentifier)
+        {
+            GuidKey eventKey = key as GuidKey;
+            if (eventKey == null)
+                throw Ensure.Exception.NotGuidKey(eventKey.GetType(), "key");
+
+            UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.Type == eventKey.Type && e.Event.ID == eventKey.Guid);
+            if (entity == null)
+                return Task.FromResult(true);
+
+            entity.PublishedToHandlers.Add(new PublishedToHandlerEntity(handlerIdentifier));
+            return context.SaveAsync();
+        }
+
+        public Task ClearAsync()
+        {
+            foreach (UnPublishedEventEntity entity in context.UnPublishedEvents)
+                context.UnPublishedEvents.Remove(entity);
+
+            return context.SaveAsync();
         }
     }
 }

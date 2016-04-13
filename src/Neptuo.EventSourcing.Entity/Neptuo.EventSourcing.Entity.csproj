@@ -72,7 +72,6 @@
     <Compile Include="Data\EntityEventStore.cs" />
     <Compile Include="Data\Entity\PublishedToHandlerEntity.cs" />
     <Compile Include="Data\Entity\UnPublishedEventEntity.cs" />
-    <Compile Include="Events\EntityEventPublishObserver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="_EnsureExceptionExtensions.cs" />
