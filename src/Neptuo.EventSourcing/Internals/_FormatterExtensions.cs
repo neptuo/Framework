@@ -11,7 +11,7 @@ namespace Neptuo.Internals
 {
     internal static class _FormatterExtensions
     {
-        public static string SerializeEvent(this IFormatter formatter, IEvent payload)
+        public static string SerializeEvent(this ISerializer formatter, IEvent payload)
         {
             using (MemoryStream stream = new MemoryStream())
             {
@@ -29,7 +29,7 @@ namespace Neptuo.Internals
             throw Ensure.Exception.NotImplemented();
         }
 
-        public static IEvent DeserializeEvent(this IFormatter formatter, Type eventType, string payload)
+        public static IEvent DeserializeEvent(this IDeserializer formatter, Type eventType, string payload)
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(payload)))
             {

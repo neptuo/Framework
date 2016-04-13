@@ -122,7 +122,13 @@ namespace Neptuo.Events
             }
         }
 
-        public async Task RecoverAsync(IFormatter formatter)
+        /// <summary>
+        /// Re-publishes events from unpublished queue.
+        /// Uses <paramref name="formatter"/> to deserialize events from store.
+        /// </summary>
+        /// <param name="formatter">The event deserializer.</param>
+        /// <returns>The continuation task.</returns>
+        public async Task RecoverAsync(IDeserializer formatter)
         {
             IEnumerable<EventPublishingModel> models = await eventStore.GetAsync();
             foreach (EventPublishingModel model in models)
