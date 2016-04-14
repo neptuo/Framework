@@ -37,8 +37,8 @@
       <HintPath>..\..\packages\Neptuo.5.1.0\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Commands.1.0.0\lib\net45\Neptuo.Commands.dll</HintPath>
+    <Reference Include="Neptuo.Commands, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Commands.1.1.0\lib\net45\Neptuo.Commands.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Events, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
