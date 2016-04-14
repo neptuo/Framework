@@ -18,6 +18,5 @@ namespace Neptuo
 
     internal class Envelope<T> : Envelope
     {
-
     }
 }

@@ -19,7 +19,7 @@ namespace Neptuo.Data
         public Task<IEnumerable<EventPublishingModel>> GetAsync();
 
         /// <summary>
-        /// Saved information about publishing <paramref name="eventKey"/> to the <paramref name="handlerIdentifier"/>.
+        /// Saves information about publishing <paramref name="eventKey"/> to the <paramref name="handlerIdentifier"/>.
         /// </summary>
         /// <param name="eventKey">The key of the published event.</param>
         /// <param name="handlerIdentifier">The identifier of the handler where the event was published to.</param>
@@ -27,7 +27,7 @@ namespace Neptuo.Data
         Task PublishedAsync(IKey eventKey, string handlerIdentifier);
 
         /// <summary>
-        /// Clears the queue of unpublished events.
+        /// Clears the queue of the unpublished events.
         /// </summary>
         /// <returns>The continuation task.</returns>
         Task ClearAsync();
