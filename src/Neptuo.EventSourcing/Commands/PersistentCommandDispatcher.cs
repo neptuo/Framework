@@ -48,6 +48,17 @@ namespace Neptuo.Commands
         public Task HandleAsync<TCommand>(TCommand command)
         {
             Ensure.NotNull(command, "command");
+
+            ArgumentDescriptor argument = descriptorProvider.Get(typeof(TCommand));
+            HandlerDescriptor handler;
+            if (storage.TryGetValue(argument.ArgumentType, out handler))
+                return HandleAsyncSerial(handler, argument, command);
+
+            throw new MissingCommandHandlerException(argument.ArgumentType);
+        }
+
+        private Task HandleAsyncSerial(HandlerDescriptor handler, ArgumentDescriptor argument, object command)
+        {
             throw new NotImplementedException();
         }
     }
