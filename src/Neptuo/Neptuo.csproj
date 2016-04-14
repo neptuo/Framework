@@ -105,6 +105,7 @@
     <Compile Include="Text\Positions\IDocumentSpan.cs" />
     <Compile Include="OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
+    <Compile Include="Threading\Tasks\Async.cs" />
     <Compile Include="_EnvelopeExtensions.cs" />
     <Compile Include="_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
