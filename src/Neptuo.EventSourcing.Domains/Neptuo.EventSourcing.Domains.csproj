@@ -61,7 +61,6 @@
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Internals\Envelope.cs" />
     <Compile Include="KeyFactory.cs" />
     <Compile Include="Models\AggregateRootException.cs" />
     <Compile Include="Models\Domains\AggregateRoot.cs" />

@@ -76,7 +76,6 @@
     <Compile Include="Events\PersistentEventDispatcher.cs" />
     <Compile Include="IdentifierAttribute.cs" />
     <Compile Include="Internals\ArgumentDescriptor.cs" />
-    <Compile Include="Internals\Envelope.cs" />
     <Compile Include="Internals\HandlerDescriptor.cs" />
     <Compile Include="Internals\HandlerDescriptorProvider.cs" />
     <Compile Include="Internals\_FormatterExtensions.cs" />
