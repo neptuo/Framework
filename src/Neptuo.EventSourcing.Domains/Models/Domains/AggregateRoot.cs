@@ -2,6 +2,7 @@
 using Neptuo.Events.Handlers;
 using Neptuo.Linq.Expressions;
 using Neptuo.Models.Keys;
+using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,7 +110,7 @@ namespace Neptuo.Models.Domains
                     throw new AggregateRootException("The error raised during updating state.", e);
             }
 
-            return Task.FromResult(true);
+            return Async.CompletedTask;
         }
     }
 }

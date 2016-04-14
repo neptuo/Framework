@@ -16,7 +16,7 @@ namespace Neptuo.Data
         /// Returns the enumeration of the unpublished commands.
         /// </summary>
         /// <returns>The enumeration of the unpublished commands.</returns>
-        public Task<IEnumerable<CommandModel>> GetAsync();
+        Task<IEnumerable<CommandModel>> GetAsync();
 
         /// <summary>
         /// Saves information about publishing <paramref name="commandKey"/>.

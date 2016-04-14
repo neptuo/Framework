@@ -16,7 +16,7 @@ namespace Neptuo.Data
         /// Returns the enumeration of the unpublished events which were published to the handlers.
         /// </summary>
         /// <returns>The enumeration of the unpublished events which were published to the handlers.</returns>
-        public Task<IEnumerable<EventPublishingModel>> GetAsync();
+        Task<IEnumerable<EventPublishingModel>> GetAsync();
 
         /// <summary>
         /// Saves information about publishing <paramref name="eventKey"/> to the <paramref name="handlerIdentifier"/>.
