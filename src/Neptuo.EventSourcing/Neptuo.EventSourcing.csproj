@@ -66,6 +66,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
+    <Compile Include="Commands\PersistentCommandDispatcher.cs" />
     <Compile Include="Data\CommandModel.cs" />
     <Compile Include="Data\EventPublishingModel.cs" />
     <Compile Include="Data\ICommandPublishingStore.cs" />

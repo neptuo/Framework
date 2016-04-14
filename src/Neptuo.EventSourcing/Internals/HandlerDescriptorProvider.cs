@@ -25,7 +25,6 @@ namespace Neptuo.Internals
         public HandlerDescriptorProvider(Type interfaceType, Type contextGenericType, string methodName)
         {
             Ensure.NotNull(interfaceType, "interfaceType");
-            Ensure.NotNull(contextGenericType, "contextGenericType");
             Ensure.NotNullOrEmpty(methodName, "methodName");
             this.interfaceType = interfaceType;
             this.contextGenericType = contextGenericType;
@@ -75,7 +74,7 @@ namespace Neptuo.Internals
                 Type[] arguments = argumentType.GetGenericArguments();
                 if (arguments.Length == 1)
                 {
-                    isContext = argumentGenericType == contextGenericType;
+                    isContext = contextGenericType == null ? false : argumentGenericType == contextGenericType;
                     if (isContext)
                     {
                         argumentType = arguments[0];

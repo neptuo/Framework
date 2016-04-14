@@ -13,6 +13,12 @@ namespace Neptuo.Data
     public interface ICommandStore
     {
         /// <summary>
+        /// Saves <paramref name="command"/>.
+        /// </summary>
+        /// <param name="command">The command to save.</param>
+        void Save(CommandModel command);
+
+        /// <summary>
         /// Saves <paramref name="commands"/>.
         /// </summary>
         /// <param name="commands">The commands to save.</param>
