@@ -60,7 +60,7 @@ namespace Neptuo.EventSourcing
         [TestMethod]
         public void SaveAndLoadWithEntityRepository()
         {
-            EntityEventStore eventStore = new EntityEventStore(new EventContext(@"Data Source=.\SQLEXPRESS; Initial Catalog=EventStore;Integrated Security=SSPI"));
+            EntityEventStore eventStore = new EntityEventStore(new EventSourcingContext(@"Data Source=.\SQLEXPRESS; Initial Catalog=EventStore;Integrated Security=SSPI"));
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore,

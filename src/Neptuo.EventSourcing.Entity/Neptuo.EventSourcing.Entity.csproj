@@ -66,11 +66,15 @@
     <Compile Include="..\_AssemblyInfo.cs">
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Data\Entity\EventContext.cs" />
+    <Compile Include="Data\EntityCommandStore.cs" />
+    <Compile Include="Data\Entity\EventSourcingContext.cs" />
     <Compile Include="Data\Entity\EventEntity.cs" />
+    <Compile Include="Data\Entity\ICommandContext.cs" />
     <Compile Include="Data\Entity\IEventContext.cs" />
     <Compile Include="Data\EntityEventStore.cs" />
     <Compile Include="Data\Entity\PublishedToHandlerEntity.cs" />
+    <Compile Include="Data\Entity\CommandEntity.cs" />
+    <Compile Include="Data\Entity\UnPublishedCommandEntity.cs" />
     <Compile Include="Data\Entity\UnPublishedEventEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
