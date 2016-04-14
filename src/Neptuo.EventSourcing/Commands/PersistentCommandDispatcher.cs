@@ -37,12 +37,25 @@ namespace Neptuo.Commands
 
         public ICommandHandlerCollection Add<TCommand>(ICommandHandler<TCommand> handler)
         {
-            throw new NotImplementedException();
+            Ensure.NotNull(handler, "handler");
+            HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TCommand));
+            storage[descriptor.ArgumentType] = descriptor;
+            return this;
         }
 
         public bool TryGet<TCommand>(out ICommandHandler<TCommand> handler)
         {
-            throw new NotImplementedException();
+            ArgumentDescriptor argument = descriptorProvider.Get(typeof(TCommand));
+
+            HandlerDescriptor descriptor;
+            if(storage.TryGetValue(argument.ArgumentType, out descriptor))
+            {
+                handler = (ICommandHandler<TCommand>)descriptor.Handler;
+                return true;
+            }
+
+            handler = null;
+            return false;
         }
 
         public Task HandleAsync<TCommand>(TCommand command)
