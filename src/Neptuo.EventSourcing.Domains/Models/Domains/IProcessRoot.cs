@@ -15,6 +15,6 @@ namespace Neptuo.Models.Domains
         /// <summary>
         /// The enumeration of unpublished commands.
         /// </summary>
-        IEnumerable<ICommand> Commands { get; }
+        IEnumerable<Envelope<ICommand>> Commands { get; }
     }
 }

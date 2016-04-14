@@ -47,7 +47,7 @@ namespace Neptuo.Models.Domains
         }
 
         /// <summary>
-        /// Creates new instance with <paramref name="key"/>.
+        /// Loads instance with <paramref name="key"/>.
         /// </summary>
         /// <param name="key">The key of this instance.</param>
         /// <param name="events">The enumeration of events describing current state.</param>

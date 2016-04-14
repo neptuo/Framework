@@ -14,31 +14,43 @@ namespace Neptuo.Models.Domains
     /// </summary>
     public class ProcessRoot : AggregateRoot, IProcessRoot
     {
-        private readonly List<ICommand> commands = new List<ICommand>();
+        private readonly List<Envelope<ICommand>> commands = new List<Envelope<ICommand>>();
 
         /// <summary>
         /// The enumeration of unpublished commands.
         /// </summary>
-        public IEnumerable<ICommand> Commands
+        public IEnumerable<Envelope<ICommand>> Commands
         {
             get { return commands; }
         }
 
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
         public ProcessRoot()
             : base()
-        {
-            EnsureHandlerRegistration();
-        }
+        { }
 
+        /// <summary>
+        /// Loads instance with <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key of this instance.</param>
+        /// <param name="events">The enumeration of events describing current state.</param>
         public ProcessRoot(IKey key, IEnumerable<IEvent> events)
             : base(key, events)
-        {
-            EnsureHandlerRegistration();
-        }
+        { }
 
-        private void EnsureHandlerRegistration()
+        /// <summary>
+        /// Stores <paramref name="command"/> in the unpublished commands collection.
+        /// </summary>
+        /// <param name="command">The command to publish.</param>
+        /// <returns>The envelope for the <paramref name="command"/>.</returns>
+        protected Envelope<ICommand> Publish(ICommand command)
         {
-            
+            Ensure.NotNull(command, "command");
+            Envelope<ICommand> envelope = Envelope.Create(command);
+            commands.Add(envelope);
+            return envelope;
         }
     }
 }

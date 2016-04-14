@@ -17,7 +17,7 @@ namespace Neptuo.Models.Repositories
     /// <summary>
     /// The implementation of EventSourcing AggregateRoot repository.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">The type of the aggregate root.</typeparam>
     public class AggregateRootRepository<T> : IRepository<T, IKey>
         where T : AggregateRoot
     {
@@ -45,7 +45,7 @@ namespace Neptuo.Models.Repositories
             this.eventDispatcher = eventDispatcher;
         }
 
-        public void Save(T model)
+        public virtual void Save(T model)
         {
             Ensure.NotNull(model, "model");
 
@@ -54,10 +54,10 @@ namespace Neptuo.Models.Repositories
             {
                 IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e)));
                 store.Save(eventModels);
-            }
 
-            IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
-            Task.WaitAll(tasks.ToArray());
+                IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
+                Task.WaitAll(tasks.ToArray());
+            }
         }
 
         public T Find(IKey key)
