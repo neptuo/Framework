@@ -52,7 +52,6 @@
     <Compile Include="DefaultCommandDispatcher.cs" />
     <Compile Include="DependencyCommandDispatcher.cs" />
     <Compile Include="Handlers\ICommandHandler.cs" />
-    <Compile Include="ICommand.cs" />
     <Compile Include="ICommandDispatcher.cs" />
     <Compile Include="ICommandHandlerCollection.cs" />
     <Compile Include="Internals\DefaultCommandHandlerDefinition.cs" />
