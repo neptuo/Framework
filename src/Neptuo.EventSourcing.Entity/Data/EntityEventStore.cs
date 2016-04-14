@@ -61,7 +61,7 @@ namespace Neptuo.Data
             if (eventKey == null)
                 throw Ensure.Exception.NotGuidKey(eventKey.GetType(), "key");
 
-            UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.Type == eventKey.Type && e.Event.ID == eventKey.Guid);
+            UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.EventType == eventKey.Type && e.Event.EventID == eventKey.Guid);
             if (entity == null)
                 return Task.FromResult(true);
 

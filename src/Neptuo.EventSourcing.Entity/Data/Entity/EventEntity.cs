@@ -3,6 +3,7 @@ using Neptuo.Models.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,8 +13,11 @@ namespace Neptuo.Data.Entity
     public class EventEntity
     {
         [Key]
-        public Guid ID { get; set; }
-        public string Type { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
+        public Guid EventID { get; set; }
+        public string EventType { get; set; }
 
         public Guid AggregateID { get; set; }
         public string AggregateType { get; set; }
@@ -22,8 +26,7 @@ namespace Neptuo.Data.Entity
 
         public EventModel ToModel()
         {
-            //TODO: Fix PayloadType, maybe it is the typu to use in KEY.
-            return new EventModel(GuidKey.Create(AggregateID, AggregateType), GuidKey.Create(ID, Type), Payload)
+            return new EventModel(GuidKey.Create(AggregateID, AggregateType), GuidKey.Create(EventID, EventType), Payload)
             {
                 RaisedAt = RaisedAt
             };
@@ -43,8 +46,8 @@ namespace Neptuo.Data.Entity
             
             return new EventEntity()
             {
-                ID = eventKey.Guid,
-                Type = eventKey.Type,
+                EventID = eventKey.Guid,
+                EventType = eventKey.Type,
 
                 AggregateID = aggregateKey.Guid,
                 AggregateType = aggregateKey.Type,
