@@ -66,6 +66,8 @@
     <Compile Include="Models\Domains\AggregateRoot.cs" />
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
     <Compile Include="Models\Domains\IAggregateRoot.cs" />
+    <Compile Include="Models\Domains\IProcessRoot.cs" />
+    <Compile Include="Models\Domains\ProcessRoot.cs" />
     <Compile Include="Models\Repositories\AggregateRootNotFoundException.cs" />
     <Compile Include="Models\Repositories\_RepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

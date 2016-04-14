@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Models.Domains
 {
     /// <summary>
-    /// Base for aggregate root model.
+    /// The base class for aggregate root model.
     /// </summary>
     public class AggregateRoot : IAggregateRoot
     {
