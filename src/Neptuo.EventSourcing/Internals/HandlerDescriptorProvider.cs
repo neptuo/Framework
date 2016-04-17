@@ -90,7 +90,7 @@ namespace Neptuo.Internals
 
             return new ArgumentDescriptor(
                 argumentType,
-                isEnvelope || isContext,
+                !isEnvelope && !isContext,
                 isEnvelope,
                 isContext
             );

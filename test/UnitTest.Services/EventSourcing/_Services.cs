@@ -4,6 +4,7 @@ using Neptuo.Events.Handlers;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Orders.Domains.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,15 @@ namespace Neptuo.EventSourcing
 
                 entities.AddRange(events);
             }
+        }
+    }
+
+    public class OrderPlacedHandler : IEventHandler<OrderPlaced>
+    {
+        public Task HandleAsync(OrderPlaced payload)
+        {
+            Console.WriteLine(payload.AggregateKey);
+            return Task.FromResult(true);
         }
     }
 

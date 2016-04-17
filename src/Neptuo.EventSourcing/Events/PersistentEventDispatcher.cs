@@ -59,9 +59,10 @@ namespace Neptuo.Events
 
         public async Task PublishAsync<TEvent>(TEvent eventPayload)
         {
+            Ensure.NotNull(eventPayload, "eventPayload");
+
             //TODO: Execute on different thread!
-            
-            ArgumentDescriptor argument = descriptorProvider.Get(typeof(TEvent));
+            ArgumentDescriptor argument = descriptorProvider.Get(eventPayload.GetType());
 
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
