@@ -12,6 +12,9 @@ namespace Neptuo.Commands
     /// </summary>
     public abstract class Command : ICommand
     {
+        /// <summary>
+        /// The key of this command.
+        /// </summary>
         public IKey Key { get; private set; }
 
         /// <summary>
@@ -20,6 +23,16 @@ namespace Neptuo.Commands
         protected Command()
         {
             Key = KeyFactory.Create(GetType());
+        }
+
+        /// <summary>
+        /// Creates new instance with the <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key of this command.</param>
+        protected Command(IKey key)
+        {
+            Ensure.Condition.NotEmptyKey(key, "key");
+            Key = key;
         }
     }
 }

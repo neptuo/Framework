@@ -13,8 +13,19 @@ namespace Neptuo.Events
     /// </summary>
     public abstract class Event : IEvent
     {
+        /// <summary>
+        /// The key of this event.
+        /// </summary>
         public IKey Key { get; private set; }
+
+        /// <summary>
+        /// The key of the aggregate where originated.
+        /// </summary>
         public IKey AggregateKey { get; internal set; }
+
+        /// <summary>
+        /// The version of the aggregate.
+        /// </summary>
         public int Version { get; internal set; }
 
         /// <summary>
@@ -28,12 +39,15 @@ namespace Neptuo.Events
         /// <summary>
         /// Creates new instance.
         /// </summary>
+        /// <param name="key">The key of the event.</param>
         /// <param name="aggregateKey">The key of the aggregate where originated.</param>
         /// <param name="version">The version of the aggregate.</param>
-        protected Event(IKey aggregateKey, int version)
+        protected Event(IKey key, IKey aggregateKey, int version)
             : this()
         {
+            Ensure.Condition.NotEmptyKey(key, "key");
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
+            Key = key;
             AggregateKey = aggregateKey;
             Version = version;
         }
