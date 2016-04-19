@@ -19,6 +19,13 @@ namespace Neptuo.Formatters
         private readonly ICompositeTypeProvider provider;
         private readonly IFactory<ICompositeStorage> storageFactory;
 
+        protected static class Name
+        {
+            public const string Payload = "Payload";
+            public const string TypeName = "Name";
+            public const string Version = "Version";
+        }
+
         /// <summary>
         /// Creates new instance.
         /// </summary>
@@ -40,25 +47,47 @@ namespace Neptuo.Formatters
 
             int version = (int)type.VersionProperty.Getter(input);
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.InputType);
-            return TrySerializeAsync(input, context, type, typeVersion);
+
+            ICompositeStorage storage = storageFactory.Create();
+            bool result = TryStore(input, context, type, typeVersion, storage);
+
+            Task task = storage.StoreAsync(context.Output);
+            task.ConfigureAwait(false);
+            return Task<bool>.Factory.ContinueWhenAll(new Task[] { task }, t => result);
+        }
+
+        public bool TrySerialize(object input, ISerializerContext context)
+        {
+            CompositeType type;
+            if (!provider.TryGet(context.InputType, out type))
+                return false;
+
+            int version = (int)type.VersionProperty.Getter(input);
+            CompositeVersion typeVersion = GetCompositeVersion(type, version, context.InputType);
+            
+            ICompositeStorage storage = storageFactory.Create();
+            bool result = TryStore(input, context, type, typeVersion, storage);
+            
+            storage.Store(context.Output);
+            return result;
         }
 
         /// <summary>
         /// Tries to store the <paramref name="input"/> to the <paramref name="context"/>. The <paramref name="input"/> is described by the <paramref name="type"/>
-        /// and in the <paramref name="version"/>.
+        /// and in the <paramref name="typeVersion"/>.
         /// </summary>
         /// <param name="input">The object to store.</param>
         /// <param name="context">The serialization context.</param>
         /// <param name="type">The <paramref name="input"/> composite type descriptor.</param>
         /// <param name="typeVersion">The version of the <paramref name="input"/>.</param>
+        /// <param name="storage">The composite storage to store values to.</param>
         /// <returns><c>true</c> if the <paramref name="input"/> was serialized to the <paramref name="context"/>; <c>false</c> otherwise.</returns>
-        protected virtual async Task<bool> TrySerializeAsync(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion)
+        protected virtual bool TryStore(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion, ICompositeStorage storage)
         {
-            ICompositeStorage storage = storageFactory.Create();
-            storage.Add("Name", type.Name);
-            storage.Add("Version", type.VersionProperty.Getter(input));
+            storage.Add(Name.TypeName, type.Name);
+            storage.Add(Name.Version, type.VersionProperty.Getter(input));
 
-            ICompositeStorage valueStorage = storage.Add("Payload");
+            ICompositeStorage valueStorage = storage.Add(Name.Payload);
             foreach (CompositeProperty property in typeVersion.Properties)
             {
                 object propertyValue = property.Getter(input);
@@ -66,7 +95,6 @@ namespace Neptuo.Formatters
                     throw new NotSupportedValueException(property.Type);
             }
 
-            await storage.StoreAsync(context.Output).ConfigureAwait(false);
             return true;
         }
 
@@ -92,13 +120,28 @@ namespace Neptuo.Formatters
             return typeVersion;
         }
 
-        public Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
+        public async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
         {
             CompositeType type;
             if (!provider.TryGet(context.OutputType, out type))
-                return Task.FromResult(false);
+                return false;
 
-            return TryDeserializeAsync(input, context, type);
+            ICompositeStorage storage = storageFactory.Create();
+            await storage.LoadAsync(input).ConfigureAwait(false);
+
+            return TryLoad(input, context, type, storage);
+        }
+
+        public bool TryDeserialize(Stream input, IDeserializerContext context)
+        {
+            CompositeType type;
+            if (!provider.TryGet(context.OutputType, out type))
+                return false;
+
+            ICompositeStorage storage = storageFactory.Create();
+            storage.Load(input);
+
+            return TryLoad(input, context, type, storage);
         }
 
         /// <summary>
@@ -107,19 +150,17 @@ namespace Neptuo.Formatters
         /// <param name="input">The serialized value to deserialize.</param>
         /// <param name="context">The deserialization context.</param>
         /// <param name="type">The composite type descriptor to load.</param>
+        /// <param name="storage">The composite storage with loaded values.</param>
         /// <returns><c>true</c> if object was deserialized; <c>false</c> otherwise.</returns>
-        protected virtual async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context, CompositeType type)
+        protected virtual bool TryLoad(Stream input, IDeserializerContext context, CompositeType type, ICompositeStorage storage)
         {
-            ICompositeStorage storage = storageFactory.Create();
-            await storage.LoadAsync(input).ConfigureAwait(false);
-
             int version;
-            if (!storage.TryGet("Version", out version))
+            if (!storage.TryGet(Name.Version, out version))
                 throw new MissingVersionValueException();
 
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.OutputType);
             ICompositeStorage valueStorage;
-            if(!storage.TryGet("Payload", out valueStorage))
+            if(!storage.TryGet(Name.Payload, out valueStorage))
                 throw new MissingPayloadValueException();
 
             List<object> values = new List<object>();

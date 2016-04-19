@@ -37,8 +37,8 @@
       <HintPath>..\..\packages\Neptuo.5.0.1\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Formatters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.1.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
+    <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

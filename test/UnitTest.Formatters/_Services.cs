@@ -1,17 +1,64 @@
 ﻿using Neptuo;
+using Neptuo.Activators;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Metadata;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace UnitTest.Formatters
 {
+    public class ExtendedCompositeTypeFormatter : CompositeTypeFormatter
+    {
+        public ExtendedCompositeTypeFormatter(ICompositeTypeProvider provider, IFactory<ICompositeStorage> storageFactory)
+            : base(provider, storageFactory)
+        { }
+
+        protected override bool TryLoad(Stream input, IDeserializerContext context, CompositeType type, ICompositeStorage storage)
+        {
+            if (!base.TryLoad(input, context, type, storage))
+                return false;
+
+            ICompositeStorage payloadStorage;
+            GuidedObject guided = context.Output as GuidedObject;
+            if (guided != null && storage.TryGet(Name.Payload, out payloadStorage))
+            {
+                string guid;
+                if (payloadStorage.TryGet("Guid", out guid))
+                    guided.Guid = guid;
+            }
+
+            return true;
+        }
+
+        protected override bool TryStore(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion, ICompositeStorage storage)
+        {
+            if (!base.TryStore(input, context, type, typeVersion, storage))
+                return false;
+            
+            ICompositeStorage payloadStorage;
+            GuidedObject guided = input as GuidedObject;
+            if (guided != null && storage.TryGet(Name.Payload, out payloadStorage))
+            {
+                payloadStorage.Add("Guid", guided.Guid);
+            }
+
+            return true;
+        }
+    }
+
+
+    public class GuidedObject
+    {
+        internal string Guid { get; set; }
+    }
+
     [CompositeType("Test.UserModel")]
-    public class UserModel
+    public class UserModel : GuidedObject
     {
         [CompositeVersion]
         public int Version { get; private set; }
