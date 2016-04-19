@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,5 +22,10 @@ namespace Neptuo.Formatters
         /// The type to serialize.
         /// </summary>
         Type InputType { get; }
+
+        /// <summary>
+        /// The metadata of the context.
+        /// </summary>
+        IReadOnlyKeyValueCollection Metadata { get; }
     }
 }
