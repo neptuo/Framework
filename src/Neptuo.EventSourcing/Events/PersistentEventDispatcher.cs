@@ -6,6 +6,7 @@ using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -76,7 +77,7 @@ namespace Neptuo.Events
 
             object payload = eventPayload;
             object context = null;
-            object envelope = null;
+            Envelope envelope = null;
 
             if (argument.IsContext)
             {
@@ -89,14 +90,20 @@ namespace Neptuo.Events
                 if (argument.IsEnvelope)
                 {
                     // If passed argument is envelope, extract payload.
-                    envelope = payload;
-                    payload = ((Envelope)envelope).Body;
+                    envelope = (Envelope)payload;
+                    payload = envelope.Body;
                 }
                 else
                 {
                     // If passed argument is not envelope, try to create it if needed.
                     if (hasEnvelopeHandler)
-                        envelope = Envelope.Create(eventPayload);
+                    {
+                        MethodInfo envelopeCreateMethod = typeof(Envelope)
+                            .GetMethod("Create", BindingFlags.Static | BindingFlags.Public)
+                            .MakeGenericMethod(argument.ArgumentType);
+
+                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { eventPayload });
+                    }
                 }
 
                 if (hasContextHandler)
@@ -105,6 +112,8 @@ namespace Neptuo.Events
                     context = Activator.CreateInstance(contextType, envelope, this, this);
                 }
             }
+
+            // TODO: If we have the envelope and delay is used, schedule the execution...
 
             IEvent eventWithKey = payload as IEvent;
             foreach (HandlerDescriptor handler in handlers)
