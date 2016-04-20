@@ -10,7 +10,7 @@ namespace Neptuo.Data
     /// <summary>
     /// Describes the underlaying store for the persistent event delivery.
     /// </summary>
-    public interface IEventPublishingStore
+    public interface IEventPublishingStore : IEventStore
     {
         /// <summary>
         /// Returns the enumeration of the unpublished events which were published to the handlers.

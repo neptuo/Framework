@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Events
 {
     /// <summary>
-    /// The implementation of <see cref="IEventDispatcher"/> with notifications to the <see cref="IEventPublishObserver"/>.
+    /// The implementation of <see cref="IEventDispatcher"/> and <see cref="IEventHandlerCollection"/> with persistent delivery.
     /// </summary>
     public class PersistentEventDispatcher : IEventDispatcher, IEventHandlerCollection
     {
@@ -22,10 +22,14 @@ namespace Neptuo.Events
         private readonly IEventPublishingStore eventStore;
         private readonly HandlerDescriptorProvider descriptorProvider;
 
-        public PersistentEventDispatcher(IEventPublishingStore eventStore)
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="store">The publishing store for command persistent delivery.</param>
+        public PersistentEventDispatcher(IEventPublishingStore store)
         {
-            Ensure.NotNull(eventStore, "eventStore");
-            this.eventStore = eventStore;
+            Ensure.NotNull(store, "store");
+            this.eventStore = store;
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),

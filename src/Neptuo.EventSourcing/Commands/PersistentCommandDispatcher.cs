@@ -14,26 +14,32 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Commands
 {
+    /// <summary>
+    /// The implementation of <see cref="ICommandDispatcher"/> and <see cref="ICommandHandlerCollection"/> with persistent delivery.
+    /// </summary>
     public class PersistentCommandDispatcher : ICommandDispatcher, ICommandHandlerCollection
     {
         private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type, HandlerDescriptor>();
         private readonly TheeQueue queue = new TheeQueue();
         private readonly CommandThreadPool threadPool;
         private readonly ICommandDistributor distributor;
-        private readonly ICommandStore store;
-        private readonly ICommandPublishingStore publishingStore;
+        private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
         private readonly HandlerDescriptorProvider descriptorProvider;
 
-        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandStore store, ICommandPublishingStore publishingStore, ISerializer formatter)
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="distributor">The command-to-the-queue distributor.</param>
+        /// <param name="store">The publishing store for command persistent delivery.</param>
+        /// <param name="formatter">The formatter for serializing commands.</param>
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
-            Ensure.NotNull(publishingStore, "publishingStore");
             Ensure.NotNull(formatter, "formatter");
             this.distributor = distributor;
             this.store = store;
-            this.publishingStore = publishingStore;
             this.formatter = formatter;
             this.threadPool = new CommandThreadPool(queue);
 
