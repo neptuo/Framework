@@ -4,7 +4,7 @@ namespace Neptuo.Formatters.Composite.Json
 {
     public static class VersionInfo
     {
-        internal const string Version = "1.0.1"; // TODO: Return NUGET reference to the Neptuo.Formatters.Composite.
+        internal const string Version = "2.0.0";
 
         public static Version GetVersion()
         {
