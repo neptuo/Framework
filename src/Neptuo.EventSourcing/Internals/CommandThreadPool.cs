@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Internals
 {
-    public class CommandThreadPool : DisposableBase
+    internal class CommandThreadPool : DisposableBase
     {
         private readonly TheeQueue queue;
         private readonly List<Tuple<TheeQueue.Queue, Thread>> threads = new List<Tuple<TheeQueue.Queue, Thread>>();
