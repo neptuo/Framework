@@ -15,7 +15,7 @@ namespace Neptuo.Commands
         /// <summary>
         /// The key of this command.
         /// </summary>
-        public IKey Key { get; private set; }
+        public IKey Key { get; internal set; }
 
         /// <summary>
         /// Creates new instance.

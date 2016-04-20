@@ -76,6 +76,7 @@
     <Compile Include="Data\ICommandStore.cs" />
     <Compile Include="Data\IEventPublishingStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
+    <Compile Include="Formatters\CommandExtender.cs" />
     <Compile Include="Formatters\EventExtender.cs" />
     <Compile Include="IdentifierAttribute.cs" />
     <Compile Include="Internals\ArgumentDescriptor.cs" />
