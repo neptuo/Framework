@@ -14,10 +14,24 @@ namespace Neptuo.Formatters
     /// </summary>
     public class EventExtender
     {
+        /// <summary>
+        /// The names of the keys used in store/load methods.
+        /// </summary>
         protected static class Name
         {
+            /// <summary>
+            /// The name where the key of the event is stored.
+            /// </summary>
             public const string Key = "Key";
+
+            /// <summary>
+            /// The name where the aggregate root key of the event is stored.
+            /// </summary>
             public const string AggregateKey = "AggregateKey";
+
+            /// <summary>
+            /// The name where the aggregate root version of the event is stored.
+            /// </summary>
             public const string AggregateVersion = "AggregateVersion";
         }
 
