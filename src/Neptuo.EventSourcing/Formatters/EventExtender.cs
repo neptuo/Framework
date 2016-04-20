@@ -39,11 +39,10 @@ namespace Neptuo.Formatters
         /// <param name="storage">The storage to load values from.</param>
         /// <param name="payload">The event payload to load.</param>
         public void Load(IReadOnlyKeyValueCollection storage, Event payload)
-        
-
-           payload.Key = storage.Get<IKey>(Name.Key);
-           payload.AggregateKey = storage.Get<IKey>(Name.AggregateKey);
-           payload.Version = storage.Get<int>(Name.AggregateVersion);
-        
+        {
+            payload.Key = storage.Get<IKey>(Name.Key);
+            payload.AggregateKey = storage.Get<IKey>(Name.AggregateKey);
+            payload.Version = storage.Get<int>(Name.AggregateVersion);
+        }
     }
 }
