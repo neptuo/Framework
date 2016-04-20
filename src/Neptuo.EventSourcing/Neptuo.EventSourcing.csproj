@@ -45,8 +45,8 @@
       <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Formatters, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.1.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
+    <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Models, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -76,6 +76,7 @@
     <Compile Include="Data\ICommandStore.cs" />
     <Compile Include="Data\IEventPublishingStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
+    <Compile Include="Formatters\EventExtender.cs" />
     <Compile Include="IdentifierAttribute.cs" />
     <Compile Include="Internals\ArgumentDescriptor.cs" />
     <Compile Include="Internals\CommandThreadPool.cs" />

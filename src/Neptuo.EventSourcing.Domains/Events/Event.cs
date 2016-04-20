@@ -16,7 +16,7 @@ namespace Neptuo.Events
         /// <summary>
         /// The key of this event.
         /// </summary>
-        public IKey Key { get; private set; }
+        public IKey Key { get; internal set; }
 
         /// <summary>
         /// The key of the aggregate where originated.
