@@ -14,7 +14,7 @@ namespace Neptuo.Data.Entity
 
         [Required]
         public virtual EventEntity Event { get; set; }
-        public List<PublishedToHandlerEntity> PublishedToHandlers { get; set; }
+        public List<EventPublishedToHandlerEntity> PublishedToHandlers { get; set; }
 
         public UnPublishedEventEntity()
         { }

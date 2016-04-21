@@ -41,10 +41,20 @@ namespace Neptuo.Models.Domains
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        public AggregateRoot()
+        protected AggregateRoot()
         {
             EnsureHandlerRegistration();
             Key = KeyFactory.Create(GetType());
+        }
+
+        /// <summary>
+        /// Creates new instance with explicitly defined <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key of this (new) instance.</param>
+        protected AggregateRoot(IKey key)
+        {
+            EnsureHandlerRegistration();
+            Key = key;
         }
 
         /// <summary>
@@ -52,7 +62,7 @@ namespace Neptuo.Models.Domains
         /// </summary>
         /// <param name="key">The key of this instance.</param>
         /// <param name="events">The enumeration of events describing current state.</param>
-        public AggregateRoot(IKey key, IEnumerable<IEvent> events)
+        protected AggregateRoot(IKey key, IEnumerable<IEvent> events)
         {
             Ensure.Condition.NotEmptyKey(key, "key");
             Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName, "key");

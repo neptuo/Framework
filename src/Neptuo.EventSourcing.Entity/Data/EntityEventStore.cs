@@ -65,7 +65,7 @@ namespace Neptuo.Data
             if (entity == null)
                 return Task.FromResult(true);
 
-            entity.PublishedToHandlers.Add(new PublishedToHandlerEntity(handlerIdentifier));
+            entity.PublishedToHandlers.Add(new EventPublishedToHandlerEntity(handlerIdentifier));
             return context.SaveAsync();
         }
 

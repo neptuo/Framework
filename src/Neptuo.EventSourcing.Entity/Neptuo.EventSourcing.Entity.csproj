@@ -72,7 +72,7 @@
     <Compile Include="Data\Entity\ICommandContext.cs" />
     <Compile Include="Data\Entity\IEventContext.cs" />
     <Compile Include="Data\EntityEventStore.cs" />
-    <Compile Include="Data\Entity\PublishedToHandlerEntity.cs" />
+    <Compile Include="Data\Entity\EventPublishedToHandlerEntity.cs" />
     <Compile Include="Data\Entity\CommandEntity.cs" />
     <Compile Include="Data\Entity\UnPublishedCommandEntity.cs" />
     <Compile Include="Data\Entity\UnPublishedEventEntity.cs" />

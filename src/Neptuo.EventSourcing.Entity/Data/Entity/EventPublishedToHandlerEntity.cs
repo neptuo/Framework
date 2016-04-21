@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data.Entity
 {
-    public class PublishedToHandlerEntity
+    public class EventPublishedToHandlerEntity
     {
         [Key]
         public int ID { get; set; }
@@ -16,10 +16,10 @@ namespace Neptuo.Data.Entity
         public virtual UnPublishedEventEntity Event { get; set; }
         public string HandlerIdentifier { get; set; }
 
-        public PublishedToHandlerEntity()
+        public EventPublishedToHandlerEntity()
         { }
 
-        public PublishedToHandlerEntity(string handlerIdentifier)
+        public EventPublishedToHandlerEntity(string handlerIdentifier)
         {
             Ensure.NotNullOrEmpty(handlerIdentifier, "handlerIdentifier");
             HandlerIdentifier = handlerIdentifier;

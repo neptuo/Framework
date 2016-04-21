@@ -22,7 +22,7 @@ namespace Orders.Domains.Commands.Handlers
 
         public Task HandleAsync(CreateOrder command)
         {
-            repository.Save(new Order());
+            repository.Save(new Order(command.OrderKey));
             return Task.FromResult(true);
         }
     }

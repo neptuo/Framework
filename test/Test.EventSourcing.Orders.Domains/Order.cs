@@ -21,7 +21,8 @@ namespace Orders.Domains
         private readonly List<OrderItem> items = new List<OrderItem>();
         private decimal totalPrice = 0;
 
-        public Order()
+        public Order(IKey key)
+            : base(key)
         {
             Publish(new OrderPlaced());
         }

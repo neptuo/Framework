@@ -33,6 +33,26 @@ namespace Neptuo.Data.Entity
             UnPublishedCommands = Set<UnPublishedCommandEntity>();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<EventEntity>()
+                .ToTable("Event");
+
+            modelBuilder.Entity<EventPublishedToHandlerEntity>()
+                .ToTable("EventPublishedToHandler");
+
+            modelBuilder.Entity<UnPublishedEventEntity>()
+                .ToTable("UnPublishedEvent");
+
+            modelBuilder.Entity<CommandEntity>()
+                .ToTable("Command");
+
+            modelBuilder.Entity<UnPublishedCommandEntity>()
+                .ToTable("UnPublishedCommand");
+        }
+
         public void Save()
         {
             base.SaveChanges();
