@@ -4,7 +4,10 @@ using Neptuo.Commands;
 using Neptuo.Data;
 using Neptuo.Data.Entity;
 using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Formatters;
+using Neptuo.Formatters.Converters;
+using Neptuo.Formatters.Metadata;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
@@ -42,11 +45,20 @@ namespace Neptuo.EventSourcing
         [TestMethod]
         public void SaveAndLoadWithMockRepository()
         {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
+
+            CompositeTypeFormatter formatter = new CompositeTypeFormatter(
+                new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), 
+                new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
+            );
             MockEventStore eventStore = new MockEventStore();
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
-                eventStore, 
-                new JsonFormatter(),
+                eventStore,
+                formatter,
                 new ReflectionAggregateRootFactory<Order>(),
                 new DefaultEventManager()
             );
@@ -63,20 +75,31 @@ namespace Neptuo.EventSourcing
         [TestMethod]
         public void SaveAndLoadWithEntityRepository()
         {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
+
+            CompositeTypeFormatter formatter = new CompositeTypeFormatter(
+                new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()),
+                new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
+            );
             EventSourcingContext context = new EventSourcingContext(@"Data Source=localhost; Initial Catalog=EventStore;Integrated Security=SSPI");
             EntityEventStore eventStore = new EntityEventStore(context);
 
+            PersistentEventDispatcher eventDispatcher = new PersistentEventDispatcher(eventStore);
+
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore,
-                new JsonFormatter(),
+                formatter,
                 new ReflectionAggregateRootFactory<Order>(),
-                new PersistentEventDispatcher(eventStore)
+                eventDispatcher
             );
 
             PersistentCommandDispatcher commandDispatcher = new PersistentCommandDispatcher(
                 new SerialCommandDistributor(),
                 new EntityCommandStore(context),
-                new JsonFormatter()
+                formatter
             );
 
             CreateOrderHandler createHandler = new CreateOrderHandler(repository);
@@ -89,9 +112,11 @@ namespace Neptuo.EventSourcing
             commandDispatcher.HandleAsync(create).Wait();
 
             AddOrderItem addItem = new AddOrderItem(create.OrderKey, GuidKey.Create(Guid.NewGuid(), "Product"), 5);
-            commandDispatcher.HandleAsync(addItem).Wait();
+            commandDispatcher.HandleAsync(addItem);
 
-            IEnumerable<EventModel> serializedEvents = eventStore.Get(create.Key);
+            eventDispatcher.Await<OrderTotalRecalculated>().Wait();
+
+            IEnumerable<EventModel> serializedEvents = eventStore.Get(create.OrderKey);
             Assert.AreEqual(3, serializedEvents.Count());
         }
     }

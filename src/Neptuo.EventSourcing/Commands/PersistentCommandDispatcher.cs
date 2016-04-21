@@ -99,6 +99,7 @@ namespace Neptuo.Commands
             object context = null;
             Envelope envelope = null;
 
+            ICommand commandWithKey = null;
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
@@ -115,15 +116,19 @@ namespace Neptuo.Commands
                 }
                 else
                 {
+                    commandWithKey = payload as ICommand;
+                    hasEnvelopeHandler = hasEnvelopeHandler || commandWithKey != null;
+
                     // If passed argument is not envelope, try to create it if needed.
                     if (hasEnvelopeHandler)
                     {
                         //TODO: Wrap reflection.
                         MethodInfo envelopeCreateMethod = typeof(Envelope)
-                            .GetMethod("Create", BindingFlags.Static | BindingFlags.Public)
+                            .GetMethods(BindingFlags.Static | BindingFlags.Public)
+                            .First(m => m.Name == "Create" && m.IsGenericMethod)
                             .MakeGenericMethod(argument.ArgumentType);
 
-                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { commandPayload });
+                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { payload });
                     }
                 }
 
@@ -133,8 +138,10 @@ namespace Neptuo.Commands
                 }
             }
 
+            if (commandWithKey == null)
+                commandWithKey = payload as ICommand;
+
             // If we have command with the key, serialize it for persisten delivery.
-            ICommand commandWithKey = commandPayload as ICommand;
             if (isPersistenceUsed && commandWithKey != null)
             {
                 string serializedEnvelope = await formatter.SerializeAsync(envelope);

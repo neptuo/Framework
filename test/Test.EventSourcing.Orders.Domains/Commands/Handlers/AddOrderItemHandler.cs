@@ -27,6 +27,7 @@ namespace Orders.Domains.Commands.Handlers
                 throw new MissingOrderException(command.OrderKey);
 
             order.AddItem(command.ProductKey, command.Count);
+            repository.Save(order);
             return Task.FromResult(true);
         }
     }

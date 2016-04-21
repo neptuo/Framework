@@ -84,6 +84,7 @@ namespace Neptuo.Events
             object context = null;
             Envelope envelope = null;
 
+            IEvent eventWithKey = null;
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
@@ -100,14 +101,19 @@ namespace Neptuo.Events
                 }
                 else
                 {
+                    eventWithKey = payload as IEvent;
+                    hasEnvelopeHandler = hasEnvelopeHandler || eventWithKey != null;
+
                     // If passed argument is not envelope, try to create it if needed.
                     if (hasEnvelopeHandler)
                     {
+                        //TODO: Wrap reflection.
                         MethodInfo envelopeCreateMethod = typeof(Envelope)
-                            .GetMethod("Create", BindingFlags.Static | BindingFlags.Public)
+                            .GetMethods(BindingFlags.Static | BindingFlags.Public)
+                            .First(m => m.Name == "Create" && m.IsGenericMethod)
                             .MakeGenericMethod(argument.ArgumentType);
 
-                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { eventPayload });
+                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { payload });
                     }
                 }
 
@@ -118,6 +124,9 @@ namespace Neptuo.Events
                 }
             }
 
+            if (eventWithKey == null)
+                eventWithKey = payload as IEvent;
+
             // TODO: If we have the envelope and delay is used, schedule the execution...
             TimeSpan delay;
             if (envelope.TryGetDelay(out delay))
@@ -127,7 +136,6 @@ namespace Neptuo.Events
 
             return Task.Factory.StartNew(async () => 
             {
-                IEvent eventWithKey = payload as IEvent;
                 foreach (HandlerDescriptor handler in handlers)
                 {
                     if (handler.IsContext)
