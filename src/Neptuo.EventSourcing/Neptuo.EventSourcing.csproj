@@ -85,6 +85,7 @@
     <Compile Include="Internals\HandlerDescriptorProvider.cs" />
     <Compile Include="Internals\TheeQueue.cs" />
     <Compile Include="Internals\_EnsureExceptionExtensions.cs" />
+    <Compile Include="Internals\_EnvelopeExtensions.cs" />
     <Compile Include="Internals\_FormatterExtensions.cs" />
     <Compile Include="Models\Repositories\AggregateRootRepository.cs" />
     <Compile Include="Data\EventModel.cs" />

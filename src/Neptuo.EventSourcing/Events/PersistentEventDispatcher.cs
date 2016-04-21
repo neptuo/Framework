@@ -70,12 +70,12 @@ namespace Neptuo.Events
             ArgumentDescriptor argument = descriptorProvider.Get(eventPayload.GetType());
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
-                return Task.Factory.StartNew(() => PublishToHandlersAsync(handlers, argument, eventPayload));
+                return PublishAsync(handlers, argument, eventPayload);
 
             return Async.CompletedTask;
         }
 
-        private async Task PublishToHandlersAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload)
+        private Task PublishAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload)
         {
             bool hasContextHandler = handlers.Any(d => d.IsContext);
             bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
@@ -119,22 +119,30 @@ namespace Neptuo.Events
             }
 
             // TODO: If we have the envelope and delay is used, schedule the execution...
-
-            IEvent eventWithKey = payload as IEvent;
-            foreach (HandlerDescriptor handler in handlers)
+            TimeSpan delay;
+            if (envelope.TryGetDelay(out delay))
             {
-                if (handler.IsContext)
-                    await handler.Execute(context);
-                else if (handler.IsEnvelope)
-                    await handler.Execute(envelope);
-                else if (handler.IsPlain)
-                    await handler.Execute(eventPayload);
-                else
-                    throw Ensure.Exception.UndefinedHandlerType(handler);
 
-                if (eventWithKey != null)
-                    await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
             }
+
+            return Task.Factory.StartNew(async () => 
+            {
+                IEvent eventWithKey = payload as IEvent;
+                foreach (HandlerDescriptor handler in handlers)
+                {
+                    if (handler.IsContext)
+                        await handler.Execute(context);
+                    else if (handler.IsEnvelope)
+                        await handler.Execute(envelope);
+                    else if (handler.IsPlain)
+                        await handler.Execute(eventPayload);
+                    else
+                        throw Ensure.Exception.UndefinedHandlerType(handler);
+
+                    if (eventWithKey != null)
+                        await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
+                }
+            });
         }
 
         /// <summary>
@@ -164,7 +172,7 @@ namespace Neptuo.Events
             {
                 IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !handlerIdentifiers.Contains(h.HandlerIdentifier));
                 if (unPublishedHandlers.Any())
-                    await PublishToHandlersAsync(unPublishedHandlers, argument, model);
+                    await PublishAsync(unPublishedHandlers, argument, model);
             }
         }
     }

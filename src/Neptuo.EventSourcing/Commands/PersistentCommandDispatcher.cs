@@ -75,17 +75,22 @@ namespace Neptuo.Commands
 
         public Task HandleAsync<TCommand>(TCommand command)
         {
+            return HandleAsync<TCommand>(command, true);
+        }
+
+        private Task HandleAsync<TCommand>(TCommand command, bool isPersistenceUsed)
+        {
             Ensure.NotNull(command, "command");
 
-            ArgumentDescriptor argument = descriptorProvider.Get(typeof(TCommand));
+            ArgumentDescriptor argument = descriptorProvider.Get(command.GetType());
             HandlerDescriptor handler;
             if (storage.TryGetValue(argument.ArgumentType, out handler))
-                return HandleInternalAsync(handler, argument, command);
+                return HandleInternalAsync(handler, argument, command, isPersistenceUsed);
 
             throw new MissingCommandHandlerException(argument.ArgumentType);
         }
 
-        private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload)
+        private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed)
         {
             bool hasContextHandler = handler.IsContext;
             bool hasEnvelopeHandler = hasContextHandler || handler.IsEnvelope;
@@ -130,13 +135,18 @@ namespace Neptuo.Commands
 
             // If we have command with the key, serialize it for persisten delivery.
             ICommand commandWithKey = commandPayload as ICommand;
-            if (commandWithKey != null)
+            if (isPersistenceUsed && commandWithKey != null)
             {
                 string serializedEnvelope = await formatter.SerializeAsync(envelope);
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
             }
 
             // TODO: If we have the envelope and delay is used, schedule the execution...
+            TimeSpan delay;
+            if (envelope.TryGetDelay(out delay))
+            {
+
+            }
 
             object key = distributor.Distribute(payload);
             queue.Enqueue(key, async () =>
@@ -167,9 +177,9 @@ namespace Neptuo.Commands
             IEnumerable<CommandModel> models = await store.GetAsync();
             foreach (CommandModel model in models)
             {
-                ICommand command = (ICommand)await formatter.DeserializeAsync(Type.GetType(model.CommandKey.Type), model.Payload);
-                //TODO: Skip serialization and persistence.
-                await HandleAsync(command);
+                Type envelopeType = typeof(Envelope<>).MakeGenericType(Type.GetType(model.CommandKey.Type));
+                Envelope envelope = (Envelope)await formatter.DeserializeAsync(envelopeType, model.Payload);
+                await HandleAsync(envelope, false);
             }
 
             await store.ClearAsync();
