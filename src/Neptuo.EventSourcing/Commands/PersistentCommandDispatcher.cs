@@ -17,7 +17,7 @@ namespace Neptuo.Commands
     /// <summary>
     /// The implementation of <see cref="ICommandDispatcher"/> and <see cref="ICommandHandlerCollection"/> with persistent delivery.
     /// </summary>
-    public class PersistentCommandDispatcher : ICommandDispatcher, ICommandHandlerCollection
+    public class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher, ICommandHandlerCollection
     {
         private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type, HandlerDescriptor>();
         private readonly TheeQueue queue = new TheeQueue();
@@ -85,7 +85,7 @@ namespace Neptuo.Commands
             throw new MissingCommandHandlerException(argument.ArgumentType);
         }
 
-        private Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload)
+        private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload)
         {
             bool hasContextHandler = handler.IsContext;
             bool hasEnvelopeHandler = hasContextHandler || handler.IsEnvelope;
@@ -127,22 +127,57 @@ namespace Neptuo.Commands
                 }
             }
 
+            // If we have command with the key, serialize it for persisten delivery.
+            ICommand commandWithKey = commandPayload as ICommand;
+            if (commandWithKey != null)
+            {
+                string serializedEnvelope = await formatter.SerializeAsync(envelope);
+                store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
+            }
+
             // TODO: If we have the envelope and delay is used, schedule the execution...
 
             object key = distributor.Distribute(payload);
-            queue.Enqueue(key, () =>
+            queue.Enqueue(key, async () =>
             {
                 if (handler.IsContext)
-                    return handler.Execute(context);
+                    await handler.Execute(context);
                 else if (handler.IsEnvelope)
-                    return handler.Execute(envelope);
+                    await handler.Execute(envelope);
                 else if (handler.IsPlain)
-                    return handler.Execute(commandPayload);
+                    await handler.Execute(commandPayload);
                 else
-                    throw Ensure.Exception.InvalidOperation("The handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HandlerIdentifier);
-            });
+                    throw Ensure.Exception.UndefinedHandlerType(handler);
 
-            return Async.CompletedTask;
+                // If we have command with the key, notify about successful execution.
+                if (commandWithKey != null)
+                    await store.PublishedAsync(commandWithKey.Key);
+            });
+        }
+
+        /// <summary>
+        /// Re-publishes events from unpublished queue.
+        /// Uses <paramref name="formatter"/> to deserialize events from store.
+        /// </summary>
+        /// <param name="formatter">The event deserializer.</param>
+        /// <returns>The continuation task.</returns>
+        public async Task RecoverAsync(IDeserializer formatter)
+        {
+            IEnumerable<CommandModel> models = await store.GetAsync();
+            foreach (CommandModel model in models)
+            {
+                ICommand command = (ICommand)await formatter.DeserializeAsync(Type.GetType(model.CommandKey.Type), model.Payload);
+                //TODO: Skip serialization and persistence.
+                await HandleAsync(command);
+            }
+
+            await store.ClearAsync();
+        }
+
+        protected override void DisposeManagedResources()
+        {
+            base.DisposeManagedResources();
+            threadPool.Dispose();
         }
     }
 }

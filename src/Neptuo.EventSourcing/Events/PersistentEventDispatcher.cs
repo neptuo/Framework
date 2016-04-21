@@ -129,7 +129,7 @@ namespace Neptuo.Events
                 else if (handler.IsPlain)
                     await handler.Execute(eventPayload);
                 else
-                    throw Ensure.Exception.InvalidOperation("The handler '{0}' is of undefined type (not plain, not envelope, not context).", handler.HandlerIdentifier);
+                    throw Ensure.Exception.UndefinedHandlerType(handler);
 
                 if (eventWithKey != null)
                     await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
