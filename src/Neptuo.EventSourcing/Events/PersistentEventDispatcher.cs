@@ -3,6 +3,7 @@ using Neptuo.Events.Handlers;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
+using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,16 +63,16 @@ namespace Neptuo.Events
             return this;
         }
 
-        public async Task PublishAsync<TEvent>(TEvent eventPayload)
+        public Task PublishAsync<TEvent>(TEvent eventPayload)
         {
             Ensure.NotNull(eventPayload, "eventPayload");
 
-            //TODO: Execute on different thread!
             ArgumentDescriptor argument = descriptorProvider.Get(eventPayload.GetType());
-
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
-                await PublishToHandlersAsync(handlers, argument, eventPayload);
+                return Task.Factory.StartNew(() => PublishToHandlersAsync(handlers, argument, eventPayload));
+
+            return Async.CompletedTask;
         }
 
         private async Task PublishToHandlersAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload)
