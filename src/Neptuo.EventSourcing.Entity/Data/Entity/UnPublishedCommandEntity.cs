@@ -13,7 +13,7 @@ namespace Neptuo.Data.Entity
         public int ID { get; set; }
 
         [Required]
-        public CommandEntity Command { get; set; }
+        public virtual CommandEntity Command { get; set; }
         public bool IsHandled { get; set; }
         
         public UnPublishedCommandEntity()

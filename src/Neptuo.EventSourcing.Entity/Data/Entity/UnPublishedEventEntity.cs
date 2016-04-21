@@ -13,7 +13,7 @@ namespace Neptuo.Data.Entity
         public int ID { get; set; }
 
         [Required]
-        public EventEntity Event { get; set; }
+        public virtual EventEntity Event { get; set; }
         public List<PublishedToHandlerEntity> PublishedToHandlers { get; set; }
 
         public UnPublishedEventEntity()
