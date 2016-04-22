@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -18,15 +19,27 @@ namespace Neptuo.Formatters.Metadata
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
         private readonly ICompositeDelegateFactory delegateFactory;
         private readonly BindingFlags? bindingFlags;
+        private readonly ILogFactory logFactory;
 
         /// <summary>
         /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
         /// </summary>
         /// <param name="delegateFactory">The factory for delegates for fast access.</param>
         public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory)
+            : this(delegateFactory, new DefaultLogFactory())
+        { }
+
+        /// <summary>
+        /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
+        /// </summary>
+        /// <param name="delegateFactory">The factory for delegates for fast access.</param>
+        /// <param name="logFactory">The factory for the log to write debug information.</param>
+        public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory, ILogFactory logFactory)
         {
             Ensure.NotNull(delegateFactory, "delegateFactory");
+            Ensure.NotNull(logFactory, "logFactory");
             this.delegateFactory = delegateFactory;
+            this.logFactory = logFactory.Scope("ReflectionCompositeTypeProvider").Factory;
         }
 
         /// <summary>
@@ -35,10 +48,22 @@ namespace Neptuo.Formatters.Metadata
         /// <param name="delegateFactory">The factory for delegates for fast access.</param>
         /// <param name="bindingFlags">The binding flags for accessing reflection.</param>
         public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory, BindingFlags bindingFlags)
+            : this(delegateFactory, bindingFlags, new DefaultLogFactory())
+        { }
+
+        /// <summary>
+        /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
+        /// </summary>
+        /// <param name="delegateFactory">The factory for delegates for fast access.</param>
+        /// <param name="bindingFlags">The binding flags for accessing reflection.</param>
+        /// <param name="logFactory">The factory for the log to write debug information.</param>
+        public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory, BindingFlags bindingFlags, ILogFactory logFactory)
         {
             Ensure.NotNull(delegateFactory, "delegateFactory");
+            Ensure.NotNull(logFactory, "logFactory");
             this.delegateFactory = delegateFactory;
             this.bindingFlags = bindingFlags;
+            this.logFactory = logFactory.Scope("ReflectionCompositeTypeProvider").Factory;
         }
 
         #region ICompositeTypeProvider
@@ -79,14 +104,20 @@ namespace Neptuo.Formatters.Metadata
 
         private CompositeType BuildType(Type type)
         {
+            ILog log = logFactory.Scope("BuildType");
+
             string typeName = type.FullName;
+            log.Info("Building type '{0}'.", typeName);
 
             CompositeTypeAttribute typeAttribute = type.GetCustomAttribute<CompositeTypeAttribute>();
             if (typeAttribute != null)
                 typeName = typeAttribute.Name;
 
             Dictionary<int, ConstructorInfo> constructors = GetConstructors(type);
+            log.Info("Constructors '{0}'.", constructors.Count);
+
             IEnumerable<PropertyDescriptor> properties = GetProperties(type);
+            log.Info("Properties '{0}'.", properties.Count());
 
             List<CompositeVersion> versions = new List<CompositeVersion>();
             foreach (KeyValuePair<int, ConstructorInfo> constructor in constructors)
@@ -96,6 +127,7 @@ namespace Neptuo.Formatters.Metadata
                 // Create version from annotated properties.
                 if (TryFindAnnotatedProperties(properties, constructor.Value.GetParameters().Length, constructor.Key, out versionProperties))
                 {
+                    log.Info("Version '{0}' from annotated properties.", constructor.Key);
                     versions.Add(BuildVersion(constructor.Key, constructor.Value, versionProperties));
                     continue;
                 }
@@ -103,6 +135,7 @@ namespace Neptuo.Formatters.Metadata
                 // Create version from property name match.
                 if(TryFindNamedProperties(properties, constructor.Value.GetParameters(), out versionProperties))
                 {
+                    log.Info("Version '{0}' from conventionally properties.", constructor.Key);
                     versions.Add(BuildVersion(constructor.Key, constructor.Value, versionProperties));
                     continue;
                 }
@@ -115,9 +148,15 @@ namespace Neptuo.Formatters.Metadata
             if (versionPropertyDescriptor == null)
             {
                 if (versions.Count == 1)
+                {
+                    log.Info("Implicit version property.");
                     versionProperty = new CompositeProperty(0, "_Version", typeof(int), model => 1);
+                }
                 else
+                {
+                    log.Warning("Found '{0}' versions on the '{1}'.", versions.Count, typeName);
                     throw new MissingVersionPropertyException(type);
+                }
             }
             else
             {
