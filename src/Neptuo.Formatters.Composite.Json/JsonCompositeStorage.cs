@@ -50,7 +50,15 @@ namespace Neptuo.Formatters
             Ensure.NotNull(input, "input");
 
             using (StreamReader reader = new StreamReader(input))
-                root = JObject.Parse(await reader.ReadToEndAsync(), loadSettings);
+                root = JObject.Parse(await reader.ReadToEndAsync().ConfigureAwait(false), loadSettings);
+        }
+
+        public void Load(Stream input)
+        {
+            Ensure.NotNull(input, "input");
+
+            using (StreamReader reader = new StreamReader(input))
+                root = JObject.Parse(reader.ReadToEnd(), loadSettings);
         }
 
         public async Task StoreAsync(Stream output)
@@ -58,7 +66,15 @@ namespace Neptuo.Formatters
             Ensure.NotNull(output, "output");
 
             using (StreamWriter writer = new StreamWriter(output, Encoding.UTF8, 1024, true))
-                await writer.WriteAsync(root.ToString(formatting));
+                await writer.WriteAsync(root.ToString(formatting)).ConfigureAwait(false);
+        }
+
+        public void Store(Stream output)
+        {
+            Ensure.NotNull(output, "output");
+
+            using (StreamWriter writer = new StreamWriter(output, Encoding.UTF8, 1024, true))
+                writer.Write(root.ToString(formatting));
         }
 
         public IEnumerable<string> Keys

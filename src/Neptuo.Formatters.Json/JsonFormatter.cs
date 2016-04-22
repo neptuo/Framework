@@ -55,6 +55,18 @@ namespace Neptuo.Formatters
             return true;
         }
 
+        public bool TrySerialize(object input, ISerializerContext context)
+        {
+            Ensure.NotNull(context, "context");
+
+            //TODO: Catch exceptions.
+            string result = JsonConvert.SerializeObject(input, formatting, settings);
+            using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
+                writer.Write(result);
+
+            return true;
+        }
+
         public async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
         {
             Ensure.NotNull(context, "context");
@@ -64,6 +76,20 @@ namespace Neptuo.Formatters
             {
                 string inputValue = await reader.ReadToEndAsync();
                 context.Output = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(inputValue, context.OutputType, settings));
+            }
+
+            return true;
+        }
+
+        public bool TryDeserialize(Stream input, IDeserializerContext context)
+        {
+            Ensure.NotNull(context, "context");
+
+            //TODO: Catch exceptions.
+            using (StreamReader reader = new StreamReader(input))
+            {
+                string inputValue = reader.ReadToEnd();
+                context.Output = JsonConvert.DeserializeObject(inputValue, context.OutputType, settings);
             }
 
             return true;

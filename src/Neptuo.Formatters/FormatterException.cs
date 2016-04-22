@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The base for composite exceptions.
+    /// The base exception for formatters
     /// </summary>
     [Serializable]
-    public class CompositeException : FormatterException
+    public class FormatterException : Exception
     {
         /// <summary>
         /// Creates new empty instance.
         /// </summary>
-        public CompositeException()
+        protected FormatterException()
         { }
 
         /// <summary>
         /// Creates new instance with the <paramref name="message"/>.
         /// </summary>
         /// <param name="message">The text description of the problem.</param>
-        public CompositeException(string message)
+        public FormatterException(string message)
             : base(message)
         { }
 
@@ -32,7 +32,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="message">The text description of the problem.</param>
         /// <param name="inner">The inner cause of the exceptional state.</param>
-        public CompositeException(string message, Exception inner)
+        public FormatterException(string message, Exception inner)
             : base(message, inner)
         { }
 
@@ -41,7 +41,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="info">The serialization info.</param>
         /// <param name="context">The streaming context.</param>
-        protected CompositeException(SerializationInfo info, StreamingContext context)
+        protected FormatterException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
     }

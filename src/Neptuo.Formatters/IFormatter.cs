@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The constract for serializing and deserializing objects.
+    /// The contract for serializing and deserializing objects.
     /// </summary>
     public interface IFormatter : ISerializer, IDeserializer
     { }

@@ -31,29 +31,10 @@ namespace UnitTest.Formatters.Composite.Json
             UserModel model = new UserModel("John", "Doe");
             CompositeTypeFormatter formatter = new CompositeTypeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
 
-            using (MemoryStream stream = new MemoryStream())
-            {
-                Task<bool> isSerializedTask = formatter.TrySerializeAsync(model, new DefaultSerializerContext(typeof(UserModel), stream));
-                isSerializedTask.Wait();
+            string json = formatter.Serialize(model);
+            Assert.IsNotNull(json);
 
-                Assert.AreEqual(true, isSerializedTask.Result);
-
-                stream.Seek(0, SeekOrigin.Begin);
-
-                string json = null;
-                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true))
-                    json = reader.ReadToEnd();
-
-                stream.Seek(0, SeekOrigin.Begin);
-
-                IDeserializerContext context = new DefaultDeserializerContext(typeof(UserModel));
-                Task<bool> isDeserializedTask = formatter.TryDeserializeAsync(stream, context);
-                isDeserializedTask.Wait();
-
-                Assert.AreEqual(true, isDeserializedTask.Result);
-                model = (UserModel)context.Output;
-            }
-
+            model = formatter.Deserialize<UserModel>(json);
             Assert.IsNotNull(model);
         }
     }
