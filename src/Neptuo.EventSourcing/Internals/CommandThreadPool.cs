@@ -30,7 +30,7 @@ namespace Neptuo.Internals
         {
             TheeQueue.Queue queue = (TheeQueue.Queue)parameter;
 
-            bool isNew = false;
+            bool isNew = queue.Count > 0;
             queue.ItemAdded += (q, i) => isNew = true;
 
             while (true)

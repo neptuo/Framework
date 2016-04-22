@@ -84,7 +84,7 @@ namespace Neptuo.EventSourcing
                 new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()),
                 new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
             );
-            EventSourcingContext context = new EventSourcingContext(@"Data Source=localhost; Initial Catalog=EventStore;Integrated Security=SSPI");
+            EventSourcingContext context = new EventSourcingContext(@"Data Source=.\sqlexpress; Initial Catalog=EventStore;Integrated Security=SSPI");
             EntityEventStore eventStore = new EntityEventStore(context);
 
             PersistentEventDispatcher eventDispatcher = new PersistentEventDispatcher(eventStore);
@@ -109,14 +109,19 @@ namespace Neptuo.EventSourcing
                 .Add<AddOrderItem>(addItemHandler);
 
             CreateOrder create = new CreateOrder();
-            commandDispatcher.HandleAsync(create).Wait();
+            commandDispatcher.HandleAsync(create);
+            
+            eventDispatcher.Await<OrderPlaced>().Wait();
+
+            IEnumerable<EventModel> serializedEvents = eventStore.Get(create.OrderKey).ToList();
+            Assert.AreEqual(1, serializedEvents.Count());
 
             AddOrderItem addItem = new AddOrderItem(create.OrderKey, GuidKey.Create(Guid.NewGuid(), "Product"), 5);
             commandDispatcher.HandleAsync(addItem);
 
             eventDispatcher.Await<OrderTotalRecalculated>().Wait();
 
-            IEnumerable<EventModel> serializedEvents = eventStore.Get(create.OrderKey);
+            serializedEvents = eventStore.Get(create.OrderKey).ToList();
             Assert.AreEqual(3, serializedEvents.Count());
         }
     }
