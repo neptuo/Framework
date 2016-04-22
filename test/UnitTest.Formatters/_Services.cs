@@ -99,7 +99,7 @@ namespace UnitTest.Formatters
     }
 
     /// <summary>
-    /// Nothing is request.
+    /// Nothing is annotated.
     /// This model doesn't support versioning (always version is 1).
     /// Constructor is selected by default and property by convention.
     /// </summary>
@@ -107,7 +107,7 @@ namespace UnitTest.Formatters
     {
         public string FullName { get; private set; }
 
-        public SingleModel(string fullName)
+        internal SingleModel(string fullName)
         {
             FullName = fullName;
         }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using UnitTest.Formatters.Composite;
 
 namespace UnitTest.Formatters.Composite
@@ -48,7 +49,7 @@ namespace UnitTest.Formatters.Composite
         [TestMethod]
         public void Reflection_SingleModel()
         {
-            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory(), BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
             CompositeType compositeType;
             Assert.AreEqual(true, provider.TryGet(typeof(SingleModel), out compositeType));
 

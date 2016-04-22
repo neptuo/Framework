@@ -16,6 +16,7 @@ namespace Neptuo.Formatters.Metadata
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
         private readonly ICompositeDelegateFactory delegateFactory;
+        private readonly BindingFlags? bindingFlags;
 
         /// <summary>
         /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
@@ -25,6 +26,18 @@ namespace Neptuo.Formatters.Metadata
         {
             Ensure.NotNull(delegateFactory, "delegateFactory");
             this.delegateFactory = delegateFactory;
+        }
+
+        /// <summary>
+        /// Creates new instance with <paramref name="delegateFactory"/> for property and constructor delegates.
+        /// </summary>
+        /// <param name="delegateFactory">The factory for delegates for fast access.</param>
+        /// <param name="bindingFlags">The binding flags for accessing reflection.</param>
+        public ReflectionCompositeTypeProvider(ICompositeDelegateFactory delegateFactory, BindingFlags bindingFlags)
+        {
+            Ensure.NotNull(delegateFactory, "delegateFactory");
+            this.delegateFactory = delegateFactory;
+            this.bindingFlags = bindingFlags;
         }
 
         #region ICompositeTypeProvider
@@ -158,7 +171,10 @@ namespace Neptuo.Formatters.Metadata
 
         private Dictionary<int, ConstructorInfo> GetConstructors(Type type)
         {
-            IEnumerable<ConstructorInfo> constructorInfos = type.GetConstructors();
+            IEnumerable<ConstructorInfo> constructorInfos = bindingFlags == null 
+                ? type.GetConstructors() 
+                : type.GetConstructors(bindingFlags.Value);
+
             ConstructorInfo defaultConstructor = null;
 
             Dictionary<int, ConstructorInfo> constructors = new Dictionary<int, ConstructorInfo>();
@@ -185,7 +201,9 @@ namespace Neptuo.Formatters.Metadata
         private IEnumerable<PropertyDescriptor> GetProperties(Type type)
         {
             List<PropertyDescriptor> properties = new List<PropertyDescriptor>();
-            IEnumerable<PropertyInfo> propertyInfos = type.GetProperties();
+            IEnumerable<PropertyInfo> propertyInfos = bindingFlags == null 
+                ? type.GetProperties()
+                : type.GetProperties(bindingFlags.Value);
 
             foreach (PropertyInfo propertyInfo in propertyInfos)
             {
