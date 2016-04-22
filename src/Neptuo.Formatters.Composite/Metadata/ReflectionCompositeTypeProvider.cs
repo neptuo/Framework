@@ -13,6 +13,7 @@ namespace Neptuo.Formatters.Metadata
     /// </summary>
     public partial class ReflectionCompositeTypeProvider : ICompositeTypeProvider
     {
+        private readonly object storageLock = new object();
         private readonly Dictionary<Type, CompositeType> storageByType = new Dictionary<Type, CompositeType>();
         private readonly Dictionary<string, CompositeType> storageByName = new Dictionary<string, CompositeType>();
         private readonly ICompositeDelegateFactory delegateFactory;
@@ -52,8 +53,19 @@ namespace Neptuo.Formatters.Metadata
             if (definition == null)
                 return false;
 
-            storageByType[type] = definition;
-            storageByName[definition.Name] = definition;
+            lock (storageLock)
+            {
+                CompositeType existingDefinition;
+                if (storageByType.TryGetValue(type, out existingDefinition))
+                {
+                    definition = existingDefinition;
+                    return true;
+                }
+
+                storageByType[type] = definition;
+                storageByName[definition.Name] = definition;
+            }
+
             return true;
         }
 
