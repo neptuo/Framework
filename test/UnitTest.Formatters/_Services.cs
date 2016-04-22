@@ -98,16 +98,27 @@ namespace UnitTest.Formatters
         }
     }
 
+    public class BaseObject
+    {
+        public int Value { get; internal set; }
+
+        protected BaseObject(int value)
+        {
+            Value = value;
+        }
+    }
+
     /// <summary>
-    /// Nothing is request.
+    /// Nothing is annotated.
     /// This model doesn't support versioning (always version is 1).
     /// Constructor is selected by default and property by convention.
     /// </summary>
-    public class SingleModel
+    public class SingleModel : BaseObject
     {
         public string FullName { get; private set; }
 
-        public SingleModel(string fullName)
+        internal SingleModel(string fullName)
+            : base(2)
         {
             FullName = fullName;
         }
