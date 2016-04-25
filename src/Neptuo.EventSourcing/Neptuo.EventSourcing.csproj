@@ -45,6 +45,10 @@
       <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Neptuo.Exceptions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Exceptions.0.1.1\lib\net45\Neptuo.Exceptions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
@@ -76,6 +80,7 @@
     <Compile Include="Data\ICommandStore.cs" />
     <Compile Include="Data\IEventPublishingStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
+    <Compile Include="Events\PersistentEventDispatcher.HandlerCollection.cs" />
     <Compile Include="Formatters\CommandExtender.cs" />
     <Compile Include="Formatters\EnvelopeFormatter.cs" />
     <Compile Include="Formatters\EventExtender.cs" />
@@ -99,6 +104,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Compile Include="Commands\PersistentCommandDispatcher.HandlerCollection.cs" />
     <None Include="Neptuo.EventSourcing.nuspec">
       <SubType>Designer</SubType>
     </None>

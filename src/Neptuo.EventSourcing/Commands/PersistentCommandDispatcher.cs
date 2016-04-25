@@ -1,5 +1,6 @@
 ﻿using Neptuo.Commands.Handlers;
 using Neptuo.Data;
+using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
@@ -17,15 +18,30 @@ namespace Neptuo.Commands
     /// <summary>
     /// The implementation of <see cref="ICommandDispatcher"/> and <see cref="ICommandHandlerCollection"/> with persistent delivery.
     /// </summary>
-    public class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher, ICommandHandlerCollection
+    public partial class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher
     {
         private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type, HandlerDescriptor>();
+        private readonly HandlerDescriptorProvider descriptorProvider;
         private readonly TheeQueue queue = new TheeQueue();
         private readonly CommandThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
-        private readonly HandlerDescriptorProvider descriptorProvider;
+
+        /// <summary>
+        /// The collection of registered handlers.
+        /// </summary>
+        public ICommandHandlerCollection Handlers { get; private set; }
+
+        /// <summary>
+        /// The collection of exception handlers for exception from the command processing.
+        /// </summary>
+        public IExceptionHandlerCollection CommandExceptionHandlers { get; set; }
+
+        /// <summary>
+        /// The collection of exception handlers for exception from the infrastructure.
+        /// </summary>
+        public IExceptionHandlerCollection DispatcherExceptionHandlers { get; set; }
 
         /// <summary>
         /// Creates new instance.
@@ -43,34 +59,17 @@ namespace Neptuo.Commands
             this.formatter = formatter;
             this.threadPool = new CommandThreadPool(queue);
 
+            CommandExceptionHandlers = new DefaultExceptionHandlerCollection();
+            DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
+
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(ICommandHandler<>),
                 null,
-                TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync)
+                TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync),
+                CommandExceptionHandlers
             );
-        }
 
-        public ICommandHandlerCollection Add<TCommand>(ICommandHandler<TCommand> handler)
-        {
-            Ensure.NotNull(handler, "handler");
-            HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TCommand));
-            storage[descriptor.ArgumentType] = descriptor;
-            return this;
-        }
-
-        public bool TryGet<TCommand>(out ICommandHandler<TCommand> handler)
-        {
-            ArgumentDescriptor argument = descriptorProvider.Get(typeof(TCommand));
-
-            HandlerDescriptor descriptor;
-            if(storage.TryGetValue(argument.ArgumentType, out descriptor))
-            {
-                handler = (ICommandHandler<TCommand>)descriptor.Handler;
-                return true;
-            }
-
-            handler = null;
-            return false;
+            Handlers = new HandlerCollection(storage, descriptorProvider);
         }
 
         public Task HandleAsync<TCommand>(TCommand command)
@@ -158,18 +157,25 @@ namespace Neptuo.Commands
             object key = distributor.Distribute(payload);
             queue.Enqueue(key, async () =>
             {
-                if (handler.IsContext)
-                    await handler.Execute(context);
-                else if (handler.IsEnvelope)
-                    await handler.Execute(envelope);
-                else if (handler.IsPlain)
-                    await handler.Execute(commandPayload);
-                else
-                    throw Ensure.Exception.UndefinedHandlerType(handler);
+                try
+                {
+                    if (handler.IsContext)
+                        await handler.Execute(context);
+                    else if (handler.IsEnvelope)
+                        await handler.Execute(envelope);
+                    else if (handler.IsPlain)
+                        await handler.Execute(commandPayload);
+                    else
+                        throw Ensure.Exception.UndefinedHandlerType(handler);
 
-                // If we have command with the key, notify about successful execution.
-                if (commandWithKey != null)
-                    await store.PublishedAsync(commandWithKey.Key);
+                    // If we have command with the key, notify about successful execution.
+                    if (commandWithKey != null)
+                        await store.PublishedAsync(commandWithKey.Key);
+                }
+                catch (Exception e)
+                {
+                    DispatcherExceptionHandlers.Handle(e);
+                }
             });
         }
 

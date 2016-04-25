@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neptuo.Exceptions;
+using Neptuo.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,6 +17,7 @@ namespace Neptuo.Internals
         private readonly Type interfaceType;
         private readonly Type contextGenericType;
         private readonly string methodName;
+        private readonly IExceptionHandlerCollection exceptionHandlers;
 
         /// <summary>
         /// Creates new instance.
@@ -22,13 +25,15 @@ namespace Neptuo.Internals
         /// <param name="interfaceType">The type of interface for handler. Used to find execute method for <see cref="HandlerDescriptor"/>.</param>
         /// <param name="contextGenericType">The type of the generic interface for context.</param>
         /// <param name="methodName">The 'executed' method name.</param>
-        public HandlerDescriptorProvider(Type interfaceType, Type contextGenericType, string methodName)
+        public HandlerDescriptorProvider(Type interfaceType, Type contextGenericType, string methodName, IExceptionHandlerCollection exceptionHandlers)
         {
             Ensure.NotNull(interfaceType, "interfaceType");
             Ensure.NotNullOrEmpty(methodName, "methodName");
+            Ensure.NotNull(exceptionHandlers, "exceptionHandlers");
             this.interfaceType = interfaceType;
             this.contextGenericType = contextGenericType;
             this.methodName = methodName;
+            this.exceptionHandlers = exceptionHandlers;
         }
 
         /// <summary>
@@ -47,12 +52,28 @@ namespace Neptuo.Internals
             MethodInfo method = handlerType.GetInterfaceMap(interfaceType.MakeGenericType(argumentType)).TargetMethods
                 .FirstOrDefault(m => m.Name.EndsWith(methodName));
 
+            Func<object, object, Task> handlerAction = (h, p) =>
+            {
+                Task result = (Task)method.Invoke(h, new object[] { p });
+                result = result.ContinueWith(task =>
+                {
+                    if (task.IsFaulted)
+                    {
+                        exceptionHandlers.Handle(task.Exception.InnerException);
+                        return Async.CompletedTask;
+                    }
+
+                    return task;
+                });
+                return result;
+            };
+
             ArgumentDescriptor argument = Get(argumentType);
             return new HandlerDescriptor(
                 handlerIdentifier,
                 handler,
                 argument.ArgumentType,
-                (h, p) => (Task)method.Invoke(h, new object[] { p }),
+                handlerAction,
                 argument.IsPlain,
                 argument.IsEnvelope,
                 argument.IsContext

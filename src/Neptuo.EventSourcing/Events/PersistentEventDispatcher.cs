@@ -1,5 +1,6 @@
 ﻿using Neptuo.Data;
 using Neptuo.Events.Handlers;
+using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
@@ -17,11 +18,18 @@ namespace Neptuo.Events
     /// <summary>
     /// The implementation of <see cref="IEventDispatcher"/> and <see cref="IEventHandlerCollection"/> with persistent delivery.
     /// </summary>
-    public class PersistentEventDispatcher : IEventDispatcher, IEventHandlerCollection
+    public partial class PersistentEventDispatcher : IEventDispatcher
     {
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
         private readonly IEventPublishingStore eventStore;
         private readonly HandlerDescriptorProvider descriptorProvider;
+
+        public IEventHandlerCollection Handlers { get; private set; }
+
+        /// <summary>
+        /// The collection of exception handlers for exceptions from the event processing.
+        /// </summary>
+        public IExceptionHandlerCollection EventExceptionHandlers { get; set; }
 
         /// <summary>
         /// Creates new instance.
@@ -31,36 +39,17 @@ namespace Neptuo.Events
         {
             Ensure.NotNull(store, "store");
             this.eventStore = store;
+
+            EventExceptionHandlers = new DefaultExceptionHandlerCollection();
+
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),
-                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync)
+                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync),
+                EventExceptionHandlers
             );
-        }
 
-        public IEventHandlerCollection Add<TEvent>(IEventHandler<TEvent> handler)
-        {
-            Ensure.NotNull(handler, "handler");
-
-            HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TEvent));
-            HashSet<HandlerDescriptor> handlers;
-            if (!storage.TryGetValue(descriptor.ArgumentType, out handlers))
-                storage[descriptor.ArgumentType] = handlers = new HashSet<HandlerDescriptor>();
-
-            handlers.Add(descriptor);
-            return this;
-        }
-
-        public IEventHandlerCollection Remove<TEvent>(IEventHandler<TEvent> handler)
-        {
-            Ensure.NotNull(handler, "handler");
-
-            HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TEvent));
-            HashSet<HandlerDescriptor> handlers;
-            if (storage.TryGetValue(descriptor.ArgumentType, out handlers))
-                handlers.Remove(descriptor);
-
-            return this;
+            Handlers = new HandlerCollection(storage, descriptorProvider);
         }
 
         public Task PublishAsync<TEvent>(TEvent eventPayload)
