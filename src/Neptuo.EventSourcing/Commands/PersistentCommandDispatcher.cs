@@ -66,7 +66,8 @@ namespace Neptuo.Commands
                 typeof(ICommandHandler<>),
                 null,
                 TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync),
-                CommandExceptionHandlers
+                CommandExceptionHandlers,
+                DispatcherExceptionHandlers
             );
 
             Handlers = new HandlerCollection(storage, descriptorProvider);
@@ -81,7 +82,7 @@ namespace Neptuo.Commands
         {
             Ensure.NotNull(command, "command");
 
-            ArgumentDescriptor argument = descriptorProvider.Get(command.GetType());
+            ArgumentDescriptor argument = descriptorProvider.Get(command);
             HandlerDescriptor handler;
             if (storage.TryGetValue(argument.ArgumentType, out handler))
                 return HandleInternalAsync(handler, argument, command, isPersistenceUsed);

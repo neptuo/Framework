@@ -17,7 +17,8 @@ namespace Neptuo.Internals
         private readonly Type interfaceType;
         private readonly Type contextGenericType;
         private readonly string methodName;
-        private readonly IExceptionHandlerCollection exceptionHandlers;
+        private readonly IExceptionHandlerCollection innerExceptionHandlers;
+        private readonly IExceptionHandlerCollection outerExceptionHandlers;
 
         /// <summary>
         /// Creates new instance.
@@ -25,15 +26,17 @@ namespace Neptuo.Internals
         /// <param name="interfaceType">The type of interface for handler. Used to find execute method for <see cref="HandlerDescriptor"/>.</param>
         /// <param name="contextGenericType">The type of the generic interface for context.</param>
         /// <param name="methodName">The 'executed' method name.</param>
-        public HandlerDescriptorProvider(Type interfaceType, Type contextGenericType, string methodName, IExceptionHandlerCollection exceptionHandlers)
+        public HandlerDescriptorProvider(Type interfaceType, Type contextGenericType, string methodName, IExceptionHandlerCollection innerExceptionHandlers, IExceptionHandlerCollection outerExceptionHandlers)
         {
             Ensure.NotNull(interfaceType, "interfaceType");
             Ensure.NotNullOrEmpty(methodName, "methodName");
-            Ensure.NotNull(exceptionHandlers, "exceptionHandlers");
+            Ensure.NotNull(innerExceptionHandlers, "innerExceptionHandlers");
+            Ensure.NotNull(outerExceptionHandlers, "outerExceptionHandlers");
             this.interfaceType = interfaceType;
             this.contextGenericType = contextGenericType;
             this.methodName = methodName;
-            this.exceptionHandlers = exceptionHandlers;
+            this.innerExceptionHandlers = innerExceptionHandlers;
+            this.outerExceptionHandlers = outerExceptionHandlers;
         }
 
         /// <summary>
@@ -54,18 +57,31 @@ namespace Neptuo.Internals
 
             Func<object, object, Task> handlerAction = (h, p) =>
             {
-                Task result = (Task)method.Invoke(h, new object[] { p });
-                result = result.ContinueWith(task =>
+                try
                 {
-                    if (task.IsFaulted)
+                    Task result = (Task)method.Invoke(h, new object[] { p });
+                    result = result.ContinueWith(task =>
                     {
-                        exceptionHandlers.Handle(task.Exception.InnerException);
-                        return Async.CompletedTask;
-                    }
+                        if (task.IsFaulted)
+                        {
+                            innerExceptionHandlers.Handle(task.Exception.InnerException);
+                            return Async.CompletedTask;
+                        }
 
-                    return task;
-                });
-                return result;
+                        return task;
+                    });
+                    return result;
+                }
+                catch (TargetInvocationException e)
+                {
+                    innerExceptionHandlers.Handle(e.InnerException);
+                    return Async.CompletedTask;
+                }
+                catch (Exception e)
+                {
+                    outerExceptionHandlers.Handle(e);
+                    return Async.CompletedTask;
+                }
             };
 
             ArgumentDescriptor argument = Get(argumentType);
@@ -108,6 +124,12 @@ namespace Neptuo.Internals
                     }
                 }
             }
+            else
+            {
+                isEnvelope = argumentType == typeof(Envelope);
+                if (isEnvelope)
+                    argumentType = typeof(object);
+            }
 
             return new ArgumentDescriptor(
                 argumentType,
@@ -115,6 +137,27 @@ namespace Neptuo.Internals
                 isEnvelope,
                 isContext
             );
+        }
+
+        /// <summary>
+        /// Builds <see cref="ArgumentDescriptor"/> for <paramref name="payload"/>.
+        /// </summary>
+        /// <param name="payload">The payload to create descriptor for.</param>
+        /// <returns>The instance of the argument descriptor.</returns>
+        public ArgumentDescriptor Get(object payload)
+        {
+            ArgumentDescriptor descriptor = Get(payload.GetType());
+            if(descriptor.IsEnvelope)
+            {
+                return new ArgumentDescriptor(
+                    ((Envelope)payload).Body.GetType(),
+                    descriptor.IsPlain,
+                    descriptor.IsEnvelope,
+                    descriptor.IsContext
+                );
+            }
+
+            return descriptor;
         }
 
         /// <summary>

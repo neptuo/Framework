@@ -49,28 +49,32 @@
       <HintPath>..\..\packages\Neptuo.5.1.0\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Events, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Events.1.1.0\lib\net45\Neptuo.Events.dll</HintPath>
+    <Reference Include="Neptuo.Events, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Events.1.2.0\lib\net45\Neptuo.Events.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Neptuo.Exceptions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Exceptions.0.1.1\lib\net45\Neptuo.Exceptions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Formatters.Composite, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.2.0.0\lib\net45\Neptuo.Formatters.Composite.dll</HintPath>
+    <Reference Include="Neptuo.Formatters.Composite, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Formatters.Composite.2.1.0\lib\net45\Neptuo.Formatters.Composite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Formatters.Composite.Json, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.Composite.Json.2.0.0\lib\net45\Neptuo.Formatters.Composite.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Metadata.1.0.0\lib\net45\Neptuo.Formatters.Composite.Metadata.dll</HintPath>
+    <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Metadata.1.0.1\lib\net45\Neptuo.Formatters.Composite.Metadata.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

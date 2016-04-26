@@ -29,7 +29,12 @@ namespace Neptuo.Events
         /// <summary>
         /// The collection of exception handlers for exceptions from the event processing.
         /// </summary>
-        public IExceptionHandlerCollection EventExceptionHandlers { get; set; }
+        public IExceptionHandlerCollection EventExceptionHandlers { get; private set; }
+
+        /// <summary>
+        /// The collection of exception handlers for exceptions from the infrastructure.
+        /// </summary>
+        public IExceptionHandlerCollection DispatcherExceptionHandlers { get; private set; }
 
         /// <summary>
         /// Creates new instance.
@@ -41,25 +46,27 @@ namespace Neptuo.Events
             this.eventStore = store;
 
             EventExceptionHandlers = new DefaultExceptionHandlerCollection();
+            DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
 
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),
                 TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync),
-                EventExceptionHandlers
+                EventExceptionHandlers,
+                DispatcherExceptionHandlers
             );
 
             Handlers = new HandlerCollection(storage, descriptorProvider);
         }
 
-        public Task PublishAsync<TEvent>(TEvent eventPayload)
+        public Task PublishAsync<TEvent>(TEvent payload)
         {
-            Ensure.NotNull(eventPayload, "eventPayload");
+            Ensure.NotNull(payload, "payload");
 
-            ArgumentDescriptor argument = descriptorProvider.Get(eventPayload.GetType());
+            ArgumentDescriptor argument = descriptorProvider.Get(payload);
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
-                return PublishAsync(handlers, argument, eventPayload);
+                return PublishAsync(handlers, argument, payload);
 
             return Async.CompletedTask;
         }

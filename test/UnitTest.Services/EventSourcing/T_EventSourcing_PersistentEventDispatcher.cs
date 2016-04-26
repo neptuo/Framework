@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Events.Handlers;
+using Neptuo.Exceptions;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
 using Orders.Domains.Events;
@@ -20,7 +21,9 @@ namespace Neptuo.EventSourcing
             var descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),
-                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync)
+                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync),
+                new DefaultExceptionHandlerCollection(),
+                new DefaultExceptionHandlerCollection()
             );
 
             HandlerDescriptor descriptor = descriptorProvider.Get(new OrderPlacedHandler(), typeof(OrderPlaced));

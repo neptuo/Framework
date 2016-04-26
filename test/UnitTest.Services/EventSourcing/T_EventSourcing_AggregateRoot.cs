@@ -104,14 +104,14 @@ namespace Neptuo.EventSourcing
 
             CreateOrderHandler createHandler = new CreateOrderHandler(repository);
             AddOrderItemHandler addItemHandler = new AddOrderItemHandler(repository);
-            commandDispatcher
+            commandDispatcher.Handlers
                 .Add<CreateOrder>(createHandler)
                 .Add<AddOrderItem>(addItemHandler);
 
             CreateOrder create = new CreateOrder();
             commandDispatcher.HandleAsync(create);
-            
-            eventDispatcher.Await<OrderPlaced>().Wait();
+
+            eventDispatcher.Handlers.Await<OrderPlaced>().Wait();
 
             IEnumerable<EventModel> serializedEvents = eventStore.Get(create.OrderKey).ToList();
             Assert.AreEqual(1, serializedEvents.Count());
@@ -119,7 +119,7 @@ namespace Neptuo.EventSourcing
             AddOrderItem addItem = new AddOrderItem(create.OrderKey, GuidKey.Create(Guid.NewGuid(), "Product"), 5);
             commandDispatcher.HandleAsync(addItem);
 
-            eventDispatcher.Await<OrderTotalRecalculated>().Wait();
+            eventDispatcher.Handlers.Await<OrderTotalRecalculated>().Wait();
 
             serializedEvents = eventStore.Get(create.OrderKey).ToList();
             Assert.AreEqual(3, serializedEvents.Count());

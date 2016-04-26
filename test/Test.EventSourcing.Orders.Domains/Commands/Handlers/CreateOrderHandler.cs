@@ -2,6 +2,7 @@
 using Neptuo.Commands.Handlers;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Orders.Domains.Commands.Handlers
         public Task HandleAsync(CreateOrder command)
         {
             repository.Save(new Order(command.OrderKey));
-            return Task.FromResult(true);
+            return Async.CompletedTask;
         }
     }
 }
