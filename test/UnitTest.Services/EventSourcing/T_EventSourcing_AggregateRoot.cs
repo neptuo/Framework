@@ -117,9 +117,11 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(1, serializedEvents.Count());
 
             AddOrderItem addItem = new AddOrderItem(create.OrderKey, GuidKey.Create(Guid.NewGuid(), "Product"), 5);
-            commandDispatcher.HandleAsync(Envelope.Create(addItem).AddDelay(TimeSpan.FromSeconds(2)));
+            commandDispatcher.HandleAsync(Envelope.Create(addItem).AddDelay(TimeSpan.FromMinutes(1)));
 
-            eventDispatcher.Handlers.Await<OrderTotalRecalculated>().Wait();
+            Task<OrderTotalRecalculated> task = eventDispatcher.Handlers.Await<OrderTotalRecalculated>();
+            task.Wait();
+            Console.WriteLine(task.Result);
 
             serializedEvents = eventStore.Get(create.OrderKey).ToList();
             Assert.AreEqual(3, serializedEvents.Count());

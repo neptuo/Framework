@@ -139,9 +139,9 @@ namespace Neptuo.Events
                 );
 
                 lock (timersLock)
-                {
                     timers.Add(new Tuple<Timer, ScheduleEventContext>(timer, scheduleContext));
-                }
+                
+                return;
             }
 
             return Task.Factory.StartNew(async () => 
