@@ -11,14 +11,12 @@ namespace Neptuo.Internals
         public HandlerDescriptor Handler { get; private set; }
         public ArgumentDescriptor Argument { get; private set; }
         public object Payload { get; private set; }
-        public bool IsPersistenceUsed { get; private set; }
 
-        public ScheduleCommandContext(HandlerDescriptor handler, ArgumentDescriptor argument, object payload, bool isPersistenceUsed)
+        public ScheduleCommandContext(HandlerDescriptor handler, ArgumentDescriptor argument, object payload)
         {
             Handler = handler;
             Argument = argument;
             Payload = payload;
-            IsPersistenceUsed = isPersistenceUsed;
         }
     }
 }

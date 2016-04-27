@@ -153,7 +153,7 @@ namespace Neptuo.Events
                     else if (handler.IsEnvelope)
                         await handler.Execute(envelope);
                     else if (handler.IsPlain)
-                        await handler.Execute(eventPayload);
+                        await handler.Execute(payload);
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 

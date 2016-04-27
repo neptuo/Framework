@@ -91,12 +91,12 @@ namespace Neptuo.Commands
             ArgumentDescriptor argument = descriptorProvider.Get(command);
             HandlerDescriptor handler;
             if (handlers.TryGet(argument.ArgumentType, out handler))
-                return HandleInternalAsync(handler, argument, command, isPersistenceUsed);
+                return HandleInternalAsync(handler, argument, command, isPersistenceUsed, true);
 
             throw new MissingCommandHandlerException(argument.ArgumentType);
         }
 
-        private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed)
+        private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed, bool isEnvelopeDelayUsed)
         {
             bool hasContextHandler = handler.IsContext;
             bool hasEnvelopeHandler = hasContextHandler || handler.IsEnvelope;
@@ -155,9 +155,9 @@ namespace Neptuo.Commands
             }
 
             TimeSpan delay;
-            if (envelope.TryGetDelay(out delay))
+            if (isEnvelopeDelayUsed && envelope.TryGetDelay(out delay))
             {
-                ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, payload, isPersistenceUsed);
+                ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
                 Timer timer = new Timer(
                     OnScheduledCommand, 
                     scheduleContext, 
@@ -181,7 +181,7 @@ namespace Neptuo.Commands
                     else if (handler.IsEnvelope)
                         await handler.Execute(envelope);
                     else if (handler.IsPlain)
-                        await handler.Execute(commandPayload);
+                        await handler.Execute(payload);
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
@@ -207,7 +207,7 @@ namespace Neptuo.Commands
                     timers.Remove(item);
             }
 
-            HandleInternalAsync(context.Handler, context.Argument, context.Payload, context.IsPersistenceUsed).Wait();
+            HandleInternalAsync(context.Handler, context.Argument, context.Payload, false, false).Wait();
         }
 
         /// <summary>
