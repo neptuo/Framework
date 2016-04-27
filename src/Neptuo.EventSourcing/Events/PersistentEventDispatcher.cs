@@ -28,6 +28,9 @@ namespace Neptuo.Events
         private readonly HandlerDescriptorProvider descriptorProvider;
         private readonly List<Tuple<Timer, ScheduleEventContext>> timers = new List<Tuple<Timer, ScheduleEventContext>>();
 
+        /// <summary>
+        /// The collection of event handlers.
+        /// </summary>
         public IEventHandlerCollection Handlers { get; private set; }
 
         /// <summary>
@@ -141,7 +144,7 @@ namespace Neptuo.Events
                 lock (timersLock)
                     timers.Add(new Tuple<Timer, ScheduleEventContext>(timer, scheduleContext));
                 
-                return;
+                return Async.CompletedTask;
             }
 
             return Task.Factory.StartNew(async () => 

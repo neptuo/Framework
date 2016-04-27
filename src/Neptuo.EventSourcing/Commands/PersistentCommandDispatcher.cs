@@ -167,7 +167,7 @@ namespace Neptuo.Commands
 
                 lock (timersLock)
                     timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
-                
+
                 return;
             }
 
