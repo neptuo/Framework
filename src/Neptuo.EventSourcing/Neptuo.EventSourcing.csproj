@@ -81,6 +81,7 @@
     <Compile Include="Data\IEventPublishingStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
     <Compile Include="Events\PersistentEventDispatcher.HandlerCollection.cs" />
+    <Compile Include="Internals\ScheduleEventContext.cs" />
     <Compile Include="Formatters\CommandExtender.cs" />
     <Compile Include="Formatters\EnvelopeFormatter.cs" />
     <Compile Include="Formatters\EventExtender.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Internals\CommandThreadPool.cs" />
     <Compile Include="Internals\HandlerDescriptor.cs" />
     <Compile Include="Internals\HandlerDescriptorProvider.cs" />
+    <Compile Include="Internals\ScheduleCommandContext.cs" />
     <Compile Include="Internals\TheeQueue.cs" />
     <Compile Include="Internals\_EnsureExceptionExtensions.cs" />
     <Compile Include="Internals\_EnvelopeExtensions.cs" />

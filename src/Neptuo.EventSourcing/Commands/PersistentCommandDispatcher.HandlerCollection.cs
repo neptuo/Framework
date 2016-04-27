@@ -12,14 +12,14 @@ namespace Neptuo.Commands
     {
         private class HandlerCollection : ICommandHandlerCollection
         {
-            private readonly Dictionary<Type, HandlerDescriptor> storage;
+            private readonly object storageLock = new object();
+
+            private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type,HandlerDescriptor>();
             private readonly HandlerDescriptorProvider descriptorProvider;
 
-            public HandlerCollection(Dictionary<Type, HandlerDescriptor> storage, HandlerDescriptorProvider descriptorProvider)
+            public HandlerCollection(HandlerDescriptorProvider descriptorProvider)
             {
-                Ensure.NotNull(storage, "storage");
                 Ensure.NotNull(descriptorProvider, "descriptorProvider");
-                this.storage = storage;
                 this.descriptorProvider = descriptorProvider;
             }
 
@@ -27,7 +27,9 @@ namespace Neptuo.Commands
             {
                 Ensure.NotNull(handler, "handler");
                 HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TCommand));
-                storage[descriptor.ArgumentType] = descriptor;
+                lock (storageLock)
+                    storage[descriptor.ArgumentType] = descriptor;
+
                 return this;
             }
 
@@ -44,6 +46,11 @@ namespace Neptuo.Commands
 
                 handler = null;
                 return false;
+            }
+
+            internal bool TryGet(Type argumentType, out HandlerDescriptor handler)
+            {
+                return storage.TryGetValue(argumentType, out handler);
             }
         }
 

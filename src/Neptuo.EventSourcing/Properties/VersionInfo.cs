@@ -4,7 +4,7 @@ namespace Neptuo.EventSourcing
 {
     public static class VersionInfo
     {
-        internal const string Version = "0.3.2";
+        internal const string Version = "0.4.0";
 
         public static Version GetVersion()
         {

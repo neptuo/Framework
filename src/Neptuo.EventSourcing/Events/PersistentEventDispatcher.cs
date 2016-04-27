@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Events
@@ -20,9 +21,12 @@ namespace Neptuo.Events
     /// </summary>
     public partial class PersistentEventDispatcher : IEventDispatcher
     {
+        private readonly object timersLock = new object();
+
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
         private readonly IEventPublishingStore eventStore;
         private readonly HandlerDescriptorProvider descriptorProvider;
+        private readonly List<Tuple<Timer, ScheduleEventContext>> timers = new List<Tuple<Timer, ScheduleEventContext>>();
 
         public IEventHandlerCollection Handlers { get; private set; }
 
@@ -123,11 +127,21 @@ namespace Neptuo.Events
             if (eventWithKey == null)
                 eventWithKey = payload as IEvent;
 
-            // TODO: If we have the envelope and delay is used, schedule the execution...
             TimeSpan delay;
             if (envelope.TryGetDelay(out delay))
             {
+                ScheduleEventContext scheduleContext = new ScheduleEventContext(handlers, argument, payload);
+                Timer timer = new Timer(
+                    OnScheduledEvent,
+                    scheduleContext,
+                    delay,
+                    TimeSpan.FromMilliseconds(-1)
+                );
 
+                lock (timersLock)
+                {
+                    timers.Add(new Tuple<Timer, ScheduleEventContext>(timer, scheduleContext));
+                }
             }
 
             return Task.Factory.StartNew(async () => 
@@ -147,6 +161,20 @@ namespace Neptuo.Events
                         await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
                 }
             });
+        }
+
+        private void OnScheduledEvent(object state)
+        {
+            ScheduleEventContext context = (ScheduleEventContext)state;
+
+            lock (timersLock)
+            {
+                Tuple<Timer, ScheduleEventContext> item = timers.FirstOrDefault(t => t.Item2 == context);
+                if (item != null)
+                    timers.Remove(item);
+            }
+
+            PublishAsync(context.Handlers, context.Argument, context.Payload).Wait();
         }
 
         /// <summary>

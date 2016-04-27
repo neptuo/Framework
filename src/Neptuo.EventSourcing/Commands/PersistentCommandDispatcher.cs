@@ -20,18 +20,24 @@ namespace Neptuo.Commands
     /// </summary>
     public partial class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher
     {
-        private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type, HandlerDescriptor>();
+        private readonly object timersLock = new object();
+
         private readonly HandlerDescriptorProvider descriptorProvider;
         private readonly TheeQueue queue = new TheeQueue();
         private readonly CommandThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
+        private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
+        private readonly HandlerCollection handlers;
 
         /// <summary>
         /// The collection of registered handlers.
         /// </summary>
-        public ICommandHandlerCollection Handlers { get; private set; }
+        public ICommandHandlerCollection Handlers
+        {
+            get { return handlers; }
+        }
 
         /// <summary>
         /// The collection of exception handlers for exception from the command processing.
@@ -70,7 +76,7 @@ namespace Neptuo.Commands
                 DispatcherExceptionHandlers
             );
 
-            Handlers = new HandlerCollection(storage, descriptorProvider);
+            handlers = new HandlerCollection(descriptorProvider);
         }
 
         public Task HandleAsync<TCommand>(TCommand command)
@@ -84,7 +90,7 @@ namespace Neptuo.Commands
 
             ArgumentDescriptor argument = descriptorProvider.Get(command);
             HandlerDescriptor handler;
-            if (storage.TryGetValue(argument.ArgumentType, out handler))
+            if (handlers.TryGet(argument.ArgumentType, out handler))
                 return HandleInternalAsync(handler, argument, command, isPersistenceUsed);
 
             throw new MissingCommandHandlerException(argument.ArgumentType);
@@ -148,11 +154,21 @@ namespace Neptuo.Commands
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
             }
 
-            // TODO: If we have the envelope and delay is used, schedule the execution...
             TimeSpan delay;
             if (envelope.TryGetDelay(out delay))
             {
+                ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, payload, isPersistenceUsed);
+                Timer timer = new Timer(
+                    OnScheduledCommand, 
+                    scheduleContext, 
+                    delay, 
+                    TimeSpan.FromMilliseconds(-1)
+                );
 
+                lock (timersLock)
+                {
+                    timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
+                }
             }
 
             object key = distributor.Distribute(payload);
@@ -178,6 +194,20 @@ namespace Neptuo.Commands
                     DispatcherExceptionHandlers.Handle(e);
                 }
             });
+        }
+
+        private void OnScheduledCommand(object state)
+        {
+            ScheduleCommandContext context = (ScheduleCommandContext)state;
+
+            lock (timersLock)
+            {
+                Tuple<Timer, ScheduleCommandContext> item = timers.FirstOrDefault(t => t.Item2 == context);
+                if (item != null)
+                    timers.Remove(item);
+            }
+
+            HandleInternalAsync(context.Handler, context.Argument, context.Payload, context.IsPersistenceUsed).Wait();
         }
 
         /// <summary>
