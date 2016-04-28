@@ -17,14 +17,13 @@ namespace Neptuo.Models.Keys
         /// </summary>
         /// <param name="condition">The condition helper.</param>
         /// <param name="key">The to test.</param>
-        /// <param name="argumentName">The name of the key argument.</param>
-        public static void NotEmptyKey(this EnsureConditionHelper condition, IKey key, string argumentName)
+        public static void NotEmptyKey(this EnsureConditionHelper condition, IKey key)
         {
             Ensure.NotNull(condition, "condition");
             Ensure.NotNull(key, "key");
 
             if (key.IsEmpty)
-                throw Ensure.Exception.ArgumentOutOfRange(argumentName, "Argument requires not empty key.");
+                throw new RequiredNotEmptyKeyException(key.Type);
         }
 
         /// <summary>
@@ -33,15 +32,26 @@ namespace Neptuo.Models.Keys
         /// <param name="condition">The condition helper.</param>
         /// <param name="key">The to test.</param>
         /// <param name="type">The required key type.</param>
-        /// <param name="argumentName">The name of the key argument.</param>
-        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
+        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type)
         {
             Ensure.NotNull(condition, "condition");
             Ensure.NotNull(key, "key");
             Ensure.NotNullOrEmpty(type, "type");
 
             if (key.Type != type)
-                throw Ensure.Exception.ArgumentOutOfRange("key", "Passed key of different aggregate type '{0}' to the '{1}'.", key.Type, type);
+                throw new RequiredKeyOfTypeException(key.Type, type);
+        }
+
+        [Obsolete]
+        public static void NotEmptyKey(this EnsureConditionHelper condition, IKey key, string argumentName)
+        {
+            NotEmptyKey(condition, key);
+        }
+
+        [Obsolete]
+        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
+        {
+            NotDifferentKeyType(condition, key, type);
         }
     }
 }
