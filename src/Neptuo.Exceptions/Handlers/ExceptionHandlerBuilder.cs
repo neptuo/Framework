@@ -11,6 +11,12 @@ namespace Neptuo.Exceptions.Handlers
     /// </summary>
     public class ExceptionHandlerBuilder : ExceptionHandlerBuilder<Exception>
     {
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previously specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
         public ExceptionHandlerBuilder Handler<T>(IExceptionHandler<T> handler)
             where T : Exception
         {
@@ -18,6 +24,12 @@ namespace Neptuo.Exceptions.Handlers
             return this;
         }
 
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previously specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
         public ExceptionHandlerBuilder Handler<T>(Action<T> handler)
             where T : Exception
         {
@@ -32,8 +44,8 @@ namespace Neptuo.Exceptions.Handlers
     public class ExceptionHandlerBuilder<T> : IExceptionHandler
         where T : Exception
     {
-        private List<Func<T, bool>> filters = new List<Func<T, bool>>();
-        private List<IExceptionHandler<T>> handlers = new List<IExceptionHandler<T>>();
+        private readonly List<Func<T, bool>> filters = new List<Func<T, bool>>();
+        private readonly List<IExceptionHandler<T>> handlers = new List<IExceptionHandler<T>>();
 
         protected List<IExceptionHandler> ChildHandlers = new List<IExceptionHandler>();
 
@@ -58,6 +70,12 @@ namespace Neptuo.Exceptions.Handlers
             return builder;
         }
 
+        /// <summary>
+        /// Adds <paramref name="filter"/> for all subsequently defined handlers.
+        /// Any previously specified handlers are not affected by this filter.
+        /// </summary>
+        /// <param name="filter">The filter to filter out some exceptions.</param>
+        /// <returns>Self (for fluency) or new sub-builder.</returns>
         public ExceptionHandlerBuilder<T> Filter(Func<T, bool> filter)
         {
             Ensure.NotNull(filter, "filter");
@@ -73,6 +91,12 @@ namespace Neptuo.Exceptions.Handlers
             return this;
         }
 
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previously specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
         public ExceptionHandlerBuilder<T> Handler(IExceptionHandler<T> handler)
         {
             Ensure.NotNull(handler, "handler");
@@ -80,6 +104,12 @@ namespace Neptuo.Exceptions.Handlers
             return this;
         }
 
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previous specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
         public ExceptionHandlerBuilder<T> Handler(Action<T> handler)
         {
             handlers.Add(DelegateExceptionHandler.FromAction<T>(handler));
@@ -89,9 +119,6 @@ namespace Neptuo.Exceptions.Handlers
         void IExceptionHandler.Handle(Exception exception)
         {
             Ensure.NotNull(exception, "exception");
-
-            // TODO: Maintain the order of calling Filter and Handler to support more and more specific filtering 
-            // with support for handlers at different level of this specificity.
 
             T ex = exception as T;
             if (ex == null)
