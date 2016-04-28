@@ -19,7 +19,7 @@ namespace Neptuo.Exceptions
         /// <param name="collection">The collection to add handler to.</param>
         /// <param name="handler">The handler to add to the <paramref name="collection"/>.</param>
         /// <returns>Self (for fluency).</returns>
-        public static IExceptionHandlerCollection Add<T>(IExceptionHandlerCollection collection, IExceptionHandler<T> handler)
+        public static IExceptionHandlerCollection Add<T>(this IExceptionHandlerCollection collection, IExceptionHandler<T> handler)
             where T : Exception
         {
             Ensure.NotNull(collection, "collection");
