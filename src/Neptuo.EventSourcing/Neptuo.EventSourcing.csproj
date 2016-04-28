@@ -70,6 +70,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
+    <Compile Include="Commands\Handlers\AggregateRootCommandHandler.cs" />
     <Compile Include="Commands\ICommandDistributor.cs" />
     <Compile Include="Commands\MissingCommandHandlerException.cs" />
     <Compile Include="Commands\PersistentCommandDispatcher.cs" />
