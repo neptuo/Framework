@@ -32,11 +32,15 @@ namespace Neptuo.Models.Keys
         /// <param name="condition">The condition helper.</param>
         /// <param name="key">The to test.</param>
         /// <param name="type">The required key type.</param>
-        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type)
+        /// <param name="isNotEmptyRequired">Is <c>true</c> only not empty key is accepted</param>
+        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, bool isNotEmptyRequired = true)
         {
             Ensure.NotNull(condition, "condition");
             Ensure.NotNull(key, "key");
             Ensure.NotNullOrEmpty(type, "type");
+
+            if (isNotEmptyRequired)
+                NotEmptyKey(condition, key);
 
             if (key.Type != type)
                 throw new RequiredKeyOfTypeException(key.Type, type);
@@ -51,7 +55,7 @@ namespace Neptuo.Models.Keys
         [Obsolete]
         public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
         {
-            NotDifferentKeyType(condition, key, type);
+            NotDifferentKeyType(condition, key, type, false);
         }
     }
 }
