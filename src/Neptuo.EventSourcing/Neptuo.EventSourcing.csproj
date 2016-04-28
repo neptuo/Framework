@@ -82,6 +82,7 @@
     <Compile Include="Data\IEventPublishingStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
     <Compile Include="Events\PersistentEventDispatcher.HandlerCollection.cs" />
+    <Compile Include="Internals\EnvelopeFactory.cs" />
     <Compile Include="Internals\ScheduleEventContext.cs" />
     <Compile Include="Formatters\CommandExtender.cs" />
     <Compile Include="Formatters\EnvelopeFormatter.cs" />

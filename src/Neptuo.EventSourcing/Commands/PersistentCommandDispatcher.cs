@@ -127,15 +127,7 @@ namespace Neptuo.Commands
 
                     // If passed argument is not envelope, try to create it if needed.
                     if (hasEnvelopeHandler)
-                    {
-                        //TODO: Wrap reflection.
-                        MethodInfo envelopeCreateMethod = typeof(Envelope)
-                            .GetMethods(BindingFlags.Static | BindingFlags.Public)
-                            .First(m => m.Name == "Create" && m.IsGenericMethod)
-                            .MakeGenericMethod(argument.ArgumentType);
-
-                        envelope = (Envelope)envelopeCreateMethod.Invoke(null, new object[] { payload });
-                    }
+                        envelope = EnvelopeFactory.Create(payload, argument.ArgumentType);
                 }
 
                 if (hasContextHandler)

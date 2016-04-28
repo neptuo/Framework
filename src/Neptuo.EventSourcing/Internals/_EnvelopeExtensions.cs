@@ -55,6 +55,5 @@ namespace Neptuo.Internals
         }
 
         #endregion
-
     }
 }

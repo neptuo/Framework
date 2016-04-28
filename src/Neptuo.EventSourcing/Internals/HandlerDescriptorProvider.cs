@@ -169,12 +169,11 @@ namespace Neptuo.Internals
         /// <returns>The identifier of the <paramref name="handlerType"/> or <c>null</c>.</returns>
         private string FindIdentifier(Type handlerType)
         {
-            string identifier = handlerType.AssemblyQualifiedName;
             IdentifierAttribute attribute = handlerType.GetCustomAttribute<IdentifierAttribute>();
             if (attribute != null)
-                identifier = attribute.Value;
+                return attribute.Value;
 
-            return identifier;
+            return null;
         }
     }
 }

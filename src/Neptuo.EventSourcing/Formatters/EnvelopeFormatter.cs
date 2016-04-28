@@ -1,4 +1,5 @@
 ﻿using Neptuo.Collections.Specialized;
+using Neptuo.Internals;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,6 +78,7 @@ namespace Neptuo.Formatters
                 foreach (string key in context.Metadata.Keys)
                     innerContext.Metadata.Add(key, context.Metadata.Get<object>(key));
 
+                innerContext.AddEnvelopeMetadata(new KeyValueCollection());
                 return true;
             }
 
@@ -84,15 +86,15 @@ namespace Neptuo.Formatters
             return false;
         }
 
-        private Envelope WrapOutputInEnvelope(Type innerType, object output)
+        private Envelope WrapOutputInEnvelope(Type innerType, object output, IDeserializerContext context)
         {
-            //TODO: Wrap reflection.
-            MethodInfo envelopeCreateMethod = typeof(Envelope)
-                .GetMethods(BindingFlags.Static | BindingFlags.Public)
-                .First(m => m.Name == "Create" && m.IsGenericMethod)
-                .MakeGenericMethod(innerType);
+            Envelope envelope = EnvelopeFactory.Create(output, innerType);
 
-            return (Envelope)envelopeCreateMethod.Invoke(null, new object[] { output });
+            IKeyValueCollection metadata = context.GetEnvelopeMetadata();
+            foreach (string key in metadata.Keys)
+                envelope.Metadata.Add(key, metadata.Get<object>(key));
+
+            return envelope;
         }
 
         public bool TryDeserialize(Stream input, IDeserializerContext context)
@@ -102,7 +104,7 @@ namespace Neptuo.Formatters
             {
                 if(inner.TryDeserialize(input, innerContext))
                 {
-                    context.Output = WrapOutputInEnvelope(innerContext.OutputType, innerContext.Output);
+                    context.Output = WrapOutputInEnvelope(innerContext.OutputType, innerContext.Output, innerContext);
                     return true;
                 }
 
@@ -119,7 +121,7 @@ namespace Neptuo.Formatters
             {
                 if (await inner.TryDeserializeAsync(input, innerContext))
                 {
-                    context.Output = WrapOutputInEnvelope(innerContext.OutputType, innerContext.Output);
+                    context.Output = WrapOutputInEnvelope(innerContext.OutputType, innerContext.Output, innerContext);
                     return true;
                 }
 
