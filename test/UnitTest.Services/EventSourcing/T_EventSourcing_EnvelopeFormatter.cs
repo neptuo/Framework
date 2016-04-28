@@ -1,10 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.Activators;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
+using Neptuo.Formatters.Metadata;
 using Orders.Domains.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,14 +17,20 @@ namespace Neptuo.EventSourcing
     public class T_EventSourcing_EnvelopeFormatter
     {
         [TestMethod]
-        public void SerializeAndDeserializeWithMetadata()
+        public void SerializeAndDeserializeCommandWithMetadata()
         {
             Converts.Repository
                 .AddJsonEnumSearchHandler()
                 .AddJsonObjectSearchHandler()
                 .AddJsonPrimitivesSearchHandler();
 
-            IFormatter formatter = new EnvelopeFormatter(new ExtendedComposityTypeFormatter());
+            IFormatter formatter = new CompositeCommandFormatter(
+                new ReflectionCompositeTypeProvider(
+                    new ReflectionCompositeDelegateFactory(), 
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+                ), 
+                new DefaultFactory<JsonCompositeStorage>()
+            );
 
             TimeSpan delay = TimeSpan.FromSeconds(50);
             string sourceID = "AbcDef";

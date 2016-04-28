@@ -124,6 +124,10 @@
       <Project>{4ff6188f-8010-47eb-a4bc-3aa7a17a517d}</Project>
       <Name>Neptuo.EventSourcing.Entity</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Formatters.Composite\Neptuo.EventSourcing.Formatters.Composite.csproj">
+      <Project>{db6c73a2-437e-4795-987e-6dba0db79be1}</Project>
+      <Name>Neptuo.EventSourcing.Formatters.Composite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj">
       <Project>{9af3cc63-a2e4-4801-a511-f3a631f95c7e}</Project>
       <Name>Neptuo.EventSourcing</Name>
