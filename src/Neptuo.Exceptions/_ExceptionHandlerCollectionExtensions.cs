@@ -13,6 +13,20 @@ namespace Neptuo.Exceptions
     public static class _ExceptionHandlerCollectionExtensions
     {
         /// <summary>
+        /// Adds <paramref name="handler"/> to handle exceptions of type <typeparamref name="T"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the exception to handle by the <paramref name="handler"/>.</typeparam>
+        /// <param name="collection">The collection to add handler to.</param>
+        /// <param name="handler">The handler to add to the <paramref name="collection"/>.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static IExceptionHandlerCollection Add<T>(IExceptionHandlerCollection collection, IExceptionHandler<T> handler)
+            where T : Exception
+        {
+            Ensure.NotNull(collection, "collection");
+            return collection.Add(new ExceptionHandlerBuilder().Handler(handler));
+        }
+
+        /// <summary>
         /// Enumerates all handlers in the <paramref name="collection"/> and passes each of them <paramref name="exception"/>.
         /// </summary>
         /// <param name="collection">The collection use handlers from.</param>
