@@ -21,6 +21,10 @@ namespace Neptuo.Formatters
     {
         private readonly IFormatter inner;
 
+        /// <summary>
+        /// Creates new instance that wraps <paramref name="inner"/>.
+        /// </summary>
+        /// <param name="inner">The inner formatter for 'real' serialization/deserialization.</param>
         public EnvelopeFormatter(IFormatter inner)
         {
             Ensure.NotNull(inner, "inner");
