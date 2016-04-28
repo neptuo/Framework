@@ -50,6 +50,7 @@
     </Compile>
     <Compile Include="DefaultExceptionHandlerCollection.cs" />
     <Compile Include="Handlers\DelegateExceptionHandler.cs" />
+    <Compile Include="Handlers\ExceptionHandlerBuilder.cs" />
     <Compile Include="Handlers\IExceptionHandler.cs" />
     <Compile Include="IExceptionHandlerCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
