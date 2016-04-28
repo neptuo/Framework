@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Commands.Handlers
 {
     /// <summary>
-    /// Base command handler for aggregate root commands.
+    /// The base command handler for aggregate root commands.
     /// </summary>
     /// <typeparam name="T">The type of the aggregate root.</typeparam>
     public abstract class AggregateRootCommandHandler<T>
@@ -20,6 +20,10 @@ namespace Neptuo.Commands.Handlers
     {
         private readonly IFactory<IRepository<T, IKey>> repositoryFactory;
 
+        /// <summary>
+        /// Creates new instance that uses <paramref name="repositoryFactory"/> for creating instances of repository.
+        /// </summary>
+        /// <param name="repositoryFactory"></param>
         public AggregateRootCommandHandler(IFactory<IRepository<T, IKey>> repositoryFactory)
         {
             Ensure.NotNull(repositoryFactory, "repositoryFactory");
@@ -27,24 +31,26 @@ namespace Neptuo.Commands.Handlers
         }
 
         /// <summary>
-        /// Spustí <paramref name="handler"/>, který vytváří novou instanci agregátu.
+        /// Excutes <paramref name="handler"/> that creates new instance of aggregate.
         /// </summary>
-        /// <param name="handler">Metoda, která vytváří novou instanci agregátu.</param>
+        /// <param name="handler">The handler that creates new instance of aggregate. If returns <c>null</c>, nothing is saved.</param>
         protected Task Execute(Func<T> handler)
         {
             Ensure.NotNull(handler, "handler");
 
             T aggregate = handler();
-            repositoryFactory.Create().Save(aggregate);
+
+            if (aggregate != null)
+                repositoryFactory.Create().Save(aggregate);
 
             return Async.CompletedTask;
         }
 
         /// <summary>
-        /// Vytáhne istanci agregátu podle <paramref name="key"/> a spustí nad ní <paramref name="handler"/>. Následně agregát uloží.
+        /// Loads aggregate by <paramref name="key"/> and executes <paramref name="handler"/> with it. Then the aggregate is saved.
         /// </summary>
-        /// <param name="key">Klíč agregátu.</param>
-        /// <param name="handler">Metoda modifikující agregát.</param>
+        /// <param name="key">The key of the aggregate to load.</param>
+        /// <param name="handler">The handler method for modifying aggregate.</param>
         protected Task Execute(IKey key, Action<T> handler)
         {
             Ensure.NotNull(key, "key");
