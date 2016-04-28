@@ -7,27 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarkerMeet.Converters
+namespace Neptuo.Formatters.Converters
 {
-	public class StringKeyToJTokenConverter : DefaultConverter<StringKey, JToken>
-	{
-		public override bool TryConvert(StringKey sourceValue, out JToken targetValue)
-		{
-			if (sourceValue == null)
-			{
-				targetValue = null;
-				return false;
-			}
+    /// <summary>
+    /// The converter from the <see cref="StringKey"/> to the <see cref="JToken"/>.
+    /// </summary>
+    public class StringKeyToJTokenConverter : KeyToJObjectConverter<StringKey>
+    {
+        protected override bool TryConvert(StringKey source, out JObject target)
+        {
+            target = new JObject();
+            target[JsonName.Type] = source.Type;
+            if (source.IsEmpty)
+                target[JsonName.StringValue] = null;
+            else
+                target[JsonName.StringValue] = source.Identifier;
 
-			JObject result = new JObject();
-			result["Type"] = sourceValue.Type;
-			if (sourceValue.IsEmpty)
-				result["Identifier"] = null;
-			else
-				result["Identifier"] = sourceValue.Identifier;
+            return true;
+        }
 
-			targetValue = result;
-			return true;
-		}
+        protected override bool TryConvert(JObject source, out StringKey target)
+        {
+            string type = source.Value<string>(JsonName.Type);
+            string value = source.Value<string>(JsonName.StringValue);
+
+            if (value == null)
+                target = StringKey.Empty(type);
+            else
+                target = StringKey.Create(value, type);
+
+            return true;
+        }
 	}
 }

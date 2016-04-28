@@ -7,26 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MarkerMeet.Converters
+namespace Neptuo.Formatters.Converters
 {
-    public class GuidKeyToJTokenConverter : DefaultConverter<GuidKey, JToken>
+    /// <summary>
+    /// The converter from the <see cref="GuidKey"/> to the <see cref="JToken"/>.
+    /// </summary>
+    public class GuidKeyToJTokenConverter : KeyToJObjectConverter<GuidKey>
     {
-        public override bool TryConvert(GuidKey sourceValue, out JToken targetValue)
+        public override bool TryConvert(GuidKey source, out JObject target)
         {
-            if(sourceValue == null)
-            {
-                targetValue = null;
-                return false;
-            }
-
-            JObject result = new JObject();
-            result["Type"] = sourceValue.Type;
-            if (sourceValue.IsEmpty)
-                result["Guid"] = null;
+            target = new JObject();
+            target[JsonName.Type] = source.Type;
+            if (source.IsEmpty)
+                target[JsonName.GuidValue] = null;
             else
-                result["Guid"] = sourceValue.Guid.ToString();
+                target[JsonName.GuidValue] = source.Guid.ToString();
 
-            targetValue = result;
+            return true;
+        }
+
+        public override bool TryConvert(JObject source, out GuidKey target)
+        {
+            string type = source.Value<string>(JsonName.Type);
+            string value = source.Value<string>(JsonName.GuidValue);
+
+            Guid guid;
+            if (Guid.TryParse(value, out guid))
+                target = GuidKey.Create(guid, type);
+            else
+                target = GuidKey.Empty(type);
+
             return true;
         }
     }

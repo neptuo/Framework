@@ -93,10 +93,12 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Converters\GuidKeyToJTokenConverter.cs" />
-    <Compile Include="Converters\JTokenToGuidKeyConverter.cs" />
-    <Compile Include="Converters\JTokenToKeyConverter.cs" />
-    <Compile Include="Converters\JTokenToStringKeyConverter.cs" />
+    <Compile Include="Converters\KeyToJObjectConverter.cs" />
+    <Compile Include="Converters\JsonName.cs" />
+    <Compile Include="Converters\KeyToJTokenConverter.cs" />
     <Compile Include="Converters\StringKeyToJTokenConverter.cs" />
+    <Compile Include="Converters\TwoWayConverter.cs" />
+    <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
