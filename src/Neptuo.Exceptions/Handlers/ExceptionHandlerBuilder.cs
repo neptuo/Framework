@@ -37,6 +37,14 @@ namespace Neptuo.Exceptions.Handlers
 
         protected List<IExceptionHandler> ChildHandlers = new List<IExceptionHandler>();
 
+        internal ExceptionHandlerBuilder()
+        { }
+
+        internal ExceptionHandlerBuilder(Func<T, bool> filter)
+        {
+            filters.Add(filter);
+        }
+
         /// <summary>
         /// Creates sub-builder for exceptions of type <typeparamref name="TBase"/>.
         /// </summary>
@@ -53,6 +61,14 @@ namespace Neptuo.Exceptions.Handlers
         public ExceptionHandlerBuilder<T> Filter(Func<T, bool> filter)
         {
             Ensure.NotNull(filter, "filter");
+
+            if(handlers.Count > 0 || ChildHandlers.Count > 0)
+            {
+                ExceptionHandlerBuilder<T> builder = new ExceptionHandlerBuilder<T>(filter);
+                ChildHandlers.Add(builder);
+                return builder;
+            }
+
             filters.Add(filter);
             return this;
         }

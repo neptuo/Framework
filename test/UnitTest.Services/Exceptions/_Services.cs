@@ -1,4 +1,5 @@
-﻿using Neptuo.Exceptions.Handlers;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo.Exceptions.Handlers;
 using Neptuo.Models;
 using System;
 using System.Collections.Generic;
@@ -8,19 +9,36 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Exceptions
 {
-    public class AggregateRootExceptionHandler : IExceptionHandler<AggregateRootException>
+    public class ArgumentExceptionHandler : IExceptionHandler<ArgumentException>
     {
-        public void Handle(AggregateRootException exception)
+        public int CallCount { get; private set; }
+
+        public void Handle(ArgumentException exception)
         {
-            Console.WriteLine(exception);
+            Assert.IsNotNull(exception);
+            CallCount++;
         }
     }
 
-    public class ArgumentExceptionHandler : IExceptionHandler<ArgumentException>
+    public class InnerExceptionIsNullHandler : IExceptionHandler<Exception>
     {
-        public void Handle(ArgumentException exception)
+        public int CallCount { get; private set; }
+
+        public void Handle(Exception exception)
         {
-            Console.WriteLine(exception);
+            Assert.IsNull(exception.InnerException);
+            CallCount++;
+        }
+    }
+
+    public class MessageLongerThanTenHandler : IExceptionHandler<Exception>
+    {
+        public int CallCount { get; private set; }
+
+        public void Handle(Exception exception)
+        {
+            Assert.IsTrue(exception.Message.Length > 10);
+            CallCount++;
         }
     }
 

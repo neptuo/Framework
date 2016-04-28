@@ -94,7 +94,7 @@
     <Compile Include="EventSourcing\_Services.cs" />
     <Compile Include="Events\T_Events_Sync.cs" />
     <Compile Include="Events\_Services.cs" />
-    <Compile Include="Exceptions\T_Services_Exceptions_Builder.cs" />
+    <Compile Include="Exceptions\T_Exceptions_Builder.cs" />
     <Compile Include="Exceptions\_Services.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\T_Queries_AutoExport.cs" />
