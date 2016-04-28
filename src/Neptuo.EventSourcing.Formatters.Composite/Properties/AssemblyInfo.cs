@@ -1,4 +1,4 @@
-﻿using Neptuo.EventSourcing;
+﻿using Neptuo.EventSourcing.Formatters.Composite;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
