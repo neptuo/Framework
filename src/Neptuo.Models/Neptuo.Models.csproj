@@ -57,9 +57,13 @@
     <Compile Include="Keys\Int16Key.cs" />
     <Compile Include="Keys\Int32Key.cs" />
     <Compile Include="Keys\Int64Key.cs" />
+    <Compile Include="Keys\RequiredKeyOfTypeException.cs" />
+    <Compile Include="Keys\RequiredKeyOfClassException.cs" />
     <Compile Include="Keys\KeyBase.cs" />
+    <Compile Include="Keys\RequiredNotEmptyKeyException.cs" />
     <Compile Include="Keys\StringKey.cs" />
     <Compile Include="Keys\_EnsureConditionExtensions.cs" />
+    <Compile Include="Keys\_KeyExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="Repositories\IReadOnlyRepository.cs" />

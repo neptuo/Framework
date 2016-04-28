@@ -20,6 +20,6 @@ namespace Neptuo.Models
         /// Model key.
         /// Should never be <c>null</c>. Instead use empty key.
         /// </summary>
-        TKey Key { get; set; }
+        new TKey Key { get; set; }
     }
 }
