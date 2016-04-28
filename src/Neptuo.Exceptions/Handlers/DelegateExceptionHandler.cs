@@ -21,16 +21,36 @@ namespace Neptuo.Exceptions.Handlers
             return new ExceptionHandler(handler);
         }
 
-        private class ExceptionHandler : IExceptionHandler
+        /// <summary>
+        /// Creates new instance using <paramref name="handler"/>.
+        /// </summary>
+        /// <typeparam name="T">The of the exception to handle.</typeparam>
+        /// <param name="handler">Delegate for handling exceptions.</param>
+        public static IExceptionHandler<T> FromAction<T>(Action<T> handler)
+            where T : Exception
         {
-            private readonly Action<Exception> handler;
+            Ensure.NotNull(handler, "action");
+            return new ExceptionHandler<T>(handler);
+        }
 
+        private class ExceptionHandler : ExceptionHandler<Exception>, IExceptionHandler
+        {
             public ExceptionHandler(Action<Exception> handler)
+                : base(handler)
+            { }
+        }
+
+        private class ExceptionHandler<T> : IExceptionHandler<T>
+            where T : Exception
+        {
+            private readonly Action<T> handler;
+
+            public ExceptionHandler(Action<T> handler)
             {
                 this.handler = handler;
             }
 
-            public void Handle(Exception exception)
+            public void Handle(T exception)
             {
                 handler(exception);
             }

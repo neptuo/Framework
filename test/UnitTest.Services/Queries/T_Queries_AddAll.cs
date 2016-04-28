@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Queries
 {
     [TestClass]
-    public class T_Service_Queries_AddAll
+    public class T_Services_Queries_AddAll
     {
         [TestMethod]
         public void Base()
