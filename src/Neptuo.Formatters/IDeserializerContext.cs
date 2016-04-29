@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,10 @@ namespace Neptuo.Formatters
         /// The type that is required to deserialize.
         /// </summary>
         Type OutputType { get; }
+
+        /// <summary>
+        /// The metadata of the context.
+        /// </summary>
+        IReadOnlyKeyValueCollection Metadata { get; }
     }
 }

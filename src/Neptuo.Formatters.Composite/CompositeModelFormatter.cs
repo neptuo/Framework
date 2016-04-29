@@ -41,7 +41,23 @@ namespace Neptuo.Formatters
             ICompositeStorage storage = storageFactory.Create();
             model.Save(storage);
 
-            await storage.StoreAsync(context.Output);
+            await storage.StoreAsync(context.Output).ConfigureAwait(false);
+            return true;
+        }
+
+        public bool TrySerialize(object input, ISerializerContext context)
+        {
+            Ensure.NotNull(input, "input");
+            Ensure.NotNull(context, "context");
+
+            ICompositeModel model = input as ICompositeModel;
+            if (model == null)
+                return false;
+
+            ICompositeStorage storage = storageFactory.Create();
+            model.Save(storage);
+
+            storage.Store(context.Output);
             return true;
         }
 
@@ -55,7 +71,24 @@ namespace Neptuo.Formatters
                 return false;
 
             ICompositeStorage storage = storageFactory.Create();
-            await storage.LoadAsync(input);
+            await storage.LoadAsync(input).ConfigureAwait(false);
+
+            model.Load(storage);
+            context.Output = model;
+            return true;
+        }
+
+        public bool TryDeserialize(Stream input, IDeserializerContext context)
+        {
+            Ensure.NotNull(input, "input");
+            Ensure.NotNull(context, "context");
+
+            ICompositeModel model = modelFactory.Invoke(context.OutputType) as ICompositeModel;
+            if (model == null)
+                return false;
+
+            ICompositeStorage storage = storageFactory.Create();
+            storage.Load(input);
 
             model.Load(storage);
             context.Output = model;
