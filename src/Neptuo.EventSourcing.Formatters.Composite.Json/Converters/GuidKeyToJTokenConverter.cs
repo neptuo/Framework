@@ -12,9 +12,9 @@ namespace Neptuo.Formatters.Converters
     /// <summary>
     /// The converter from the <see cref="GuidKey"/> to the <see cref="JToken"/>.
     /// </summary>
-    public class GuidKeyToJTokenConverter : KeyToJObjectConverter<GuidKey>
+    public class GuidKeyToJTokenConverter : KeyToJObjectConverter<GuidKey>, IConverter<GuidKey, JToken>, IConverter<JToken, GuidKey>
     {
-        public override bool TryConvert(GuidKey source, out JObject target)
+        protected override bool TryConvert(GuidKey source, out JObject target)
         {
             target = new JObject();
             target[JsonName.Type] = source.Type;
@@ -26,7 +26,7 @@ namespace Neptuo.Formatters.Converters
             return true;
         }
 
-        public override bool TryConvert(JObject source, out GuidKey target)
+        protected override bool TryConvert(JObject source, out GuidKey target)
         {
             string type = source.Value<string>(JsonName.Type);
             string value = source.Value<string>(JsonName.GuidValue);

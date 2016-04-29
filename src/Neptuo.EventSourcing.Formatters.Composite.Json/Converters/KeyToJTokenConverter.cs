@@ -12,7 +12,7 @@ namespace Neptuo.Formatters.Converters
     /// <summary>
     /// The converter from the <see cref="JToken"/> to the <see cref="IKey"/>.
     /// </summary>
-    public class KeyToJTokenConverter : KeyToJObjectConverter<IKey>
+    public class KeyToJTokenConverter : KeyToJObjectConverter<IKey>, IConverter<IKey, JToken>, IConverter<JToken, IKey>
 	{
         protected override bool TryConvert(IKey source, out JObject target)
         {
