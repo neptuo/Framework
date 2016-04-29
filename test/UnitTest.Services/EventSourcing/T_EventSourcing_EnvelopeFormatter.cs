@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
+using Neptuo.Converters;
 using Neptuo.Collections.Specialized;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
@@ -37,16 +38,20 @@ namespace Neptuo.EventSourcing
 
             TimeSpan delay = TimeSpan.FromSeconds(50);
             string sourceID = "AbcDef";
+            int value = 15;
 
             Envelope<CreateOrder> envelope = new Envelope<CreateOrder>(new CreateOrder())
                 .AddDelay(delay)
                 .AddSourceID(sourceID);
+
+            envelope.Metadata.Add("Value", value);
 
             string json = formatter.Serialize(envelope);
             envelope = formatter.Deserialize<Envelope<CreateOrder>>(json);
 
             Assert.AreEqual(delay, envelope.GetDelay());
             Assert.AreEqual(sourceID, envelope.GetSourceID());
+            Assert.AreEqual(value, envelope.Metadata.Get<int>("Value"));
         }
     }
 }

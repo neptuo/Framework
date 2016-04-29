@@ -29,12 +29,12 @@ namespace Neptuo.Formatters.Converters
         {
             bool isSuccess = false;
 
-            if (context.SourceType == typeof(JToken))
+            if (context.SourceType == typeof(JToken) || context.SourceType == typeof(JValue))
             {
                 if (JsonPrimitiveConverter.Supported.Contains(context.TargetType))
                     isSuccess = true;
             }
-            else if (context.TargetType == typeof(JToken))
+            else if (context.TargetType == typeof(JToken) || context.TargetType == typeof(JValue))
             {
                 if (JsonPrimitiveConverter.Supported.Contains(context.SourceType))
                     isSuccess = true;
