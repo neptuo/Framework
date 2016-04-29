@@ -15,11 +15,11 @@ namespace Neptuo.Formatters.Converters
     public static class _ConverterRepositoryExtensions
     {
         /// <summary>
-        /// Registers conversion from/to <see cref="GuidKey"/>, <see cref="StringKey"/> and <see cref="IKey"/> (of type <see cref="GuidKey"/> or <see cref="StringKey"/>) and <see cref="JToken"/>.
+        /// Adds converters from/to <see cref="GuidKey"/>, <see cref="StringKey"/> and <see cref="IKey"/> (of type <see cref="GuidKey"/> or <see cref="StringKey"/>) and <see cref="JToken"/>.
         /// </summary>
-        /// <param name="repository">The repository to register converters.</param>
+        /// <param name="repository">The repository to add converters to.</param>
         /// <returns>Self (for fluency).</returns>
-        public static IConverterRepository AddKeyToJson(this IConverterRepository repository)
+        public static IConverterRepository AddJsonKey(this IConverterRepository repository)
         {
             Ensure.NotNull(repository, "repository");
 
@@ -34,6 +34,24 @@ namespace Neptuo.Formatters.Converters
                 .Add<JToken, StringKey>(stringConverter)
                 .Add<IKey, JToken>(keyConverter)
                 .Add<JToken, IKey>(keyConverter);
+        }
+
+        /// <summary>
+        /// Adds converter to the <paramref name="repository"/> for converting <see cref="TimeSpan"/> to/from <see cref="JToken"/>.
+        /// </summary>
+        /// <param name="repository">The repository to add converters to.</param>
+        /// <returns>Self (for fluency).</returns>
+        public static IConverterRepository AddJsonTimeSpan(this IConverterRepository repository)
+        {
+            Ensure.NotNull(repository, "repository");
+
+            TimeSpanToJsonConverter converter = new TimeSpanToJsonConverter();
+
+            return repository
+                .Add<TimeSpan, JToken>(converter)
+                .Add<JToken, TimeSpan>(converter)
+                .Add<JValue, TimeSpan>(converter)
+                .Add<string, TimeSpan>(TimeSpan.TryParse);
         }
     }
 }

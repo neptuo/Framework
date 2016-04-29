@@ -97,6 +97,7 @@
     <Compile Include="Converters\JsonName.cs" />
     <Compile Include="Converters\KeyToJTokenConverter.cs" />
     <Compile Include="Converters\StringKeyToJTokenConverter.cs" />
+    <Compile Include="Converters\TimeSpanToJsonConverter.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />

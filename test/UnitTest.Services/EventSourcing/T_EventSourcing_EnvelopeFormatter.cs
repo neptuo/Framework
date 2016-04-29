@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Metadata;
@@ -22,7 +23,9 @@ namespace Neptuo.EventSourcing
             Converts.Repository
                 .AddJsonEnumSearchHandler()
                 .AddJsonObjectSearchHandler()
-                .AddJsonPrimitivesSearchHandler();
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonKey()
+                .AddJsonTimeSpan();
 
             IFormatter formatter = new CompositeCommandFormatter(
                 new ReflectionCompositeTypeProvider(
