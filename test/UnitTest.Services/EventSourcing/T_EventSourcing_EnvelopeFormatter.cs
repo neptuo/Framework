@@ -13,6 +13,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Models.Keys;
+using Orders.Domains.Events;
+using Orders.Domains;
 
 namespace Neptuo.EventSourcing
 {
@@ -31,9 +33,9 @@ namespace Neptuo.EventSourcing
 
             IFormatter formatter = new CompositeCommandFormatter(
                 new ReflectionCompositeTypeProvider(
-                    new ReflectionCompositeDelegateFactory(), 
+                    new ReflectionCompositeDelegateFactory(),
                     BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
-                ), 
+                ),
                 new DefaultFactory<JsonCompositeStorage>()
             );
 
@@ -58,6 +60,49 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(value, envelope.Metadata.Get<int>("Value"));
             Assert.AreEqual(key, envelope.Body.Key);
             Assert.AreEqual(orderKey, envelope.Body.OrderKey);
+        }
+
+        [TestMethod]
+        public void SerializeAndDeserializeEventWithMetadata()
+        {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonObjectSearchHandler()
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonKey()
+                .AddJsonTimeSpan();
+
+            IFormatter formatter = new CompositeEventFormatter(
+                new ReflectionCompositeTypeProvider(
+                    new ReflectionCompositeDelegateFactory(),
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+                ),
+                new DefaultFactory<JsonCompositeStorage>()
+            );
+
+            TimeSpan delay = TimeSpan.FromSeconds(50);
+            string sourceID = "AbcDef";
+            int value = 15;
+
+            IKey orderKey = KeyFactory.Create(typeof(Order));
+            Order order = new Order(orderKey);
+            OrderPlaced payload = order.Events.OfType<OrderPlaced>().First();
+            IKey key = payload.Key;
+
+            Envelope<OrderPlaced> envelope = new Envelope<OrderPlaced>(payload)
+                .AddDelay(delay)
+                .AddSourceID(sourceID);
+
+            envelope.Metadata.Add("Value", value);
+
+            string json = formatter.Serialize(envelope);
+            envelope = formatter.Deserialize<Envelope<OrderPlaced>>(json);
+
+            Assert.AreEqual(delay, envelope.GetDelay());
+            Assert.AreEqual(sourceID, envelope.GetSourceID());
+            Assert.AreEqual(value, envelope.Metadata.Get<int>("Value"));
+            Assert.AreEqual(key, envelope.Body.Key);
+            Assert.AreEqual(orderKey, envelope.Body.AggregateKey);
         }
     }
 }
