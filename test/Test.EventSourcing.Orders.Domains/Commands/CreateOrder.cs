@@ -17,5 +17,10 @@ namespace Orders.Domains.Commands
         {
             OrderKey = KeyFactory.Create(typeof(Order));
         }
+
+        internal CreateOrder(IKey orderKey)
+        {
+            OrderKey = orderKey;
+        }
     }
 }

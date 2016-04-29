@@ -12,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Models.Keys;
 
 namespace Neptuo.EventSourcing
 {
@@ -44,6 +45,9 @@ namespace Neptuo.EventSourcing
                 .AddDelay(delay)
                 .AddSourceID(sourceID);
 
+            IKey key = envelope.Body.Key;
+            IKey orderKey = envelope.Body.OrderKey;
+
             envelope.Metadata.Add("Value", value);
 
             string json = formatter.Serialize(envelope);
@@ -52,6 +56,8 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(delay, envelope.GetDelay());
             Assert.AreEqual(sourceID, envelope.GetSourceID());
             Assert.AreEqual(value, envelope.Metadata.Get<int>("Value"));
+            Assert.AreEqual(key, envelope.Body.Key);
+            Assert.AreEqual(orderKey, envelope.Body.OrderKey);
         }
     }
 }
