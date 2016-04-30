@@ -57,11 +57,33 @@ namespace Neptuo.Commands.Handlers
             Ensure.NotNull(handler, "handler");
 
             IRepository<T, IKey> repository = repositoryFactory.Create();
-            T aggregate = repository.Get(key);
+            T aggregate = GetAggregate(repository, key);
             handler(aggregate);
-            repository.Save(aggregate);
+            SaveAggregate(repository, aggregate);
 
             return Async.CompletedTask;
+        }
+
+        /// <summary>
+        /// Loads aggregate root with the <paramref name="key"/> from the <paramref name="repository"/>.
+        /// </summary>
+        /// <param name="repository">The repository to load the aggregate root from.</param>
+        /// <param name="key">The key of the aggregate root to load.</param>
+        /// <returns>The loaded aggregate root.</returns>
+        protected virtual T GetAggregate(IRepository<T, IKey> repository, IKey key)
+        {
+            T aggregate = repository.Get(key);
+            return aggregate;
+        }
+
+        /// <summary>
+        /// Saves the <paramref name="aggregate"/> root to the <paramref name="repository"/>.
+        /// </summary>
+        /// <param name="repository">The repository to save the aggreate root to.</param>
+        /// <param name="aggregate">The aggregate root to save.</param>
+        protected virtual void SaveAggregate(IRepository<T, IKey> repository, T aggregate)
+        {
+            repository.Save(aggregate);
         }
     }
 }
