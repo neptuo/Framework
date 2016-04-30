@@ -27,8 +27,16 @@ namespace Neptuo.Models.Domains
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        public ProcessRoot()
+        protected ProcessRoot()
             : base()
+        { }
+
+        /// <summary>
+        /// Creates new instance with explicitly defined <paramref name="key"/>.
+        /// </summary>
+        /// <param name="key">The key of this (new) instance.</param>
+        protected ProcessRoot(IKey key)
+            : base(key)
         { }
 
         /// <summary>
@@ -36,7 +44,7 @@ namespace Neptuo.Models.Domains
         /// </summary>
         /// <param name="key">The key of this instance.</param>
         /// <param name="events">The enumeration of events describing current state.</param>
-        public ProcessRoot(IKey key, IEnumerable<IEvent> events)
+        protected ProcessRoot(IKey key, IEnumerable<IEvent> events)
             : base(key, events)
         { }
 
