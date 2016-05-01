@@ -146,14 +146,14 @@ namespace Neptuo.Commands
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
             }
 
-            TimeSpan delay;
-            if (isEnvelopeDelayUsed && envelope.TryGetDelay(out delay))
+            DateTime executeAt;
+            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
             {
                 ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
                 Timer timer = new Timer(
                     OnScheduledCommand, 
-                    scheduleContext, 
-                    delay, 
+                    scheduleContext,
+                    executeAt.Subtract(DateTime.Now), 
                     TimeSpan.FromMilliseconds(-1)
                 );
 

@@ -73,12 +73,12 @@ namespace Neptuo.Events
             ArgumentDescriptor argument = descriptorProvider.Get(payload);
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
-                return PublishAsync(handlers, argument, payload);
+                return PublishAsync(handlers, argument, payload, true);
 
             return Async.CompletedTask;
         }
 
-        private Task PublishAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload)
+        private Task PublishAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload, bool isEnvelopeDelayUsed)
         {
             bool hasContextHandler = handlers.Any(d => d.IsContext);
             bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
@@ -122,14 +122,14 @@ namespace Neptuo.Events
             if (eventWithKey == null)
                 eventWithKey = payload as IEvent;
 
-            TimeSpan delay;
-            if (envelope.TryGetDelay(out delay))
+            DateTime executeAt;
+            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
             {
                 ScheduleEventContext scheduleContext = new ScheduleEventContext(handlers, argument, payload);
                 Timer timer = new Timer(
                     OnScheduledEvent,
                     scheduleContext,
-                    delay,
+                    executeAt.Subtract(DateTime.Now),
                     TimeSpan.FromMilliseconds(-1)
                 );
 
@@ -169,7 +169,7 @@ namespace Neptuo.Events
                     timers.Remove(item);
             }
 
-            PublishAsync(context.Handlers, context.Argument, context.Payload).Wait();
+            PublishAsync(context.Handlers, context.Argument, context.Payload, false).Wait();
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace Neptuo.Events
             {
                 IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !handlerIdentifiers.Contains(h.HandlerIdentifier));
                 if (unPublishedHandlers.Any())
-                    await PublishAsync(unPublishedHandlers, argument, model);
+                    await PublishAsync(unPublishedHandlers, argument, model, true);
             }
         }
     }
