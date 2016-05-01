@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,7 @@ namespace Neptuo.Events.Handlers
             else
                 context.Handlers.Remove(this);
 
-            return Task.FromResult(false);
+            return Async.CompletedTask;
         }
     }
 }

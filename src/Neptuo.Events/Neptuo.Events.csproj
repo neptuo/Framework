@@ -50,7 +50,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DefaultEventManager.cs" />
-    <Compile Include="Handlers\ActivatorEventHandler.cs" />
+    <Compile Include="Handlers\FactoryEventHandler.cs" />
     <Compile Include="Handlers\DefaultEventHandlerContext.cs" />
     <Compile Include="Handlers\DelegateEventHandler.cs" />
     <Compile Include="Handlers\IEventHandler.cs" />

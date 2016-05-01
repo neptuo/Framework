@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,47 +15,38 @@ namespace Neptuo.Events.Handlers
     {
         /// <summary>
         /// Returns continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/> and <paramref name="filter"/> is satisfied.
+        /// notification for event of the type <typeparamref name="T"/> and <paramref name="filter"/> is satisfied.
         /// </summary>
-        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandleContext{T}"/>).</typeparam>
+        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandlerContext{T}"/>).</typeparam>
         /// <param name="eventHandlers">The collection of an event handlers.</param>
         /// <param name="filter">The event filter, only the event for which returns true is used to complete the task.</param>
         /// <param name="token">The continuation task cancellation token.</param>
         /// <returns>
         /// Continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/> and <paramref name="filter"/> is satisfied.
+        /// notification for event of the type <typeparamref name="T"/> and <paramref name="filter"/> is satisfied.
         /// </returns>
         public static Task<T> Await<T>(this IEventHandlerCollection eventHandlers, Func<T, bool> filter, CancellationToken token)
         {
             Ensure.NotNull(eventHandlers, "eventHandlers");
             Ensure.NotNull(filter, "filter");
             Ensure.NotNull(token, "token");
-            return Task.Factory.StartNew(() =>
-            {
-                T result = default(T);
 
-                IEventHandler<T> handler = DelegateEventHandler.FromAction<T>(payload => result = payload);
+            TaskCompletionSource<T> source = new TaskCompletionSource<T>();
+            eventHandlers.Add(new AwaitEventHandler<T>(eventHandlers, source, token, filter));
 
-                eventHandlers.Add(handler);
-
-                while (result == null || !filter(result))
-                    Thread.Sleep(50);
-
-                eventHandlers.Remove(handler);
-                return result;
-            }, token);
+            return source.Task;
         }
 
         /// <summary>
         /// Returns continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/> and <paramref name="filter"/> is satisfied.
+        /// notification for event of the type <typeparamref name="T"/> and <paramref name="filter"/> is satisfied.
         /// </summary>
-        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandleContext{T}"/>).</typeparam>
+        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandlerContext{T}"/>).</typeparam>
         /// <param name="eventHandlers">The collection of an event handlers.</param>
         /// <param name="filter">The event filter, only the event for which returns true is used to complete the task.</param>
         /// <returns>
         /// Continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/> and <paramref name="filter"/> is satisfied.
+        /// notification for event of the type <typeparamref name="T"/> and <paramref name="filter"/> is satisfied.
         /// </returns>
         public static Task<T> Await<T>(this IEventHandlerCollection eventHandlers, Func<T, bool> filter)
         {
@@ -63,14 +55,14 @@ namespace Neptuo.Events.Handlers
 
         /// <summary>
         /// Returns continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/>.
+        /// notification for event of the type <typeparamref name="T"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandleContext{T}"/>).</typeparam>
+        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandlerContext{T}"/>).</typeparam>
         /// <param name="eventHandlers">The collection of an event handlers.</param>
         /// <param name="token">The continuation task cancellation token.</param>
         /// <returns>
         /// Continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/>.
+        /// notification for event of the type <typeparamref name="T"/>.
         /// </returns>
         public static Task<T> Await<T>(this IEventHandlerCollection eventHandlers, CancellationToken token)
         {
@@ -79,17 +71,58 @@ namespace Neptuo.Events.Handlers
 
         /// <summary>
         /// Returns continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/>.
+        /// notification for event of the type <typeparamref name="T"/>.
         /// </summary>
-        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandleContext{T}"/>).</typeparam>
+        /// <typeparam name="T">The type of the event (can contain <see cref="Envelope"/> or <see cref="IEventHandlerContext{T}"/>).</typeparam>
         /// <param name="eventHandlers">The collection of an event handlers.</param>
         /// <returns>
         /// Continuation task that is completed when <paramref name="eventHandlers"/> gets
-        /// notification for event of the type <paramref name="T"/>.
+        /// notification for event of the type <typeparamref name="T"/>.
         /// </returns>
         public static Task<T> Await<T>(this IEventHandlerCollection eventHandlers)
         {
             return Await<T>(eventHandlers, CancellationToken.None);
         }
+
+
+        private class AwaitEventHandler<T> : IEventHandler<T>
+        {
+            private readonly IEventHandlerCollection collection;
+            private readonly TaskCompletionSource<T> source;
+            private readonly CancellationToken cancellation;
+            private readonly Func<T, bool> filter;
+
+            public AwaitEventHandler(IEventHandlerCollection collection, TaskCompletionSource<T> source, CancellationToken cancellation, Func<T, bool> filter)
+            {
+                Ensure.NotNull(collection, "collection");
+                Ensure.NotNull(source, "source");
+                Ensure.NotNull(cancellation, "cancellation");
+                Ensure.NotNull(filter, "filter");
+                this.collection = collection;
+                this.source = source;
+                this.cancellation = cancellation;
+                this.filter = filter;
+
+                cancellation.Register(OnCancellationRequested);
+            }
+
+            private void OnCancellationRequested()
+            {
+                collection.Remove(this);
+                source.TrySetCanceled();
+            }
+
+            public Task HandleAsync(T payload)
+            {
+                if (filter(payload))
+                {
+                    collection.Remove(this);
+                    source.SetResult(payload);
+                }
+
+                return Async.CompletedTask;
+            }
+        }
+
     }
 }
