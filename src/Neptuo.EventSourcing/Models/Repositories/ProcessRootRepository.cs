@@ -20,7 +20,7 @@ namespace Neptuo.Models.Repositories
     public class ProcessRootRepository<T> : AggregateRootRepository<T>
         where T : ProcessRoot
     {
-        private readonly ISerializer formatter;
+        private readonly ISerializer commandFormatter;
         private readonly ICommandStore commandStore;
         private readonly ICommandDispatcher commandDispatcher;
 
@@ -29,18 +29,19 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         /// <param name="eventStore">The underlaying event store.</param>
         /// <param name="commandStore">The underlaying command store.</param>
-        /// <param name="formatter">The formatter for serializing and deserializing event payloads.</param>
+        /// <param name="eventFormatter">The formatter for serializing event payloads.</param>
+        /// <param name="commandFormatter">The formatter for serializing commands.</param>
         /// <param name="factory">The process root factory.</param>
         /// <param name="eventDispatcher">The dispatcher for newly created events in the processes.</param>
         /// <param name="commandDispatcher">The dispatcher for newly created commands in the processes.</param>
-        public ProcessRootRepository(IEventStore eventStore, ICommandStore commandStore, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher)
-            : base(eventStore, formatter, factory, eventDispatcher)
+        public ProcessRootRepository(IEventStore eventStore, ICommandStore commandStore, IFormatter eventFormatter, ISerializer commandFormatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher)
+            : base(eventStore, eventFormatter, factory, eventDispatcher)
         {
             Ensure.NotNull(commandStore, "commandStore");
             Ensure.NotNull(commandDispatcher, "commandDispatcher");
-            Ensure.NotNull(formatter, "formatter");
+            Ensure.NotNull(commandFormatter, "commandFormatter");
             this.commandStore = commandStore;
-            this.formatter = formatter;
+            this.commandFormatter = commandFormatter;
             this.commandDispatcher = commandDispatcher;
         }
 
@@ -51,7 +52,7 @@ namespace Neptuo.Models.Repositories
             IEnumerable<Envelope<ICommand>> commands = model.Commands;
             if(commands.Any())
             {
-                IEnumerable<CommandModel> commandModels = commands.Select(c => new CommandModel(c.Body.Key, formatter.SerializeCommand(c)));
+                IEnumerable<CommandModel> commandModels = commands.Select(c => new CommandModel(c.Body.Key, commandFormatter.SerializeCommand(c)));
                 commandStore.Save(commandModels);
 
                 IEnumerable<Task> tasks = commands.Select(c => commandDispatcher.HandleAsync(c));
