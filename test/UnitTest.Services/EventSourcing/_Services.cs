@@ -55,4 +55,39 @@ namespace Neptuo.EventSourcing
             return Task.FromResult(true);
         }
     }
+
+    public interface IHelloService
+    {
+        string SayHello(string name);
+    }
+
+    public class HiHelloService : IHelloService
+    {
+        public string SayHello(string name)
+        {
+            return String.Format("Hi, {0}!");
+        }
+    }
+
+    public class AggregateWithParameters : AggregateRoot
+    {
+        public IHelloService Service { get; private set; }
+
+        public AggregateWithParameters(IHelloService service)
+        {
+            Ensure.NotNull(service, "service");
+            Service = service;
+        }
+
+        public AggregateWithParameters(IKey key, IEnumerable<IEvent> events)
+            : base(key, events)
+        { }
+
+        public AggregateWithParameters(IKey key, IEnumerable<IEvent> events, IHelloService service)
+            : base(key, events)
+        {
+            Ensure.NotNull(service, "service");
+            Service = service;
+        }
+    }
 }

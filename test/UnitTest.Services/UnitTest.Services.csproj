@@ -61,6 +61,10 @@
       <HintPath>..\..\packages\Neptuo.Formatters.Composite.2.1.0\lib\net45\Neptuo.Formatters.Composite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Neptuo.Formatters.Composite.Json, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Json.2.1.0\lib\net45\Neptuo.Formatters.Composite.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.Composite.Metadata.1.0.1\lib\net45\Neptuo.Formatters.Composite.Metadata.dll</HintPath>
       <Private>True</Private>
@@ -85,6 +89,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="EventSourcing\T_EventSourcing_ReflectionAggregateRootFactory.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_AggregateRoot.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_EnvelopeFormatter.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_PersistentEventDispatcher.cs" />
@@ -135,10 +140,6 @@
     <ProjectReference Include="..\..\src\Neptuo.Exceptions\Neptuo.Exceptions.csproj">
       <Project>{00a151b0-ac8e-43a9-9002-d6089e7fb8b3}</Project>
       <Name>Neptuo.Exceptions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite.Json\Neptuo.Formatters.Composite.Json.csproj">
-      <Project>{8f0929a3-b0dd-4c95-a465-ce896fcaaa4a}</Project>
-      <Name>Neptuo.Formatters.Composite.Json</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Jobs\Neptuo.Jobs.csproj">
       <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
