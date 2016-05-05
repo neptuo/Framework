@@ -11,7 +11,7 @@ namespace Neptuo.Activators
     /// <summary>
     /// The builder for constructor.
     /// </summary>
-    public class ReflectionAggregateRootFactoryConstructorBuilder
+    public class ReflectionAggregateRootFactoryBuilder
     {
         private readonly List<Parameter> parameters = new List<Parameter>();
 
@@ -26,7 +26,7 @@ namespace Neptuo.Activators
         /// <typeparam name="T">Type of the parameter to register as.</typeparam>
         /// <param name="parameter">The instanci of the parameter.</param>
         /// <returns>Self (for fluency).</returns>
-        public ReflectionAggregateRootFactoryConstructorBuilder Add<T>(T parameter)
+        public ReflectionAggregateRootFactoryBuilder Add<T>(T parameter)
         {
             parameters.Add(new Parameter(typeof(T), parameter));
             return this;
@@ -36,7 +36,7 @@ namespace Neptuo.Activators
         /// Adds placeholder for a parameter containing the key of the aggregate root.
         /// </summary>
         /// <returns>Self (for fluency).</returns>
-        public ReflectionAggregateRootFactoryConstructorBuilder AddKey()
+        public ReflectionAggregateRootFactoryBuilder AddKey()
         {
             parameters.Add(new Parameter(Parameter.KeyType));
             return this;
@@ -46,7 +46,7 @@ namespace Neptuo.Activators
         /// Adds placeholder for a parameter containing the stream of events representing the aggregate root's history.
         /// </summary>
         /// <returns>Self (for fluency).</returns>
-        public ReflectionAggregateRootFactoryConstructorBuilder AddHistory()
+        public ReflectionAggregateRootFactoryBuilder AddHistory()
         {
             parameters.Add(new Parameter(Parameter.HistoryType));
             return this;

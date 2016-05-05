@@ -19,31 +19,31 @@ namespace Neptuo.Activators
         where T : AggregateRoot
     {
         private readonly ConstructorInfo constructorInfo;
-        private readonly List<ReflectionAggregateRootFactoryConstructorBuilder.Parameter> parameters;
+        private readonly List<ReflectionAggregateRootFactoryBuilder.Parameter> parameters;
 
         /// <summary>
         /// Creates new instance and checks constructor.
         /// </summary>
         public ReflectionAggregateRootFactory()
-            : this(new ReflectionAggregateRootFactoryConstructorBuilder().AddKey().AddHistory())
+            : this(new ReflectionAggregateRootFactoryBuilder().AddKey().AddHistory())
         { }
 
         /// <summary>
         /// Creates new instance with explicitly defined parameters.
         /// </summary>
         /// <param name="builder">The constructor parameters builder.</param>
-        public ReflectionAggregateRootFactory(ReflectionAggregateRootFactoryConstructorBuilder builder)
+        public ReflectionAggregateRootFactory(ReflectionAggregateRootFactoryBuilder builder)
         {
             Ensure.NotNull(builder, "builder");
             parameters = builder.Parameters;
 
             List<Type> internalParameters = new List<Type>()
             {
-                ReflectionAggregateRootFactoryConstructorBuilder.Parameter.KeyType,
-                ReflectionAggregateRootFactoryConstructorBuilder.Parameter.HistoryType
+                ReflectionAggregateRootFactoryBuilder.Parameter.KeyType,
+                ReflectionAggregateRootFactoryBuilder.Parameter.HistoryType
             };
 
-            foreach (ReflectionAggregateRootFactoryConstructorBuilder.Parameter parameter in parameters)
+            foreach (ReflectionAggregateRootFactoryBuilder.Parameter parameter in parameters)
             {
                 if (parameter.IsInternalParameter)
                     internalParameters.Remove(parameter.Type);
@@ -67,12 +67,12 @@ namespace Neptuo.Activators
             object[] parameters = new object[this.parameters.Count];
             for (int i = 0; i < this.parameters.Count; i++)
 			{
-                ReflectionAggregateRootFactoryConstructorBuilder.Parameter parameter = this.parameters[i];
+                ReflectionAggregateRootFactoryBuilder.Parameter parameter = this.parameters[i];
                 if (parameter.IsInternalParameter)
                 {
-                    if (parameter.Type == ReflectionAggregateRootFactoryConstructorBuilder.Parameter.KeyType)
+                    if (parameter.Type == ReflectionAggregateRootFactoryBuilder.Parameter.KeyType)
                         parameters[i] = aggregateKey;
-                    else if (parameter.Type == ReflectionAggregateRootFactoryConstructorBuilder.Parameter.HistoryType)
+                    else if (parameter.Type == ReflectionAggregateRootFactoryBuilder.Parameter.HistoryType)
                         parameters[i] = events;
                     else
                         throw Ensure.Exception.NotSupported("Not supported internal parameter of type '{0}'.", parameter.Type.FullName);

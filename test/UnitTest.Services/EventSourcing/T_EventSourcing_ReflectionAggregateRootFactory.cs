@@ -36,7 +36,7 @@ namespace Neptuo.EventSourcing
         {
             HiHelloService service = new HiHelloService();
 
-            ReflectionAggregateRootFactoryConstructorBuilder builder = new ReflectionAggregateRootFactoryConstructorBuilder()
+            ReflectionAggregateRootFactoryBuilder builder = new ReflectionAggregateRootFactoryBuilder()
                 .AddKey()
                 .AddHistory()
                 .Add<IHelloService>(service);
@@ -50,7 +50,7 @@ namespace Neptuo.EventSourcing
         [ExpectedException(typeof(InvalidOperationException))]
         public void BuilderWithParameterOfDifferentType()
         {
-            ReflectionAggregateRootFactoryConstructorBuilder builder = new ReflectionAggregateRootFactoryConstructorBuilder()
+            ReflectionAggregateRootFactoryBuilder builder = new ReflectionAggregateRootFactoryBuilder()
                 .AddKey()
                 .AddHistory()
                 .Add("TEST");
@@ -62,7 +62,7 @@ namespace Neptuo.EventSourcing
         [ExpectedException(typeof(InvalidOperationException))]
         public void BuilderWithoutKey()
         {
-            ReflectionAggregateRootFactoryConstructorBuilder builder = new ReflectionAggregateRootFactoryConstructorBuilder()
+            ReflectionAggregateRootFactoryBuilder builder = new ReflectionAggregateRootFactoryBuilder()
                 .AddHistory()
                 .Add<IHelloService>(new HiHelloService());
 
