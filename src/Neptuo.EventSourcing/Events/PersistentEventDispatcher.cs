@@ -25,6 +25,7 @@ namespace Neptuo.Events
 
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
         private readonly IEventPublishingStore eventStore;
+        private readonly Func<DateTime> dateTimeProvider;
         private readonly HandlerDescriptorProvider descriptorProvider;
         private readonly List<Tuple<Timer, ScheduleEventContext>> timers = new List<Tuple<Timer, ScheduleEventContext>>();
 
@@ -48,9 +49,20 @@ namespace Neptuo.Events
         /// </summary>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         public PersistentEventDispatcher(IEventPublishingStore store)
+            : this(store, () => DateTime.Now)
+        { }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="store">The publishing store for command persistent delivery.</param>
+        /// <param name="dateTimeProvider">The provider of current date time for scheduled events.</param>
+        public PersistentEventDispatcher(IEventPublishingStore store, Func<DateTime> dateTimeProvider)
         {
             Ensure.NotNull(store, "store");
+            Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
             this.eventStore = store;
+            this.dateTimeProvider = dateTimeProvider;
 
             EventExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
@@ -129,7 +141,7 @@ namespace Neptuo.Events
                 Timer timer = new Timer(
                     OnScheduledEvent,
                     scheduleContext,
-                    executeAt.Subtract(DateTime.Now),
+                    executeAt.Subtract(dateTimeProvider()),
                     TimeSpan.FromMilliseconds(-1)
                 );
 

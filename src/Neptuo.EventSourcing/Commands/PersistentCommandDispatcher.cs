@@ -28,6 +28,7 @@ namespace Neptuo.Commands
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
+        private readonly Func<DateTime> dateTimeProvider;
         private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
         private readonly HandlerCollection handlers;
 
@@ -50,20 +51,33 @@ namespace Neptuo.Commands
         public IExceptionHandlerCollection DispatcherExceptionHandlers { get; set; }
 
         /// <summary>
-        /// Creates new instance.
+        /// Creates new instance with <see cref="DateTime.Now"/> as current date time provider.
         /// </summary>
         /// <param name="distributor">The command-to-the-queue distributor.</param>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
+            : this(distributor, store, formatter, () => DateTime.Now)
+        { }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="distributor">The command-to-the-queue distributor.</param>
+        /// <param name="store">The publishing store for command persistent delivery.</param>
+        /// <param name="formatter">The formatter for serializing commands.</param>
+        /// <param name="dateTimeProvider">The provider of current date time for scheduled commands.</param>
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, Func<DateTime> dateTimeProvider)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
+            Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
             this.threadPool = new CommandThreadPool(queue);
+            this.dateTimeProvider = dateTimeProvider;
 
             CommandExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
@@ -153,7 +167,7 @@ namespace Neptuo.Commands
                 Timer timer = new Timer(
                     OnScheduledCommand, 
                     scheduleContext,
-                    executeAt.Subtract(DateTime.Now), 
+                    executeAt.Subtract(dateTimeProvider()), 
                     TimeSpan.FromMilliseconds(-1)
                 );
 
