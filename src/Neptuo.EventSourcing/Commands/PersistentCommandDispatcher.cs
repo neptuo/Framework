@@ -28,7 +28,7 @@ namespace Neptuo.Commands
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
-        private readonly Func<DateTime> dateTimeProvider;
+        private readonly ICommandSchedulingProvider schedulingProvider;
         private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
         private readonly HandlerCollection handlers;
 
@@ -57,7 +57,7 @@ namespace Neptuo.Commands
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
-            : this(distributor, store, formatter, () => DateTime.Now)
+            : this(distributor, store, formatter, new DateTimeNowCommandSchedulingProvider())
         { }
 
         /// <summary>
@@ -66,18 +66,18 @@ namespace Neptuo.Commands
         /// <param name="distributor">The command-to-the-queue distributor.</param>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
-        /// <param name="dateTimeProvider">The provider of current date time for scheduled commands.</param>
-        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, Func<DateTime> dateTimeProvider)
+        /// <param name="dateTimeProvider">The provider of a delay computation for delayed commands.</param>
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ICommandSchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
-            Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
+            Ensure.NotNull(schedulingProvider, "schedulingProvider");
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
             this.threadPool = new CommandThreadPool(queue);
-            this.dateTimeProvider = dateTimeProvider;
+            this.schedulingProvider = schedulingProvider;
 
             CommandExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
@@ -163,18 +163,22 @@ namespace Neptuo.Commands
             DateTime executeAt;
             if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
             {
-                ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
-                Timer timer = new Timer(
-                    OnScheduledCommand, 
-                    scheduleContext,
-                    executeAt.Subtract(dateTimeProvider()), 
-                    TimeSpan.FromMilliseconds(-1)
-                );
+                TimeSpan delay = schedulingProvider.Compute(executeAt);
+                if (delay > TimeSpan.Zero)
+                {
+                    ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
+                    Timer timer = new Timer(
+                        OnScheduledCommand,
+                        scheduleContext,
+                        delay,
+                        TimeSpan.FromMilliseconds(-1)
+                    );
 
-                lock (timersLock)
-                    timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
+                    lock (timersLock)
+                        timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
 
-                return;
+                    return;
+                }
             }
 
             object key = distributor.Distribute(payload);

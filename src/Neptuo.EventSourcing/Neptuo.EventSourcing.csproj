@@ -71,7 +71,9 @@
     </Compile>
     <Compile Include="Activators\IAggregateRootFactory.cs" />
     <Compile Include="Activators\ReflectionAggregateRootFactoryBuilder.cs" />
+    <Compile Include="Commands\DateTimeNowCommandSchedulingProvider.cs" />
     <Compile Include="Commands\ICommandDistributor.cs" />
+    <Compile Include="Commands\ICommandSchedulingProvider.cs" />
     <Compile Include="Commands\MissingCommandHandlerException.cs" />
     <Compile Include="Commands\PersistentCommandDispatcher.cs" />
     <Compile Include="Commands\SerialCommandDistributor.cs" />
