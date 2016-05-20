@@ -55,8 +55,11 @@ namespace Neptuo.Models.Repositories
                 IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e)));
                 store.Save(eventModels);
 
-                IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
-                Task.WaitAll(tasks.ToArray());
+                foreach (IEvent e in events)
+                    eventDispatcher.PublishAsync(e).Wait();
+
+                //IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
+                //Task.WaitAll(tasks.ToArray());
             }
         }
 
