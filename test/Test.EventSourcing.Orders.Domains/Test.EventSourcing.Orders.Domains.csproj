@@ -59,6 +59,7 @@
     <Compile Include="Commands\Handlers\CreateOrderHandler.cs" />
     <Compile Include="Events\OrderItemAdded.cs" />
     <Compile Include="Events\OrderItemExtended.cs" />
+    <Compile Include="Events\OrderItemSummaryChanged.cs" />
     <Compile Include="Events\OrderPlaced.cs" />
     <Compile Include="Events\OrderTotalRecalculated.cs" />
     <Compile Include="MissingOrderException.cs" />

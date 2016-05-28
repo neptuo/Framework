@@ -16,7 +16,7 @@ namespace Orders.Domains.Events
 
         public OrderItemExtended(IKey productKey, int count)
         {
-            Ensure.Condition.NotEmptyKey(productKey, "productKey");
+            Ensure.Condition.NotEmptyKey(productKey);
             Ensure.Positive(count, "count");
             ProductKey = productKey;
             Count = count;

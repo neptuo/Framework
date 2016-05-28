@@ -69,7 +69,7 @@ namespace Neptuo.EventSourcing
             repository.Save(order);
 
             IEnumerable<EventModel> serializedEvents = eventStore.Get(order.Key);
-            Assert.AreEqual(3, serializedEvents.Count());
+            Assert.AreEqual(4, serializedEvents.Count());
         }
 
         [TestMethod]
@@ -124,7 +124,7 @@ namespace Neptuo.EventSourcing
             Console.WriteLine(task.Result);
 
             serializedEvents = eventStore.Get(create.OrderKey).ToList();
-            Assert.AreEqual(3, serializedEvents.Count());
+            Assert.AreEqual(4, serializedEvents.Count());
         }
     }
 }

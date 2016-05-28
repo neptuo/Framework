@@ -30,10 +30,16 @@ namespace Neptuo.Formatters.Converters
             return repository
                 .Add<GuidKey, JToken>(guidConverter)
                 .Add<JToken, GuidKey>(guidConverter)
+                .Add(typeof(IEnumerable<GuidKey>), typeof(JToken), guidConverter)
+                .Add(typeof(JToken), typeof(IEnumerable<GuidKey>), guidConverter)
                 .Add<StringKey, JToken>(stringConverter)
                 .Add<JToken, StringKey>(stringConverter)
+                .Add(typeof(IEnumerable<StringKey>), typeof(JToken), stringConverter)
+                .Add(typeof(JToken), typeof(IEnumerable<StringKey>), stringConverter)
                 .Add<IKey, JToken>(keyConverter)
-                .Add<JToken, IKey>(keyConverter);
+                .Add<JToken, IKey>(keyConverter)
+                .Add(typeof(IEnumerable<IKey>), typeof(JToken), keyConverter)
+                .Add(typeof(JToken), typeof(IEnumerable<IKey>), keyConverter);
         }
 
         /// <summary>

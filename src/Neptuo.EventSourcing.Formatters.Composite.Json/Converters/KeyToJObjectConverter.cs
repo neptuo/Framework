@@ -74,6 +74,37 @@ namespace Neptuo.Formatters.Converters
                     return true;
                 }
             }
+            else if (sourceType == typeof(IEnumerable<T>) && targetType == typeof(JToken))
+            {
+                JArray result = new JArray();
+                IEnumerable<T> enumerable = (IEnumerable<T>)sourceType;
+                foreach (T item in enumerable)
+                {
+                    JToken target;
+                    if (TryConvert(item, out target))
+                        result.Add(target);
+                }
+
+                targetValue = result;
+                return true;
+            }
+            else if (sourceType == typeof(JToken) && targetType == typeof(IEnumerable<T>))
+            {
+                List<T> result = new List<T>();
+                JArray array = sourceValue as JArray;
+                if (array != null)
+                {
+                    foreach (JToken item in array)
+                    {
+                        T target;
+                        if (TryConvert(item, out target))
+                            result.Add(target);
+                    }
+
+                    targetValue = result;
+                    return true;
+                }
+            }
 
             targetValue = null;
             return false;

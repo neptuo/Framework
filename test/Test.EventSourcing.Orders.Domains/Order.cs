@@ -16,7 +16,8 @@ namespace Orders.Domains
         IEventHandler<OrderPlaced>,
         IEventHandler<OrderItemAdded>,
         IEventHandler<OrderItemExtended>,
-        IEventHandler<OrderTotalRecalculated>
+        IEventHandler<OrderTotalRecalculated>,
+        IEventHandler<OrderItemSummaryChanged>
     {
         private readonly List<OrderItem> items = new List<OrderItem>();
         private decimal totalPrice = 0;
@@ -33,14 +34,19 @@ namespace Orders.Domains
 
         public void AddItem(IKey productKey, int count)
         {
-            Ensure.Condition.NotEmptyKey(productKey, "productKey");
+            Ensure.Condition.NotEmptyKey(productKey);
             Ensure.Positive(count, "count");
 
             OrderItem existingItem = items.FirstOrDefault(i => i.ProductKey == productKey);
             if (existingItem == null)
+            {
                 Publish(new OrderItemAdded(productKey, count));
+                Publish(new OrderItemSummaryChanged(items.Select(i => i.ProductKey)));
+            }
             else
+            {
                 Publish(new OrderItemExtended(productKey, count));
+            }
 
             RecalculatePrice();
         }
@@ -73,6 +79,11 @@ namespace Orders.Domains
         Task IEventHandler<OrderTotalRecalculated>.HandleAsync(OrderTotalRecalculated payload)
         {
             totalPrice = payload.TotalPrice;
+            return Task.FromResult(true);
+        }
+
+        Task IEventHandler<OrderItemSummaryChanged>.HandleAsync(OrderItemSummaryChanged payload)
+        {
             return Task.FromResult(true);
         }
 
