@@ -16,7 +16,7 @@ namespace Orders.Domains.Events
         public OrderItemSummaryChanged(IEnumerable<IKey> productKeys)
         {
             Ensure.NotNull(productKeys, "productKeys");
-            ProductKeys = productKeys;
+            ProductKeys = productKeys.ToList();
         }
     }
 }

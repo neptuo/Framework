@@ -104,5 +104,35 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(key, envelope.Body.Key);
             Assert.AreEqual(orderKey, envelope.Body.AggregateKey);
         }
+
+        [TestMethod]
+        public void SerializeAndDeserializeEventWithEnumerationOfKeys()
+        {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonObjectSearchHandler()
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonKey()
+                .AddJsonTimeSpan();
+
+            IFormatter formatter = new CompositeEventFormatter(
+                new ReflectionCompositeTypeProvider(
+                    new ReflectionCompositeDelegateFactory(),
+                    BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public
+                ),
+                new DefaultFactory<JsonCompositeStorage>()
+            );
+
+            IKey orderKey = KeyFactory.Create(typeof(Order));
+            Order order = new Order(orderKey);
+            order.AddItem(KeyFactory.Create(typeof(Product)), 4);
+
+            OrderItemSummaryChanged changed = order.Events.OfType<OrderItemSummaryChanged>().First();
+
+            string json = formatter.Serialize(changed);
+            changed = formatter.Deserialize<OrderItemSummaryChanged>(json);
+
+            Assert.AreEqual(1, changed.ProductKeys.Count());
+        }
     }
 }

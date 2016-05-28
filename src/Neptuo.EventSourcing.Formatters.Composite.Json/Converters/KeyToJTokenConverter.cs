@@ -16,7 +16,30 @@ namespace Neptuo.Formatters.Converters
 	{
         protected override bool TryConvert(IKey source, out JObject target)
         {
-            throw new NotImplementedException();
+            StringKey stringSource = source as StringKey;
+            if (stringSource != null)
+            {
+                JToken token;
+                if (Converts.Try<StringKey, JToken>(stringSource, out token))
+                {
+                    target = token as JObject;
+                    return target != null;
+                }
+            }
+
+            GuidKey guidSource = source as GuidKey;
+            if (guidSource != null)
+            {
+                JToken token;
+                if (Converts.Try<GuidKey, JToken>(guidSource, out token))
+                {
+                    target = token as JObject;
+                    return target != null;
+                }
+            }
+
+            target = null;
+            return false;
         }
 
         protected override bool TryConvert(JObject source, out IKey target)

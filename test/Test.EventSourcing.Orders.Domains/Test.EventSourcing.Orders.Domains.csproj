@@ -65,6 +65,7 @@
     <Compile Include="MissingOrderException.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
+    <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

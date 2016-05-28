@@ -74,10 +74,10 @@ namespace Neptuo.Formatters.Converters
                     return true;
                 }
             }
-            else if (sourceType == typeof(IEnumerable<T>) && targetType == typeof(JToken))
+            else if (sourceType == typeof(List<T>) && targetType == typeof(JToken))
             {
                 JArray result = new JArray();
-                IEnumerable<T> enumerable = (IEnumerable<T>)sourceType;
+                IEnumerable<T> enumerable = (IEnumerable<T>)sourceValue;
                 foreach (T item in enumerable)
                 {
                     JToken target;
