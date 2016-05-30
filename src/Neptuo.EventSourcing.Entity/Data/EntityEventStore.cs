@@ -30,7 +30,7 @@ namespace Neptuo.Data
 
             IEnumerable<EventEntity> entities = context.Events
                 .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid)
-                .OrderBy(e => e.ID);
+                .OrderBy(e => e.Version);
 
             return entities.Select(e => e.ToModel());
         }

@@ -30,17 +30,15 @@ namespace Neptuo.Data
         public string Payload { get; set; }
 
         /// <summary>
-        /// The date and time when this event has raised.
+        /// The version of the aggregate root.
         /// </summary>
-        public DateTime RaisedAt { get; set; }
+        public int Version { get; set; }
 
         /// <summary>
         /// Creates new empty instance.
         /// </summary>
         public EventModel()
-        {
-            RaisedAt = DateTime.Now;
-        }
+        { }
 
         /// <summary>
         /// Creates new instance and fills values.
@@ -48,15 +46,18 @@ namespace Neptuo.Data
         /// <param name="aggregateKey">The key to the aggregate where the original event raised.</param>
         /// <param name="eventKey">The key of the event.</param>
         /// <param name="payload">Serialized event payload.</param>
-        public EventModel(IKey aggregateKey, IKey eventKey, string payload)
+        /// <param name="version">The version of the aggregate root.</param>
+        public EventModel(IKey aggregateKey, IKey eventKey, string payload, int version)
             : this()
         {
-            Ensure.NotNull(aggregateKey, "aggregateKey");
-            Ensure.NotNull(eventKey, "eventKey");
+            Ensure.Condition.NotEmptyKey(aggregateKey);
+            Ensure.Condition.NotEmptyKey(eventKey);
             Ensure.NotNull(payload, "payload");
+            Ensure.Positive(version, "version");
             AggregateKey = aggregateKey;
             EventKey = eventKey;
             Payload = payload;
+            Version = version;
         }
     }
 }

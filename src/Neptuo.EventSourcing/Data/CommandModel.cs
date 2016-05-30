@@ -43,7 +43,7 @@ namespace Neptuo.Data
         public CommandModel(IKey commandKey, string payload)
             : this()
         {
-            Ensure.NotNull(commandKey, "commandKey");
+            Ensure.Condition.NotEmptyKey(commandKey);
             CommandKey = commandKey;
             Payload = payload;
         }

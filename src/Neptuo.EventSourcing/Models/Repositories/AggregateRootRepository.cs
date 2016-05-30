@@ -52,7 +52,7 @@ namespace Neptuo.Models.Repositories
             IEnumerable<IEvent> events = model.Events;
             if (events.Any())
             {
-                IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e)));
+                IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e), e.Version));
                 store.Save(eventModels);
 
                 foreach (IEvent e in events)
@@ -65,7 +65,7 @@ namespace Neptuo.Models.Repositories
 
         public T Find(IKey key)
         {
-            Ensure.Condition.NotEmptyKey(key, "key");
+            Ensure.Condition.NotEmptyKey(key);
 
             IEnumerable<EventModel> eventModels = store.Get(key);
             IEnumerable<object> events = eventModels.Select(e => formatter.DeserializeEvent(Type.GetType(e.EventKey.Type), e.Payload));

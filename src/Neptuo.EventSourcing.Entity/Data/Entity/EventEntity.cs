@@ -22,14 +22,16 @@ namespace Neptuo.Data.Entity
         public Guid AggregateID { get; set; }
         public string AggregateType { get; set; }
         public string Payload { get; set; }
-        public DateTime RaisedAt { get; set; }
+        public int Version { get; set; }
 
         public EventModel ToModel()
         {
-            return new EventModel(GuidKey.Create(AggregateID, AggregateType), GuidKey.Create(EventID, EventType), Payload)
-            {
-                RaisedAt = RaisedAt
-            };
+            return new EventModel(
+                GuidKey.Create(AggregateID, AggregateType), 
+                GuidKey.Create(EventID, EventType), 
+                Payload, 
+                Version
+            );
         }
 
         public static EventEntity FromModel(EventModel model)
@@ -53,7 +55,7 @@ namespace Neptuo.Data.Entity
                 AggregateType = aggregateKey.Type,
 
                 Payload = model.Payload,
-                RaisedAt = model.RaisedAt
+                Version = model.Version
             };
         }
     }

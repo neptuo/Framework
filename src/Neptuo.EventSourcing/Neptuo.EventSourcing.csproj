@@ -41,20 +41,20 @@
       <HintPath>..\..\packages\Neptuo.Commands.1.1.0\lib\net45\Neptuo.Commands.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Events, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
+    <Reference Include="Neptuo.Events, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Events.1.2.1\lib\net45\Neptuo.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Exceptions, Version=0.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Exceptions.0.1.1\lib\net45\Neptuo.Exceptions.dll</HintPath>
+    <Reference Include="Neptuo.Exceptions, Version=0.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Exceptions.0.2.1\lib\net45\Neptuo.Exceptions.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Models, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Models.1.1.0\lib\net45\Neptuo.Models.dll</HintPath>
+    <Reference Include="Neptuo.Models, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.Models.1.2.0\lib\net45\Neptuo.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
