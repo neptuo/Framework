@@ -55,8 +55,11 @@ namespace Neptuo.Models.Repositories
                 IEnumerable<CommandModel> commandModels = commands.Select(c => new CommandModel(c.Body.Key, commandFormatter.SerializeCommand(c)));
                 commandStore.Save(commandModels);
 
-                IEnumerable<Task> tasks = commands.Select(c => commandDispatcher.HandleAsync(c));
-                Task.WaitAll(tasks.ToArray());
+                foreach (Envelope<ICommand> e in commands)
+                    commandDispatcher.HandleAsync(e).Wait();
+
+                //IEnumerable<Task> tasks = commands.Select(c => commandDispatcher.HandleAsync(c));
+                //Task.WaitAll(tasks.ToArray());
             }
         }
     }
