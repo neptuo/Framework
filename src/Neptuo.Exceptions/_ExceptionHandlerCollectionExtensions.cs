@@ -1,7 +1,9 @@
 ﻿using Neptuo.Exceptions.Handlers;
+using Neptuo.Exceptions.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +26,28 @@ namespace Neptuo.Exceptions
         {
             Ensure.NotNull(collection, "collection");
             return collection.Add(new ExceptionHandlerBuilder().Handler(handler));
+        }
+
+        /// <summary>
+        /// Registers <paramref name="handler"/> to handle exceptions for all implemented interfaces <see cref="IExceptionHandler{T}"/>.
+        /// </summary>
+        /// <param name="collection">The collection of exception handlers.</param>
+        /// <param name="handler">The exceptions handler.</param>
+        /// <returns><paramref name="collection"/>.</returns>
+        public static IExceptionHandlerCollection AddAll(this IExceptionHandlerCollection collection, object handler)
+        {
+            Ensure.NotNull(collection, "collection");
+            Ensure.NotNull(handler, "handler");
+            foreach (Type interfaceType in handler.GetType().GetInterfaces())
+            {
+                if (interfaceType.IsGenericType && typeof(IExceptionHandler<>) == interfaceType.GetGenericTypeDefinition())
+                {
+                    MethodInfo addMethod = typeof(_ExceptionHandlerCollectionExtensions).GetMethod(Constant.ExceptionHandlerCollectionAddMethodName).MakeGenericMethod(interfaceType.GetGenericArguments());
+                    addMethod.Invoke(collection, new object[] { collection, handler });
+                }
+            }
+
+            return collection;
         }
 
         /// <summary>

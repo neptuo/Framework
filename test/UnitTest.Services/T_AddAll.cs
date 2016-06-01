@@ -3,6 +3,8 @@ using Neptuo.Commands;
 using Neptuo.Commands.Handlers;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
+using Neptuo.Exceptions;
+using Neptuo.Models;
 using Neptuo.Queries;
 using Neptuo.Queries.Handlers;
 using System;
@@ -65,7 +67,21 @@ namespace Neptuo
             Assert.AreEqual(1, handler.E2Count);
             manager.PublishAsync(new E3()).Wait();
             Assert.AreEqual(1, handler.E3Count);
+        }
 
+        [TestMethod]
+        public void Exceptions()
+        {
+            DefaultExceptionHandlerCollection collection = new DefaultExceptionHandlerCollection();
+            MultiHandler handler = new MultiHandler();
+            collection.AddAll(handler);
+
+            collection.Handle(new ArgumentException());
+            collection.Handle(new ArgumentException());
+            collection.Handle(new AggregateRootException());
+
+            Assert.AreEqual(2, handler.ArgumentCount);
+            Assert.AreEqual(1, handler.AggregateRootCount);
         }
     }
 }

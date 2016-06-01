@@ -16,7 +16,7 @@ namespace Neptuo.Events
     public static class _EventHandlerCollectionExtensions
     {
         /// <summary>
-        /// Registers <paramref name="handler"/> to handle queries for all implemented interfaces <see cref="IQuerHandler{T, TResult}"/>.
+        /// Registers <paramref name="handler"/> to handle events for all implemented interfaces <see cref="IEventHandler{T}"/>.
         /// </summary>
         /// <param name="collection">The collection of events handlers.</param>
         /// <param name="handler">The event handler.</param>
