@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Models;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
@@ -23,7 +24,7 @@ namespace Neptuo.Commands.Handlers
         /// <summary>
         /// Creates new instance that uses <paramref name="repositoryFactory"/> for creating instances of repository.
         /// </summary>
-        /// <param name="repositoryFactory"></param>
+        /// <param name="repositoryFactory">The factory for instances of the repository.</param>
         public AggregateRootCommandHandler(IFactory<IRepository<T, IKey>> repositoryFactory)
         {
             Ensure.NotNull(repositoryFactory, "repositoryFactory");
@@ -38,10 +39,19 @@ namespace Neptuo.Commands.Handlers
         {
             Ensure.NotNull(handler, "handler");
 
-            T aggregate = handler();
+            try
+            {
+                T aggregate = handler();
 
-            if (aggregate != null)
-                repositoryFactory.Create().Save(aggregate);
+                if (aggregate != null)
+                    repositoryFactory.Create().Save(aggregate);
+
+            }
+            catch (AggregateRootException e)
+            {
+                e.Key = KeyFactory.Empty(typeof(T));
+                throw e;
+            }
 
             return Async.CompletedTask;
         }
@@ -58,8 +68,17 @@ namespace Neptuo.Commands.Handlers
 
             IRepository<T, IKey> repository = repositoryFactory.Create();
             T aggregate = GetAggregate(repository, key);
-            handler(aggregate);
-            SaveAggregate(repository, aggregate);
+            
+            try
+            {
+                handler(aggregate);
+                SaveAggregate(repository, aggregate);
+            }
+            catch (AggregateRootException e)
+            {
+                e.Key = key;
+                throw e;
+            }
 
             return Async.CompletedTask;
         }

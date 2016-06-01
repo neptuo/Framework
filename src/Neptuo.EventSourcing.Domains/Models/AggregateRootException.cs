@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Models.Keys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,6 +14,13 @@ namespace Neptuo.Models
     [Serializable]
     public class AggregateRootException : Exception
     {
+        /// <summary>
+        /// The of the aggregate root.
+        /// </summary>
+        /// <remarks>
+        /// For exceptions thrown the correct way, contains a key of the aggregate root or empty key when creating new aggregate.</remarks>
+        public IKey Key { get; internal set; }
+
         /// <summary>
         /// Creates new empty instance.
         /// </summary>

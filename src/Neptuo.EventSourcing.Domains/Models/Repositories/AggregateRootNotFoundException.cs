@@ -8,22 +8,17 @@ using System.Threading.Tasks;
 namespace Neptuo.Models.Repositories
 {
     /// <summary>
-    /// Exception raised when to such aggregate root exists,
+    /// Exception raised when to such aggregate root exists.
     /// </summary>
     public class AggregateRootNotFoundException : AggregateRootException
     {
         /// <summary>
-        /// The aggregate root key which is not found in the repository.
-        /// </summary>
-        public IKey AggregateKey { get; private set; }
-
-        /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="aggregateKey">The aggregate root key which is not found in the repository.</param>
-        public AggregateRootNotFoundException(IKey aggregateKey)
+        /// <param name="key">The key of the aggregate root which was not found in the repository.</param>
+        public AggregateRootNotFoundException(IKey key)
         {
-            AggregateKey = aggregateKey;
+            Key = key;
         }
     }
 }
