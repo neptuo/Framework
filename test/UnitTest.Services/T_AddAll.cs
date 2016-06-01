@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Commands;
 using Neptuo.Commands.Handlers;
+using Neptuo.Events;
+using Neptuo.Events.Handlers;
 using Neptuo.Queries;
 using Neptuo.Queries.Handlers;
 using System;
@@ -47,6 +49,23 @@ namespace Neptuo
 
             ICommandHandler<C3> handler3;
             Assert.AreEqual(true, collection.TryGet<C3>(out handler3));
+        }
+
+        [TestMethod]
+        public void Events()
+        {
+            DefaultEventManager manager = new DefaultEventManager();
+
+            E1Handler handler = new E1Handler();
+            manager.AddAll(handler);
+
+            manager.PublishAsync(new E1()).Wait();
+            Assert.AreEqual(1, handler.E1Count);
+            manager.PublishAsync(new E2()).Wait();
+            Assert.AreEqual(1, handler.E2Count);
+            manager.PublishAsync(new E3()).Wait();
+            Assert.AreEqual(1, handler.E3Count);
+
         }
     }
 }

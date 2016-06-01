@@ -49,10 +49,6 @@
       <HintPath>..\..\packages\Neptuo.5.1.0\lib\net45\Neptuo.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Events, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Events.1.2.0\lib\net45\Neptuo.Events.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
       <Private>True</Private>
@@ -137,6 +133,10 @@
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj">
       <Project>{9af3cc63-a2e4-4801-a511-f3a631f95c7e}</Project>
       <Name>Neptuo.EventSourcing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
+      <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
+      <Name>Neptuo.Events</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Exceptions\Neptuo.Exceptions.csproj">
       <Project>{00a151b0-ac8e-43a9-9002-d6089e7fb8b3}</Project>

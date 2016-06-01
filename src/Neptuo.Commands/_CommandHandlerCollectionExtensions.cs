@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Queries
+namespace Neptuo.Commands
 {
     /// <summary>
     /// Common extensions for <see cref="ICommandHandlerCollection"/>.
@@ -16,10 +16,10 @@ namespace Neptuo.Queries
     public static class _CommandHandlerCollectionExtensions
     {
         /// <summary>
-        /// Registers <paramref name="handler"/> to handle queries for all implemented interfaces <see cref="IQuerHandler{TQuery, TResult}"/>.
+        /// Registers <paramref name="handler"/> to handle commands for all implemented interfaces <see cref="ICommandHandler{T}"/>.
         /// </summary>
-        /// <param name="collection">Collection of query handlers.</param>
-        /// <param name="handler">Query handler.</param>
+        /// <param name="collection">The collection of command handlers.</param>
+        /// <param name="handler">The commmand handler.</param>
         /// <returns><paramref name="collection"/>.</returns>
         public static ICommandHandlerCollection AddAll(this ICommandHandlerCollection collection, object handler)
         {
