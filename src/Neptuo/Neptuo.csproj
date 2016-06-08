@@ -84,6 +84,7 @@
     <Compile Include="Converters\StringToNullableConverter.cs" />
     <Compile Include="Converters\StringToEnumConverter.cs" />
     <Compile Include="Converters\ToStringConverter.cs" />
+    <Compile Include="Converters\TwoWayConverter.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="Compilers\Errors\ErrorInfo.cs" />
     <Compile Include="Compilers\Errors\IErrorInfo.cs" />

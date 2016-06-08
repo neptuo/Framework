@@ -82,5 +82,20 @@ namespace Neptuo.Converters
             Assert.AreEqual(true, Converts.Try("1,2,3", out values4));
             Assert.AreEqual(true, Converts.Try("1, 2, 3", out values4));
         }
+
+        [TestMethod]
+        public void TwoWayConverter()
+        {
+            Converts.Repository
+                .Add(new TimeSpanConveter());
+
+            TimeSpan timeSpan;
+            Assert.AreEqual(true, Converts.Try("03:00:00", out timeSpan));
+            Assert.AreEqual(TimeSpan.FromHours(3), timeSpan);
+
+            string value;
+            Assert.AreEqual(true, Converts.Try(timeSpan, out value));
+            Assert.AreEqual("03:00:00", value);
+        }
     }
 }

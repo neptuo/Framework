@@ -27,6 +27,42 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
+        /// Adds <paramref name="converter"/> for conversion from <typeparamref name="TOne"/> to <typeparamref name="TTwo"/> and from <typeparamref name="TTwo"/> to <typeparamref name="TOne"/>.
+        /// </summary>
+        /// <typeparam name="TOne">The first type of the vice-versa convertion.</typeparam>
+        /// <typeparam name="TTwo">The second type of the vice-versa convertion.</typeparam>
+        /// <param name="repository">The repository to register converter to.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns><paramref name="repository"/>.</returns>
+        public static IConverterRepository Add<TOne, TTwo>(this IConverterRepository repository, TwoWayConverter<TOne, TTwo> converter)
+        {
+            DefaultConverter<TOne, TTwo> converter1 = converter;
+            DefaultConverter<TTwo, TOne> converter2 = converter;
+            Add<TOne, TTwo>(repository, converter1);
+            Add<TTwo, TOne>(repository, converter2);
+            return repository;
+        }
+
+        /// <summary>
+        /// Adds <paramref name="converter"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
+        /// The <paramref name="converter"/> should always success.
+        /// </summary>
+        /// <typeparam name="TSource">Source type.</typeparam>
+        /// <typeparam name="TTarget">Target type.</typeparam>
+        /// <param name="repository">The repository to register converter to.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns><paramref name="repository"/>.</returns>
+        public static IConverterRepository Add<TSource, TTarget>(this IConverterRepository repository, Func<TSource, TTarget> converter)
+        {
+            Ensure.NotNull(converter, "converter");
+            return Add<TSource, TTarget>(repository, (TSource source, out TTarget target) => 
+            {
+                target = converter(source);
+                return true;
+            });
+        }
+
+        /// <summary>
         /// Adds <paramref name="tryConvert"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
