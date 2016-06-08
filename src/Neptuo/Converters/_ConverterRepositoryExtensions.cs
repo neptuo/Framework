@@ -44,6 +44,25 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
+        /// Adds <paramref name="converter"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
+        /// The <paramref name="converter"/> should always success.
+        /// </summary>
+        /// <typeparam name="TSource">Source type.</typeparam>
+        /// <typeparam name="TTarget">Target type.</typeparam>
+        /// <param name="repository">The repository to register converter to.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns><paramref name="repository"/>.</returns>
+        public static IConverterRepository Add<TSource, TTarget>(this IConverterRepository repository, Func<TSource, TTarget> converter)
+        {
+            Ensure.NotNull(converter, "converter");
+            return Add<TSource, TTarget>(repository, (TSource source, out TTarget target) => 
+            {
+                target = converter(source);
+                return true;
+            });
+        }
+
+        /// <summary>
         /// Adds <paramref name="tryConvert"/> for conversion from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.
         /// </summary>
         /// <typeparam name="TSource">Source type.</typeparam>
