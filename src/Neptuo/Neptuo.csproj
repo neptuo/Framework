@@ -78,13 +78,13 @@
     <Compile Include="Compilers\ICompilerResult.cs" />
     <Compile Include="Compilers\_CompilerConfigurationExtensions.cs" />
     <Compile Include="Compilers\_CompilerReferenceCollectionExtensions.cs" />
-    <Compile Include="Converters\ITwoWayConverter.cs" />
     <Compile Include="Converters\StringToCollectionConverter.cs" />
     <Compile Include="Converters\AutoExports\ConverterAttribute.cs" />
     <Compile Include="Converters\ConverterSearchContext.cs" />
     <Compile Include="Converters\StringToNullableConverter.cs" />
     <Compile Include="Converters\StringToEnumConverter.cs" />
     <Compile Include="Converters\ToStringConverter.cs" />
+    <Compile Include="Converters\TwoWayConverter.cs" />
     <Compile Include="Converters\_ConverterRepositoryExtensions.cs" />
     <Compile Include="Compilers\Errors\ErrorInfo.cs" />
     <Compile Include="Compilers\Errors\IErrorInfo.cs" />
