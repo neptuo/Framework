@@ -11,6 +11,7 @@ namespace Neptuo.Converters
     /// </summary>
     public class DefaultConverterRepository : IConverterRepository
     {
+        private readonly object storageLock = new object();
         private readonly Dictionary<Type, Dictionary<Type, IConverter>> storage;
         private readonly OutFuncCollection<ConverterSearchContext, IConverter, bool> onSearchConverter;
 
@@ -40,16 +41,26 @@ namespace Neptuo.Converters
 
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage))
-                storage[sourceType] = sourceStorage = new Dictionary<Type, IConverter>();
+            {
+                lock (storageLock)
+                {
+                    if (!storage.TryGetValue(sourceType, out sourceStorage))
+                        storage[sourceType] = sourceStorage = new Dictionary<Type, IConverter>();
+                }
+            }
 
-            sourceStorage[targetType] = converter;
+            lock (storageLock)
+                sourceStorage[targetType] = converter;
+
             return this;
         }
 
         public IConverterRepository AddSearchHandler(OutFunc<ConverterSearchContext, IConverter, bool> searchHandler)
         {
             Ensure.NotNull(searchHandler, "searchHandler");
-            onSearchConverter.Add(searchHandler);
+            lock (storageLock)
+                onSearchConverter.Add(searchHandler);
+
             return this;
         }
 
