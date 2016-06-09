@@ -51,6 +51,7 @@
     <Compile Include="Activators\DependencyServiceProvider.cs" />
     <Compile Include="Activators\AutoExports\ExportLifetimeAttribute.cs" />
     <Compile Include="Activators\AutoExports\ExportTransientAttribute.cs" />
+    <Compile Include="Activators\Factory.cs" />
     <Compile Include="Activators\GetterFactory.cs" />
     <Compile Include="Activators\IDependencyDefinitionCollection.cs" />
     <Compile Include="Activators\IDependencyDefinition.cs" />
