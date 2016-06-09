@@ -53,5 +53,18 @@ namespace Neptuo.Activators
             Assert.AreEqual("S4", activator.Create(4));
             Assert.AreEqual("S5", activator.Create(5));
         }
+
+        [TestMethod]
+        public void StaticFactory()
+        {
+            IFactory<int> factory = Factory.Getter(CreateInt);
+            Assert.IsNotNull(factory);
+            Assert.AreEqual(56, factory.Create());
+        }
+
+        private int CreateInt()
+        {
+            return 56;
+        }
     }
 }
