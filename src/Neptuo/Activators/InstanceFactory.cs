@@ -26,7 +26,7 @@ namespace Neptuo.Activators
         }
 
         /// <summary>
-        /// Creates new instance from <paramref name="innerGetter"/>.
+        /// Creates new instance from <paramref name="instanceGetter"/>.
         /// </summary>
         /// <param name="instanceGetter">Function to access singleton object.</param>
         public InstanceFactory(Func<T> instanceGetter)
