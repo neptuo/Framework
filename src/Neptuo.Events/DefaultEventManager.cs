@@ -1,5 +1,4 @@
-﻿using Neptuo.Components;
-using Neptuo.Events.Handlers;
+﻿using Neptuo.Events.Handlers;
 using Neptuo.Events.Internals;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Models.Keys;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Commands
 {
     /// <summary>
-    /// Optional base.
+    /// Describes event-sourcing compatible command.
     /// </summary>
     public interface ICommand
     {
         /// <summary>
-        /// Unique command identifier.
+        /// The key of this command.
         /// </summary>
-        string Guid { get; }
+        IKey Key { get; }
     }
 }

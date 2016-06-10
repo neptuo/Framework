@@ -40,9 +40,9 @@ namespace Neptuo.Formatters.Converters
 
         public bool TryConvert(Type sourceType, Type targetType, object sourceValue, out object targetValue)
         {
-            if (sourceType == typeof(JToken))
+            if (sourceType == typeof(JToken) || sourceType == typeof(JValue))
                 return TryConvertFromJson(targetType, (JValue)sourceValue, out targetValue);
-            else if (targetType == typeof(JToken))
+            else if (targetType == typeof(JToken) || targetType == typeof(JValue))
                 return TryConvertToJson(sourceType, sourceValue, out targetValue);
 
             targetValue = null;

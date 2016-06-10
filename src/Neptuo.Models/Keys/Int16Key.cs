@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,7 +54,7 @@ namespace Neptuo.Models.Keys
         protected override bool Equals(KeyBase other)
         {
             Int16Key key;
-            if (Converts.Try<IKey, Int16Key>(other, out key))
+            if (!TryConvert(other, out key))
                 return false;
 
             return ID == key.ID;
@@ -62,7 +63,7 @@ namespace Neptuo.Models.Keys
         protected override int CompareValueTo(KeyBase other)
         {
             Int16Key key;
-            if (Converts.Try<IKey, Int16Key>(other, out key))
+            if (!TryConvert(other, out key))
                 return 1;
 
             return ID.CompareTo(key.ID);
@@ -71,6 +72,11 @@ namespace Neptuo.Models.Keys
         protected override int GetValueHashCode()
         {
             return ID.GetHashCode();
+        }
+
+        protected override string ToStringValue()
+        {
+            return ID.ToString();
         }
     }
 }

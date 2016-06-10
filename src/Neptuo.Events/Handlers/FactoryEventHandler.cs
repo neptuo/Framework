@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace Neptuo.Events.Handlers
 {
     /// <summary>
-    /// Wrapper for <typeparamref name="TEventHandler"/> with resolve using <see cref="IDependencyProvider"/> for each event handling.
+    /// Wrapper for <typeparamref name="TEventHandler"/> with resolve using <see cref="IFactory{T}"/> for each event handling.
     /// </summary>
     /// <typeparam name="TEventHandler">Type of inner handler to resolve and use.</typeparam>
     /// <typeparam name="TEvent">Type of event data.</typeparam>
-    public class ActivatorEventHandler<TEventHandler, TEvent> : IEventHandler<TEvent>
+    public class FactoryEventHandler<TEventHandler, TEvent> : IEventHandler<TEvent>
         where TEventHandler : IEventHandler<TEvent>
     {
         private readonly IFactory<TEventHandler> innerHandlerFactory;
@@ -22,7 +22,7 @@ namespace Neptuo.Events.Handlers
         /// to resolve inner handler of type <typeparamref name="TEventHandler"/>.
         /// </summary>
         /// <param name="innerHandlerFactory">Instance provider for inner handler of type <typeparamref name="TEventHandler"/>.</param>
-        public ActivatorEventHandler(IFactory<TEventHandler> innerHandlerFactory)
+        public FactoryEventHandler(IFactory<TEventHandler> innerHandlerFactory)
         {
             Ensure.NotNull(innerHandlerFactory, "innerHandlerFactory");
             this.innerHandlerFactory = innerHandlerFactory;
