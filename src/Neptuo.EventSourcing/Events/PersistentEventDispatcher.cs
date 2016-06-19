@@ -153,7 +153,7 @@ namespace Neptuo.Events
 
             return Task.Factory.StartNew(async () => 
             {
-                foreach (HandlerDescriptor handler in handlers)
+                foreach (HandlerDescriptor handler in handlers.ToList())
                 {
                     if (handler.IsContext)
                         await handler.Execute(context);
