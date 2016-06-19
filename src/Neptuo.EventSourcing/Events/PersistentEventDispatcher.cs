@@ -151,21 +151,21 @@ namespace Neptuo.Events
                 return Async.CompletedTask;
             }
 
-            return Task.Factory.StartNew(async () => 
+            return Task.Factory.StartNew(() => 
             {
                 foreach (HandlerDescriptor handler in handlers.ToList())
                 {
                     if (handler.IsContext)
-                        await handler.Execute(context);
+                        handler.Execute(context).Wait();
                     else if (handler.IsEnvelope)
-                        await handler.Execute(envelope);
+                        handler.Execute(envelope).Wait();
                     else if (handler.IsPlain)
-                        await handler.Execute(payload);
+                        handler.Execute(payload).Wait();
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
                     if (eventWithKey != null && handler.HandlerIdentifier != null)
-                        await eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier);
+                        eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
                 }
             });
         }
