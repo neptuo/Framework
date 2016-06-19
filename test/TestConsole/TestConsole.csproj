@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asyncing\TestAsync.cs" />
     <Compile Include="DispatcherExceptions\TestDispatcherException.cs" />
     <Compile Include="Events\EventData.cs" />
     <Compile Include="Events\TestEventManager.cs" />

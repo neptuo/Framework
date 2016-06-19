@@ -27,6 +27,7 @@ using TestConsole.SharpKitCompilers;
 using TestConsole.Threading;
 using TestConsole.Tokens;
 using TestConsole.DispatcherExceptions;
+using TestConsole.Asyncing;
 
 namespace TestConsole
 {
@@ -59,7 +60,8 @@ namespace TestConsole
             //TestLocalization.Test();
             //Services.Queries.TestQueries.Test();
             //TestDispatcherException.Test();
-            TestEventManager.Test();
+            //TestEventManager.Test();
+            TestAsync.Test();
 
             Console.ReadKey(true);
         }
