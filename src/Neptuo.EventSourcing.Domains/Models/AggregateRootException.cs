@@ -18,8 +18,10 @@ namespace Neptuo.Models
         /// The of the aggregate root.
         /// </summary>
         /// <remarks>
-        /// For exceptions thrown the correct way, contains a key of the aggregate root or empty key when creating new aggregate.</remarks>
-        public IKey Key { get; internal set; }
+        /// For exceptions thrown the correct way, contains a key of the aggregate root or empty key when creating new aggregate.
+        /// If derived class sets value, the infrastructure doesn't overwrite it.
+        /// </remarks>
+        public IKey Key { get; protected internal set; }
 
         /// <summary>
         /// Creates new empty instance.

@@ -49,7 +49,9 @@ namespace Neptuo.Commands.Handlers
             }
             catch (AggregateRootException e)
             {
-                e.Key = KeyFactory.Empty(typeof(T));
+                if (e.Key == null)
+                    e.Key = KeyFactory.Empty(typeof(T));
+
                 throw e;
             }
 
@@ -68,7 +70,7 @@ namespace Neptuo.Commands.Handlers
 
             IRepository<T, IKey> repository = repositoryFactory.Create();
             T aggregate = GetAggregate(repository, key);
-            
+
             try
             {
                 handler(aggregate);
@@ -76,7 +78,9 @@ namespace Neptuo.Commands.Handlers
             }
             catch (AggregateRootException e)
             {
-                e.Key = key;
+                if (e.Key == null)
+                    e.Key = key;
+
                 throw e;
             }
 
