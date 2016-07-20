@@ -19,7 +19,7 @@ namespace Neptuo.Commands.Handlers
     public abstract class AggregateRootCommandHandler<T>
         where T : AggregateRoot
     {
-        private readonly IFactory<IRepository<T, IKey>> repositoryFactory;
+        private readonly AggregateRootCommandExecutor<T, IRepository<T, IKey>> defaultExecutor;
 
         /// <summary>
         /// Creates new instance that uses <paramref name="repositoryFactory"/> for creating instances of repository.
@@ -27,66 +27,30 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repositoryFactory">The factory for instances of the repository.</param>
         public AggregateRootCommandHandler(IFactory<IRepository<T, IKey>> repositoryFactory)
         {
-            Ensure.NotNull(repositoryFactory, "repositoryFactory");
-            this.repositoryFactory = repositoryFactory;
+            defaultExecutor = new AggregateRootCommandExecutor<T, IRepository<T, IKey>>(repositoryFactory, null, GetAggregate, SaveAggregate);
         }
 
         /// <summary>
-        /// Excutes <paramref name="handler"/> that creates new instance of aggregate.
+        /// Executes <paramref name="handler"/> that creates new instance of aggregate and saves it.
+        /// Nothing about source command is saved.
         /// </summary>
-        /// <param name="handler">The handler that creates new instance of aggregate. If returns <c>null</c>, nothing is saved.</param>
+        /// <param name="handler">The handler that creates new instance of aggregate; when <c>null</c> is returned, nothing is saved.</param>
         protected Task Execute(Func<T> handler)
         {
-            Ensure.NotNull(handler, "handler");
-
-            try
-            {
-                T aggregate = handler();
-
-                if (aggregate != null)
-                    repositoryFactory.Create().Save(aggregate);
-
-            }
-            catch (AggregateRootException e)
-            {
-                if (e.Key == null)
-                    e.Key = KeyFactory.Empty(typeof(T));
-
-                throw e;
-            }
-
-            return Async.CompletedTask;
+            return defaultExecutor.Execute(handler);
         }
 
         /// <summary>
         /// Loads aggregate by <paramref name="key"/> and executes <paramref name="handler"/> with it. Then the aggregate is saved.
+        /// Nothing about source command is saved.
         /// </summary>
         /// <param name="key">The key of the aggregate to load.</param>
         /// <param name="handler">The handler method for modifying aggregate.</param>
         protected Task Execute(IKey key, Action<T> handler)
         {
-            Ensure.NotNull(key, "key");
-            Ensure.NotNull(handler, "handler");
-
-            IRepository<T, IKey> repository = repositoryFactory.Create();
-            T aggregate = GetAggregate(repository, key);
-
-            try
-            {
-                handler(aggregate);
-                SaveAggregate(repository, aggregate);
-            }
-            catch (AggregateRootException e)
-            {
-                if (e.Key == null)
-                    e.Key = key;
-
-                throw e;
-            }
-
-            return Async.CompletedTask;
+            return defaultExecutor.Execute(key, handler);
         }
-
+        
         /// <summary>
         /// Loads aggregate root with the <paramref name="key"/> from the <paramref name="repository"/>.
         /// </summary>
@@ -104,9 +68,20 @@ namespace Neptuo.Commands.Handlers
         /// </summary>
         /// <param name="repository">The repository to save the aggreate root to.</param>
         /// <param name="aggregate">The aggregate root to save.</param>
-        protected virtual void SaveAggregate(IRepository<T, IKey> repository, T aggregate)
+        /// <param name="commandKey">The key of the command (if specified; or <c>null</c>).</param>
+        protected virtual void SaveAggregate(IRepository<T, IKey> repository, T aggregate, IKey commandKey)
         {
             repository.Save(aggregate);
+        }
+
+        /// <summary>
+        /// Uses command executor that saved information about source command key.
+        /// </summary>
+        /// <param name="commandKey">The key of the command that initiates execute operations.</param>
+        /// <returns>The instance of command executor associated with the command key.</returns>
+        protected AggregateRootCommandExecutor<T, IRepository<T, IKey>> WithCommand(IKey commandKey)
+        {
+            return defaultExecutor.WithCommand(commandKey);
         }
     }
 }

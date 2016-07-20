@@ -4,18 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Commands
+namespace Neptuo
 {
     /// <summary>
-    /// The date and time provider for scheduling delayed commands.
+    /// The date and time provider for scheduling delayed commands and events.
     /// </summary>
-    public interface ICommandSchedulingProvider
+    public interface ISchedulingProvider
     {
         /// <summary>
-        /// Computes a delay after which command will be executed.
+        /// Computes a delay after which command or event will be executed.
         /// </summary>
         /// <param name="executeAt">The date and time when execution should be done.</param>
-        /// <returns>A delay after which command will be executed.</returns>
+        /// <returns>A delay after which command or event will be executed.</returns>
         TimeSpan Compute(DateTime executeAt);
     }
 }

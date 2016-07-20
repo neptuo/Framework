@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Internals
 {
-    internal class TheeQueue
+    internal class TreeQueue
     {
         private readonly object storageLock = new object();
         private readonly Dictionary<object, Queue> storage = new Dictionary<object, Queue>();

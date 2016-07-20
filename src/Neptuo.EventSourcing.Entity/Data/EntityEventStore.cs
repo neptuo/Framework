@@ -1,4 +1,5 @@
-﻿using Neptuo.Data;
+﻿using Neptuo.Activators;
+using Neptuo.Data;
 using Neptuo.Data.Entity;
 using Neptuo.Models.Keys;
 using System;
@@ -10,14 +11,20 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Data
 {
-    public class EntityEventStore : IEventStore, IEventPublishingStore
+    public class EntityEventStore : IEventStore, IEventPublishingStore, IEventRebuilderStore
     {
-        private readonly IEventContext context;
+        private readonly Func<IEventContext> contextFactory;
 
         public EntityEventStore(IEventContext context)
         {
             Ensure.NotNull(context, "context");
-            this.context = context;
+            this.contextFactory = () => context;
+        }
+
+        public EntityEventStore(IFactory<IEventContext> contextFactory)
+        {
+            Ensure.NotNull(contextFactory, "contextFactory");
+            this.contextFactory = contextFactory.Create;
         }
 
         public IEnumerable<EventModel> Get(IKey aggregateKey)
@@ -28,7 +35,7 @@ namespace Neptuo.Data
             if (key == null)
                 throw Ensure.Exception.NotGuidKey(aggregateKey.GetType(), "aggregateKey");
 
-            IEnumerable<EventEntity> entities = context.Events
+            IEnumerable<EventEntity> entities = contextFactory().Events
                 .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid)
                 .OrderBy(e => e.Version);
 
@@ -39,6 +46,7 @@ namespace Neptuo.Data
         {
             Ensure.NotNull(events, "events");
 
+            IEventContext context = contextFactory();
             foreach (EventEntity entity in events.Select(EventEntity.FromModel))
             {
                 context.Events.Add(entity);
@@ -50,7 +58,7 @@ namespace Neptuo.Data
 
         public async Task<IEnumerable<EventPublishingModel>> GetAsync()
         {
-            return await context.UnPublishedEvents
+            return await contextFactory().UnPublishedEvents
                 .Select(e => new EventPublishingModel(e.Event.ToModel(), e.PublishedToHandlers.Select(h => h.HandlerIdentifier)))
                 .ToListAsync();
         }
@@ -61,6 +69,7 @@ namespace Neptuo.Data
             if (eventKey == null)
                 throw Ensure.Exception.NotGuidKey(eventKey.GetType(), "key");
 
+            IEventContext context = contextFactory();
             UnPublishedEventEntity entity = context.UnPublishedEvents.FirstOrDefault(e => e.Event.EventType == eventKey.Type && e.Event.EventID == eventKey.Guid);
             if (entity == null)
                 return Task.FromResult(true);
@@ -71,10 +80,20 @@ namespace Neptuo.Data
 
         public Task ClearAsync()
         {
+            IEventContext context = contextFactory();
             foreach (UnPublishedEventEntity entity in context.UnPublishedEvents)
                 context.UnPublishedEvents.Remove(entity);
 
             return context.SaveAsync();
+        }
+
+        public async Task<IEnumerable<EventModel>> GetAsync(IEnumerable<string> eventTypes)
+        {
+            return await contextFactory().Events
+                .Where(e => eventTypes.Contains(e.EventType))
+                .OrderBy(e => e.ID)
+                .Select(e => e.ToModel())
+                .ToListAsync();
         }
     }
 }

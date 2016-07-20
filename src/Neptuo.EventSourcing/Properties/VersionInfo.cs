@@ -12,3 +12,9 @@ namespace Neptuo.EventSourcing
         }
     }
 }
+
+#if !DEBUG
+
+"Add nuget reference Neptuo.EventSourcing.Domains"
+
+#endif

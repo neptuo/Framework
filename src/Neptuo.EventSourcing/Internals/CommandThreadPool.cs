@@ -9,26 +9,26 @@ namespace Neptuo.Internals
 {
     internal class CommandThreadPool : DisposableBase
     {
-        private readonly TheeQueue queue;
-        private readonly List<Tuple<TheeQueue.Queue, Thread>> threads = new List<Tuple<TheeQueue.Queue, Thread>>();
+        private readonly TreeQueue queue;
+        private readonly List<Tuple<TreeQueue.Queue, Thread>> threads = new List<Tuple<TreeQueue.Queue, Thread>>();
 
-        public CommandThreadPool(TheeQueue queue)
+        public CommandThreadPool(TreeQueue queue)
         {
             Ensure.NotNull(queue, "queue");
             this.queue = queue;
             this.queue.QueueAdded += OnQueueAdded;
         }
 
-        private void OnQueueAdded(TheeQueue.Queue queue)
+        private void OnQueueAdded(TreeQueue.Queue queue)
         {
             Thread thread = new Thread(OnThread);
             thread.Start(queue);
-            threads.Add(new Tuple<TheeQueue.Queue, Thread>(queue, thread));
+            threads.Add(new Tuple<TreeQueue.Queue, Thread>(queue, thread));
         }
 
         private void OnThread(object parameter)
         {
-            TheeQueue.Queue queue = (TheeQueue.Queue)parameter;
+            TreeQueue.Queue queue = (TreeQueue.Queue)parameter;
 
             bool isNew = queue.Count > 0;
             queue.ItemAdded += (q, i) => isNew = true;
@@ -58,7 +58,7 @@ namespace Neptuo.Internals
         {
             base.DisposeUnmanagedResources();
 
-            foreach (Tuple<TheeQueue.Queue, Thread> thread in threads)
+            foreach (Tuple<TreeQueue.Queue, Thread> thread in threads)
                 thread.Item2.Abort();
         }
     }

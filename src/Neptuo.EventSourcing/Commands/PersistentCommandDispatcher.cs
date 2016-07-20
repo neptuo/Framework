@@ -4,6 +4,8 @@ using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
+using Neptuo.Models;
+using Neptuo.Models.Keys;
 using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -22,15 +24,15 @@ namespace Neptuo.Commands
     {
         private readonly object timersLock = new object();
 
-        private readonly HandlerDescriptorProvider descriptorProvider;
-        private readonly TheeQueue queue = new TheeQueue();
+        private HandlerDescriptorProvider descriptorProvider;
+        private readonly TreeQueue queue = new TreeQueue();
         private readonly CommandThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
-        private readonly ICommandSchedulingProvider schedulingProvider;
+        private readonly ISchedulingProvider schedulingProvider;
         private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
-        private readonly HandlerCollection handlers;
+        private HandlerCollection handlers;
 
         /// <summary>
         /// The collection of registered handlers.
@@ -57,7 +59,7 @@ namespace Neptuo.Commands
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
-            : this(distributor, store, formatter, new DateTimeNowCommandSchedulingProvider())
+            : this(distributor, store, formatter, new DateTimeNowSchedulingProvider())
         { }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace Neptuo.Commands
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         /// <param name="dateTimeProvider">The provider of a delay computation for delayed commands.</param>
-        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ICommandSchedulingProvider schedulingProvider)
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
@@ -79,17 +81,30 @@ namespace Neptuo.Commands
             this.threadPool = new CommandThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
 
+        }
+
+        internal PersistentCommandDispatcher(TreeQueue queue, CommandThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
+        {
+            this.queue = queue;
+            this.threadPool = threadPool;
+            this.distributor = distributor;
+            this.store = store;
+            this.formatter = formatter;
+            this.schedulingProvider = schedulingProvider;
+        }
+
+        private void Initialize()
+        {
             CommandExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
 
-            this.descriptorProvider = new HandlerDescriptorProvider(
+            descriptorProvider = new HandlerDescriptorProvider(
                 typeof(ICommandHandler<>),
                 null,
                 TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync),
                 CommandExceptionHandlers,
                 DispatcherExceptionHandlers
             );
-
             handlers = new HandlerCollection(descriptorProvider);
         }
 
@@ -154,7 +169,7 @@ namespace Neptuo.Commands
                 commandWithKey = payload as ICommand;
 
             // If we have command with the key, serialize it for persisten delivery.
-            if (isPersistenceUsed && commandWithKey != null)
+            if (store != null && isPersistenceUsed && commandWithKey != null)
             {
                 string serializedEnvelope = await formatter.SerializeAsync(envelope);
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
@@ -196,11 +211,24 @@ namespace Neptuo.Commands
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
                     // If we have command with the key, notify about successful execution.
-                    if (commandWithKey != null)
+                    if (store != null && commandWithKey != null)
                         await store.PublishedAsync(commandWithKey.Key);
                 }
                 catch (Exception e)
                 {
+                    AggregateRootException aggregateException = e as AggregateRootException;
+                    if (aggregateException != null)
+                    {
+                        // If envelope is created and contains source command key, use it.
+                        IKey sourceCommandKey;
+                        if (aggregateException.SourceCommandKey == null && envelope != null && envelope.TryGetSourceCommandKey(out sourceCommandKey))
+                            aggregateException.SourceCommandKey = sourceCommandKey;
+
+                        // If command is command with key, use it.
+                        if (aggregateException.CommandKey == null && commandWithKey != null)
+                            aggregateException.CommandKey = commandWithKey.Key;
+                    }
+
                     DispatcherExceptionHandlers.Handle(e);
                 }
             });
@@ -228,6 +256,9 @@ namespace Neptuo.Commands
         /// <returns>The continuation task.</returns>
         public async Task RecoverAsync(IDeserializer formatter)
         {
+            Ensure.NotNull(store, "store");
+            Ensure.NotNull(formatter, "formatter");
+
             IEnumerable<CommandModel> models = await store.GetAsync();
             foreach (CommandModel model in models)
             {

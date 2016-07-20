@@ -38,7 +38,7 @@ namespace Neptuo.Events
                 throw Ensure.Exception.NotSupported("Event manager can publish event context.");
 
             // Unwrap envelope, create context and invoke.
-            if(eventTypeDescriptor.IsEnvelope)
+            if (eventTypeDescriptor.IsEnvelope)
             {
                 Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(eventTypeDescriptor.DataType);
                 object context = Activator.CreateInstance(contextType, payload, this, this);
@@ -50,7 +50,7 @@ namespace Neptuo.Events
 
                 return (Task)publishInternalMethod.MakeGenericMethod(eventTypeDescriptor.DataType).Invoke(this, new object[] { context });
             }
-            
+
             // Create context and invoke.
             return PublishInternalAsyc<TEvent>(new DefaultEventHandlerContext<TEvent>(payload, this, this));
         }
@@ -62,7 +62,7 @@ namespace Neptuo.Events
             object[] contextHandlers = registry.GetContextHandlers(eventType);
             object[] envelopeHandlers = registry.GetEnvelopeHandlers(eventType);
             object[] directHandlers = registry.GetDirectHandlers(eventType);
-                
+
             Task[] tasks = new Task[contextHandlers.Length + envelopeHandlers.Length + directHandlers.Length];
 
             if (tasks.Length == 0)
@@ -97,7 +97,7 @@ namespace Neptuo.Events
                 registry.AddEnvelopeHandler(eventTypeDescriptor.DataType, handler);
             else
                 registry.AddDirectHandler(eventTypeDescriptor.DataType, handler);
-        
+
             return this;
         }
 
@@ -114,7 +114,7 @@ namespace Neptuo.Events
                 registry.RemoveEnvelopeHandler(eventTypeDescriptor.DataType, handler);
             else
                 registry.RemoveDirectHandler(eventTypeDescriptor.DataType, handler);
-        
+
             return this;
         }
     }

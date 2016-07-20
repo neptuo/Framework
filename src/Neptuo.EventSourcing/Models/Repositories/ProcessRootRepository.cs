@@ -5,6 +5,7 @@ using Neptuo.Events;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Models.Domains;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Neptuo.Models.Repositories
     /// The implementation of EventSourcing ProcessRoot repository.
     /// </summary>
     /// <typeparam name="T">The type of the process root.</typeparam>
-    public class ProcessRootRepository<T> : AggregateRootRepository<T>
+    public class ProcessRootRepository<T> : AggregateRootRepository<T>, IProcessRootRepository<T>
         where T : ProcessRoot
     {
         private readonly ISerializer commandFormatter;
@@ -47,19 +48,27 @@ namespace Neptuo.Models.Repositories
 
         public override void Save(T model)
         {
+            Save(model, null);
+        }
+        
+        public void Save(T model, IKey sourceCommandKey)
+        {
             base.Save(model);
 
             IEnumerable<Envelope<ICommand>> commands = model.Commands;
-            if(commands.Any())
+            if (commands.Any())
             {
-                IEnumerable<CommandModel> commandModels = commands.Select(c => new CommandModel(c.Body.Key, commandFormatter.SerializeCommand(c)));
+                IEnumerable<CommandModel> commandModels = commands.Select(c =>
+                {
+                    if (sourceCommandKey != null)
+                        c.AddSourceCommandKey(sourceCommandKey);
+
+                    return new CommandModel(c.Body.Key, commandFormatter.SerializeCommand(c));
+                });
                 commandStore.Save(commandModels);
 
                 foreach (Envelope<ICommand> e in commands)
                     commandDispatcher.HandleAsync(e).Wait();
-
-                //IEnumerable<Task> tasks = commands.Select(c => commandDispatcher.HandleAsync(c));
-                //Task.WaitAll(tasks.ToArray());
             }
         }
     }

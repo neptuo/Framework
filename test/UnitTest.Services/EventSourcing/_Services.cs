@@ -9,6 +9,7 @@ using Neptuo.Formatters.Metadata;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Threading.Tasks;
 using Orders.Domains.Events;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace Neptuo.EventSourcing
 {
-    public class MockEventStore : IEventStore
+    public class MockEventStore : IEventStore, IEventRebuilderStore
     {
         private readonly Dictionary<IKey, List<EventModel>> storage = new Dictionary<IKey, List<EventModel>>();
 
@@ -31,6 +32,11 @@ namespace Neptuo.EventSourcing
                 return events;
 
             return Enumerable.Empty<EventModel>();
+        }
+
+        public Task<IEnumerable<EventModel>> GetAsync(IEnumerable<string> eventTypes)
+        {
+            return Task.FromResult(storage.Values.SelectMany(e => e).Where(e => eventTypes.Contains(e.EventKey.Type)));
         }
 
         public void Save(IEnumerable<EventModel> events)
@@ -88,6 +94,28 @@ namespace Neptuo.EventSourcing
         {
             Ensure.NotNull(service, "service");
             Service = service;
+        }
+    }
+
+    public class ReadModelHandler : IEventHandler<OrderPlaced>, IEventHandler<OrderTotalRecalculated>
+    {
+        public Dictionary<IKey, decimal> Totals { get; private set; }
+
+        public ReadModelHandler()
+        {
+            Totals = new Dictionary<IKey, decimal>();
+        }
+
+        public Task HandleAsync(OrderPlaced payload)
+        {
+            Totals[payload.AggregateKey] = 0;
+            return Async.CompletedTask;
+        }
+
+        public Task HandleAsync(OrderTotalRecalculated payload)
+        {
+            Totals[payload.AggregateKey] = payload.TotalPrice;
+            return Async.CompletedTask;
         }
     }
 }
