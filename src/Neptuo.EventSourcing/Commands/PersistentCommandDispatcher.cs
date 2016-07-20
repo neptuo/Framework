@@ -68,7 +68,7 @@ namespace Neptuo.Commands
         /// <param name="distributor">The command-to-the-queue distributor.</param>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
-        /// <param name="dateTimeProvider">The provider of a delay computation for delayed commands.</param>
+        /// <param name="schedulingProvider">The provider of a delay computation for delayed commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(distributor, "distributor");
@@ -80,6 +80,7 @@ namespace Neptuo.Commands
             this.formatter = formatter;
             this.threadPool = new CommandThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
+            Initialize();
 
         }
 
@@ -91,6 +92,7 @@ namespace Neptuo.Commands
             this.store = store;
             this.formatter = formatter;
             this.schedulingProvider = schedulingProvider;
+            Initialize();
         }
 
         private void Initialize()
