@@ -70,8 +70,11 @@ namespace Neptuo.Models.Domains
             EnsureHandlerRegistration();
             Key = key;
 
-            foreach (IEvent payload in events)
+            foreach (IEvent payload in events.OrderBy(e => e.Version))
+            {
                 handlers.Publish(this, payload);
+                Version = payload.Version;
+            }
         }
 
         /// <summary>

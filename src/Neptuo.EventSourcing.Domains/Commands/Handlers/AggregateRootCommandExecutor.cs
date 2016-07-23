@@ -58,6 +58,9 @@ namespace Neptuo.Commands.Handlers
                 if (e.Key == null)
                     e.Key = KeyFactory.Empty(typeof(T));
 
+                if (commandKey != null)
+                    e.CommandKey = commandKey;
+
                 throw e;
             }
 
