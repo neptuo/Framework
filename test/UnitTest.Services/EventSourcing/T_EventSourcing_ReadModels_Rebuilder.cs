@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
 using Neptuo.Data;
+using Neptuo.Events;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Metadata;
@@ -38,13 +39,14 @@ namespace Neptuo.EventSourcing
             // Creation of state.
             Order order = new Order(KeyFactory.Create(typeof(Order)));
             order.AddItem(KeyFactory.Create(typeof(T_EventSourcing_ReadModels_Rebuilder)), 2);
-            order.AddItem(KeyFactory.Create(typeof(HandlerRebuilder)), 5);
+            order.AddItem(KeyFactory.Create(typeof(Rebuilder)), 5);
             eventStore.Save(order.Events.Select(e => new EventModel(order.Key, e.Key, formatter.Serialize(e), e.Version)));
 
             // Rebuilding model.
-            HandlerRebuilder rebuilder = new HandlerRebuilder(eventStore, formatter);
+            Rebuilder rebuilder = new Rebuilder(eventStore, formatter);
             ReadModelHandler handler = new ReadModelHandler();
-            rebuilder.RunAsync(handler).Wait();
+            rebuilder.AddAll(handler);
+            rebuilder.RunAsync().Wait();
 
             Assert.AreEqual(1, handler.Totals.Count);
             Assert.AreEqual(

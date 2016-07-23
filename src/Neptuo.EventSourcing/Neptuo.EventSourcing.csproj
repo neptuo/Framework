@@ -89,7 +89,7 @@
     <Compile Include="Data\ICommandPublishingStore.cs" />
     <Compile Include="Data\ICommandStore.cs" />
     <Compile Include="Data\IEventPublishingStore.cs" />
-    <Compile Include="ReadModels\HandlerRebuilder.cs" />
+    <Compile Include="ReadModels\Rebuilder.cs" />
     <Compile Include="Data\IEventRebuilderStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
     <Compile Include="Events\PersistentEventDispatcher.HandlerCollection.cs" />
