@@ -140,7 +140,7 @@ namespace Neptuo.Commands
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
-                throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in command handler context.");
+                throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context.");
             }
             else
             {
@@ -177,8 +177,22 @@ namespace Neptuo.Commands
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
             }
 
+            // If isEnvelopeDelayUsed, try to schedule the execution.
+            // If succeeded, return.
+            if (isEnvelopeDelayUsed)
+            {
+                if (TryScheduleCommand(envelope, handler, argument, commandPayload))
+                    return;
+            }
+
+            // Distribute the execution.
+            DistributeExecution(payload, context, envelope, commandWithKey, handler);
+        }
+
+        private bool TryScheduleCommand(Envelope envelope, HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload)
+        {
             DateTime executeAt;
-            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
+            if (envelope.TryGetExecuteAt(out executeAt))
             {
                 TimeSpan delay = schedulingProvider.Compute(executeAt);
                 if (delay > TimeSpan.Zero)
@@ -194,10 +208,15 @@ namespace Neptuo.Commands
                     lock (timersLock)
                         timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
 
-                    return;
+                    return true;
                 }
             }
 
+            return false;
+        }
+
+        private void DistributeExecution(object payload, object context, Envelope envelope, ICommand commandWithKey, HandlerDescriptor handler)
+        {
             object key = distributor.Distribute(payload);
             queue.Enqueue(key, async () =>
             {
