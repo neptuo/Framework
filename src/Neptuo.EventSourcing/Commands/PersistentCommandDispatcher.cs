@@ -220,22 +220,7 @@ namespace Neptuo.Commands
             object key = distributor.Distribute(payload);
             queue.Enqueue(key, async () =>
             {
-                try
-                {
-                    if (handler.IsContext)
-                        await handler.Execute(context);
-                    else if (handler.IsEnvelope)
-                        await handler.Execute(envelope);
-                    else if (handler.IsPlain)
-                        await handler.Execute(payload);
-                    else
-                        throw Ensure.Exception.UndefinedHandlerType(handler);
-
-                    // If we have command with the key, notify about successful execution.
-                    if (store != null && commandWithKey != null)
-                        await store.PublishedAsync(commandWithKey.Key);
-                }
-                catch (Exception e)
+                Action<Exception> additionalExceptionDecorator = e =>
                 {
                     AggregateRootException aggregateException = e as AggregateRootException;
                     if (aggregateException != null)
@@ -249,7 +234,25 @@ namespace Neptuo.Commands
                         if (aggregateException.CommandKey == null && commandWithKey != null)
                             aggregateException.CommandKey = commandWithKey.Key;
                     }
+                };
 
+                try
+                {
+                    if (handler.IsContext)
+                        await handler.Execute(context, additionalExceptionDecorator);
+                    else if (handler.IsEnvelope)
+                        await handler.Execute(envelope, additionalExceptionDecorator);
+                    else if (handler.IsPlain)
+                        await handler.Execute(payload, additionalExceptionDecorator);
+                    else
+                        throw Ensure.Exception.UndefinedHandlerType(handler);
+
+                    // If we have command with the key, notify about successful execution.
+                    if (store != null && commandWithKey != null)
+                        await store.PublishedAsync(commandWithKey.Key);
+                }
+                catch (Exception e)
+                {
                     DispatcherExceptionHandlers.Handle(e);
                 }
             });

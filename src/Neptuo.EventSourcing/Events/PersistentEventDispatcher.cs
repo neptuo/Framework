@@ -160,11 +160,11 @@ namespace Neptuo.Events
                 foreach (HandlerDescriptor handler in handlers.ToList())
                 {
                     if (handler.IsContext)
-                        handler.Execute(context).Wait();
+                        handler.Execute(context, null).Wait();
                     else if (handler.IsEnvelope)
-                        handler.Execute(envelope).Wait();
+                        handler.Execute(envelope, null).Wait();
                     else if (handler.IsPlain)
-                        handler.Execute(payload).Wait();
+                        handler.Execute(payload, null).Wait();
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
