@@ -89,6 +89,8 @@
     <Compile Include="Data\ICommandPublishingStore.cs" />
     <Compile Include="Data\ICommandStore.cs" />
     <Compile Include="Data\IEventPublishingStore.cs" />
+    <Compile Include="Models\Snapshots\ISnapshot.cs" />
+    <Compile Include="Models\Snapshots\ISnapshotProvider.cs" />
     <Compile Include="ReadModels\Rebuilder.cs" />
     <Compile Include="Data\IEventRebuilderStore.cs" />
     <Compile Include="Events\PersistentEventDispatcher.cs" />
