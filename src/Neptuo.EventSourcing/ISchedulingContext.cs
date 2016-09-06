@@ -8,6 +8,8 @@ namespace Neptuo
 {
     public interface ISchedulingContext
     {
+        Envelope Envelope { get; }
+
         void Execute();
     }
 }

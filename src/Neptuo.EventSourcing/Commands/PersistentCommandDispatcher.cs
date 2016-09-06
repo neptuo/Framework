@@ -22,8 +22,6 @@ namespace Neptuo.Commands
     /// </summary>
     public partial class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher
     {
-        private readonly object timersLock = new object();
-
         private HandlerDescriptorProvider descriptorProvider;
         private readonly TreeQueue queue = new TreeQueue();
         private readonly CommandThreadPool threadPool;
@@ -31,7 +29,6 @@ namespace Neptuo.Commands
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
         private readonly ISchedulingProvider schedulingProvider;
-        private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
         private HandlerCollection handlers;
 
         /// <summary>
@@ -179,37 +176,20 @@ namespace Neptuo.Commands
 
             // If isEnvelopeDelayUsed, try to schedule the execution.
             // If succeeded, return.
-            if (isEnvelopeDelayUsed)
-            {
-                if (TryScheduleCommand(envelope, handler, argument, commandPayload))
-                    return;
-            }
+            if (isEnvelopeDelayUsed && TrySchedule(envelope, handler, argument))
+                return;
 
             // Distribute the execution.
             DistributeExecution(payload, context, envelope, commandWithKey, handler);
         }
 
-        private bool TryScheduleCommand(Envelope envelope, HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload)
+        private bool TrySchedule(Envelope envelope, HandlerDescriptor handler, ArgumentDescriptor argument)
         {
-            DateTime executeAt;
-            if (envelope.TryGetExecuteAt(out executeAt))
+            if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
-                TimeSpan delay = schedulingProvider.Compute(executeAt);
-                if (delay > TimeSpan.Zero)
-                {
-                    ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
-                    Timer timer = new Timer(
-                        OnScheduledCommand,
-                        scheduleContext,
-                        delay,
-                        TimeSpan.FromMilliseconds(-1)
-                    );
-
-                    lock (timersLock)
-                        timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
-
-                    return true;
-                }
+                ScheduleCommandContext context = new ScheduleCommandContext(handler, argument, envelope, OnScheduledCommand);
+                schedulingProvider.Schedule(context);
+                return true;
             }
 
             return false;
@@ -258,18 +238,10 @@ namespace Neptuo.Commands
             });
         }
 
-        private void OnScheduledCommand(object state)
+        private void OnScheduledCommand(ScheduleCommandContext context)
         {
-            ScheduleCommandContext context = (ScheduleCommandContext)state;
-
-            lock (timersLock)
-            {
-                Tuple<Timer, ScheduleCommandContext> item = timers.FirstOrDefault(t => t.Item2 == context);
-                if (item != null)
-                    timers.Remove(item);
-            }
-
-            HandleInternalAsync(context.Handler, context.Argument, context.Payload, false, false).Wait();
+            // TODO: Why again create envelope and ICommand and other?
+            HandleInternalAsync(context.Handler, context.Argument, context.Envelope.Body, false, false).Wait();
         }
 
         /// <summary>

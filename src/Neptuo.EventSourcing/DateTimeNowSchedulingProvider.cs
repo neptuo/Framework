@@ -9,9 +9,9 @@ namespace Neptuo
     /// <summary>
     /// The implementation of <see cref="ISchedulingProvider"/> which uses <see cref="DateTime.Now"/>.
     /// </summary>
-    public class DateTimeNowSchedulingProvider : ISchedulingProvider
+    public class DateTimeNowSchedulingProvider : TimerSchedulingProvider
     {
-        public TimeSpan Compute(DateTime executeAt)
+        public override TimeSpan Compute(DateTime executeAt)
         {
             return executeAt.Subtract(DateTime.Now);
         }

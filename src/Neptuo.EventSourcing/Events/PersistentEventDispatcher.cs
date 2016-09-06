@@ -21,13 +21,10 @@ namespace Neptuo.Events
     /// </summary>
     public partial class PersistentEventDispatcher : IEventDispatcher
     {
-        private readonly object timersLock = new object();
-
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
         private readonly IEventPublishingStore store;
         private readonly ISchedulingProvider schedulingProvider;
         private readonly HandlerDescriptorProvider descriptorProvider;
-        private readonly List<Tuple<Timer, ScheduleEventContext>> timers = new List<Tuple<Timer, ScheduleEventContext>>();
 
         /// <summary>
         /// The collection of event handlers.
@@ -70,8 +67,8 @@ namespace Neptuo.Events
             this.descriptorProvider = new HandlerDescriptorProvider(
                 typeof(IEventHandler<>),
                 typeof(IEventHandlerContext<>),
-                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync), 
-                EventExceptionHandlers, 
+                TypeHelper.MethodName<IEventHandler<object>, object, Task>(h => h.HandleAsync),
+                EventExceptionHandlers,
                 DispatcherExceptionHandlers
             );
 
@@ -133,29 +130,13 @@ namespace Neptuo.Events
 
             if (eventWithKey == null)
                 eventWithKey = payload as IEvent;
-            
-            DateTime executeAt;
-            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
-            {
-                TimeSpan delay = schedulingProvider.Compute(executeAt);
-                if (delay > TimeSpan.Zero)
-                {
-                    ScheduleEventContext scheduleContext = new ScheduleEventContext(handlers, argument, payload);
-                    Timer timer = new Timer(
-                        OnScheduledEvent,
-                        scheduleContext,
-                        delay,
-                        TimeSpan.FromMilliseconds(-1)
-                    );
 
-                    lock (timersLock)
-                        timers.Add(new Tuple<Timer, ScheduleEventContext>(timer, scheduleContext));
+            // If isEnvelopeDelayUsed, try to schedule the execution.
+            // If succeeded, return.
+            if (isEnvelopeDelayUsed && TrySchedule(envelope, handlers, argument))
+                return Async.CompletedTask;
 
-                    return Async.CompletedTask;
-                }
-            }
-
-            return Task.Factory.StartNew(() => 
+            return Task.Factory.StartNew(() =>
             {
                 foreach (HandlerDescriptor handler in handlers.ToList())
                 {
@@ -174,17 +155,21 @@ namespace Neptuo.Events
             });
         }
 
-        private void OnScheduledEvent(object state)
+        private bool TrySchedule(Envelope envelope, IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument)
         {
-            ScheduleEventContext context = (ScheduleEventContext)state;
-            lock (timersLock)
+            if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
-                Tuple<Timer, ScheduleEventContext> item = timers.FirstOrDefault(t => t.Item2 == context);
-                if (item != null)
-                    timers.Remove(item);
+                ScheduleEventContext context = new ScheduleEventContext(handlers, argument, envelope, OnScheduledEvent);
+                schedulingProvider.Schedule(context);
+                return true;
             }
 
-            PublishAsync(context.Handlers, context.Argument, context.Payload, false).Wait();
+            return false;
+        }
+
+        private void OnScheduledEvent(ScheduleEventContext context)
+        {
+            PublishAsync(context.Handlers, context.Argument, context.Envelope.Body, false).Wait();
         }
 
         /// <summary>
@@ -219,7 +204,7 @@ namespace Neptuo.Events
         }
 
         #region Usefull methods from rebuilding read models
-        
+
         internal IEnumerable<Type> EnumerateEventTypes()
         {
             return storage.Keys;
