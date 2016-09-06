@@ -273,10 +273,10 @@ namespace Neptuo.Commands
         }
 
         /// <summary>
-        /// Re-publishes events from unpublished queue.
-        /// Uses <paramref name="formatter"/> to deserialize events from store.
+        /// Re-publishes commands from unpublished queue.
+        /// Uses <paramref name="formatter"/> to deserialize commands from store.
         /// </summary>
-        /// <param name="formatter">The event deserializer.</param>
+        /// <param name="formatter">The command deserializer.</param>
         /// <returns>The continuation task.</returns>
         public async Task RecoverAsync(IDeserializer formatter)
         {
