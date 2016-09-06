@@ -15,7 +15,7 @@ namespace Neptuo.Commands
     public class PersistentCommandDispatcherBuilder
     {
         private TreeQueue queue;
-        private CommandThreadPool threadPool;
+        private TreeQueueThreadPool threadPool;
 
         private ICommandDistributor distributor;
         private ICommandPublishingStore store;
@@ -28,7 +28,7 @@ namespace Neptuo.Commands
                 queue = new TreeQueue();
 
             if (threadPool == null)
-                threadPool = new CommandThreadPool(queue);
+                threadPool = new TreeQueueThreadPool(queue);
         }
 
         /// <summary>

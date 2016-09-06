@@ -24,7 +24,7 @@ namespace Neptuo.Commands
     {
         private HandlerDescriptorProvider descriptorProvider;
         private readonly TreeQueue queue = new TreeQueue();
-        private readonly CommandThreadPool threadPool;
+        private readonly TreeQueueThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
@@ -75,13 +75,13 @@ namespace Neptuo.Commands
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
-            this.threadPool = new CommandThreadPool(queue);
+            this.threadPool = new TreeQueueThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
             Initialize();
 
         }
 
-        internal PersistentCommandDispatcher(TreeQueue queue, CommandThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
+        internal PersistentCommandDispatcher(TreeQueue queue, TreeQueueThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
         {
             this.queue = queue;
             this.threadPool = threadPool;

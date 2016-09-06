@@ -103,7 +103,7 @@
     <Compile Include="Formatters\EventExtender.cs" />
     <Compile Include="Formatters\_FormatterContextExtensions.cs" />
     <Compile Include="Internals\ArgumentDescriptor.cs" />
-    <Compile Include="Internals\CommandThreadPool.cs" />
+    <Compile Include="Internals\TreeQueueThreadPool.cs" />
     <Compile Include="Internals\HandlerDescriptor.cs" />
     <Compile Include="Internals\HandlerDescriptorProvider.cs" />
     <Compile Include="Internals\ScheduleCommandContext.cs" />

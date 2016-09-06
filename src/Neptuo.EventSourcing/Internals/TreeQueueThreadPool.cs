@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Internals
 {
-    internal class CommandThreadPool : DisposableBase
+    internal class TreeQueueThreadPool : DisposableBase
     {
         private readonly TreeQueue queue;
         private readonly List<Tuple<TreeQueue.Queue, Thread>> threads = new List<Tuple<TreeQueue.Queue, Thread>>();
 
-        public CommandThreadPool(TreeQueue queue)
+        public TreeQueueThreadPool(TreeQueue queue)
         {
             Ensure.NotNull(queue, "queue");
             this.queue = queue;
