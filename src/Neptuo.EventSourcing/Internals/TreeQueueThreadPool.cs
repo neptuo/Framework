@@ -69,33 +69,33 @@ namespace Neptuo.Internals
             }
         }
 
-        private void OnThread(object parameter)
-        {
-            TreeQueue.Queue queue = (TreeQueue.Queue)parameter;
+        //private void OnThread(object parameter)
+        //{
+        //    TreeQueue.Queue queue = (TreeQueue.Queue)parameter;
 
-            bool isNew = queue.Count > 0;
-            queue.ItemAdded += (q, i) => isNew = true;
+        //    bool isNew = queue.Count > 0;
+        //    queue.ItemAdded += (q, i) => isNew = true;
 
-            while (true)
-            {
-                if (isNew)
-                {
-                    Func<Task> execute = null;
-                    lock (queue.Lock)
-                    {
-                        execute = queue.Dequeue();
-                        isNew = queue.Count > 0;
-                    }
+        //    while (true)
+        //    {
+        //        if (isNew)
+        //        {
+        //            Func<Task> execute = null;
+        //            lock (queue.Lock)
+        //            {
+        //                execute = queue.Dequeue();
+        //                isNew = queue.Count > 0;
+        //            }
 
-                    if (execute != null)
-                        execute().Wait();
-                }
-                else
-                {
-                    Thread.Sleep(100);
-                }
-            }
-        }
+        //            if (execute != null)
+        //                execute().Wait();
+        //        }
+        //        else
+        //        {
+        //            Thread.Sleep(100);
+        //        }
+        //    }
+        //}
 
         protected override void DisposeUnmanagedResources()
         {
