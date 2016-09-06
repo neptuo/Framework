@@ -10,7 +10,9 @@ namespace Neptuo.Internals
     internal class TreeQueueThreadPool : DisposableBase
     {
         private readonly TreeQueue queue;
-        private readonly List<Tuple<TreeQueue.Queue, Thread>> threads = new List<Tuple<TreeQueue.Queue, Thread>>();
+
+        private readonly object threadsLock = new object();
+        private readonly List<Tuple<TreeQueue.Queue, bool>> threads = new List<Tuple<TreeQueue.Queue, bool>>();
 
         public TreeQueueThreadPool(TreeQueue queue)
         {
@@ -21,9 +23,50 @@ namespace Neptuo.Internals
 
         private void OnQueueAdded(TreeQueue.Queue queue)
         {
-            Thread thread = new Thread(OnThread);
-            thread.Start(queue);
-            threads.Add(new Tuple<TreeQueue.Queue, Thread>(queue, thread));
+            lock (threadsLock)
+            {
+                queue.ItemAdded += OnQueueItemAdded;
+                threads.Add(new Tuple<TreeQueue.Queue, bool>(queue, false));
+                OnQueueItemAdded(queue, null);
+            }
+        }
+
+        private void OnQueueItemAdded(TreeQueue.Queue item, Func<Task> execute)
+        {
+            Tuple<TreeQueue.Queue, bool> thread = null;
+            lock (threadsLock)
+                thread = threads.FirstOrDefault(t => t.Item1 == item);
+
+            if (thread == null)
+            {
+                // TODO: This is weird.
+                return;
+            }
+
+            // If thread is bussy, do nothing.
+            if (thread.Item2 || thread.Item1.Count == 0)
+                return;
+
+            execute = thread.Item1.Dequeue();
+            execute().ContinueWith(OnQueueItemCompleted, thread);
+        }
+
+        private void OnQueueItemCompleted(Task t, object state)
+        {
+            // Thread has completed it's work.
+
+            Tuple<TreeQueue.Queue, bool> thread = (Tuple<TreeQueue.Queue, bool>)state;
+            if (thread.Item1.Count > 0)
+            {
+                // If there is new work, do it now.
+                Func<Task> execute = thread.Item1.Dequeue();
+                execute().ContinueWith(OnQueueItemCompleted, thread);
+            }
+            else
+            {
+                // Otherwise is it free for new work.
+                thread.Item2 = false;
+            }
         }
 
         private void OnThread(object parameter)
@@ -57,9 +100,7 @@ namespace Neptuo.Internals
         protected override void DisposeUnmanagedResources()
         {
             base.DisposeUnmanagedResources();
-
-            foreach (Tuple<TreeQueue.Queue, Thread> thread in threads)
-                thread.Item2.Abort();
+            // TODO: Cancel all currently running tasks.
         }
     }
 }
