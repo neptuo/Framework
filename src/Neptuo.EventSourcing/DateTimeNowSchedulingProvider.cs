@@ -11,7 +11,7 @@ namespace Neptuo
     /// </summary>
     public class DateTimeNowSchedulingProvider : TimerSchedulingProvider
     {
-        public override TimeSpan Compute(DateTime executeAt)
+        protected override TimeSpan Compute(DateTime executeAt)
         {
             return executeAt.Subtract(DateTime.Now);
         }

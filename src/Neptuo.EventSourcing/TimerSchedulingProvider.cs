@@ -7,13 +7,21 @@ using System.Threading.Tasks;
 
 namespace Neptuo
 {
+    /// <summary>
+    /// The implentation of <see cref="ISchedulingProvider"/> based on the <see cref="Timer"/>.
+    /// </summary>
     [Obsolete]
     public abstract class TimerSchedulingProvider : ISchedulingProvider
     {
         private readonly object timersLock = new object();
         private readonly List<Tuple<Timer, ISchedulingContext>> timers = new List<Tuple<Timer, ISchedulingContext>>();
 
-        public abstract TimeSpan Compute(DateTime executeAt);
+        /// <summary>
+        /// Computes a delay after which command or event will be executed.
+        /// </summary>
+        /// <param name="executeAt">The date and time when execution should be done.</param>
+        /// <returns>A delay after which command or event will be executed.</returns>
+        protected abstract TimeSpan Compute(DateTime executeAt);
 
         public bool IsLaterExecutionRequired(Envelope envelope)
         {

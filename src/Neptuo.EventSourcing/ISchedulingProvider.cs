@@ -12,14 +12,6 @@ namespace Neptuo
     public interface ISchedulingProvider
     {
         /// <summary>
-        /// Computes a delay after which command or event will be executed.
-        /// </summary>
-        /// <param name="executeAt">The date and time when execution should be done.</param>
-        /// <returns>A delay after which command or event will be executed.</returns>
-        [Obsolete]
-        TimeSpan Compute(DateTime executeAt);
-
-        /// <summary>
         /// When <c>true</c> is returned, the <paramref name="envelope"/> should be scheduled for later execution using <see cref="Schedule(ISchedulingContext)"/>.
         /// </summary>
         /// <param name="envelope">The envelope to be tested for later execution.</param>
