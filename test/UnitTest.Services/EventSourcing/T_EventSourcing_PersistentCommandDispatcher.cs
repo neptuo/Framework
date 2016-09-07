@@ -33,11 +33,11 @@ namespace Neptuo.EventSourcing
                 .Add(new SlowCommandHandler(service))
                 .Add(new FastCommandHandler(service));
 
-            dispatcher.HandleAsync(new SlowCommand());
-            dispatcher.HandleAsync(new FastCommand());
-            dispatcher.HandleAsync(new FastCommand());
-            dispatcher.HandleAsync(new SlowCommand());
-            dispatcher.HandleAsync(new FastCommand());
+            dispatcher.HandleAsync(new SlowCommand()).Wait();
+            dispatcher.HandleAsync(new FastCommand()).Wait();
+            dispatcher.HandleAsync(new FastCommand()).Wait();
+            dispatcher.HandleAsync(new SlowCommand()).Wait();
+            dispatcher.HandleAsync(new FastCommand()).Wait();
 
             Thread.Sleep(10000);
             Assert.AreEqual(5, service.Log.Count);
