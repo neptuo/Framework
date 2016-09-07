@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Internals
 {
+    /// <summary>
+    /// Distributor-based queue for scheduling async operations.
+    /// For each distributor object, there exists queue where operations are executed in serie.
+    /// </summary>
     internal class TreeQueue
     {
         private readonly object storageLock = new object();
@@ -44,17 +48,34 @@ namespace Neptuo.Internals
                 QueueAdded(queue);
         }
 
+        /// <summary>
+        /// The single queue where each <see cref="Enqueue"/> or <see cref="Dequeue"/> must be locked using <see cref="Lock"/>.
+        /// </summary>
         public class Queue : Queue<Func<Task>>
         {
+            /// <summary>
+            /// Gets the lock object for modifying queue state.
+            /// </summary>
             public object Lock { get; private set; }
+
+            /// <summary>
+            /// The event that should be raised when item is added.
+            /// </summary>
             public event Action<Queue, Func<Task>> ItemAdded;
 
+            /// <summary>
+            /// Creates new empty instance.
+            /// </summary>
             public Queue()
             {
                 Lock = new object();
             }
 
-            internal void RaiseItemAdded(Func<Task> item)
+            /// <summary>
+            /// Raises <see cref="ItemAdded"/>.
+            /// </summary>
+            /// <param name="item">The newly added item.</param>
+            public void RaiseItemAdded(Func<Task> item)
             {
                 if(ItemAdded != null)
                     ItemAdded(this, item);

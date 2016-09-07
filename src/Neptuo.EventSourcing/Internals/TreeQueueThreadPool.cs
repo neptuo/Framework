@@ -9,94 +9,88 @@ namespace Neptuo.Internals
 {
     internal class TreeQueueThreadPool : DisposableBase
     {
-        private readonly TreeQueue queue;
-
-        private readonly object threadsLock = new object();
-        private readonly List<Tuple<TreeQueue.Queue, bool>> threads = new List<Tuple<TreeQueue.Queue, bool>>();
-
-        public TreeQueueThreadPool(TreeQueue queue)
+        private class Item
         {
-            Ensure.NotNull(queue, "queue");
-            this.queue = queue;
-            this.queue.QueueAdded += OnQueueAdded;
+            public TreeQueue.Queue Queue { get; private set; }
+            public bool IsRunning { get; set; }
+
+            public Item(TreeQueue.Queue queue)
+            {
+                Queue = queue;
+            }
+        }
+
+        private readonly TreeQueue root;
+
+        private readonly object itemsLock = new object();
+        private readonly List<Item> items = new List<Item>();
+
+        public TreeQueueThreadPool(TreeQueue root)
+        {
+            Ensure.NotNull(root, "queue");
+            this.root = root;
+            this.root.QueueAdded += OnQueueAdded;
         }
 
         private void OnQueueAdded(TreeQueue.Queue queue)
         {
-            lock (threadsLock)
-            {
-                queue.ItemAdded += OnQueueItemAdded;
-                threads.Add(new Tuple<TreeQueue.Queue, bool>(queue, false));
-                OnQueueItemAdded(queue, null);
-            }
+            Item item = new Item(queue);
+            queue.ItemAdded += OnQueueItemAdded;
+
+            lock (itemsLock)
+                items.Add(item);
+
+            TryExecuteNext(item);
         }
 
-        private void OnQueueItemAdded(TreeQueue.Queue item, Func<Task> execute)
+        private void OnQueueItemAdded(TreeQueue.Queue queue, Func<Task> execute)
         {
-            Tuple<TreeQueue.Queue, bool> thread = null;
-            lock (threadsLock)
-                thread = threads.FirstOrDefault(t => t.Item1 == item);
+            Item item = null;
+            lock (itemsLock)
+                item = items.FirstOrDefault(t => t.Queue == queue);
 
-            if (thread == null)
+            if (item == null)
             {
                 // TODO: This is weird.
                 return;
             }
 
-            // If thread is bussy, do nothing.
-            if (thread.Item2 || thread.Item1.Count == 0)
-                return;
-
-            execute = thread.Item1.Dequeue();
-            execute().ContinueWith(OnQueueItemCompleted, thread);
+            TryExecuteNext(item);
         }
 
+        // Thread has completed it's work.
         private void OnQueueItemCompleted(Task t, object state)
         {
-            // Thread has completed it's work.
+            Item item = (Item)state;
 
-            Tuple<TreeQueue.Queue, bool> thread = (Tuple<TreeQueue.Queue, bool>)state;
-            if (thread.Item1.Count > 0)
-            {
-                // If there is new work, do it now.
-                Func<Task> execute = thread.Item1.Dequeue();
-                execute().ContinueWith(OnQueueItemCompleted, thread);
-            }
-            else
-            {
-                // Otherwise is it free for new work.
-                thread.Item2 = false;
-            }
+            // Free the queue for next work.
+            lock (item.Queue.Lock)
+                item.IsRunning = false;
+
+            TryExecuteNext(item);
         }
 
-        //private void OnThread(object parameter)
-        //{
-        //    TreeQueue.Queue queue = (TreeQueue.Queue)parameter;
+        private void TryExecuteNext(Item item)
+        {
+            Func<Task> execute = null;
 
-        //    bool isNew = queue.Count > 0;
-        //    queue.ItemAdded += (q, i) => isNew = true;
+            // Lock the queue to query status or find oldest item.
+            lock (item.Queue.Lock)
+            {
+                // If thread is bussy, do nothing.
+                if (item.IsRunning || item.Queue.Count == 0)
+                    return;
 
-        //    while (true)
-        //    {
-        //        if (isNew)
-        //        {
-        //            Func<Task> execute = null;
-        //            lock (queue.Lock)
-        //            {
-        //                execute = queue.Dequeue();
-        //                isNew = queue.Count > 0;
-        //            }
+                execute = item.Queue.Dequeue();
 
-        //            if (execute != null)
-        //                execute().Wait();
-        //        }
-        //        else
-        //        {
-        //            Thread.Sleep(100);
-        //        }
-        //    }
-        //}
+                if (execute != null)
+                    item.IsRunning = true;
+            }
 
+            if (execute != null)
+                execute().ContinueWith(OnQueueItemCompleted, item);
+        }
+        
         protected override void DisposeUnmanagedResources()
         {
             base.DisposeUnmanagedResources();
