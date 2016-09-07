@@ -1,6 +1,8 @@
-﻿using Neptuo.Activators;
+﻿using Neptuo;
+using Neptuo.Activators;
 using Neptuo.Collections.Specialized;
 using Neptuo.Commands;
+using Neptuo.Commands.Handlers;
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
@@ -116,6 +118,73 @@ namespace Neptuo.EventSourcing
         {
             Totals[payload.AggregateKey] = payload.TotalPrice;
             return Async.CompletedTask;
+        }
+    }
+
+
+    public class SlowCommand : Command
+    { }
+
+    public class FastCommand : Command
+    { }
+
+    public class CommandHandlerService
+    {
+        private readonly object logLock = new object();
+
+        public List<CommandType> Log { get; private set; }
+
+        public CommandHandlerService()
+        {
+            Log = new List<CommandType>();
+        }
+
+        public void AddLog(CommandType log)
+        {
+            lock (logLock)
+            {
+                Log.Add(log);
+            }
+        }
+    }
+
+    public enum CommandType
+    {
+        Slow,
+        Fast
+    }
+
+    public class SlowCommandHandler : ICommandHandler<SlowCommand>
+    {
+        private readonly CommandHandlerService service;
+
+        public SlowCommandHandler(CommandHandlerService service)
+        {
+            Ensure.NotNull(service, "service");
+            this.service = service;
+        }
+
+        public async Task HandleAsync(SlowCommand command)
+        {
+            await Task.Delay(2000);
+            service.AddLog(CommandType.Slow);
+        }
+    }
+
+    public class FastCommandHandler : ICommandHandler<FastCommand>
+    {
+        private readonly CommandHandlerService service;
+
+        public FastCommandHandler(CommandHandlerService service)
+        {
+            Ensure.NotNull(service, "service");
+            this.service = service;
+        }
+
+        public async Task HandleAsync(FastCommand command)
+        {
+            await Task.Delay(100);
+            service.AddLog(CommandType.Fast);
         }
     }
 }

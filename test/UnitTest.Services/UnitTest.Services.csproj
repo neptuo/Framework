@@ -86,6 +86,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Commands\_Services.cs" />
+    <Compile Include="EventSourcing\T_EventSourcing_PersistentCommandDispatcher.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_ReadModels_Rebuilder.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_ReflectionAggregateRootFactory.cs" />
     <Compile Include="EventSourcing\T_EventSourcing_AggregateRoot.cs" />
