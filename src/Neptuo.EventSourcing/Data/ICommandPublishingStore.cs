@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes the underlaying store for the persistent command delivery.
+    /// The underlying store for the persistent command delivery.
     /// </summary>
     public interface ICommandPublishingStore : ICommandStore
     {

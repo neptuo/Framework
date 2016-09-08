@@ -77,6 +77,7 @@
     <Compile Include="Activators\ReflectionAggregateRootFactoryBuilder.cs" />
     <Compile Include="Commands\PersistentCommandDispatcherBuilder.cs" />
     <Compile Include="Data\EmptyCommandStore.cs" />
+    <Compile Include="Data\ISnapshotStore.cs" />
     <Compile Include="TimerSchedulingProvider.DateTimeUtcNowProvider.cs" />
     <Compile Include="TimerSchedulingProvider.DateTimeNowProvider.cs" />
     <Compile Include="Commands\ICommandDistributor.cs" />

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes the underlaying store for the persistent event delivery.
+    /// The underlying store for the persistent event delivery.
     /// </summary>
     public interface IEventPublishingStore : IEventStore
     {

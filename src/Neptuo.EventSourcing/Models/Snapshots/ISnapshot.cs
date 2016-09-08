@@ -13,8 +13,13 @@ namespace Neptuo.Models.Snapshots
     public interface ISnapshot
     {
         /// <summary>
-        /// Returns key of the aggregate.
+        /// Returns the key of the aggregate.
         /// </summary>
         IKey AggregateKey { get; }
+
+        /// <summary>
+        /// Returns the version of the aggregate.
+        /// </summary>
+        int Version { get; }
     }
 }

@@ -55,17 +55,18 @@ namespace Neptuo.Models.Repositories
                 IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e), e.Version));
                 store.Save(eventModels);
 
+                // TODO: Use snapshots.
+
                 foreach (IEvent e in events)
                     eventDispatcher.PublishAsync(e).Wait();
-
-                //IEnumerable<Task> tasks = events.Select(e => eventDispatcher.PublishAsync(e));
-                //Task.WaitAll(tasks.ToArray());
             }
         }
 
         public T Find(IKey key)
         {
             Ensure.Condition.NotEmptyKey(key);
+
+            // TODO: Use snapshots. The IEventStore should have method for Get-ing events with base-version.
 
             IEnumerable<EventModel> eventModels = store.Get(key);
             IEnumerable<object> events = eventModels.Select(e => formatter.DeserializeEvent(Type.GetType(e.EventKey.Type), e.Payload));

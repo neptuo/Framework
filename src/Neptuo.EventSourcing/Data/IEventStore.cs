@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes the undelaying store for events.
+    /// The underlying store for events.
     /// </summary>
     public interface IEventStore
     {
@@ -20,7 +20,7 @@ namespace Neptuo.Data
         IEnumerable<EventModel> Get(IKey aggregateKey);
 
         /// <summary>
-        /// Saves <paramref name="events"/>.
+        /// Saves <paramref name="events"/> to the underlying storage.
         /// </summary>
         /// <param name="events">The events to save.</param>
         void Save(IEnumerable<EventModel> events);
