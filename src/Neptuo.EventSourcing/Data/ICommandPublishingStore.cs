@@ -9,6 +9,7 @@ namespace Neptuo.Data
 {
     /// <summary>
     /// The underlying store for the persistent command delivery.
+    /// Provides methods for confirming delivery and clearing unpublished queue.
     /// </summary>
     public interface ICommandPublishingStore : ICommandStore
     {
@@ -19,7 +20,7 @@ namespace Neptuo.Data
         Task<IEnumerable<CommandModel>> GetAsync();
 
         /// <summary>
-        /// Saves information about publishing <paramref name="commandKey"/>.
+        /// Saves the information about publishing <paramref name="commandKey"/>.
         /// </summary>
         /// <param name="commandKey">The key of the published command.</param>
         /// <returns>The continuation task.</returns>

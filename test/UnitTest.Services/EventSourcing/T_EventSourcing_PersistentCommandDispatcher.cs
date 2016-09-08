@@ -23,7 +23,7 @@ namespace Neptuo.EventSourcing
             PersistentCommandDispatcherBuilder builder = new PersistentCommandDispatcherBuilder()
                 .UseCommandDistributor(new SerialCommandDistributor())
                 .UseFormatter(new CompositeCommandFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), Factory.Default<JsonCompositeStorage>()))
-                .UseSchedulingProvider(new DateTimeNowSchedulingProvider())
+                .UseSchedulingProvider(new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider()))
                 .UseStore(new EmptyCommandStore());
 
             CommandHandlerService service = new CommandHandlerService();

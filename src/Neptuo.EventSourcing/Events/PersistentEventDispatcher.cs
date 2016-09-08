@@ -46,7 +46,7 @@ namespace Neptuo.Events
         /// </summary>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         public PersistentEventDispatcher(IEventPublishingStore store)
-            : this(store, new DateTimeNowSchedulingProvider())
+            : this(store, new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider()))
         { }
 
         /// <summary>

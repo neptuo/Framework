@@ -11,7 +11,7 @@ namespace Neptuo
         /// <summary>
         /// The implementation of <see cref="IDateTimeProvider"/> which uses <see cref="DateTime.Now"/>.
         /// </summary>
-        public class DateTimeNow : IDateTimeProvider
+        public class DateTimeNowProvider : IDateTimeProvider
         {
             public TimeSpan GetExecutionDelay(DateTime dateTime)
             {

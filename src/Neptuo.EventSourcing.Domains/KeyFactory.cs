@@ -1,4 +1,5 @@
-﻿using Neptuo.Models.Keys;
+﻿using Neptuo;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,18 @@ namespace Neptuo
         public static void Set(Func<Type, IKey> keyFactory, Func<Type, IKey> emptyFactory)
         {
             Ensure.NotNull(keyFactory, "keyFactory");
+            Ensure.NotNull(emptyFactory, "emptyFactory");
             KeyFactory.keyFactory = keyFactory;
+            KeyFactory.emptyFactory = emptyFactory;
+        }
+
+        /// <summary>
+        /// Sets key factory to use <see cref="GuidKey"/> and type fullname with assembly name (without version and public key).
+        /// </summary>
+        public static void SetGuidKeyWithTypeFullNameAndAssembly()
+        {
+            keyFactory = targetType => GuidKey.Create(Guid.NewGuid(), targetType.FullName + ", " + targetType.Assembly.GetName().Name);
+            emptyFactory = targetType => GuidKey.Empty(targetType.FullName + ", " + targetType.Assembly.GetName().Name);
         }
 
         /// <summary>

@@ -8,8 +8,7 @@ namespace Neptuo
 {
     /// <summary>
     /// Defines unique type identifier.
-    /// This attribute is determined by the persistent dispatchers to override handler identifier 
-    /// which is by default build from assembly qualified type name.
+    /// This attribute used by the persistent dispatchers to identify handlers that are must have persistent delivery.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     public sealed class IdentifierAttribute : Attribute

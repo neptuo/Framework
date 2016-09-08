@@ -56,7 +56,7 @@ namespace Neptuo.Commands
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
-            : this(distributor, store, formatter, new DateTimeNowSchedulingProvider())
+            : this(distributor, store, formatter, new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider()))
         { }
 
         /// <summary>
