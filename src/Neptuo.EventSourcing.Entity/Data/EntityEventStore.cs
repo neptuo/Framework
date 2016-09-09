@@ -29,6 +29,11 @@ namespace Neptuo.Data
 
         public IEnumerable<EventModel> Get(IKey aggregateKey)
         {
+            return Get(aggregateKey, 0);
+        }
+
+        public IEnumerable<EventModel> Get(IKey aggregateKey, int version)
+        {
             Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
 
             GuidKey key = aggregateKey as GuidKey;
@@ -36,7 +41,7 @@ namespace Neptuo.Data
                 throw Ensure.Exception.NotGuidKey(aggregateKey.GetType(), "aggregateKey");
 
             IEnumerable<EventEntity> entities = contextFactory().Events
-                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid)
+                .Where(e => e.AggregateType == key.Type && e.AggregateID == key.Guid && e.Version > version)
                 .OrderBy(e => e.Version);
 
             return entities.Select(e => e.ToModel());

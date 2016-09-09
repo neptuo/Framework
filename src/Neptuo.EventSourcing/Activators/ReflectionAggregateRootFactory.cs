@@ -7,6 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Models.Snapshots;
+using Neptuo;
 
 namespace Neptuo.Activators
 {
@@ -49,9 +51,9 @@ namespace Neptuo.Activators
                     internalParameters.Remove(parameter.Type);
             }
 
-            if(internalParameters.Count > 0)
+            if (internalParameters.Count > 0)
                 throw Ensure.Exception.InvalidOperation("Missing these required parameters of these types {0}.", String.Join(", ", internalParameters.Select(t => "'" + t.FullName + "'")));
-            
+
             Type[] parameterTypes = builder.Parameters.Select(p => p.Type).ToArray();
 
             constructorInfo = typeof(T).GetConstructor(parameterTypes);
@@ -61,12 +63,12 @@ namespace Neptuo.Activators
 
         public T Create(IKey aggregateKey, IEnumerable<object> events)
         {
-            Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
+            Ensure.Condition.NotEmptyKey(aggregateKey);
             Ensure.NotNull(events, "events");
 
             object[] parameters = new object[this.parameters.Count];
             for (int i = 0; i < this.parameters.Count; i++)
-			{
+            {
                 ReflectionAggregateRootFactoryBuilder.Parameter parameter = this.parameters[i];
                 if (parameter.IsInternalParameter)
                 {
@@ -84,6 +86,16 @@ namespace Neptuo.Activators
             }
 
             return (T)constructorInfo.Invoke(parameters);
+        }
+
+        public T Create(IKey aggregateKey, ISnapshot snapshot, IEnumerable<object> events)
+        {
+            Ensure.Condition.NotEmptyKey(aggregateKey);
+            Ensure.NotNull(snapshot, "snapshot");
+            Ensure.NotNull(events, "events");
+
+            // TODO: Implement support for snapshots.
+            throw Ensure.Exception.NotImplemented();
         }
     }
 }

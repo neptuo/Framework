@@ -36,6 +36,15 @@ namespace Neptuo.EventSourcing
             return Enumerable.Empty<EventModel>();
         }
 
+        public IEnumerable<EventModel> Get(IKey aggregateKey, int version)
+        {
+            List<EventModel> events;
+            if (storage.TryGetValue(aggregateKey, out events))
+                return events.Where(e => e.Version > version);
+
+            return Enumerable.Empty<EventModel>();
+        }
+
         public Task<IEnumerable<EventModel>> GetAsync(IEnumerable<string> eventTypes)
         {
             return Task.FromResult(storage.Values.SelectMany(e => e).Where(e => eventTypes.Contains(e.EventKey.Type)));

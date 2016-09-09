@@ -11,6 +11,7 @@ using Neptuo.Formatters.Metadata;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Models.Snapshots;
 using Orders.Domains;
 using Orders.Domains.Commands;
 using Orders.Domains.Commands.Handlers;
@@ -51,7 +52,7 @@ namespace Neptuo.EventSourcing
                 .AddJsonObjectSearchHandler();
 
             CompositeTypeFormatter formatter = new CompositeTypeFormatter(
-                new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), 
+                new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()),
                 new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
             );
             MockEventStore eventStore = new MockEventStore();
@@ -60,7 +61,9 @@ namespace Neptuo.EventSourcing
                 eventStore,
                 formatter,
                 new ReflectionAggregateRootFactory<Order>(),
-                new DefaultEventManager()
+                new DefaultEventManager(),
+                new NoSnapshotProvider(),
+                new EmptySnapshotStore()
             );
 
             Order order = new Order(KeyFactory.Create(typeof(Order)));
@@ -76,14 +79,14 @@ namespace Neptuo.EventSourcing
         public void SaveAndLoadWithEntityRepository()
         {
             Converts.Repository
+                .AddJsonKey()
                 .AddJsonEnumSearchHandler()
                 .AddJsonPrimitivesSearchHandler()
                 .AddJsonObjectSearchHandler();
 
-            CompositeTypeFormatter formatter = new CompositeTypeFormatter(
-                new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()),
-                new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
-            );
+            ICompositeTypeProvider compositeTypeProvider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            IFactory<ICompositeStorage> storageFactory = new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage());
+
             EventSourcingContext context = new EventSourcingContext(@"Data Source=.\sqlexpress; Initial Catalog=EventStore;Integrated Security=SSPI");
             EntityEventStore eventStore = new EntityEventStore(context);
 
@@ -91,15 +94,17 @@ namespace Neptuo.EventSourcing
 
             AggregateRootRepository<Order> repository = new AggregateRootRepository<Order>(
                 eventStore,
-                formatter,
+                new CompositeEventFormatter(compositeTypeProvider, storageFactory),
                 new ReflectionAggregateRootFactory<Order>(),
-                eventDispatcher
+                eventDispatcher,
+                new NoSnapshotProvider(),
+                new EmptySnapshotStore()
             );
 
             PersistentCommandDispatcher commandDispatcher = new PersistentCommandDispatcher(
                 new SerialCommandDistributor(),
                 new EntityCommandStore(context),
-                formatter
+                new CompositeCommandFormatter(compositeTypeProvider, storageFactory)
             );
 
             CreateOrderHandler createHandler = new CreateOrderHandler(repository);

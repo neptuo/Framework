@@ -26,11 +26,11 @@ namespace Neptuo
         private Timer longRunnerTimer;
 
         /// <summary>
-        /// Creates new instance that uses <see cref="Timeout.InfiniteTimeSpan"/> to threshold 'long runnner' contexts.
+        /// Creates new instance that uses <c>1d</c> to threshold 'long runnner' contexts.
         /// </summary>
         /// <param name="dateTimeProvider">The provider of execution delay.</param>
         public TimerSchedulingProvider(IDateTimeProvider dateTimeProvider)
-            : this(dateTimeProvider, Timeout.InfiniteTimeSpan)
+            : this(dateTimeProvider, TimeSpan.FromDays(1))
         { }
 
         /// <summary>
@@ -42,8 +42,8 @@ namespace Neptuo
         {
             Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
 
-            if (longRunnerThreshold < TimeSpan.Zero || longRunnerThreshold > Timeout.InfiniteTimeSpan)
-                throw Ensure.Exception.ArgumentOutOfRange("longRunnerThreshold", "Long runner threshold must be between 0 and Timeout.InfiniteTimeSpan.");
+            if (longRunnerThreshold < TimeSpan.Zero)
+                throw Ensure.Exception.ArgumentOutOfRange("longRunnerThreshold", "Long runner threshold must be between 0 and 1 day.");
 
             this.dateTimeProvider = dateTimeProvider;
             this.longRunnerThreshold = longRunnerThreshold;
