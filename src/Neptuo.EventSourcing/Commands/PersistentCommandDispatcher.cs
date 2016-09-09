@@ -78,7 +78,6 @@ namespace Neptuo.Commands
             this.threadPool = new TreeQueueThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
             Initialize();
-
         }
 
         internal PersistentCommandDispatcher(TreeQueue queue, TreeQueueThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
@@ -121,7 +120,8 @@ namespace Neptuo.Commands
             if (handlers.TryGet(argument.ArgumentType, out handler))
                 return HandleInternalAsync(handler, argument, command, isPersistenceUsed, true);
 
-            throw new MissingCommandHandlerException(argument.ArgumentType);
+            DispatcherExceptionHandlers.Handle(new MissingCommandHandlerException(argument.ArgumentType));
+            return Async.CompletedTask;
         }
 
         private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed, bool isEnvelopeDelayUsed)
@@ -137,7 +137,7 @@ namespace Neptuo.Commands
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
-                throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context.");
+                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context."));
             }
             else
             {
@@ -160,7 +160,7 @@ namespace Neptuo.Commands
 
                 if (hasContextHandler)
                 {
-                    throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context.");
+                    DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context."));
                 }
             }
 
@@ -240,8 +240,14 @@ namespace Neptuo.Commands
 
         private void OnScheduledCommand(ScheduleCommandContext context)
         {
-            // TODO: Why again create envelope and ICommand and other?
-            HandleInternalAsync(context.Handler, context.Argument, context.Envelope.Body, false, false).Wait();
+            // The null passed because we currently don't support contexts.
+            DistributeExecution(
+                context.Envelope.Body, 
+                null, 
+                context.Envelope, 
+                context.Envelope.Body as ICommand, 
+                context.Handler
+            );
         }
 
         /// <summary>
@@ -258,7 +264,7 @@ namespace Neptuo.Commands
             IEnumerable<CommandModel> models = await store.GetAsync();
             foreach (CommandModel model in models)
             {
-                Type envelopeType = typeof(Envelope<>).MakeGenericType(Type.GetType(model.CommandKey.Type));
+                Type envelopeType = EnvelopeFactory.GetType(Type.GetType(model.CommandKey.Type));
                 Envelope envelope = (Envelope)await formatter.DeserializeAsync(envelopeType, model.Payload);
                 await HandleAsync(envelope, false);
             }

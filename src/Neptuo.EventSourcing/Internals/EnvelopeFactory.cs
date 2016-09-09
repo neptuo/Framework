@@ -13,6 +13,11 @@ namespace Neptuo.Internals
     /// </summary>
     internal static class EnvelopeFactory
     {
+        public static Type GetType(Type payloadType)
+        {
+            return typeof(Envelope<>).MakeGenericType(payloadType);
+        }
+
         public static Envelope Create(object payload, Type payloadType)
         {
             MethodInfo envelopeCreateMethod = typeof(Envelope)
