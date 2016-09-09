@@ -23,6 +23,11 @@ namespace Neptuo.Data
             return Enumerable.Empty<EventModel>();
         }
 
+        public IEnumerable<EventModel> Get(IKey aggregateKey, int version)
+        {
+            return Enumerable.Empty<EventModel>();
+        }
+
         public Task<IEnumerable<EventPublishingModel>> GetAsync()
         {
             return Task.FromResult(Enumerable.Empty<EventPublishingModel>());
