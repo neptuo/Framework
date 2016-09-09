@@ -9,6 +9,7 @@ namespace Neptuo.Data
 {
     /// <summary>
     /// The underlying store for commands.
+    /// It is responsible for storing serialized commands.
     /// </summary>
     public interface ICommandStore
     {

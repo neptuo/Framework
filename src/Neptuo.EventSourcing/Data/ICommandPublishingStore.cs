@@ -9,7 +9,7 @@ namespace Neptuo.Data
 {
     /// <summary>
     /// The underlying store for the persistent command delivery.
-    /// Provides methods for confirming delivery and clearing unpublished queue.
+    /// It is responsible for persisting delivery confirmation, loading missed delivery and clearing unpublished queue.
     /// </summary>
     public interface ICommandPublishingStore : ICommandStore
     {
