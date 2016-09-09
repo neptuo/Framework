@@ -100,7 +100,7 @@ namespace Neptuo.Events
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
-                throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
+                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context."));
             }
             else
             {
@@ -133,33 +133,18 @@ namespace Neptuo.Events
 
             // If isEnvelopeDelayUsed, try to schedule the execution.
             // If succeeded, return.
-            if (isEnvelopeDelayUsed && TrySchedule(envelope, handlers, argument))
+            if (isEnvelopeDelayUsed && TrySchedule(envelope, context, handlers, argument))
                 return Async.CompletedTask;
 
-            return Task.Factory.StartNew(() =>
-            {
-                foreach (HandlerDescriptor handler in handlers.ToList())
-                {
-                    if (handler.IsContext)
-                        handler.Execute(context, null).Wait();
-                    else if (handler.IsEnvelope)
-                        handler.Execute(envelope, null).Wait();
-                    else if (handler.IsPlain)
-                        handler.Execute(payload, null).Wait();
-                    else
-                        throw Ensure.Exception.UndefinedHandlerType(handler);
-
-                    if (eventWithKey != null && handler.HandlerIdentifier != null)
-                        store.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
-                }
-            });
+            // Distribute the execution.
+            return DistributeExecution(payload, context, envelope, eventWithKey, handlers);
         }
 
-        private bool TrySchedule(Envelope envelope, IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument)
+        private bool TrySchedule(Envelope envelope, object handlerContext, IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument)
         {
             if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
-                ScheduleEventContext context = new ScheduleEventContext(handlers, argument, envelope, OnScheduledEvent);
+                ScheduleEventContext context = new ScheduleEventContext(handlers, argument, envelope, handlerContext, OnScheduledEvent);
                 schedulingProvider.Schedule(context);
                 return true;
             }
@@ -167,9 +152,47 @@ namespace Neptuo.Events
             return false;
         }
 
+        private Task DistributeExecution(object payload, object context, Envelope envelope, IEvent eventWithKey, IEnumerable<HandlerDescriptor> handlers)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                foreach (HandlerDescriptor handler in handlers.ToList())
+                {
+                    try
+                    {
+                        if (handler.IsContext)
+                            handler.Execute(context, null).Wait();
+                        else if (handler.IsEnvelope)
+                            handler.Execute(envelope, null).Wait();
+                        else if (handler.IsPlain)
+                            handler.Execute(payload, null).Wait();
+                        else
+                            throw Ensure.Exception.UndefinedHandlerType(handler);
+
+                        if (eventWithKey != null && handler.HandlerIdentifier != null)
+                            store.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
+                    }
+                    catch (Exception e)
+                    {
+                        DispatcherExceptionHandlers.Handle(e);
+                    }
+                }
+            });
+        }
+
+        /// <summary>
+        /// Raised from the <see cref="ScheduleEventContext.Execute"/> when scheduling provider deems.
+        /// </summary>
+        /// <param name="context">The context publish.</param>
         private void OnScheduledEvent(ScheduleEventContext context)
         {
-            PublishAsync(context.Handlers, context.Argument, context.Envelope.Body, false).Wait();
+            DistributeExecution(
+                context.Envelope.Body, 
+                context.HandlerContext, 
+                context.Envelope, 
+                context.Envelope.Body as IEvent, 
+                context.Handlers
+            ).Wait();
         }
 
         /// <summary>

@@ -238,6 +238,10 @@ namespace Neptuo.Commands
             });
         }
 
+        /// <summary>
+        /// Raised from the <see cref="ScheduleCommandContext.Execute"/> when scheduling provider deems.
+        /// </summary>
+        /// <param name="context">The context directly handler.</param>
         private void OnScheduledCommand(ScheduleCommandContext context)
         {
             // The null passed because we currently don't support contexts.

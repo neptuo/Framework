@@ -10,14 +10,16 @@ namespace Neptuo.Internals
         public IEnumerable<HandlerDescriptor> Handlers { get; private set; }
         public ArgumentDescriptor Argument { get; private set; }
         public Envelope Envelope { get; private set; }
+        public object HandlerContext { get; private set; }
 
         private readonly Action<ScheduleEventContext> execute;
 
-        public ScheduleEventContext(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, Envelope envelope, Action<ScheduleEventContext> execute)
+        public ScheduleEventContext(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, Envelope envelope, object handlerContext, Action<ScheduleEventContext> execute)
         {
             Handlers = handlers;
             Argument = argument;
             Envelope = Envelope;
+            HandlerContext = handlerContext;
             this.execute = execute;
         }
 
