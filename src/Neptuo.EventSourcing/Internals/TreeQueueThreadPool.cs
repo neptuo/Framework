@@ -88,7 +88,7 @@ namespace Neptuo.Internals
             }
 
             if (execute != null)
-                execute().ContinueWith(OnQueueItemCompleted, item);
+                Task.Run(execute).ContinueWith(OnQueueItemCompleted, item);
         }
         
         protected override void DisposeUnmanagedResources()
