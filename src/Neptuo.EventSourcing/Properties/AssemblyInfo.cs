@@ -12,7 +12,7 @@ Fix version attribute!
 #endif
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
-[assembly: AssemblyInformationalVersion("1.1.0-beta5")]
+[assembly: AssemblyInformationalVersion(VersionInfo.Version + "-beta5")]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
 
 [assembly: InternalsVisibleTo("UnitTest.Services")]
