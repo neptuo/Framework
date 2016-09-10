@@ -67,7 +67,7 @@ namespace Neptuo.Data
 
         public Task ClearAsync()
         {
-            foreach (UnPublishedCommandEntity entity in context.UnPublishedCommands)
+            foreach (UnPublishedCommandEntity entity in context.UnPublishedCommands.Where(c => c.IsHandled))
                 context.UnPublishedCommands.Remove(entity);
 
             return context.SaveAsync();

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes the undelaying store for commands.
+    /// The underlying store for commands.
+    /// It is responsible for storing serialized commands.
     /// </summary>
     public interface ICommandStore
     {

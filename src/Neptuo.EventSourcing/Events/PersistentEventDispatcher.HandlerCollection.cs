@@ -10,7 +10,7 @@ namespace Neptuo.Events
 {
     partial class PersistentEventDispatcher
     {
-        private class HandlerCollection : IEventHandlerCollection
+        internal class HandlerCollection : IEventHandlerCollection
         {
             private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage;
             private readonly HandlerDescriptorProvider descriptorProvider;

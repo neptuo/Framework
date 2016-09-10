@@ -9,28 +9,28 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes serialized event.
+    /// Entity for persisting event.
     /// </summary>
     [DebuggerDisplay("{EventKey.Type} -> {AggregateKey.Type}")]
     public class EventModel
     {
         /// <summary>
-        /// The key to the aggregate where the original event raised.
+        /// Gets or sets the key of the aggregate where the original event raised.
         /// </summary>
         public IKey AggregateKey { get; set; }
 
         /// <summary>
-        /// The key of the event.
+        /// Gets or sets the key of the event.
         /// </summary>
         public IKey EventKey { get; set; }
 
         /// <summary>
-        /// Serialized event payload.
+        /// Gets or sets a serialized event body.
         /// </summary>
         public string Payload { get; set; }
 
         /// <summary>
-        /// The version of the aggregate root.
+        /// Gets or sets the version of the aggregate root after applying the event.
         /// </summary>
         public int Version { get; set; }
 
@@ -43,10 +43,10 @@ namespace Neptuo.Data
         /// <summary>
         /// Creates new instance and fills values.
         /// </summary>
-        /// <param name="aggregateKey">The key to the aggregate where the original event raised.</param>
+        /// <param name="aggregateKey">The key of the aggregate where the original event raised.</param>
         /// <param name="eventKey">The key of the event.</param>
-        /// <param name="payload">Serialized event payload.</param>
-        /// <param name="version">The version of the aggregate root.</param>
+        /// <param name="payload">A serialized event body.</param>
+        /// <param name="version">The version of the aggregate root after applying the event.</param>
         public EventModel(IKey aggregateKey, IKey eventKey, string payload, int version)
             : this()
         {

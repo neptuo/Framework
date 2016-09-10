@@ -15,13 +15,47 @@ namespace Neptuo.Models
     public class AggregateRootException : Exception
     {
         /// <summary>
-        /// The of the aggregate root.
+        /// The key of the aggregate root.
         /// </summary>
         /// <remarks>
         /// For exceptions thrown the correct way, contains a key of the aggregate root or empty key when creating new aggregate.
         /// If derived class sets value, the infrastructure doesn't overwrite it.
         /// </remarks>
         public IKey Key { get; protected internal set; }
+
+        /// <summary>
+        /// The key of the command that originated the operation.
+        /// When the operation is composed from multiple commands, this property contains 
+        /// the key of the first command (typically raised by the user).
+        /// </summary>
+        /// <remarks>
+        /// For exceptions thrown the correct way, contains a key of the commnad.
+        /// If derived class sets value, the infrastructure doesn't overwrite it.
+        /// </remarks>
+        public IKey SourceCommandKey { get; protected internal set; }
+
+        /// <summary>
+        /// The key of the command that raised the operation.
+        /// </summary>
+        /// <remarks>
+        /// For exceptions thrown the correct way, contains a key of the commnad.
+        /// If derived class sets value, the infrastructure doesn't overwrite it.
+        /// </remarks>
+        public IKey CommandKey { get; protected internal set; }
+
+        /// <summary>
+        /// Returns the key of the first command or <c>null</c>.
+        /// If the <see cref="SourceCommandKey"/> is not <c>null</c>, returns it;
+        /// otherwise returns <see cref="CommandKey"/> or <c>null</c>.
+        /// </summary>
+        /// <returns>The key of the first command or <c>null</c>.</returns>
+        public IKey FindOriginalCommandKey()
+        {
+            if (SourceCommandKey == null || SourceCommandKey.IsEmpty)
+                return CommandKey;
+
+            return SourceCommandKey;
+        }
 
         /// <summary>
         /// Creates new empty instance.

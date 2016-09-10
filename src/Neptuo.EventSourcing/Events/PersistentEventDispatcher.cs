@@ -21,13 +21,10 @@ namespace Neptuo.Events
     /// </summary>
     public partial class PersistentEventDispatcher : IEventDispatcher
     {
-        private readonly object timersLock = new object();
-
         private readonly Dictionary<Type, HashSet<HandlerDescriptor>> storage = new Dictionary<Type, HashSet<HandlerDescriptor>>();
-        private readonly IEventPublishingStore eventStore;
-        private readonly Func<DateTime> dateTimeProvider;
+        private readonly IEventPublishingStore store;
+        private readonly ISchedulingProvider schedulingProvider;
         private readonly HandlerDescriptorProvider descriptorProvider;
-        private readonly List<Tuple<Timer, ScheduleEventContext>> timers = new List<Tuple<Timer, ScheduleEventContext>>();
 
         /// <summary>
         /// The collection of event handlers.
@@ -49,7 +46,7 @@ namespace Neptuo.Events
         /// </summary>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         public PersistentEventDispatcher(IEventPublishingStore store)
-            : this(store, () => DateTime.Now)
+            : this(store, new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider()))
         { }
 
         /// <summary>
@@ -57,12 +54,12 @@ namespace Neptuo.Events
         /// </summary>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="dateTimeProvider">The provider of current date time for scheduled events.</param>
-        public PersistentEventDispatcher(IEventPublishingStore store, Func<DateTime> dateTimeProvider)
+        public PersistentEventDispatcher(IEventPublishingStore store, ISchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(store, "store");
-            Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
-            this.eventStore = store;
-            this.dateTimeProvider = dateTimeProvider;
+            Ensure.NotNull(schedulingProvider, "schedulingProvider");
+            this.store = store;
+            this.schedulingProvider = schedulingProvider;
 
             EventExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
@@ -103,7 +100,7 @@ namespace Neptuo.Events
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
-                throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
+                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context."));
             }
             else
             {
@@ -134,54 +131,68 @@ namespace Neptuo.Events
             if (eventWithKey == null)
                 eventWithKey = payload as IEvent;
 
-            DateTime executeAt;
-            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
-            {
-                ScheduleEventContext scheduleContext = new ScheduleEventContext(handlers, argument, payload);
-                Timer timer = new Timer(
-                    OnScheduledEvent,
-                    scheduleContext,
-                    executeAt.Subtract(dateTimeProvider()),
-                    TimeSpan.FromMilliseconds(-1)
-                );
-
-                lock (timersLock)
-                    timers.Add(new Tuple<Timer, ScheduleEventContext>(timer, scheduleContext));
-                
+            // If isEnvelopeDelayUsed, try to schedule the execution.
+            // If succeeded, return.
+            if (isEnvelopeDelayUsed && TrySchedule(envelope, context, handlers, argument))
                 return Async.CompletedTask;
+
+            // Distribute the execution.
+            return DistributeExecution(payload, context, envelope, eventWithKey, handlers);
+        }
+
+        private bool TrySchedule(Envelope envelope, object handlerContext, IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument)
+        {
+            if (schedulingProvider.IsLaterExecutionRequired(envelope))
+            {
+                ScheduleEventContext context = new ScheduleEventContext(handlers, argument, envelope, handlerContext, OnScheduledEvent);
+                schedulingProvider.Schedule(context);
+                return true;
             }
 
-            return Task.Factory.StartNew(() => 
+            return false;
+        }
+
+        private Task DistributeExecution(object payload, object context, Envelope envelope, IEvent eventWithKey, IEnumerable<HandlerDescriptor> handlers)
+        {
+            return Task.Factory.StartNew(() =>
             {
                 foreach (HandlerDescriptor handler in handlers.ToList())
                 {
-                    if (handler.IsContext)
-                        handler.Execute(context).Wait();
-                    else if (handler.IsEnvelope)
-                        handler.Execute(envelope).Wait();
-                    else if (handler.IsPlain)
-                        handler.Execute(payload).Wait();
-                    else
-                        throw Ensure.Exception.UndefinedHandlerType(handler);
+                    try
+                    {
+                        if (handler.IsContext)
+                            handler.Execute(context, null).Wait();
+                        else if (handler.IsEnvelope)
+                            handler.Execute(envelope, null).Wait();
+                        else if (handler.IsPlain)
+                            handler.Execute(payload, null).Wait();
+                        else
+                            throw Ensure.Exception.UndefinedHandlerType(handler);
 
-                    if (eventWithKey != null && handler.HandlerIdentifier != null)
-                        eventStore.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
+                        if (eventWithKey != null && handler.HandlerIdentifier != null)
+                            store.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
+                    }
+                    catch (Exception e)
+                    {
+                        DispatcherExceptionHandlers.Handle(e);
+                    }
                 }
             });
         }
 
-        private void OnScheduledEvent(object state)
+        /// <summary>
+        /// Raised from the <see cref="ScheduleEventContext.Execute"/> when scheduling provider deems.
+        /// </summary>
+        /// <param name="context">The context publish.</param>
+        private void OnScheduledEvent(ScheduleEventContext context)
         {
-            ScheduleEventContext context = (ScheduleEventContext)state;
-
-            lock (timersLock)
-            {
-                Tuple<Timer, ScheduleEventContext> item = timers.FirstOrDefault(t => t.Item2 == context);
-                if (item != null)
-                    timers.Remove(item);
-            }
-
-            PublishAsync(context.Handlers, context.Argument, context.Payload, false).Wait();
+            DistributeExecution(
+                context.Envelope.Body, 
+                context.HandlerContext, 
+                context.Envelope, 
+                context.Envelope.Body as IEvent, 
+                context.Handlers
+            ).Wait();
         }
 
         /// <summary>
@@ -192,14 +203,14 @@ namespace Neptuo.Events
         /// <returns>The continuation task.</returns>
         public async Task RecoverAsync(IDeserializer formatter)
         {
-            IEnumerable<EventPublishingModel> models = await eventStore.GetAsync();
+            IEnumerable<EventPublishingModel> models = await store.GetAsync();
             foreach (EventPublishingModel model in models)
             {
                 IEvent eventModel = formatter.DeserializeEvent(Type.GetType(model.Event.EventKey.Type), model.Event.Payload);
                 await RecoverEventAsync(eventModel, model.PublishedHandlerIdentifiers);
             }
 
-            await eventStore.ClearAsync();
+            await store.ClearAsync();
         }
 
         private async Task RecoverEventAsync(IEvent model, IEnumerable<string> handlerIdentifiers)
@@ -214,5 +225,14 @@ namespace Neptuo.Events
                     await PublishAsync(unPublishedHandlers, argument, model, true);
             }
         }
+
+        #region Usefull methods from rebuilding read models
+
+        internal IEnumerable<Type> EnumerateEventTypes()
+        {
+            return storage.Keys;
+        }
+
+        #endregion
     }
 }

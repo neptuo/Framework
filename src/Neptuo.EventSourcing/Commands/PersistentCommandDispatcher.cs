@@ -4,6 +4,8 @@ using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
+using Neptuo.Models;
+using Neptuo.Models.Keys;
 using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -20,17 +22,14 @@ namespace Neptuo.Commands
     /// </summary>
     public partial class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher
     {
-        private readonly object timersLock = new object();
-
-        private readonly HandlerDescriptorProvider descriptorProvider;
-        private readonly TheeQueue queue = new TheeQueue();
-        private readonly CommandThreadPool threadPool;
+        private HandlerDescriptorProvider descriptorProvider;
+        private readonly TreeQueue queue = new TreeQueue();
+        private readonly TreeQueueThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
-        private readonly ICommandSchedulingProvider schedulingProvider;
-        private readonly List<Tuple<Timer, ScheduleCommandContext>> timers = new List<Tuple<Timer, ScheduleCommandContext>>();
-        private readonly HandlerCollection handlers;
+        private readonly ISchedulingProvider schedulingProvider;
+        private HandlerCollection handlers;
 
         /// <summary>
         /// The collection of registered handlers.
@@ -57,7 +56,7 @@ namespace Neptuo.Commands
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter)
-            : this(distributor, store, formatter, new DateTimeNowCommandSchedulingProvider())
+            : this(distributor, store, formatter, new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider()))
         { }
 
         /// <summary>
@@ -66,8 +65,8 @@ namespace Neptuo.Commands
         /// <param name="distributor">The command-to-the-queue distributor.</param>
         /// <param name="store">The publishing store for command persistent delivery.</param>
         /// <param name="formatter">The formatter for serializing commands.</param>
-        /// <param name="dateTimeProvider">The provider of a delay computation for delayed commands.</param>
-        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ICommandSchedulingProvider schedulingProvider)
+        /// <param name="schedulingProvider">The provider of a delay computation for delayed commands.</param>
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
@@ -76,20 +75,34 @@ namespace Neptuo.Commands
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
-            this.threadPool = new CommandThreadPool(queue);
+            this.threadPool = new TreeQueueThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
+            Initialize();
+        }
 
+        internal PersistentCommandDispatcher(TreeQueue queue, TreeQueueThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
+        {
+            this.queue = queue;
+            this.threadPool = threadPool;
+            this.distributor = distributor;
+            this.store = store;
+            this.formatter = formatter;
+            this.schedulingProvider = schedulingProvider;
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             CommandExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
 
-            this.descriptorProvider = new HandlerDescriptorProvider(
+            descriptorProvider = new HandlerDescriptorProvider(
                 typeof(ICommandHandler<>),
                 null,
                 TypeHelper.MethodName<ICommandHandler<object>, object, Task>(h => h.HandleAsync),
                 CommandExceptionHandlers,
                 DispatcherExceptionHandlers
             );
-
             handlers = new HandlerCollection(descriptorProvider);
         }
 
@@ -107,7 +120,8 @@ namespace Neptuo.Commands
             if (handlers.TryGet(argument.ArgumentType, out handler))
                 return HandleInternalAsync(handler, argument, command, isPersistenceUsed, true);
 
-            throw new MissingCommandHandlerException(argument.ArgumentType);
+            DispatcherExceptionHandlers.Handle(new MissingCommandHandlerException(argument.ArgumentType));
+            return Async.CompletedTask;
         }
 
         private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed, bool isEnvelopeDelayUsed)
@@ -123,7 +137,7 @@ namespace Neptuo.Commands
             if (argument.IsContext)
             {
                 // If passed argument is context, throw.
-                throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in command handler context.");
+                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context."));
             }
             else
             {
@@ -146,7 +160,7 @@ namespace Neptuo.Commands
 
                 if (hasContextHandler)
                 {
-                    throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context.");
+                    DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context."));
                 }
             }
 
@@ -154,49 +168,67 @@ namespace Neptuo.Commands
                 commandWithKey = payload as ICommand;
 
             // If we have command with the key, serialize it for persisten delivery.
-            if (isPersistenceUsed && commandWithKey != null)
+            if (store != null && isPersistenceUsed && commandWithKey != null)
             {
                 string serializedEnvelope = await formatter.SerializeAsync(envelope);
                 store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
             }
 
-            DateTime executeAt;
-            if (isEnvelopeDelayUsed && envelope.TryGetExecuteAt(out executeAt))
+            // If isEnvelopeDelayUsed, try to schedule the execution.
+            // If succeeded, return.
+            if (isEnvelopeDelayUsed && TrySchedule(envelope, handler, argument))
+                return;
+
+            // Distribute the execution.
+            DistributeExecution(payload, context, envelope, commandWithKey, handler);
+        }
+
+        private bool TrySchedule(Envelope envelope, HandlerDescriptor handler, ArgumentDescriptor argument)
+        {
+            if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
-                TimeSpan delay = schedulingProvider.Compute(executeAt);
-                if (delay > TimeSpan.Zero)
-                {
-                    ScheduleCommandContext scheduleContext = new ScheduleCommandContext(handler, argument, commandPayload);
-                    Timer timer = new Timer(
-                        OnScheduledCommand,
-                        scheduleContext,
-                        delay,
-                        TimeSpan.FromMilliseconds(-1)
-                    );
-
-                    lock (timersLock)
-                        timers.Add(new Tuple<Timer, ScheduleCommandContext>(timer, scheduleContext));
-
-                    return;
-                }
+                ScheduleCommandContext context = new ScheduleCommandContext(handler, argument, envelope, OnScheduledCommand);
+                schedulingProvider.Schedule(context);
+                return true;
             }
 
+            return false;
+        }
+
+        private void DistributeExecution(object payload, object context, Envelope envelope, ICommand commandWithKey, HandlerDescriptor handler)
+        {
             object key = distributor.Distribute(payload);
             queue.Enqueue(key, async () =>
             {
+                Action<Exception> additionalExceptionDecorator = e =>
+                {
+                    AggregateRootException aggregateException = e as AggregateRootException;
+                    if (aggregateException != null)
+                    {
+                        // If envelope is created and contains source command key, use it.
+                        IKey sourceCommandKey;
+                        if (aggregateException.SourceCommandKey == null && envelope != null && envelope.TryGetSourceCommandKey(out sourceCommandKey))
+                            aggregateException.SourceCommandKey = sourceCommandKey;
+
+                        // If command is command with key, use it.
+                        if (aggregateException.CommandKey == null && commandWithKey != null)
+                            aggregateException.CommandKey = commandWithKey.Key;
+                    }
+                };
+
                 try
                 {
                     if (handler.IsContext)
-                        await handler.Execute(context);
+                        await handler.Execute(context, additionalExceptionDecorator);
                     else if (handler.IsEnvelope)
-                        await handler.Execute(envelope);
+                        await handler.Execute(envelope, additionalExceptionDecorator);
                     else if (handler.IsPlain)
-                        await handler.Execute(payload);
+                        await handler.Execute(payload, additionalExceptionDecorator);
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
                     // If we have command with the key, notify about successful execution.
-                    if (commandWithKey != null)
+                    if (store != null && commandWithKey != null)
                         await store.PublishedAsync(commandWithKey.Key);
                 }
                 catch (Exception e)
@@ -206,32 +238,37 @@ namespace Neptuo.Commands
             });
         }
 
-        private void OnScheduledCommand(object state)
+        /// <summary>
+        /// Raised from the <see cref="ScheduleCommandContext.Execute"/> when scheduling provider deems.
+        /// </summary>
+        /// <param name="context">The context directly handler.</param>
+        private void OnScheduledCommand(ScheduleCommandContext context)
         {
-            ScheduleCommandContext context = (ScheduleCommandContext)state;
-
-            lock (timersLock)
-            {
-                Tuple<Timer, ScheduleCommandContext> item = timers.FirstOrDefault(t => t.Item2 == context);
-                if (item != null)
-                    timers.Remove(item);
-            }
-
-            HandleInternalAsync(context.Handler, context.Argument, context.Payload, false, false).Wait();
+            // The null passed because we currently don't support contexts.
+            DistributeExecution(
+                context.Envelope.Body, 
+                null, 
+                context.Envelope, 
+                context.Envelope.Body as ICommand, 
+                context.Handler
+            );
         }
 
         /// <summary>
-        /// Re-publishes events from unpublished queue.
-        /// Uses <paramref name="formatter"/> to deserialize events from store.
+        /// Re-publishes commands from unpublished queue.
+        /// Uses <paramref name="formatter"/> to deserialize commands from store.
         /// </summary>
-        /// <param name="formatter">The event deserializer.</param>
+        /// <param name="formatter">The command deserializer.</param>
         /// <returns>The continuation task.</returns>
         public async Task RecoverAsync(IDeserializer formatter)
         {
+            Ensure.NotNull(store, "store");
+            Ensure.NotNull(formatter, "formatter");
+
             IEnumerable<CommandModel> models = await store.GetAsync();
             foreach (CommandModel model in models)
             {
-                Type envelopeType = typeof(Envelope<>).MakeGenericType(Type.GetType(model.CommandKey.Type));
+                Type envelopeType = EnvelopeFactory.GetType(Type.GetType(model.CommandKey.Type));
                 Envelope envelope = (Envelope)await formatter.DeserializeAsync(envelopeType, model.Payload);
                 await HandleAsync(envelope, false);
             }

@@ -55,7 +55,7 @@ namespace Neptuo.Internals
             MethodInfo method = handlerType.GetInterfaceMap(interfaceType.MakeGenericType(argumentType)).TargetMethods
                 .FirstOrDefault(m => m.Name.EndsWith(methodName));
 
-            Func<object, object, Task> handlerAction = (h, p) =>
+            Func<object, object, Action<Exception>, Task> handlerAction = (h, p, additionalExceptionDecorator) =>
             {
                 try
                 {
@@ -74,11 +74,17 @@ namespace Neptuo.Internals
                 }
                 catch (TargetInvocationException e)
                 {
+                    if (additionalExceptionDecorator != null)
+                        additionalExceptionDecorator(e.InnerException);
+
                     innerExceptionHandlers.Handle(e.InnerException);
                     return Async.CompletedTask;
                 }
                 catch (Exception e)
                 {
+                    if (additionalExceptionDecorator != null)
+                        additionalExceptionDecorator(e);
+
                     outerExceptionHandlers.Handle(e);
                     return Async.CompletedTask;
                 }

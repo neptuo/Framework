@@ -3,7 +3,9 @@ using Neptuo.Events;
 using Neptuo.Events.Handlers;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Snapshots;
 using Orders.Domains.Events;
+using Orders.Domains.Snapshots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +24,16 @@ namespace Orders.Domains
         private readonly List<OrderItem> items = new List<OrderItem>();
         private decimal totalPrice = 0;
 
+        public IEnumerable<OrderItem> Items
+        {
+            get { return items; }
+        }
+
+        public decimal TotalPrice
+        {
+            get { return totalPrice; }
+        }
+
         public Order(IKey key)
             : base(key)
         {
@@ -31,6 +43,17 @@ namespace Orders.Domains
         public Order(IKey key, IEnumerable<IEvent> events)
             : base(key, events)
         { }
+
+        public Order(IKey key, ISnapshot snapshot, IEnumerable<IEvent> events)
+            : base(key, snapshot, events)
+        { }
+
+        protected override void LoadSnapshot(ISnapshot snapshot)
+        {
+            OrderSnapshot state = (OrderSnapshot)snapshot;
+            items.AddRange(state.Items);
+            totalPrice = state.TotalPrice;
+        }
 
         public void AddItem(IKey productKey, int count)
         {

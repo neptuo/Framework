@@ -1,7 +1,9 @@
-﻿using Neptuo.Events;
+﻿using Neptuo;
+using Neptuo.Events;
 using Neptuo.Events.Handlers;
 using Neptuo.Linq.Expressions;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Snapshots;
 using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -70,8 +72,50 @@ namespace Neptuo.Models.Domains
             EnsureHandlerRegistration();
             Key = key;
 
-            foreach (IEvent payload in events)
+            foreach (IEvent payload in events.OrderBy(e => e.Version))
+            {
                 handlers.Publish(this, payload);
+                Version = payload.Version;
+            }
+        }
+
+        /// <summary>
+        /// Loads instance with <paramref name="key"/>.
+        /// In order to process <paramref name="snapshot"/> method <see cref="LoadSnapshot(ISnapshot)"/> must be overriden,
+        /// otherwise exception is thrown.
+        /// </summary>
+        /// <param name="key">The key of this instance.</param>
+        /// <param name="snapshot">The latest aggregate state snapshot.</param>
+        /// <param name="events">The enumeration of events describing current state.</param>
+        protected AggregateRoot(IKey key, ISnapshot snapshot, IEnumerable<IEvent> events)
+        {
+            Ensure.Condition.NotEmptyKey(key, "key");
+            Ensure.NotNull(snapshot, "snapshot");
+            Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName, "key");
+            Ensure.NotNull(events, "events");
+            EnsureHandlerRegistration();
+            Key = key;
+
+            LoadSnapshot(snapshot);
+            Version = snapshot.Version;
+
+            foreach (IEvent payload in events.OrderBy(e => e.Version))
+            {
+                handlers.Publish(this, payload);
+                Version = payload.Version;
+            }
+        }
+
+        /// <summary>
+        /// The method used to load state from snapshot.
+        /// When not overriden, throws <see cref="SnapshotNotSupportedException"/>.
+        /// 
+        /// To support snapshots, aggregate root must define constructor with snapshot.
+        /// </summary>
+        /// <param name="snapshot">The instance of a snapshot to apply.</param>
+        protected virtual void LoadSnapshot(ISnapshot snapshot)
+        {
+            throw new SnapshotNotSupportedException();
         }
 
         /// <summary>

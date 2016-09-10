@@ -5,17 +5,27 @@ using System.Text;
 
 namespace Neptuo.Internals
 {
-    internal class ScheduleEventContext
+    internal class ScheduleEventContext : ISchedulingContext
     {
         public IEnumerable<HandlerDescriptor> Handlers { get; private set; }
         public ArgumentDescriptor Argument { get; private set; }
-        public object Payload { get; private set; }
+        public Envelope Envelope { get; private set; }
+        public object HandlerContext { get; private set; }
 
-        public ScheduleEventContext(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object payload)
+        private readonly Action<ScheduleEventContext> execute;
+
+        public ScheduleEventContext(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, Envelope envelope, object handlerContext, Action<ScheduleEventContext> execute)
         {
             Handlers = handlers;
             Argument = argument;
-            Payload = payload;
+            Envelope = Envelope;
+            HandlerContext = handlerContext;
+            this.execute = execute;
+        }
+
+        public void Execute()
+        {
+            execute(this);
         }
     }
 }

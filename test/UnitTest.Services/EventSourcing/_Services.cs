@@ -1,6 +1,8 @@
-﻿using Neptuo.Activators;
+﻿using Neptuo;
+using Neptuo.Activators;
 using Neptuo.Collections.Specialized;
 using Neptuo.Commands;
+using Neptuo.Commands.Handlers;
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
@@ -9,6 +11,7 @@ using Neptuo.Formatters.Metadata;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
+using Neptuo.Threading.Tasks;
 using Orders.Domains.Events;
 using System;
 using System.Collections.Generic;
@@ -17,10 +20,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Models.Snapshots;
 
 namespace Neptuo.EventSourcing
 {
-    public class MockEventStore : IEventStore
+    public class MockEventStore : IEventStore, IEventRebuilderStore
     {
         private readonly Dictionary<IKey, List<EventModel>> storage = new Dictionary<IKey, List<EventModel>>();
 
@@ -31,6 +35,20 @@ namespace Neptuo.EventSourcing
                 return events;
 
             return Enumerable.Empty<EventModel>();
+        }
+
+        public IEnumerable<EventModel> Get(IKey aggregateKey, int version)
+        {
+            List<EventModel> events;
+            if (storage.TryGetValue(aggregateKey, out events))
+                return events.Where(e => e.Version > version);
+
+            return Enumerable.Empty<EventModel>();
+        }
+
+        public Task<IEnumerable<EventModel>> GetAsync(IEnumerable<string> eventTypes)
+        {
+            return Task.FromResult(storage.Values.SelectMany(e => e).Where(e => eventTypes.Contains(e.EventKey.Type)));
         }
 
         public void Save(IEnumerable<EventModel> events)
@@ -44,6 +62,25 @@ namespace Neptuo.EventSourcing
 
                 entities.AddRange(events);
             }
+        }
+    }
+
+    public class MockSnapshotStore : ISnapshotStore
+    {
+        private readonly Dictionary<IKey, ISnapshot> storage = new Dictionary<IKey, ISnapshot>();
+
+        public ISnapshot Find(IKey aggregateKey)
+        {
+            ISnapshot result;
+            if (storage.TryGetValue(aggregateKey, out result))
+                return result;
+
+            return null;
+        }
+
+        public void Save(ISnapshot snapshot)
+        {
+            storage[snapshot.AggregateKey] = snapshot;
         }
     }
 
@@ -88,6 +125,95 @@ namespace Neptuo.EventSourcing
         {
             Ensure.NotNull(service, "service");
             Service = service;
+        }
+    }
+
+    public class ReadModelHandler : IEventHandler<OrderPlaced>, IEventHandler<OrderTotalRecalculated>
+    {
+        public Dictionary<IKey, decimal> Totals { get; private set; }
+
+        public ReadModelHandler()
+        {
+            Totals = new Dictionary<IKey, decimal>();
+        }
+
+        public Task HandleAsync(OrderPlaced payload)
+        {
+            Totals[payload.AggregateKey] = 0;
+            return Async.CompletedTask;
+        }
+
+        public Task HandleAsync(OrderTotalRecalculated payload)
+        {
+            Totals[payload.AggregateKey] = payload.TotalPrice;
+            return Async.CompletedTask;
+        }
+    }
+
+
+    public class SlowCommand : Command
+    { }
+
+    public class FastCommand : Command
+    { }
+
+    public class CommandHandlerService
+    {
+        private readonly object logLock = new object();
+
+        public List<CommandType> Log { get; private set; }
+
+        public CommandHandlerService()
+        {
+            Log = new List<CommandType>();
+        }
+
+        public void AddLog(CommandType log)
+        {
+            lock (logLock)
+            {
+                Log.Add(log);
+            }
+        }
+    }
+
+    public enum CommandType
+    {
+        Slow,
+        Fast
+    }
+
+    public class SlowCommandHandler : ICommandHandler<SlowCommand>
+    {
+        private readonly CommandHandlerService service;
+
+        public SlowCommandHandler(CommandHandlerService service)
+        {
+            Ensure.NotNull(service, "service");
+            this.service = service;
+        }
+
+        public async Task HandleAsync(SlowCommand command)
+        {
+            await Task.Delay(2000);
+            service.AddLog(CommandType.Slow);
+        }
+    }
+
+    public class FastCommandHandler : ICommandHandler<FastCommand>
+    {
+        private readonly CommandHandlerService service;
+
+        public FastCommandHandler(CommandHandlerService service)
+        {
+            Ensure.NotNull(service, "service");
+            this.service = service;
+        }
+
+        public async Task HandleAsync(FastCommand command)
+        {
+            await Task.Delay(100);
+            service.AddLog(CommandType.Fast);
         }
     }
 }

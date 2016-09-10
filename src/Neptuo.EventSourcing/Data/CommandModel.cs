@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 namespace Neptuo.Data
 {
     /// <summary>
-    /// Describes serialized command with metadata.
+    /// Entity for persisting command.
     /// </summary>
     public class CommandModel
     {
         /// <summary>
-        /// The key of the command.
+        /// Gets or sets the key of the command.
         /// </summary>
         public IKey CommandKey { get; set; }
 
         /// <summary>
-        /// Serialized event payload.
+        /// Gets or sets a serialized command body.
         /// </summary>
         public string Payload { get; set; }
         
         /// <summary>
-        /// The date and time when this event has raised.
+        /// Gets or sets the date and time when the command has raised.
         /// </summary>
         public DateTime RaisedAt { get; set; }
 
@@ -39,7 +39,7 @@ namespace Neptuo.Data
         /// Creates new instance and fills values.
         /// </summary>
         /// <param name="commandKey">The key of the command.</param>
-        /// <param name="payload">Serialized event payload.</param>
+        /// <param name="payload">A serialized command body.</param>
         public CommandModel(IKey commandKey, string payload)
             : this()
         {

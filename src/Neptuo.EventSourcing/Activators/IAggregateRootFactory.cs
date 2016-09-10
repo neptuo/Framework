@@ -1,5 +1,6 @@
 ﻿using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Snapshots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,14 @@ namespace Neptuo.Activators
         /// <param name="events">The enumeration of the events representing current state.</param>
         /// <returns>The refreshed instance of the aggregate root.</returns>
         T Create(IKey aggregateKey, IEnumerable<object> events);
+
+        /// <summary>
+        /// Creates instance of the aggregate and replays <paramref name="events"/>.
+        /// </summary>
+        /// <param name="aggregateKey">The key of the aggreage.</param>
+        /// <param name="snapshot">The snapshot to apply as base state.</param>
+        /// <param name="events">The enumeration of the events representing current state.</param>
+        /// <returns>The refreshed instance of the aggregate root.</returns>
+        T Create(IKey aggregateKey, ISnapshot snapshot, IEnumerable<object> events);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Neptuo.Collections.Specialized;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,47 @@ namespace Neptuo.Internals
         {
             Ensure.NotNull(envelope, "envelope");
             return envelope.Metadata.Get<TimeSpan>("Delay");
+        }
+
+        #endregion
+
+        #region SourceCommandKey
+
+        /// <summary>
+        /// Sets 'SourceCommandKey' to the metadata of the <paramref name="envelope"/>.
+        /// </summary>
+        /// <param name="envelope">The envelope which metadata to extend.</param>
+        /// <param name="value">The vale of the 'SourceCommandKey'.</param>
+        /// <returns><paramref name="envelope"/>(for fluency).</returns>
+        public static Envelope AddSourceCommandKey(this Envelope envelope, IKey value)
+        {
+            Ensure.NotNull(envelope, "envelope");
+            envelope.Metadata.Add("SourceCommandKey", value);
+            return envelope;
+        }
+
+        /// <summary>
+        /// Tries to read 'SourceCommandKey' from the metadata of the <paramref name="envelope"/>.
+        /// </summary>
+        /// <param name="envelope">The envelope to read the metadata from.</param>
+        /// <param name="value">The value of the 'SourceCommandKey'.</param>
+        /// <returns><c>true</c> if 'SourceCommandKey' can is contained in the <paramref name="envelope"/>; <c>false</c> otherwise.</returns>
+        public static bool TryGetSourceCommandKey(this Envelope envelope, out IKey value)
+        {
+            Ensure.NotNull(envelope, "envelope");
+            return envelope.Metadata.TryGet("SourceCommandKey", out value);
+        }
+
+        /// <summary>
+        /// Reads 'SourceCommandKey' from the metadata of the <paramref name="envelope"/> or throws <see cref="InvalidOperationException"/>.
+        /// </summary>
+        /// <param name="envelope">The envelope to read the metadata from.</param>
+        /// <returns>The value associated with the 'SourceCommandKey' or throws <see cref="InvalidOperationException"/>.</returns>
+        /// <exception cref="InvalidOperationException">When the 'SourceCommandKey' is not contained in the metadata of the <paramref name="envelope"/>.</exception>
+        public static IKey GetSourceCommandKey(this Envelope envelope)
+        {
+            Ensure.NotNull(envelope, "envelope");
+            return envelope.Metadata.Get<IKey>("SourceCommandKey");
         }
 
         #endregion
