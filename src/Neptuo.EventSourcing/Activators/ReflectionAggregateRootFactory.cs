@@ -169,7 +169,7 @@ namespace Neptuo.Activators
                 }
             }
 
-            return (T)historyConstructorInfo.Invoke(parameters);
+            return (T)snapshotConstructorInfo.Invoke(parameters);
         }
     }
 }

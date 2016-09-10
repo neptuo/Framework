@@ -81,29 +81,34 @@ namespace Neptuo.Data
         public enum Method
         {
             /// <summary>
+            /// None
+            /// </summary>
+            None = 0,
+
+            /// <summary>
             /// <see cref="ICommandStore.Save(CommandModel)"/>.
             /// </summary>
-            Save,
+            Save = 1,
 
             /// <summary>
             /// <see cref="ICommandStore.Save(IEnumerable{CommandModel})"/>.
             /// </summary>
-            SaveAll,
+            SaveAll = 2,
 
             /// <summary>
             /// <see cref="ICommandPublishingStore.ClearAsync"/>.
             /// </summary>
-            Clear,
+            Clear = 4,
 
             /// <summary>
             /// <see cref="ICommandPublishingStore.GetAsync"/>.
             /// </summary>
-            Get,
+            Get = 8,
 
             /// <summary>
             /// <see cref="ICommandPublishingStore.PublishedAsync(IKey)"/>.
             /// </summary>
-            Publish
+            Publish = 16
         }
     }
 }

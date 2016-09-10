@@ -119,9 +119,14 @@ namespace Neptuo.Data
         public enum Method
         {
             /// <summary>
+            /// None
+            /// </summary>
+            None = 0,
+
+            /// <summary>
             /// <see cref="IEventStore.Get(IKey)"/>.
             /// </summary>
-            Get,
+            Get = 1,
 
             /// <summary>
             /// <see cref="IEventStore.Get(IKey, int)"/>.
@@ -131,27 +136,27 @@ namespace Neptuo.Data
             /// <summary>
             /// <see cref="IEventStore.Save(IEnumerable{EventModel})"/>
             /// </summary>
-            Save,
+            Save = 2,
 
             /// <summary>
             /// <see cref="IEventPublishingStore.GetAsync"/>.
             /// </summary>
-            GetUnpublished,
+            GetUnpublished = 4,
 
             /// <summary>
             /// <see cref="IEventPublishingStore.ClearAsync"/>.
             /// </summary>
-            Clear,
+            Clear = 8,
 
             /// <summary>
             /// <see cref="IEventPublishingStore.PublishedAsync(IKey, string)"/>.
             /// </summary>
-            Publish,
+            Publish = 16,
 
             /// <summary>
             /// <see cref="IEventRebuilderStore.GetAsync(IEnumerable{string})"/>.
             /// </summary>
-            GetOfTypes
+            GetOfTypes = 32
         }
     }
 }

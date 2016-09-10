@@ -81,8 +81,11 @@ namespace Neptuo.Models.Domains
 
         /// <summary>
         /// Loads instance with <paramref name="key"/>.
+        /// In order to process <paramref name="snapshot"/> method <see cref="LoadSnapshot(ISnapshot)"/> must be overriden,
+        /// otherwise exception is thrown.
         /// </summary>
         /// <param name="key">The key of this instance.</param>
+        /// <param name="snapshot">The latest aggregate state snapshot.</param>
         /// <param name="events">The enumeration of events describing current state.</param>
         protected AggregateRoot(IKey key, ISnapshot snapshot, IEnumerable<IEvent> events)
         {
@@ -94,6 +97,8 @@ namespace Neptuo.Models.Domains
             Key = key;
 
             LoadSnapshot(snapshot);
+            Version = snapshot.Version;
+
             foreach (IEvent payload in events.OrderBy(e => e.Version))
             {
                 handlers.Publish(this, payload);

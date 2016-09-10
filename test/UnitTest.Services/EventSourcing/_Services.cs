@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Models.Snapshots;
 
 namespace Neptuo.EventSourcing
 {
@@ -61,6 +62,25 @@ namespace Neptuo.EventSourcing
 
                 entities.AddRange(events);
             }
+        }
+    }
+
+    public class MockSnapshotStore : ISnapshotStore
+    {
+        private readonly Dictionary<IKey, ISnapshot> storage = new Dictionary<IKey, ISnapshot>();
+
+        public ISnapshot Find(IKey aggregateKey)
+        {
+            ISnapshot result;
+            if (storage.TryGetValue(aggregateKey, out result))
+                return result;
+
+            return null;
+        }
+
+        public void Save(ISnapshot snapshot)
+        {
+            storage[snapshot.AggregateKey] = snapshot;
         }
     }
 
