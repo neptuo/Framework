@@ -80,6 +80,7 @@
     <Compile Include="Models\Snapshots\ISnapshotProvider.cs" />
     <Compile Include="Models\Snapshots\NoSnapshotProvider.cs" />
     <Compile Include="Models\Snapshots\SelfSnapshotProvider.cs" />
+    <Compile Include="Models\Snapshots\SnapshotNotSupportedExeception.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="_EnvelopeExecutionExtensions.cs" />
