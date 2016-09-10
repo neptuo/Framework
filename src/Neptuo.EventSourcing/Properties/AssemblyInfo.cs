@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 #if !DEBUG
 
 Fix version attribute!
+Fix reference to Domains!
 
 #endif
 
