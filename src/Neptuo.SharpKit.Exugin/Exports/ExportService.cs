@@ -35,6 +35,15 @@ namespace Neptuo.SharpKit.Exugin.Exports
             XmlDocument document = new XmlDocument();
             document.Load(GetConfigurationFilename(assembly));
 
+            if (result.ExternalAttributes == null)
+                result.ExternalAttributes = new HashSet<string>();
+
+            foreach (XmlElement element in document.GetElementsByTagName("ExternalAttributes"))
+            {
+                foreach (XmlElement typeElement in element.GetElementsByTagName("Type"))
+                    result.ExternalAttributes.Add(typeElement.GetAttribute("Target"));
+            }
+
             foreach (XmlElement element in document.GetElementsByTagName("Export"))
                 result.DefaultExport = LoadExport(element);
 

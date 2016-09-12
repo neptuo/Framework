@@ -46,6 +46,9 @@ namespace Neptuo.SharpKit.Exugin.Exports
 
         private void ProcessRegistry(IAssembly assembly, ICustomAttributeProvider attributeProvider, ExportRegistry registry)
         {
+            foreach (string typeName in registry.ExternalAttributes)
+                attributeProvider.AddCustomAttribute(assembly, new JsTypeAttribute { TargetTypeName = typeName, Export = true });
+
             foreach (ITypeDefinition type in assembly.GetAllTypeDefinitions())
             {
                 LogDebug("Processing type '{0}'", type.FullName);

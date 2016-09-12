@@ -30,6 +30,11 @@ namespace Neptuo.SharpKit.Exugin.Exports
         public ExportItem DefaultExport { get; set; }
 
         /// <summary>
+        /// List of external attribute type names to add to the export.
+        /// </summary>
+        public HashSet<string> ExternalAttributes { get; set; }
+
+        /// <summary>
         /// Adds registration for namespace.
         /// </summary>
         /// <param name="item">Namespace registration item.</param>

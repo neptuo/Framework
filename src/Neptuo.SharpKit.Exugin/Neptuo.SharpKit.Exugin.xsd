@@ -62,6 +62,17 @@
     <xs:element name="Exugin">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="ExternalAttributes" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Type" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="Target" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="Export" minOccurs="0" maxOccurs="1">
                     <xs:complexType>
                         <xs:attribute name="Filename" type="xs:string" use="required" />
