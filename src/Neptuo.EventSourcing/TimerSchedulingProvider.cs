@@ -72,7 +72,7 @@ namespace Neptuo
                 TimeSpan delay = dateTimeProvider.GetExecutionDelay(executeAt);
                 if (delay > longRunnerThreshold)
                 {
-                    longRunners.Add(context);
+                    ScheduleLongRunner(context);
                 }
                 else if (delay > TimeSpan.Zero)
                 {
@@ -136,7 +136,7 @@ namespace Neptuo
                             OnLongRunnerScheduled,
                             null,
                             longRunnerThreshold,
-                            TimeSpan.FromSeconds(-1)
+                            TimeSpan.FromMilliseconds(-1)
                         );
                     }
 
