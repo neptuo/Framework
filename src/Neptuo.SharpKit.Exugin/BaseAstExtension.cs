@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     public abstract class BaseAstExtension : BaseExtension
     {

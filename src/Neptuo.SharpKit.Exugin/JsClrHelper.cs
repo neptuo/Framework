@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpKit.JavaScript.Ast;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     /// <summary>
     /// Helper pro práci s Sharpkitím astem.

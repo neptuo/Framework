@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace Neptuo.SharpKit.Exugin.Exports
+namespace SharpKit.UnobtrusiveFeatures.Exports
 {
     public static class XmlUtil
     {

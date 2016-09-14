@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin.Exports
+namespace SharpKit.UnobtrusiveFeatures.Exports
 {
     public class NamespaceRegistry
     {

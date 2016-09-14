@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharpKit.JavaScript.Ast;
 
-namespace Neptuo.SharpKit.Exugin.Expressions
+namespace SharpKit.UnobtrusiveFeatures.Expressions
 {
     public class ExpressionVisitor : JsNodeVisitor
     {

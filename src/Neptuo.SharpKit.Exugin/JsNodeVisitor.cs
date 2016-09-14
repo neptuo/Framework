@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using SharpKit.JavaScript.Ast;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     public class JsNodeVisitor : JsNodeVisitorBase
     {

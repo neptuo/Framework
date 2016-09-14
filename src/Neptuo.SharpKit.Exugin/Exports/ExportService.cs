@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace Neptuo.SharpKit.Exugin.Exports
+namespace SharpKit.UnobtrusiveFeatures.Exports
 {
     public class ExportService
     {

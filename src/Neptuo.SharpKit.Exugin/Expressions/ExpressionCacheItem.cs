@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ICSharpCode.NRefactory.TypeSystem;
 
-namespace Neptuo.SharpKit.Exugin.Expressions
+namespace SharpKit.UnobtrusiveFeatures.Expressions
 {
     /// <summary>
     /// Položka cache.

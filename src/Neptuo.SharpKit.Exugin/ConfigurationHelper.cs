@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     /// <summary>
     /// Helper pro vytažení hodnot z konfigurace.

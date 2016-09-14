@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Neptuo.SharpKit.Exugin.Exports
+namespace SharpKit.UnobtrusiveFeatures.Exports
 {
     public class ExportItem
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using ICSharpCode.NRefactory.TypeSystem;
 using SharpKit.JavaScript.Ast;
 
-namespace Neptuo.SharpKit.Exugin.Expressions
+namespace SharpKit.UnobtrusiveFeatures.Expressions
 {
     public class ExpressionExtension : BaseExtension
     {

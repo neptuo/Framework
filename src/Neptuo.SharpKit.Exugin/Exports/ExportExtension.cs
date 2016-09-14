@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Neptuo.SharpKit.Exugin.Exports
+namespace SharpKit.UnobtrusiveFeatures.Exports
 {
     public class ExportExtension : BaseExtension
     {

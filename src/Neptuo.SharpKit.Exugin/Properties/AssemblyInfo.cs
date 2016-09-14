@@ -1,4 +1,4 @@
-﻿using Neptuo.SharpKit.Exugin;
+﻿using SharpKit.UnobtrusiveFeatures;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Neptuo.SharpKit.Exugin")]
+[assembly: AssemblyTitle("SharpKit.UnobtrusiveFeatures")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Neptuo.SharpKit.Exugin")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCompany("maraf")]
+[assembly: AssemblyProduct("SharpKit.UnobtrusiveFeatures")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,5 +34,5 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion(VersionInfo.Version)]
-[assembly: AssemblyInformationalVersion(VersionInfo.Version + "-beta1")]
+[assembly: AssemblyInformationalVersion(VersionInfo.Version + VersionInfo.BetaSuffix)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]

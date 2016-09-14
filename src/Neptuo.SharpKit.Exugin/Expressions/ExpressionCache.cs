@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin.Expressions
+namespace SharpKit.UnobtrusiveFeatures.Expressions
 {
     /// <summary>
     /// Cache pro přístup k metodám, které mají mezi parametry System.Linq.Expressions.Expression.

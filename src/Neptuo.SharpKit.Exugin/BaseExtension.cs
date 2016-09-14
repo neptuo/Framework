@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     /// <summary>
     /// Bázové rozšíření pluginu. Umožňuje logovat informace na základně nastavení <see cref="debug"/>.

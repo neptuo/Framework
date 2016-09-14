@@ -1,7 +1,7 @@
 ﻿using ICSharpCode.NRefactory.TypeSystem;
-using Neptuo.SharpKit.Exugin.ClassMetaExports;
-using Neptuo.SharpKit.Exugin.Exports;
-using Neptuo.SharpKit.Exugin.Expressions;
+using SharpKit.UnobtrusiveFeatures.ClassMetaExports;
+using SharpKit.UnobtrusiveFeatures.Exports;
+using SharpKit.UnobtrusiveFeatures.Expressions;
 using SharpKit.Compiler;
 using SharpKit.JavaScript.Ast;
 using System;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.SharpKit.Exugin
+namespace SharpKit.UnobtrusiveFeatures
 {
     public class ExuginPlugin : ICompilerPlugin
     {
