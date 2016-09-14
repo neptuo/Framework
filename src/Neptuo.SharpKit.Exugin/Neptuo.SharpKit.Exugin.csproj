@@ -84,10 +84,10 @@
     <Compile Include="Properties\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Neptuo.SharpKit.Exugin.xsd">
+    <None Include="SharpKit.UnobtrusiveFeatures.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Neptuo.SharpKit.Exugin.dll.config">
+    <None Include="SharpKit.UnobtrusiveFeatures.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />

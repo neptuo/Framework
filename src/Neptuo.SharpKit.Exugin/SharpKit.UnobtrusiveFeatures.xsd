@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema id="Exugin"
-    targetNamespace="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd"
+<xs:schema id="SharpKit.UnobtrusiveFeatures"
+    targetNamespace="http://schemas.neptuo.com/xsd/sharpkit-unobtrusivefeatures.xsd"
     elementFormDefault="qualified"
-    xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd"
+    xmlns="http://schemas.neptuo.com/xsd/sharpkit-unobtrusivefeatures.xsd"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
     <xs:simpleType name="Boolean">
@@ -59,7 +59,7 @@
         <xs:attribute name="Minify" type="Boolean" use="optional" />
     </xs:complexType>
     
-    <xs:element name="Exugin">
+    <xs:element name="UnobtrusiveFeatures">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Export" minOccurs="0" maxOccurs="1">
