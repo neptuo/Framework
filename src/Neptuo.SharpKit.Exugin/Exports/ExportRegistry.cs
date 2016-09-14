@@ -1,5 +1,6 @@
 ﻿using ICSharpCode.NRefactory.TypeSystem;
 using Mirrored.SharpKit.JavaScript;
+using Neptuo.Text.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// Default export settings.
         /// </summary>
         public ExportItem DefaultExport { get; set; }
-        
+
         public ExportRegistry()
         { }
 
@@ -247,20 +248,24 @@ namespace Neptuo.SharpKit.Exugin.Exports
         {
             if (String.IsNullOrEmpty(filename))
             {
-                if (DefaultExport == null)
-                {
-                    if (baseRegistry == null)
-                        return null;
-                    else
-                        return baseRegistry.GetFilenameWithDefaultExport(filename);
-                }
-                else
-                {
-                    filename = DefaultExport.Filename;
-                }
+                filename = FindDefaultFileName();
+                filename = TryApplyTokens(filename, false);
             }
 
             return ApplyFilenameFormat(filename);
+        }
+
+        private string FindDefaultFileName()
+        {
+            if (DefaultExport == null)
+            {
+                if (baseRegistry == null)
+                    return null;
+
+                return baseRegistry.FindDefaultFileName();
+            }
+
+            return DefaultExport.Filename;
         }
 
         /// <summary>
@@ -273,10 +278,51 @@ namespace Neptuo.SharpKit.Exugin.Exports
             if (filename == null)
                 return null;
 
-            if (DefaultExport != null && !String.IsNullOrEmpty(DefaultExport.FilenameFormat))
-                return String.Format(DefaultExport.FilenameFormat, filename);
+            string format = FindDefaultFileNameFormat();
+            if (format == null)
+                return filename;
 
-            return filename;
+            format = TryApplyTokens(format, true);
+            return String.Format(format, filename);
+        }
+
+        private string FindDefaultFileNameFormat()
+        {
+            string format = null;
+
+            if (DefaultExport != null && !String.IsNullOrEmpty(DefaultExport.FilenameFormat))
+                format = DefaultExport.FilenameFormat;
+            else if (baseRegistry != null)
+                format = baseRegistry.FindDefaultFileNameFormat();
+
+            if (String.IsNullOrEmpty(format))
+                return null;
+
+            return format;
+        }
+
+        private Dictionary<string, TokenWriter> formatWriterCache = new Dictionary<string, TokenWriter>();
+
+        private string TryApplyTokens(string template, bool isZeroParameterSupported)
+        {
+            if (Assembly == null)
+                return template;
+
+            TokenWriter writer;
+            if (!formatWriterCache.TryGetValue(template, out writer))
+                formatWriterCache[template] = writer = new TokenWriter(template);
+
+            template = writer.Format(name =>
+            {
+                if (name == "0" && isZeroParameterSupported)
+                    return "{0}";
+                else if (name == "AssemblyName")
+                    return Assembly.AssemblyName;
+
+                return null;
+            });
+
+            return template;
         }
 
         /// <summary>

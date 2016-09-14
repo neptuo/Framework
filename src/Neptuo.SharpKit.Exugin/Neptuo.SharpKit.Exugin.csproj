@@ -36,6 +36,10 @@
     <Reference Include="ICSharpCode.NRefactory.CSharp">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\SharpKit\5\ICSharpCode.NRefactory.CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Neptuo, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.2.0\lib\net45\Neptuo.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="skc5">
       <HintPath>C:\Windows\Microsoft.NET\Framework\v4.0.30319\SharpKit\5\skc5.exe</HintPath>
     </Reference>
@@ -86,6 +90,7 @@
     <None Include="Neptuo.SharpKit.Exugin.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
