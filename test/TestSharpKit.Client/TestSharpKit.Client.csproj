@@ -47,7 +47,7 @@
     <Compile Include="UI\Views\MainView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SharpKit.Exugin.xml">
+    <Content Include="TestSharpKit.Client.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
