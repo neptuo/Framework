@@ -13,6 +13,67 @@ namespace Neptuo.SharpKit.Exugin.Exports
 {
     public class ExportService
     {
+        private readonly Dictionary<string, ExportRegistry> folderCache = new Dictionary<string, ExportRegistry>();
+
+        private ExportRegistry CreateInstance(IAssembly assembly)
+        {
+            Stack<string> applicableFiles = new Stack<string>();
+            string directoryPath = Environment.CurrentDirectory;
+            while (!String.IsNullOrEmpty(directoryPath))
+            {
+                string filePath = Path.Combine(directoryPath, "SharpKit.Exugin.xml"); // TODO: Filename in the configuration.
+                if (File.Exists(filePath))
+                    applicableFiles.Push(filePath);
+
+                directoryPath = Path.GetDirectoryName(directoryPath);
+            }
+
+            ExportRegistry parent = null;
+            while (applicableFiles.Count > 0)
+            {
+                string filePath = applicableFiles.Pop();
+                ExportRegistry item;
+                if (!folderCache.TryGetValue(filePath, out item))
+                    item = LoadFile(filePath, parent);
+
+                parent = item;
+            }
+
+            ExportRegistry result = LoadFile(GetConfigurationFilename(assembly), parent);
+            result.IsExportAssembly = true;
+            result.Assembly = assembly;
+            return result;
+        }
+
+        private ExportRegistry LoadFile(string filePath, ExportRegistry parent)
+        {
+            ExportRegistry result = new ExportRegistry(parent);
+
+            XmlDocument document = new XmlDocument();
+            document.Load(filePath);
+
+            foreach (XmlElement element in document.GetElementsByTagName("ExternalTypes"))
+            {
+                foreach (XmlElement typeElement in element.GetElementsByTagName("Type"))
+                    result.AddExternalType(typeElement.GetAttribute("Target"));
+            }
+
+            foreach (XmlElement element in document.GetElementsByTagName("Export"))
+                result.DefaultExport = LoadExport(element);
+
+            foreach (XmlElement element in document.GetElementsByTagName("Namespace"))
+                result.AddNamespace(LoadNamespace(element, result));
+
+            foreach (XmlElement element in document.GetElementsByTagName("Type"))
+                result.AddType(LoadType(element, result));
+
+            foreach (XmlElement element in document.GetElementsByTagName("Merge"))
+                result.AddMerge(LoadMerge(element));
+
+            result.BuildUp();
+            return result;
+        }
+
         /// <summary>
         /// Loads export registration for assembly.
         /// </summary>
@@ -20,43 +81,16 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// <returns>Export registration for assembly</returns>
         public ExportRegistry Load(IAssembly assembly)
         {
-            ExportRegistry result = new ExportRegistry
-            {
-                IsExportAssembly = true,
-                Assembly = assembly
-            };
-
             if (!IsConfigurationFile(assembly))
             {
-                result.IsExportAssembly = false;
-                return result;
+                return new ExportRegistry()
+                {
+                    IsExportAssembly = false,
+                    Assembly = assembly
+                };
             }
 
-            XmlDocument document = new XmlDocument();
-            document.Load(GetConfigurationFilename(assembly));
-
-            if (result.ExternalAttributes == null)
-                result.ExternalAttributes = new HashSet<string>();
-
-            foreach (XmlElement element in document.GetElementsByTagName("ExternalAttributes"))
-            {
-                foreach (XmlElement typeElement in element.GetElementsByTagName("Type"))
-                    result.ExternalAttributes.Add(typeElement.GetAttribute("Target"));
-            }
-
-            foreach (XmlElement element in document.GetElementsByTagName("Export"))
-                result.DefaultExport = LoadExport(element);
-
-            foreach (XmlElement element in document.GetElementsByTagName("Namespace"))
-                result.AddItem(LoadNamespace(element, result));
-
-            foreach (XmlElement element in document.GetElementsByTagName("Type"))
-                result.AddItem(LoadType(element, result));
-
-            foreach (XmlElement element in document.GetElementsByTagName("Merge"))
-                result.AddItem(LoadMerge(element));
-
-            result.BuildUp();
+            ExportRegistry result = CreateInstance(assembly);
             return result;
         }
 
@@ -139,11 +173,11 @@ namespace Neptuo.SharpKit.Exugin.Exports
         private void LoadItemBase(XmlElement element, RegistryItemBase item, ExportRegistry registry)
         {
             item.Target = XmlUtil.GetAttributeString(element, "Target") ?? String.Empty;
-            item.AutomaticPropertiesAsFields = XmlUtil.GetAttributeBool(element, "AutomaticPropertiesAsFields") ?? registry.GetItem(item.Target).AutomaticPropertiesAsFields;
-            item.Export = XmlUtil.GetAttributeBool(element, "Export") ?? registry.GetItem(item.Target).Export;
-            item.Mode = XmlUtil.GetAttributeEnum<JsMode>(element, "Mode") ?? registry.GetItem(item.Target).Mode;
-            item.PropertiesAsFields = XmlUtil.GetAttributeBool(element, "PropertiesAsFields") ?? registry.GetItem(item.Target).PropertiesAsFields;
-            item.Filename = registry.ApplyFilenameFormat(XmlUtil.GetAttributeString(element, "Filename")) ?? registry.GetItem(item.Target).Filename;
+            item.AutomaticPropertiesAsFields = XmlUtil.GetAttributeBool(element, "AutomaticPropertiesAsFields") ?? registry.GetType(item.Target).AutomaticPropertiesAsFields;
+            item.Export = XmlUtil.GetAttributeBool(element, "Export") ?? registry.GetType(item.Target).Export;
+            item.Mode = XmlUtil.GetAttributeEnum<JsMode>(element, "Mode") ?? registry.GetType(item.Target).Mode;
+            item.PropertiesAsFields = XmlUtil.GetAttributeBool(element, "PropertiesAsFields") ?? registry.GetType(item.Target).PropertiesAsFields;
+            item.Filename = registry.ApplyFilenameFormat(XmlUtil.GetAttributeString(element, "Filename")) ?? registry.GetType(item.Target).Filename;
         }
 
         /// <summary>
