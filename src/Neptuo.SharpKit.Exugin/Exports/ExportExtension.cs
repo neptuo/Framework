@@ -17,10 +17,10 @@ namespace Neptuo.SharpKit.Exugin.Exports
     {
         private ExportService service;
 
-        public ExportExtension(bool debug = false)
+        public ExportExtension(string[] additionalNameFileNames, bool debug = false)
             : base("Export", debug)
         {
-            service = new ExportService();
+            service = new ExportService(additionalNameFileNames);
         }
 
         public void Process(IEnumerable<IAssembly> assemblies, ICustomAttributeProvider attributeProvider)

@@ -14,17 +14,25 @@ namespace Neptuo.SharpKit.Exugin.Exports
     public class ExportService
     {
         private readonly Dictionary<string, ExportRegistry> folderCache = new Dictionary<string, ExportRegistry>();
+        private readonly string[] additionalNameFileNames;
+
+        public ExportService(string[] additionalNameFileNames)
+        {
+            this.additionalNameFileNames = additionalNameFileNames;
+        }
 
         private ExportRegistry CreateInstance(IAssembly assembly)
         {
+            List<string> filenames = GetConfigurationFilenames(assembly);
+
             Stack<string> applicableFiles = new Stack<string>();
             string directoryPath = Environment.CurrentDirectory;
             while (!String.IsNullOrEmpty(directoryPath))
             {
-                string filePath = Path.Combine(directoryPath, "SharpKit.Exugin.xml"); // TODO: Filename in the configuration.
-                if (File.Exists(filePath))
+                IEnumerable<string> filePaths = filenames.Select(f => Path.Combine(directoryPath, f)).Where(File.Exists);
+                foreach (string filePath in filePaths)
                     applicableFiles.Push(filePath);
-
+                
                 directoryPath = Path.GetDirectoryName(directoryPath);
             }
 
@@ -39,16 +47,26 @@ namespace Neptuo.SharpKit.Exugin.Exports
                 parent = item;
             }
 
-            ExportRegistry result = LoadFile(GetConfigurationFilename(assembly), parent);
+            ExportRegistry result = new ExportRegistry(parent);
+            foreach (string filePath in GetConfigurationFilenames(assembly))
+                LoadFileWithoutBuildUp(result, filePath);
+            
             result.IsExportAssembly = true;
             result.Assembly = assembly;
+            result.BuildUp();
             return result;
         }
 
         private ExportRegistry LoadFile(string filePath, ExportRegistry parent)
         {
             ExportRegistry result = new ExportRegistry(parent);
+            LoadFileWithoutBuildUp(result, filePath);
+            result.BuildUp();
+            return result;
+        }
 
+        private void LoadFileWithoutBuildUp(ExportRegistry result, string filePath)
+        {
             XmlDocument document = new XmlDocument();
             document.Load(filePath);
 
@@ -69,9 +87,6 @@ namespace Neptuo.SharpKit.Exugin.Exports
 
             foreach (XmlElement element in document.GetElementsByTagName("Merge"))
                 result.AddMerge(LoadMerge(element));
-
-            result.BuildUp();
-            return result;
         }
 
         /// <summary>
@@ -103,7 +118,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// <returns>True if file exists, false otherwise.</returns>
         public bool IsConfigurationFile(IAssembly assembly)
         {
-            return File.Exists(GetConfigurationFilename(assembly));
+            return GetConfigurationFilenames(assembly).Any(File.Exists);
         }
 
         /// <summary>
@@ -111,10 +126,12 @@ namespace Neptuo.SharpKit.Exugin.Exports
         /// </summary>
         /// <param name="assembly">Assembly definition.</param>
         /// <returns>Name of configuration file.</returns>
-        public string GetConfigurationFilename(IAssembly assembly)
+        public List<string> GetConfigurationFilenames(IAssembly assembly)
         {
-            string assemblyName = assembly.AssemblyName + ".xml";
-            return assemblyName;
+            List<string> result = new List<string>();
+            result.Add(assembly.AssemblyName + ".xml");
+            result.AddRange(additionalNameFileNames);
+            return result;
         }
 
         #endregion

@@ -31,6 +31,20 @@ namespace Neptuo.SharpKit.Exugin
         }
 
         /// <summary>
+        /// Returns configuration property <paramref name="key"/> or <c>null</c>.
+        /// </summary>
+        /// <param name="key">The configuration key.</param>
+        /// <returns>Configuration property <paramref name="key"/> or <c>null</c>.</returns>
+        public string[] GetStringArray(string key)
+        {
+            string value = GetString(key);
+            if (value == null)
+                return null;
+
+            return value.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        /// <summary>
         /// Vrací bool hodnotu přiřazenou k <paramref name="key"/>.
         /// Případně vrací <paramref name="defaultValue"/> pokud nebyl klíč nalezen nebo nelze hodnotu převést na bool.
         /// </summary>
