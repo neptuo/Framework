@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SharpKit.UnobtrusiveFeatures
 {
-    public class ExuginPlugin : ICompilerPlugin
+    public class Plugin : ICompilerPlugin
     {
         private readonly bool debug = false;
 
@@ -48,7 +48,7 @@ namespace SharpKit.UnobtrusiveFeatures
 
         #endregion
 
-        public ExuginPlugin()
+        public Plugin()
         {
             configuration = new ConfigurationHelper();
             debug = configuration.GetBool("Debug");

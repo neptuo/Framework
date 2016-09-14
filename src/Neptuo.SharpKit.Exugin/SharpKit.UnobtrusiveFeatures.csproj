@@ -7,8 +7,8 @@
     <ProjectGuid>{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.SharpKit.Exugin</RootNamespace>
-    <AssemblyName>Neptuo.SharpKit.Exugin</AssemblyName>
+    <RootNamespace>SharpKit.UnobtrusiveFeatures</RootNamespace>
+    <AssemblyName>SharpKit.UnobtrusiveFeatures</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -75,7 +75,7 @@
     <Compile Include="Expressions\ExpressionCacheItem.cs" />
     <Compile Include="Expressions\ExpressionExtension.cs" />
     <Compile Include="Expressions\ExpressionVisitor.cs" />
-    <Compile Include="ExuginPlugin.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="JsClrHelper.cs" />
     <Compile Include="JsNodeVisitor.cs" />
     <Compile Include="JsNodeVisitorBase.cs" />

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
 EndProject
@@ -40,7 +40,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.B
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sharpkit", "Sharpkit", "{C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.Exugin", "src\Neptuo.SharpKit.Exugin\Neptuo.SharpKit.Exugin.csproj", "{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpKit.UnobtrusiveFeatures", "src\Neptuo.SharpKit.Exugin\SharpKit.UnobtrusiveFeatures.csproj", "{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "src\Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
 EndProject
