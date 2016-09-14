@@ -48,7 +48,7 @@ namespace Neptuo.SharpKit.Exugin.Exports
             }
 
             ExportRegistry result = new ExportRegistry(parent);
-            foreach (string filePath in GetConfigurationFilenames(assembly))
+            foreach (string filePath in GetConfigurationFilenames(assembly).Where(File.Exists))
                 LoadFileWithoutBuildUp(result, filePath);
             
             result.IsExportAssembly = true;

@@ -10,6 +10,8 @@ using Mirrored.SharpKit.JavaScript;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
+using ICSharpCode.NRefactory.TypeSystem.Implementation;
+using ICSharpCode.NRefactory.CSharp.TypeSystem;
 
 namespace Neptuo.SharpKit.Exugin.Exports
 {
@@ -30,8 +32,8 @@ namespace Neptuo.SharpKit.Exugin.Exports
 
             if (attributeProvider == null)
                 throw new ArgumentNullException("attributeProvider");
-
-            foreach (IAssembly assembly in assemblies)
+            
+            foreach (IAssembly assembly in assemblies.OfType<CSharpAssembly>())
             {
                 ExportRegistry registry = CreateRegistry(assembly);
                 if (registry.IsExportAssembly)
