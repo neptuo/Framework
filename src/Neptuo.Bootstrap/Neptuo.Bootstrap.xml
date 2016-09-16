@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
+<UnobtrusiveFeatures xmlns="http://schemas.neptuo.com/xsd/sharpkit-unobtrusivefeatures.xsd">
     <Export Filename="Neptuo.Bootstrap.js" FilenameFormat="~/bin/{0}" />
-</Exugin>
+</UnobtrusiveFeatures>

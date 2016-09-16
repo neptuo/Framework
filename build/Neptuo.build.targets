@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="$(DefineConstants.Contains('Javascript'))">
-    <SkcPlugin Include="Neptuo.SharpKit.Exugin.ExuginPlugin, Neptuo.SharpKit.Exugin">
+    <SkcPlugin Include="SharpKit.UnobtrusiveFeatures.Plugin, SharpKit.UnobtrusiveFeatures">
       <InProject>false</InProject>
     </SkcPlugin>
   </ItemGroup>

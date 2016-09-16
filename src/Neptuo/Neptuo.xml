@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Exugin xmlns="http://schemas.neptuo.com/xsd/neptuo-sharpkit-exugin.xsd">
+<UnobtrusiveFeatures xmlns="http://schemas.neptuo.com/xsd/sharpkit-unobtrusivefeatures.xsd">
     <Export Filename="Neptuo.js" FilenameFormat="~/bin/{0}" />
     <Namespace Target="Neptuo.Compilers" Export="False" />
     <Namespace Target="Neptuo.Security.Cryptography" Export="False" />
@@ -7,4 +7,4 @@
     <Type Target="Neptuo.Activators.DependencyServiceProvider" Export="False" />
     <Type Target="Neptuo.CodeDom.Compiler.CsCodeDomCompiler" Export="False" />
     <Type Target="Neptuo.Collections.Specialized.NameValueReadOnlyDictionary" Export="False" />
-</Exugin>
+</UnobtrusiveFeatures>

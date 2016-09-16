@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
 EndProject
@@ -37,10 +37,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.TypeModels.DataAnnotations", "src\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj", "{C4909618-FA01-4E6F-B34B-9F1D24239C87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.Binding", "src\Neptuo.PresentationModels.Binding\Neptuo.PresentationModels.Binding.csproj", "{471E1120-9720-449E-8EC2-7338B58EAF59}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sharpkit", "Sharpkit", "{C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.SharpKit.Exugin", "src\Neptuo.SharpKit.Exugin\Neptuo.SharpKit.Exugin.csproj", "{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "src\Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
 EndProject
@@ -226,10 +222,6 @@ Global
 		{471E1120-9720-449E-8EC2-7338B58EAF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{471E1120-9720-449E-8EC2-7338B58EAF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{471E1120-9720-449E-8EC2-7338B58EAF59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -453,7 +445,6 @@ Global
 		{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{C4909618-FA01-4E6F-B34B-9F1D24239C87} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{471E1120-9720-449E-8EC2-7338B58EAF59} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
-		{8CACA927-89E3-4A2A-B170-9E1ECDB32EE9} = {C7E6D60C-15B3-48CC-BAFF-5EAAFDB6A7FB}
 		{B21273F3-6326-4E7B-8D1C-13D4DB440801} = {C7A50EF1-96E9-4AF2-9DA8-DBC46FC2B5CF}
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
