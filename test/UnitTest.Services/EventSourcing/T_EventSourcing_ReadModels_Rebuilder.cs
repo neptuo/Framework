@@ -32,7 +32,7 @@ namespace Neptuo.EventSourcing
 
             CompositeEventFormatter formatter = new CompositeEventFormatter(
                 new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()),
-                Factory.Getter(() => new JsonCompositeStorage())
+                Factory.Default<JsonCompositeStorage>()
             );
             MockEventStore eventStore = new MockEventStore();
 
