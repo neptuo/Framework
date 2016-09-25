@@ -53,7 +53,7 @@ namespace Neptuo.Events
         /// Creates new instance.
         /// </summary>
         /// <param name="store">The publishing store for command persistent delivery.</param>
-        /// <param name="dateTimeProvider">The provider of current date time for scheduled events.</param>
+        /// <param name="schedulingProvider">The provider of a delay computation for delayed events.</param>
         public PersistentEventDispatcher(IEventPublishingStore store, ISchedulingProvider schedulingProvider)
         {
             Ensure.NotNull(store, "store");
@@ -89,55 +89,63 @@ namespace Neptuo.Events
 
         private Task PublishAsync(IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument, object eventPayload, bool isEnvelopeDelayUsed)
         {
-            bool hasContextHandler = handlers.Any(d => d.IsContext);
-            bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
-
-            object payload = eventPayload;
-            object context = null;
-            Envelope envelope = null;
-
-            IEvent eventWithKey = null;
-            if (argument.IsContext)
+            try
             {
-                // If passed argument is context, throw.
-                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context."));
-            }
-            else
-            {
-                // If passed argument is not context, try to create it if needed.
-                if (argument.IsEnvelope)
+                bool hasContextHandler = handlers.Any(d => d.IsContext);
+                bool hasEnvelopeHandler = hasContextHandler || handlers.Any(d => d.IsEnvelope);
+
+                object payload = eventPayload;
+                object context = null;
+                Envelope envelope = null;
+
+                IEvent eventWithKey = null;
+                if (argument.IsContext)
                 {
-                    // If passed argument is envelope, extract payload.
-                    envelope = (Envelope)payload;
-                    payload = envelope.Body;
+                    // If passed argument is context, throw.
+                    throw Ensure.Exception.NotSupported("PersistentEventDispatcher doesn't support passing in event handler context.");
                 }
                 else
                 {
+                    // If passed argument is not context, try to create it if needed.
+                    if (argument.IsEnvelope)
+                    {
+                        // If passed argument is envelope, extract payload.
+                        envelope = (Envelope)payload;
+                        payload = envelope.Body;
+                    }
+                    else
+                    {
+                        eventWithKey = payload as IEvent;
+                        hasEnvelopeHandler = hasEnvelopeHandler || eventWithKey != null;
+
+                        // If passed argument is not envelope, try to create it if needed.
+                        if (hasEnvelopeHandler)
+                            envelope = EnvelopeFactory.Create(payload, argument.ArgumentType);
+                    }
+
+                    if (hasContextHandler)
+                    {
+                        Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
+                        context = Activator.CreateInstance(contextType, envelope, this, this);
+                    }
+                }
+
+                if (eventWithKey == null)
                     eventWithKey = payload as IEvent;
-                    hasEnvelopeHandler = hasEnvelopeHandler || eventWithKey != null;
 
-                    // If passed argument is not envelope, try to create it if needed.
-                    if (hasEnvelopeHandler)
-                        envelope = EnvelopeFactory.Create(payload, argument.ArgumentType);
-                }
+                // If isEnvelopeDelayUsed, try to schedule the execution.
+                // If succeeded, return.
+                if (isEnvelopeDelayUsed && TrySchedule(envelope, context, handlers, argument))
+                    return Async.CompletedTask;
 
-                if (hasContextHandler)
-                {
-                    Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
-                    context = Activator.CreateInstance(contextType, envelope, this, this);
-                }
+                // Distribute the execution.
+                return DistributeExecution(payload, context, envelope, eventWithKey, handlers);
             }
-
-            if (eventWithKey == null)
-                eventWithKey = payload as IEvent;
-
-            // If isEnvelopeDelayUsed, try to schedule the execution.
-            // If succeeded, return.
-            if (isEnvelopeDelayUsed && TrySchedule(envelope, context, handlers, argument))
+            catch (Exception e)
+            {
+                DispatcherExceptionHandlers.Handle(e);
                 return Async.CompletedTask;
-
-            // Distribute the execution.
-            return DistributeExecution(payload, context, envelope, eventWithKey, handlers);
+            }
         }
 
         private bool TrySchedule(Envelope envelope, object handlerContext, IEnumerable<HandlerDescriptor> handlers, ArgumentDescriptor argument)
@@ -187,10 +195,10 @@ namespace Neptuo.Events
         private void OnScheduledEvent(ScheduleEventContext context)
         {
             DistributeExecution(
-                context.Envelope.Body, 
-                context.HandlerContext, 
-                context.Envelope, 
-                context.Envelope.Body as IEvent, 
+                context.Envelope.Body,
+                context.HandlerContext,
+                context.Envelope,
+                context.Envelope.Body as IEvent,
                 context.Handlers
             ).Wait();
         }

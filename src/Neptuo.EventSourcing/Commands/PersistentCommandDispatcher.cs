@@ -126,61 +126,66 @@ namespace Neptuo.Commands
 
         private async Task HandleInternalAsync(HandlerDescriptor handler, ArgumentDescriptor argument, object commandPayload, bool isPersistenceUsed, bool isEnvelopeDelayUsed)
         {
-            bool hasContextHandler = handler.IsContext;
-            bool hasEnvelopeHandler = hasContextHandler || handler.IsEnvelope;
-
-            object payload = commandPayload;
-            object context = null;
-            Envelope envelope = null;
-
-            ICommand commandWithKey = null;
-            if (argument.IsContext)
+            try
             {
-                // If passed argument is context, throw.
-                DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context."));
-            }
-            else
-            {
-                // If passed argument is not context, try to create it if needed.
-                if (argument.IsEnvelope)
+                bool hasContextHandler = handler.IsContext;
+                bool hasEnvelopeHandler = hasContextHandler || handler.IsEnvelope;
+
+                object payload = commandPayload;
+                object context = null;
+                Envelope envelope = null;
+
+                ICommand commandWithKey = null;
+                if (argument.IsContext)
                 {
-                    // If passed argument is envelope, extract payload.
-                    envelope = (Envelope)payload;
-                    payload = envelope.Body;
+                    // If passed argument is context, throw.
+                    throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context.");
                 }
                 else
                 {
+                    // If passed argument is not context, try to create it if needed.
+                    if (argument.IsEnvelope)
+                    {
+                        // If passed argument is envelope, extract payload.
+                        envelope = (Envelope)payload;
+                        payload = envelope.Body;
+                    }
+                    else
+                    {
+                        commandWithKey = payload as ICommand;
+                        hasEnvelopeHandler = hasEnvelopeHandler || commandWithKey != null;
+
+                        // If passed argument is not envelope, try to create it if needed.
+                        if (hasEnvelopeHandler)
+                            envelope = EnvelopeFactory.Create(payload, argument.ArgumentType);
+                    }
+
+                    if (hasContextHandler)
+                        throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context.");
+                }
+
+                if (commandWithKey == null)
                     commandWithKey = payload as ICommand;
-                    hasEnvelopeHandler = hasEnvelopeHandler || commandWithKey != null;
 
-                    // If passed argument is not envelope, try to create it if needed.
-                    if (hasEnvelopeHandler)
-                        envelope = EnvelopeFactory.Create(payload, argument.ArgumentType);
-                }
-
-                if (hasContextHandler)
+                // If we have command with the key, serialize it for persisten delivery.
+                if (store != null && isPersistenceUsed && commandWithKey != null)
                 {
-                    DispatcherExceptionHandlers.Handle(Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context."));
+                    string serializedEnvelope = await formatter.SerializeAsync(envelope);
+                    store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
                 }
+
+                // If isEnvelopeDelayUsed, try to schedule the execution.
+                // If succeeded, return.
+                if (isEnvelopeDelayUsed && TrySchedule(envelope, handler, argument))
+                    return;
+
+                // Distribute the execution.
+                DistributeExecution(payload, context, envelope, commandWithKey, handler);
             }
-
-            if (commandWithKey == null)
-                commandWithKey = payload as ICommand;
-
-            // If we have command with the key, serialize it for persisten delivery.
-            if (store != null && isPersistenceUsed && commandWithKey != null)
+            catch (Exception e)
             {
-                string serializedEnvelope = await formatter.SerializeAsync(envelope);
-                store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
+                DispatcherExceptionHandlers.Handle(e);
             }
-
-            // If isEnvelopeDelayUsed, try to schedule the execution.
-            // If succeeded, return.
-            if (isEnvelopeDelayUsed && TrySchedule(envelope, handler, argument))
-                return;
-
-            // Distribute the execution.
-            DistributeExecution(payload, context, envelope, commandWithKey, handler);
         }
 
         private bool TrySchedule(Envelope envelope, HandlerDescriptor handler, ArgumentDescriptor argument)
@@ -246,10 +251,10 @@ namespace Neptuo.Commands
         {
             // The null passed because we currently don't support contexts.
             DistributeExecution(
-                context.Envelope.Body, 
-                null, 
-                context.Envelope, 
-                context.Envelope.Body as ICommand, 
+                context.Envelope.Body,
+                null,
+                context.Envelope,
+                context.Envelope.Body as ICommand,
                 context.Handler
             );
         }
