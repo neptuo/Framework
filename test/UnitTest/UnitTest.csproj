@@ -72,7 +72,8 @@
     <Compile Include="Activators\T_Activators_Unity.cs" />
     <Compile Include="Behaviors\T_Behaviors_Base.cs" />
     <Compile Include="Behaviors\_Services.cs" />
-    <Compile Include="Converters\T_Converter.cs" />
+    <Compile Include="Converters\T_Converters_ConverterRepository.cs" />
+    <Compile Include="Converters\T_Converters_Converter.cs" />
     <Compile Include="Converters\_Services.cs" />
     <Compile Include="Globalization\T_Globalization_CultureInfo.cs" />
     <Compile Include="Localization\T_Localization.cs" />

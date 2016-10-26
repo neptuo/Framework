@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Converters
 {
     [TestClass]
-    public class T_Converter
+    public class T_Converters_ConverterRepository
     {
         [TestMethod]
         public void ToString()
