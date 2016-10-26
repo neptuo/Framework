@@ -153,5 +153,118 @@ namespace Neptuo.Converters
             // Convert using general converter.
             return converter.TryConvert(sourceType, targetType, sourceValue, out targetValue);
         }
+
+        public Func<TSource, TTarget> GetConverter<TSource, TTarget>()
+        {
+            Type sourceType = typeof(TSource);
+            Type targetType = typeof(TTarget);
+
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+                return sourceValue => (TTarget)(object)sourceValue;
+
+            // Find converter, look in storage or find using search handler.
+            IConverter converter = null;
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, conversion is not possible.
+            if (converter == null)
+            {
+                return sourceValue =>
+                {
+                    // If source value is null, return default value.
+                    if (sourceValue == null)
+                        return default(TTarget);
+
+                    return default(TTarget);
+                };
+            }
+
+            // Try cast to generic converter.
+            IConverter<TSource, TTarget> genericConverter = converter as IConverter<TSource, TTarget>;
+            if (genericConverter != null)
+            {
+                return sourceValue =>
+                {
+                    TTarget targetValue;
+                    if (genericConverter.TryConvert(sourceValue, out targetValue))
+                        return targetValue;
+
+                    throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
+                };
+            }
+
+            return sourceValue =>
+            {
+                // Convert using general converter.
+                object targetObject;
+                if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                    return (TTarget)targetObject;
+
+                // No other options for conversion.
+                return default(TTarget);
+            };
+        }
+
+        public OutFunc<TSource, TTarget, bool> GetTryConverter<TSource, TTarget>()
+        {
+            Type sourceType = typeof(TSource);
+            Type targetType = typeof(TTarget);
+
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+            {
+                return (TSource sourceValue, out TTarget targetValue) =>
+                {
+                    targetValue = (TTarget)(object)sourceValue;
+                    return true;
+                };
+            }
+
+            // Find converter, look in storage or find using search handler.
+            IConverter converter = null;
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, conversion is not possible.
+            if (converter == null)
+            {
+                return (TSource sourceValue, out TTarget targetValue) =>
+                {
+                    // If source value is null, return default value.
+                    if (sourceValue == null)
+                    {
+                        targetValue = default(TTarget);
+                        return true;
+                    }
+
+                    targetValue = default(TTarget);
+                    return false;
+                };
+            }
+
+            // Try cast to generic converter.
+            IConverter<TSource, TTarget> genericConverter = converter as IConverter<TSource, TTarget>;
+            if (genericConverter != null)
+                return genericConverter.TryConvert;
+
+            // Convert using general converter.
+            return (TSource sourceValue, out TTarget targetValue) =>
+            {
+                object targetObject;
+                if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                {
+                    targetValue = (TTarget)targetObject;
+                    return true;
+                }
+
+                // No other options for conversion.
+                targetValue = default(TTarget);
+                return false;
+            };
+        }
     }
 }
