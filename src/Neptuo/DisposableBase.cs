@@ -27,6 +27,15 @@ namespace Neptuo
             Dispose(false);
         }
 
+        /// <summary>
+        /// Ensures this object is not disposed.
+        /// If <see cref="IsDisposed"/> is <c>true</c>, throws <see cref="ObjectDisposedException"/>.
+        /// </summary>
+        protected void ThrowWhenDisposed()
+        {
+            Ensure.NotDisposed(this, "this");
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -57,6 +66,5 @@ namespace Neptuo
         /// </summary>
         protected virtual void DisposeUnmanagedResources()
         { }
-
     }
 }
