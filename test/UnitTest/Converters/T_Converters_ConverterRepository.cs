@@ -97,5 +97,39 @@ namespace Neptuo.Converters
             Assert.AreEqual(true, Converts.Try(timeSpan, out value));
             Assert.AreEqual("03:00:00", value);
         }
+
+        [TestMethod]
+        public void Context()
+        {
+            Converts.Repository
+                .Add<string, int>(Int32.TryParse)
+                .Add(new StringToListConverter<int>());
+
+            List<int> list;
+            Assert.AreEqual(true, Converts.Try<string, List<int>>("2,34,1", out list));
+            AssertList(list);
+
+            object rawList;
+            Assert.AreEqual(true, Converts.Try(typeof(string), typeof(List<int>), "2,34,1", out rawList));
+            Assert.IsInstanceOfType(rawList, typeof(List<int>));
+            AssertList((List<int>)rawList);
+
+            Func<string, List<int>> converter = Converts.Repository.GetConverter<string, List<int>>();
+            list = converter("2,34,1");
+            AssertList(list);
+
+            OutFunc<string, List<int>, bool> tryConverter = Converts.Repository.GetTryConverter<string, List<int>>();
+            Assert.AreEqual(true, tryConverter("2,34,1", out list));
+            AssertList(list);
+        }
+
+        private void AssertList(List<int> list)
+        {
+            Assert.IsNotNull(list);
+            Assert.AreEqual(3, list.Count);
+            Assert.AreEqual(2, list[0]);
+            Assert.AreEqual(34, list[1]);
+            Assert.AreEqual(1, list[2]);
+        }
     }
 }

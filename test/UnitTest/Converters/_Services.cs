@@ -25,4 +25,27 @@ namespace Neptuo.Converters
         }
     }
 
+    public class StringToListConverter<T> : DefaultConverter<IConverterContext<string>, List<T>>
+    {
+        public override bool TryConvert(IConverterContext<string> context, out List<T> targetValue)
+        {
+            if (String.IsNullOrEmpty(context.SourceValue))
+            {
+                targetValue = new List<T>();
+                return true;
+            }
+
+            targetValue = new List<T>();
+
+            string[] parts = context.SourceValue.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string part in parts)
+            {
+                T item;
+                if (context.Repository.TryConvert(part, out item))
+                    targetValue.Add(item);
+            }
+
+            return true;
+        }
+    }
 }

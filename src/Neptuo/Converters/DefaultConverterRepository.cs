@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,6 +90,10 @@ namespace Neptuo.Converters
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
+            // If no converter was found, try context converters.
+            if (converter == null)
+                return TryConvert<IConverterContext<TSource>, TTarget>(new DefaultConverterContext<TSource>(sourceValue, this), out targetValue);
+
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
@@ -143,6 +148,31 @@ namespace Neptuo.Converters
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
+            // If no converter was found, try context converters.
+            if (converter == null)
+            {
+                Type sourceContextType = typeof(IConverterContext<>).MakeGenericType(sourceType);
+
+                if (!storage.TryGetValue(sourceContextType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                    onSearchConverter.TryExecute(new ConverterSearchContext(sourceContextType, targetType), out converter);
+
+                // If context converter was found, create instance of context.
+                if (converter != null)
+                {
+                    Type concreteContextType = typeof(DefaultConverterContext<>).MakeGenericType(sourceType);
+                    ConstructorInfo concreteContextConstructor = concreteContextType.GetConstructor(new Type[] { sourceType, typeof(IConverterRepository) });
+                    if (concreteContextConstructor != null)
+                    {
+                        sourceValue = concreteContextConstructor.Invoke(new object[] { sourceValue, this });
+                        sourceType = sourceContextType;
+                    }
+                    else
+                    {
+                        converter = null;
+                    }
+                }
+            }
+
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
@@ -168,6 +198,13 @@ namespace Neptuo.Converters
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, try context converters.
+            if (converter == null)
+            {
+                Func<IConverterContext<TSource>, TTarget> result = GetConverter<IConverterContext<TSource>, TTarget>();
+                return sourceValue => result(new DefaultConverterContext<TSource>(sourceValue, this));
+            }
 
             // If no converter was found, conversion is not possible.
             if (converter == null)
@@ -228,6 +265,13 @@ namespace Neptuo.Converters
             Dictionary<Type, IConverter> sourceStorage;
             if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, try context converters.
+            if (converter == null)
+            {
+                OutFunc<IConverterContext<TSource>, TTarget, bool> result = GetTryConverter<IConverterContext<TSource>, TTarget>();
+                return (TSource sourceValue, out TTarget targetValue) => result(new DefaultConverterContext<TSource>(sourceValue, this), out targetValue);
+            }
 
             // If no converter was found, conversion is not possible.
             if (converter == null)

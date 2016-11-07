@@ -79,6 +79,8 @@
     <Compile Include="Compilers\ICompilerResult.cs" />
     <Compile Include="Compilers\_CompilerConfigurationExtensions.cs" />
     <Compile Include="Compilers\_CompilerReferenceCollectionExtensions.cs" />
+    <Compile Include="Converters\DefaultConverterContext.cs" />
+    <Compile Include="Converters\IConverterContext.cs" />
     <Compile Include="Converters\StringToCollectionConverter.cs" />
     <Compile Include="Converters\AutoExports\ConverterAttribute.cs" />
     <Compile Include="Converters\ConverterSearchContext.cs" />
