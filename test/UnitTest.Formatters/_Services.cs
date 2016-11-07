@@ -177,4 +177,18 @@ namespace UnitTest.Formatters
             LastName = param2;
         }
     }
+
+    public class MisspelledParameterName
+    {
+        public string StringProperty1 { get; private set; }
+        public string StringProperty2 { get; private set; }
+        public int IntProperty { get; private set; }
+
+        public MisspelledParameterName(string properti, int value, string property)
+        {
+            StringProperty2 = properti;
+            StringProperty1 = property;
+            IntProperty = value;
+        }
+    }
 }

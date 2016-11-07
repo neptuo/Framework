@@ -112,6 +112,16 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
+        public void Reflection_MisspelledParameterName()
+        {
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(true, provider.TryGet(typeof(MisspelledParameterName), out compositeType));
+
+            object rawInstance = compositeType.Versions.First().Constructor.Factory(new object[] { "1", 2, "3" });
+        }
+
+        [TestMethod]
         public void Manual_FullTest()
         {
             ManualCompositeTypeProvider provider = new ManualCompositeTypeProvider();
