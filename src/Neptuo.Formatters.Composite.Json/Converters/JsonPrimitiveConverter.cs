@@ -67,7 +67,7 @@ namespace Neptuo.Formatters.Converters
             if (jValue.Value == null)
             {
                 targetValue = null;
-                return isNullable;
+                return isNullable || targetType == typeof(string);
             }
 
             targetValue = null;
