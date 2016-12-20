@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Observables.Collections
 {
+    /// <summary>
+    /// An implementation of observable dictionary.
+    /// </summary>
+    /// <typeparam name="TKey">A type of the key.</typeparam>
+    /// <typeparam name="TValue">A type of the value.</typeparam>
     public class ObservableDictionary<TKey, TValue> : IDictionary<TKey, TValue>, INotifyPropertyChanged, INotifyCollectionChanged
     {
         private Dictionary<TKey, TValue> storage = new Dictionary<TKey, TValue>();
