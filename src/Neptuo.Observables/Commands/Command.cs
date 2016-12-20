@@ -49,13 +49,19 @@ namespace Neptuo.Observables.Commands
     }
 
     /// <summary>
-    /// A base implementation of <see cref="ICommand"/> for commands 
+    /// A base implementation of <see cref="ICommand"/> with parameter of type <typeparamref name="T"/>.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">A type of the parameter.</typeparam>
     public abstract class Command<T> : ICommand
     {
+        /// <summary>
+        /// An event raised when the <see cref="CanExecute"/> has changed its value.
+        /// </summary>
         public event EventHandler CanExecuteChanged;
 
+        /// <summary>
+        /// Raises <see cref="CanExecuteChanged"/> safely if there is a listener.
+        /// </summary>
         protected void RaiseCanExecuteChanged()
         {
             CanExecuteChanged?.Invoke(this, EventArgs.Empty);
@@ -66,6 +72,11 @@ namespace Neptuo.Observables.Commands
             return CanExecute((T)parameter);
         }
 
+        /// <summary>
+        /// Returns <c>true</c> is command can be executed.
+        /// </summary>
+        /// <param name="parameter">A parameter for the command.</param>
+        /// <returns><c>true</c> is command can be executed; <c>false</c> otherwise.</returns>
         public abstract bool CanExecute(T parameter);
 
         void ICommand.Execute(object parameter)
@@ -73,6 +84,10 @@ namespace Neptuo.Observables.Commands
             Execute((T)parameter);
         }
 
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="parameter">A parameter for the command.</param>
         public abstract void Execute(T parameter);
     }
 }
