@@ -32,7 +32,7 @@ namespace Neptuo.Models.Domains
             MethodInfo[] methodInfos = type.GetMethods(BindingFlags.Instance | BindingFlags.InvokeMethod | BindingFlags.NonPublic);
             foreach (MethodInfo methodInfo in methodInfos)
             {
-                if (methodInfo.Name == eventMethodName)
+                if (methodInfo.Name == eventMethodName && methodInfo.ReturnType == typeof(void))
                 {
                     ParameterInfo[] parameters = methodInfo.GetParameters();
                     if (parameters.Length == 1)
