@@ -29,7 +29,7 @@ namespace Neptuo.EventSourcing
     public class T_EventSourcing_AggregateRoot
     {
         [TestMethod]
-        public void RegisteringHandlers()
+        public void RegisteringInterfaceHandlers()
         {
             Order order1 = new Order(KeyFactory.Create(typeof(Order)));
             order1.AddItem(GuidKey.Create(Guid.NewGuid(), "Product"), 5);
@@ -41,6 +41,20 @@ namespace Neptuo.EventSourcing
             Assert.AreEqual(typeof(OrderItemAdded), eventEnumerator.Current.GetType());
             Assert.AreEqual(true, eventEnumerator.MoveNext());
             Assert.AreEqual(typeof(OrderTotalRecalculated), eventEnumerator.Current.GetType());
+            Assert.AreEqual(false, eventEnumerator.MoveNext());
+        }
+
+        [TestMethod]
+        public void RegisteringConventionHandlers()
+        {
+            Product product1 = new Product("Socks");
+            product1.ChangeName("T-shirt");
+
+            IEnumerator<object> eventEnumerator = product1.Events.GetEnumerator();
+            Assert.AreEqual(true, eventEnumerator.MoveNext());
+            Assert.AreEqual(typeof(ProductCreated), eventEnumerator.Current.GetType());
+            Assert.AreEqual(true, eventEnumerator.MoveNext());
+            Assert.AreEqual(typeof(ProductNameChanged), eventEnumerator.Current.GetType());
             Assert.AreEqual(false, eventEnumerator.MoveNext());
         }
 

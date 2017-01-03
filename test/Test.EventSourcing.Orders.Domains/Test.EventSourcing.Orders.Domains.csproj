@@ -62,6 +62,8 @@
     <Compile Include="Events\OrderItemSummaryChanged.cs" />
     <Compile Include="Events\OrderPlaced.cs" />
     <Compile Include="Events\OrderTotalRecalculated.cs" />
+    <Compile Include="Events\ProductCreated.cs" />
+    <Compile Include="Events\ProductNameChanged.cs" />
     <Compile Include="MissingOrderException.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderItem.cs" />
