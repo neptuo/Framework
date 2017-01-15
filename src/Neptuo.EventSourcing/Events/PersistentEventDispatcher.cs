@@ -228,7 +228,7 @@ namespace Neptuo.Events
             HashSet<HandlerDescriptor> handlers;
             if (storage.TryGetValue(argument.ArgumentType, out handlers))
             {
-                IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !handlerIdentifiers.Contains(h.HandlerIdentifier));
+                IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !String.IsNullOrEmpty(h.HandlerIdentifier) && !handlerIdentifiers.Contains(h.HandlerIdentifier));
                 if (unPublishedHandlers.Any())
                     await PublishAsync(unPublishedHandlers, argument, model, true);
             }
