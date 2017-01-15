@@ -19,10 +19,24 @@ namespace Neptuo.Formatters
         private readonly ICompositeTypeProvider provider;
         private readonly IFactory<ICompositeStorage> storageFactory;
 
+        /// <summary>
+        /// A collection of composite keys.
+        /// </summary>
         protected static class Name
         {
+            /// <summary>
+            /// Gets a name of the key used for storing values of model.
+            /// </summary>
             public const string Payload = "Payload";
+
+            /// <summary>
+            /// Gets a name of the key used for storing a name of the composite type.
+            /// </summary>
             public const string TypeName = "Name";
+
+            /// <summary>
+            /// Gets a name of the key used for storing an actual version of the composite type.
+            /// </summary>
             public const string Version = "Version";
         }
 
@@ -92,7 +106,7 @@ namespace Neptuo.Formatters
             {
                 object propertyValue = property.Getter(input);
                 if (!TryStoreValue(valueStorage, property.Name, propertyValue))
-                    throw new NotSupportedValueException(property.Type);
+                    throw new NotSupportedValueException(type.Type, property.Name, property.Type, propertyValue);
             }
 
             return true;
@@ -168,7 +182,7 @@ namespace Neptuo.Formatters
             {
                 object value;
                 if (!TryLoadValue(valueStorage, property.Name, property.Type, out value))
-                    throw new NotSupportedValueException(property.Type);
+                    throw new NotSupportedValueException(type.Type, property.Name, property.Type);
 
                 values.Add(value);
             }

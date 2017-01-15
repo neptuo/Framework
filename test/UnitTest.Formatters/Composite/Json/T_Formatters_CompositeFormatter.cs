@@ -20,6 +20,8 @@ namespace UnitTest.Formatters.Composite.Json
     [TestClass]
     public class T_Formatters_CompositeFormatter
     {
+        private CompositeTypeFormatter formatter = new CompositeTypeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
+
         [TestMethod]
         public void Base()
         {
@@ -29,13 +31,21 @@ namespace UnitTest.Formatters.Composite.Json
                 .AddJsonObjectSearchHandler();
 
             UserModel model = new UserModel("John", "Doe");
-            CompositeTypeFormatter formatter = new CompositeTypeFormatter(new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory()), new DefaultFactory<JsonCompositeStorage>());
 
             string json = formatter.Serialize(model);
             Assert.IsNotNull(json);
 
             model = formatter.Deserialize<UserModel>(json);
             Assert.IsNotNull(model);
+        }
+
+        [TestMethod]
+        public void NotSupportedValueException()
+        {
+            CompositeObject model = new CompositeObject(new SingleModel("Doe"));
+
+            string json = formatter.Serialize(model);
+            Assert.IsNotNull(json);
         }
     }
 }

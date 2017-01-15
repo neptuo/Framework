@@ -98,6 +98,16 @@ namespace UnitTest.Formatters
         }
     }
 
+    public class CompositeObject
+    {
+        public SingleModel Single { get; private set; }
+
+        public CompositeObject(SingleModel single)
+        {
+            Single = single;
+        }
+    }
+
     public class BaseObject
     {
         public int Value { get; internal set; }
