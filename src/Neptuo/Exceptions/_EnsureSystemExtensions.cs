@@ -64,6 +64,7 @@ namespace Neptuo
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="InvalidOperationException"/>.</returns>
+        [DebuggerStepThrough]
         public static InvalidOperationException InvalidOperation(this EnsureExceptionHelper guard, string format, params object[] formatParameters)
         {
             Ensure.NotNull(guard, "guard");
