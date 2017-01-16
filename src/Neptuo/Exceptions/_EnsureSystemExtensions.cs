@@ -56,6 +56,20 @@ namespace Neptuo
         }
 
         /// <summary>
+        /// Creates a new instance of the <see cref="NotSupportedException"/> for unsupported <paramref name="value"/> of enum <typeparamref name="TEnum"/>.
+        /// </summary>
+        /// <typeparam name="TEnum">A type of the enum.</typeparam>
+        /// <param name="ensure">An exception helper.</param>
+        /// <param name="value">The not supported value from <typeparamref name="TEnum"/>.</param>
+        /// <returns></returns>
+        [DebuggerStepThrough]
+        public static NotSupportedException NotSupported<TEnum>(this EnsureExceptionHelper ensure, TEnum value)
+            where TEnum : struct
+        {
+            return NotSupported(ensure, "The value '{0}' from the '{1}' is not supported in this context.", value, typeof(TEnum).FullName);
+        }
+
+        /// <summary>
         /// Creates exception <see cref="InvalidOperationException"/> for argument <paramref name="argumentName"/> 
         /// and message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
         /// </summary>
