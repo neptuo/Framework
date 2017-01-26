@@ -23,7 +23,7 @@ namespace Neptuo.Commands
     public partial class PersistentCommandDispatcher : DisposableBase, ICommandDispatcher
     {
         private HandlerDescriptorProvider descriptorProvider;
-        private readonly TreeQueue queue = new TreeQueue();
+        private readonly TreeQueue queue;
         private readonly TreeQueueThreadPool threadPool;
         private readonly ICommandDistributor distributor;
         private readonly ICommandPublishingStore store;
@@ -72,10 +72,11 @@ namespace Neptuo.Commands
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
             Ensure.NotNull(schedulingProvider, "schedulingProvider");
+            this.queue = new TreeQueue();
+            this.threadPool = new TreeQueueThreadPool(queue);
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
-            this.threadPool = new TreeQueueThreadPool(queue);
             this.schedulingProvider = schedulingProvider;
             Initialize();
         }

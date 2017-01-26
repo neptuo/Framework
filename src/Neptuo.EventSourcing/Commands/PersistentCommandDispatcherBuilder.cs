@@ -1,4 +1,5 @@
 ﻿using Neptuo.Data;
+using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using System;
@@ -21,6 +22,9 @@ namespace Neptuo.Commands
         private ICommandPublishingStore store;
         private ISerializer formatter;
         private ISchedulingProvider schedulingProvider;
+
+        private IExceptionHandlerCollection commandExceptionHandlers;
+        private IExceptionHandlerCollection dispatcherExceptionHandlers;
 
         private void EnsureInternals()
         {
@@ -78,6 +82,28 @@ namespace Neptuo.Commands
         }
 
         /// <summary>
+        /// Sets <paramref name="commandExceptionHandlers"/> to be used for handling command processing exceptions.
+        /// </summary>
+        /// <param name="commandExceptionHandlers">A collection of handlers for command processing exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
+        public PersistentCommandDispatcherBuilder UseCommandExceptionHandlers(IExceptionHandlerCollection commandExceptionHandlers)
+        {
+            this.commandExceptionHandlers = commandExceptionHandlers;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets <paramref name="dispatcherExceptionHandlers"/> to be used for handling infrastructure exceptions.
+        /// </summary>
+        /// <param name="dispatcherExceptionHandlers">A collection of handlers for infrastructure exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
+        public PersistentCommandDispatcherBuilder UseDispatcherExceptionHandlers(IExceptionHandlerCollection dispatcherExceptionHandlers)
+        {
+            this.dispatcherExceptionHandlers = dispatcherExceptionHandlers;
+            return this;
+        }
+
+        /// <summary>
         /// Creates new instance of <see cref="PersistentCommandDispatcher"/> based on passed components.
         /// If some of required dependencies are missing, the exception is thrown.
         /// </summary>
@@ -89,7 +115,7 @@ namespace Neptuo.Commands
             Ensure.NotNull(schedulingProvider, "schedulingProvider");
             EnsureInternals();
 
-            return new PersistentCommandDispatcher(
+            PersistentCommandDispatcher dispatcher = new PersistentCommandDispatcher(
                 queue,
                 threadPool,
                 distributor,
@@ -97,6 +123,14 @@ namespace Neptuo.Commands
                 formatter,
                 schedulingProvider
             );
+
+            if (commandExceptionHandlers != null)
+                dispatcher.CommandExceptionHandlers = commandExceptionHandlers;
+
+            if (dispatcherExceptionHandlers != null)
+                dispatcher.DispatcherExceptionHandlers = dispatcherExceptionHandlers;
+
+            return dispatcher;
         }
     }
 }
