@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Neptuo.EventSourcing.PresentationModels
+namespace Neptuo.EventSourcing.PresentationModels.Visualization
 {
     public static class VersionInfo
     {

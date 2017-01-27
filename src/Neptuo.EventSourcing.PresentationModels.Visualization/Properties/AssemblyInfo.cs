@@ -1,4 +1,4 @@
-﻿using Neptuo.EventSourcing.PresentationModels;
+﻿using Neptuo.EventSourcing.PresentationModels.Visualization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
