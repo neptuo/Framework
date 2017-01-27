@@ -26,6 +26,24 @@ namespace Neptuo.PresentationModels
         private readonly TypeModelDefinitionCollection modelDefinitionProvider;
         private readonly IFactory<IModelValueGetter, IEvent> modelValueGetterFactory;
 
+        /// <summary>
+        /// Creates a new instance with <see cref="Converts.Repository"/> and <see cref="ReflectionModelValueProvider"/>.
+        /// </summary>
+        /// <param name="eventStore">A store of the event streams.</param>
+        /// <param name="eventDeserializer">A deserializer for event payload.</param>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, TypeModelDefinitionCollection modelDefinitionProvider)
+            : this(eventStore, eventDeserializer, Converts.Repository, modelDefinitionProvider, Factory.Getter<IModelValueGetter, IEvent>(e => new ReflectionModelValueProvider(e)))
+        { }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="eventStore">A store of the event streams.</param>
+        /// <param name="eventDeserializer">A deserializer for event payload.</param>
+        /// <param name="converters">A repository of converters.</param>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
         public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, IConverterRepository converters, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, IEvent> modelValueGetterFactory)
         {
             Ensure.NotNull(eventStore, "eventStore");
@@ -40,9 +58,31 @@ namespace Neptuo.PresentationModels
             this.modelValueGetterFactory = modelValueGetterFactory;
         }
 
+        /// <summary>
+        /// Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.
+        /// </summary>
+        /// <param name="aggregateKey">A key of the agregate to visalize.</param>
+        /// <returns>Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.</returns>
         public AggregateRootVisualization Create(IKey aggregateKey)
         {
             IEnumerable<EventModel> entities = eventStore.Get(aggregateKey);
+            return Create(aggregateKey, entities);
+        }
+
+        /// <summary>
+        /// Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.
+        /// </summary>
+        /// <param name="aggregateKey">A key of the agregate to visalize.</param>
+        /// <param name="version">A last event version, that is skipped.</param>
+        /// <returns>Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.</returns>
+        public AggregateRootVisualization Create(IKey aggregateKey, int version)
+        {
+            IEnumerable<EventModel> entities = eventStore.Get(aggregateKey, version);
+            return Create(aggregateKey, entities);
+        }
+
+        private AggregateRootVisualization Create(IKey aggregateKey, IEnumerable<EventModel> entities)
+        {
             List<ObjectVisualization> models = new List<ObjectVisualization>();
             foreach (EventModel entity in entities.OrderBy(e => e.Version))
             {
@@ -79,6 +119,11 @@ namespace Neptuo.PresentationModels
             return null;
         }
 
+        /// <summary>
+        /// Creates a visualization of the <paramref name="payload"/>.
+        /// </summary>
+        /// <param name="payload">An event payload to visalize.</param>
+        /// <returns>A visualization of the <paramref name="payload"/>.</returns>
         public ObjectVisualization Create(IEvent payload)
         {
             Ensure.NotNull(payload, "payload");
