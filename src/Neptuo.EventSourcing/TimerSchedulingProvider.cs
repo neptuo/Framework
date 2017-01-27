@@ -170,14 +170,7 @@ namespace Neptuo
                 }
 
                 foreach (ISchedulingContext context in toSchedule)
-                    longRunners.Remove(context);
-
-                if (longRunners.Count == 0)
-                {
-                    longRunners = null;
-                    longRunnerTimer.Dispose();
-                    longRunnerTimer = null;
-                }
+                    RemoveLongRunnerUnsafe(context);
             }
 
             foreach (ISchedulingContext context in toSchedule)
@@ -202,7 +195,8 @@ namespace Neptuo
                 if (longRunners == null)
                     return result;
 
-                result.AddRange(longRunners);
+                foreach (ISchedulingContext longRunner in longRunners)
+                    result.Add(new SchedulingContext(this, longRunner));
             }
 
             return result;
@@ -227,10 +221,34 @@ namespace Neptuo
                 {
                     item.Item1.Dispose();
                     timers.Remove(item);
+                    return this;
                 }
             }
 
+            if (longRunners == null)
+                return this;
+
+            lock (longRunnersLock)
+            {
+                if (longRunners == null)
+                    return this;
+
+                RemoveLongRunnerUnsafe(context);
+            }
+
             return this;
+        }
+
+        private void RemoveLongRunnerUnsafe(ISchedulingContext context)
+        {
+            longRunners.Remove(context);
+
+            if (longRunners.Count == 0)
+            {
+                longRunners = null;
+                longRunnerTimer.Dispose();
+                longRunnerTimer = null;
+            }
         }
 
         public bool IsContained(ISchedulingContext context)

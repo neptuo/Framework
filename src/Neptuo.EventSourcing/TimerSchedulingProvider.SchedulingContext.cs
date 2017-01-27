@@ -34,6 +34,16 @@ namespace Neptuo
                 collection.Remove(inner);
                 inner.Execute();
             }
+
+            public override int GetHashCode()
+            {
+                return inner.GetHashCode();
+            }
+
+            public override bool Equals(object obj)
+            {
+                return inner.Equals(obj);
+            }
         }
     }
 }

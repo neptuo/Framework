@@ -103,6 +103,7 @@
     <Compile Include="T_AddAll.cs" />
     <Compile Include="Queries\_Services.cs" />
     <Compile Include="T_KeyFactory.cs" />
+    <Compile Include="T_SchedulingContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">
