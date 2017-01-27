@@ -13,7 +13,7 @@ namespace Neptuo
     /// When scheduling context should be executed after <see cref="longRunnerThreshold"/>, it uses single timer
     /// to check the queue every <see cref="longRunnerThreshold"/> and re-evaluate if the contexts should be scheduled.
     /// </summary>
-    public partial class TimerSchedulingProvider : ISchedulingProvider
+    public partial class TimerSchedulingProvider : ISchedulingProvider, ISchedulingCollection
     {
         private readonly IDateTimeProvider dateTimeProvider;
 
@@ -106,14 +106,7 @@ namespace Neptuo
         private void OnScheduled(object state)
         {
             ISchedulingContext context = (ISchedulingContext)state;
-
-            lock (timersLock)
-            {
-                Tuple<Timer, ISchedulingContext> item = timers.FirstOrDefault(t => t.Item2 == context);
-                if (item != null)
-                    timers.Remove(item);
-            }
-
+            Remove(context);
             context.Execute();
         }
 
@@ -189,6 +182,85 @@ namespace Neptuo
 
             foreach (ISchedulingContext context in toSchedule)
                 Schedule(context);
+        }
+
+        public IEnumerable<ISchedulingContext> Enumerate()
+        {
+            List<ISchedulingContext> result = new List<ISchedulingContext>();
+
+            lock (timersLock)
+            {
+                foreach (Tuple<Timer, ISchedulingContext> item in timers)
+                    result.Add(new SchedulingContext(this, item.Item2));
+            }
+
+            if (longRunners == null)
+                return result;
+
+            lock (longRunnersLock)
+            {
+                if (longRunners == null)
+                    return result;
+
+                result.AddRange(longRunners);
+            }
+
+            return result;
+        }
+
+        public ISchedulingCollection Add(ISchedulingContext context)
+        {
+            Ensure.NotNull(context, "context");
+            if (IsLaterExecutionRequired(context.Envelope))
+                Schedule(context);
+
+            return this;
+        }
+
+        public ISchedulingCollection Remove(ISchedulingContext context)
+        {
+            Ensure.NotNull(context, "context");
+            lock (timersLock)
+            {
+                Tuple<Timer, ISchedulingContext> item = timers.FirstOrDefault(t => t.Item2.Equals(context));
+                if (item != null)
+                {
+                    item.Item1.Dispose();
+                    timers.Remove(item);
+                }
+            }
+
+            return this;
+        }
+
+        public bool IsContained(ISchedulingContext context)
+        {
+            Ensure.NotNull(context, "context");
+            lock (timersLock)
+            {
+                foreach (Tuple<Timer, ISchedulingContext> item in timers)
+                {
+                    if (item.Item2.Equals(context))
+                        return true;
+                }
+            }
+
+            if (longRunners == null)
+                return false;
+
+            lock (longRunnersLock)
+            {
+                if (longRunners == null)
+                    return false;
+
+                foreach (ISchedulingContext longRunner in longRunners)
+                {
+                    if (longRunner.Equals(context))
+                        return true;
+                }
+            }
+
+            return false;
         }
     }
 }
