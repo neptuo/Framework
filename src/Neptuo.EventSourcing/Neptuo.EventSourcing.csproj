@@ -81,6 +81,7 @@
     <Compile Include="Data\EmptyCommandStore.cs" />
     <Compile Include="Data\EmptySnapshotStore.cs" />
     <Compile Include="Data\ISnapshotStore.cs" />
+    <Compile Include="ISchedulingCollection.cs" />
     <Compile Include="TimerSchedulingProvider.DateTimeUtcNowProvider.cs" />
     <Compile Include="TimerSchedulingProvider.DateTimeNowProvider.cs" />
     <Compile Include="Commands\ICommandDistributor.cs" />
