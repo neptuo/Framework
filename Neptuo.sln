@@ -160,7 +160,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Format
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Formatters.Composite.Json", "src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj", "{2C713448-D1C0-4480-86CE-A85ECEB39DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.PresentationModels", "src\Neptuo.EventSourcing.PresentationModels\Neptuo.EventSourcing.PresentationModels.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.PresentationModels.Visualization", "src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

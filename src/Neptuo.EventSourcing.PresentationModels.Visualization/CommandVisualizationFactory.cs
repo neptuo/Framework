@@ -1,5 +1,6 @@
 ﻿using Neptuo;
 using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using Neptuo.Commands;
 using Neptuo.Converters;
 using Neptuo.Formatters;
@@ -16,7 +17,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// A factory for visualizing commands.
     /// </summary>
-    public class CommandVisualizationFactory : IFactory<ObjectVisualization, ICommand>
+    public class CommandVisualizationFactory : IFactory<ObjectVisualization, ICommand>, IFactory<ObjectVisualization, Envelope<ICommand>>
     {
         private readonly IDeserializer commandDeserializer;
         private readonly IConverterRepository converters;
@@ -51,6 +52,11 @@ namespace Neptuo.PresentationModels
             this.modelValueGetterFactory = modelValueGetterFactory;
         }
 
+        /// <summary>
+        /// Creates a visualization of the <paramref name="command"/>.
+        /// </summary>
+        /// <param name="command">A command to visualize.</param>
+        /// <returns>A visualization of the <paramref name="command"/>.</returns>
         public ObjectVisualization Create(ICommand command)
         {
             Ensure.NotNull(command, "command");
@@ -77,8 +83,28 @@ namespace Neptuo.PresentationModels
                 }
             }
 
-            ObjectVisualization model = new ObjectVisualization(payloadDefinition, stringValueGetter);
+            ObjectVisualization model = new ObjectVisualization(payloadDefinition, stringValueGetter, new KeyValueCollection());
             return model;
+        }
+
+        /// <summary>
+        /// Creates a visualization of the <paramref name="envolope"/>.
+        /// </summary>
+        /// <param name="envolope">An event envelope to visualize.</param>
+        /// <returns>A visualization of the <paramref name="envolope"/>.</returns>
+        public ObjectVisualization Create(Envelope<ICommand> envelope)
+        {
+            Ensure.NotNull(envelope, "envelope");
+
+            ObjectVisualization result = Create(envelope.Body);
+            if (result == null)
+                return null;
+
+            return new ObjectVisualization(
+                result.Definition,
+                result.Getter,
+                envelope.Metadata
+            );
         }
     }
 }

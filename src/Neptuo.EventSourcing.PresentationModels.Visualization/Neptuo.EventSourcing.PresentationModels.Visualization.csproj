@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Neptuo.PresentationModels</RootNamespace>
-    <AssemblyName>Neptuo.EventSourcing.PresentationModels</AssemblyName>
+    <AssemblyName>Neptuo.EventSourcing.PresentationModels.Visualization</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,5 +1,6 @@
 ﻿using Neptuo;
 using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using Neptuo.Converters;
 using Neptuo.Data;
 using Neptuo.Events;
@@ -18,7 +19,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// A factory for visualizing aggregate roots.
     /// </summary>
-    public class AggregateRootVisualizationFactory : IFactory<AggregateRootVisualization, IKey>, IFactory<ObjectVisualization, IEvent>
+    public class AggregateRootVisualizationFactory : IFactory<AggregateRootVisualization, IKey>, IFactory<ObjectVisualization, IEvent>, IFactory<ObjectVisualization, Envelope<IEvent>>
     {
         private readonly IEventStore eventStore;
         private readonly IDeserializer eventDeserializer;
@@ -61,7 +62,7 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.
         /// </summary>
-        /// <param name="aggregateKey">A key of the agregate to visalize.</param>
+        /// <param name="aggregateKey">A key of the agregate to visualize.</param>
         /// <returns>Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.</returns>
         public AggregateRootVisualization Create(IKey aggregateKey)
         {
@@ -72,7 +73,7 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.
         /// </summary>
-        /// <param name="aggregateKey">A key of the agregate to visalize.</param>
+        /// <param name="aggregateKey">A key of the agregate to visualize.</param>
         /// <param name="version">A last event version, that is skipped.</param>
         /// <returns>Creates a visualization of an aggregate with the <paramref name="aggregateKey"/>.</returns>
         public AggregateRootVisualization Create(IKey aggregateKey, int version)
@@ -87,23 +88,21 @@ namespace Neptuo.PresentationModels
             foreach (EventModel entity in entities.OrderBy(e => e.Version))
             {
                 object source = eventDeserializer.Deserialize(Type.GetType(entity.EventKey.Type), entity.Payload);
-
+                ObjectVisualization model = null;
                 IEvent payload = source as IEvent;
                 if (payload == null)
                 {
-                    Envelope envelope = source as Envelope;
-                    if (envelope != null)
-                    {
-                        payload = envelope.Body as IEvent;
-                        if (payload == null)
-                        {
-                            Debug.Fail("Event is not an event.");
-                            continue;
-                        }
-                    }
+                    Envelope<IEvent> envelope = source as Envelope<IEvent>;
+                    if (envelope == null)
+                        Debug.Fail("Event is not an event.");
+
+                    model = Create(envelope);
+                }
+                else
+                {
+                    model = Create(payload);
                 }
 
-                ObjectVisualization model = Create(payload);
                 if (model == null)
                     continue;
 
@@ -122,7 +121,7 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Creates a visualization of the <paramref name="payload"/>.
         /// </summary>
-        /// <param name="payload">An event payload to visalize.</param>
+        /// <param name="payload">An event payload to visualize.</param>
         /// <returns>A visualization of the <paramref name="payload"/>.</returns>
         public ObjectVisualization Create(IEvent payload)
         {
@@ -150,8 +149,28 @@ namespace Neptuo.PresentationModels
                 }
             }
 
-            ObjectVisualization model = new ObjectVisualization(payloadDefinition, stringValueGetter);
+            ObjectVisualization model = new ObjectVisualization(payloadDefinition, stringValueGetter, new KeyValueCollection());
             return model;
+        }
+
+        /// <summary>
+        /// Creates a visualization of the <paramref name="envelope"/>.
+        /// </summary>
+        /// <param name="envelope">An event envelope to visualize.</param>
+        /// <returns>A visualization of the <paramref name="envelope"/>.</returns>
+        public ObjectVisualization Create(Envelope<IEvent> envelope)
+        {
+            Ensure.NotNull(envelope, "envelope");
+
+            ObjectVisualization result = Create(envelope.Body);
+            if (result == null)
+                return null;
+
+            return new ObjectVisualization(
+                result.Definition,
+                result.Getter,
+                envelope.Metadata
+            );
         }
     }
 }
