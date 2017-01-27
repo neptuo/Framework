@@ -34,7 +34,29 @@ namespace Neptuo.PresentationModels
         /// <param name="eventDeserializer">A deserializer for event payload.</param>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
         public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, TypeModelDefinitionCollection modelDefinitionProvider)
-            : this(eventStore, eventDeserializer, Converts.Repository, modelDefinitionProvider, Factory.Getter<IModelValueGetter, IEvent>(e => new ReflectionModelValueProvider(e)))
+            : this(eventStore, eventDeserializer, modelDefinitionProvider, Converts.Repository, Factory.Getter<IModelValueGetter, IEvent>(e => new ReflectionModelValueProvider(e)))
+        { }
+
+        /// <summary>
+        /// Creates a new instance with <see cref="Converts.Repository"/> and <see cref="ReflectionModelValueProvider"/>.
+        /// </summary>
+        /// <param name="eventStore">A store of the event streams.</param>
+        /// <param name="eventDeserializer">A deserializer for event payload.</param>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        /// <param name="converters">A repository of converters.</param>
+        public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, TypeModelDefinitionCollection modelDefinitionProvider, IConverterRepository converters)
+            : this(eventStore, eventDeserializer, modelDefinitionProvider, converters, Factory.Getter<IModelValueGetter, IEvent>(e => new ReflectionModelValueProvider(e)))
+        { }
+
+        /// <summary>
+        /// Creates a new instance with <see cref="Converts.Repository"/> and <see cref="ReflectionModelValueProvider"/>.
+        /// </summary>
+        /// <param name="eventStore">A store of the event streams.</param>
+        /// <param name="eventDeserializer">A deserializer for event payload.</param>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
+        public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, IEvent> modelValueGetterFactory)
+            : this(eventStore, eventDeserializer, modelDefinitionProvider, Converts.Repository, modelValueGetterFactory)
         { }
 
         /// <summary>
@@ -42,15 +64,15 @@ namespace Neptuo.PresentationModels
         /// </summary>
         /// <param name="eventStore">A store of the event streams.</param>
         /// <param name="eventDeserializer">A deserializer for event payload.</param>
-        /// <param name="converters">A repository of converters.</param>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        /// <param name="converters">A repository of converters.</param>
         /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
-        public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, IConverterRepository converters, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, IEvent> modelValueGetterFactory)
+        public AggregateRootVisualizationFactory(IEventStore eventStore, IDeserializer eventDeserializer, TypeModelDefinitionCollection modelDefinitionProvider, IConverterRepository converters, IFactory<IModelValueGetter, IEvent> modelValueGetterFactory)
         {
             Ensure.NotNull(eventStore, "eventStore");
             Ensure.NotNull(eventDeserializer, "eventDeserializer");
-            Ensure.NotNull(converters, "converters");
             Ensure.NotNull(modelDefinitionProvider, "modelDefinitionProvider");
+            Ensure.NotNull(converters, "converters");
             Ensure.NotNull(modelValueGetterFactory, "modelValueGetterFactory");
             this.eventStore = eventStore;
             this.eventDeserializer = eventDeserializer;

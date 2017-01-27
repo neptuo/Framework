@@ -28,22 +28,40 @@ namespace Neptuo.PresentationModels
         /// </summary>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
         public CommandVisualizationFactory(TypeModelDefinitionCollection modelDefinitionProvider)
-            : this(Converts.Repository, modelDefinitionProvider, Factory.Getter<IModelValueGetter, ICommand>(e => new ReflectionModelValueProvider(e)))
+            : this(modelDefinitionProvider, Converts.Repository)
         { }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
         /// <param name="converters">A repository of converters.</param>
+        public CommandVisualizationFactory(TypeModelDefinitionCollection modelDefinitionProvider, IConverterRepository converters)
+            : this(modelDefinitionProvider, converters, Factory.Getter<IModelValueGetter, ICommand>(e => new ReflectionModelValueProvider(e)))
+        { }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
         /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
-        public CommandVisualizationFactory(IConverterRepository converters, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, ICommand> modelValueGetterFactory)
+        public CommandVisualizationFactory(TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, ICommand> modelValueGetterFactory)
+            : this(modelDefinitionProvider, Converts.Repository, modelValueGetterFactory)
+        { }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
+        /// <param name="converters">A repository of converters.</param>
+        /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
+        public CommandVisualizationFactory(TypeModelDefinitionCollection modelDefinitionProvider, IConverterRepository converters, IFactory<IModelValueGetter, ICommand> modelValueGetterFactory)
         {
-            Ensure.NotNull(converters, "converters");
             Ensure.NotNull(modelDefinitionProvider, "modelDefinitionProvider");
+            Ensure.NotNull(converters, "converters");
             Ensure.NotNull(modelValueGetterFactory, "modelValueGetterFactory");
-            this.converters = converters;
             this.modelDefinitionProvider = modelDefinitionProvider;
+            this.converters = converters;
             this.modelValueGetterFactory = modelValueGetterFactory;
         }
 
