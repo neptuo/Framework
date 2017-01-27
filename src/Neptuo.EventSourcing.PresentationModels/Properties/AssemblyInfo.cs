@@ -6,5 +6,5 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyDescription("Visualization for EventSourcing Events & Commands.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
-[assembly: AssemblyInformationalVersion(VersionInfo.Version)]
+[assembly: AssemblyInformationalVersion(VersionInfo.Version + VersionInfo.Preview)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
