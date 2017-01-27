@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels
 {
     /// <summary>
-    /// A component for visualizing aggregate roots.
+    /// A factory for visualizing aggregate roots.
     /// </summary>
     public class AggregateRootVisualizationFactory : IFactory<AggregateRootVisualization, IKey>, IFactory<ObjectVisualization, IEvent>
     {
