@@ -19,7 +19,6 @@ namespace Neptuo.PresentationModels
     /// </summary>
     public class CommandVisualizationFactory : IFactory<ObjectVisualization, ICommand>, IFactory<ObjectVisualization, Envelope<ICommand>>
     {
-        private readonly IDeserializer commandDeserializer;
         private readonly IConverterRepository converters;
         private readonly TypeModelDefinitionCollection modelDefinitionProvider;
         private readonly IFactory<IModelValueGetter, ICommand> modelValueGetterFactory;
@@ -27,26 +26,22 @@ namespace Neptuo.PresentationModels
         /// <summary>
         /// Creates a new instance with <see cref="Converts.Repository"/> and <see cref="ReflectionModelValueProvider"/>.
         /// </summary>
-        /// <param name="commandDeserializer">A deserializer for command payload.</param>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
-        public CommandVisualizationFactory(IDeserializer commandDeserializer, TypeModelDefinitionCollection modelDefinitionProvider)
-            : this(commandDeserializer, Converts.Repository, modelDefinitionProvider, Factory.Getter<IModelValueGetter, ICommand>(e => new ReflectionModelValueProvider(e)))
+        public CommandVisualizationFactory(TypeModelDefinitionCollection modelDefinitionProvider)
+            : this(Converts.Repository, modelDefinitionProvider, Factory.Getter<IModelValueGetter, ICommand>(e => new ReflectionModelValueProvider(e)))
         { }
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        /// <param name="commandDeserializer">A deserializer for command payload.</param>
         /// <param name="converters">A repository of converters.</param>
         /// <param name="modelDefinitionProvider">A collection of presentation model definitions.</param>
         /// <param name="modelValueGetterFactory">A factory for event value getter.</param>
-        public CommandVisualizationFactory(IDeserializer commandDeserializer, IConverterRepository converters, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, ICommand> modelValueGetterFactory)
+        public CommandVisualizationFactory(IConverterRepository converters, TypeModelDefinitionCollection modelDefinitionProvider, IFactory<IModelValueGetter, ICommand> modelValueGetterFactory)
         {
-            Ensure.NotNull(commandDeserializer, "eventDeserializer");
             Ensure.NotNull(converters, "converters");
             Ensure.NotNull(modelDefinitionProvider, "modelDefinitionProvider");
             Ensure.NotNull(modelValueGetterFactory, "modelValueGetterFactory");
-            this.commandDeserializer = commandDeserializer;
             this.converters = converters;
             this.modelDefinitionProvider = modelDefinitionProvider;
             this.modelValueGetterFactory = modelValueGetterFactory;
@@ -88,10 +83,10 @@ namespace Neptuo.PresentationModels
         }
 
         /// <summary>
-        /// Creates a visualization of the <paramref name="envolope"/>.
+        /// Creates a visualization of the <paramref name="envelope"/>.
         /// </summary>
-        /// <param name="envolope">An event envelope to visualize.</param>
-        /// <returns>A visualization of the <paramref name="envolope"/>.</returns>
+        /// <param name="envelope">An event envelope to visualize.</param>
+        /// <returns>A visualization of the <paramref name="envelope"/>.</returns>
         public ObjectVisualization Create(Envelope<ICommand> envelope)
         {
             Ensure.NotNull(envelope, "envelope");
