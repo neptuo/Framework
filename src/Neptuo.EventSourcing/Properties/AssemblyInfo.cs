@@ -3,7 +3,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("Neptuo.EventSourcing")]
-[assembly: AssemblyDescription("Event sourcing hosting infrastructure.")]
+[assembly: AssemblyDescription("EventSourcing hosting infrastructure.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version + VersionInfo.Preview)]
