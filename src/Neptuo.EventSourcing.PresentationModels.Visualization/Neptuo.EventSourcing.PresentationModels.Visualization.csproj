@@ -88,6 +88,9 @@
     <Compile Include="ObjectVisualization.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Neptuo.EventSourcing.PresentationModels.Visualization.nuspec">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
