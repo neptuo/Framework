@@ -18,7 +18,7 @@ namespace Neptuo.PresentationModels
     /// <summary>
     /// A component for visualizing aggregate roots.
     /// </summary>
-    public class AggregateRootVisualizationFactory
+    public class AggregateRootVisualizationFactory : IFactory<AggregateRootVisualization, IKey>, IFactory<ObjectVisualization, IEvent>
     {
         private readonly IEventStore eventStore;
         private readonly IDeserializer eventDeserializer;
