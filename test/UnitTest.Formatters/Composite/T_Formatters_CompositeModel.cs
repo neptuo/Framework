@@ -1,4 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo;
+using Neptuo.Activators;
+using Neptuo.Formatters;
+using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Metadata;
 using System;
 using System.Collections.Generic;
@@ -114,9 +118,23 @@ namespace UnitTest.Formatters.Composite
         [TestMethod]
         public void Reflection_MisspelledParameterName()
         {
+            Converts.Repository
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
+
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
             Assert.AreEqual(true, provider.TryGet(typeof(MisspelledParameterName), out compositeType));
+
+            MisspelledParameterName instance = new MisspelledParameterName("1", 2, "3");
+
+            CompositeTypeFormatter formatter = new CompositeTypeFormatter(
+                provider,
+                new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
+            );
+            string rawValue = formatter.Serialize(instance);
+
+            instance = formatter.Deserialize<MisspelledParameterName>(rawValue);
 
             object rawInstance = compositeType.Versions.First().Constructor.Factory(new object[] { "1", 2, "3" });
         }
