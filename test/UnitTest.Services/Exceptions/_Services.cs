@@ -3,6 +3,7 @@ using Neptuo.Exceptions.Handlers;
 using Neptuo.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,6 +66,23 @@ namespace Neptuo.Exceptions
         public void Handle(Exception exception)
         {
             Count++;
+        }
+    }
+
+    public class ComponentWithEvent : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
+            }
         }
     }
 }

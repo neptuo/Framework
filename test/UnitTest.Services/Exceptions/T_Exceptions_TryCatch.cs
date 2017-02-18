@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Neptuo.Exceptions
 {
@@ -74,6 +75,24 @@ namespace Neptuo.Exceptions
         private string ThrowException()
         {
             throw new InvalidOperationException();
+        }
+
+        [TestMethod]
+        public void AttachedToEvent()
+        {
+            handler.Count = 0;
+
+            ComponentWithEvent component = new ComponentWithEvent();
+            component.PropertyChanged += tryCatch.Wrap<PropertyChangedEventHandler>(OnPropertyChanged);
+            component.Name = "John";
+
+            Assert.AreEqual(1, handler.Count);
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ComponentWithEvent.Name))
+                throw new NotSupportedException();
         }
     }
 }
