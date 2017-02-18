@@ -58,6 +58,7 @@
     <Compile Include="IExceptionHandlerCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="TryCatch.cs" />
     <Compile Include="_ExceptionHandlerCollectionExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
