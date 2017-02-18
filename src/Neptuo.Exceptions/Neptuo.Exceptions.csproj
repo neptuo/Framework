@@ -50,6 +50,7 @@
       <Link>Properties\_AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="DefaultExceptionHandlerCollection.cs" />
+    <Compile Include="Handlers\ReThrowExceptionHandler.cs" />
     <Compile Include="Internals\Constant.cs" />
     <Compile Include="Handlers\DelegateExceptionHandler.cs" />
     <Compile Include="Handlers\ExceptionHandlerBuilder.cs" />
