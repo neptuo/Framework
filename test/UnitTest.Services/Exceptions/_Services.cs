@@ -58,4 +58,13 @@ namespace Neptuo.Exceptions
         }
     }
 
+    public class AnyHandler : IExceptionHandler<Exception>
+    {
+        public int Count { get; set; }
+
+        public void Handle(Exception exception)
+        {
+            Count++;
+        }
+    }
 }
