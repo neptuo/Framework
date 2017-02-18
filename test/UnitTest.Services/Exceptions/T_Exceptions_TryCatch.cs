@@ -89,6 +89,17 @@ namespace Neptuo.Exceptions
             Assert.AreEqual(1, handler.Count);
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void AttachedToEventWithReThrow()
+        {
+            TryCatch tryCatch = new TryCatch(new ReThrowExceptionHandler());
+
+            ComponentWithEvent component = new ComponentWithEvent();
+            component.PropertyChanged += tryCatch.Wrap<PropertyChangedEventHandler>(OnPropertyChanged);
+            component.Name = "John";
+        }
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(ComponentWithEvent.Name))
