@@ -13,7 +13,22 @@ namespace Neptuo.Observables
     public class T_Observables_AsyncCommand
     {
         [TestMethod]
-        public void Cancellations()
+        public void Execution()
+        {
+            TestAsyncCommand mainCommand = new TestAsyncCommand();
+
+            mainCommand.Execute();
+            Assert.AreEqual(true, mainCommand.IsRunning);
+            Assert.AreEqual(true, mainCommand.IsPhase1Reached);
+
+            Thread.Sleep(10000);
+
+            Assert.AreEqual(false, mainCommand.IsRunning);
+            Assert.AreEqual(true, mainCommand.IsPhase2Reached);
+        }
+
+        [TestMethod]
+        public void Cancellation()
         {
             TestAsyncCommand mainCommand = new TestAsyncCommand();
             CancelCommand cancelCommand = new CancelCommand(mainCommand);
