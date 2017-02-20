@@ -2,7 +2,7 @@
 using System.Reflection;
 
 [assembly: AssemblyTitle("Neptuo.Observables")]
-[assembly: AssemblyDescription("Observable objects and collections.")]
+[assembly: AssemblyDescription("Observable objects, collections and commands.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
 [assembly: AssemblyInformationalVersion(VersionInfo.Version)]
