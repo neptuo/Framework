@@ -54,6 +54,7 @@
     <Compile Include="Collections\ObservableCollection.cs" />
     <Compile Include="Collections\ObservableDictionary.cs" />
     <Compile Include="Commands\AsyncCommand.cs" />
+    <Compile Include="Commands\CancelCommand.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
     <Compile Include="Commands\ICancellableCommand.cs" />

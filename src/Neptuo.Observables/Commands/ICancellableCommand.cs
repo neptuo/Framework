@@ -13,6 +13,11 @@ namespace Neptuo.Observables.Commands
     public interface ICancellableCommand : ICommand
     {
         /// <summary>
+        /// Returns <c>true</c> is the command currently being executed; <c>false</c> otherwise.
+        /// </summary>
+        bool IsRunning { get; }
+
+        /// <summary>
         /// Stops execution of the command.
         /// If not running, nothing should happen.
         /// </summary>
