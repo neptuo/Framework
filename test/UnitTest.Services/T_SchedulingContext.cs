@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo
@@ -107,6 +108,38 @@ namespace Neptuo
             Assert.AreEqual(true, context1.IsExecuted);
             Assert.AreEqual(false, provider.IsContained(context2));
             Assert.AreEqual(true, context2.IsExecuted);
+        }
+
+        [TestMethod]
+        public void LongRunner_3xPeriod()
+        {
+            TimerSchedulingProvider provider = new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider(), TimeSpan.FromMinutes(1));
+
+            Envelope envelope = Envelope.Create("Hello, World!")
+                .AddExecuteAt(DateTime.Now.AddMinutes(3));
+
+            SchedulingContext context = new SchedulingContext(envelope);
+            provider.Add(context);
+
+            Thread.Sleep(TimeSpan.FromSeconds(3 * 60 + 10));
+
+            Assert.AreEqual(true, context.IsExecuted);
+        }
+
+        [TestMethod]
+        public void LongRunner_1xPeriod()
+        {
+            TimerSchedulingProvider provider = new TimerSchedulingProvider(new TimerSchedulingProvider.DateTimeNowProvider(), TimeSpan.FromMinutes(1));
+
+            Envelope envelope = Envelope.Create("Hello, World!")
+                .AddExecuteAt(DateTime.Now.AddMinutes(1));
+
+            SchedulingContext context = new SchedulingContext(envelope);
+            provider.Add(context);
+
+            Thread.Sleep(TimeSpan.FromSeconds(1 * 60 + 10));
+
+            Assert.AreEqual(true, context.IsExecuted);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace Neptuo
             Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
 
             if (longRunnerThreshold < TimeSpan.Zero)
-                throw Ensure.Exception.ArgumentOutOfRange("longRunnerThreshold", "Long runner threshold must be between 0 and 1 day.");
+                throw Ensure.Exception.ArgumentOutOfRange("longRunnerThreshold", "Long runner threshold must be between '0ms' and '1day'.");
 
             this.dateTimeProvider = dateTimeProvider;
             this.longRunnerThreshold = longRunnerThreshold;
@@ -129,7 +129,7 @@ namespace Neptuo
                             OnLongRunnerScheduled,
                             null,
                             longRunnerThreshold,
-                            TimeSpan.FromMilliseconds(-1)
+                            longRunnerThreshold
                         );
                     }
 
