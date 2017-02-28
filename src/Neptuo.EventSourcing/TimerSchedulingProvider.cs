@@ -1,4 +1,7 @@
 ﻿using Neptuo;
+using Neptuo.Commands;
+using Neptuo.Internals;
+using Neptuo.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +19,7 @@ namespace Neptuo
     public partial class TimerSchedulingProvider : ISchedulingProvider, ISchedulingCollection
     {
         private readonly IDateTimeProvider dateTimeProvider;
+        private readonly ILog log;
 
         private readonly object timersLock = new object();
         private readonly List<Tuple<Timer, ISchedulingContext>> timers = new List<Tuple<Timer, ISchedulingContext>>();
@@ -30,7 +34,16 @@ namespace Neptuo
         /// </summary>
         /// <param name="dateTimeProvider">The provider of execution delay.</param>
         public TimerSchedulingProvider(IDateTimeProvider dateTimeProvider)
-            : this(dateTimeProvider, TimeSpan.FromDays(1))
+            : this(dateTimeProvider, TimeSpan.FromDays(1), new DefaultLogFactory())
+        { }
+
+        /// <summary>
+        /// Creates new instance that uses <c>1d</c> to threshold 'long runnner' contexts.
+        /// </summary>
+        /// <param name="dateTimeProvider">The provider of execution delay.</param>
+        /// <param name="logFactory">A log factory.</param>
+        public TimerSchedulingProvider(IDateTimeProvider dateTimeProvider, ILogFactory logFactory)
+            : this(dateTimeProvider, TimeSpan.FromDays(1), logFactory)
         { }
 
         /// <summary>
@@ -39,26 +52,49 @@ namespace Neptuo
         /// <param name="dateTimeProvider">The provider of execution delay.</param>
         /// <param name="longRunnerThreshold">The timespan to be used as threshold when deciding whether the context is 'long runner'.</param>
         public TimerSchedulingProvider(IDateTimeProvider dateTimeProvider, TimeSpan longRunnerThreshold)
+            : this(dateTimeProvider, longRunnerThreshold, new DefaultLogFactory())
+        { }
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="longRunnerThreshold"/> to threshold 'long runnner' contexts. 
+        /// </summary>
+        /// <param name="dateTimeProvider">The provider of execution delay.</param>
+        /// <param name="longRunnerThreshold">The timespan to be used as threshold when deciding whether the context is 'long runner'.</param>
+        /// <param name="logFactory">A log factory.</param>
+        public TimerSchedulingProvider(IDateTimeProvider dateTimeProvider, TimeSpan longRunnerThreshold, ILogFactory logFactory)
         {
             Ensure.NotNull(dateTimeProvider, "dateTimeProvider");
-
-            if (longRunnerThreshold < TimeSpan.Zero)
-                throw Ensure.Exception.ArgumentOutOfRange("longRunnerThreshold", "Long runner threshold must be between '0ms' and '1day'.");
-
+            EnsureThreshold(longRunnerThreshold, "longRunnerThreshold");
+            Ensure.NotNull(logFactory, "logFactory");
             this.dateTimeProvider = dateTimeProvider;
             this.longRunnerThreshold = longRunnerThreshold;
+            this.log = logFactory.Scope("TimerSchedulingProvider");
+        }
+
+        private static void EnsureThreshold(TimeSpan longRunnerThreshold, string parameterName)
+        {
+            if (longRunnerThreshold < TimeSpan.Zero)
+                throw Ensure.Exception.ArgumentOutOfRange(parameterName, "Long runner threshold must be between '0ms' and '1day'.");
         }
 
         public bool IsLaterExecutionRequired(Envelope envelope)
         {
             if (envelope == null)
+            {
+                log.Debug("Got null envelope.");
                 return false;
+            }
 
             DateTime executeAt;
             if (!envelope.TryGetExecuteAt(out executeAt))
+            {
+                log.Debug(envelope, "Got envelope without 'ExecuteAt' metadata.");
                 return false;
+            }
 
             TimeSpan delay = dateTimeProvider.GetExecutionDelay(executeAt);
+            log.Debug(envelope, "Got envelope with current delay '{0}'.", delay);
+
             return delay > TimeSpan.Zero;
         }
 
@@ -72,10 +108,12 @@ namespace Neptuo
                 TimeSpan delay = dateTimeProvider.GetExecutionDelay(executeAt);
                 if (delay > longRunnerThreshold)
                 {
+                    log.Info(context.Envelope, "Got envelope for long runner with current delay '{0}'.", delay);
                     ScheduleLongRunner(context);
                 }
                 else if (delay > TimeSpan.Zero)
                 {
+                    log.Info(context.Envelope, "Creating timer with current delay '{0}'.", delay);
                     Timer timer = new Timer(
                         OnScheduled,
                         context,
@@ -85,16 +123,20 @@ namespace Neptuo
 
                     lock (timersLock)
                         timers.Add(new Tuple<Timer, ISchedulingContext>(timer, context));
+
+                    log.Debug(context.Envelope, "Timer registered.");
                 }
                 else
                 {
                     // This should be handled by the calling infrastructure.
+                    log.Info(context.Envelope, "Got envelope with current delay in past '{0}'. Executing.", delay);
                     context.Execute();
                 }
             }
             else
             {
                 // This should be handled by the calling infrastructure.
+                log.Info(context.Envelope, "Got envelope without 'ExecuteAt' metadata. Executing.");
                 context.Execute();
             }
         }
@@ -106,8 +148,16 @@ namespace Neptuo
         private void OnScheduled(object state)
         {
             ISchedulingContext context = (ISchedulingContext)state;
+
+            log.Debug(context.Envelope, "Envelope timer callback raised.");
+
             Remove(context);
+
+            log.Info(context.Envelope, "Executing.");
+
             context.Execute();
+
+            log.Debug(context.Envelope, "Envelope timer callback ended.");
         }
 
         /// <summary>
@@ -118,6 +168,8 @@ namespace Neptuo
         {
             if (longRunners == null)
             {
+                log.Debug(context.Envelope, "Long runner collection is null. Creating the collection.");
+
                 lock (longRunnersLock)
                 {
                     if (longRunners == null)
@@ -125,6 +177,8 @@ namespace Neptuo
 
                     if (longRunnerTimer == null)
                     {
+                        log.Debug(context.Envelope, "Long runner timer is null. Creating the timer.");
+
                         longRunnerTimer = new Timer(
                             OnLongRunnerScheduled,
                             null,
@@ -133,6 +187,7 @@ namespace Neptuo
                         );
                     }
 
+                    log.Info(context.Envelope, "Added as a long runner.");
                     longRunners.Add(context);
                 }
             }
@@ -140,6 +195,8 @@ namespace Neptuo
             {
                 lock (longRunnersLock)
                     longRunners.Add(context);
+
+                log.Info(context.Envelope, "Added as a long runner.");
             }
         }
 
@@ -148,11 +205,15 @@ namespace Neptuo
         /// </summary>
         private void OnLongRunnerScheduled(object state)
         {
+            log.Debug("Long runner timer raised.");
+
             List<ISchedulingContext> toSchedule = new List<ISchedulingContext>();
             lock (longRunnersLock)
             {
                 if (longRunners == null)
                 {
+                    log.Debug("Long runner collection is null. Disposing the timer.");
+
                     longRunnerTimer.Dispose();
                     longRunnerTimer = null;
                     return;
@@ -164,8 +225,13 @@ namespace Neptuo
                     if (context.Envelope.TryGetExecuteAt(out executeAt))
                     {
                         TimeSpan delay = dateTimeProvider.GetExecutionDelay(executeAt);
+                        log.Debug(context.Envelope, "Long runner envelope with current delay '{0}'.", delay);
+
                         if (delay < longRunnerThreshold)
+                        {
                             toSchedule.Add(context);
+                            log.Debug(context.Envelope, "Added to a collection for timer execution.");
+                        }
                     }
                 }
 
@@ -214,24 +280,35 @@ namespace Neptuo
         public ISchedulingCollection Remove(ISchedulingContext context)
         {
             Ensure.NotNull(context, "context");
+
             lock (timersLock)
             {
                 Tuple<Timer, ISchedulingContext> item = timers.FirstOrDefault(t => t.Item2.Equals(context));
                 if (item != null)
                 {
+                    log.Info(context.Envelope, "Found timer. Disposing the timer and removing from the collection.");
+
                     item.Item1.Dispose();
                     timers.Remove(item);
                     return this;
                 }
             }
 
+            log.Debug(context.Envelope, "Timer not found.");
+
             if (longRunners == null)
+            {
+                log.Debug(context.Envelope, "Long runners are null. Returning.");
                 return this;
+            }
 
             lock (longRunnersLock)
             {
                 if (longRunners == null)
+                {
+                    log.Debug(context.Envelope, "Long runners are null. Returning.");
                     return this;
+                }
 
                 RemoveLongRunnerUnsafe(context);
             }
@@ -242,12 +319,15 @@ namespace Neptuo
         private void RemoveLongRunnerUnsafe(ISchedulingContext context)
         {
             longRunners.Remove(context);
+            log.Info(context.Envelope, "Removed from long runner collection.");
 
             if (longRunners.Count == 0)
             {
                 longRunners = null;
                 longRunnerTimer.Dispose();
                 longRunnerTimer = null;
+
+                log.Debug("Long runner collection is empty. Disposing a timer.");
             }
         }
 
