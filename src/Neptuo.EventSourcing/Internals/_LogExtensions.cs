@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,12 @@ namespace Neptuo.Logging
                 log.Debug(new EnvelopeMessage(envelope, message, parameters));
         }
 
+        public static void Debug(this ILog log, ICommand command, string message, params object[] parameters)
+        {
+            if (log.IsDebugEnabled())
+                log.Debug(new CommandMessage(command, message, parameters));
+        }
+
         public static void Debug(this ILog log, object model)
         {
             log.Log(LogLevel.Debug, model);
@@ -23,6 +30,12 @@ namespace Neptuo.Logging
         {
             if (log.IsInfoEnabled())
                 log.Info(new EnvelopeMessage(envelope, message, parameters));
+        }
+
+        public static void Info(this ILog log, ICommand command, string message, params object[] parameters)
+        {
+            if (log.IsInfoEnabled())
+                log.Info(new CommandMessage(command, message, parameters));
         }
 
         public static void Info(this ILog log, object model)
@@ -36,6 +49,12 @@ namespace Neptuo.Logging
                 log.Warning(new EnvelopeMessage(envelope, message, parameters));
         }
 
+        public static void Warning(this ILog log, ICommand command, string message, params object[] parameters)
+        {
+            if (log.IsWarnEnabled())
+                log.Warning(new CommandMessage(command, message, parameters));
+        }
+
         public static void Warning(this ILog log, object model)
         {
             log.Log(LogLevel.Warning, model);
@@ -47,6 +66,12 @@ namespace Neptuo.Logging
                 log.Error(new EnvelopeMessage(envelope, message, parameters));
         }
 
+        public static void Error(this ILog log, ICommand command, string message, params object[] parameters)
+        {
+            if (log.IsErrorEnabled())
+                log.Error(new CommandMessage(command, message, parameters));
+        }
+
         public static void Error(this ILog log, object model)
         {
             log.Log(LogLevel.Error, model);
@@ -56,6 +81,12 @@ namespace Neptuo.Logging
         {
             if (log.IsFatalEnabled())
                 log.Fatal(new EnvelopeMessage(envelope, message, parameters));
+        }
+
+        public static void Fatal(this ILog log, ICommand command, string message, params object[] parameters)
+        {
+            if (log.IsFatalEnabled())
+                log.Fatal(new CommandMessage(command, message, parameters));
         }
 
         public static void Fatal(this ILog log, object model)

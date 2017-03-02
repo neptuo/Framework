@@ -1,9 +1,11 @@
-﻿using Neptuo.Commands.Handlers;
+﻿using Neptuo;
+using Neptuo.Commands.Handlers;
 using Neptuo.Data;
 using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
+using Neptuo.Logging;
 using Neptuo.Models;
 using Neptuo.Models.Keys;
 using Neptuo.Threading.Tasks;
@@ -29,6 +31,7 @@ namespace Neptuo.Commands
         private readonly ICommandPublishingStore store;
         private readonly ISerializer formatter;
         private readonly ISchedulingProvider schedulingProvider;
+        private readonly ILog log;
         private HandlerCollection handlers;
 
         /// <summary>
@@ -67,21 +70,36 @@ namespace Neptuo.Commands
         /// <param name="formatter">The formatter for serializing commands.</param>
         /// <param name="schedulingProvider">The provider of a delay computation for delayed commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
+            : this(distributor, store, formatter, schedulingProvider, new DefaultLogFactory())
+        {
+            
+        }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="distributor">The command-to-the-queue distributor.</param>
+        /// <param name="store">The publishing store for command persistent delivery.</param>
+        /// <param name="formatter">The formatter for serializing commands.</param>
+        /// <param name="schedulingProvider">The provider of a delay computation for delayed commands.</param>
+        public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider, ILogFactory logFactory)
         {
             Ensure.NotNull(distributor, "distributor");
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
             Ensure.NotNull(schedulingProvider, "schedulingProvider");
+            Ensure.NotNull(logFactory, "logFactory");
             this.queue = new TreeQueue();
             this.threadPool = new TreeQueueThreadPool(queue);
             this.distributor = distributor;
             this.store = store;
             this.formatter = formatter;
             this.schedulingProvider = schedulingProvider;
+            this.log = logFactory.Scope("PersistentCommandDispatcher");
             Initialize();
         }
 
-        internal PersistentCommandDispatcher(TreeQueue queue, TreeQueueThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
+        internal PersistentCommandDispatcher(TreeQueue queue, TreeQueueThreadPool threadPool, ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider, ILogFactory logFactory)
         {
             this.queue = queue;
             this.threadPool = threadPool;
@@ -89,6 +107,7 @@ namespace Neptuo.Commands
             this.store = store;
             this.formatter = formatter;
             this.schedulingProvider = schedulingProvider;
+            this.log = logFactory.Scope("PersistentCommandDispatcher");
             Initialize();
         }
 
@@ -168,11 +187,15 @@ namespace Neptuo.Commands
                 if (commandWithKey == null)
                     commandWithKey = payload as ICommand;
 
+                log.Info(commandWithKey, "Got command.");
+
                 // If we have command with the key, serialize it for persisten delivery.
                 if (store != null && isPersistenceUsed && commandWithKey != null)
                 {
                     string serializedEnvelope = await formatter.SerializeAsync(envelope);
                     store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
+
+                    log.Info(commandWithKey, "Saved to store.");
                 }
 
                 // If isEnvelopeDelayUsed, try to schedule the execution.
@@ -193,6 +216,8 @@ namespace Neptuo.Commands
         {
             if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
+                log.Info(envelope, "Scheduling to later execution.");
+
                 ScheduleCommandContext context = new ScheduleCommandContext(handler, argument, envelope, OnScheduledCommand);
                 schedulingProvider.Schedule(context);
                 return true;
@@ -204,8 +229,13 @@ namespace Neptuo.Commands
         private void DistributeExecution(object payload, object context, Envelope envelope, ICommand commandWithKey, HandlerDescriptor handler)
         {
             object key = distributor.Distribute(payload);
+
+            log.Info(commandWithKey, "Distributing execution on '{0}'.", key);
+
             queue.Enqueue(key, async () =>
             {
+                log.Info(commandWithKey, "Starting execution.");
+
                 Action<Exception> additionalExceptionDecorator = e =>
                 {
                     AggregateRootException aggregateException = e as AggregateRootException;
@@ -224,12 +254,14 @@ namespace Neptuo.Commands
 
                 try
                 {
+                    log.Info(commandWithKey, "Entered try-catch.");
+
                     if (handler.IsContext)
-                        await handler.Execute(context, additionalExceptionDecorator);
+                        await handler.Execute(log, context, additionalExceptionDecorator);
                     else if (handler.IsEnvelope)
-                        await handler.Execute(envelope, additionalExceptionDecorator);
+                        await handler.Execute(log, envelope, additionalExceptionDecorator);
                     else if (handler.IsPlain)
-                        await handler.Execute(payload, additionalExceptionDecorator);
+                        await handler.Execute(log, payload, additionalExceptionDecorator);
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
@@ -240,6 +272,7 @@ namespace Neptuo.Commands
                 catch (Exception e)
                 {
                     DispatcherExceptionHandlers.Handle(e);
+                    log.Fatal(commandWithKey, e.ToString());
                 }
             });
         }

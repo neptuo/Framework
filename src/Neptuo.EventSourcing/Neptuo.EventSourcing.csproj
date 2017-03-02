@@ -82,8 +82,10 @@
     <Compile Include="Data\EmptySnapshotStore.cs" />
     <Compile Include="Data\ISnapshotStore.cs" />
     <Compile Include="ISchedulingCollection.cs" />
+    <Compile Include="Logging\CommandMessage.cs" />
     <Compile Include="Logging\EnvelopeMessage.cs" />
     <Compile Include="Internals\_LogExtensions.cs" />
+    <Compile Include="Logging\Serialization\Converters\CommandMessageConverter.cs" />
     <Compile Include="Logging\Serialization\Converters\EnvelopeMessageConverter.cs" />
     <Compile Include="Logging\_ConverterRepositoryExtensions.cs" />
     <Compile Include="TimerSchedulingProvider.DateTimeUtcNowProvider.cs" />
