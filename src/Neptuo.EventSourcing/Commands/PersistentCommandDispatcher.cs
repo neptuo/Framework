@@ -71,9 +71,7 @@ namespace Neptuo.Commands
         /// <param name="schedulingProvider">The provider of a delay computation for delayed commands.</param>
         public PersistentCommandDispatcher(ICommandDistributor distributor, ICommandPublishingStore store, ISerializer formatter, ISchedulingProvider schedulingProvider)
             : this(distributor, store, formatter, schedulingProvider, new DefaultLogFactory())
-        {
-            
-        }
+        { }
 
         /// <summary>
         /// Creates new instance.
@@ -123,7 +121,7 @@ namespace Neptuo.Commands
                 CommandExceptionHandlers,
                 DispatcherExceptionHandlers
             );
-            handlers = new HandlerCollection(descriptorProvider);
+            handlers = new HandlerCollection(log.Factory, descriptorProvider);
         }
 
         public Task HandleAsync<TCommand>(TCommand command)
@@ -159,6 +157,7 @@ namespace Neptuo.Commands
                 if (argument.IsContext)
                 {
                     // If passed argument is context, throw.
+                    log.Fatal("Passed in a context object.");
                     throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support passing in a command handler context.");
                 }
                 else
@@ -181,13 +180,17 @@ namespace Neptuo.Commands
                     }
 
                     if (hasContextHandler)
+                    {
+                        log.Fatal("Context handler not supported.");
                         throw Ensure.Exception.NotSupported("PersistentCommandDispatcher doesn't support command handler context.");
+                    }
                 }
 
                 if (commandWithKey == null)
                     commandWithKey = payload as ICommand;
 
-                log.Info(commandWithKey, "Got command.");
+                log.Info(commandWithKey, "Got a command.");
+                log.Info(commandWithKey, "Execution on the handler {0}.", handler.HandlerIdentifier ?? handler.Handler.GetType().FullName);
 
                 // If we have command with the key, serialize it for persisten delivery.
                 if (store != null && isPersistenceUsed && commandWithKey != null)
@@ -195,7 +198,7 @@ namespace Neptuo.Commands
                     string serializedEnvelope = await formatter.SerializeAsync(envelope);
                     store.Save(new CommandModel(commandWithKey.Key, serializedEnvelope));
 
-                    log.Info(commandWithKey, "Saved to store.");
+                    log.Debug(commandWithKey, "Saved to the store.");
                 }
 
                 // If isEnvelopeDelayUsed, try to schedule the execution.
@@ -216,7 +219,7 @@ namespace Neptuo.Commands
         {
             if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
-                log.Info(envelope, "Scheduling to later execution.");
+                log.Info(envelope, "Scheduling for later execution.");
 
                 ScheduleCommandContext context = new ScheduleCommandContext(handler, argument, envelope, OnScheduledCommand);
                 schedulingProvider.Schedule(context);
@@ -230,7 +233,7 @@ namespace Neptuo.Commands
         {
             object key = distributor.Distribute(payload);
 
-            log.Info(commandWithKey, "Distributing execution on '{0}'.", key);
+            log.Debug(commandWithKey, "Distributing execution on the '{0}'.", key);
 
             queue.Enqueue(key, async () =>
             {
@@ -254,26 +257,33 @@ namespace Neptuo.Commands
 
                 try
                 {
-                    log.Info(commandWithKey, "Entered try-catch.");
+                    log.Debug(commandWithKey, "Entered try-catch.");
 
                     if (handler.IsContext)
-                        await handler.Execute(log, context, additionalExceptionDecorator);
+                        await handler.Execute(context, additionalExceptionDecorator);
                     else if (handler.IsEnvelope)
-                        await handler.Execute(log, envelope, additionalExceptionDecorator);
+                        await handler.Execute(envelope, additionalExceptionDecorator);
                     else if (handler.IsPlain)
-                        await handler.Execute(log, payload, additionalExceptionDecorator);
+                        await handler.Execute(payload, additionalExceptionDecorator);
                     else
                         throw Ensure.Exception.UndefinedHandlerType(handler);
 
+                    log.Debug(commandWithKey, "Handler finished.");
+
                     // If we have command with the key, notify about successful execution.
                     if (store != null && commandWithKey != null)
+                    {
                         await store.PublishedAsync(commandWithKey.Key);
+                        log.Debug(commandWithKey, "Successfull execution saved to the store.");
+                    }
                 }
                 catch (Exception e)
                 {
                     DispatcherExceptionHandlers.Handle(e);
                     log.Fatal(commandWithKey, e.ToString());
                 }
+
+                log.Info(commandWithKey, "Execution finished.");
             });
         }
 
@@ -304,15 +314,21 @@ namespace Neptuo.Commands
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
 
+            log.Debug("Starting recovery.");
+
             IEnumerable<CommandModel> models = await store.GetAsync();
             foreach (CommandModel model in models)
             {
                 Type envelopeType = EnvelopeFactory.GetType(Type.GetType(model.CommandKey.Type));
                 Envelope envelope = (Envelope)await formatter.DeserializeAsync(envelopeType, model.Payload);
+
+                log.Debug(envelope, "Recovering an envelope.");
                 await HandleAsync(envelope, false);
             }
 
             await store.ClearAsync();
+
+            log.Debug("Recovery finished.");
         }
 
         protected override void DisposeManagedResources()

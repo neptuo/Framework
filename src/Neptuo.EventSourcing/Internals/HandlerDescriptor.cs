@@ -25,13 +25,13 @@ namespace Neptuo.Internals
         /// <summary>
         /// The method that executes handler with parameter.
         /// </summary>
-        protected Func<ILog, object, object, Action<Exception>, Task> ExecuteMethod { get; private set; }
+        protected Func<object, object, Action<Exception>, Task> ExecuteMethod { get; private set; }
 
 
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        public HandlerDescriptor(string handlerIdentifier, object handler, Type argumentType, Func<ILog, object, object, Action<Exception>, Task> execute, bool isPlain, bool isEnvelope, bool isContext)
+        public HandlerDescriptor(string handlerIdentifier, object handler, Type argumentType, Func<object, object, Action<Exception>, Task> execute, bool isPlain, bool isEnvelope, bool isContext)
             : base(argumentType, isPlain, isEnvelope, isContext)
         {
             Ensure.NotNull(handler, "handler");
@@ -44,12 +44,11 @@ namespace Neptuo.Internals
         /// <summary>
         /// Executes handler method with a <paramref name="parameter"/>.
         /// </summary>
-        /// <param name="log">A log.</param>
         /// <param name="parameter">An argument to the handle method.</param>
         /// <param name="additionalExceptionDecorator">A delegate for decorating raised exceptions.</param>
-        public Task Execute(ILog log, object parameter, Action<Exception> additionalExceptionDecorator)
+        public Task Execute(object parameter, Action<Exception> additionalExceptionDecorator)
         {
-            return ExecuteMethod(log, Handler, parameter, additionalExceptionDecorator);
+            return ExecuteMethod(Handler, parameter, additionalExceptionDecorator);
         }
 
         public override int GetHashCode()

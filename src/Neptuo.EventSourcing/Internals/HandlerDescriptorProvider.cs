@@ -1,5 +1,4 @@
 ﻿using Neptuo.Exceptions;
-using Neptuo.Logging;
 using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -56,7 +55,7 @@ namespace Neptuo.Internals
             MethodInfo method = handlerType.GetInterfaceMap(interfaceType.MakeGenericType(argumentType)).TargetMethods
                 .FirstOrDefault(m => m.Name.EndsWith(methodName));
 
-            Func<ILog, object, object, Action<Exception>, Task> handlerAction = (log, h, p, additionalExceptionDecorator) =>
+            Func<object, object, Action<Exception>, Task> handlerAction = (h, p, additionalExceptionDecorator) =>
             {
                 try
                 {
