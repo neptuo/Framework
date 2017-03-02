@@ -24,7 +24,8 @@ namespace Neptuo.Logging
             Ensure.NotNull(repository, "repository");
             return repository
                 .Add(new EnvelopeMessageConverter())
-                .Add(new CommandMessageConverter());
+                .Add(new CommandMessageConverter())
+                .Add(new EventMessageConverter());
         }
     }
 }

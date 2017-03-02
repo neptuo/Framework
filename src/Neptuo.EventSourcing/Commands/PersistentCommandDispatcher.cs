@@ -190,7 +190,7 @@ namespace Neptuo.Commands
                     commandWithKey = payload as ICommand;
 
                 log.Info(commandWithKey, "Got a command.");
-                log.Info(commandWithKey, "Execution on the handler {0}.", handler.HandlerIdentifier ?? handler.Handler.GetType().FullName);
+                log.Info(commandWithKey, "Execution on the handler '{0}'.", handler);
 
                 // If we have command with the key, serialize it for persisten delivery.
                 if (store != null && isPersistenceUsed && commandWithKey != null)

@@ -36,7 +36,7 @@ namespace Neptuo.Commands
                     storage[descriptor.ArgumentType] = descriptor;
 
                 if (log.IsDebugEnabled())
-                    log.Debug($"Added handler '{descriptor.HandlerIdentifier ?? descriptor.Handler.GetType().FullName}'.");
+                    log.Debug($"Added a handler '{descriptor.HandlerIdentifier ?? descriptor.Handler.GetType().FullName}'.");
 
                 return this;
             }

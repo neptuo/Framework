@@ -70,5 +70,10 @@ namespace Neptuo.Internals
 
             return Handler == other.Handler && ArgumentType == other.ArgumentType;
         }
+
+        public override string ToString()
+        {
+            return HandlerIdentifier ?? Handler.GetType().FullName;
+        }
     }
 }

@@ -1,9 +1,11 @@
-﻿using Neptuo.Data;
+﻿using Neptuo;
+using Neptuo.Data;
 using Neptuo.Events.Handlers;
 using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
+using Neptuo.Logging;
 using Neptuo.Threading.Tasks;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,7 @@ namespace Neptuo.Events
         private readonly IEventPublishingStore store;
         private readonly ISchedulingProvider schedulingProvider;
         private readonly HandlerDescriptorProvider descriptorProvider;
+        private readonly ILog log;
 
         /// <summary>
         /// The collection of event handlers.
@@ -52,14 +55,25 @@ namespace Neptuo.Events
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="store">The publishing store for command persistent delivery.</param>
-        /// <param name="schedulingProvider">The provider of a delay computation for delayed events.</param>
+        /// <param name="store">A publishing store for command persistent delivery.</param>
+        /// <param name="schedulingProvider">A provider of a delay computation for delayed events.</param>
         public PersistentEventDispatcher(IEventPublishingStore store, ISchedulingProvider schedulingProvider)
+            : this(store, schedulingProvider, new DefaultLogFactory())
+        { }
+
+        /// <summary>
+        /// Creates new instance.
+        /// </summary>
+        /// <param name="store">A publishing store for command persistent delivery.</param>
+        /// <param name="schedulingProvider">A provider of a delay computation for delayed events.</param>
+        /// <param name="logFactory">A log factory.</param>
+        public PersistentEventDispatcher(IEventPublishingStore store, ISchedulingProvider schedulingProvider, ILogFactory logFactory)
         {
             Ensure.NotNull(store, "store");
             Ensure.NotNull(schedulingProvider, "schedulingProvider");
             this.store = store;
             this.schedulingProvider = schedulingProvider;
+            this.log = logFactory.Scope("PersistentEventDispatcher");
 
             EventExceptionHandlers = new DefaultExceptionHandlerCollection();
             DispatcherExceptionHandlers = new DefaultExceptionHandlerCollection();
@@ -72,7 +86,7 @@ namespace Neptuo.Events
                 DispatcherExceptionHandlers
             );
 
-            Handlers = new HandlerCollection(storage, descriptorProvider);
+            Handlers = new HandlerCollection(log.Factory, storage, descriptorProvider);
         }
 
         public Task PublishAsync<TEvent>(TEvent payload)
@@ -133,6 +147,8 @@ namespace Neptuo.Events
                 if (eventWithKey == null)
                     eventWithKey = payload as IEvent;
 
+                log.Info(eventWithKey, "Got an event.");
+
                 // If isEnvelopeDelayUsed, try to schedule the execution.
                 // If succeeded, return.
                 if (isEnvelopeDelayUsed && TrySchedule(envelope, context, handlers, argument))
@@ -152,6 +168,8 @@ namespace Neptuo.Events
         {
             if (schedulingProvider.IsLaterExecutionRequired(envelope))
             {
+                log.Info(envelope, "Scheduling for later execution.");
+
                 ScheduleEventContext context = new ScheduleEventContext(handlers, argument, envelope, handlerContext, OnScheduledEvent);
                 schedulingProvider.Schedule(context);
                 return true;
@@ -164,8 +182,12 @@ namespace Neptuo.Events
         {
             return Task.Factory.StartNew(() =>
             {
+                log.Info(eventWithKey, "Starting execution.");
+
                 foreach (HandlerDescriptor handler in handlers.ToList())
                 {
+                    log.Info(eventWithKey, "Execution on the handler '{0}'.", handler);
+
                     try
                     {
                         if (handler.IsContext)
@@ -178,13 +200,19 @@ namespace Neptuo.Events
                             throw Ensure.Exception.UndefinedHandlerType(handler);
 
                         if (eventWithKey != null && handler.HandlerIdentifier != null)
+                        {
                             store.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
+                            log.Debug(eventWithKey, "Successfull execution on the handler '{0}' saved to the store.", handler);
+                        }
                     }
                     catch (Exception e)
                     {
                         DispatcherExceptionHandlers.Handle(e);
+                        log.Fatal(eventWithKey, e.ToString());
                     }
                 }
+
+                log.Info(eventWithKey, "Execution finished.");
             });
         }
 
@@ -211,14 +239,22 @@ namespace Neptuo.Events
         /// <returns>The continuation task.</returns>
         public async Task RecoverAsync(IDeserializer formatter)
         {
+            Ensure.NotNull(formatter, "formatter");
+
+            log.Debug("Starting recovery.");
+
             IEnumerable<EventPublishingModel> models = await store.GetAsync();
             foreach (EventPublishingModel model in models)
             {
                 IEvent eventModel = formatter.DeserializeEvent(Type.GetType(model.Event.EventKey.Type), model.Event.Payload);
+
+                log.Debug(eventModel, "Recovering an event.");
                 await RecoverEventAsync(eventModel, model.PublishedHandlerIdentifiers);
             }
 
             await store.ClearAsync();
+
+            log.Debug("Recovery finished.");
         }
 
         private async Task RecoverEventAsync(IEvent model, IEnumerable<string> handlerIdentifiers)
@@ -231,6 +267,9 @@ namespace Neptuo.Events
                 IEnumerable<HandlerDescriptor> unPublishedHandlers = handlers.Where(h => !String.IsNullOrEmpty(h.HandlerIdentifier) && !handlerIdentifiers.Contains(h.HandlerIdentifier));
                 if (unPublishedHandlers.Any())
                     await PublishAsync(unPublishedHandlers, argument, model, true);
+                else
+                    log.Debug(model, "No persistent handler.");
+
             }
         }
 

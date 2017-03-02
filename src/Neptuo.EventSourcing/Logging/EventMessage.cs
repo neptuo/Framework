@@ -1,4 +1,4 @@
-﻿using Neptuo.Commands;
+﻿using Neptuo.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace Neptuo.Logging
 {
     /// <summary>
-    /// A logging message for command.
+    /// A logging message for event.
     /// </summary>
-    public class CommandMessage
+    public class EventMessage
     {
         /// <summary>
-        /// Gets a command; can be <c>null</c>.
+        /// Gets an command; can be <c>null</c>.
         /// </summary>
-        public ICommand Command { get; private set; }
+        public IEvent Event { get; private set; }
 
         /// <summary>
         /// Gets a text message.
@@ -25,12 +25,12 @@ namespace Neptuo.Logging
         /// <summary>
         /// Create new instance.
         /// </summary>
-        /// <param name="command">A command.</param>
+        /// <param name="payload">An event.</param>
         /// <param name="message">A text message for string format.</param>
         /// <param name="parameters">Optional parameters for the <paramref name="message"/>.</param>
-        public CommandMessage(ICommand command, string message, params object[] parameters)
+        public EventMessage(IEvent payload, string message, params object[] parameters)
         {
-            Command = command;
+            Event = payload;
             Message = String.Format(message, parameters);
         }
     }
