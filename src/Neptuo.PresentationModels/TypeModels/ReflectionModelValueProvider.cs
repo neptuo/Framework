@@ -1,4 +1,6 @@
-﻿using Neptuo.PresentationModels.TypeModels.ValueUpdates;
+﻿using Neptuo;
+using Neptuo.Converters;
+using Neptuo.PresentationModels.TypeModels.ValueUpdates;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,8 @@ namespace Neptuo.PresentationModels.TypeModels
         private readonly Dictionary<string, PropertyInfo> properties = new Dictionary<string, PropertyInfo>();
 
         protected IReflectionValueUpdater ValueUpdater { get; private set; }
+
+        protected IConverterRepository Converters { get; private set; }
 
         /// <summary>
         /// Type of model.
@@ -43,18 +47,29 @@ namespace Neptuo.PresentationModels.TypeModels
         /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
         /// <param name="valueUpdater">Readonly property value updater. Can't be <c>null</c>.</param>
         public ReflectionModelValueProvider(TModel model, IReflectionValueUpdater valueUpdater)
+            : this(model, valueUpdater, Converts.Repository)
+        { }
+
+        /// <summary>
+        /// Creates new instance with support for updating values of readonly properties.
+        /// </summary>
+        /// <param name="model">Instance of model. Can't be <c>null</c>.</param>
+        /// <param name="valueUpdater">Readonly property value updater. Can't be <c>null</c>.</param>
+        public ReflectionModelValueProvider(TModel model, IReflectionValueUpdater valueUpdater, IConverterRepository converters)
         {
             Ensure.NotNull(model, "model");
             Ensure.NotNull(valueUpdater, "valueUpdater");
+            Ensure.NotNull(converters, "converters");
             Model = model;
             ModelType = model.GetType();
             ValueUpdater = valueUpdater;
+            Converters = converters;
         }
 
         public bool TryGetValue(string identifier, out object value)
         {
             Ensure.NotNullOrEmpty(identifier, "identifier");
-            
+
             PropertyInfo propertyInfo;
             if (TryGetPropertyInfo(identifier, out propertyInfo))
             {
@@ -75,9 +90,9 @@ namespace Neptuo.PresentationModels.TypeModels
             {
                 if (value != null && !propertyInfo.PropertyType.IsAssignableFrom(value.GetType()))
                 {
-                    TypeConverter typeConverter = TypeDescriptor.GetConverter(propertyInfo.PropertyType);
-                    if (typeConverter != null)
-                        value = typeConverter.ConvertFrom(value);
+                    object converted;
+                    if (Converters.TryConvert(value.GetType(), propertyInfo.PropertyType, value, out converted))
+                        value = converted;
                 }
 
                 if (propertyInfo.CanWrite)
@@ -85,7 +100,7 @@ namespace Neptuo.PresentationModels.TypeModels
                     propertyInfo.SetValue(Model, value);
                     return true;
                 }
-                
+
                 return TrySetValueOnReadOnlyProperty(identifier, propertyInfo, value);
             }
 
