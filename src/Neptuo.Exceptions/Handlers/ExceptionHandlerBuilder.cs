@@ -80,7 +80,7 @@ namespace Neptuo.Exceptions.Handlers
         {
             Ensure.NotNull(filter, "filter");
 
-            if(handlers.Count > 0 || ChildHandlers.Count > 0)
+            if (handlers.Count > 0 || ChildHandlers.Count > 0)
             {
                 ExceptionHandlerBuilder<T> builder = new ExceptionHandlerBuilder<T>(filter);
                 ChildHandlers.Add(builder);
@@ -126,7 +126,7 @@ namespace Neptuo.Exceptions.Handlers
 
             // If no filters are defined or all filters are passed, handler the exception.
             bool isPassed = !filters.Any() || filters.All(f => f(ex));
-            if(isPassed)
+            if (isPassed)
             {
                 // First, handle in all registered handlers.
                 foreach (IExceptionHandler<T> handler in handlers)
