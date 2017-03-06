@@ -162,6 +162,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Format
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.PresentationModels.Visualization", "src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Validators", "src\Neptuo.Commands.Validators\Neptuo.Commands.Validators.csproj", "{4066B113-7406-42BB-94A1-4D27FB0C686F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -436,6 +438,10 @@ Global
 		{F5C03409-A415-4CBF-8231-453B977DC8FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5C03409-A415-4CBF-8231-453B977DC8FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5C03409-A415-4CBF-8231-453B977DC8FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -500,6 +506,7 @@ Global
 		{DB6C73A2-437E-4795-987E-6DBA0DB79BE1} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{2C713448-D1C0-4480-86CE-A85ECEB39DF8} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{F5C03409-A415-4CBF-8231-453B977DC8FB} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{4066B113-7406-42BB-94A1-4D27FB0C686F} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
