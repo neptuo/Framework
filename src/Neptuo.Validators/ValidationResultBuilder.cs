@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Validators
 {
     /// <summary>
-    /// Builder for <see cref="IValidationResult"/>
+    /// A builder for <see cref="IValidationResult"/>
     /// </summary>
     public class ValidationResultBuilder : IValidationResult, IValidationResultBuilder
     {

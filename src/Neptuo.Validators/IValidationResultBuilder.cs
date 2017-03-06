@@ -14,7 +14,7 @@ namespace Neptuo.Validators
     {
         /// <summary>
         /// Adds message to the result.
-        /// Based on configuration for constructor, this message will or will not invalidate future result.
+        /// Based on configuration, this message will or will not invalidate future result.
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns>Self (for fluency).</returns>
@@ -32,7 +32,7 @@ namespace Neptuo.Validators
         /// <summary>
         /// Creates result from this builder.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A result from this builder.</returns>
         IValidationResult ToResult();
     }
 }
