@@ -1,4 +1,5 @@
 ﻿using Neptuo;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,21 @@ namespace Neptuo.Exceptions.Handlers
     /// </summary>
     public class DefaultExceptionHandlerContext : IExceptionHandlerContext
     {
+        private IKeyValueCollection metadata;
+
         public bool IsHandled { get; set; }
         public Exception Exception { get; private set; }
+
+        public IKeyValueCollection Metadata
+        {
+            get
+            {
+                if (metadata == null)
+                    metadata = new KeyValueCollection();
+
+                return metadata;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance.
@@ -32,8 +46,21 @@ namespace Neptuo.Exceptions.Handlers
     public class DefaultExceptionHandlerContext<T> : IExceptionHandlerContext<T>
         where T : Exception
     {
+        private IKeyValueCollection metadata;
+
         public bool IsHandled { get; set; }
         public T Exception { get; private set; }
+
+        public IKeyValueCollection Metadata
+        {
+            get
+            {
+                if (metadata == null)
+                    metadata = new KeyValueCollection();
+
+                return metadata;
+            }
+        }
 
         /// <summary>
         /// Creates a new instance.

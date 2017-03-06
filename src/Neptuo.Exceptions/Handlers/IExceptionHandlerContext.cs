@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,11 @@ namespace Neptuo.Exceptions.Handlers
         bool IsHandled { get; }
 
         /// <summary>
+        /// Gets a collection of metadata for handling the exception.
+        /// </summary>
+        IKeyValueCollection Metadata { get; }
+
+        /// <summary>
         /// Gets an instance of the exception.
         /// </summary>
         Exception Exception { get; }
@@ -33,6 +39,11 @@ namespace Neptuo.Exceptions.Handlers
         /// Gets or sets whether the exception is handled.
         /// </summary>
         bool IsHandled { get; }
+
+        /// <summary>
+        /// Gets a collection of metadata for handling the exception.
+        /// </summary>
+        IKeyValueCollection Metadata { get; }
 
         /// <summary>
         /// Gets an instance of the exception.
