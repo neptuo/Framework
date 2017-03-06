@@ -31,8 +31,19 @@ namespace Neptuo.Commands
 
         public async Task HandleAsync<TCommand>(TCommand command)
         {
-            await validationDispatcher.ValidateAsync(command);
+            await ValidateAsync(command);
             await innerDispatcher.HandleAsync(command);
+        }
+
+        /// <summary>
+        /// A method responsible for validating commands.
+        /// </summary>
+        /// <typeparam name="TCommand">A type of the command.</typeparam>
+        /// <param name="command">An instance of command to validate.</param>
+        /// <returns>A continuation task.</returns>
+        protected virtual Task ValidateAsync<TCommand>(TCommand command)
+        {
+            return validationDispatcher.ValidateAsync(command);
         }
     }
 }
