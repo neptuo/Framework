@@ -53,11 +53,15 @@ namespace Neptuo.Commands.Handlers
 
         protected virtual async Task ValidateAsync(T command)
         {
-            if (validationHandler != null)
-                await validationHandler.HandleAsync(command);
+            IValidationResult result = null;
 
-            if (validationDispatcher != null)
-                await validationDispatcher.ValidateAsync(command);
+            if (validationHandler != null)
+                result = await validationHandler.HandleAsync(command);
+            else if (validationDispatcher != null)
+                result = await validationDispatcher.ValidateAsync(command);
+
+            if (result != null)
+                result.ThrowIfNotValid();
         }
     }
 }
