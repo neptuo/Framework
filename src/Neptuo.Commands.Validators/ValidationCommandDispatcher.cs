@@ -20,7 +20,7 @@ namespace Neptuo.Commands
         /// Creates a new instance.
         /// </summary>
         /// <param name="validationDispatcher">A validation dispatcher used for validating commands.</param>
-        /// <param name="innerDispatcher">An inner (real) commands dispatcher for validated handling commands.</param>
+        /// <param name="innerDispatcher">An inner (real) commands dispatcher for validated commands handling.</param>
         public ValidationCommandDispatcher(IValidationDispatcher validationDispatcher, ICommandDispatcher innerDispatcher)
         {
             Ensure.NotNull(validationDispatcher, "validationDispatcher");
