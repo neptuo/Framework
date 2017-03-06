@@ -12,16 +12,16 @@ namespace Neptuo.Validators.Messages
     public class StringNullOrEmptyMessage : ValidationMessageBase
     {
         /// <summary>
-        /// Creates new instance for <paramref name="key"/>.
+        /// Creates a new instance for <paramref name="key"/>.
         /// </summary>
-        /// <param name="key">Validation message key.</param>
+        /// <param name="key">A target field key.</param>
         public StringNullOrEmptyMessage(string key)
             : base(key)
         { }
 
         public override string ToString()
         {
-            return String.Format("{0} can't be empty.", Key);
+            return String.Format("'{0}' can't be empty.", Key);
         }
     }
 }

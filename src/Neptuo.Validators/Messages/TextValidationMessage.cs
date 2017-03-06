@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace Neptuo.Validators.Messages
 {
     /// <summary>
-    /// Validation message with custom text message.
+    /// Validation message with custom text content.
     /// </summary>
     public class TextValidationMessage : ValidationMessageBase
     {
         private readonly string message;
 
         /// <summary>
-        /// Creates new instance for <paramref name="key"/> with message in <paramref name="message"/>.
+        /// Creates a new instance for <paramref name="key"/> with message in <paramref name="message"/>.
         /// </summary>
-        /// <param name="key">Validation message key.</param>
+        /// <param name="key">A target field key.</param>
         /// <param name="message">Text representation of validation message.</param>
         public TextValidationMessage(string key, string message)
             : base(key)
