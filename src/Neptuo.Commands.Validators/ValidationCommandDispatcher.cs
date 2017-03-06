@@ -1,0 +1,38 @@
+﻿using Neptuo;
+using Neptuo.Validators;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Neptuo.Commands
+{
+    /// <summary>
+    /// An implementation of <see cref="ICommandDispatcher"/> which uses <see cref="IValidationDispatcher"/> to validate all incoming commands.
+    /// </summary>
+    public class ValidationCommandDispatcher : ICommandDispatcher
+    {
+        private readonly IValidationDispatcher validationDispatcher;
+        private readonly ICommandDispatcher innerDispatcher;
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="validationDispatcher">A validation dispatcher used for validating commands.</param>
+        /// <param name="innerDispatcher">An inner (real) commands dispatcher for validated handling commands.</param>
+        public ValidationCommandDispatcher(IValidationDispatcher validationDispatcher, ICommandDispatcher innerDispatcher)
+        {
+            Ensure.NotNull(validationDispatcher, "validationDispatcher");
+            Ensure.NotNull(innerDispatcher, "innerDispatcher");
+            this.validationDispatcher = validationDispatcher;
+            this.innerDispatcher = innerDispatcher;
+        }
+
+        public async Task HandleAsync<TCommand>(TCommand command)
+        {
+            await validationDispatcher.ValidateAsync(command);
+            await innerDispatcher.HandleAsync(command);
+        }
+    }
+}
