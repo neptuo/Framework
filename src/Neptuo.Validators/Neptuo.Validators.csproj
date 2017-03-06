@@ -74,6 +74,7 @@
     <Compile Include="ValidationResult.cs" />
     <Compile Include="ValidationResultBuilder.cs" />
     <Compile Include="_ValidationResultBuilderExtensions.cs" />
+    <Compile Include="_ValidationResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.Validators.nuspec" />

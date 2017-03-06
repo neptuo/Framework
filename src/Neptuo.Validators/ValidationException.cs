@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,9 @@ namespace Neptuo.Validators
     /// </summary>
     public class ValidationException : Exception
     {
+        /// <summary>
+        /// Gets a result of the validation.
+        /// </summary>
         public IValidationResult Result { get; private set; }
 
         /// <summary>
@@ -22,6 +26,20 @@ namespace Neptuo.Validators
         {
             Ensure.NotNull(result, "result");
             Result = result;
+        }
+
+        /// <summary>
+        /// Throws a <see cref="ValidationException"/> if the <paramref name="result"/> is not valid.
+        /// </summary>
+        /// <param name="result">A result to throw exception for.</param>
+        public static void ThrowIfNotValid(IValidationResult result)
+        {
+            Ensure.NotNull(result, "result");
+
+            if (result.IsValid)
+                return;
+
+            throw new ValidationException(result);
         }
     }
 }
