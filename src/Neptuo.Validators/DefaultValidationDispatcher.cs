@@ -1,4 +1,5 @@
-﻿using Neptuo.Validators.Handlers;
+﻿using Neptuo;
+using Neptuo.Validators.Handlers;
 using Neptuo.Validators.Internals;
 using System;
 using System.Collections.Generic;
@@ -15,12 +16,20 @@ namespace Neptuo.Validators
     public class DefaultValidationDispatcher : ValidationDispatcherBase, IValidationHandlerCollection
     {
         private readonly Dictionary<Type, DefaultValidationHandlerDefinition> storage = new Dictionary<Type, DefaultValidationHandlerDefinition>();
+        private readonly OutFuncCollection<Type, object, bool> onSearchHandler = new OutFuncCollection<Type, object, bool>();
 
         public IValidationHandlerCollection Add<TModel>(IValidationHandler<TModel> handler)
         {
             Ensure.NotNull(handler, "handler");
             Type modelType = typeof(TModel);
             storage[modelType] = new DefaultValidationHandlerDefinition(handler, model => handler.HandleAsync((TModel)model));
+            return this;
+        }
+
+        public IValidationHandlerCollection AddSearchHandler(OutFunc<Type, object, bool> searchHandler)
+        {
+            Ensure.NotNull(searchHandler, "searchHandler");
+            onSearchHandler.Add(searchHandler);
             return this;
         }
 
@@ -32,6 +41,13 @@ namespace Neptuo.Validators
             {
                 handler = (IValidationHandler<TModel>)definition.ValidationHandler;
                 return true;
+            }
+
+            object rawHandler;
+            if (onSearchHandler.TryExecute(modelType, out rawHandler))
+            {
+                handler = definition.ValidationHandler as IValidationHandler<TModel>;
+                return handler != null;
             }
 
             handler = null;
@@ -46,6 +62,9 @@ namespace Neptuo.Validators
                 validationHandler = definition.ValidationHandler;
                 return true;
             }
+
+            if (onSearchHandler.TryExecute(modelType, out validationHandler))
+                return true;
 
             validationHandler = null;
             return false;

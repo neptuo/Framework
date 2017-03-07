@@ -9,7 +9,7 @@ namespace Neptuo.Validators.Internals
     /// <summary>
     /// Definition of command handler inside <see cref="DefaultValidationDispatcher"/>.
     /// </summary>
-    public class DefaultValidationHandlerDefinition
+    internal class DefaultValidationHandlerDefinition
     {
         /// <summary>
         /// Validation handler.

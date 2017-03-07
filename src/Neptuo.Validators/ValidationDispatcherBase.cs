@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Neptuo.Validators.Messages;
 
 namespace Neptuo.Validators
 {
@@ -21,6 +22,23 @@ namespace Neptuo.Validators
         /// Because of SharpKit, this can't be defined by <see cref="TypeHelper"/>.
         /// </remarks>
         private static readonly string validateMethodName = "ValidateAsync"; //TypeHelper.MethodName<IValidator<object>, object, IValidationResult>(v => v.Validate)
+
+        private readonly bool? isMissingHandlerValid;
+
+        /// <summary>
+        /// Creates a new instance and an exception is thrown for missing handler.
+        /// </summary>
+        protected ValidationDispatcherBase()
+        { }
+
+        /// <summary>
+        /// Creates a new instance and a valid or invalid result is returned for missing handler.
+        /// </summary>
+        /// <param name="isMissingHandlerValid">Whether a missing handler should return valid result or invalid.</param>
+        protected ValidationDispatcherBase(bool isMissingHandlerValid)
+        {
+            this.isMissingHandlerValid = isMissingHandlerValid;
+        }
 
         public async Task<IValidationResult> ValidateAsync<TModel>(TModel model)
         {
@@ -44,7 +62,7 @@ namespace Neptuo.Validators
                 return result;
             }
 
-            throw Ensure.Exception.ArgumentOutOfRange("model", "There isn't validation handler for model of type '{0}'.", modelType.FullName);
+            return ProcessMissingHandler(model);
         }
 
         public Task<IValidationResult> ValidateAsync(object model)
@@ -62,7 +80,23 @@ namespace Neptuo.Validators
                 return (Task<IValidationResult>)validationResult;
             }
 
-            throw Ensure.Exception.ArgumentOutOfRange("model", "There isn't validation handler for model of type '{0}'.", modelType.FullName);
+            return Task.FromResult(ProcessMissingHandler(model));
+        }
+
+        /// <summary>
+        /// Used when there isn't a handler for the <paramref name="model"/>.
+        /// </summary>
+        /// <param name="model">A model without handler.</param>
+        /// <returns>A validation result.</returns>
+        protected virtual IValidationResult ProcessMissingHandler(object model)
+        {
+            if (isMissingHandlerValid == null)
+            {
+                Type modelType = model.GetType();
+                throw new MissingValidationHandlerException(modelType);
+            }
+
+            return new ValidationResult(isMissingHandlerValid.Value);
         }
 
         /// <summary>
@@ -72,5 +106,17 @@ namespace Neptuo.Validators
         /// <param name="validationHandler">Validation for models of type <paramref name="modelType"/>.</param>
         /// <returns><c>true</c> if such handler is registered; <c>false</c> otherwise.</returns>
         protected abstract bool TryGetValidationHandler(Type modelType, out object validationHandler);
+
+        private class ValidationResult : IValidationResult
+        {
+            public bool IsValid { get; private set; }
+            public IEnumerable<IValidationMessage> Messages { get; private set; }
+
+            public ValidationResult(bool isValid)
+            {
+                IsValid = isValid;
+                Messages = Enumerable.Empty<IValidationMessage>();
+            }
+        }
     }
 }

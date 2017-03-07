@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Validators
 {
     /// <summary>
-    /// Collection of registered validation handlers.
+    /// A collection of registered validation handlers.
     /// </summary>
     public interface IValidationHandlerCollection
     {
@@ -19,6 +19,13 @@ namespace Neptuo.Validators
         /// <param name="handler">Handler for validation for model of type <typeparamref name="TQuery"/>.</param>
         /// <returns>Self (for fluency).</returns>
         IValidationHandlerCollection Add<TModel>(IValidationHandler<TModel> handler);
+
+        /// <summary>
+        /// Registers a <paramref name="searchHandler"/> to be used for dynamic handler search.
+        /// </summary>
+        /// <param name="searchHandler">A handler to be used for search for a handler</param>
+        /// <returns>Self (for fluency).</returns>
+        IValidationHandlerCollection AddSearchHandler(OutFunc<Type, object, bool> searchHandler);
 
         /// <summary>
         /// Tries to find query handler for query of type <typeparamref name="TQuery"/>.
