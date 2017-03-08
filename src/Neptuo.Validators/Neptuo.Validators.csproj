@@ -56,6 +56,7 @@
     <Compile Include="DefaultValidationDispatcher.cs" />
     <Compile Include="DependencyValidationDispatcher.cs" />
     <Compile Include="Handlers\IValidationHandler.cs" />
+    <Compile Include="Handlers\ValidationHandlerBase.cs" />
     <Compile Include="Internals\DefaultValidationHandlerDefinition.cs" />
     <Compile Include="IValidationDispatcher.cs" />
     <Compile Include="IValidationHandlerCollection.cs" />
