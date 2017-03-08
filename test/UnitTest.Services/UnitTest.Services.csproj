@@ -106,6 +106,9 @@
     <Compile Include="Queries\_Services.cs" />
     <Compile Include="T_KeyFactory.cs" />
     <Compile Include="T_SchedulingContext.cs" />
+    <Compile Include="Validators\T_Validators_MissingHandler.cs" />
+    <Compile Include="Validators\T_Validators_SearchHandler.cs" />
+    <Compile Include="Validators\_Services.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">

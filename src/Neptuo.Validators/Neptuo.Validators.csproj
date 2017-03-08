@@ -56,6 +56,7 @@
     <Compile Include="DefaultValidationDispatcher.cs" />
     <Compile Include="DependencyValidationDispatcher.cs" />
     <Compile Include="Handlers\IValidationHandler.cs" />
+    <Compile Include="Handlers\ValidationHandlerBase.cs" />
     <Compile Include="Internals\DefaultValidationHandlerDefinition.cs" />
     <Compile Include="IValidationDispatcher.cs" />
     <Compile Include="IValidationHandlerCollection.cs" />
@@ -67,13 +68,16 @@
     <Compile Include="Messages\StringNullOrEmptyMessage.cs" />
     <Compile Include="Messages\TextValidationMessage.cs" />
     <Compile Include="Messages\ValidationMessageBase.cs" />
+    <Compile Include="MissingValidationHandlerException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\VersionInfo.cs" />
     <Compile Include="ValidationDispatcherBase.cs" />
     <Compile Include="ValidationException.cs" />
     <Compile Include="ValidationResult.cs" />
     <Compile Include="ValidationResultBuilder.cs" />
+    <Compile Include="_ValidationDispatcherExceptions.cs" />
     <Compile Include="_ValidationResultBuilderExtensions.cs" />
+    <Compile Include="_ValidationResultExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Neptuo.Validators.nuspec" />

@@ -19,6 +19,7 @@ namespace Neptuo.Validators
 
         /// <summary>
         /// Creates new instance using <paramref name="dependencyProvider"/> for resolving validation handlers.
+        /// For missing handler an <see cref="MissingValidationHandlerException"/> is thrown.
         /// </summary>
         /// <param name="dependencyProvider">Resolver of validation handlers.</param>
         public DependencyValidationDispatcher(IDependencyProvider dependencyProvider)
@@ -27,11 +28,30 @@ namespace Neptuo.Validators
             this.dependencyProvider = dependencyProvider;
         }
 
+        /// <summary>
+        /// Creates a new instance and a valid or invalid result is returned for missing handler.
+        /// </summary>
+        /// <param name="isMissingHandlerValid">Whether a missing handler should return valid result or invalid.</param>
+        public DependencyValidationDispatcher(IDependencyProvider dependencyProvider, bool isMissingHandlerValid)
+            : base(isMissingHandlerValid)
+        {
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            this.dependencyProvider = dependencyProvider;
+        }
+
         protected override bool TryGetValidationHandler(Type modelType, out object validationHandler)
         {
-            Type validatorType = typeof(IValidationHandler<>).MakeGenericType(modelType);
-            validationHandler = dependencyProvider.Resolve(validatorType);
-            return true;
+            try
+            {
+                Type validatorType = typeof(IValidationHandler<>).MakeGenericType(modelType);
+                validationHandler = dependencyProvider.Resolve(validatorType);
+                return true;
+            }
+            catch (DependencyResolutionFailedException)
+            {
+                validationHandler = null;
+                return false;
+            }
         }
     }
 }

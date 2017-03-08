@@ -12,15 +12,15 @@ namespace Neptuo.Validators.Messages
     public class KeyValuesMustMatchMessage : ValidationMessageBase
     {
         /// <summary>
-        /// Other key that is required to be equal to <see cref="KeyValuesMustMatchMessage.Key"/>.
+        /// Other key that is required to be equal to <see cref="IValidationMessage.Key"/>.
         /// </summary>
         public string OtherKey { get; private set; }
 
         /// <summary>
-        /// Creates new instance with required equality between <paramref name="key"/> and <paramref name="otherKey"/>.
+        /// Creates a new instance with required equality between <paramref name="key"/> and <paramref name="otherKey"/>.
         /// </summary>
-        /// <param name="key">Target field key.</param>
-        /// <param name="otherKey">Other key that is required to be equal to <see cref="KeyValuesMustMatchMessage.Key"/>.</param>
+        /// <param name="key">A target field key.</param>
+        /// <param name="otherKey">Other key that is required to be equal to <see cref="IValidationMessage.Key"/>.</param>
         public KeyValuesMustMatchMessage(string key, string otherKey)
             : base(key)
         {
@@ -29,7 +29,7 @@ namespace Neptuo.Validators.Messages
 
         public override string ToString()
         {
-            return String.Format("{0} must match {1}.", Key, OtherKey);
+            return String.Format("'{0}' must match '{1}'.", Key, OtherKey);
         }
     }
 }

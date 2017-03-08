@@ -12,19 +12,21 @@ namespace Neptuo.Validators.Messages
     public class StringLengthMessage : ValidationMessageBase
     {
         /// <summary>
-        /// Minimal required string length.
+        /// Gets a minimal required string length.
+        /// If <c>null</c> is returned, an lower bound is not set.
         /// </summary>
         public int? MinLength { get; private set; }
 
         /// <summary>
-        /// Maximal allowed string length.
+        /// Gets a maximal allowed string length.
+        /// If <c>null</c> is returned, an upper bound is not set.
         /// </summary>
         public int? MaxLength { get; private set; }
 
         /// <summary>
-        /// Creates new instance for <paramref name="key"/>.
+        /// Creates a new instance for <paramref name="key"/>.
         /// </summary>
-        /// <param name="key">Validation message key.</param>
+        /// <param name="key">A target field key.</param>
         /// <param name="minLength">Minimal required string length.</param>
         /// <param name="maxLength">Maximal allowed string length.</param>
         public StringLengthMessage(string key, int? minLength, int? maxLength)
@@ -37,12 +39,12 @@ namespace Neptuo.Validators.Messages
         public override string ToString()
         {
             if (MinLength == null)
-                return String.Format("{0} must be shorter or equal to {1} characters.", Key, MaxLength);
+                return String.Format("'{0}' must be shorter or equal to '{1}' characters.", Key, MaxLength);
 
             if (MaxLength == null)
-                return String.Format("{0} must have length at least {1} characters.", Key, MinLength);
+                return String.Format("'{0}' must have length at least '{1}' characters.", Key, MinLength);
 
-            return String.Format("Length of {0} must be between {1} and {2} characters.", MinLength, MaxLength);
+            return String.Format("Length of '{0}' must be between '{1}' and '{2}' characters.", MinLength, MaxLength);
         }
     }
 }

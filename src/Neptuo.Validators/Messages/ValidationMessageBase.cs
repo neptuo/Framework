@@ -7,16 +7,19 @@ using System.Threading.Tasks;
 namespace Neptuo.Validators.Messages
 {
     /// <summary>
-    /// Base implementation of <see cref="IValidationMessage"/>.
+    /// A base implementation of <see cref="IValidationMessage"/>.
     /// </summary>
     public abstract class ValidationMessageBase : IValidationMessage
     {
+        /// <summary>
+        /// Gets a target field key.
+        /// </summary>
         public string Key { get; private set; }
 
         /// <summary>
-        /// Creates new instance for <paramref name="key"/> with message in <paramref name="message"/>.
+        /// Creates a new instance for <paramref name="key"/>.
         /// </summary>
-        /// <param name="key">Validation message key.</param>
+        /// <param name="key">A target field key.</param>
         public ValidationMessageBase(string key)
         {
             Key = key;
