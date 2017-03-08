@@ -23,7 +23,7 @@ namespace Neptuo.Commands.Handlers
         /// Creates a new instance which uses <paramref name="validationDispatcher"/> to validate all incoming commands.
         /// </summary>
         /// <param name="validationDispatcher">A validation dispatcher used for validating commands.</param>
-        /// <param name="innerDispatcher">An inner (real) commands handler for validated commands handling.</param>
+        /// <param name="innerHandler">An inner (real) commands handler for validated commands handling.</param>
         public ValidationCommandHandler(IValidationDispatcher validationDispatcher, ICommandHandler<T> innerHandler)
         {
             Ensure.NotNull(validationDispatcher, "validationDispatcher");
@@ -35,8 +35,8 @@ namespace Neptuo.Commands.Handlers
         /// <summary>
         /// Creates a new instance which uses <paramref name="validationHandler"/> to validate all incoming commands.
         /// </summary>
-        /// <param name="validationDispatcher">A validation handler used for validating commands.</param>
-        /// <param name="innerDispatcher">An inner (real) commands handler for validated commands handling.</param>
+        /// <param name="validationHandler">A validation handler used for validating commands.</param>
+        /// <param name="innerHandler">An inner (real) commands handler for validated commands handling.</param>
         public ValidationCommandHandler(IValidationHandler<T> validationHandler, ICommandHandler<T> innerHandler)
         {
             Ensure.NotNull(validationHandler, "validationHandler");
