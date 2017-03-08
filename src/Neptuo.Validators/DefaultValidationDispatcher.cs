@@ -18,6 +18,20 @@ namespace Neptuo.Validators
         private readonly Dictionary<Type, DefaultValidationHandlerDefinition> storage = new Dictionary<Type, DefaultValidationHandlerDefinition>();
         private readonly OutFuncCollection<Type, object, bool> onSearchHandler = new OutFuncCollection<Type, object, bool>();
 
+        /// <summary>
+        /// Creates a new instance and an exception is thrown for missing handler.
+        /// </summary>
+        public DefaultValidationDispatcher()
+        { }
+
+        /// <summary>
+        /// Creates a new instance and a valid or invalid result is returned for missing handler.
+        /// </summary>
+        /// <param name="isMissingHandlerValid">Whether a missing handler should return valid result or invalid.</param>
+        public DefaultValidationDispatcher(bool isMissingHandlerValid) 
+            : base(isMissingHandlerValid)
+        { }
+
         public IValidationHandlerCollection Add<TModel>(IValidationHandler<TModel> handler)
         {
             Ensure.NotNull(handler, "handler");

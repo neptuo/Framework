@@ -23,6 +23,18 @@ namespace Neptuo.Validators
         /// </summary>
         /// <param name="modelType">A type of the model without handler.</param>
         public MissingValidationHandlerException(Type modelType)
+            : base(string.Format("Missing validation handler for model type '{0}'.", modelType))
+        {
+            Ensure.NotNull(modelType, "modelType");
+            ModelType = modelType;
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="modelType">A type of the model without handler.</param>
+        public MissingValidationHandlerException(Type modelType, Exception inner)
+            : base(string.Format("Missing validation handler for model type '{0}'.", modelType), inner)
         {
             Ensure.NotNull(modelType, "modelType");
             ModelType = modelType;
