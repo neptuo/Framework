@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Neptuo.Commands.Validators.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -43,7 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Neptuo.Validators, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Validators.1.1.0-beta1\lib\net45\Neptuo.Validators.dll</HintPath>
+      <HintPath>..\..\packages\Neptuo.Validators.1.1.0\lib\net45\Neptuo.Validators.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
