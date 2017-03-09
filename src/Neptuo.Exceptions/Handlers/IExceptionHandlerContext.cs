@@ -15,7 +15,7 @@ namespace Neptuo.Exceptions.Handlers
         /// <summary>
         /// Gets or sets whether the exception is handled.
         /// </summary>
-        bool IsHandled { get; }
+        bool IsHandled { get; set; }
 
         /// <summary>
         /// Gets a collection of metadata for handling the exception.
@@ -38,7 +38,7 @@ namespace Neptuo.Exceptions.Handlers
         /// <summary>
         /// Gets or sets whether the exception is handled.
         /// </summary>
-        bool IsHandled { get; }
+        bool IsHandled { get; set; }
 
         /// <summary>
         /// Gets a collection of metadata for handling the exception.
