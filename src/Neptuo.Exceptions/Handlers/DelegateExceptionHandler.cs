@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace Neptuo.Exceptions.Handlers
 {
     /// <summary>
-    /// The factory class for exception handlers from actions.
+    /// The factory class for exception handlers from actions and functions.
     /// </summary>
     public static class DelegateExceptionHandler
     {
         /// <summary>
-        /// Creates new instance using <paramref name="handler"/>.
+        /// Creates a new instance using <paramref name="handler"/>.
         /// </summary>
-        /// <param name="handler">Delegate for handling exceptions.</param>
+        /// <param name="handler">A delegate for handling exceptions.</param>
         public static IExceptionHandler FromAction(Action<Exception> handler)
         {
             Ensure.NotNull(handler, "action");
@@ -22,15 +22,43 @@ namespace Neptuo.Exceptions.Handlers
         }
 
         /// <summary>
-        /// Creates new instance using <paramref name="handler"/>.
+        /// Creates a new instance using <paramref name="handler"/>.
         /// </summary>
-        /// <typeparam name="T">The of the exception to handle.</typeparam>
-        /// <param name="handler">Delegate for handling exceptions.</param>
+        /// <typeparam name="T">A type of an exception to handle.</typeparam>
+        /// <param name="handler">A delegate for handling exceptions.</param>
         public static IExceptionHandler<T> FromAction<T>(Action<T> handler)
             where T : Exception
         {
             Ensure.NotNull(handler, "action");
             return new ExceptionHandler<T>(handler);
+        }
+
+        /// <summary>
+        /// Creates a new instance using <paramref name="handler"/>.
+        /// </summary>
+        /// <typeparam name="T">A type of an exception to handle.</typeparam>
+        /// <param name="handler">A delegate for handling exceptions.</param>
+        public static IExceptionHandler<IExceptionHandlerContext<T>> FromAction<T>(Action<IExceptionHandlerContext<T>> handler)
+            where T : Exception
+        {
+            Ensure.NotNull(handler, "action");
+            return new ExceptionHandler<IExceptionHandlerContext<T>>(handler);
+        }
+
+        /// <summary>
+        /// Creates a new instance using <paramref name="handler"/>.
+        /// </summary>
+        /// <typeparam name="T">A type of an exception to handle.</typeparam>
+        /// <param name="handler">A delegate for handling exceptions.</param>
+        public static IExceptionHandler<IExceptionHandlerContext<T>> FromFunc<T>(Func<T, bool> handler)
+            where T : Exception
+        {
+            Ensure.NotNull(handler, "action");
+            return new ExceptionHandler<IExceptionHandlerContext<T>>(context =>
+            {
+                if (handler(context.Exception))
+                    context.IsHandled = true;
+            });
         }
 
         private class ExceptionHandler : ExceptionHandler<Exception>, IExceptionHandler
@@ -41,7 +69,6 @@ namespace Neptuo.Exceptions.Handlers
         }
 
         private class ExceptionHandler<T> : IExceptionHandler<T>
-            where T : Exception
         {
             private readonly Action<T> handler;
 

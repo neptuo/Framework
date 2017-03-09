@@ -23,7 +23,6 @@ namespace Neptuo.Exceptions.Handlers
     /// </summary>
     /// <typeparam name="T">The type of the exception to handle.</typeparam>
     public interface IExceptionHandler<T>
-        where T : Exception
     {
         /// <summary>
         /// Processes <paramref name="exception"/> raised during execution.

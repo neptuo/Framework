@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Neptuo;
+using Neptuo.Collections.Specialized;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +28,20 @@ namespace Neptuo.Exceptions.Handlers
 
         /// <summary>
         /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previous specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
+        public ExceptionHandlerBuilder Handler<T>(IExceptionHandler<IExceptionHandlerContext<T>> handler)
+            where T : Exception
+        {
+            Ensure.NotNull(handler, "handler");
+            ChildHandlers.Add(new ExceptionHandlerBuilder<T>().Handler(handler));
+            return this;
+        }
+
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
         /// and only when all previously specified filters are passed.
         /// </summary>
         /// <param name="handler">The handler to the exceptions.</param>
@@ -41,13 +57,13 @@ namespace Neptuo.Exceptions.Handlers
     /// <summary>
     /// The builder of various filters for handling specific exceptions.
     /// </summary>
-    public class ExceptionHandlerBuilder<T> : IExceptionHandler
+    public class ExceptionHandlerBuilder<T> : IExceptionHandler, IExceptionHandler<IExceptionHandlerContext>
         where T : Exception
     {
         private readonly List<Func<T, bool>> filters = new List<Func<T, bool>>();
-        private readonly List<IExceptionHandler<T>> handlers = new List<IExceptionHandler<T>>();
+        private readonly List<IExceptionHandler<IExceptionHandlerContext<T>>> handlers = new List<IExceptionHandler<IExceptionHandlerContext<T>>>();
 
-        protected List<IExceptionHandler> ChildHandlers = new List<IExceptionHandler>();
+        protected List<IExceptionHandler<IExceptionHandlerContext>> ChildHandlers = new List<IExceptionHandler<IExceptionHandlerContext>>();
 
         internal ExceptionHandlerBuilder()
         { }
@@ -80,7 +96,7 @@ namespace Neptuo.Exceptions.Handlers
         {
             Ensure.NotNull(filter, "filter");
 
-            if(handlers.Count > 0 || ChildHandlers.Count > 0)
+            if (handlers.Count > 0 || ChildHandlers.Count > 0)
             {
                 ExceptionHandlerBuilder<T> builder = new ExceptionHandlerBuilder<T>(filter);
                 ChildHandlers.Add(builder);
@@ -100,7 +116,7 @@ namespace Neptuo.Exceptions.Handlers
         public ExceptionHandlerBuilder<T> Handler(IExceptionHandler<T> handler)
         {
             Ensure.NotNull(handler, "handler");
-            handlers.Add(handler);
+            handlers.Add(new ContextHandler(handler));
             return this;
         }
 
@@ -112,29 +128,95 @@ namespace Neptuo.Exceptions.Handlers
         /// <returns>Self (for fluency).</returns>
         public ExceptionHandlerBuilder<T> Handler(Action<T> handler)
         {
-            handlers.Add(DelegateExceptionHandler.FromAction<T>(handler));
+            return Handler(DelegateExceptionHandler.FromAction<T>(handler));
+        }
+
+        /// <summary>
+        /// Registers <paramref name="handler"/> to be executed on the exceptions of type <typeparamref name="T"/>
+        /// and only when all previous specified filters are passed.
+        /// </summary>
+        /// <param name="handler">The handler to the exceptions.</param>
+        /// <returns>Self (for fluency).</returns>
+        public ExceptionHandlerBuilder<T> Handler(IExceptionHandler<IExceptionHandlerContext<T>> handler)
+        {
+            Ensure.NotNull(handler, "handler");
+            handlers.Add(handler);
             return this;
         }
 
-        void IExceptionHandler.Handle(Exception exception)
+        private bool Handle(Exception exception, IKeyValueCollection metadata = null)
         {
             Ensure.NotNull(exception, "exception");
 
             T ex = exception as T;
             if (ex == null)
-                return;
+                return true;
 
             // If no filters are defined or all filters are passed, handler the exception.
             bool isPassed = !filters.Any() || filters.All(f => f(ex));
-            if(isPassed)
+            if (isPassed)
             {
-                // First, handle in all registered handlers.
-                foreach (IExceptionHandler<T> handler in handlers)
-                    handler.Handle(ex);
+                if (handlers.Count > 0)
+                {
+                    IExceptionHandlerContext<T> context1 = metadata == null
+                        ? new DefaultExceptionHandlerContext<T>(ex)
+                        : new DefaultExceptionHandlerContext<T>(ex, metadata);
 
-                // Second, handle in all child builders.
-                foreach (IExceptionHandler childHandler in ChildHandlers)
-                    childHandler.Handle(ex);
+                    // First, handle in all registered handlers.
+                    foreach (IExceptionHandler<IExceptionHandlerContext<T>> handler in handlers)
+                    {
+                        handler.Handle(context1);
+
+                        // If the handler marks an exception as handled, return.
+                        if (context1.IsHandled)
+                            return true;
+                    }
+                }
+
+                if (ChildHandlers.Count > 0)
+                {
+                    IExceptionHandlerContext context2 = metadata == null
+                        ? new DefaultExceptionHandlerContext(ex)
+                        : new DefaultExceptionHandlerContext(ex, metadata);
+
+                    // Second, handle in all child builders.
+                    foreach (IExceptionHandler<IExceptionHandlerContext> childHandler in ChildHandlers)
+                    {
+                        childHandler.Handle(context2);
+
+                        // If the handler marks an exception as handled, return.
+                        if (context2.IsHandled)
+                            return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        void IExceptionHandler.Handle(Exception exception)
+        {
+            Handle(exception);
+        }
+
+        void IExceptionHandler<IExceptionHandlerContext>.Handle(IExceptionHandlerContext context)
+        {
+            if (Handle(context.Exception, context.Metadata))
+                context.IsHandled = true;
+        }
+
+        private class ContextHandler : IExceptionHandler<IExceptionHandlerContext<T>>
+        {
+            private readonly IExceptionHandler<T> innerHandler;
+
+            public ContextHandler(IExceptionHandler<T> innerHandler)
+            {
+                this.innerHandler = innerHandler;
+            }
+
+            public void Handle(IExceptionHandlerContext<T> context)
+            {
+                innerHandler.Handle(context.Exception);
             }
         }
     }
