@@ -38,6 +38,19 @@ namespace Neptuo.Exceptions.Handlers
             Ensure.NotNull(exception, "exception");
             Exception = exception;
         }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="exception">An exception to handle.</param>
+        /// <param name="metadata">An initial collection of metadata.</param>
+        public DefaultExceptionHandlerContext(Exception exception, IKeyValueCollection metadata)
+        {
+            Ensure.NotNull(exception, "exception");
+            Ensure.NotNull(metadata, "metadata");
+            Exception = exception;
+            this.metadata = metadata;
+        }
     }
 
     /// <summary>
@@ -70,6 +83,19 @@ namespace Neptuo.Exceptions.Handlers
         {
             Ensure.NotNull(exception, "exception");
             Exception = exception;
+        }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="exception">An exception to handle.</param>
+        /// <param name="metadata">An initial collection of metadata.</param>
+        public DefaultExceptionHandlerContext(T exception, IKeyValueCollection metadata)
+        {
+            Ensure.NotNull(exception, "exception");
+            Ensure.NotNull(metadata, "metadata");
+            Exception = exception;
+            this.metadata = metadata;
         }
     }
 }

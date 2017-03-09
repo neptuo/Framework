@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Neptuo;
 using Neptuo.Exceptions.Handlers;
 using Neptuo.Models;
 using System;
@@ -83,6 +84,25 @@ namespace Neptuo.Exceptions
                 name = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
             }
+        }
+    }
+
+    public class ContextExceptionHandler<T> : IExceptionHandler<IExceptionHandlerContext<T>>
+        where T : Exception
+    {
+        public bool IsHandled { get; private set; }
+        public int Count { get; private set; }
+
+        public ContextExceptionHandler(bool isHandled)
+        {
+            Ensure.NotNull(isHandled, "isHandled");
+            IsHandled = isHandled;
+        }
+
+        public void Handle(IExceptionHandlerContext<T> context)
+        {
+            context.IsHandled = IsHandled;
+            Count++;
         }
     }
 }
