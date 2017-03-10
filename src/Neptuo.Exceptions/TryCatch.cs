@@ -52,7 +52,7 @@ namespace Neptuo.Exceptions
 
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
-        /// The <paramref name="result"/> is set a result of the <paramref name="execute"/> after successfull execution or to <c>default(T)</c> after exception.
+        /// The <paramref name="result"/> is set to a result of the <paramref name="execute"/> after successfull execution or to <c>default(T)</c> after exception.
         /// Returns <c>true</c> if execution was successfull (without exception); <c>false</c> otherwise.
         /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
         /// </summary>
