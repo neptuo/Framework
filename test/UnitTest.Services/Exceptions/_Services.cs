@@ -70,6 +70,17 @@ namespace Neptuo.Exceptions
         }
     }
 
+    public class AnyHandledHandler : IExceptionHandler<IExceptionHandlerContext>
+    {
+        public int Count { get; set; }
+
+        public void Handle(IExceptionHandlerContext context)
+        {
+            Count++;
+            context.IsHandled = true;
+        }
+    }
+
     public class ComponentWithEvent : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
