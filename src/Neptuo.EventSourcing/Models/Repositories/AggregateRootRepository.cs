@@ -1,5 +1,6 @@
 ﻿using Neptuo;
 using Neptuo.Activators;
+using Neptuo.Auditing;
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Formatters;
@@ -29,6 +30,7 @@ namespace Neptuo.Models.Repositories
         private readonly IEventDispatcher eventDispatcher;
         private readonly ISnapshotProvider snapshotProvider;
         private readonly ISnapshotStore snapshotStore;
+        private readonly IEnvelopeDecorator auditor;
 
         /// <summary>
         /// Creates new instance.
@@ -39,8 +41,9 @@ namespace Neptuo.Models.Repositories
         /// <param name="eventDispatcher">The dispatcher for newly created events in the aggregates.</param>
         /// <param name="snapshotProvider">The snapshot provider.</param>
         /// <param name="snapshotStore">The store for snapshots.</param>
-        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher, 
-            ISnapshotProvider snapshotProvider, ISnapshotStore snapshotStore)
+        /// <param name="auditor">An auditing decorator.</param>
+        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher,
+            ISnapshotProvider snapshotProvider, ISnapshotStore snapshotStore, IEnvelopeDecorator auditor = null)
         {
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
@@ -54,6 +57,7 @@ namespace Neptuo.Models.Repositories
             this.eventDispatcher = eventDispatcher;
             this.snapshotProvider = snapshotProvider;
             this.snapshotStore = snapshotStore;
+            this.auditor = auditor;
         }
 
         public virtual void Save(T model)
@@ -64,7 +68,28 @@ namespace Neptuo.Models.Repositories
             if (events.Any())
             {
                 // Serialize and save all new events.
-                IEnumerable<EventModel> eventModels = events.Select(e => new EventModel(e.AggregateKey, e.Key, formatter.SerializeEvent(e), e.Version));
+                IEnumerable<EventModel> eventModels = events.Select(e =>
+                {
+                    string payload = null;
+                    if (auditor != null)
+                    {
+                        Envelope<IEvent> envelope = Envelope.Create(e);
+                        auditor.Decorate(envelope);
+
+                        if (envelope.Metadata.Keys.Any())
+                            payload = formatter.SerializeEvent(envelope);
+                    }
+
+                    if (payload == null)
+                        formatter.SerializeEvent(e);
+
+                    return new EventModel(
+                        e.AggregateKey, 
+                        e.Key, 
+                        payload, 
+                        e.Version
+                    );
+                });
                 store.Save(eventModels);
 
                 // Try to create snapshot.
