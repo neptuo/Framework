@@ -77,6 +77,7 @@
     <Compile Include="Activators\IAggregateRootFactory.cs" />
     <Compile Include="Activators\ReflectionAggregateRootFactoryBuilder.cs" />
     <Compile Include="Activators\SnapshotConstructorNotSupportedException.cs" />
+    <Compile Include="Auditing\IEnvelopeDecorator.cs" />
     <Compile Include="Commands\PersistentCommandDispatcherBuilder.cs" />
     <Compile Include="Data\EmptyCommandStore.cs" />
     <Compile Include="Data\EmptySnapshotStore.cs" />
