@@ -1,5 +1,7 @@
-﻿using Neptuo.Commands.Handlers;
+﻿using Neptuo;
+using Neptuo.Commands.Handlers;
 using Neptuo.Internals;
+using Neptuo.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +16,15 @@ namespace Neptuo.Commands
         {
             private readonly object storageLock = new object();
 
-            private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type,HandlerDescriptor>();
+            private readonly ILog log;
+            private readonly Dictionary<Type, HandlerDescriptor> storage = new Dictionary<Type, HandlerDescriptor>();
             private readonly HandlerDescriptorProvider descriptorProvider;
 
-            public HandlerCollection(HandlerDescriptorProvider descriptorProvider)
+            public HandlerCollection(ILogFactory logFactory, HandlerDescriptorProvider descriptorProvider)
             {
+                Ensure.NotNull(logFactory, "logFactory");
                 Ensure.NotNull(descriptorProvider, "descriptorProvider");
+                this.log = logFactory.Scope("Handlers");
                 this.descriptorProvider = descriptorProvider;
             }
 
@@ -29,6 +34,9 @@ namespace Neptuo.Commands
                 HandlerDescriptor descriptor = descriptorProvider.Get(handler, typeof(TCommand));
                 lock (storageLock)
                     storage[descriptor.ArgumentType] = descriptor;
+
+                if (log.IsDebugEnabled())
+                    log.Debug($"Added a handler '{descriptor.HandlerIdentifier ?? descriptor.Handler.GetType().FullName}'.");
 
                 return this;
             }

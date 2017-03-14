@@ -1,7 +1,9 @@
-﻿using Neptuo.Data;
+﻿using Neptuo;
+using Neptuo.Data;
 using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
+using Neptuo.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace Neptuo.Commands
         private IExceptionHandlerCollection commandExceptionHandlers;
         private IExceptionHandlerCollection dispatcherExceptionHandlers;
 
+        private ILogFactory logFactory;
+
         private void EnsureInternals()
         {
             if (queue == null)
@@ -33,6 +37,9 @@ namespace Neptuo.Commands
 
             if (threadPool == null)
                 threadPool = new TreeQueueThreadPool(queue);
+
+            if (logFactory == null)
+                logFactory = new DefaultLogFactory();
         }
 
         /// <summary>
@@ -104,6 +111,17 @@ namespace Neptuo.Commands
         }
 
         /// <summary>
+        /// Sets <paramref name="logFactory"/> to be used for logging.
+        /// </summary>
+        /// <param name="logFactory">A log factory.</param>
+        /// <returns>Self (for fluency).</returns>
+        public PersistentCommandDispatcherBuilder UseLogFactory(ILogFactory logFactory)
+        {
+            this.logFactory = logFactory;
+            return this;
+        }
+
+        /// <summary>
         /// Creates new instance of <see cref="PersistentCommandDispatcher"/> based on passed components.
         /// If some of required dependencies are missing, the exception is thrown.
         /// </summary>
@@ -121,7 +139,8 @@ namespace Neptuo.Commands
                 distributor,
                 store,
                 formatter,
-                schedulingProvider
+                schedulingProvider,
+                logFactory
             );
 
             if (commandExceptionHandlers != null)

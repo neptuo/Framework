@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,10 +42,10 @@ namespace Neptuo.Internals
         }
 
         /// <summary>
-        /// Executes handler method with <paramref name="parameter"/>.
+        /// Executes handler method with a <paramref name="parameter"/>.
         /// </summary>
-        /// <param name="parameter">The argument to the handle method.</param>
-        /// <param name="additionalExceptionDecorator">The delegate for decorating raised exceptions.</param>
+        /// <param name="parameter">An argument to the handle method.</param>
+        /// <param name="additionalExceptionDecorator">A delegate for decorating raised exceptions.</param>
         public Task Execute(object parameter, Action<Exception> additionalExceptionDecorator)
         {
             return ExecuteMethod(Handler, parameter, additionalExceptionDecorator);
@@ -68,6 +69,11 @@ namespace Neptuo.Internals
                 return false;
 
             return Handler == other.Handler && ArgumentType == other.ArgumentType;
+        }
+
+        public override string ToString()
+        {
+            return HandlerIdentifier ?? Handler.GetType().FullName;
         }
     }
 }
