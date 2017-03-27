@@ -81,7 +81,7 @@ namespace Neptuo.Models.Repositories
                     }
 
                     if (payload == null)
-                        formatter.SerializeEvent(e);
+                        payload = formatter.SerializeEvent(e);
 
                     return new EventModel(
                         e.AggregateKey, 

@@ -2,6 +2,7 @@
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
+using Neptuo.Exceptions;
 using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Models.Keys;
@@ -23,6 +24,22 @@ namespace Neptuo.ReadModels
         private readonly IEventRebuilderStore store;
         private readonly IDeserializer deserializer;
         private readonly Dictionary<IKey, int> aggregateVersionFilter = new Dictionary<IKey, int>();
+
+        /// <summary>
+        /// Gets a collection of exception handlers for exceptions from the event processing.
+        /// </summary>
+        public IExceptionHandlerCollection EventExceptionHandlers
+        {
+            get { return eventDispatcher.EventExceptionHandlers; }
+        }
+
+        /// <summary>
+        /// Gets a collection of exception handlers for exceptions from the infrastructure.
+        /// </summary>
+        public IExceptionHandlerCollection DispatcherExceptionHandlers
+        {
+            get { return eventDispatcher.DispatcherExceptionHandlers; }
+        }
 
         /// <summary>
         /// Creates new instance for rebuilding events from <paramref name="store"/> using <paramref name="deserializer"/>

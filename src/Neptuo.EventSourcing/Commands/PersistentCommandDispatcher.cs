@@ -239,8 +239,11 @@ namespace Neptuo.Commands
             {
                 log.Info(commandWithKey, "Starting execution.");
 
+                bool isExceptionRaised = false;
                 Action<Exception> additionalExceptionDecorator = e =>
                 {
+                    isExceptionRaised = true;
+
                     AggregateRootException aggregateException = e as AggregateRootException;
                     if (aggregateException != null)
                     {
@@ -271,7 +274,7 @@ namespace Neptuo.Commands
                     log.Debug(commandWithKey, "Handler finished.");
 
                     // If we have command with the key, notify about successful execution.
-                    if (store != null && commandWithKey != null)
+                    if (store != null && commandWithKey != null && !isExceptionRaised)
                     {
                         await store.PublishedAsync(commandWithKey.Key);
                         log.Debug(commandWithKey, "Successfull execution saved to the store.");

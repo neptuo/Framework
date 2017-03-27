@@ -35,12 +35,12 @@ namespace Neptuo.Events
         public IEventHandlerCollection Handlers { get; private set; }
 
         /// <summary>
-        /// The collection of exception handlers for exceptions from the event processing.
+        /// Gets a collection of exception handlers for exceptions from the event processing.
         /// </summary>
         public IExceptionHandlerCollection EventExceptionHandlers { get; private set; }
 
         /// <summary>
-        /// The collection of exception handlers for exceptions from the infrastructure.
+        /// Gets a collection of exception handlers for exceptions from the infrastructure.
         /// </summary>
         public IExceptionHandlerCollection DispatcherExceptionHandlers { get; private set; }
 
@@ -140,7 +140,7 @@ namespace Neptuo.Events
                     if (hasContextHandler)
                     {
                         Type contextType = typeof(DefaultEventHandlerContext<>).MakeGenericType(argument.ArgumentType);
-                        context = Activator.CreateInstance(contextType, envelope, this, this);
+                        context = Activator.CreateInstance(contextType, envelope, Handlers, this);
                     }
                 }
 
@@ -188,18 +188,21 @@ namespace Neptuo.Events
                 {
                     log.Info(eventWithKey, "Execution on the handler '{0}'.", handler);
 
+                    bool isExceptionRaised = false;
+                    Action<Exception> additionalExceptionDecorator = e => isExceptionRaised = true;
+
                     try
                     {
                         if (handler.IsContext)
-                            handler.Execute(context, null).Wait();
+                            handler.Execute(context, additionalExceptionDecorator).Wait();
                         else if (handler.IsEnvelope)
-                            handler.Execute(envelope, null).Wait();
+                            handler.Execute(envelope, additionalExceptionDecorator).Wait();
                         else if (handler.IsPlain)
-                            handler.Execute(payload, null).Wait();
+                            handler.Execute(payload, additionalExceptionDecorator).Wait();
                         else
                             throw Ensure.Exception.UndefinedHandlerType(handler);
 
-                        if (eventWithKey != null && handler.HandlerIdentifier != null)
+                        if (eventWithKey != null && handler.HandlerIdentifier != null && !isExceptionRaised)
                         {
                             store.PublishedAsync(eventWithKey.Key, handler.HandlerIdentifier).Wait();
                             log.Debug(eventWithKey, "Successfull execution on the handler '{0}' saved to the store.", handler);
