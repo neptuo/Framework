@@ -106,7 +106,7 @@ namespace Neptuo.Converters
                 .Add(new StringToListConverter<int>());
 
             List<int> list;
-            Assert.AreEqual(true, Converts.Try<string, List<int>>("2,34,1", out list));
+            Assert.AreEqual(true, Converts.Try("2,34,1", out list));
             AssertList(list);
 
             object rawList;
