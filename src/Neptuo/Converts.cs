@@ -74,7 +74,7 @@ namespace Neptuo
             if (Try(sourceValue, out targetValue))
                 return targetValue;
 
-            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type '{0}' can't constructed from value '{1}'.", typeof(TTarget).FullName, sourceValue);
+            throw Ensure.Exception.NotSupportedConversion(typeof(TTarget), sourceValue);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Neptuo
                 return targetValue;
 
             Ensure.NotNull(targetType, "targetType");
-            throw Ensure.Exception.ArgumentOutOfRange("TTarget", "Target type '{0}' can't constructed from value '{1}'.", targetType.FullName, sourceValue);
+            throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
         }
 
         /// <summary>

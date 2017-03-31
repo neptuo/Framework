@@ -234,6 +234,7 @@ namespace Neptuo.Converters
                     if (genericConverter.TryConvert(sourceValue, out targetValue))
                         return targetValue;
 
+                    // No other options for conversion.
                     throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
                 };
             }
@@ -246,7 +247,7 @@ namespace Neptuo.Converters
                     return (TTarget)targetObject;
 
                 // No other options for conversion.
-                return default(TTarget);
+                throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
             };
         }
 

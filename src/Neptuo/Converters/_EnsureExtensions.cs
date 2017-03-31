@@ -13,7 +13,7 @@ namespace Neptuo.Converters
         {
             return ensure.ArgumentOutOfRange(
                 "TTarget",
-                "Target type '{0}' can't constructed from value '{1}'.",
+                "Target type '{0}' can't be constructed from a value '{1}'.",
                 targetType.FullName,
                 sourceValue
             );
