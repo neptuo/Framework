@@ -315,5 +315,61 @@ namespace Neptuo.Converters
                 return false;
             };
         }
+
+
+        public bool HasConverter<TSource, TTarget>()
+        {
+            Type sourceType = typeof(TSource);
+            Type targetType = typeof(TTarget);
+
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+                return true;
+
+            // Find converter, look in storage or find using search handler.
+            IConverter converter = null;
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, try context converters.
+            if (converter == null && !IsConverterContextType(sourceType))
+                return HasConverter<IConverterContext<TSource>, TTarget>();
+
+            // If no converter was found, conversion is not possible.
+            if (converter == null)
+                return false;
+
+            return true;
+        }
+
+        public bool HasConverter(Type sourceType, Type targetType)
+        {
+            Ensure.NotNull(sourceType, "sourceType");
+            Ensure.NotNull(targetType, "targetType");
+
+            // If target value is assignable from source, no conversion is needed.
+            if (targetType.IsAssignableFrom(sourceType))
+                return true;
+
+            // Find converter, look in storage or find using search handler.
+            IConverter converter = null;
+            Dictionary<Type, IConverter> sourceStorage;
+            if (!storage.TryGetValue(sourceType, out sourceStorage) || !sourceStorage.TryGetValue(targetType, out converter))
+                onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
+
+            // If no converter was found, try context converters.
+            if (converter == null && !IsConverterContextType(sourceType))
+            {
+                Type sourceContextType = typeof(IConverterContext<>).MakeGenericType(sourceType);
+                return HasConverter(sourceContextType, targetType);
+            }
+
+            // If no converter was found, conversion is not possible.
+            if (converter == null)
+                return false;
+
+            return true;
+        }
     }
 }

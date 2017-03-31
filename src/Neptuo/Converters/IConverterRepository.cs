@@ -65,5 +65,22 @@ namespace Neptuo.Converters
         /// <typeparam name="TTarget">Target value type.</typeparam>
         /// <returns>A function that can be reused to convert <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.</returns>
         OutFunc<TSource, TTarget, bool> GetTryConverter<TSource, TTarget>();
+
+
+        /// <summary>
+        /// Returns <c>true</c> when there is a converter from a <typeparamref name="TSource"/> to a <typeparamref name="TTarget"/>.
+        /// </summary>
+        /// <typeparam name="TSource">A type of a source value.</typeparam>
+        /// <typeparam name="TTarget">A type of a target value.</typeparam>
+        /// <returns><c>true</c> when there is a converter from a <typeparamref name="TSource"/> to a <typeparamref name="TTarget"/>; <c>false</c> otherwise.</returns>
+        bool HasConverter<TSource, TTarget>();
+
+        /// <summary>
+        /// Returns <c>true</c> when there is a converter from a <paramref name="sourceType"/> to a <paramref name="targetType"/>.
+        /// </summary>
+        /// <param name="sourceType">A type of a source value.</param>
+        /// <param name="targetType">A type of a target value.</param>
+        /// <returns><c>true</c> when there is a converter from a <paramref name="sourceType"/> to a <paramref name="targetType"/>; <c>false</c> otherwise.</returns>
+        bool HasConverter(Type sourceType, Type targetType);
     }
 }
