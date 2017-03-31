@@ -205,14 +205,14 @@ namespace Neptuo.Converters
                 onSearchConverter.TryExecute(new ConverterSearchContext(sourceType, targetType), out converter);
 
             // If no converter was found, try context converters.
-            if (converter == null)
+            if (converter == null && !IsConverterContextType(sourceType))
             {
                 Func<IConverterContext<TSource>, TTarget> result = GetConverter<IConverterContext<TSource>, TTarget>();
                 return sourceValue => result(new DefaultConverterContext<TSource>(sourceValue, this));
             }
 
             // If no converter was found, conversion is not possible.
-            if (converter == null && !IsConverterContextType(sourceType))
+            if (converter == null)
             {
                 return sourceValue =>
                 {
