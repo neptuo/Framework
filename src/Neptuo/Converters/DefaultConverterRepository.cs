@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -15,13 +16,25 @@ namespace Neptuo.Converters
         private readonly object storageLock = new object();
         private readonly Dictionary<Type, Dictionary<Type, IConverter>> storage;
         private readonly OutFuncCollection<ConverterSearchContext, IConverter, bool> onSearchConverter;
+        private readonly IConverterRepository inner;
 
         /// <summary>
-        /// Cretes new empty instance.
+        /// Creates a new empty instance.
         /// </summary>
         public DefaultConverterRepository()
             : this(new Dictionary<Type, Dictionary<Type, IConverter>>())
         { }
+
+        /// <summary>
+        /// Creates a new instance that uses <paramref name="inner"/> if converter is not found.
+        /// </summary>
+        /// <param name="inner"></param>
+        public DefaultConverterRepository(IConverterRepository inner)
+            : this()
+        {
+            Ensure.NotNull(inner, "inner");
+            this.inner = inner;
+        }
 
         /// <summary>
         /// Creates instance with default converter registrations.
@@ -102,6 +115,9 @@ namespace Neptuo.Converters
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
+                if (inner != null)
+                    return inner.TryConvert(sourceValue, out targetValue);
+
                 targetValue = default(TTarget);
                 return false;
             }
@@ -181,6 +197,9 @@ namespace Neptuo.Converters
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
+                if (inner != null)
+                    return inner.TryConvert(sourceType, targetType, sourceValue, out targetValue);
+
                 targetValue = null;
                 return false;
             }
@@ -214,6 +233,9 @@ namespace Neptuo.Converters
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
+                if (inner != null)
+                    return inner.GetConverter<TSource, TTarget>();
+
                 return sourceValue =>
                 {
                     // If source value is null, return default value.
@@ -282,6 +304,9 @@ namespace Neptuo.Converters
             // If no converter was found, conversion is not possible.
             if (converter == null)
             {
+                if (inner != null)
+                    return inner.GetTryConverter<TSource, TTarget>();
+
                 return (TSource sourceValue, out TTarget targetValue) =>
                 {
                     // If source value is null, return default value.
@@ -339,7 +364,12 @@ namespace Neptuo.Converters
 
             // If no converter was found, conversion is not possible.
             if (converter == null)
+            {
+                if (inner != null)
+                    return inner.HasConverter<TSource, TTarget>();
+
                 return false;
+            }
 
             return true;
         }
@@ -368,7 +398,12 @@ namespace Neptuo.Converters
 
             // If no converter was found, conversion is not possible.
             if (converter == null)
+            {
+                if (inner != null)
+                    return inner.HasConverter(sourceType, targetType);
+
                 return false;
+            }
 
             return true;
         }
