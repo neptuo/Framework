@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,16 +14,31 @@ namespace Neptuo.Converters
     /// </summary>
     public class DefaultConverterRepository : IConverterRepository
     {
+        private static readonly Action<Exception> defaultExceptionHandler = e =>
+        {
+            ExceptionDispatchInfo info = ExceptionDispatchInfo.Capture(e);
+            info.Throw();
+        };
+
         private readonly object storageLock = new object();
         private readonly Dictionary<Type, Dictionary<Type, IConverter>> storage;
         private readonly OutFuncCollection<ConverterSearchContext, IConverter, bool> onSearchConverter;
         private readonly IConverterRepository inner;
+        private readonly Action<Exception> exceptionHandler;
 
         /// <summary>
         /// Creates a new empty instance.
         /// </summary>
         public DefaultConverterRepository()
-            : this(new Dictionary<Type, Dictionary<Type, IConverter>>())
+            : this(defaultExceptionHandler)
+        { }
+
+        /// <summary>
+        /// Creates a new empty instance with exception filtering handler.
+        /// </summary>
+        /// <param name="exceptionHandler">A handler for expcetions raised by converters.</param>
+        public DefaultConverterRepository(Action<Exception> exceptionHandler)
+            : this(new Dictionary<Type, Dictionary<Type, IConverter>>(), exceptionHandler)
         { }
 
         /// <summary>
@@ -30,10 +46,21 @@ namespace Neptuo.Converters
         /// </summary>
         /// <param name="inner"></param>
         public DefaultConverterRepository(IConverterRepository inner)
-            : this()
+            : this(inner, defaultExceptionHandler)
+        { }
+
+        /// <summary>
+        /// Creates a new instance that uses <paramref name="inner"/> if converter is not found.
+        /// </summary>
+        /// <param name="inner"></param>
+        /// <param name="exceptionHandler">A handler for expcetions raised by converters.</param>
+        public DefaultConverterRepository(IConverterRepository inner, Action<Exception> exceptionHandler)
         {
             Ensure.NotNull(inner, "inner");
+            Ensure.NotNull(exceptionHandler, "exceptionHandler");
             this.inner = inner;
+            this.exceptionHandler = exceptionHandler;
+            this.onSearchConverter = new OutFuncCollection<ConverterSearchContext, IConverter, bool>();
         }
 
         /// <summary>
@@ -41,9 +68,20 @@ namespace Neptuo.Converters
         /// </summary>
         /// <param name="storage">'First is the source type, second key is the target type' storage.</param>
         public DefaultConverterRepository(Dictionary<Type, Dictionary<Type, IConverter>> storage)
+            : this(storage, defaultExceptionHandler)
+        { }
+
+        /// <summary>
+        /// Creates instance with default converter registrations.
+        /// </summary>
+        /// <param name="storage">'First is the source type, second key is the target type' storage.</param>
+        /// <param name="exceptionHandler">A handler for expcetions raised by converters.</param>
+        public DefaultConverterRepository(Dictionary<Type, Dictionary<Type, IConverter>> storage, Action<Exception> exceptionHandler)
         {
             Ensure.NotNull(storage, "storage");
+            Ensure.NotNull(exceptionHandler, "exceptionHandler");
             this.storage = storage;
+            this.exceptionHandler = exceptionHandler;
             this.onSearchConverter = new OutFuncCollection<ConverterSearchContext, IConverter, bool>();
         }
 
@@ -125,14 +163,30 @@ namespace Neptuo.Converters
             // Try cast to generic converter.
             IConverter<TSource, TTarget> genericConverter = converter as IConverter<TSource, TTarget>;
             if (genericConverter != null)
-                return genericConverter.TryConvert(sourceValue, out targetValue);
-
-            // Convert using general converter.
-            object targetObject;
-            if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
             {
-                targetValue = (TTarget)targetObject;
-                return true;
+                try
+                {
+                    return genericConverter.TryConvert(sourceValue, out targetValue);
+                }
+                catch (Exception e)
+                {
+                    exceptionHandler(e);
+                }
+            }
+
+            try
+            {
+                // Convert using general converter.
+                object targetObject;
+                if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                {
+                    targetValue = (TTarget)targetObject;
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                exceptionHandler(e);
             }
 
             // No other options for conversion.
@@ -204,8 +258,18 @@ namespace Neptuo.Converters
                 return false;
             }
 
-            // Convert using general converter.
-            return converter.TryConvert(sourceType, targetType, sourceValue, out targetValue);
+            try
+            {
+                // Convert using general converter.
+                return converter.TryConvert(sourceType, targetType, sourceValue, out targetValue);
+            }
+            catch (Exception e)
+            {
+                exceptionHandler(e);
+            }
+
+            targetValue = null;
+            return false;
         }
 
         public Func<TSource, TTarget> GetConverter<TSource, TTarget>()
@@ -252,9 +316,17 @@ namespace Neptuo.Converters
             {
                 return sourceValue =>
                 {
-                    TTarget targetValue;
-                    if (genericConverter.TryConvert(sourceValue, out targetValue))
-                        return targetValue;
+                    try
+                    {
+                        TTarget targetValue;
+                        if (genericConverter.TryConvert(sourceValue, out targetValue))
+                            return targetValue;
+                    }
+                    catch (Exception e)
+                    {
+                        exceptionHandler(e);
+                        return default(TTarget);
+                    }
 
                     // No other options for conversion.
                     throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
@@ -263,10 +335,18 @@ namespace Neptuo.Converters
 
             return sourceValue =>
             {
-                // Convert using general converter.
-                object targetObject;
-                if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
-                    return (TTarget)targetObject;
+                try
+                {
+                    // Convert using general converter.
+                    object targetObject;
+                    if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                        return (TTarget)targetObject;
+                }
+                catch (Exception e)
+                {
+                    exceptionHandler(e);
+                    return default(TTarget);
+                }
 
                 // No other options for conversion.
                 throw Ensure.Exception.NotSupportedConversion(targetType, sourceValue);
@@ -324,16 +404,23 @@ namespace Neptuo.Converters
             // Try cast to generic converter.
             IConverter<TSource, TTarget> genericConverter = converter as IConverter<TSource, TTarget>;
             if (genericConverter != null)
-                return genericConverter.TryConvert;
+                return new ExceptionHandlingConverter<TSource, TTarget>(genericConverter, exceptionHandler).TryConvert;
 
             // Convert using general converter.
             return (TSource sourceValue, out TTarget targetValue) =>
             {
-                object targetObject;
-                if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                try
                 {
-                    targetValue = (TTarget)targetObject;
-                    return true;
+                    object targetObject;
+                    if (converter.TryConvert(sourceType, targetType, sourceValue, out targetObject))
+                    {
+                        targetValue = (TTarget)targetObject;
+                        return true;
+                    }
+                }
+                catch (Exception e)
+                {
+                    exceptionHandler(e);
                 }
 
                 // No other options for conversion.
