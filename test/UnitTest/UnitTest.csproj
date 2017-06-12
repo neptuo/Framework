@@ -74,6 +74,7 @@
     <Compile Include="Behaviors\_Services.cs" />
     <Compile Include="Converters\T_Converters_ConverterRepository.cs" />
     <Compile Include="Converters\T_Converters_Converter.cs" />
+    <Compile Include="Converters\T_Converters_ConverterRepositoryBuilder.cs" />
     <Compile Include="Converters\T_Converters_ExceptionHandling.cs" />
     <Compile Include="Converters\T_Converters_HasConverter.cs" />
     <Compile Include="Converters\_Services.cs" />
