@@ -21,9 +21,25 @@ namespace Neptuo.Converters
         [TestMethod]
         public void Sink()
         {
-            DefaultConverterRepository repository = new DefaultConverterRepository(e => { });
-            repository.Add<string, int>(Int32.Parse);
-            Assert.AreEqual(false, repository.TryConvert("x", out int i));
+            Converts.RepositoryBuilder.UseExceptionSink();
+            Converts.Repository.Add<string, int>(Int32.Parse);
+            Assert.AreEqual(false, Converts.Repository.TryConvert("x", out int i));
+        }
+
+        [TestMethod]
+        public void ExceptionHandlingConverter()
+        {
+            Converts.Repository.Add(
+                new ExceptionHandlingConverter<string, int>(
+                    new DefaultConverter<string, int>((string input, out int output) =>
+                    {
+                        output = Int32.Parse(input);
+                        return true;
+                    }),
+                    e => { }
+                )
+            );
+            Assert.AreEqual(false, Converts.Repository.TryConvert("x", out int i));
         }
     }
 }

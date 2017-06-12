@@ -14,9 +14,10 @@ namespace Neptuo
     {
         private static object lockRepository = new object();
         private static IConverterRepository repository;
+        private static DefaultConverterRepositoryBuilder repositoryBuilder;
 
         /// <summary>
-        /// Singleton converter repository.
+        /// Gets a singleton converter repository.
         /// </summary>
         public static IConverterRepository Repository
         {
@@ -27,10 +28,43 @@ namespace Neptuo
                     lock (lockRepository)
                     {
                         if (repository == null)
-                            repository = new DefaultConverterRepository();
+                        {
+                            if (repositoryBuilder != null)
+                                repository = repositoryBuilder.Create();
+                            else
+                                repository = new DefaultConverterRepository();
+                        }
                     }
                 }
+
                 return repository;
+            }
+        }
+
+        /// <summary>
+        /// Gets a builder for <see cref="Repository"/>.
+        /// This property must be used before using <see cref="Repository"/>.
+        /// After the <see cref="Repository"/> is created, using this property causes exception.
+        /// </summary>
+        public static DefaultConverterRepositoryBuilder RepositoryBuilder
+        {
+            get
+            {
+                if (repository == null)
+                {
+                    lock (lockRepository)
+                    {
+                        if (repository == null)
+                        {
+                            if (repositoryBuilder == null)
+                                repositoryBuilder = new DefaultConverterRepositoryBuilder();
+
+                            return repositoryBuilder;
+                        }
+                    }
+                }
+
+                throw Ensure.Exception.InvalidOperation("An instance of default repository is already created.");
             }
         }
 
