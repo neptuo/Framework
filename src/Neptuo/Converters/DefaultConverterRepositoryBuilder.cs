@@ -17,7 +17,7 @@ namespace Neptuo.Converters
         private Action<Exception> exceptionHandler;
 
         /// <summary>
-        /// Sets inner repository to use.
+        /// Sets an inner repository to use.
         /// </summary>
         /// <param name="repository">An instance of inner repository or <c>null</c> to clear inner repository.</param>
         /// <returns>Self (for fluency).</returns>
@@ -28,7 +28,7 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
-        /// Sets converter mapping storage.
+        /// Sets a converter mapping storage.
         /// </summary>
         /// <param name="storage">An instance of mapping storage or <c>null</c> to clear mapping storage.</param>
         /// <returns>Self (for fluency).</returns>
@@ -39,7 +39,7 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
-        /// Sets exception handler.
+        /// Sets an exception handler.
         /// </summary>
         /// <param name="exceptionHandler">A delegate for handling exceptions or <c>null</c> to clear exception handling.</param>
         /// <returns>Self (for fluency).</returns>
@@ -50,7 +50,7 @@ namespace Neptuo.Converters
         }
 
         /// <summary>
-        /// Sets exception handler that sinks all exceptions.
+        /// Sets an exception handler that sinks all exceptions.
         /// </summary>
         /// <returns>Self (for fluency).</returns>
         public DefaultConverterRepositoryBuilder UseExceptionSink()
