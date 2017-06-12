@@ -21,7 +21,7 @@ namespace Neptuo
         /// <param name="target">Target disposable object.</param>
         public Disposable(T target)
         {
-            this.reference = new WeakReference<T>(target);
+            reference = new WeakReference<T>(target);
         }
 
         /// <summary>

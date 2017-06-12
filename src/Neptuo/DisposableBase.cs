@@ -10,10 +10,13 @@ namespace Neptuo
     /// Base class for implementing <see cref="IDisposable"/>.
     /// Provides posibility to distinguish between disposiing managed and unmanaged resources.
     /// Provides flag to see if object is already disposed.
-    /// Once object is disposed, calling <see cref="IDisposable.Disponse"/> has no effect.
+    /// Once object is disposed, calling <see cref="IDisposable.Dispose"/> has no effect.
     /// </summary>
     public abstract class DisposableBase : IDisposable
     {
+        /// <summary>
+        /// Gets a <c>true</c> if object is already disposed; <c>false</c> otherwise.
+        /// </summary>
         public bool IsDisposed { get; private set; }
 
         /// <summary>

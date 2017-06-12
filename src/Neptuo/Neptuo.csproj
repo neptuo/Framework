@@ -113,6 +113,7 @@
     <Compile Include="OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Threading\Tasks\Async.cs" />
+    <Compile Include="_DisposableExtensions.cs" />
     <Compile Include="_EnvelopeExtensions.cs" />
     <Compile Include="_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
@@ -130,7 +131,6 @@
     <Compile Include="Exceptions\_EnsureSystemExtensions.cs" />
     <Compile Include="Ensure.cs" />
     <Compile Include="Identifiers\GuidUniqueNameProvider.cs" />
-    <Compile Include="IDisposable.cs" />
     <Compile Include="Identifiers\IUniqueNameProvider.cs" />
     <Compile Include="Globalization\CultureInfoParser.cs" />
     <Compile Include="Activators\IFactory.cs" />

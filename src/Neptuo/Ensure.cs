@@ -254,7 +254,7 @@ namespace Neptuo
         [DebuggerStepThrough]
         public static void NotDisposed(IDisposable argument, string argumentName)
         {
-            if (argument.IsDisposed)
+            if (argument.IsDisposed())
                 throw new ObjectDisposedException(argumentName);
         }
 
