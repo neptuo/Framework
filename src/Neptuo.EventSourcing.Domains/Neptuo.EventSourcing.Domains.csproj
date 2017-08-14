@@ -61,7 +61,6 @@
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\Handlers\AggregateRootCommandHandler.cs" />
     <Compile Include="Commands\Handlers\ProcessRootCommandHandler.cs" />
-    <Compile Include="Commands\IAggregateCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\IEvent.cs" />

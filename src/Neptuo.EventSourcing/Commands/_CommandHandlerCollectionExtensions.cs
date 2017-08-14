@@ -17,16 +17,17 @@ namespace Neptuo.Commands
     /// </summary>
     public static class _CommandHandlerCollectionExtensions
     {
-        public ICommandHandlerCollection Add<TAggregate, TCommand>(this ICommandHandlerCollection handlers, IFactory<IRepository<TAggregate, IKey>> repositoryFactory, Action<TAggregate, TCommand> handler)
-            where TAggregate : AggregateRoot
-            where TCommand : IAggregateCommand
-        {
-            Ensure.NotNull(handlers, "handlers");
-            handlers.Add(new DelegateCommandHandler<TAggregate, TCommand>(repository, command => command.AggregateKey, handler));
-            return handlers;
-        }
-
-        public ICommandHandlerCollection Add<TAggregate, TCommand>(this ICommandHandlerCollection handlers, IFactory<IRepository<TAggregate, IKey>> repositoryFactory, Func<TCommand, IKey> aggregateKeyGetter, Action<TAggregate, TCommand> handler)
+        /// <summary>
+        /// Registers <paramref name="handler"/> to handle commands of type <typeparamref name="TCommand"/> on aggregate <typeparamref name="TAggregate"/>.
+        /// </summary>
+        /// <typeparam name="TAggregate">A type of the aggregate.</typeparam>
+        /// <typeparam name="TCommand">A type of the command to handle.</typeparam>
+        /// <param name="handlers">A collection of handlers.</param>
+        /// <param name="repositoryFactory">A factory for repository.</param>
+        /// <param name="aggregateKeyGetter">A function to get a key of the aggregate from a command.</param>
+        /// <param name="handler">A command handling functions.</param>
+        /// <returns><paramref name="handlers"/> for fluency.</returns>
+        public static ICommandHandlerCollection Add<TAggregate, TCommand>(this ICommandHandlerCollection handlers, IFactory<IRepository<TAggregate, IKey>> repositoryFactory, Func<TCommand, IKey> aggregateKeyGetter, Action<TAggregate, TCommand> handler)
             where TAggregate : AggregateRoot
             where TCommand : ICommand
         {
