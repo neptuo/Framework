@@ -113,8 +113,9 @@ namespace Neptuo.Formatters.Metadata
             if (typeAttribute != null)
                 typeName = typeAttribute.Name;
 
-            Dictionary<int, ConstructorInfo> constructors = GetConstructors(type);
-            log.Info("Constructors '{0}'.", constructors.Count);
+            ConstructorInfo defaultConstructor;
+            Dictionary<int, ConstructorInfo> constructors = GetConstructors(type, out defaultConstructor);
+            log.Info("Constructors '{0}', has default '{1}'.", constructors.Count, defaultConstructor != null);
 
             IEnumerable<PropertyDescriptor> properties = GetProperties(type);
             log.Info("Properties '{0}'.", properties.Count());
@@ -133,14 +134,24 @@ namespace Neptuo.Formatters.Metadata
                 }
 
                 // Create version from property name match.
-                if(TryFindNamedProperties(properties, constructor.Value.GetParameters(), out versionProperties))
+                if (TryFindNamedProperties(properties, constructor.Value.GetParameters(), out versionProperties))
                 {
-                    log.Info("Version '{0}' from conventionally properties.", constructor.Key);
+                    log.Info("Version '{0}' from conventional properties.", constructor.Key);
                     versions.Add(BuildVersion(constructor.Key, constructor.Value, versionProperties));
                     continue;
                 }
 
                 throw new MismatchVersionConstructorException(type, constructor.Key);
+            }
+
+            if (versions.Count == 0 && defaultConstructor != null)
+            {
+                IEnumerable<PropertyDescriptor> versionProperties;
+                if (TryFindNamedProperties(properties.Where(p => p.Attribute.Version == -1), defaultConstructor.GetParameters(), out versionProperties))
+                {
+                    log.Info("Version '{0}' from default constructor.", 1);
+                    versions.Add(BuildVersion(1, defaultConstructor, versionProperties));
+                }
             }
 
             CompositeProperty versionProperty = null;
@@ -154,7 +165,7 @@ namespace Neptuo.Formatters.Metadata
                 }
                 else
                 {
-                    log.Warning("Found '{0}' versions on the '{1}'.", versions.Count, typeName);
+                    log.Warning("Found '{0}' versions on the '{1}', but version property is missing.", versions.Count, typeName);
                     throw new MissingVersionPropertyException(type);
                 }
             }
@@ -191,10 +202,8 @@ namespace Neptuo.Formatters.Metadata
             foreach (string propertyName in propertyNames)
             {
                 PropertyDescriptor property = allProperties.FirstOrDefault(p => p.PropertyInfo.Name.ToLowerInvariant() == propertyName);
-                if(property != null)
-                {
+                if (property != null)
                     result.Add(property);
-                }
 
                 index++;
             }
@@ -220,13 +229,13 @@ namespace Neptuo.Formatters.Metadata
             );
         }
 
-        private Dictionary<int, ConstructorInfo> GetConstructors(Type type)
+        private Dictionary<int, ConstructorInfo> GetConstructors(Type type, out ConstructorInfo defaultConstructor)
         {
-            IEnumerable<ConstructorInfo> constructorInfos = bindingFlags == null 
-                ? type.GetConstructors() 
+            IEnumerable<ConstructorInfo> constructorInfos = bindingFlags == null
+                ? type.GetConstructors()
                 : type.GetConstructors(bindingFlags.Value);
 
-            ConstructorInfo defaultConstructor = null;
+            defaultConstructor = null;
 
             Dictionary<int, ConstructorInfo> constructors = new Dictionary<int, ConstructorInfo>();
             foreach (ConstructorInfo constructorInfo in constructorInfos)
@@ -252,7 +261,7 @@ namespace Neptuo.Formatters.Metadata
         private IEnumerable<PropertyDescriptor> GetProperties(Type type)
         {
             List<PropertyDescriptor> properties = new List<PropertyDescriptor>();
-            IEnumerable<PropertyInfo> propertyInfos = bindingFlags == null 
+            IEnumerable<PropertyInfo> propertyInfos = bindingFlags == null
                 ? type.GetProperties()
                 : type.GetProperties(bindingFlags.Value);
 
@@ -275,9 +284,9 @@ namespace Neptuo.Formatters.Metadata
                     properties.Add(new PropertyDescriptor()
                     {
                         PropertyInfo = propertyInfo,
-                        Attribute = new CompositePropertyAttribute(1) 
-                        { 
-                            Version = 1
+                        Attribute = new CompositePropertyAttribute(0)
+                        {
+                            Version = -1
                         }
                     });
                 }

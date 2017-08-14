@@ -120,7 +120,7 @@ namespace UnitTest.Formatters
 
     /// <summary>
     /// Nothing is annotated.
-    /// This model doesn't support versioning (always version is 1).
+    /// This model doesn't support versioning (version is always 1).
     /// Constructor is selected by default and property by convention.
     /// </summary>
     public class SingleModel : BaseObject
@@ -137,6 +137,7 @@ namespace UnitTest.Formatters
     /// <summary>
     /// Class version support, but currently has only a single version.
     /// Constructor is explicitly marked.
+    /// Properties are matched be convention.
     /// </summary>
     public class SingleVersion
     {
@@ -188,6 +189,10 @@ namespace UnitTest.Formatters
         }
     }
 
+    /// <summary>
+    /// Unnable to create composite type for this class.
+    /// Unnable to use convention.
+    /// </summary>
     public class MisspelledParameterName
     {
         public string StringProperty1 { get; private set; }
@@ -199,6 +204,25 @@ namespace UnitTest.Formatters
             StringProperty2 = properti;
             StringProperty1 = property;
             IntProperty = value;
+        }
+    }
+
+    /// <summary>
+    /// Unnable to create composite for from this class.
+    /// Unnable to use convention, constructor is not marked.
+    /// </summary>
+    public class DefaultConstructorExplicitProperties
+    {
+        [CompositeProperty(1)]
+        public string FirstName { get; set; }
+
+        [CompositeProperty(1)]
+        public string SurName { get; set; }
+
+        public DefaultConstructorExplicitProperties(string firstName, string surName)
+        {
+            FirstName = firstName;
+            SurName = surName;
         }
     }
 }

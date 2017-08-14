@@ -116,6 +116,7 @@ namespace UnitTest.Formatters.Composite
         }
 
         [TestMethod]
+        [ExpectedException(typeof(MismatchVersionConstructorException))]
         public void Reflection_MisspelledParameterName()
         {
             Converts.Repository
@@ -124,19 +125,20 @@ namespace UnitTest.Formatters.Composite
 
             ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
             CompositeType compositeType;
-            Assert.AreEqual(true, provider.TryGet(typeof(MisspelledParameterName), out compositeType));
+            Assert.AreEqual(false, provider.TryGet(typeof(MisspelledParameterName), out compositeType));
+        }
 
-            MisspelledParameterName instance = new MisspelledParameterName("1", 2, "3");
+        [TestMethod]
+        [ExpectedException(typeof(MismatchVersionConstructorException))]
+        public void Reflection_DefaultConstructorExplicitProperties()
+        {
+            Converts.Repository
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
 
-            CompositeTypeFormatter formatter = new CompositeTypeFormatter(
-                provider,
-                new GetterFactory<ICompositeStorage>(() => new JsonCompositeStorage())
-            );
-            string rawValue = formatter.Serialize(instance);
-
-            instance = formatter.Deserialize<MisspelledParameterName>(rawValue);
-
-            object rawInstance = compositeType.Versions.First().Constructor.Factory(new object[] { "1", 2, "3" });
+            ReflectionCompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
+            CompositeType compositeType;
+            Assert.AreEqual(false, provider.TryGet(typeof(MisspelledParameterName), out compositeType));
         }
 
         [TestMethod]
