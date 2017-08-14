@@ -1,4 +1,6 @@
-﻿using Neptuo.Collections.Specialized;
+﻿using Neptuo;
+using Neptuo.Collections.Specialized;
+using Neptuo.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -15,31 +17,52 @@ namespace Neptuo.Formatters
     /// </summary>
     public class JsonCompositeStorage : ICompositeStorage
     {
-        private JObject root;
-
         private readonly Formatting formatting;
         private readonly JsonLoadSettings loadSettings;
+        private readonly IConverterRepository converters;
         
+        private JObject root;
+
         /// <summary>
-        /// Creates new instance with default settings and <see cref="Formatting.None"/> for serialization.
+        /// Creates new instance with <see cref="Formatting.None"/> for serialization and default <see cref="Converts.Repository"/>.
         /// </summary>
         public JsonCompositeStorage()
             : this(Formatting.None)
         { }
 
         /// <summary>
-        /// Creates new instance with <paramref name="formatting" />.
+        /// Creates new instance with <paramref name="formatting" /> and default <see cref="Converts.Repository"/>.
         /// </summary>
         /// <param name="formatting">The indention formatting for serialization.</param>
         public JsonCompositeStorage(Formatting formatting)
+            : this(formatting, Converts.Repository)
+        { }
+
+        /// <summary>
+        /// Creates new instance with <paramref name="converters"/>.
+        /// </summary>
+        /// <param name="converters">A custom repository with converters</param>
+        public JsonCompositeStorage(IConverterRepository converters)
+            : this(Formatting.None, converters)
+        { }
+
+        /// <summary>
+        /// Creates new instance with <paramref name="formatting" /> and <paramref name="converters"/>.
+        /// </summary>
+        /// <param name="formatting">An indention formatting for serialization.</param>
+        /// <param name="converters">A custom repository with converters</param>
+        public JsonCompositeStorage(Formatting formatting, IConverterRepository converters)
         {
-            this.loadSettings = new JsonLoadSettings();
+            Ensure.NotNull(converters, "converters");
             this.formatting = formatting;
+            this.converters = converters;
+
+            loadSettings = new JsonLoadSettings();
             root = new JObject();
         }
 
-        private JsonCompositeStorage(JObject root, Formatting formatting)
-            : this(formatting)
+        private JsonCompositeStorage(JObject root, Formatting formatting, IConverterRepository converters)
+            : this(formatting, converters)
         {
             Ensure.NotNull(root, "root");
             this.root = root;
@@ -92,7 +115,7 @@ namespace Neptuo.Formatters
             JToken jValue = null;
             if(value == null)
                 jValue = null;
-            else if (Converts.Try(value.GetType(), typeof(JToken), value, out targetValue))
+            else if (converters.TryConvert(value.GetType(), typeof(JToken), value, out targetValue))
                 jValue = (JToken)targetValue;
 
             root[key] = jValue;
@@ -103,7 +126,7 @@ namespace Neptuo.Formatters
         {
             JObject child = new JObject();
             root[key] = child;
-            return new JsonCompositeStorage(child, formatting);
+            return new JsonCompositeStorage(child, formatting, converters);
         }
 
         IKeyValueCollection IKeyValueCollection.Add(string key, object value)
@@ -115,7 +138,7 @@ namespace Neptuo.Formatters
         {
             JToken jToken;
             if (root.TryGetValue(key, out jToken))
-                return Converts.Try<JToken, T>(jToken, out value);
+                return converters.TryConvert<JToken, T>(jToken, out value);
 
             value = default(T);
             return false;
@@ -127,7 +150,7 @@ namespace Neptuo.Formatters
             JObject jObject;
             if (root.TryGetValue(key, out jToken) && (jObject = jToken as JObject) != null)
             {
-                storage = new JsonCompositeStorage(jObject, formatting);
+                storage = new JsonCompositeStorage(jObject, formatting, converters);
                 return true;
             }
 

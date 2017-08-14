@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Metadata
 {
     /// <summary>
-    /// A single version of composite types.
-    /// Defines version number, a constructor and set of properties to this version.
+    /// A single version of composite type.
+    /// Defines a version number, a constructor and a set of properties in this version.
     /// </summary>
     public class CompositeVersion
     {
         /// <summary>
-        /// The version of the model definition.
+        /// Gets a version of the model definition.
         /// </summary>
         public int Version { get; private set; }
 
         /// <summary>
-        /// The constructor for this version.
+        /// Gets a constructor for this version.
         /// </summary>
         public CompositeConstructor Constructor { get; private set; }
 
         /// <summary>
-        /// The set of properties for this version.
+        /// Gets a set of properties for this version.
         /// </summary>
         public IEnumerable<CompositeProperty> Properties { get; private set; }
 
         /// <summary>
         /// Creates new instance.
         /// </summary>
-        /// <param name="version">The version of the model definition.</param>
-        /// <param name="constructor">The constructor.</param>
-        /// <param name="properties">The set of properties.</param>
+        /// <param name="version">A version of the model definition.</param>
+        /// <param name="constructor">A composite constructor.</param>
+        /// <param name="properties">A set of properties.</param>
         public CompositeVersion(int version, CompositeConstructor constructor, IEnumerable<CompositeProperty> properties)
         {
             Ensure.Positive(version, "version");
