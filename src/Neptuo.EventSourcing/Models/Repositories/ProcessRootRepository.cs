@@ -1,5 +1,4 @@
 ﻿using Neptuo.Activators;
-using Neptuo.Auditing;
 using Neptuo.Commands;
 using Neptuo.Data;
 using Neptuo.Events;
@@ -7,7 +6,6 @@ using Neptuo.Formatters;
 using Neptuo.Internals;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
-using Neptuo.Models.Snapshots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,13 +35,9 @@ namespace Neptuo.Models.Repositories
         /// <param name="factory">The process root factory.</param>
         /// <param name="eventDispatcher">The dispatcher for newly created events in the processes.</param>
         /// <param name="commandDispatcher">The dispatcher for newly created commands in the processes.</param>
-        /// <param name="snapshotProvider">The snapshot provider.</param>
-        /// <param name="snapshotStore">The store for snapshots.</param>
-        /// <param name="auditor">An auditing decorator.</param>
         public ProcessRootRepository(IEventStore eventStore, ICommandStore commandStore, IFormatter eventFormatter, ISerializer commandFormatter, 
-            IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher, 
-            ISnapshotProvider snapshotProvider, ISnapshotStore snapshotStore, IEnvelopeDecorator auditor = null)
-            : base(eventStore, eventFormatter, factory, eventDispatcher, snapshotProvider, snapshotStore, auditor)
+            IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher, ICommandDispatcher commandDispatcher)
+            : base(eventStore, eventFormatter, factory, eventDispatcher)
         {
             Ensure.NotNull(commandStore, "commandStore");
             Ensure.NotNull(commandDispatcher, "commandDispatcher");

@@ -1,5 +1,4 @@
-﻿using Neptuo;
-using Neptuo.Activators;
+﻿using Neptuo.Activators;
 using Neptuo.Auditing;
 using Neptuo.Data;
 using Neptuo.Events;
@@ -28,9 +27,9 @@ namespace Neptuo.Models.Repositories
         private readonly IFormatter formatter;
         private readonly IAggregateRootFactory<T> factory;
         private readonly IEventDispatcher eventDispatcher;
-        private readonly ISnapshotProvider snapshotProvider;
-        private readonly ISnapshotStore snapshotStore;
-        private readonly IEnvelopeDecorator auditor;
+        private ISnapshotProvider snapshotProvider;
+        private ISnapshotStore snapshotStore;
+        private IEnvelopeDecorator auditor;
 
         /// <summary>
         /// Creates new instance.
@@ -39,25 +38,62 @@ namespace Neptuo.Models.Repositories
         /// <param name="formatter">The formatter for serializing and deserializing event payloads.</param>
         /// <param name="factory">The aggregate root factory.</param>
         /// <param name="eventDispatcher">The dispatcher for newly created events in the aggregates.</param>
-        /// <param name="snapshotProvider">The snapshot provider.</param>
-        /// <param name="snapshotStore">The store for snapshots.</param>
-        /// <param name="auditor">An auditing decorator.</param>
-        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher,
-            ISnapshotProvider snapshotProvider, ISnapshotStore snapshotStore, IEnvelopeDecorator auditor = null)
+        public AggregateRootRepository(IEventStore store, IFormatter formatter, IAggregateRootFactory<T> factory, IEventDispatcher eventDispatcher)
         {
             Ensure.NotNull(store, "store");
             Ensure.NotNull(formatter, "formatter");
             Ensure.NotNull(factory, "factory");
             Ensure.NotNull(eventDispatcher, "eventDispatcher");
-            Ensure.NotNull(snapshotProvider, "snapshotProvider");
-            Ensure.NotNull(snapshotStore, "snapshotStore");
             this.store = store;
             this.formatter = formatter;
             this.factory = factory;
             this.eventDispatcher = eventDispatcher;
+        }
+
+        /// <summary>
+        /// Integrates snapshots into repository.
+        /// </summary>
+        /// <param name="snapshotProvider">The snapshot provider.</param>
+        /// <param name="snapshotStore">The store for snapshots.</param>
+        /// <returns>Self (for fluency).</returns>
+        public AggregateRootRepository<T> UseSnapshots(ISnapshotProvider snapshotProvider, ISnapshotStore snapshotStore)
+        {
+            Ensure.NotNull(snapshotProvider, "snapshotProvider");
+            Ensure.NotNull(snapshotStore, "snapshotStore");
             this.snapshotProvider = snapshotProvider;
             this.snapshotStore = snapshotStore;
+            return this;
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if snapshots are enabled.
+        /// </summary>
+        /// <returns><c>true</c> if snapshots are enabled; otherwise <c>false</c>.</returns>
+        public bool HasSnapshots()
+        {
+            return snapshotProvider != null && snapshotStore != null;
+        }
+
+        /// <summary>
+        /// Integrates <paramref name="auditor"/> into repository.
+        /// </summary>
+        /// <param name="auditor">An envelope auditor.</param>
+        /// <returns></returns>
+        /// <returns>Self (for fluency).</returns>
+        public AggregateRootRepository<T> UseAuditing(IEnvelopeDecorator auditor)
+        {
+            Ensure.NotNull(auditor, "auditor");
             this.auditor = auditor;
+            return this;
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if auditing is enabled.
+        /// </summary>
+        /// <returns><c>true</c> if auditing is enabled; otherwise <c>false</c>.</returns>
+        public bool HasAutiding()
+        {
+            return auditor != null;
         }
 
         public virtual void Save(T model)
@@ -84,18 +120,21 @@ namespace Neptuo.Models.Repositories
                         payload = formatter.SerializeEvent(e);
 
                     return new EventModel(
-                        e.AggregateKey, 
-                        e.Key, 
-                        payload, 
+                        e.AggregateKey,
+                        e.Key,
+                        payload,
                         e.Version
                     );
                 });
                 store.Save(eventModels);
 
                 // Try to create snapshot.
-                ISnapshot snapshot;
-                if (snapshotProvider.TryCreate(model, out snapshot))
-                    snapshotStore.Save(snapshot);
+                if (HasSnapshots())
+                {
+                    ISnapshot snapshot;
+                    if (snapshotProvider.TryCreate(model, out snapshot))
+                        snapshotStore.Save(snapshot);
+                }
 
                 // Publish new events.
                 foreach (IEvent e in events)
@@ -108,7 +147,9 @@ namespace Neptuo.Models.Repositories
             Ensure.Condition.NotEmptyKey(key);
 
             // Try to find snapshot.
-            ISnapshot snapshot = snapshotStore.Find(key);
+            ISnapshot snapshot = null;
+            if (HasSnapshots())
+                snapshot = snapshotStore.Find(key);
 
             // If snapshot exists, load only newer events; otherwise load all of them.
             IEnumerable<EventModel> eventModels = null;
