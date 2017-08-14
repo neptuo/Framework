@@ -79,6 +79,7 @@
     <Compile Include="Activators\SnapshotConstructorNotSupportedException.cs" />
     <Compile Include="Auditing\IEnvelopeDecorator.cs" />
     <Compile Include="Commands\PersistentCommandDispatcherBuilder.cs" />
+    <Compile Include="Commands\_CommandHandlerCollectionExtensions.cs" />
     <Compile Include="Data\EmptyCommandStore.cs" />
     <Compile Include="Data\EmptySnapshotStore.cs" />
     <Compile Include="Data\ISnapshotStore.cs" />
