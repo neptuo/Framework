@@ -27,7 +27,7 @@ namespace Neptuo.Models.Keys
                     lock (providerLock)
                     {
                         if (provider == null)
-                            provider = new KeyTypeCollection();
+                            provider = new AssemblyQualifiedKeyTypeProvider();
                     }
                 }
 
