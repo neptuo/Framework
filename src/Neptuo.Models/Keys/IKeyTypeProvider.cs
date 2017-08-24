@@ -11,7 +11,20 @@ namespace Neptuo.Models.Keys
     /// </summary>
     public interface IKeyTypeProvider
     {
+        /// <summary>
+        /// Tries to get a clr type for <paramref name="keyType"/>.
+        /// </summary>
+        /// <param name="keyType">A <see cref="IKey.Type"/>.</param>
+        /// <param name="type">An associated clr type.</param>
+        /// <returns><c>true</c> if mapping was found and <paramref name="type"/> is set; <c>false</c> otherwise.</returns>
         bool TryGet(string keyType, out Type type);
+
+        /// <summary>
+        /// Tries to get a <see cref="IKey.Type"/> for <paramref name="type"/>.
+        /// </summary>
+        /// <param name="type">A clr type.</param>
+        /// <param name="keyType">A <see cref="IKey.Type"/> for <paramref name="type"/>.</param>
+        /// <returns><c>true</c> if mapping was found and <paramref name="keyType"/> is set; <c>false</c> otherwise.</returns>
         bool TryGet(Type type, out string keyType);
     }
 }
