@@ -151,7 +151,7 @@ namespace Neptuo.Observables.Commands
         {
             if (cancellationTokenSource != value)
             {
-                cancellationTokenSource = null;
+                cancellationTokenSource = value;
                 RaiseCanExecuteChanged();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
             }
