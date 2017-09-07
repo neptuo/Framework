@@ -42,10 +42,6 @@
       <HintPath>..\..\packages\Neptuo.Events.1.0.0\lib\net45\Neptuo.Events.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Neptuo.Models, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Models.1.1.0\lib\net45\Neptuo.Models.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -66,7 +62,7 @@
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Commands\Handlers\AggregateRootCommandExecutor.cs" />
     <Compile Include="IdentifierAttribute.cs" />
-    <Compile Include="KeyFactory.cs" />
+    <Compile Include="Models\Keys\KeyFactory.cs" />
     <Compile Include="Models\AggregateRootException.cs" />
     <Compile Include="Models\Domains\AggregateRoot.cs" />
     <Compile Include="Models\Domains\AggregateRootHandlerCollection.cs" />
@@ -89,7 +85,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Models\Neptuo.Models.csproj">
+      <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
+      <Name>Neptuo.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
