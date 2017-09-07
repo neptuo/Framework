@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <Product>Neptuo.Models</Product>
     <Description>Neptuo support for creating and accessing anemic and domain models.</Description>
@@ -14,6 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+
+
   </ItemGroup>
 
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />

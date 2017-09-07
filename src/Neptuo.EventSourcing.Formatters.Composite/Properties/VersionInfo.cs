@@ -4,7 +4,7 @@ namespace Neptuo.EventSourcing.Formatters.Composite
 {
     public static class VersionInfo
     {
-        internal const string Version = "0.1.0";
+        internal const string Version = "0.2.0";
 
         public static Version GetVersion()
         {
@@ -12,3 +12,7 @@ namespace Neptuo.EventSourcing.Formatters.Composite
         }
     }
 }
+
+#if !DEBUG
+    Make reference to Neptuo.Models as NuGet reference.
+#endif
