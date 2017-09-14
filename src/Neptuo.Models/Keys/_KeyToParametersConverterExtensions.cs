@@ -1,6 +1,4 @@
-﻿using Neptuo;
-using Neptuo.Collections.Specialized;
-using Neptuo.Models.Keys;
+﻿using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,152 +8,252 @@ using System.Threading.Tasks;
 namespace Neptuo.Models.Keys
 {
     /// <summary>
-    /// Key registration extensions for the <see cref="KeyToParametersConverter"/>.
+    /// Common extensions for <see cref="KeyToParametersConverter"/>.
     /// </summary>
     public static class _KeyToParametersConverterExtensions
     {
-        public static KeyToParametersConverter AddDefaultMapping(this KeyToParametersConverter converter)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <typeparam name="TKey">A type of the key.</typeparam>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static TKey Get<TKey>(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters) 
+            where TKey : IKey
         {
             Ensure.NotNull(converter, "converter");
-            converter.Definitions.AddDefaultMapping();
-            return converter;
+            TKey key;
+            if (converter.TryGet(parameters, out key))
+                return key;
+
+            throw new MissingKeyInParametersException();
         }
 
-        public static KeyToParametersConverter.MappingCollection AddDefaultMapping(this KeyToParametersConverter.MappingCollection definitions)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <paramref name="prefix"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <typeparam name="TKey">A type of the key.</typeparam>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="prefix">A values prefix for <paramref name="parameters"/>.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static TKey Get<TKey>(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string prefix) 
+            where TKey : IKey
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions
-                .AddInt16KeyToParameters()
-                .AddInt32KeyToParameters()
-                .AddInt64KeyToParameters()
-                .AddStringKeyToParameters()
-                .AddGuidKeyToParameters()
-                .AddParametersToInt16Key()
-                .AddParametersToInt32Key()
-                .AddParametersToInt64Key()
-                .AddParametersToStringKey()
-                .AddParametersToGuidKey();
+            Ensure.NotNull(converter, "converter");
+            TKey key;
+            if (converter.TryGet(parameters, prefix, out key))
+                return key;
+
+            throw new MissingKeyInParametersException();
         }
 
-        public static KeyToParametersConverter.MappingCollection AddInt16KeyToParameters(this KeyToParametersConverter.MappingCollection definitions)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <see cref="IKey.Type"/> set to <paramref name="keyType"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <typeparam name="TKey">A type of the key.</typeparam>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="keyType">A <see cref="IKey.Type"/> for key to create.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static TKey GetWithoutType<TKey>(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType) 
+            where TKey : IKey
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddKeyToParameters<Int16Key>((values, key) => values.Add("ID", key.ID).Add("Type", key.Type));
+            Ensure.NotNull(converter, "converter");
+            TKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            throw new MissingKeyInParametersException();
         }
 
-        public static KeyToParametersConverter.MappingCollection AddInt32KeyToParameters(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int16Key FindInt16KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddKeyToParameters<Int32Key>((values, key) => values.Add("ID", key.ID).Add("Type", key.Type));
+            Ensure.NotNull(converter, "converter");
+            Int16Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            return Int16Key.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddInt64KeyToParameters(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int32Key FindInt32KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddKeyToParameters<Int64Key>((values, key) => values.Add("ID", key.ID).Add("Type", key.Type));
+            Ensure.NotNull(converter, "converter");
+            Int32Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            return Int32Key.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddStringKeyToParameters(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int64Key FindInt64KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddKeyToParameters<StringKey>((values, key) => values.Add("Identifier", key.Identifier).Add("Type", key.Type));
+            Ensure.NotNull(converter, "converter");
+            Int64Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            return Int64Key.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddGuidKeyToParameters(this KeyToParametersConverter.MappingCollection definitions)
+        public static StringKey FindStringKeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddKeyToParameters<GuidKey>((values, key) => values.Add("Guid", key.Guid.ToString()).Add("Type", key.Type));
+            Ensure.NotNull(converter, "converter");
+            StringKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            return StringKey.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddParametersToInt16Key(this KeyToParametersConverter.MappingCollection definitions)
+        public static GuidKey FindGuidKeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddParametersToKey<Int16Key>(TryGetInt16Key);
+            Ensure.NotNull(converter, "converter");
+            GuidKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
+
+            return GuidKey.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddParametersToInt32Key(this KeyToParametersConverter.MappingCollection definitions)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <paramref name="prefix"/> and <see cref="IKey.Type"/> set to <paramref name="keyType"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <typeparam name="TKey">A type of the key.</typeparam>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="prefix">A values prefix for <paramref name="parameters"/>.</param>
+        /// <param name="keyType">A <see cref="IKey.Type"/> for key to create.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static TKey GetWithoutType<TKey>(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix) 
+            where TKey : IKey
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddParametersToKey<Int32Key>(TryGetInt32Key);
+            Ensure.NotNull(converter, "converter");
+            TKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
+
+            throw new MissingKeyInParametersException();
         }
 
-        public static KeyToParametersConverter.MappingCollection AddParametersToInt64Key(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int16Key FindInt16KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddParametersToKey<Int64Key>(TryGetInt64Key);
+            Ensure.NotNull(converter, "converter");
+            Int16Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
+
+            return Int16Key.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddParametersToStringKey(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int32Key FindInt32KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddParametersToKey<StringKey>(TryGetStringKey);
+            Ensure.NotNull(converter, "converter");
+            Int32Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
+
+            return Int32Key.Empty(keyType);
         }
 
-        public static KeyToParametersConverter.MappingCollection AddParametersToGuidKey(this KeyToParametersConverter.MappingCollection definitions)
+        public static Int64Key FindInt64KeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
         {
-            Ensure.NotNull(definitions, "definitions");
-            return definitions.AddParametersToKey<GuidKey>(TryGetGuidKey);
+            Ensure.NotNull(converter, "converter");
+            Int64Key key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
+
+            return Int64Key.Empty(keyType);
         }
 
-        private static bool TryGetInt16Key(IReadOnlyKeyValueCollection parameters, out Int16Key key)
+        public static StringKey FindStringKeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
         {
-            if (parameters.TryGet("Type", out string type) && parameters.TryGet("ID", out short id))
-            {
-                key = Int16Key.Create(id, type);
-                return true;
-            }
+            Ensure.NotNull(converter, "converter");
+            StringKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
 
-            key = null;
-            return false;
+            return StringKey.Empty(keyType);
         }
 
-        private static bool TryGetInt32Key(IReadOnlyKeyValueCollection parameters, out Int32Key key)
+        public static GuidKey FindGuidKeyWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
         {
-            if (parameters.TryGet("Type", out string type) && parameters.TryGet("ID", out int id))
-            {
-                key = Int32Key.Create(id, type);
-                return true;
-            }
+            Ensure.NotNull(converter, "converter");
+            GuidKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
 
-            key = null;
-            return false;
+            return GuidKey.Empty(keyType);
         }
 
-        private static bool TryGetInt64Key(IReadOnlyKeyValueCollection parameters, out Int64Key key)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static IKey Get(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters)
         {
-            if (parameters.TryGet("Type", out string type) && parameters.TryGet("ID", out long id))
-            {
-                key = Int64Key.Create(id, type);
-                return true;
-            }
+            Ensure.NotNull(converter, "converter");
+            IKey key;
+            if (converter.TryGet(parameters, out key))
+                return key;
 
-            key = null;
-            return false;
+            throw new MissingKeyInParametersException();
         }
 
-        private static bool TryGetStringKey(IReadOnlyKeyValueCollection parameters, out StringKey key)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <paramref name="prefix"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="prefix">A values prefix for <paramref name="parameters"/>.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static IKey Get(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string prefix)
         {
-            if (parameters.TryGet("Type", out string type) && parameters.TryGet("Identifier", out string identifier))
-            {
-                key = StringKey.Create(identifier, type);
-                return true;
-            }
+            Ensure.NotNull(converter, "converter");
+            IKey key;
+            if (converter.TryGet(parameters, prefix, out key))
+                return key;
 
-            key = null;
-            return false;
+            throw new MissingKeyInParametersException();
         }
 
-        private static bool TryGetGuidKey(IReadOnlyKeyValueCollection parameters, out GuidKey key)
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <see cref="IKey.Type"/> set to <paramref name="keyType"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="keyType">A <see cref="IKey.Type"/> for key to create.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static IKey GetWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType)
         {
-            if (parameters.TryGet("Type", out string type) && parameters.TryGet("Guid", out Guid guid))
-            {
-                key = GuidKey.Create(guid, type);
-                return true;
-            }
+            Ensure.NotNull(converter, "converter");
+            IKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, out key))
+                return key;
 
-            key = null;
-            return false;
+            throw new MissingKeyInParametersException();
         }
 
+        /// <summary>
+        /// Gets a key from the <paramref name="parameters"/> with <paramref name="prefix"/> and <see cref="IKey.Type"/> set to <paramref name="keyType"/> or throws <see cref="MissingKeyInParametersException"/>.
+        /// </summary>
+        /// <param name="converter">A key-parameters converter.</param>
+        /// <param name="parameters">A collection of parameters.</param>
+        /// <param name="prefix">A values prefix for <paramref name="parameters"/>.</param>
+        /// <param name="keyType">A <see cref="IKey.Type"/> for key to create.</param>
+        /// <returns>A key from the <paramref name="parameters"/> or throws <see cref="MissingKeyInParametersException"/>.</returns>
+        public static IKey GetWithoutType(this KeyToParametersConverter converter, IReadOnlyKeyValueCollection parameters, string keyType, string prefix)
+        {
+            Ensure.NotNull(converter, "converter");
+            IKey key;
+            if (converter.TryGetWithoutType(parameters, keyType, prefix, out key))
+                return key;
+
+            throw new MissingKeyInParametersException();
+        }
     }
 }
