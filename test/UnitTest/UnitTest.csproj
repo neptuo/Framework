@@ -101,6 +101,7 @@
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
     <Compile Include="Models\T_Models_Keys_Comparing.cs" />
+    <Compile Include="Models\T_Models_Keys_KeyToParameters.cs" />
     <Compile Include="Observables\T_Observables_AsyncCommand.cs" />
     <Compile Include="Observables\T_Observables_PropertyChangedObserver.cs" />
     <Compile Include="Observables\_Models.cs" />
