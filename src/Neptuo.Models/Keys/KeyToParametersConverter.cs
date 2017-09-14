@@ -8,14 +8,29 @@ using System.Threading.Tasks;
 
 namespace Neptuo.Models.Keys
 {
+    /// <summary>
+    /// A default implementation of <see cref="IKeyToParametersConverter"/>.
+    /// It uses <see cref="Definitions"/> for mapping <see cref="IKey.Type"/> 
+    /// to find implementations of <see cref="IKey"/> and to serializing/deserializing keys to parameters.
+    /// </summary>
     public partial class KeyToParametersConverter : IKeyToParametersConverter
     {
+        /// <summary>
+        /// Gets a collection of mapping definitions.
+        /// </summary>
         public MappingCollection Definitions { get; private set; }
 
+        /// <summary>
+        /// Creates a new instance with empty definition collection.
+        /// </summary>
         public KeyToParametersConverter()
             : this(new MappingCollection())
         { }
 
+        /// <summary>
+        /// Creates a new instance with <paramref name="definitions"/>.
+        /// </summary>
+        /// <param name="definitions">A collection of mapping definitions.</param>
         public KeyToParametersConverter(MappingCollection definitions)
         {
             Ensure.NotNull(definitions, "definitions");
@@ -48,7 +63,7 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(key, "key");
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyCollection(parameters, prefix, null, false);
+                parameters = new KeyValueCollectionWrapper(parameters, prefix, null, false);
 
             return Add(parameters, key);
         }
@@ -58,7 +73,7 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(parameters, "parameters");
             Ensure.NotNull(key, "key");
 
-            parameters = new KeyCollection(parameters, null, null, true);
+            parameters = new KeyValueCollectionWrapper(parameters, null, null, true);
             return Add(parameters, key);
         }
 
@@ -68,9 +83,9 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(key, "key");
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyCollection(parameters, prefix, null, true);
+                parameters = new KeyValueCollectionWrapper(parameters, prefix, null, true);
             else
-                parameters = new KeyCollection(parameters, null, null, true);
+                parameters = new KeyValueCollectionWrapper(parameters, null, null, true);
 
             return Add(parameters, key);
         }
@@ -111,7 +126,7 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(parameters, "parameters");
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyProvider(parameters, prefix, null);
+                parameters = new KeyValueProviderWrapper(parameters, prefix, null);
 
             return TryGet(parameters, out key);
         }
@@ -120,7 +135,7 @@ namespace Neptuo.Models.Keys
             where TKey : IKey
         {
             Ensure.NotNull(parameters, "parameters");
-            parameters = new KeyProvider(parameters, null, keyType);
+            parameters = new KeyValueProviderWrapper(parameters, null, keyType);
 
             return TryGet(parameters, out key);
         }
@@ -131,9 +146,9 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(parameters, "parameters");
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyProvider(parameters, prefix, keyType);
+                parameters = new KeyValueProviderWrapper(parameters, prefix, keyType);
             else
-                parameters = new KeyProvider(parameters, null, keyType);
+                parameters = new KeyValueProviderWrapper(parameters, null, keyType);
 
             return TryGet(parameters, out key);
         }
@@ -157,7 +172,7 @@ namespace Neptuo.Models.Keys
             Ensure.NotNull(parameters, "parameters");
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyProvider(parameters, prefix, null);
+                parameters = new KeyValueProviderWrapper(parameters, prefix, null);
 
             string keyType = parameters.Get<string>("Type");
             Type type;
@@ -175,7 +190,7 @@ namespace Neptuo.Models.Keys
             if (!Definitions.keyTypeToClass.TryGetValue(keyType, out type))
                 throw new MissingKeyTypeToKeyClassMappingException(keyType);
 
-            parameters = new KeyProvider(parameters, null, keyType);
+            parameters = new KeyValueProviderWrapper(parameters, null, keyType);
             return TryGet(parameters, type, out key);
         }
 
@@ -188,9 +203,9 @@ namespace Neptuo.Models.Keys
                 throw new MissingKeyTypeToKeyClassMappingException(keyType);
 
             if (!string.IsNullOrEmpty(prefix))
-                parameters = new KeyProvider(parameters, prefix, keyType);
+                parameters = new KeyValueProviderWrapper(parameters, prefix, keyType);
             else
-                parameters = new KeyProvider(parameters, null, keyType);
+                parameters = new KeyValueProviderWrapper(parameters, null, keyType);
 
             return TryGet(parameters, type, out key);
         }

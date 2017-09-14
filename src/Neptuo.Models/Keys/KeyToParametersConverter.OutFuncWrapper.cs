@@ -9,6 +9,10 @@ namespace Neptuo.Models.Keys
 {
     partial class KeyToParametersConverter
     {
+        /// <summary>
+        /// Wraps generic outfunc to non-generic.
+        /// </summary>
+        /// <typeparam name="TKey">A type of the key.</typeparam>
         private class OutFuncWrapper<TKey>
             where TKey : IKey
         {

@@ -62,8 +62,8 @@
     <Compile Include="Keys\Int32Key.cs" />
     <Compile Include="Keys\Int64Key.cs" />
     <Compile Include="Keys\KeyToParametersConverter.cs" />
-    <Compile Include="Keys\KeyToParametersConverter.KeyProvider.cs" />
-    <Compile Include="Keys\KeyToParametersConverter.KeyCollection.cs" />
+    <Compile Include="Keys\KeyToParametersConverter.KeyValueCollectionWrapper.cs" />
+    <Compile Include="Keys\KeyToParametersConverter.KeyValueProviderWrapper.cs" />
     <Compile Include="Keys\KeyToParametersConverter.MappingCollection.cs" />
     <Compile Include="Keys\KeyToParametersConverter.OutFuncWrapper.cs" />
     <Compile Include="Keys\KeyTypeCollection.cs" />

@@ -9,13 +9,16 @@ namespace Neptuo.Models.Keys
 {
     partial class KeyToParametersConverter
     {
-        private class KeyProvider : IReadOnlyKeyValueCollection
+        /// <summary>
+        /// A wrapper implementation of <see cref="IReadOnlyKeyValueCollection"/> to suppory prefixes and key types.
+        /// </summary>
+        private class KeyValueProviderWrapper : IReadOnlyKeyValueCollection
         {
             private readonly IReadOnlyKeyValueCollection inner;
             private readonly string prefix;
             private readonly string keyType;
 
-            public KeyProvider(IReadOnlyKeyValueCollection inner, string prefix, string keyType)
+            public KeyValueProviderWrapper(IReadOnlyKeyValueCollection inner, string prefix, string keyType)
             {
                 Ensure.NotNull(inner, "inner");
                 this.inner = inner;
