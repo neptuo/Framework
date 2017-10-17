@@ -4,7 +4,7 @@ namespace Neptuo.Exceptions
 {
     public static class VersionInfo
     {
-        internal const string Version = "1.1.0";
+        internal const string Version = "1.2.0";
 
         public static Version GetVersion()
         {
