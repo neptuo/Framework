@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.PresentationModels.Validation
 {
     /// <summary>
-    /// Description of model validator for <see cref="Pipelines.Validators.IValidationDispatcher"/>.
+    /// Description of model validator for <see cref="Neptuo.Validators.IValidationDispatcher"/>.
     /// </summary>
     public class ModelValidatorContext
     {
