@@ -34,13 +34,11 @@
     <DocumentationFile>bin\Release\Neptuo.PresentationModels.Serialization.Xml.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Neptuo, Version=5.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.5.5.0\lib\net45\Neptuo.dll</HintPath>
     </Reference>
-    <Reference Include="Neptuo.PresentationModels, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.PresentationModels.7.0.0\lib\net45\Neptuo.PresentationModels.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Neptuo.PresentationModels, Version=7.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Neptuo.PresentationModels.7.2.0\lib\net45\Neptuo.PresentationModels.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -36,10 +36,10 @@ namespace Neptuo.PresentationModels.Serialization
         { }
 
         /// <summary>
-        /// Creates model definition from XML <paramref name="xmlFile"/>.
+        /// Creates model definition from XML <paramref name="content"/>.
         /// </summary>
-        /// <param name="xmlFile">XML file to create model definition from.</param>
-        /// <returns>Model definition from XML <paramref name="xmlFile"/>.</returns>
+        /// <param name="content">XML content stream to create model definition from.</param>
+        /// <returns>Model definition from XML <paramref name="content"/>.</returns>
         public IModelDefinition Create(Stream content)
         {
             Ensure.NotNull(content, "content");
