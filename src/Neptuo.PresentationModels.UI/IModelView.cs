@@ -14,9 +14,9 @@ namespace Neptuo.PresentationModels.UI
     public interface IModelView<T> : IModelValueProvider
     {
         /// <summary>
-        /// Renders the view to the <paramref name="target"/>.
+        /// Renders the view to the <paramref name="context"/>.
         /// </summary>
-        /// <param name="target">Rendering context.</param>
-        void Render(T parent);
+        /// <param name="context">Rendering context.</param>
+        void Render(T context);
     }
 }

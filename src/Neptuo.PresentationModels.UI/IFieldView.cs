@@ -11,10 +11,10 @@ namespace Neptuo.PresentationModels.UI
     public interface IFieldView<T>
     {
         /// <summary>
-        /// Renders the view to the <paramref name="target"/>.
+        /// Renders the view to the <paramref name="context"/>.
         /// </summary>
-        /// <param name="target">Rendering context.</param>
-        void Render(T target);
+        /// <param name="context">Rendering context.</param>
+        void Render(T context);
 
         /// <summary>
         /// Tries to get current value of the view.
