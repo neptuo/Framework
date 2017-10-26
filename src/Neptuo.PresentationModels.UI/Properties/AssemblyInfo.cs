@@ -5,5 +5,5 @@ using System.Reflection;
 [assembly: AssemblyDescription("Base (platform independent) support for building UI on PresentationModels.")]
 
 [assembly: AssemblyVersion(VersionInfo.Version)]
-[assembly: AssemblyInformationalVersion(VersionInfo.Version)]
+[assembly: AssemblyInformationalVersion(VersionInfo.Version + VersionInfo.Preview)]
 [assembly: AssemblyFileVersion(VersionInfo.Version)]
