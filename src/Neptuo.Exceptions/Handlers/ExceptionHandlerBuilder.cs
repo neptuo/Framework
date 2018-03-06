@@ -150,7 +150,7 @@ namespace Neptuo.Exceptions.Handlers
 
             T ex = exception as T;
             if (ex == null)
-                return true;
+                return false;
 
             // If no filters are defined or all filters are passed, handler the exception.
             bool isPassed = !filters.Any() || filters.All(f => f(ex));
