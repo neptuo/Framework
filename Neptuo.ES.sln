@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo", "src\Neptuo\Neptuo.csproj", "{2392ED97-E671-4871-81A4-C85975F33794}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands", "src\Neptuo.Commands\Neptuo.Commands.csproj", "{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing", "src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj", "{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Formatters.Composite", "src\Neptuo.EventSourcing.Formatters.Composite\Neptuo.EventSourcing.Formatters.Composite.csproj", "{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Formatters.Composite.Json", "src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj", "{2C713448-D1C0-4480-86CE-A85ECEB39DF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Exceptions", "src\Neptuo.Exceptions\Neptuo.Exceptions.csproj", "{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters", "src\Neptuo.Formatters\Neptuo.Formatters.csproj", "{200D385F-DC27-4695-AACB-B345D9E7917D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite", "src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj", "{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Queries", "src\Neptuo.Queries\Neptuo.Queries.csproj", "{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Events", "src\Neptuo.Events\Neptuo.Events.csproj", "{FE22167D-A8F5-400E-941D-4437EF22CECE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo.Models\Neptuo.Models.csproj", "{37F9B51A-2E66-4A99-950A-17EBF6880ABA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2392ED97-E671-4871-81A4-C85975F33794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2392ED97-E671-4871-81A4-C85975F33794}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2392ED97-E671-4871-81A4-C85975F33794}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2392ED97-E671-4871-81A4-C85975F33794}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8997CF9A-2985-407E-A7B8-5282DF052A28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C713448-D1C0-4480-86CE-A85ECEB39DF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C713448-D1C0-4480-86CE-A85ECEB39DF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C713448-D1C0-4480-86CE-A85ECEB39DF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C713448-D1C0-4480-86CE-A85ECEB39DF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200D385F-DC27-4695-AACB-B345D9E7917D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200D385F-DC27-4695-AACB-B345D9E7917D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200D385F-DC27-4695-AACB-B345D9E7917D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200D385F-DC27-4695-AACB-B345D9E7917D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37F9B51A-2E66-4A99-950A-17EBF6880ABA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FF4A465-86C4-42D5-B3FB-29C7D2357EB1}
+	EndGlobalSection
+EndGlobal
