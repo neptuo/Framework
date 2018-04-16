@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Compilers abstractions. Contains implementation for System.CodeDom.</Description>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.compilers</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.compilers</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
