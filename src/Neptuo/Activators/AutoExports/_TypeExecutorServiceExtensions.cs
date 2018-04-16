@@ -14,10 +14,10 @@ namespace Neptuo.Activators.AutoExports
     public static class _TypeExecutorServiceExtensions
     {
         /// <summary>
-        /// Adds all types found <paramref name="service"/> and marked with <see cref="ConverterAttribute"/> to the <paramref name="repository"/>.
+        /// Adds all types found <paramref name="service"/> marked with <see cref="ExportAttribute"/> to the <paramref name="dependencyContainer"/>.
         /// </summary>
         /// <param name="service">Type enumerating service.</param>
-        /// <param name="repository">Repository to add converters to.</param>
+        /// <param name="dependencyContainer">A dependency container to add types to..</param>
         /// <param name="isExecutedForLatelyLoadedAssemblies">Whether to add converters from lately loaded assemblies.</param>
         /// <returns><paramref name="service"/>.</returns>
         public static ITypeExecutorService AddDependencies(this ITypeExecutorService service, IDependencyContainer dependencyContainer, bool isExecutedForLatelyLoadedAssemblies = true)
