@@ -10,9 +10,6 @@
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo</PackageLicenseUrl>
     <Description>Common utils by Neptuo.</Description>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
   </PropertyGroup>
 
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
