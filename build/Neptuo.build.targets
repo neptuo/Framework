@@ -5,6 +5,7 @@
     <Authors>Neptuo</Authors>
     <RepositoryUrl>https://github.com/neptuo/Framework</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
 </Project>
