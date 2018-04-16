@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo
+namespace Neptuo.Collections.Specialized
 {
     /// <summary>
     /// Represents collection of output functions.
@@ -18,9 +18,16 @@ namespace Neptuo
         private readonly OutFunc<T, TOutput, TReturn> defaultFunc;
         private readonly List<OutFunc<T, TOutput, TReturn>> storage = new List<OutFunc<T, TOutput, TReturn>>();
 
+        /// <summary>
+        /// Creates a new empty instance.
+        /// </summary>
         public OutFuncCollection()
         { }
 
+        /// <summary>
+        /// Create a new instance with first item <paramref name="defaultFunc"/>.
+        /// </summary>
+        /// <param name="defaultFunc">A first item in the collection.</param>
         public OutFuncCollection(OutFunc<T, TOutput, TReturn> defaultFunc)
         {
             Ensure.NotNull(defaultFunc, "defaultFunc");

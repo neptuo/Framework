@@ -110,12 +110,12 @@
     <Compile Include="Text\Positions\IDocumentPoint.cs" />
     <Compile Include="Text\Positions\ITextSpan.cs" />
     <Compile Include="Text\Positions\IDocumentSpan.cs" />
-    <Compile Include="OutFuncCollection.cs" />
+    <Compile Include="Collections\Specialized\OutFuncCollection.cs" />
     <Compile Include="Converters\AutoExports\_TypeExecutorServiceExtensions.cs" />
     <Compile Include="Threading\Tasks\Async.cs" />
     <Compile Include="_DisposableExtensions.cs" />
     <Compile Include="_EnvelopeExtensions.cs" />
-    <Compile Include="_OutFuncCollectionExtensions.cs" />
+    <Compile Include="Collections\Specialized\_OutFuncCollectionExtensions.cs" />
     <Compile Include="Converts.cs" />
     <Compile Include="Activators\DefaultFactory.cs" />
     <Compile Include="Activators\DependencyFactory.cs" />

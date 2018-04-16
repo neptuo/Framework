@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo
+namespace Neptuo.Collections.Specialized
 {
     public static class _OutFuncCollectionExtensions
     {
