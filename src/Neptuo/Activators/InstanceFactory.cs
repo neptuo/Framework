@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Singleton activator with support for creating singleton from function (on first call).
+    /// A singleton activator with support for creating singleton from function (on first call).
     /// </summary>
     /// <typeparam name="T">Type of service to create.</typeparam>
     public class InstanceFactory<T> : IFactory<T>
@@ -16,9 +16,9 @@ namespace Neptuo.Activators
         private readonly Func<T> instanceGetter;
 
         /// <summary>
-        /// Create new instance from already created singleton object.
+        /// Creates a new instance from already existing instance.
         /// </summary>
-        /// <param name="instance">Singleton object.</param>
+        /// <param name="instance">A singleton object.</param>
         public InstanceFactory(T instance)
         {
             Ensure.NotNull(instance, "instance");
