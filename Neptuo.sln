@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Bootstrap", "src\Neptuo.Bootstrap\Neptuo.Bootstrap.csproj", "{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}"
 EndProject
@@ -163,6 +163,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.PresentationModels.Visualization", "src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Validators", "src\Neptuo.Commands.Validators\Neptuo.Commands.Validators.csproj", "{4066B113-7406-42BB-94A1-4D27FB0C686F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Compilers", "src\Neptuo.Compilers\Neptuo.Compilers.csproj", "{D5388BEA-F481-4750-AD0A-0AFE721A10C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -442,6 +444,10 @@ Global
 		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4066B113-7406-42BB-94A1-4D27FB0C686F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -507,8 +513,10 @@ Global
 		{2C713448-D1C0-4480-86CE-A85ECEB39DF8} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{F5C03409-A415-4CBF-8231-453B977DC8FB} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
 		{4066B113-7406-42BB-94A1-4D27FB0C686F} = {E8FDD7B5-9BD0-4FE0-92D5-1A494A735D22}
+		{D5388BEA-F481-4750-AD0A-0AFE721A10C5} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 	EndGlobalSection
 EndGlobal
