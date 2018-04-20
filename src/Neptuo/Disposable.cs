@@ -11,7 +11,7 @@ namespace Neptuo
     /// </summary>
     /// <typeparam name="T">Target disposable type.</typeparam>
     public class Disposable<T> : DisposableBase
-        where T : class, System.IDisposable
+        where T : class, IDisposable
     {
         private WeakReference<T> reference;
 
