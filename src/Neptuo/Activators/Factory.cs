@@ -18,9 +18,7 @@ namespace Neptuo.Activators
         /// <param name="getter">Instances provider delegate.</param>
         /// <returns>The instance of the factory.</returns>
         public static IFactory<T> Getter<T>(Func<T> getter)
-        {
-            return new GetterFactory<T>(getter);
-        }
+            => new GetterFactory<T>(getter);
 
         /// <summary>
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
@@ -29,9 +27,43 @@ namespace Neptuo.Activators
         /// <param name="getter">Instances provider delegate.</param>
         /// <returns>The instance of the factory.</returns>
         public static IFactory<T, TContext> Getter<T, TContext>(Func<TContext, T> getter)
-        {
-            return new GetterFactory<T, TContext>(getter);
-        }
+            => new GetterFactory<T, TContext>(getter);
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="getter"/> to providing instances.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="getter">Instances provider delegate.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T> GetterAsync<T>(Func<T> getter)
+            => new GetterAsyncFactory<T>(getter);
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="getter"/> to providing instances.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="getter">Instances provider delegate.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T, TContext> GetterAsync<T, TContext>(Func<TContext, T> getter)
+            => new GetterAsyncFactory<T, TContext>(getter);
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="getter"/> to providing instances.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="getter">Instances provider delegate.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T> GetterAsync<T>(Func<Task<T>> getter)
+            => new GetterAsyncFactory<T>(getter);
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="getter"/> to providing instances.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="getter">Instances provider delegate.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T, TContext> GetterAsync<T, TContext>(Func<TContext, Task<T>> getter)
+            => new GetterAsyncFactory<T, TContext>(getter);
 
         /// <summary>
         /// Create new instance from already created singleton object.
@@ -40,9 +72,7 @@ namespace Neptuo.Activators
         /// <param name="instance">Singleton object.</param>
         /// <returns>The instance of the factory.</returns>
         public static IFactory<T> Instance<T>(T instance)
-        {
-            return new InstanceFactory<T>(instance);
-        }
+            => new InstanceFactory<T>(instance);
 
         /// <summary>
         /// Creates new instance from <paramref name="getter"/>.
@@ -51,19 +81,40 @@ namespace Neptuo.Activators
         /// <param name="getter">The delegate to access singleton object.</param>
         /// <returns>The instance of the factory.</returns>
         public static IFactory<T> Instance<T>(Func<T> getter)
-        {
-            return new InstanceFactory<T>(getter);
-        }
+            => new InstanceFactory<T>(getter);
+
+        /// <summary>
+        /// Create new instance from already created singleton object.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="instance">Singleton object.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T> InstanceAsync<T>(T instance)
+            => new InstanceAsyncFactory<T>(instance);
+
+        /// <summary>
+        /// Creates new instance from <paramref name="getter"/>.
+        /// </summary>
+        /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <param name="getter">The delegate to access singleton object.</param>
+        /// <returns>The instance of the factory.</returns>
+        public static IAsyncFactory<T> InstanceAsync<T>(Func<T> getter)
+            => new InstanceAsyncFactory<T>(getter);
 
         /// <summary>
         /// Creates new instance that uses default constructor for creating instances.
         /// </summary>
         /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
         /// <returns>The instance of the factory.</returns>
-        public static IFactory<T> Default<T>()
-            where T : new()
-        {
-            return new DefaultFactory<T>();
-        }
+        public static IFactory<T> Default<T>() where T : new()
+            => new DefaultFactory<T>();
+
+        /// <summary>
+        /// Creates a new instance that uses default constructor for creating instances.
+        /// </summary>
+        /// <typeparam name="T">A type of the object the factory will be creating.</typeparam>
+        /// <returns>An instance of the factory.</returns>
+        public static IAsyncFactory<T> DefaultAsync<T>() where T : new()
+            => new DefaultAsyncFactory<T>();
     }
 }
