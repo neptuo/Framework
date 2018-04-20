@@ -21,13 +21,6 @@ namespace Neptuo.Activators
         IDependencyDefinitionReadOnlyCollection Definitions { get; }
 
         /// <summary>
-        /// Creates new child container based on this provider.
-        /// </summary>
-        /// <param name="name">Name for the scope.</param>
-        /// <returns>New child container based on this provider.</returns>
-        IDependencyContainer Scope(string name);
-
-        /// <summary>
         /// Resolves instance of <paramref name="requiredType"/>.
         /// </summary>
         /// <param name="requiredType">Required type.</param>

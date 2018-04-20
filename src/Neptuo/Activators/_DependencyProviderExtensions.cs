@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,7 @@ namespace Neptuo.Activators
                         // Catch DependencyResolutionException and let it return false.
                     }
                 }
-            } 
+            }
             else if (!requiredType.IsAbstract && !requiredType.IsInterface)
             {
                 try
@@ -75,6 +76,29 @@ namespace Neptuo.Activators
 
             instance = default(T);
             return false;
+        }
+
+        /// <summary>
+        /// Creates new child container based on this provider.
+        /// </summary>
+        /// <remarks>
+        /// Under the hoods resolves <see cref="IFactory{IDependencyContainer, string}"/> and calls create method.
+        /// If <paramref name="dependencyProvider"/> doesn't support this resolution, throws 
+        /// </remarks>
+        /// <param name="dependencyProvider">A provider to create child container from.</param>
+        /// <param name="name">A name for the scope.</param>
+        /// <returns>A new child container based on this provider.</returns>
+        public static IDependencyContainer Scope(IDependencyProvider dependencyProvider, string name)
+        {
+            Ensure.NotNull(dependencyProvider, "dependencyProvider");
+            try
+            {
+                return dependencyProvider.Resolve<IFactory<IDependencyContainer, string>>().Create(name);
+            }
+            catch (DependencyResolutionFailedException e)
+            {
+                throw Ensure.Exception.NotResolvableChildScope(typeof(IFactory<IDependencyContainer, string>), e);
+            }
         }
     }
 }

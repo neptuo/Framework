@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -14,27 +15,32 @@ namespace Neptuo.Activators
     public class DependencyResolutionFailedException : DependencyException
     {
         /// <summary>
-        /// Creates empty instance.
+        /// Gets a type on which resolution failed.
         /// </summary>
-        public DependencyResolutionFailedException() 
-        { }
+        public Type RequiredType { get; }
 
         /// <summary>
-        /// Creates instance with text message.
+        /// Creates a instance with <paramref name="requiredType"/> as a type on which resolution failed.
         /// </summary>
-        /// <param name="message">Text description of the occurred error.</param>
-        public DependencyResolutionFailedException(string message) 
-            : base(message) 
-        { }
+        /// <param name="requiredType">A type on which resolution failed.</param>
+        public DependencyResolutionFailedException(Type requiredType)
+            : base($"Problem resolving type '{requiredType?.FullName}'.")
+        {
+            Ensure.NotNull(requiredType, "requiredType");
+            RequiredType = requiredType;
+        }
 
         /// <summary>
-        /// Creates instance with text message and inner exception.
+        /// Creates a instance with <paramref name="requiredType"/> as a type on which resolution failed and original cause in <paramref name="inner"/>.
         /// </summary>
-        /// <param name="message">Text description of the occurred error.</param>
+        /// <param name="requiredType">A type on which resolution failed.</param>
         /// <param name="inner">Source exception that caused problem.</param>
-        public DependencyResolutionFailedException(string message, Exception inner) 
-            : base(message, inner) 
-        { }
+        public DependencyResolutionFailedException(Type requiredType, Exception inner) 
+            : base($"Problem resolving type '{requiredType?.FullName}'.", inner) 
+        {
+            Ensure.NotNull(requiredType, "requiredType");
+            RequiredType = requiredType;
+        }
 
         /// <summary>
         /// Serialization ctor.
