@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <Product>Neptuo</Product>
+    <Description>Common utils by Neptuo.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <FileVersion>6.0.0.0</FileVersion>
     <Version>6.0.0-alpha1</Version>
-    <Product>Neptuo</Product>
-    <PackageTags>Neptuo</PackageTags>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo</PackageLicenseUrl>
-    <Description>Common utils by Neptuo.</Description>
+    <PackageTags>Neptuo</PackageTags>
   </PropertyGroup>
 
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />

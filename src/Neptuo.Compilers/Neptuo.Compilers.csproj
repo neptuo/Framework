@@ -1,8 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <Product>Neptuo.Compilers</Product>
     <Description>Compilers abstractions. Contains implementation for System.CodeDom.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0-alpha1</Version>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.compilers</PackageLicenseUrl>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.compilers</PackageProjectUrl>
   </PropertyGroup>
