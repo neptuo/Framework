@@ -12,6 +12,11 @@ namespace Neptuo.Activators
     public interface IDependencyDefinitionCollection : IDependencyDefinitionReadOnlyCollection
     {
         /// <summary>
+        /// Gets a scope name in which this collection exists.
+        /// </summary>
+        string ScopeName { get; }
+
+        /// <summary>
         /// Registers mapping from <paramref name="requiredType"/> to <paramref name="target"/>
         /// </summary>
         /// <param name="requiredType">Required type.</param>

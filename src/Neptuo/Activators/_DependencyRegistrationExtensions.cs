@@ -122,5 +122,47 @@ namespace Neptuo.Activators
         }
 
         #endregion
+
+        #region AddSingleton
+
+        public static IDependencyDefinitionCollection AddSingleton<TInterface, TImplementation>(this IDependencyDefinitionCollection collection)
+            where TImplementation : TInterface
+        {
+            Ensure.NotNull(collection, "collection");
+            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(collection.ScopeName), typeof(TImplementation));
+            return collection;
+        }
+
+        public static IDependencyDefinitionCollection AddSingleton<TImplementation>(this IDependencyDefinitionCollection collection)
+        {
+            Ensure.NotNull(collection, "collection");
+            collection.Add(typeof(TImplementation), DependencyLifetime.NameScope(collection.ScopeName), typeof(TImplementation));
+            return collection;
+        }
+
+        public static IDependencyDefinitionCollection AddSingleton<TImplementation>(this IDependencyDefinitionCollection collection, TImplementation instance)
+        {
+            Ensure.NotNull(collection, "collection");
+            collection.Add(typeof(TImplementation), DependencyLifetime.NameScope(collection.ScopeName), instance);
+            return collection;
+        }
+
+        public static IDependencyDefinitionCollection AddSingletonFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection, TFactory factory)
+            where TFactory : IFactory<TInterface>
+        {
+            Ensure.NotNull(collection, "collection");
+            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(collection.ScopeName), factory);
+            return collection;
+        }
+
+        public static IDependencyDefinitionCollection AddSingletonFactory<TInterface, TFactory>(this IDependencyDefinitionCollection collection)
+            where TFactory : IFactory<TInterface>
+        {
+            Ensure.NotNull(collection, "collection");
+            collection.Add(typeof(TInterface), DependencyLifetime.NameScope(collection.ScopeName), typeof(TFactory));
+            return collection;
+        }
+
+        #endregion
     }
 }
