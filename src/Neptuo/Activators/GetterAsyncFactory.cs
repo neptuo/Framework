@@ -11,7 +11,7 @@ namespace Neptuo.Activators
     /// </summary>
     public class GetterAsyncFactory<T> : IAsyncFactory<T>
     {
-        private readonly Func<T> getter;
+        private readonly Func<Task<T>> getter;
 
         /// <summary>
         /// Creates new instance that uses <paramref name="getter"/> for providing instances.
@@ -20,11 +20,21 @@ namespace Neptuo.Activators
         public GetterAsyncFactory(Func<T> getter)
         {
             Ensure.NotNull(getter, "getter");
+            this.getter = () => Task.FromResult(getter());
+        }
+
+        /// <summary>
+        /// Creates new instance that uses <paramref name="getter"/> for providing instances.
+        /// </summary>
+        /// <param name="getter">An instance provider delegate.</param>
+        public GetterAsyncFactory(Func<Task<T>> getter)
+        {
+            Ensure.NotNull(getter, "getter");
             this.getter = getter;
         }
 
         public Task<T> Create()
-            => Task.FromResult(getter());
+            => getter();
     }
 
     /// <summary>
@@ -32,7 +42,7 @@ namespace Neptuo.Activators
     /// </summary>
     public class GetterAsyncFactory<T, TContext> : IAsyncFactory<T, TContext>
     {
-        private readonly Func<TContext, T> getter;
+        private readonly Func<TContext, Task<T>> getter;
 
         /// <summary>
         /// Creates a new instance that uses <paramref name="getter"/> for providing instances.
@@ -41,10 +51,20 @@ namespace Neptuo.Activators
         public GetterAsyncFactory(Func<TContext, T> getter)
         {
             Ensure.NotNull(getter, "getter");
+            this.getter = context => Task.FromResult(getter(context));
+        }
+
+        /// <summary>
+        /// Creates a new instance that uses <paramref name="getter"/> for providing instances.
+        /// </summary>
+        /// <param name="getter">An instance provider delegate.</param>
+        public GetterAsyncFactory(Func<TContext, Task<T>> getter)
+        {
+            Ensure.NotNull(getter, "getter");
             this.getter = getter;
         }
 
         public Task<T> Create(TContext context)
-            => Task.FromResult(getter(context));
+            => getter(context);
     }
 }
