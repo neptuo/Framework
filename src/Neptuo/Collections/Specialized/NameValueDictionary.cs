@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Collections.Specialized
 {
     /// <summary>
-    /// Wraps instance of <see cref="NameValueCollection"/> as <see cref="IReadOnlyDictionary"/>.
+    /// Wraps instance of <see cref="NameValueCollection"/> as <see cref="IReadOnlyDictionary{TKey, TValue}"/>.
     /// </summary>
     /// <remarks>
     /// Only CopyTo is not implemented!

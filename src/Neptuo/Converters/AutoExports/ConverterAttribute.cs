@@ -32,9 +32,17 @@ namespace Neptuo.Converters.AutoExports
         /// </summary>
         public bool HasTypesDefined { get; private set; }
 
+        /// <summary>
+        /// Creates a new empty instance.
+        /// </summary>
         public ConverterAttribute()
         { }
 
+        /// <summary>
+        /// Creates a new instance with defined source and target type.
+        /// </summary>
+        /// <param name="sourceType">A conversion source type.</param>
+        /// <param name="targetType">A conversion target type.</param>
         public ConverterAttribute(Type sourceType, Type targetType)
         {
             Ensure.NotNull(sourceType, "sourceType");

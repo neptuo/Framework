@@ -16,11 +16,10 @@ namespace Neptuo
     public static class _EnsureSystemExtensions
     {
         /// <summary>
-        /// Creates exception <see cref="NotImplementedException"/> for argument <paramref name="argumentName"/> 
+        /// Creates exception <see cref="NotImplementedException"/> 
         /// and optional message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
         /// </summary>
         /// <param name="guard"></param>
-        /// <param name="argumentName"></param>
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="NotImplementedException"/>.</returns>
@@ -36,11 +35,10 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Creates exception <see cref="NotSupportedException"/> for argument <paramref name="argumentName"/> 
+        /// Creates exception <see cref="NotSupportedException"/>
         /// and optional message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
         /// </summary>
         /// <param name="guard"></param>
-        /// <param name="argumentName"></param>
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="NotSupportedException"/>.</returns>
@@ -70,11 +68,10 @@ namespace Neptuo
         }
 
         /// <summary>
-        /// Creates exception <see cref="InvalidOperationException"/> for argument <paramref name="argumentName"/> 
+        /// Creates exception <see cref="InvalidOperationException"/>
         /// and message formatted from <paramref name="format"/> and <paramref name="formatParameters"/>.
         /// </summary>
         /// <param name="guard"></param>
-        /// <param name="argumentName"></param>
         /// <param name="format"></param>
         /// <param name="formatParameters"></param>
         /// <returns><see cref="InvalidOperationException"/>.</returns>

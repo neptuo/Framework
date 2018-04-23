@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Provider = Neptuo.OutFunc<string, object, bool>;
+using Listener = System.Action<string, object>;
 
 namespace Neptuo.Collections.Specialized
 {
-    using Provider = OutFunc<string, object, bool>;
-    using Listener = Action<string, object>;
-    using System.Collections.Specialized;
-
     /// <summary>
     /// Extensible <see cref="IKeyValueCollection"/>.
     /// When reading value, which has not been set yet, calls registered provider.
@@ -33,22 +32,41 @@ namespace Neptuo.Collections.Specialized
         /// Backing storage for listeners.
         /// </summary>
         private readonly Dictionary<string, List<Listener>> listenerStorage = new Dictionary<string, List<Listener>>();
-        
+
+        /// <summary>
+        /// Creates a new empty instance.
+        /// </summary>
         public ProviderKeyValueCollection()
         { }
 
+        /// <summary>
+        /// Creates a new empty instance with pre-allocated size.
+        /// </summary>
+        /// <param name="capacity">A pre-allocated size.</param>
         public ProviderKeyValueCollection(int capacity)
             : base(capacity)
         { }
 
+        /// <summary>
+        /// Creates a new instance with key comparer.
+        /// </summary>
+        /// <param name="comparer">A key comparer.</param>
         public ProviderKeyValueCollection(IEqualityComparer<string> comparer)
             :  base(comparer)
         { }
 
+        /// <summary>
+        /// Creates a new instance and copies data from <paramref name="source"/>.
+        /// </summary>
+        /// <param name="source">A collection of data copy.</param>
         public ProviderKeyValueCollection(IDictionary<string, object> source)
             : base(source)
         { }
 
+        /// <summary>
+        /// Creates a new instance from <see cref="NameValueCollection"/>.
+        /// </summary>
+        /// <param name="collection">A collection of data copy.</param>
         public ProviderKeyValueCollection(NameValueCollection collection)
         {
             Ensure.NotNull(collection, "collection");

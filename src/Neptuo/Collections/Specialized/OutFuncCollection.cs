@@ -10,9 +10,9 @@ namespace Neptuo.Collections.Specialized
     /// <summary>
     /// Represents collection of output functions.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TOutput"></typeparam>
-    /// <typeparam name="TReturn"></typeparam>
+    /// <typeparam name="T">Type of input parameter.</typeparam>
+    /// <typeparam name="TOutput">Type of output parameter.</typeparam>
+    /// <typeparam name="TReturn">Type of result value.</typeparam>
     public class OutFuncCollection<T, TOutput, TReturn> : IEnumerable<OutFunc<T, TOutput, TReturn>>
     {
         private readonly OutFunc<T, TOutput, TReturn> defaultFunc;
@@ -34,6 +34,11 @@ namespace Neptuo.Collections.Specialized
             this.defaultFunc = defaultFunc;
         }
 
+        /// <summary>
+        /// Adds <paramref name="func"/> to storage.
+        /// </summary>
+        /// <param name="func">A delegate to add.</param>
+        /// <returns>Self (for fluency).</returns>
         public OutFuncCollection<T, TOutput, TReturn> Add(OutFunc<T, TOutput, TReturn> func)
         {
             Ensure.NotNull(func, "func");
@@ -41,6 +46,11 @@ namespace Neptuo.Collections.Specialized
             return this;
         }
 
+        /// <summary>
+        /// Removes <paramref name="func"/> to storage.
+        /// </summary>
+        /// <param name="func">A delegate to remove.</param>
+        /// <returns>Self (for fluency).</returns>
         public OutFuncCollection<T, TOutput, TReturn> Remove(OutFunc<T, TOutput, TReturn> func)
         {
             Ensure.NotNull(func, "func");

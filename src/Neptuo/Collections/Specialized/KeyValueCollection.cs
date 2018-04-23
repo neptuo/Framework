@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Collections.Specialized
 {
     /// <summary>
-    /// Base implementation of <see cref="IKeyValueCollection"/> using <see cref="Dictionary"/>.
+    /// Base implementation of <see cref="IKeyValueCollection"/> using <see cref="Dictionary{TKey, TValue}"/>.
     /// </summary>
     public class KeyValueCollection : Dictionary<string, object>, IKeyValueCollection
     {
@@ -19,32 +19,58 @@ namespace Neptuo.Collections.Specialized
         /// </summary>
         public bool IsReadOnly { get; set; }
 
+        /// <summary>
+        /// Gets an enumeration of available keys.
+        /// </summary>
         public new IEnumerable<string> Keys
         {
             get { return base.Keys; }
         }
 
+        /// <summary>
+        /// Creates a new empty instance.
+        /// </summary>
         public KeyValueCollection()
         { }
 
+        /// <summary>
+        /// Creates a new empty instance with pre-allocated size.
+        /// </summary>
+        /// <param name="capacity">A pre-allocated size.</param>
         public KeyValueCollection(int capacity)
             : base(capacity)
         { }
 
+        /// <summary>
+        /// Creates a new instance with key comparer.
+        /// </summary>
+        /// <param name="comparer">A key comparer.</param>
         public KeyValueCollection(IEqualityComparer<string> comparer)
             :  base(comparer)
         { }
 
+        /// <summary>
+        /// Creates a new instance and copies data from <paramref name="source"/>.
+        /// </summary>
+        /// <param name="source">A collection of data copy.</param>
         public KeyValueCollection(IDictionary<string, object> source)
             : base(source)
         { }
 
+        /// <summary>
+        /// Creates a new instance with reference to parent collection used when key is not found.
+        /// </summary>
+        /// <param name="parentCollection">A fallback collection.</param>
         public KeyValueCollection(IReadOnlyKeyValueCollection parentCollection)
         {
             Ensure.NotNull(parentCollection, "parentCollection");
             this.parentCollection = parentCollection;
         }
 
+        /// <summary>
+        /// Creates a new instance from <see cref="NameValueCollection"/>.
+        /// </summary>
+        /// <param name="collection">A collection of data copy.</param>
         public KeyValueCollection(NameValueCollection collection)
         {
             Ensure.NotNull(collection, "collection");

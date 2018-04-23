@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Activators
 {
     /// <summary>
-    /// Implementation of <see cref="IActivator<T>"/> using <see cref="IDependencyProvider"/>.
+    /// Implementation of <see cref="IFactory{T}"/> using <see cref="IDependencyProvider"/>.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class DependencyFactory<T> : IFactory<T>

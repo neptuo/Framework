@@ -13,7 +13,7 @@ namespace Neptuo.Converters
     public interface IConverter
     {
         /// <summary>
-        /// Tries to convert <paramref name="sourceValue"/>, of type <paramref name="sourceType"/>, to <paramref name="targeType"/>.
+        /// Tries to convert <paramref name="sourceValue"/>, of type <paramref name="sourceType"/>, to <paramref name="targetType"/>.
         /// </summary>
         /// <param name="sourceType">Source value type.</param>
         /// <param name="targetType">Target  value type.</param>

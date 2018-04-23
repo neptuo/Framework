@@ -24,6 +24,7 @@ namespace Neptuo.Activators
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
         /// </summary>
         /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <typeparam name="TContext">A type of the context (input).</typeparam>
         /// <param name="getter">Instances provider delegate.</param>
         /// <returns>The instance of the factory.</returns>
         public static IFactory<T, TContext> Getter<T, TContext>(Func<TContext, T> getter)
@@ -42,6 +43,7 @@ namespace Neptuo.Activators
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
         /// </summary>
         /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <typeparam name="TContext">A type of the context (input).</typeparam>
         /// <param name="getter">Instances provider delegate.</param>
         /// <returns>The instance of the factory.</returns>
         public static IAsyncFactory<T, TContext> GetterAsync<T, TContext>(Func<TContext, T> getter)
@@ -60,6 +62,7 @@ namespace Neptuo.Activators
         /// Creates new instance that uses <paramref name="getter"/> to providing instances.
         /// </summary>
         /// <typeparam name="T">The type of the object the factory will be creating.</typeparam>
+        /// <typeparam name="TContext">A type of the context (input).</typeparam>
         /// <param name="getter">Instances provider delegate.</param>
         /// <returns>The instance of the factory.</returns>
         public static IAsyncFactory<T, TContext> GetterAsync<T, TContext>(Func<TContext, Task<T>> getter)

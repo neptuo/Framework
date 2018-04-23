@@ -26,7 +26,8 @@ namespace Neptuo.Activators
         /// Resolves instance of <paramref name="requiredType"/> where <paramref name="requiredType"/> must be assignable to <typeparamref name="T" />.
         /// </summary>
         /// <typeparam name="T">Returned type.</typeparam>
-        /// <param name="requiredType">Required type.</param>
+        /// <param name="dependencyProvider">A dependency provider.</param>
+        /// <param name="requiredType">A required type.</param>
         /// <returns>Instance of <paramref name="requiredType"/>; if it's not possible to create instance.</returns>
         public static T Resolve<T>(this IDependencyProvider dependencyProvider, Type requiredType)
         {
@@ -38,7 +39,7 @@ namespace Neptuo.Activators
         /// Tries to resolve <typeparamref name="T"/> from <paramref name="dependencyProvider"/>.
         /// </summary>
         /// <typeparam name="T">Type of service to resolved.</typeparam>
-        /// <param name="dependencyProvider">Resolution provider.</param>
+        /// <param name="dependencyProvider">A dependency provider.</param>
         /// <param name="instance">Obtained instance.</param>
         /// <returns><c>true</c> when resolution was successful; <c>false</c> otherwise.</returns>
         public static bool TryResolve<T>(this IDependencyProvider dependencyProvider, out T instance)

@@ -15,7 +15,6 @@ namespace Neptuo.Activators
         /// <summary>
         /// Creates new instance of <see cref="DependencyResolutionFailedException"/> when problem with resolving <paramref name="requiredType"/> occurred.
         /// </summary>
-        /// <typeparam name="T">Type of service resolution failed.</typeparam>
         /// <param name="exception">Exception helper.</param>
         /// <param name="requiredType">Service type where resolution failed.</param>
         /// <returns>New instance of <see cref="DependencyResolutionFailedException"/> when problem with resolving <paramref name="requiredType"/> occurred.</returns>
@@ -29,7 +28,6 @@ namespace Neptuo.Activators
         /// <summary>
         /// Creates new instance of <see cref="DependencyResolutionFailedException"/> when problem with resolving <paramref name="requiredType"/> occurred.
         /// </summary>
-        /// <typeparam name="T">Type of service resolution failed.</typeparam>
         /// <param name="exception">Exception helper.</param>
         /// <param name="requiredType">Service type where resolution failed.</param>
         /// <param name="inner">Source exception.</param>
@@ -44,7 +42,6 @@ namespace Neptuo.Activators
         /// <summary>
         /// Creates new instance of <see cref="DependencyContainerScopeResolutionFailedException"/> when problem with resolving child scope occurred.
         /// </summary>
-        /// <typeparam name="T">Type of service resolution failed.</typeparam>
         /// <param name="exception">Exception helper.</param>
         /// <param name="requiredType">Service type where resolution failed.</param>
         /// <param name="inner">Source exception.</param>
