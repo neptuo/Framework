@@ -11,7 +11,7 @@ namespace Neptuo.Activators
     /// <summary>
     /// Base reflection (and #kit compliant) implementation of <see cref="IDependencyContainer"/>.
     /// </summary>
-    public class SimpleDependencyContainer : DisposableBase, IDependencyContainer
+    public class SimpleDependencyContainer : DisposableBase, IDependencyContainer, IFactory<IDependencyContainer, string>
     {
         private readonly SimpleDependencyContainer parentContainer;
         private readonly string scopeName;
@@ -40,6 +40,7 @@ namespace Neptuo.Activators
 
             this.resolver = new InstanceResolver(definitions, instances);
 
+            definitions.Add(typeof(IFactory<IDependencyContainer, string>), DependencyLifetime.NameScope(scopeName), this);
             definitions.Add(typeof(IDependencyContainer), DependencyLifetime.NameScope(scopeName), this);
             definitions.Add(typeof(IDependencyProvider), DependencyLifetime.NameScope(scopeName), this);
         }
@@ -65,11 +66,6 @@ namespace Neptuo.Activators
             get { return definitions; }
         }
 
-        public IDependencyContainer Scope(string scopeName)
-        {
-            return new SimpleDependencyContainer(scopeName, this);
-        }
-
         public object Resolve(Type requiredType)
         {
             return resolver.Resolve(requiredType);
@@ -77,5 +73,13 @@ namespace Neptuo.Activators
 
         #endregion
 
+        #region IFactory<IDependencyContainer, string>
+
+        public IDependencyContainer Create(string scopeName)
+        {
+            return new SimpleDependencyContainer(scopeName, this);
+        }
+
+        #endregion
     }
 }

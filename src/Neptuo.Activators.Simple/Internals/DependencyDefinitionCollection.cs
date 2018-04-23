@@ -11,14 +11,15 @@ namespace Neptuo.Activators.Internals
     {
         private readonly Dictionary<string, DependencyDefinition> definitionByKey = new Dictionary<string, DependencyDefinition>();
         private readonly Dictionary<string, List<DependencyDefinition>> definitionByScopeName = new Dictionary<string, List<DependencyDefinition>>();
-        private readonly string scopeName;
         private readonly InstanceStorage instances;
         private readonly DependencyDefinitionCollection parentCollection;
+
+        public string ScopeName { get; private set; }
 
         public DependencyDefinitionCollection(string scopeName, InstanceStorage instances)
         {
             Ensure.NotNull(instances, "instances");
-            this.scopeName = scopeName;
+            ScopeName = scopeName;
             this.instances = instances;
         }
 
@@ -103,7 +104,7 @@ namespace Neptuo.Activators.Internals
         private void AddDefinition(DependencyDefinition definition)
         {
             // If definition is usable for current scope, add it to the definitionByKey.
-            if (definition.Lifetime.IsTransient || (definition.Lifetime.IsScoped && (definition.Lifetime.IsNamed && definition.Lifetime.Name == scopeName) || !definition.Lifetime.IsNamed))
+            if (definition.Lifetime.IsTransient || (definition.Lifetime.IsScoped && (definition.Lifetime.IsNamed && definition.Lifetime.Name == ScopeName) || !definition.Lifetime.IsNamed))
                 definitionByKey[definition.Key] = definition;
 
             if(definition.Lifetime.IsNamed)
