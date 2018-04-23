@@ -88,7 +88,7 @@ namespace Neptuo.Activators
         /// <param name="dependencyProvider">A provider to create child container from.</param>
         /// <param name="name">A name for the scope.</param>
         /// <returns>A new child container based on this provider.</returns>
-        public static IDependencyContainer Scope(IDependencyProvider dependencyProvider, string name)
+        public static IDependencyContainer Scope(this IDependencyProvider dependencyProvider, string name)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
             try
