@@ -1,17 +1,19 @@
-using Microsoft.Practices.Unity;
 using Neptuo.Activators.Internals;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
+using Unity.Exceptions;
+using Unity.Lifetime;
 
 namespace Neptuo.Activators
 {
     /// <summary>
     /// Implementation of <see cref="IDependencyContainer"/> with Unity container.
     /// </summary>
-    public class UnityDependencyContainer : DisposableBase, IDependencyContainer
+    public class UnityDependencyContainer : DisposableBase, IDependencyContainer, IFactory<IDependencyContainer, string>
     {
         private readonly IUnityContainer unityContainer;
         private readonly DependencyDefinitionCollection definitions;
@@ -70,16 +72,6 @@ namespace Neptuo.Activators
             get { return Definitions; }
         }
 
-        IDependencyContainer IDependencyProvider.Scope(string scopeName)
-        {
-            IUnityContainer childContainer = unityContainer.CreateChildContainer();
-            return new UnityDependencyContainer(
-                scopeName,
-                new DependencyDefinitionCollection(childContainer, scopeName, definitions),
-                childContainer
-            );
-        }
-
         object IDependencyProvider.Resolve(Type requiredType)
         {
             Ensure.NotNull(requiredType, "requiredType");
@@ -92,6 +84,20 @@ namespace Neptuo.Activators
             {
                 throw Ensure.Exception.NotResolvable(requiredType, e);
             }
+        }
+
+        #endregion
+
+        #region IFactory<IDependencyContainer, string>
+
+        IDependencyContainer IFactory<IDependencyContainer, string>.Create(string scopeName)
+        {
+            IUnityContainer childContainer = unityContainer.CreateChildContainer();
+            return new UnityDependencyContainer(
+                scopeName,
+                new DependencyDefinitionCollection(childContainer, scopeName, definitions),
+                childContainer
+            );
         }
 
         #endregion

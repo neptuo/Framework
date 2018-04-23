@@ -1,9 +1,10 @@
-﻿using Microsoft.Practices.Unity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
+using Unity.Lifetime;
 
 namespace Neptuo.Activators.Internals.LifetimeManagers
 {
@@ -23,26 +24,25 @@ namespace Neptuo.Activators.Internals.LifetimeManagers
             this.innerLifetime = innerLifetime;
         }
 
-        public override object GetValue()
+        public override object GetValue(ILifetimeContainer container)
         {
             object value = innerLifetime.GetValue();
             if (value == null)
             {
                 value = ((IFactory<object>)unityContainer.Resolve(activatorType)).Create();
-                SetValue(value);
+                SetValue(value, container);
             }
 
             return value;
         }
 
-        public override void RemoveValue()
-        {
-            innerLifetime.RemoveValue();
-        }
+        public override void RemoveValue(ILifetimeContainer container)
+            => innerLifetime.RemoveValue();
 
-        public override void SetValue(object newValue)
-        {
-            innerLifetime.SetValue(newValue);
-        }
+        public override void SetValue(object newValue, ILifetimeContainer container)
+            => innerLifetime.SetValue(newValue);
+
+        protected override LifetimeManager OnCreateLifetimeManager()
+            => new ActivatorTypeLifetimeManager(unityContainer, activatorType, innerLifetime);
     }
 }

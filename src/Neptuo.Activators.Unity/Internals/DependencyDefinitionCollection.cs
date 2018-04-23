@@ -1,11 +1,10 @@
-﻿using Microsoft.Practices.Unity;
-using Neptuo.Activators.Internals;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
 
 namespace Neptuo.Activators.Internals
 {
@@ -21,11 +20,14 @@ namespace Neptuo.Activators.Internals
             get { return mapper; }
         }
 
+        public string ScopeName { get; private set; }
+
         private DependencyDefinitionCollection(IUnityContainer unityContainer, MapperCollection parentMappings, string scopeName)
         {
             Ensure.NotNull(unityContainer, "unityContainer");
             this.isResolvable = requiredType => unityContainer.Registrations.Any(r => r.RegisteredType == requiredType);
             this.mapper = new Mapper(unityContainer, parentMappings, scopeName);
+            ScopeName = scopeName;
         }
 
         internal DependencyDefinitionCollection(IUnityContainer unityContainer, string scopeName)

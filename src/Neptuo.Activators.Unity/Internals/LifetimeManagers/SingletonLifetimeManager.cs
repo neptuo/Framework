@@ -1,9 +1,10 @@
-﻿using Microsoft.Practices.Unity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Unity;
+using Unity.Lifetime;
 
 namespace Neptuo.Activators.Internals.LifetimeManagers
 {
@@ -19,14 +20,10 @@ namespace Neptuo.Activators.Internals.LifetimeManagers
             SetValue(instance);
         }
 
-        protected override object SynchronizedGetValue()
-        {
-            return value;
-        }
+        protected override object SynchronizedGetValue(ILifetimeContainer container)
+            => value;
 
-        protected override void SynchronizedSetValue(object newValue)
-        {
-            value = newValue;
-        }
+        protected override void SynchronizedSetValue(object newValue, ILifetimeContainer container)
+            => value = newValue;
     }
 }
