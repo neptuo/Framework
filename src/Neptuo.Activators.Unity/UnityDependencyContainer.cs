@@ -47,6 +47,7 @@ namespace Neptuo.Activators
             this.unityContainer = unityContainer;
             this.definitions = definitions;
 
+            unityContainer.RegisterInstance<IFactory<IDependencyContainer, string>>(this, new ExternallyControlledLifetimeManager());
             unityContainer.RegisterInstance<IDependencyProvider>(this, new ExternallyControlledLifetimeManager());
             unityContainer.RegisterInstance<IDependencyContainer>(this, new ExternallyControlledLifetimeManager());
         }
