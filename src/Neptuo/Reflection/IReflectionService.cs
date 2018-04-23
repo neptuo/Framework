@@ -39,9 +39,9 @@ namespace Neptuo.Reflection
         Type LoadType(string typeAssemblyName);
 
         /// <summary>
-        /// Creates single use service for registering <see cref="Enumerators.ITypeExecutor"/>.
+        /// Creates single use service for registering <see cref="Enumerators.Executors.ITypeExecutor"/>.
         /// </summary>
-        /// <returns>Service for registering <see cref="Enumerators.ITypeExecutor"/>.</returns>
+        /// <returns>Service for registering <see cref="Enumerators.Executors.ITypeExecutor"/>.</returns>
         ITypeExecutorService PrepareTypeExecutors();
     }
 }
