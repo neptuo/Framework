@@ -87,6 +87,7 @@
     <Compile Include="Activators\T_Activators_Unity.cs" />
     <Compile Include="Behaviors\T_Behaviors_Base.cs" />
     <Compile Include="Behaviors\_Services.cs" />
+    <Compile Include="Collections\Specialized\DisposableCollectionTest.cs" />
     <Compile Include="Converters\T_Converters_ConverterRepository.cs" />
     <Compile Include="Converters\T_Converters_Converter.cs" />
     <Compile Include="Converters\T_Converters_ConverterRepositoryBuilder.cs" />
