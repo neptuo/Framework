@@ -110,18 +110,12 @@
     <Compile Include="Data\Commands\CreateProductCommand.cs" />
     <Compile Include="Data\Commands\Handlers\CreateProductCommandHandler.cs" />
     <Compile Include="Data\Commands\Validators\Handlers\CreateProductValidator.cs" />
-    <Compile Include="Data\Queries\CategoryFilter.cs" />
-    <Compile Include="Data\Queries\ICategoryFilter.cs" />
-    <Compile Include="Data\Queries\IProductFilter.cs" />
-    <Compile Include="Data\Queries\IProductQuery.cs" />
-    <Compile Include="Data\Queries\ProductEntityQuery.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\ICategoryRepository.cs" />
     <Compile Include="Data\IProductRepository.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\ProductEntity.cs" />
     <Compile Include="Data\ProductRepository.cs" />
-    <Compile Include="Data\Queries\ProductFilter.cs" />
     <Compile Include="Delegates\TestDelegates.cs" />
     <Compile Include="DependencyContainers\Services.cs" />
     <Compile Include="DependencyContainers\SimpleDependencyProvider.cs" />
@@ -139,8 +133,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Data\TestEntity.cs" />
-    <Compile Include="Data.Queries\ProductModel.cs" />
-    <Compile Include="Data.Queries\TestQueries.cs" />
     <Compile Include="Services.Queries\Behaviors.cs" />
     <Compile Include="Services.Queries\Services.cs" />
     <Compile Include="Services.Queries\TestQueries.cs" />
@@ -226,14 +218,6 @@
     <ProjectReference Include="..\..\src\Neptuo.Configuration\Neptuo.Configuration.csproj">
       <Project>{b21273f3-6326-4e7b-8d1c-13d4db440801}</Project>
       <Name>Neptuo.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Data.Entity\Neptuo.Data.Entity.csproj">
-      <Project>{fee06f1e-0063-4d46-85ce-7334ce61afb0}</Project>
-      <Name>Neptuo.Data.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Data\Neptuo.Data.csproj">
-      <Project>{304c75b0-88b0-4470-bd2d-fd7db582bebf}</Project>
-      <Name>Neptuo.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Migrations\Neptuo.Migrations.csproj">
       <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
