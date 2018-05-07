@@ -5,18 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Domains
+namespace Neptuo.Models
 {
     /// <summary>
     /// Describes domain model.
     /// </summary>
-    /// <typeparam name="TKey">The type of the domain model key.</typeparam>
+    /// <typeparam name="TKey">A type of the domain model key.</typeparam>
     public interface IDomainModel<TKey>
         where TKey : IKey
     {
         /// <summary>
-        /// The key of the model.
-        /// Shouldn't be null.
+        /// Gets a key of the model (whic is never <c>null</c>).
         /// </summary>
         TKey Key { get; }
     }
