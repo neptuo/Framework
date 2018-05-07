@@ -110,10 +110,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.FileSystems", "tes
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileSystems", "FileSystems", "{F5F770F3-8007-4256-91F5-EB1BA6D19315}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit", "test\TestSharpKit\TestSharpKit.csproj", "{17CE09A2-0DF0-4515-9800-92D0BBB424C4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSharpKit.Client", "test\TestSharpKit.Client\TestSharpKit.Client.csproj", "{D195C7AF-2BCD-437D-9D80-8C4CA01FD2BB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.Validators", "src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj", "{0834DFD1-3536-4305-9E23-21061C5C0414}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.HotKeys", "src\Neptuo.Windows.HotKeys\Neptuo.Windows.HotKeys.csproj", "{F22B45A9-CE8E-49D8-8C43-99351AC4595F}"
@@ -340,14 +336,6 @@ Global
 		{C5958F2E-3480-42BE-A670-6E7D8FC30573}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5958F2E-3480-42BE-A670-6E7D8FC30573}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5958F2E-3480-42BE-A670-6E7D8FC30573}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17CE09A2-0DF0-4515-9800-92D0BBB424C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17CE09A2-0DF0-4515-9800-92D0BBB424C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17CE09A2-0DF0-4515-9800-92D0BBB424C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17CE09A2-0DF0-4515-9800-92D0BBB424C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D195C7AF-2BCD-437D-9D80-8C4CA01FD2BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D195C7AF-2BCD-437D-9D80-8C4CA01FD2BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D195C7AF-2BCD-437D-9D80-8C4CA01FD2BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D195C7AF-2BCD-437D-9D80-8C4CA01FD2BB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0834DFD1-3536-4305-9E23-21061C5C0414}.Release|Any CPU.ActiveCfg = Release|Any CPU
