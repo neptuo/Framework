@@ -1,74 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Exceptions</RootNamespace>
-    <AssemblyName>Neptuo.Exceptions</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <Product>Neptuo.Exceptions</Product>
+    <Description>Generic exception handling mainly for asynchronous processing.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0-alpha1</Version>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.exceptions</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.exceptions</PackageProjectUrl>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;Javascript</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Neptuo.Exceptions.XML</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Neptuo, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.0.0\lib\net45\Neptuo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\_AssemblyInfo.cs">
-      <Link>Properties\_AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="DefaultExceptionHandlerCollection.cs" />
-    <Compile Include="Handlers\DefaultExceptionHandlerContext.cs" />
-    <Compile Include="Handlers\IExceptionHandlerContext.cs" />
-    <Compile Include="Handlers\LogExceptionHandler.cs" />
-    <Compile Include="Handlers\ReThrowExceptionHandler.cs" />
-    <Compile Include="Handlers\_ExceptionHandlerExtensions.cs" />
-    <Compile Include="Internals\Constant.cs" />
-    <Compile Include="Handlers\DelegateExceptionHandler.cs" />
-    <Compile Include="Handlers\ExceptionHandlerBuilder.cs" />
-    <Compile Include="Handlers\IExceptionHandler.cs" />
-    <Compile Include="IExceptionHandlerCollection.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="TryCatch.cs" />
-    <Compile Include="_ExceptionHandlerCollectionExtensions.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>
