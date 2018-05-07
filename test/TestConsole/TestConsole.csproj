@@ -259,10 +259,6 @@
       <Project>{6d0ad236-40f4-4734-8fc3-16e99c7be2f4}</Project>
       <Name>Neptuo.Windows.Threading</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Xml\Neptuo.Xml.csproj">
-      <Project>{e77c5a49-e807-4465-8cb1-18f9e3f5934c}</Project>
-      <Name>Neptuo.Xml</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj">
       <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
       <Name>Neptuo</Name>
