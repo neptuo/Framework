@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Neptuo.Behaviors</Product>
-    <Description>Generic (compilable) interception pipeline.</Description>
+    <Description>Generic interception pipeline.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>

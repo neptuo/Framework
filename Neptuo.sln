@@ -48,9 +48,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.PresentationModels.UI", "src\Neptuo.PresentationModels.UI\Neptuo.PresentationModels.UI.csproj", "{23E62643-F6C3-4D6A-862B-38999EBC6959}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models", "src\Neptuo.Models\Neptuo.Models.csproj", "{37F9B51A-2E66-4A99-950A-17EBF6880ABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models", "src\Neptuo.Models\Neptuo.Models.csproj", "{37F9B51A-2E66-4A99-950A-17EBF6880ABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models.Deleters", "src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Deleters", "src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj", "{03FD4941-515A-4C2F-A0A6-3ECFD1E16D4E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Validators", "src\Neptuo.Validators\Neptuo.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
 EndProject
@@ -78,7 +78,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "test\TestLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Services", "test\UnitTest.Services\UnitTest.Services.csproj", "{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Queries.Behaviors", "src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
 EndProject
@@ -130,7 +130,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Domain
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.EventSourcing.Orders.Domains", "test\Test.EventSourcing.Orders.Domains\Test.EventSourcing.Orders.Domains.csproj", "{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Exceptions", "src\Neptuo.Exceptions\Neptuo.Exceptions.csproj", "{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Exceptions", "src\Neptuo.Exceptions\Neptuo.Exceptions.csproj", "{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Formatters.Composite", "src\Neptuo.EventSourcing.Formatters.Composite\Neptuo.EventSourcing.Formatters.Composite.csproj", "{DB6C73A2-437E-4795-987E-6DBA0DB79BE1}"
 EndProject
@@ -145,6 +145,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourcing", "{3DD699AC-6B4F-489D-B304-F9057800834E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compilers", "Compilers", "{E2CADDB6-3074-4310-B3EC-E69568D4F180}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors.CodeDom", "src\Neptuo.Behaviors.CodeDom\Neptuo.Behaviors.CodeDom.csproj", "{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -396,6 +398,10 @@ Global
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -456,9 +462,10 @@ Global
 		{F5C03409-A415-4CBF-8231-453B977DC8FB} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{4066B113-7406-42BB-94A1-4D27FB0C686F} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5} = {E2CADDB6-3074-4310-B3EC-E69568D4F180}
+		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 	EndGlobalSection
 EndGlobal
