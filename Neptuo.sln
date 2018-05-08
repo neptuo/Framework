@@ -146,8 +146,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventSourcing", "EventSourc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Compilers", "Compilers", "{E2CADDB6-3074-4310-B3EC-E69568D4F180}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Behaviors.CodeDom", "src\Neptuo.Behaviors.CodeDom\Neptuo.Behaviors.CodeDom.csproj", "{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -398,10 +396,6 @@ Global
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -462,7 +456,6 @@ Global
 		{F5C03409-A415-4CBF-8231-453B977DC8FB} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{4066B113-7406-42BB-94A1-4D27FB0C686F} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5} = {E2CADDB6-3074-4310-B3EC-E69568D4F180}
-		{FBC64BF8-3DD8-4859-81BD-AA4B0AD7D73B} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
