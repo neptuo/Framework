@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
   </ItemGroup>
 
