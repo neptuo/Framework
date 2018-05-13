@@ -130,6 +130,10 @@
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\src\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj">
+      <Project>{d49dceff-b129-4cba-a033-4b7b2b0fe86a}</Project>
+      <Name>Neptuo.Models.Keys</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj">
       <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
       <Name>Neptuo.Models</Name>
