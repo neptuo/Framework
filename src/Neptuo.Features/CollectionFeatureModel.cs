@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Features
+namespace Neptuo.Features
 {
     /// <summary>
     /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrency support).

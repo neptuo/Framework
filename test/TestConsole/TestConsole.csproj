@@ -167,10 +167,6 @@
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Models.Features\Neptuo.Models.Features.csproj">
-      <Project>{6a30d878-a98a-4634-9c2d-c015f0a15a57}</Project>
-      <Name>Neptuo.Models.Features</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj">
       <Project>{0834dfd1-3536-4305-9e23-21061c5c0414}</Project>
       <Name>Neptuo.PresentationModels.Validators</Name>

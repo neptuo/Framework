@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Features
+namespace Neptuo.Features
 {
     /// <summary>
     /// Describes extensible model.

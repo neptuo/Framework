@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Neptuo.Features</Product>
+    <Description>Feature models (soft contract, endless extensibility).</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0</Version>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.features</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.features</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
+</Project>

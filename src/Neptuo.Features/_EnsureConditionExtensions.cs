@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Features
+namespace Neptuo.Features
 {
     /// <summary>
     /// Feature models extensions for <see cref="Ensure.Condition"/>.
