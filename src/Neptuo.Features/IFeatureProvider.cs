@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Features
 {
     /// <summary>
-    /// Describes extensible model.
+    /// A provider of features.
     /// </summary>
-    public interface IFeatureModel
+    public interface IFeatureProvider
     {
         /// <summary>
         /// Tries to retrieve object of type <typeparamref name="TFeature"/>.

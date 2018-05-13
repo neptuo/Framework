@@ -1,7 +1,5 @@
-﻿using Neptuo.Activators;
-using Neptuo.Collections.Specialized;
+﻿using Neptuo.Collections.Specialized;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,30 +8,38 @@ using System.Threading.Tasks;
 namespace Neptuo.Features
 {
     /// <summary>
-    /// Implementation of <see cref="IFeatureModel"/> which delegates features to registered objects (with concurrency support).
+    /// An implementation of <see cref="IFeatureProvider"/> which delegates features to registered objects (with concurrency support).
     /// When resolving feature, first are searched registered instances, than registered getters (<see cref="Func{T}"/>, than registered feature models and lastly search handlers.
     /// </summary>
-    public class CollectionFeatureModel : IFeatureModel
+    public class FeatureCollection : IFeatureProvider
     {
         private readonly object storageLock = new object();
         private readonly Dictionary<Type, object> features;
         private readonly Dictionary<Type, Func<object>> featureGetters;
-        private readonly List<IFeatureModel> featureModels;
+        private readonly List<IFeatureProvider> featureModels;
         private OutFuncCollection<Type, object, bool> onSearchFeature = new OutFuncCollection<Type, object, bool>();
 
-        public CollectionFeatureModel()
+        /// <summary>
+        /// Creates a new empty instance.
+        /// </summary>
+        public FeatureCollection()
         {
             features = new Dictionary<Type, object>();
             featureGetters = new Dictionary<Type, Func<object>>();
-            featureModels = new List<IFeatureModel>();
+            featureModels = new List<IFeatureProvider>();
         }
 
-        public CollectionFeatureModel(IDictionary<Type, object> features)
+        /// <summary>
+        /// Creates a new instance from <paramref name="features"/>.
+        /// Dictionary key is feature type and value is used a feature, it can be feature itself or <see cref="IFeatureProvider"/> or <see cref="Func{Object}"/>.
+        /// </summary>
+        /// <param name="features">A predefined set of features.</param>
+        public FeatureCollection(IDictionary<Type, object> features)
         {
             Ensure.NotNull(features, "features");
             features = new Dictionary<Type, object>(features);
             featureGetters = new Dictionary<Type, Func<object>>();
-            featureModels = new List<IFeatureModel>();
+            featureModels = new List<IFeatureProvider>();
         }
 
         /// <summary>
@@ -42,14 +48,16 @@ namespace Neptuo.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="feature">Feature instance.</param>
         /// <returns>Self (for fluency).</returns>
-        public CollectionFeatureModel Add(Type featureType, object feature)
+        public FeatureCollection Add(Type featureType, object feature)
         {
             Ensure.NotNull(featureType, "featureType");
+
             lock (storageLock)
             {
                 featureGetters.Remove(featureType);
                 features[featureType] = feature;
             }
+
             return this;
         }
 
@@ -59,25 +67,32 @@ namespace Neptuo.Features
         /// <param name="featureType">Type of feature.</param>
         /// <param name="featureGetter">Feature provider.</param>
         /// <returns>Self (for fluency).</returns>
-        public CollectionFeatureModel AddGetter(Type featureType, Func<object> featureGetter)
+        public FeatureCollection AddGetter(Type featureType, Func<object> featureGetter)
         {
             Ensure.NotNull(featureType, "featureType");
             Ensure.NotNull(featureGetter, "featureGetter");
+
             lock (storageLock)
             {
                 features.Remove(featureType);
                 featureGetters[featureType] = featureGetter;
             }
+
             return this;
         }
 
-        public CollectionFeatureModel AddFeatureModel(IFeatureModel featureModel)
+        /// <summary>
+        /// Adds <paramref name="container"/> as feature provider.
+        /// </summary>
+        /// <param name="container">A instance of feature container.</param>
+        /// <returns>Self (for fluency).</returns>
+        public FeatureCollection AddFeatureContainer(IFeatureProvider container)
         {
-            Ensure.NotNull(featureModel, "featureModel");
+            Ensure.NotNull(container, "container");
+
             lock (storageLock)
-            {
-                featureModels.Add(featureModel);
-            }
+                featureModels.Add(container);
+
             return this;
         }
 
@@ -110,20 +125,20 @@ namespace Neptuo.Features
                 return true;
             }
 
-            foreach (IFeatureModel featureModel in featureModels)
+            foreach (IFeatureProvider featureModel in featureModels)
             {
                 if (featureModel.TryWith(out feature))
                     return true;
             }
 
-            if(onSearchFeature.TryExecute(featureType, out featureBase)) 
+            if (onSearchFeature.TryExecute(featureType, out featureBase))
             {
                 feature = (TFeature)featureBase;
                 return true;
             }
 
-            feature = default(TFeature);
-            return false;   
+            feature = default;
+            return false;
         }
     }
 }

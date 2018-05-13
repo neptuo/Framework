@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace Neptuo.Features
 {
     /// <summary>
-    /// Implementation of <see cref="IFeatureModel"/> which tries type casting to retrive requested feature.
+    /// An implementation of <see cref="IFeatureProvider"/> which tries type casting to retrive requested features.
     /// </summary>
-    public class ObjectFeatureModel : IFeatureModel
+    public class FeatureObject : IFeatureProvider
     {
         private readonly object instance;
 
         /// <summary>
-        /// Creates feature model for object <paramref name="instance"/>.
+        /// Creates a new feature wrapper for object <paramref name="instance"/>.
         /// </summary>
-        /// <param name="instance">Object instance to retrieve feature from.</param>
-        public ObjectFeatureModel(object instance)
+        /// <param name="instance">An object instance to retrieve features from.</param>
+        public FeatureObject(object instance)
         {
             Ensure.NotNull(instance, "instance");
             this.instance = instance;
@@ -25,13 +25,13 @@ namespace Neptuo.Features
 
         public bool TryWith<TFeature>(out TFeature feature)
         {
-            if(instance is TFeature)
+            if (instance is TFeature)
             {
                 feature = (TFeature)instance;
                 return true;
             }
 
-            feature = default(TFeature);
+            feature = default;
             return false;
         }
     }
