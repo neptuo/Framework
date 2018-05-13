@@ -13,7 +13,7 @@ namespace Neptuo.Models.Keys
     public static class _EnsureConditionExtensions
     {
         /// <summary>
-        /// Throws <see cref="ArgumentOutOfRangeException"/> when <paramref name="key"/> is <see cref="IKey.Empty"/> (= true).
+        /// Throws <see cref="ArgumentOutOfRangeException"/> when <paramref name="key"/> is <see cref="IKey.IsEmpty"/> (= true).
         /// </summary>
         /// <param name="condition">The condition helper.</param>
         /// <param name="key">The to test.</param>
@@ -44,18 +44,6 @@ namespace Neptuo.Models.Keys
 
             if (key.Type != type)
                 throw new RequiredKeyOfTypeException(key.Type, type);
-        }
-
-        [Obsolete]
-        public static void NotEmptyKey(this EnsureConditionHelper condition, IKey key, string argumentName)
-        {
-            NotEmptyKey(condition, key);
-        }
-
-        [Obsolete]
-        public static void NotDifferentKeyType(this EnsureConditionHelper condition, IKey key, string type, string argumentName)
-        {
-            NotDifferentKeyType(condition, key, type, false);
         }
     }
 }
