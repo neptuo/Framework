@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Neptuo.Models.Keys.Serialization</Product>
+    <Description>Serialization support for IKey to various formats.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0-alpha1</Version>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.models.keys.serialization</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.models.keys.serialization</PackageProjectUrl>
+    <RootNamespace>Neptuo.Models.Keys</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+  </ItemGroup>
+
+  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
+</Project>

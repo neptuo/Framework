@@ -148,6 +148,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys", "src\N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Features", "src\Neptuo.Features\Neptuo.Features.csproj", "{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys.TypeMapping", "src\Neptuo.Models.Keys.TypeMapping\Neptuo.Models.Keys.TypeMapping.csproj", "{6A601E2C-E81C-4218-AB6F-4DED64520D2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Models.Keys.Serialization", "src\Neptuo.Models.Keys.Serialization\Neptuo.Models.Keys.Serialization.csproj", "{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -402,6 +406,14 @@ Global
 		{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A601E2C-E81C-4218-AB6F-4DED64520D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A601E2C-E81C-4218-AB6F-4DED64520D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A601E2C-E81C-4218-AB6F-4DED64520D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A601E2C-E81C-4218-AB6F-4DED64520D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -463,6 +475,8 @@ Global
 		{D5388BEA-F481-4750-AD0A-0AFE721A10C5} = {E2CADDB6-3074-4310-B3EC-E69568D4F180}
 		{D49DCEFF-B129-4CBA-A033-4B7B2B0FE86A} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{6A601E2C-E81C-4218-AB6F-4DED64520D2B} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
+		{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
