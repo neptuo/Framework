@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace Neptuo.Observables
 {
-    public class MainModel : ObservableObject
+    public class MainModel : ObservableModel
     {
         private static readonly string fullNamePropertyName = TypeHelper.PropertyName<MainModel>(m => m.FullName);
 
