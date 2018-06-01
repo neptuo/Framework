@@ -41,8 +41,11 @@ namespace Neptuo.Observables.Commands
         public override void Execute()
             => execute();
 
+        /// <summary>
+        /// Raises <see cref="CanExecuteChanged"/> safely if there is a listener.
+        /// </summary>
         public new void RaiseCanExecuteChanged()
-            => RaiseCanExecuteChanged();
+            => base.RaiseCanExecuteChanged();
     }
 
     /// <summary>
@@ -82,7 +85,10 @@ namespace Neptuo.Observables.Commands
         public override void Execute(T parameter)
             => execute(parameter);
 
+        /// <summary>
+        /// Raises <see cref="CanExecuteChanged"/> safely if there is a listener.
+        /// </summary>
         public new void RaiseCanExecuteChanged()
-            => RaiseCanExecuteChanged();
+            => base.RaiseCanExecuteChanged();
     }
 }
