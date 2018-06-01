@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Neptuo.Observables.Commands
 {
@@ -24,20 +23,19 @@ namespace Neptuo.Observables.Commands
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
         /// </summary>
-        public bool IsRunning
-        {
-            get { return cancellationTokenSource != null; }
-        }
+        public bool IsRunning 
+            => cancellationTokenSource != null;
 
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is not running and command can be executed.
         /// </summary>
         /// <returns><c>true</c> when asynchronous operation is not running and command can be executed; <c>false</c> otherwise.</returns>
         public override bool CanExecute()
-        {
-            return !IsRunning && CanExecuteOverride();
-        }
+            => !IsRunning && CanExecuteOverride();
 
+        /// <summary>
+        /// If <see cref="IsRunning"/> is <c>true</c>, it requests to stop the execution.
+        /// </summary>
         public void Cancel()
         {
             if (IsRunning)
@@ -45,6 +43,15 @@ namespace Neptuo.Observables.Commands
         }
 
         public async override void Execute()
+        {
+            await ExecuteAsync();
+        }
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <returns>Continuation task.</returns>
+        public async Task ExecuteAsync()
         {
             if (IsRunning)
                 return;
@@ -54,7 +61,7 @@ namespace Neptuo.Observables.Commands
                 SetCancellationTokenSource(new CancellationTokenSource());
                 await ExecuteAsync(cancellationTokenSource.Token);
             }
-            catch(OperationCanceledException)
+            catch (OperationCanceledException)
             {
 
             }
@@ -106,10 +113,8 @@ namespace Neptuo.Observables.Commands
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
         /// </summary>
-        public bool IsRunning
-        {
-            get { return cancellationTokenSource != null; }
-        }
+        public bool IsRunning 
+            => cancellationTokenSource != null;
 
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is not running and command can be executed.
@@ -117,10 +122,11 @@ namespace Neptuo.Observables.Commands
         /// <param name="parameter">A parameter for the command.</param>
         /// <returns><c>true</c> when asynchronous operation is not running and command can be executed; <c>false</c> otherwise.</returns>
         public override bool CanExecute(T parameter)
-        {
-            return !IsRunning && CanExecuteOverride(parameter);
-        }
+            => !IsRunning && CanExecuteOverride(parameter);
 
+        /// <summary>
+        /// If <see cref="IsRunning"/> is <c>true</c>, it requests to stop the execution.
+        /// </summary>
         public void Cancel()
         {
             if (IsRunning)
@@ -128,6 +134,14 @@ namespace Neptuo.Observables.Commands
         }
 
         public async override void Execute(T parameter)
+            => await ExecuteAsync(parameter);
+
+        /// <summary>
+        /// Executes the command.
+        /// </summary>
+        /// <param name="parameter">A command parameter.</param>
+        /// <returns>Continuation task.</returns>
+        public async Task ExecuteAsync(T parameter)
         {
             if (IsRunning)
                 return;
