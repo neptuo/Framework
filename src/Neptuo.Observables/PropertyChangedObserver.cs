@@ -12,25 +12,35 @@ namespace Neptuo.Observables
 {
     /// <summary>
     /// Decomposition of property changed handler.
-    /// Providers methods for registering and unregistering handlers on single property change on single instance of model.
-    /// On disposing subscription on <see cref="INotifyPropertyChanged.PropertyChanged"/> is released.
+    /// Provides methods for registering and unregistering handlers on single property change on instances.
+    /// On disposing, subscription on <see cref="INotifyPropertyChanged.PropertyChanged"/> is released.
     /// </summary>
-    /// <typeparam name="T">Type of model to observer properies of.</typeparam>
+    /// <typeparam name="T">A type of model to observe properies of.</typeparam>
     public class PropertyChangedObserver<T> : DisposableBase
         where T : INotifyPropertyChanged
     {
-        private readonly T model;
+        private readonly IEnumerable<T> models;
         private readonly Dictionary<string, List<Action<T>>> handlers = new Dictionary<string, List<Action<T>>>();
 
         /// <summary>
-        /// Creates new instance listening on <paramref name="model"/>.
+        /// Creates new instance listening on <paramref name="models"/>.
         /// </summary>
-        /// <param name="model">Instance to listen on.</param>
-        public PropertyChangedObserver(T model)
+        /// <param name="models">An instances to listen on.</param>
+        public PropertyChangedObserver(params T[] models)
+            : this((IEnumerable<T>)models)
+        { }
+
+        /// <summary>
+        /// Creates new instance listening on <paramref name="models"/>.
+        /// </summary>
+        /// <param name="models">An instances to listen on.</param>
+        public PropertyChangedObserver(IEnumerable<T> models)
         {
-            Ensure.NotNull(model, "model");
-            this.model = model;
-            this.model.PropertyChanged += OnModelPropertyChanged;
+            Ensure.NotNull(models, "model");
+            this.models = models;
+
+            foreach (T model in models)
+                model.PropertyChanged += OnModelPropertyChanged;
         }
 
         private void OnModelPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -39,7 +49,7 @@ namespace Neptuo.Observables
             if (handlers.TryGetValue(e.PropertyName, out list))
             {
                 foreach (Action<T> handler in list)
-                    handler(model);
+                    handler((T)sender);
             }
         }
 
@@ -114,7 +124,9 @@ namespace Neptuo.Observables
         {
             base.DisposeManagedResources();
 
-            model.PropertyChanged -= OnModelPropertyChanged;
+            foreach (T model in models)
+                model.PropertyChanged -= OnModelPropertyChanged;
+
             handlers.Clear();
         }
     }
