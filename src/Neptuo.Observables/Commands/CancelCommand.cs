@@ -12,33 +12,42 @@ namespace Neptuo.Observables.Commands
     /// </summary>
     public class CancelCommand : Command
     {
-        private readonly ICancellableCommand command;
+        private readonly IEnumerable<ICancellableCommand> commands;
 
         /// <summary>
-        /// Creates a new instance that cancels <paramref name="command"/>.
+        /// Creates a new instance that can cancel <paramref name="commands"/>.
         /// </summary>
-        /// <param name="command">A command to cancel.</param>
-        public CancelCommand(ICancellableCommand command)
+        /// <param name="commands">An enumeration of commands that can be cancelled by this object.</param>
+        public CancelCommand(params ICancellableCommand[] commands)
+            : this((IEnumerable<ICancellableCommand>)commands)
+        { }
+
+        /// <summary>
+        /// Creates a new instance that can cancel <paramref name="commands"/>.
+        /// </summary>
+        /// <param name="commands">An enumeration of commands that can be cancelled by this object.</param>
+        public CancelCommand(IEnumerable<ICancellableCommand> commands)
         {
-            Ensure.NotNull(command, "command");
-            this.command = command;
-            this.command.CanExecuteChanged += OnCanExecuteChanged;
+            Ensure.NotNull(commands, "commands");
+            this.commands = commands;
+
+            foreach (ICancellableCommand command in commands)
+                command.CanExecuteChanged += OnCanExecuteChanged;
         }
 
         private void OnCanExecuteChanged(object sender, EventArgs e)
-        {
-            RaiseCanExecuteChanged();
-        }
+            => RaiseCanExecuteChanged();
 
         public override bool CanExecute()
-        {
-            return command.IsRunning;
-        }
+            => commands.Any(c => c.IsRunning);
 
         public override void Execute()
         {
-            if (CanExecute())
-                command.Cancel();
+            foreach (ICancellableCommand command in commands)
+            {
+                if (command.IsRunning)
+                    command.Cancel();
+            }
         }
     }
 }
