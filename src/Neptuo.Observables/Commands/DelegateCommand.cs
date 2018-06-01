@@ -1,5 +1,4 @@
-﻿using Neptuo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -37,18 +36,17 @@ namespace Neptuo.Observables.Commands
         { }
 
         public override bool CanExecute()
-        {
-            return canExecute();
-        }
+            => canExecute();
 
         public override void Execute()
-        {
-            execute();
-        }
+            => execute();
+
+        public new void RaiseCanExecuteChanged()
+            => RaiseCanExecuteChanged();
     }
 
     /// <summary>
-    /// An implementation of <see cref="System.Windows.Input.ICommand"/> with parameter of type <typeparam name="T" /> 
+    /// An implementation of <see cref="System.Windows.Input.ICommand"/> with parameter of type <typeparamref name="T" /> 
     /// that takes delegates for 'execute' and 'can execute' methods.
     /// </summary>
     /// <typeparam name="T">A type of the parameter.</typeparam>
@@ -79,13 +77,12 @@ namespace Neptuo.Observables.Commands
         { }
 
         public override bool CanExecute(T parameter)
-        {
-            return canExecute(parameter);
-        }
+            => canExecute(parameter);
 
         public override void Execute(T parameter)
-        {
-            execute(parameter);
-        }
+            => execute(parameter);
+
+        public new void RaiseCanExecuteChanged()
+            => RaiseCanExecuteChanged();
     }
 }
