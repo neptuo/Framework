@@ -103,9 +103,6 @@
     <Compile Include="Models\Keys\TestTypeMapping.cs" />
     <Compile Include="Models\T_Models_Keys_Comparing.cs" />
     <Compile Include="Models\T_Models_Keys_KeyToParameters.cs" />
-    <Compile Include="Observables\T_Observables_AsyncCommand.cs" />
-    <Compile Include="Observables\T_Observables_PropertyChangedObserver.cs" />
-    <Compile Include="Observables\_Models.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflections\T_Reflections_ReflectionServiceTypeExecutor.cs" />
     <Compile Include="Reflections\_Services.cs" />

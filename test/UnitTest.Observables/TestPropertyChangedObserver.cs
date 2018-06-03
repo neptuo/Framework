@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Observables
 {
     [TestClass]
-    public class T_Observables_PropertyChangedObserver
+    public class TestPropertyChangedObserver
     {
         [TestMethod]
         public void Base()

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Observables.Commands;
+using Neptuo.Observables.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 namespace Neptuo.Observables
 {
     [TestClass]
-    public class T_Observables_AsyncCommand
+    public class TestAsyncCommand
     {
         [TestMethod]
         public void Execution()
         {
-            TestAsyncCommand mainCommand = new TestAsyncCommand();
+            DelayAsyncCommand mainCommand = new DelayAsyncCommand();
 
             mainCommand.Execute();
             Assert.AreEqual(true, mainCommand.IsRunning);
@@ -30,7 +31,7 @@ namespace Neptuo.Observables
         [TestMethod]
         public void Cancellation()
         {
-            TestAsyncCommand mainCommand = new TestAsyncCommand();
+            DelayAsyncCommand mainCommand = new DelayAsyncCommand();
             CancelCommand cancelCommand = new CancelCommand(mainCommand);
 
             mainCommand.Execute();
