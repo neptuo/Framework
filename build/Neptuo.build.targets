@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Company>Neptuo</Company>
     <Authors>Neptuo</Authors>
-    <DocumentationFile>$(OutDir)\$(AssemblyName).xml</DocumentationFile>
     <RepositoryUrl>https://github.com/neptuo/Framework</RepositoryUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
