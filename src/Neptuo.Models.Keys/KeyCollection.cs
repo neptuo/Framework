@@ -9,7 +9,7 @@ namespace Neptuo.Models.Keys
 {
     /// <summary>
     /// An implementation of <see cref="ICollection{T}"/> with checks for key types.
-    /// All empty keys are ignored.
+    /// All empty keys are ignored when passes type check.
     /// </summary>
     /// <typeparam name="TKey">A type of the key.</typeparam>
     public class KeyCollection<TKey> : Collection<TKey>
@@ -64,19 +64,19 @@ namespace Neptuo.Models.Keys
 
         protected override void InsertItem(int index, TKey key)
         {
+            EnsureKey(key);
             if (key.IsEmpty)
                 return;
 
-            EnsureKey(key);
             base.InsertItem(index, key);
         }
 
         protected override void SetItem(int index, TKey key)
         {
+            EnsureKey(key);
             if (key.IsEmpty)
                 return;
 
-            EnsureKey(key);
             base.SetItem(index, key);
         }
 
@@ -96,7 +96,7 @@ namespace Neptuo.Models.Keys
 
     /// <summary>
     /// An implementation of <see cref="ICollection{T}"/> with checks for key types and key classes.
-    /// All empty keys are ignored.
+    /// All empty keys are ignored when passes type and class check.
     /// </summary>
     public class KeyCollection : KeyCollection<IKey>
     {
