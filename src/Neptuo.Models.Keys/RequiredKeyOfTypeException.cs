@@ -19,22 +19,29 @@ namespace Neptuo.Models.Keys
         public string UsedType { get; private set; }
 
         /// <summary>
-        /// The type of the expected key.
+        /// An enumeration of expected types.
         /// </summary>
-        public string ExpectedType { get; private set; }
+        public IEnumerable<string> ExpectedTypes { get; private set; }
         
         /// <summary>
-        /// Creates new empty instance.
+        /// Creates a new instance.
         /// </summary>
-        public RequiredKeyOfTypeException(string usedType, string expectedType)
-            : base(String.Format("Expected key '{0}', but got '{1}'.", usedType, expectedType))
+        public RequiredKeyOfTypeException(string usedType, params string[] expectedTypes)
+            : this(usedType, (IEnumerable<string>)expectedTypes)
+        { }
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public RequiredKeyOfTypeException(string usedType, IEnumerable<string> expectedTypes)
+            : base(String.Format("Expected key {0}, but got '{1}'.", String.Join(", ", expectedTypes.Select(t => $"'{t}'")), usedType))
         {
             UsedType = usedType;
-            ExpectedType = expectedType;
+            ExpectedTypes = expectedTypes;
         }
 
         /// <summary>
-        /// Creates new instance for deserialization.
+        /// Creates a new instance for deserialization.
         /// </summary>
         /// <param name="info">The serialization info.</param>
         /// <param name="context">The streaming context.</param>
