@@ -103,12 +103,54 @@ namespace Neptuo.Models.Keys
         private readonly IEnumerable<Type> supportedClasses;
 
         /// <summary>
+        /// Creates a new empty collection.
+        /// </summary>
+        public KeyCollection()
+        { }
+
+        /// <summary>
+        /// Creates a new empty collection where any added key's type must be contained in <paramref name="supportedTypes"/>.
+        /// </summary>
+        /// <param name="supportedTypes">An enumeration of supported <see cref="IKey.Type"/>.</param>
+        public KeyCollection(IEnumerable<string> supportedTypes) 
+            : base(supportedTypes)
+        { }
+
+        /// <summary>
         /// Creates a new empty collection where any added key's type must be contained in <paramref name="supportedTypes"/> and passed in keys must be of one of types in <paramref name="supportedClasses"/>.
         /// </summary>
         /// <param name="supportedTypes">An enumeration of supported <see cref="IKey.Type"/> (<c>null</c> means all).</param>
         /// <param name="supportedClasses">An enumeration of supported <see cref="IKey"/> implementation types (<c>null</c> means all).</param>
         public KeyCollection(IEnumerable<string> supportedTypes, IEnumerable<Type> supportedClasses)
             : base(supportedTypes)
+        {
+            this.supportedClasses = supportedClasses;
+        }
+
+        /// <summary>
+        /// Creates a new collection as a wrapper for <paramref name="list"/>.
+        /// </summary>
+        /// <param name="list">An inner list of keys.</param>
+        public KeyCollection(IList<IKey> list) 
+            : base(list)
+        { }
+
+        /// <summary>
+        /// Creates a new collection as a wrapper for <paramref name="list"/> where any added key's type must be contained in <paramref name="supportedTypes"/>.
+        /// </summary>
+        /// <param name="list">An inner list of keys.</param>
+        /// <param name="supportedTypes">An enumeration of supported <see cref="IKey.Type"/>.</param>
+        public KeyCollection(IList<IKey> list, IEnumerable<string> supportedTypes) 
+            : base(list, supportedTypes)
+        { }
+
+        /// <summary>
+        /// Creates a new collection as a wrapper for <paramref name="list"/> where any added key's type must be contained in <paramref name="supportedTypes"/> and passed in keys must be of one of types in <paramref name="supportedClasses"/>.
+        /// </summary>
+        /// <param name="supportedTypes">An enumeration of supported <see cref="IKey.Type"/> (<c>null</c> means all).</param>
+        /// <param name="supportedClasses">An enumeration of supported <see cref="IKey"/> implementation types (<c>null</c> means all).</param>
+        public KeyCollection(IList<IKey> list, IEnumerable<string> supportedTypes, IEnumerable<Type> supportedClasses) 
+            : base(list, supportedTypes)
         {
             this.supportedClasses = supportedClasses;
         }
