@@ -154,6 +154,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys.Serializ
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Observables", "test\UnitTest.Observables\UnitTest.Observables.csproj", "{07EB063B-F3D5-41BB-BEF0-788F3C7773E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSourceLink", "src\TestSourceLink\TestSourceLink.csproj", "{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -420,6 +422,10 @@ Global
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -486,7 +492,7 @@ Global
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 	EndGlobalSection
 EndGlobal
