@@ -122,7 +122,7 @@ namespace Neptuo.Formatters
         /// <typeparam name="T">The type of the object to create.</typeparam>
         /// <param name="deserializer">The deserializer to use.</param>
         /// <param name="input">The serialized input.</param>
-        /// <returns>The deserialized object of the type <paramref name="outputType"/>.</returns>
+        /// <returns>The deserialized object of the type <typeparamref name="T"/>.</returns>
         public static async Task<T> DeserializeAsync<T>(this IDeserializer deserializer, string input)
         {
             return (T)(await DeserializeAsync(deserializer, typeof(T), input));
