@@ -90,7 +90,7 @@ namespace Neptuo.Formatters
         /// <typeparam name="T">The type of the object to create.</typeparam>
         /// <param name="deserializer">The deserializer to use.</param>
         /// <param name="input">The serialized input.</param>
-        /// <returns>The deserialized object of the type <paramref name="outputType"/>.</returns>
+        /// <returns>The deserialized object of the type <param<typeparamref name="T"/>.</returns>
         public static T Deserialize<T>(this IDeserializer deserializer, string input)
         {
             return (T)Deserialize(deserializer, typeof(T), input);
