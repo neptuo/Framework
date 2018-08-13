@@ -12,7 +12,7 @@ namespace Neptuo.Models.Repositories
     /// </summary>
     /// <typeparam name="TDomainModel">A type of the domain model.</typeparam>
     /// <typeparam name="TKey">A type of the domain model key.</typeparam>
-    public interface IAsyncRepository<TDomainModel, in TKey> : IReadOnlyRepository<TDomainModel, TKey>
+    public interface IAsyncRepository<TDomainModel, in TKey> : IReadOnlyAsyncRepository<TDomainModel, TKey>
         where TKey : IKey
         where TDomainModel : IDomainModel<TKey>
     {
