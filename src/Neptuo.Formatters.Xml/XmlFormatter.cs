@@ -38,22 +38,30 @@ namespace Neptuo.Formatters
         }
 
         public Task<bool> TrySerializeAsync(object input, ISerializerContext context)
+            => Task.Factory.StartNew(() => TrySerialize(input, context));
+
+        public bool TrySerialize(object input, ISerializerContext context)
         {
-            return Task.Factory.StartNew(() => RunWithCatch(() =>
+            Ensure.NotNull(context, "context");
+            return RunWithCatch(() =>
             {
                 XmlSerializer serializer = new XmlSerializer(context.InputType);
                 serializer.Serialize(context.Output, input);
-            }));
+            });
         }
 
         public Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
+            => return Task.Factory.StartNew(() => TryDeserialize(input, context));
+
+        public bool TryDeserialize(Stream input, IDeserializerContext context)
         {
-            return Task.Factory.StartNew(() => RunWithCatch(() =>
+            Ensure.NotNull(context, "context");
+            return RunWithCatch(() =>
             {
                 XmlSerializer serializer = new XmlSerializer(context.OutputType);
                 object output = serializer.Deserialize(input);
                 context.Output = output;
-            }));
+            });
         }
     }
 }

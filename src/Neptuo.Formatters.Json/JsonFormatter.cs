@@ -17,16 +17,16 @@ namespace Neptuo.Formatters
         private readonly Formatting formatting;
 
         /// <summary>
-        /// Creates new instance with default settings and <see cref="Formatting.None"/> for serialization.
+        /// Creates a new instance with default settings and <see cref="Formatting.None"/> for serialization.
         /// </summary>
         public JsonFormatter()
             : this(new JsonSerializerSettings())
         { }
 
         /// <summary>
-        /// Creates new instance with <paramref name="settings" /> and <see cref="Formatting.None"/> for serialization.
+        /// Creates a new instance with <paramref name="settings" /> and <see cref="Formatting.None"/> for serialization.
         /// </summary>
-        /// <param name="settings">The serializer and deserializer configuration.</param>
+        /// <param name="settings">A serializer and deserializer configuration.</param>
         public JsonFormatter(JsonSerializerSettings settings)
             : this(settings, Formatting.None)
         { }
