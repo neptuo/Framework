@@ -13,8 +13,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neptuo" Version="6.0.0" />
-    <PackageReference Include="Neptuo.Formatters" Version="2.1.0-alpha1" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 

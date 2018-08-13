@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Neptuo" Version="6.0.0" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
   </ItemGroup>
 
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />

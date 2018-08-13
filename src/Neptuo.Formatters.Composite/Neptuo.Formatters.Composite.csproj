@@ -15,8 +15,8 @@
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj" />
-    <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
+    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj" />
   </ItemGroup>
 </Project>
