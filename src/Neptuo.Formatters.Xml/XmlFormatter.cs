@@ -51,7 +51,7 @@ namespace Neptuo.Formatters
         }
 
         public Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
-            => return Task.Factory.StartNew(() => TryDeserialize(input, context));
+            => Task.Factory.StartNew(() => TryDeserialize(input, context));
 
         public bool TryDeserialize(Stream input, IDeserializerContext context)
         {
