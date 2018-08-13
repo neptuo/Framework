@@ -4,9 +4,9 @@
     <Product>Neptuo.Formatters.Xml</Product>
     <Description>XML implementation of Neptuo.Formatters.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <Version>1.1.0-alpha1</Version>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.0.0-alpha1</Version>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.xml</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.xml</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Xml</PackageTags>
