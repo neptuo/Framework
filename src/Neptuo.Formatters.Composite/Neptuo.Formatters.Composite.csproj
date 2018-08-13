@@ -1,96 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Formatters</RootNamespace>
-    <AssemblyName>Neptuo.Formatters.Composite</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <Product>Neptuo.Formatters.Composite</Product>
+    <Description>Implementation of Neptuo.Formatters with support for immutable and versioned objects.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyVersion>3.0.0.0</AssemblyVersion>
+    <FileVersion>3.0.0.0</FileVersion>
+    <Version>3.0.0-alpha1</Version>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageLicenseUrl>
+    <PackageTags>Neptuo Formatters Composite</PackageTags>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Neptuo.Formatters.Composite.XML</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Neptuo, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.0.1\lib\net45\Neptuo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Metadata.1.0.0\lib\net45\Neptuo.Formatters.Composite.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\_AssemblyInfo.cs">
-      <Link>Properties\_AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="CompositeTypeFormatter.cs" />
-    <Compile Include="CompositeModelFormatter.cs" />
-    <Compile Include="Metadata\ManualCompositeTypeProvider.BuilderContracts.cs" />
-    <Compile Include="Metadata\ManualCompositeTypeProvider.BuilderImplementations.cs" />
-    <Compile Include="MissingVersionValueException.cs" />
-    <Compile Include="MissingPayloadValueException.cs" />
-    <Compile Include="NotSupportedValueException.cs" />
-    <Compile Include="ICompositeModel.cs" />
-    <Compile Include="ICompositeStorage.cs" />
-    <Compile Include="Metadata\CompositeConstructor.cs" />
-    <Compile Include="CompositeException.cs" />
-    <Compile Include="Metadata\CompositeMetadataException.cs" />
-    <Compile Include="Metadata\CompositeProperty.cs" />
-    <Compile Include="Metadata\CompositeType.cs" />
-    <Compile Include="Metadata\CompositeVersion.cs" />
-    <Compile Include="Metadata\ICompositeDelegateFactory.cs" />
-    <Compile Include="Metadata\ICompositeTypeProvider.cs" />
-    <Compile Include="Metadata\ManualCompositeTypeProvider.cs" />
-    <Compile Include="Metadata\MismatchVersionConstructorException.cs" />
-    <Compile Include="MissingVersionException.cs" />
-    <Compile Include="Metadata\MissingVersionPropertyException.cs" />
-    <Compile Include="Metadata\ReflectionCompositeDelegateFactory.cs" />
-    <Compile Include="Metadata\ReflectionCompositeTypeProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\VersionInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Metadata\ReflectionCompositeTypeProvider.PropertyDescriptor.cs" />
-    <None Include="Neptuo.Formatters.Composite.nuspec" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj" />
+    <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+  </ItemGroup>
 </Project>
