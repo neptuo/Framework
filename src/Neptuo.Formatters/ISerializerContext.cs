@@ -9,23 +9,13 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The context information for serializing objects.
+    /// A context information for serializing objects using <see cref="ISerializer"/>.
     /// </summary>
-    public interface ISerializerContext
+    public interface ISerializerContext : IGenericSerializerContext
     {
         /// <summary>
-        /// The serialization output.
-        /// </summary>
-        Stream Output { get; }
-
-        /// <summary>
-        /// The type to serialize.
+        /// A type to serialize.
         /// </summary>
         Type InputType { get; }
-
-        /// <summary>
-        /// The metadata of the context.
-        /// </summary>
-        IReadOnlyKeyValueCollection Metadata { get; }
     }
 }
