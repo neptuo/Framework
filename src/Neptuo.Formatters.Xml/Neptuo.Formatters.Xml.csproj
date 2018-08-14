@@ -10,6 +10,7 @@
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.xml</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.xml</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Xml</PackageTags>
+    <RootNamespace>Neptuo.Formatters</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

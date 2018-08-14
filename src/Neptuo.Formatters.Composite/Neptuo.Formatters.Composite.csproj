@@ -10,6 +10,7 @@
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Composite</PackageTags>
+    <RootNamespace>Neptuo.Formatters</RootNamespace>
   </PropertyGroup>
 
   <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />

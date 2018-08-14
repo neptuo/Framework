@@ -10,6 +10,7 @@
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite.metadata</PackageProjectUrl>
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite.metadata</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Composite</PackageTags>
+    <PackageId>Neptuo.Formatters.Metadata</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
