@@ -9,7 +9,7 @@ namespace Neptuo.Formatters
     /// <summary>
     /// A context information for deserializing objects using <see cref="IDeserializer"/>.
     /// </summary>
-    public interface IDeserializerContext : Generics.IGenericDeserializerContext
+    public interface IDeserializerContext : Generics.IDeserializerContext
     {
         /// <summary>
         /// An type that is required to deserialize.

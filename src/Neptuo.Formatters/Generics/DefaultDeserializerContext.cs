@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// A default implementation of <see cref="IGenericDeserializerContext"/>.
+    /// A default implementation of <see cref="IDeserializerContext"/>.
     /// </summary>
-    public class DefaultDeserializerContext : IGenericDeserializerContext
+    public class DefaultDeserializerContext : IDeserializerContext
     {
         public object Output { get; set; }
 
@@ -27,7 +27,7 @@ namespace Neptuo.Formatters.Generics
             }
         }
 
-        IReadOnlyKeyValueCollection IGenericDeserializerContext.Metadata
+        IReadOnlyKeyValueCollection IDeserializerContext.Metadata
         {
             get { return Metadata; }
         }

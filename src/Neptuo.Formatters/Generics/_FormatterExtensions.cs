@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// A common extensions for <see cref="ISerializer"/> and <see cref="IGenericDeserializer"/>.
+    /// A common extensions for <see cref="ISerializer"/> and <see cref="IDeserializer"/>.
     /// </summary>
     public static class _FormatterExtensions
     {
@@ -69,7 +69,7 @@ namespace Neptuo.Formatters.Generics
         /// <param name="input">A serialized input.</param>
         /// <returns>A deserialized object.</returns>
         /// <exception cref="DeserializationFailedException">When deserialization was not sucessful.</exception>
-        public static object Deserialize(this IGenericDeserializer deserializer, string input)
+        public static object Deserialize(this IDeserializer deserializer, string input)
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
@@ -89,7 +89,7 @@ namespace Neptuo.Formatters.Generics
         /// <param name="input">A serialized input.</param>
         /// <returns>A continuation task containing a deserialized object.</returns>
         /// <exception cref="DeserializationFailedException">When deserialization was not sucessful.</exception>
-        public static async Task<object> DeserializeAsync(this IGenericDeserializer deserializer, string input)
+        public static async Task<object> DeserializeAsync(this IDeserializer deserializer, string input)
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {

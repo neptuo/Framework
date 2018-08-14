@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// A context information for deserializing objects using <see cref="IGenericDeserializer"/>.
+    /// A context information for deserializing objects using <see cref="IDeserializer"/>.
     /// </summary>
-    public interface IGenericDeserializerContext
+    public interface IDeserializerContext
     {
         /// <summary>
         /// A deserialized object.

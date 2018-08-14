@@ -9,7 +9,7 @@ namespace Neptuo.Formatters.Generics
     /// <summary>
     /// A contract for serializing and deserializing objects wich remembers source type.
     /// </summary>
-    public interface IFormatter : ISerializer, IGenericDeserializer
+    public interface IFormatter : ISerializer, IDeserializer
     {
         
     }
