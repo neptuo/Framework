@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
     /// A context information for deserializing objects using <see cref="IGenericDeserializer"/>.

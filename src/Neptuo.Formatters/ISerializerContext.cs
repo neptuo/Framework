@@ -11,7 +11,7 @@ namespace Neptuo.Formatters
     /// <summary>
     /// A context information for serializing objects using <see cref="ISerializer"/>.
     /// </summary>
-    public interface ISerializerContext : IGenericSerializerContext
+    public interface ISerializerContext : Generics.ISerializerContext
     {
         /// <summary>
         /// A type to serialize.

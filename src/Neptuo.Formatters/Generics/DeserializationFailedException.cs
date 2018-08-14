@@ -5,12 +5,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
     /// Raised when serialization of the input failed.
     /// </summary>
-    public class GenericDeserializationFailedException : FormatterException
+    public class DeserializationFailedException : FormatterException
     {
         /// <summary>
         /// Gets a serialized input.
@@ -21,7 +21,7 @@ namespace Neptuo.Formatters
         /// Creates a new instance for failed deserialization of <paramref name="input"/>.
         /// </summary>
         /// <param name="input">A serialized input.</param>
-        public GenericDeserializationFailedException(string input)
+        public DeserializationFailedException(string input)
             : base(String.Format("Deserialization of the '{0}' failed.", input))
         {
             Input = input;
@@ -32,7 +32,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="input">A serialized input.</param>
         /// <param name="inner">An exception cause.</param>
-        public GenericDeserializationFailedException(string input, Exception inner)
+        public DeserializationFailedException(string input, Exception inner)
             : base(String.Format("Deserialization of the '{0}' failed.", input), inner)
         {
             Input = input;
@@ -43,7 +43,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="info">A serialization info.</param>
         /// <param name="context">A streaming context.</param>
-        protected GenericDeserializationFailedException(SerializationInfo info, StreamingContext context)
+        protected DeserializationFailedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
     }

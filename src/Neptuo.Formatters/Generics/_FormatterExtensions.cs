@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// A common extensions for <see cref="IGenericSerializer"/> and <see cref="IGenericDeserializer"/>.
+    /// A common extensions for <see cref="ISerializer"/> and <see cref="IGenericDeserializer"/>.
     /// </summary>
-    public static class _GenericFormatterExtensions
+    public static class _FormatterExtensions
     {
         /// <summary>
         /// Serializes <paramref name="input"/> and returns string representation encoded in <see cref="Encoding.UTF8"/>.
@@ -18,15 +18,15 @@ namespace Neptuo.Formatters
         /// <param name="serializer">The serializer to use.</param>
         /// <param name="input">The input object to serialize.</param>
         /// <returns>The serialized <paramref name="input"/>.</returns>
-        /// <exception cref="GenericSerializationFailedException">When serialization was not sucessful.</exception>
-        public static string Serialize(this IGenericSerializer serializer, object input)
+        /// <exception cref="SerializationFailedException">When serialization was not sucessful.</exception>
+        public static string Serialize(this ISerializer serializer, object input)
         {
             Ensure.NotNull(serializer, "serializer");
             Ensure.NotNull(input, "model");
 
             using (MemoryStream stream = new MemoryStream())
             {
-                bool result = serializer.TrySerialize(input, new DefaultGenericSerializerContext(stream));
+                bool result = serializer.TrySerialize(input, new DefaultSerializerContext(stream));
                 if (result)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
@@ -34,7 +34,7 @@ namespace Neptuo.Formatters
                 }
             }
 
-            throw new GenericSerializationFailedException();
+            throw new SerializationFailedException();
         }
 
         /// <summary>
@@ -43,15 +43,15 @@ namespace Neptuo.Formatters
         /// <param name="serializer">The serializer to use.</param>
         /// <param name="input">The input object to serialize.</param>
         /// <returns>The serialized <paramref name="input"/>.</returns>
-        /// <exception cref="GenericSerializationFailedException">When serialization was not sucessful.</exception>
-        public static async Task<string> SerializeAsync(this IGenericSerializer serializer, object input)
+        /// <exception cref="SerializationFailedException">When serialization was not sucessful.</exception>
+        public static async Task<string> SerializeAsync(this ISerializer serializer, object input)
         {
             Ensure.NotNull(serializer, "serializer");
             Ensure.NotNull(input, "model");
 
             using (MemoryStream stream = new MemoryStream())
             {
-                bool result = await serializer.TrySerializeAsync(input, new DefaultGenericSerializerContext(stream));
+                bool result = await serializer.TrySerializeAsync(input, new DefaultSerializerContext(stream));
                 if (result)
                 {
                     stream.Seek(0, SeekOrigin.Begin);
@@ -59,7 +59,7 @@ namespace Neptuo.Formatters
                 }
             }
 
-            throw new GenericSerializationFailedException();
+            throw new SerializationFailedException();
         }
 
         /// <summary>
@@ -68,18 +68,18 @@ namespace Neptuo.Formatters
         /// <param name="deserializer">A deserializer to use.</param>
         /// <param name="input">A serialized input.</param>
         /// <returns>A deserialized object.</returns>
-        /// <exception cref="GenericDeserializationFailedException">When deserialization was not sucessful.</exception>
+        /// <exception cref="DeserializationFailedException">When deserialization was not sucessful.</exception>
         public static object Deserialize(this IGenericDeserializer deserializer, string input)
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
-                DefaultGenericDeserializerContext context = new DefaultGenericDeserializerContext();
+                DefaultDeserializerContext context = new DefaultDeserializerContext();
                 bool result = deserializer.TryDeserialize(stream, context);
                 if (result)
                     return context.Output;
             }
 
-            throw new GenericDeserializationFailedException(input);
+            throw new DeserializationFailedException(input);
         }
 
         /// <summary>
@@ -88,18 +88,18 @@ namespace Neptuo.Formatters
         /// <param name="deserializer">A deserializer to use.</param>
         /// <param name="input">A serialized input.</param>
         /// <returns>A continuation task containing a deserialized object.</returns>
-        /// <exception cref="GenericDeserializationFailedException">When deserialization was not sucessful.</exception>
+        /// <exception cref="DeserializationFailedException">When deserialization was not sucessful.</exception>
         public static async Task<object> DeserializeAsync(this IGenericDeserializer deserializer, string input)
         {
             using (MemoryStream stream = new MemoryStream(Encoding.UTF8.GetBytes(input)))
             {
-                DefaultGenericDeserializerContext context = new DefaultGenericDeserializerContext();
+                DefaultDeserializerContext context = new DefaultDeserializerContext();
                 bool result = await deserializer.TryDeserializeAsync(stream, context);
                 if (result)
                     return context.Output;
             }
 
-            throw new GenericDeserializationFailedException(input);
+            throw new DeserializationFailedException(input);
         }
     }
 }

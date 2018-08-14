@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// An context information for serializing objects using <see cref="IGenericSerializer"/>.
+    /// An context information for serializing objects using <see cref="ISerializer"/>.
     /// </summary>
-    public interface IGenericSerializerContext
+    public interface ISerializerContext
     {
         /// <summary>
         /// An output for serialization.

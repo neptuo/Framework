@@ -5,17 +5,17 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
     /// Raised when serialization of the input failed.
     /// </summary>
-    public class GenericSerializationFailedException : FormatterException
+    public class SerializationFailedException : FormatterException
     {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public GenericSerializationFailedException()
+        public SerializationFailedException()
             : base("Serialization failed.")
         { }
 
@@ -23,7 +23,7 @@ namespace Neptuo.Formatters
         /// Creates a new instance.
         /// </summary>
         /// <param name="inner">An exception cause.</param>
-        public GenericSerializationFailedException(Exception inner)
+        public SerializationFailedException(Exception inner)
             : base("Serialization failed.", inner)
         { }
 
@@ -32,7 +32,7 @@ namespace Neptuo.Formatters
         /// </summary>
         /// <param name="info">A serialization info.</param>
         /// <param name="context">A streaming context.</param>
-        protected GenericSerializationFailedException(SerializationInfo info, StreamingContext context)
+        protected SerializationFailedException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         { }
     }

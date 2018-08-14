@@ -9,7 +9,7 @@ namespace Neptuo.Formatters
     /// <summary>
     /// A default implementation of <see cref="IDeserializerContext"/>.
     /// </summary>
-    public class DefaultDeserializerContext : DefaultGenericDeserializerContext, IDeserializerContext
+    public class DefaultDeserializerContext : Generics.DefaultDeserializerContext, IDeserializerContext
     {
         public Type OutputType { get; private set; }
 

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
     /// A default implementation of <see cref="IGenericDeserializerContext"/>.
     /// </summary>
-    public class DefaultGenericDeserializerContext : IGenericDeserializerContext
+    public class DefaultDeserializerContext : IGenericDeserializerContext
     {
         public object Output { get; set; }
 

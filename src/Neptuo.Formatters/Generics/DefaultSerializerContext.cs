@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Formatters
+namespace Neptuo.Formatters.Generics
 {
     /// <summary>
-    /// A default implementation of <see cref="IGenericSerializerContext"/>
+    /// A default implementation of <see cref="ISerializerContext"/>
     /// </summary>
-    public class DefaultGenericSerializerContext : IGenericSerializerContext
+    public class DefaultSerializerContext : ISerializerContext
     {
         public Stream Output { get; private set; }
 
@@ -28,7 +28,7 @@ namespace Neptuo.Formatters
             }
         }
 
-        IReadOnlyKeyValueCollection IGenericSerializerContext.Metadata
+        IReadOnlyKeyValueCollection ISerializerContext.Metadata
         {
             get { return Metadata; }
         }
@@ -37,7 +37,7 @@ namespace Neptuo.Formatters
         /// Creates a new instance.
         /// </summary>
         /// <param name="output">A serialization output.</param>
-        public DefaultGenericSerializerContext(Stream output)
+        public DefaultSerializerContext(Stream output)
         {
             Ensure.NotNull(output, "output");
             Output = output;
