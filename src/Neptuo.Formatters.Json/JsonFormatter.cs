@@ -47,10 +47,16 @@ namespace Neptuo.Formatters
         {
             Ensure.NotNull(context, "context");
 
-            //TODO: Catch exceptions.
-            string result = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(input, formatting, settings));
-            using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
-                await writer.WriteAsync(result);
+            try
+            {
+                string result = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(input, formatting, settings));
+                using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
+                    await writer.WriteAsync(result);
+            }
+            catch (JsonException e)
+            {
+                throw new SerializationFailedException(e);
+            }
 
             return true;
         }
@@ -59,10 +65,16 @@ namespace Neptuo.Formatters
         {
             Ensure.NotNull(context, "context");
 
-            //TODO: Catch exceptions.
-            string result = JsonConvert.SerializeObject(input, formatting, settings);
-            using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
-                writer.Write(result);
+            try
+            {
+                string result = JsonConvert.SerializeObject(input, formatting, settings);
+                using (StreamWriter writer = new StreamWriter(context.Output, Encoding.UTF8, 1024, true))
+                    writer.Write(result);
+            }
+            catch (JsonException e)
+            {
+                throw new SerializationFailedException(e);
+            }
 
             return true;
         }
@@ -71,11 +83,17 @@ namespace Neptuo.Formatters
         {
             Ensure.NotNull(context, "context");
 
-            //TODO: Catch exceptions.
-            using (StreamReader reader = new StreamReader(input))
+            try
             {
-                string inputValue = await reader.ReadToEndAsync();
-                context.Output = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(inputValue, context.OutputType, settings));
+                using (StreamReader reader = new StreamReader(input))
+                {
+                    string inputValue = await reader.ReadToEndAsync();
+                    context.Output = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(inputValue, context.OutputType, settings));
+                }
+            }
+            catch (JsonException e)
+            {
+                throw new DeserializationFailedException(context.OutputType, e);
             }
 
             return true;
@@ -85,11 +103,17 @@ namespace Neptuo.Formatters
         {
             Ensure.NotNull(context, "context");
 
-            //TODO: Catch exceptions.
-            using (StreamReader reader = new StreamReader(input))
+            try
             {
-                string inputValue = reader.ReadToEnd();
-                context.Output = JsonConvert.DeserializeObject(inputValue, context.OutputType, settings);
+                using (StreamReader reader = new StreamReader(input))
+                {
+                    string inputValue = reader.ReadToEnd();
+                    context.Output = JsonConvert.DeserializeObject(inputValue, context.OutputType, settings);
+                }
+            }
+            catch (JsonException e)
+            {
+                throw new DeserializationFailedException(context.OutputType, e);
             }
 
             return true;
