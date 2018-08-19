@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// The implementation of <see cref="IFormatter"/> which works on types implementing <see cref="ICompositeModel"/>.
+    /// An implementation of <see cref="IFormatter"/> which works on types implementing <see cref="ICompositeModel"/>.
     /// </summary>
     public class CompositeModelFormatter : IFormatter, ISerializer, IDeserializer
     {
@@ -17,10 +17,10 @@ namespace Neptuo.Formatters
         private readonly IFactory<ICompositeStorage> storageFactory;
 
         /// <summary>
-        /// Creates new instance with factories from model and storages.
+        /// Creates a new instance with factories from model and storages.
         /// </summary>
-        /// <param name="modelFactory">The factory for empty models when deserializing.</param>
-        /// <param name="storageFactory">The factory for empty composite storages.</param>
+        /// <param name="modelFactory">A factory for empty models when deserializing.</param>
+        /// <param name="storageFactory">A factory for empty composite storages.</param>
         public CompositeModelFormatter(Func<Type, object> modelFactory, IFactory<ICompositeStorage> storageFactory)
         {
             Ensure.NotNull(modelFactory, "modelFactory");
