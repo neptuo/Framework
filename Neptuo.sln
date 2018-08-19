@@ -110,19 +110,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Entity
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Formatters", "Formatters", "{C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters", "src\Neptuo.Formatters\Neptuo.Formatters.csproj", "{200D385F-DC27-4695-AACB-B345D9E7917D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters", "src\Neptuo.Formatters\Neptuo.Formatters.csproj", "{200D385F-DC27-4695-AACB-B345D9E7917D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Json", "src\Neptuo.Formatters.Json\Neptuo.Formatters.Json.csproj", "{536384AD-4F85-436A-9FF8-88CE375FD7CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Json", "src\Neptuo.Formatters.Json\Neptuo.Formatters.Json.csproj", "{536384AD-4F85-436A-9FF8-88CE375FD7CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Xml", "src\Neptuo.Formatters.Xml\Neptuo.Formatters.Xml.csproj", "{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Xml", "src\Neptuo.Formatters.Xml\Neptuo.Formatters.Xml.csproj", "{98636A95-D17E-41D5-BE8E-B8857DFB8B5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite", "src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj", "{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite", "src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj", "{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Formatters", "test\UnitTest.Formatters\UnitTest.Formatters.csproj", "{5E6FBC06-2110-47D3-A0E2-ACD99D7E8D41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite.Json", "src\Neptuo.Formatters.Composite.Json\Neptuo.Formatters.Composite.Json.csproj", "{8F0929A3-B0DD-4C95-A465-CE896FCAAA4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite.Json", "src\Neptuo.Formatters.Composite.Json\Neptuo.Formatters.Composite.Json.csproj", "{8F0929A3-B0DD-4C95-A465-CE896FCAAA4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Formatters.Composite.Metadata", "src\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj", "{56D82CBB-6DA5-4986-ACC0-58B27789D374}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite.Metadata", "src\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj", "{56D82CBB-6DA5-4986-ACC0-58B27789D374}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
 EndProject
@@ -148,13 +148,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys", "src\N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Features", "src\Neptuo.Features\Neptuo.Features.csproj", "{69A51DE2-C8FE-4B7C-AAC8-0DC3D374D24B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys.TypeMapping", "src\Neptuo.Models.Keys.TypeMapping\Neptuo.Models.Keys.TypeMapping.csproj", "{6A601E2C-E81C-4218-AB6F-4DED64520D2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.TypeMapping", "src\Neptuo.TypeMapping\Neptuo.TypeMapping.csproj", "{6A601E2C-E81C-4218-AB6F-4DED64520D2B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Keys.Serialization", "src\Neptuo.Models.Keys.Serialization\Neptuo.Models.Keys.Serialization.csproj", "{3066E0BC-E498-4C79-B1A2-6DD9D5B85E85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Observables", "test\UnitTest.Observables\UnitTest.Observables.csproj", "{07EB063B-F3D5-41BB-BEF0-788F3C7773E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSourceLink", "src\TestSourceLink\TestSourceLink.csproj", "{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestSourceLink", "src\TestSourceLink\TestSourceLink.csproj", "{18FEFECA-BBAB-4735-B3CA-B4B7B1FACD54}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -492,7 +492,7 @@ Global
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal

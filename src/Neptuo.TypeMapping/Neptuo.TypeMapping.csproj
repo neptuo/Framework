@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Neptuo.Models.Keys.TypeMapping</Product>
-    <Description>Mapping IKey.Type to classes and etc.</Description>
+    <Product>Neptuo.TypeMapping</Product>
+    <Description>Mapping System.Type to string representation and vice versa.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0-alpha1</Version>
-    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.models.keys.typemapping</PackageLicenseUrl>
-    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.models.keys.typemapping</PackageProjectUrl>
+    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.typemapping</PackageLicenseUrl>
+    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.typemapping</PackageProjectUrl>
     <RootNamespace>Neptuo.Models.Keys</RootNamespace>
   </PropertyGroup>
 

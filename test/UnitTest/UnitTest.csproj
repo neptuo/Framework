@@ -134,9 +134,9 @@
       <Project>{3066e0bc-e498-4c79-b1a2-6dd9d5b85e85}</Project>
       <Name>Neptuo.Models.Keys.Serialization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Models.Keys.TypeMapping\Neptuo.Models.Keys.TypeMapping.csproj">
+    <ProjectReference Include="..\..\src\Neptuo.TypeMapping\Neptuo.TypeMapping.csproj">
       <Project>{6a601e2c-e81c-4218-ab6f-4ded64520d2b}</Project>
-      <Name>Neptuo.Models.Keys.TypeMapping</Name>
+      <Name>Neptuo.TypeMapping</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj">
       <Project>{d49dceff-b129-4cba-a033-4b7b2b0fe86a}</Project>
