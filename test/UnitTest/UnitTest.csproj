@@ -101,7 +101,7 @@
     <Compile Include="Logging\T_Logging_Base.cs" />
     <Compile Include="Logging\_Services.cs" />
     <Compile Include="Models\Keys\KeyCollections.cs" />
-    <Compile Include="Models\Keys\KeyTypeMapping.cs" />
+    <Compile Include="TypeMapping\TypeNameMapping.cs" />
     <Compile Include="Models\T_Models_Keys_Comparing.cs" />
     <Compile Include="Models\T_Models_Keys_KeyToParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,6 +158,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

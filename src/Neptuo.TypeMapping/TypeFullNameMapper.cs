@@ -5,19 +5,19 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Keys
+namespace Neptuo.TypeMapping
 {
     /// <summary>
-    /// An implementation of <see cref="IKeyTypeProvider"/> which uses only <see cref="Type.FullName"/> and lookups in passed single assembly.
+    /// An implementation of <see cref="ITypeNameMapper"/> which uses only <see cref="Type.FullName"/> and lookups in passed assemblies.
     /// </summary>
-    public class TypeFullNameKeyTypeProvider : IKeyTypeProvider
+    public class TypeFullNameMapper : ITypeNameMapper
     {
         private readonly List<Assembly> assemblies;
 
         /// <summary>
         /// Creates a new instance with <see cref="Assembly.GetCallingAssembly()"/>, <see cref="Assembly.GetExecutingAssembly()"/> and <see cref="Assembly.GetEntryAssembly()"/>.
         /// </summary>
-        public TypeFullNameKeyTypeProvider()
+        public TypeFullNameMapper()
             : this(Assembly.GetCallingAssembly(), Assembly.GetExecutingAssembly(), Assembly.GetEntryAssembly())
         { }
 
@@ -25,7 +25,7 @@ namespace Neptuo.Models.Keys
         /// Creates a new instance with <paramref name="assemblies"/>.
         /// </summary>
         /// <param name="assemblies">An enumeration array of assemblies to look for type in.</param>
-        public TypeFullNameKeyTypeProvider(IEnumerable<Assembly> assemblies)
+        public TypeFullNameMapper(IEnumerable<Assembly> assemblies)
         {
             Ensure.NotNull(assemblies, "assemblies");
             this.assemblies = new List<Assembly>(assemblies);
@@ -36,7 +36,7 @@ namespace Neptuo.Models.Keys
         /// Creates a new instance with <paramref name="assemblies"/>.
         /// </summary>
         /// <param name="assemblies">An array of assemblies to look for type in.</param>
-        public TypeFullNameKeyTypeProvider(params Assembly[] assemblies)
+        public TypeFullNameMapper(params Assembly[] assemblies)
         {
             Ensure.NotNull(assemblies, "assemblies");
             this.assemblies = new List<Assembly>(assemblies);
@@ -49,13 +49,13 @@ namespace Neptuo.Models.Keys
                 throw Ensure.Exception.ArgumentOutOfRange("assemblies", "There must be at least one assembly.");
         }
 
-        public bool TryGet(string keyType, out Type type)
+        public bool TryGet(string typeName, out Type type)
         {
-            Ensure.NotNullOrEmpty(keyType, "keyType");
+            Ensure.NotNullOrEmpty(typeName, "typeName");
 
             foreach (Assembly assembly in assemblies)
             {
-                type = assembly.GetType(keyType);
+                type = assembly.GetType(typeName);
                 if (type != null)
                     return true;
             }
@@ -64,10 +64,10 @@ namespace Neptuo.Models.Keys
             return false;
         }
 
-        public bool TryGet(Type type, out string keyType)
+        public bool TryGet(Type type, out string typeName)
         {
             Ensure.NotNull(type, "type");
-            keyType = type.FullName;
+            typeName = type.FullName;
             return true;
         }
     }

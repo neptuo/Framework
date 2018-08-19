@@ -1,24 +1,23 @@
-﻿using Neptuo;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Keys
+namespace Neptuo.TypeMapping
 {
     /// <summary>
-    /// A singleton access to <see cref="IKeyTypeProvider"/>.
+    /// A singleton access to <see cref="ITypeNameMapper"/>.
     /// </summary>
-    public static class KeyTypeProvider
+    public static class TypeNameMapper
     {
         private static readonly object providerLock = new object();
-        private static IKeyTypeProvider provider;
+        private static ITypeNameMapper provider;
 
         /// <summary>
-        /// Gets a singleton key type provider instance.
+        /// Gets a singleton type name provider instance.
         /// </summary>
-        public static IKeyTypeProvider Default
+        public static ITypeNameMapper Default
         {
             get
             {
@@ -27,7 +26,7 @@ namespace Neptuo.Models.Keys
                     lock (providerLock)
                     {
                         if (provider == null)
-                            provider = new AssemblyQualifiedKeyTypeProvider();
+                            provider = new AssemblyQualifiedNameMapper();
                     }
                 }
 
@@ -35,12 +34,12 @@ namespace Neptuo.Models.Keys
             }
         }
 
-        public static void SetProvider(IKeyTypeProvider provider)
+        public static void SetProvider(ITypeNameMapper provider)
         {
             Ensure.NotNull(provider, "provider");
 
             lock (providerLock)
-                KeyTypeProvider.provider = provider;
+                TypeNameMapper.provider = provider;
         }
     }
 }

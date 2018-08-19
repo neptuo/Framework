@@ -5,21 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Keys
+namespace Neptuo.TypeMapping
 {
     [TestClass]
-    public class KeyTypeMapping
+    public class TypeNameMapping
     {
-        private void Test(IKeyTypeProvider provider, Type type, string keyType)
+        private void Test(ITypeNameMapper provider, Type type, string keyType)
             => Assert.AreEqual(provider.Get(type), keyType);
 
-        private void Test(IKeyTypeProvider provider, string keyType, Type type)
+        private void Test(ITypeNameMapper provider, string keyType, Type type)
             => Assert.AreEqual(provider.Get(keyType), type);
 
         [TestMethod]
         public void AssemblyQualified()
         {
-            IKeyTypeProvider provider = new AssemblyQualifiedKeyTypeProvider();
+            ITypeNameMapper provider = new AssemblyQualifiedNameMapper();
             Test(provider, typeof(Model).AssemblyQualifiedName, typeof(Model));
             Test(provider, typeof(Model), typeof(Model).AssemblyQualifiedName);
         }
@@ -27,7 +27,7 @@ namespace Neptuo.Models.Keys
         [TestMethod]
         public void TypeFullName()
         {
-            IKeyTypeProvider provider = new TypeFullNameKeyTypeProvider();
+            ITypeNameMapper provider = new TypeFullNameMapper();
             Test(provider, typeof(Model).FullName, typeof(Model));
             Test(provider, typeof(Model), typeof(Model).FullName);
         }
@@ -35,7 +35,7 @@ namespace Neptuo.Models.Keys
         [TestMethod]
         public void TypeFullNameWithAssembly()
         {
-            IKeyTypeProvider provider = new TypeFullNameWithAssemblyKeyTypeProvider();
+            ITypeNameMapper provider = new TypeFullNameWithAssemblyMapper();
             Test(provider, typeof(Model).FullName + ", " + typeof(Model).Assembly.GetName().Name, typeof(Model));
             Test(provider, typeof(Model), typeof(Model).FullName + ", " + typeof(Model).Assembly.GetName().Name);
         }
@@ -43,7 +43,7 @@ namespace Neptuo.Models.Keys
         [TestMethod]
         public void Manual()
         {
-            IKeyTypeProvider provider = new KeyTypeCollection().AddDual("Model", typeof(Model));
+            ITypeNameMapper provider = new TypeNameCollection().AddDual("Model", typeof(Model));
             Test(provider, "Model", typeof(Model));
             Test(provider, typeof(Model), "Model");
         }
