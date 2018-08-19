@@ -1,6 +1,6 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using Neptuo.Formatters.Metadata;
-using Neptuo.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,6 +20,11 @@ namespace Neptuo.Formatters
         private readonly IFactory<ICompositeStorage> storageFactory;
 
         /// <summary>
+        /// Gets a default version which is ommited from serialization/deserialization process.
+        /// </summary>
+        public const int DefaultVersion = 1;
+
+        /// <summary>
         /// A collection of composite keys.
         /// </summary>
         protected static class Name
@@ -28,11 +33,6 @@ namespace Neptuo.Formatters
             /// Gets a name of the key used for storing values of model.
             /// </summary>
             public const string Payload = "Payload";
-
-            /// <summary>
-            /// Gets a name of the key used for storing a name of the composite type.
-            /// </summary>
-            public const string TypeName = "Name";
 
             /// <summary>
             /// Gets a name of the key used for storing an actual version of the composite type.
@@ -78,10 +78,10 @@ namespace Neptuo.Formatters
 
             int version = (int)type.VersionProperty.Getter(input);
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.InputType);
-            
+
             ICompositeStorage storage = storageFactory.Create();
             bool result = TryStore(input, context, type, typeVersion, storage);
-            
+
             storage.Store(context.Output);
             return result;
         }
@@ -98,8 +98,9 @@ namespace Neptuo.Formatters
         /// <returns><c>true</c> if the <paramref name="input"/> was serialized to the <paramref name="context"/>; <c>false</c> otherwise.</returns>
         protected virtual bool TryStore(object input, ISerializerContext context, CompositeType type, CompositeVersion typeVersion, ICompositeStorage storage)
         {
-            storage.Add(Name.TypeName, type.Name);
-            storage.Add(Name.Version, type.VersionProperty.Getter(input));
+            int version = (int)type.VersionProperty.Getter(input);
+            if (version != DefaultVersion)
+                storage.Add(Name.Version, version);
 
             ICompositeStorage valueStorage = storage.Add(Name.Payload);
             foreach (CompositeProperty property in typeVersion.Properties)
@@ -168,13 +169,11 @@ namespace Neptuo.Formatters
         /// <returns><c>true</c> if object was deserialized; <c>false</c> otherwise.</returns>
         protected virtual bool TryLoad(Stream input, IDeserializerContext context, CompositeType type, ICompositeStorage storage)
         {
-            int version;
-            if (!storage.TryGet(Name.Version, out version))
-                throw new MissingVersionValueException();
+            int version = storage.Get(Name.Version, DefaultVersion);
 
             CompositeVersion typeVersion = GetCompositeVersion(type, version, context.OutputType);
             ICompositeStorage valueStorage;
-            if(!storage.TryGet(Name.Payload, out valueStorage))
+            if (!storage.TryGet(Name.Payload, out valueStorage))
                 throw new MissingPayloadValueException();
 
             List<object> values = new List<object>();
@@ -195,8 +194,9 @@ namespace Neptuo.Formatters
             return true;
         }
 
-        private static readonly string tryGetMethodName = "TryGet";
+        private static readonly string tryGetMethodName = nameof(ICompositeStorage.TryGet);
         private readonly Dictionary<Type, MethodInfo> tryGetCache = new Dictionary<Type, MethodInfo>();
+        private readonly object tryGetCacheLock = new object();
 
         /// <summary>
         /// Tries to load value from <paramref name="storage"/> associated with <paramref name="key"/> of <paramref name="type"/>.
@@ -212,15 +212,21 @@ namespace Neptuo.Formatters
             MethodInfo methodInfo;
             if (!tryGetCache.TryGetValue(type, out methodInfo))
             {
-                methodInfo = storage.GetType().GetMethods().FirstOrDefault(m => m.Name == tryGetMethodName && m.IsGenericMethod);
-                if (methodInfo == null)
+                lock (tryGetCacheLock)
                 {
-                    value = null;
-                    return false;
-                }
+                    if (!tryGetCache.TryGetValue(type, out methodInfo))
+                    {
+                        methodInfo = storage.GetType().GetMethods().FirstOrDefault(m => m.Name == tryGetMethodName && m.IsGenericMethod);
+                        if (methodInfo == null)
+                        {
+                            value = null;
+                            return false;
+                        }
 
-                methodInfo = methodInfo.MakeGenericMethod(type);
-                tryGetCache[type] = methodInfo;
+                        methodInfo = methodInfo.MakeGenericMethod(type);
+                        tryGetCache[type] = methodInfo;
+                    }
+                }
             }
 
             object[] parameters = new object[2] { key, null };
