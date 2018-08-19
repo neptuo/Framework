@@ -21,14 +21,14 @@ namespace Neptuo.Formatters.Generics
         protected static class Name
         {
             /// <summary>
-            /// A name where the name of the type is stored.
+            /// Gets a name of the key used for storing a name of the composite type.
             /// </summary>
-            public const string Type = "Type";
+            public const string TypeName = "Name";
 
             /// <summary>
-            /// A name where the content of instance is stored.
+            /// Gets a name of the key used for storing values of model.
             /// </summary>
-            public const string Body = "Body";
+            public const string Payload = "Payload";
         }
 
         private readonly Func<Type, object> modelFactory;
@@ -65,8 +65,8 @@ namespace Neptuo.Formatters.Generics
             if (!typeNameMapper.TryGet(model.GetType(), out string typeName))
                 return null;
 
-            storage.Add(Name.Type, typeName);
-            ICompositeStorage childStorage = storage.Add(Name.Body);
+            storage.Add(Name.TypeName, typeName);
+            ICompositeStorage childStorage = storage.Add(Name.Payload);
 
             model.Save(childStorage);
             return storage;
@@ -94,11 +94,11 @@ namespace Neptuo.Formatters.Generics
 
         private bool TryDeserializeInternal(IDeserializerContext context, ICompositeStorage storage)
         {
-            string typeName = storage.Get<string>(Name.Type);
+            string typeName = storage.Get<string>(Name.TypeName);
             if (!typeNameMapper.TryGet(typeName, out Type outputType))
                 return false;
 
-            if (!storage.TryGet(Name.Body, out ICompositeStorage childStorage))
+            if (!storage.TryGet(Name.Payload, out ICompositeStorage childStorage))
                 return false;
 
             ICompositeModel model = modelFactory.Invoke(outputType) as ICompositeModel;
