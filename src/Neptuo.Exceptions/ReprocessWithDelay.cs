@@ -10,11 +10,12 @@ namespace Neptuo.Exceptions
     /// <summary>
     /// The exception-safe runner for actions and functions with support for reprocess.
     /// </summary>
-    public class Reprocess : ITryCatch
+    public class ReprocessWithDelay
     {
         private readonly IExceptionHandler<IExceptionHandlerContext> handler;
         private readonly IExceptionHandler greedyHandler;
         private readonly int maxCount;
+        private readonly TimeSpan delay;
 
         /// <summary>
         /// Creates a new instance that uses <paramref name="handler"/> to pass all exceptions to.
@@ -22,26 +23,32 @@ namespace Neptuo.Exceptions
         /// </summary>
         /// <param name="handler">An exception handler.</param>
         /// <param name="maxCount">A maximum count of re-run. Must be positive number.</param>
-        public Reprocess(IExceptionHandler handler, int maxCount)
+        /// <param name="delay">A delay to take between reprocesses.</param>
+        public ReprocessWithDelay(IExceptionHandler handler, int maxCount, TimeSpan delay)
         {
             Ensure.NotNull(handler, "handler");
             Ensure.Positive(maxCount, "maxCount");
+            Ensure.PositiveOrZero(delay.TotalMilliseconds, "delay");
             this.greedyHandler = handler;
             this.maxCount = maxCount;
+            this.delay = delay;
         }
 
         /// <summary>
         /// Creates a new instance that uses <paramref name="handler"/> to determine, which exceptions are reprocessable.
-        /// If the <paramref name="handler"/> marks the exception as handled, the <see cref="Reprocess"/> tries to run the action again; otherwise immediately stops the execetion of action/function.
+        /// If the <paramref name="handler"/> marks the exception as handled, the <see cref="ReprocessWithDelay"/> tries to run the action again; otherwise immediately stops the execetion of action/function.
         /// </summary>
         /// <param name="handler">An exception handler.</param>
         /// <param name="maxCount">A maximum count of re-run. Must be positive number.</param>
-        public Reprocess(IExceptionHandler<IExceptionHandlerContext> handler, int maxCount)
+        /// <param name="delay">A delay to take between reprocesses.</param>
+        public ReprocessWithDelay(IExceptionHandler<IExceptionHandlerContext> handler, int maxCount, TimeSpan delay)
         {
             Ensure.NotNull(handler, "handler");
             Ensure.Positive(maxCount, "maxCount");
+            Ensure.PositiveOrZero(delay.TotalMilliseconds, "delay");
             this.handler = handler;
             this.maxCount = maxCount;
+            this.delay = delay;
         }
 
         private bool IsReprocessable(Exception e, ref int count)
@@ -67,10 +74,11 @@ namespace Neptuo.Exceptions
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// Returns <c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.
+        /// Between every reprocess, a delay is taken.
         /// </summary>
         /// <param name="execute">An action to execute.</param>
         /// <returns><c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.</returns>
-        public bool Run(Action execute)
+        public async Task<bool> RunAsync(Action execute)
         {
             Ensure.NotNull(execute, "execute");
 
@@ -87,6 +95,9 @@ namespace Neptuo.Exceptions
                     if (!IsReprocessable(e, ref count))
                         return false;
                 }
+
+                if (count < maxCount)
+                    await Task.Delay(delay);
             }
 
             return false;
@@ -95,6 +106,7 @@ namespace Neptuo.Exceptions
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// Returns <c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.
+        /// Between every reprocess, a delay is taken.
         /// </summary>
         /// <param name="execute">An action to execute.</param>
         /// <returns><c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.</returns>
@@ -115,52 +127,22 @@ namespace Neptuo.Exceptions
                     if (!IsReprocessable(e, ref count))
                         return false;
                 }
+
+                if (count < maxCount)
+                    await Task.Delay(delay);
             }
 
-            return false;
-        }
-
-        /// <summary>
-        /// Wraps execution of an <paramref name="execute"/> with try-catch.
-        /// The <paramref name="result"/> is set to a result of the <paramref name="execute"/> after successfull execution or to <c>default(T)</c> after exception.
-        /// Returns <c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.
-        /// </summary>
-        /// <param name="execute">An action to execute.</param>
-        /// <param name="result">A result from the <paramref name="execute"/>.</param>
-        /// <returns><c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.</returns>
-        public bool Run<T>(Func<T> execute, out T result)
-        {
-            Ensure.NotNull(execute, "execute");
-
-            int count = 0;
-            while (count < maxCount)
-            {
-                try
-                {
-                    result = execute();
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    if (!IsReprocessable(e, ref count))
-                    {
-                        result = default;
-                        return false;
-                    }
-                }
-            }
-
-            result = default;
             return false;
         }
 
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// Returns result from the <paramref name="execute"/> (within the max count of re-run) or <c>default(T)</c> after exception.
+        /// Between every reprocess, a delay is taken.
         /// </summary>
         /// <param name="execute">An action to execute.</param>
         /// <returns>Result from the <paramref name="execute"/> or <c>default(T)</c> after exception.</returns>
-        public T Run<T>(Func<T> execute)
+        public async Task<T> RunAsync<T>(Func<T> execute)
         {
             Ensure.NotNull(execute, "execute");
 
@@ -176,6 +158,9 @@ namespace Neptuo.Exceptions
                     if (!IsReprocessable(e, ref count))
                         return default;
                 }
+
+                if (count < maxCount)
+                    await Task.Delay(delay);
             }
 
             return default;
@@ -184,6 +169,7 @@ namespace Neptuo.Exceptions
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// Returns result from the <paramref name="execute"/> (within the max count of re-run) or <c>default(T)</c> after exception.
+        /// Between every reprocess, a delay is taken.
         /// </summary>
         /// <param name="execute">An action to execute.</param>
         /// <returns>Result from the <paramref name="execute"/> or <c>default(T)</c> after exception.</returns>
@@ -203,6 +189,9 @@ namespace Neptuo.Exceptions
                     if (!IsReprocessable(e, ref count))
                         return default;
                 }
+
+                if (count < maxCount)
+                    await Task.Delay(delay);
             }
 
             return default;
