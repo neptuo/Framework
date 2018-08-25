@@ -36,6 +36,28 @@ namespace Neptuo.Exceptions
         }
 
         [TestMethod]
+        public void RunActionAsync()
+        {
+            handler.Count = 0;
+
+            bool state = Reprocess.RunAsync(async () =>
+            {
+                await Task.Delay(50);
+                throw new InvalidOperationException();
+            }).Result;
+            Assert.AreEqual(false, state);
+            Assert.AreEqual(3, handler.Count);
+
+            state = Reprocess.RunAsync(async () =>
+            {
+                await Task.Delay(50);
+                Console.WriteLine("Hello, World!");
+            }).Result;
+            Assert.AreEqual(true, state);
+            Assert.AreEqual(3, handler.Count);
+        }
+
+        [TestMethod]
         public void RunActionFailFailSuccess()
         {
             handler.Count = 0;
@@ -66,8 +88,10 @@ namespace Neptuo.Exceptions
             Assert.AreEqual(3, handler.Count);
         }
 
-        private string ThrowException()
+        private string ThrowException() => throw new InvalidOperationException();
+        private async Task<string> ThrowExceptionAsync()
         {
+            await Task.Delay(50);
             throw new InvalidOperationException();
         }
 
@@ -81,6 +105,26 @@ namespace Neptuo.Exceptions
             Assert.AreEqual(0, handler.Count);
 
             result = Reprocess.Run(ThrowException);
+            Assert.AreEqual(default(string), result);
+            Assert.AreEqual(3, handler.Count);
+        }
+
+        [TestMethod]
+        public void RunFuncWithReturnValueAsync()
+        {
+            handler.Count = 0;
+
+            Func<Task<string>> execute = async () =>
+            {
+                await Task.Delay(50);
+                return "Hello, World!";
+            };
+
+            string result = Reprocess.RunAsync(execute).Result;
+            Assert.AreEqual("Hello, World!", result);
+            Assert.AreEqual(0, handler.Count);
+
+            result = Reprocess.RunAsync(ThrowExceptionAsync).Result;
             Assert.AreEqual(default(string), result);
             Assert.AreEqual(3, handler.Count);
         }

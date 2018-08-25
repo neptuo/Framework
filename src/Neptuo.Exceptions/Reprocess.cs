@@ -94,6 +94,34 @@ namespace Neptuo.Exceptions
 
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
+        /// Returns <c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.
+        /// </summary>
+        /// <param name="execute">An action to execute.</param>
+        /// <returns><c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.</returns>
+        public async Task<bool> RunAsync(Func<Task> execute)
+        {
+            Ensure.NotNull(execute, "execute");
+
+            int count = 0;
+            while (count < maxCount)
+            {
+                try
+                {
+                    await execute();
+                    return true;
+                }
+                catch (Exception e)
+                {
+                    if (!IsReprocessable(e, ref count))
+                        return false;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// The <paramref name="result"/> is set to a result of the <paramref name="execute"/> after successfull execution or to <c>default(T)</c> after exception.
         /// Returns <c>true</c> if execution was successfull (within the max count of re-run); <c>false</c> otherwise.
         /// </summary>
@@ -142,6 +170,33 @@ namespace Neptuo.Exceptions
                 try
                 {
                     return execute();
+                }
+                catch (Exception e)
+                {
+                    if (!IsReprocessable(e, ref count))
+                        return default;
+                }
+            }
+
+            return default;
+        }
+
+        /// <summary>
+        /// Wraps execution of an <paramref name="execute"/> with try-catch.
+        /// Returns result from the <paramref name="execute"/> or <c>default(T)</c> after exception.
+        /// </summary>
+        /// <param name="execute">An action to execute.</param>
+        /// <returns>Result from the <paramref name="execute"/> or <c>default(T)</c> after exception.</returns>
+        public async Task<T> RunAsync<T>(Func<Task<T>> execute)
+        {
+            Ensure.NotNull(execute, "execute");
+
+            int count = 0;
+            while (count < maxCount)
+            {
+                try
+                {
+                    return await execute();
                 }
                 catch (Exception e)
                 {
