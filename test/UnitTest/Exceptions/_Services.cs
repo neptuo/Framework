@@ -44,22 +44,6 @@ namespace Neptuo.Exceptions
         }
     }
 
-    public class MultiHandler : IExceptionHandler<AggregateRootException>, IExceptionHandler<ArgumentException>
-    {
-        public int AggregateRootCount { get; private set; }
-        public int ArgumentCount { get; private set; }
-
-        public void Handle(AggregateRootException exception)
-        {
-            AggregateRootCount++;
-        }
-
-        public void Handle(ArgumentException exception)
-        {
-            ArgumentCount++;
-        }
-    }
-
     public class AnyHandler : IExceptionHandler<Exception>
     {
         public int Count { get; set; }
