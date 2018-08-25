@@ -97,6 +97,7 @@
     <Compile Include="Exceptions\EnsureExceptionTest.cs" />
     <Compile Include="Exceptions\T_Exceptions_Builder.cs" />
     <Compile Include="Exceptions\T_Exceptions_HandlerContext.cs" />
+    <Compile Include="Exceptions\T_Exceptions_Reprocess.cs" />
     <Compile Include="Exceptions\T_Exceptions_Rethrow.cs" />
     <Compile Include="Exceptions\T_Exceptions_TryCatch.cs" />
     <Compile Include="Exceptions\_Services.cs" />
