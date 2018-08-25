@@ -31,7 +31,7 @@ namespace Neptuo.Formatters.Generics
             public const string Payload = "Payload";
         }
 
-        private readonly Func<Type, object> modelFactory;
+        private readonly IFactory<Type, object> modelFactory;
         private readonly IFactory<ICompositeStorage> storageFactory;
         private readonly ITypeNameMapper typeNameMapper;
 
@@ -41,7 +41,7 @@ namespace Neptuo.Formatters.Generics
         /// <param name="modelFactory">A factory for empty models when deserializing.</param>
         /// <param name="storageFactory">A factory for empty composite storages.</param>
         /// <param name="typeNameMapper">A type name mapper.</param>
-        public CompositeModelFormatter(Func<Type, object> modelFactory, IFactory<ICompositeStorage> storageFactory, ITypeNameMapper typeNameMapper)
+        public CompositeModelFormatter(IFactory<Type, object> modelFactory, IFactory<ICompositeStorage> storageFactory, ITypeNameMapper typeNameMapper)
         {
             Ensure.NotNull(modelFactory, "modelFactory");
             Ensure.NotNull(storageFactory, "storageFactory");
@@ -101,7 +101,7 @@ namespace Neptuo.Formatters.Generics
             if (!storage.TryGet(Name.Payload, out ICompositeStorage childStorage))
                 return false;
 
-            ICompositeModel model = modelFactory.Invoke(outputType) as ICompositeModel;
+            ICompositeModel model = modelFactory.Create(outputType) as ICompositeModel;
             if (model == null)
                 return false;
 
