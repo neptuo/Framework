@@ -26,14 +26,33 @@ namespace Neptuo.Exceptions
         {
             handler.Count = 0;
 
-            bool state = tryCatch.Run(() =>
-            {
-                throw new InvalidOperationException();
-            });
+            bool state = tryCatch.Run(() => throw new InvalidOperationException());
             Assert.AreEqual(false, state);
             Assert.AreEqual(1, handler.Count);
 
             state = tryCatch.Run(() => Console.WriteLine("Hello, World!"));
+            Assert.AreEqual(true, state);
+            Assert.AreEqual(1, handler.Count);
+        }
+
+        [TestMethod]
+        public void RunActionAsync()
+        {
+            handler.Count = 0;
+
+            bool state = tryCatch.RunAsync(async () =>
+            {
+                await Task.Delay(50);
+                throw new InvalidOperationException();
+            }).Result;
+            Assert.AreEqual(false, state);
+            Assert.AreEqual(1, handler.Count);
+
+            state = tryCatch.RunAsync(async () =>
+            {
+                await Task.Delay(50);
+                Console.WriteLine("Hello, World!");
+            }).Result;
             Assert.AreEqual(true, state);
             Assert.AreEqual(1, handler.Count);
         }
@@ -49,10 +68,7 @@ namespace Neptuo.Exceptions
             Assert.AreEqual("Hello, World!", result);
             Assert.AreEqual(0, handler.Count);
 
-            state = tryCatch.Run(() =>
-            {
-                throw new InvalidOperationException();
-            }, out result);
+            state = tryCatch.Run(() => throw new InvalidOperationException(), out result);
             Assert.AreEqual(false, state);
             Assert.AreEqual(default(string), result);
             Assert.AreEqual(1, handler.Count);
@@ -62,7 +78,7 @@ namespace Neptuo.Exceptions
         public void RunFuncWithReturnValue()
         {
             handler.Count = 0;
-
+            
             string result = tryCatch.Run(() => "Hello, World!");
             Assert.AreEqual("Hello, World!", result);
             Assert.AreEqual(0, handler.Count);
@@ -72,8 +88,30 @@ namespace Neptuo.Exceptions
             Assert.AreEqual(1, handler.Count);
         }
 
-        private string ThrowException()
+        [TestMethod]
+        public void RunFuncWithReturnValueAsync()
         {
+            handler.Count = 0;
+
+            Func<Task<string>> execute = async () =>
+            {
+                await Task.Delay(50);
+                return "Hello, World!";
+            };
+
+            string result = tryCatch.RunAsync(execute).Result;
+            Assert.AreEqual("Hello, World!", result);
+            Assert.AreEqual(0, handler.Count);
+
+            result = tryCatch.RunAsync(ThrowExceptionAsync).Result;
+            Assert.AreEqual(default(string), result);
+            Assert.AreEqual(1, handler.Count);
+        }
+
+        private string ThrowException() => throw new InvalidOperationException();
+        private async Task<string> ThrowExceptionAsync()
+        {
+            await Task.Delay(50);
             throw new InvalidOperationException();
         }
 

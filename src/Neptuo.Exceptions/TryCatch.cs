@@ -1,5 +1,4 @@
-﻿using Neptuo;
-using Neptuo.Exceptions.Handlers;
+﻿using Neptuo.Exceptions.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +51,28 @@ namespace Neptuo.Exceptions
 
         /// <summary>
         /// Wraps execution of an <paramref name="execute"/> with try-catch.
+        /// Returns <c>true</c> if execution was successfull (without exception); <c>false</c> otherwise.
+        /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
+        /// </summary>
+        /// <param name="execute">An action to execute.</param>
+        /// <returns><c>true</c> if execution was successfull (without exception); <c>false</c> otherwise.</returns>
+        public async Task<bool> RunAsync(Func<Task> execute)
+        {
+            Ensure.NotNull(execute, "execute");
+            try
+            {
+                await execute();
+                return true;
+            }
+            catch (Exception e)
+            {
+                handler.Handle(e);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Wraps execution of an <paramref name="execute"/> with try-catch.
         /// The <paramref name="result"/> is set a result of the <paramref name="execute"/> after successfull execution or to <c>default(T)</c> after exception.
         /// Returns <c>true</c> if execution was successfull (without exception); <c>false</c> otherwise.
         /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
@@ -70,7 +91,7 @@ namespace Neptuo.Exceptions
             catch (Exception e)
             {
                 handler.Handle(e);
-                result = default(T);
+                result = default;
                 return false;
             }
         }
@@ -92,10 +113,30 @@ namespace Neptuo.Exceptions
             catch (Exception e)
             {
                 handler.Handle(e);
-                return default(T);
+                return default;
             }
         }
 
+        /// <summary>
+        /// Wraps execution of an <paramref name="execute"/> with try-catch.
+        /// Returns result from the <paramref name="execute"/> or <c>default(T)</c> after exception.
+        /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
+        /// </summary>
+        /// <param name="execute">An action to execute.</param>
+        /// <returns>Result from the <paramref name="execute"/> or <c>default(T)</c> after exception.</returns>
+        public async Task<T> RunAsync<T>(Func<Task<T>> execute)
+        {
+            Ensure.NotNull(execute, "execute");
+            try
+            {
+                return await execute();
+            }
+            catch (Exception e)
+            {
+                handler.Handle(e);
+                return default;
+            }
+        }
 
         /// <summary>
         /// Wraps <paramref name="execute"/> with a delegate containing try-catch block.
