@@ -28,5 +28,21 @@ namespace Neptuo.Exceptions.Handlers
             handler.Handle(context);
             return context.IsHandled;
         }
+
+        /// <summary>
+        /// Tries to handle <paramref name="exception"/> using <paramref name="handler"/>.
+        /// If the <paramref name="handler"/> marks the context as handled, returns <c>true</c>; otherwise returns <c>false</c>.
+        /// </summary>
+        /// <typeparam name="T">A type of the exception.</typeparam>
+        /// <param name="handler">A handler to use.</param>
+        /// <param name="exception">An exception to handle.</param>
+        /// <returns>If the <paramref name="handler"/> marks the context as handled, returns <c>true</c>; otherwise returns <c>false</c>.</returns>
+        public static bool TryHandle(this IExceptionHandler<IExceptionHandlerContext> handler, Exception exception)
+        {
+            Ensure.NotNull(handler, "handler");
+            IExceptionHandlerContext context = new DefaultExceptionHandlerContext(exception);
+            handler.Handle(context);
+            return context.IsHandled;
+        }
     }
 }
