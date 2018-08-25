@@ -10,7 +10,7 @@ namespace Neptuo.Exceptions
     /// <summary>
     /// The exception-safe runner for actions and functions with support for reprocess.
     /// </summary>
-    public class Reprocess
+    public class Reprocess : ITryCatch
     {
         private readonly IExceptionHandler<IExceptionHandlerContext> handler;
         private readonly IExceptionHandler greedyHandler;

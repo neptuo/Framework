@@ -12,7 +12,7 @@ namespace Neptuo.Exceptions
     /// <summary>
     /// The exception-safe runner for actions and functions.
     /// </summary>
-    public class TryCatch
+    public class TryCatch : ITryCatch
     {
         private readonly IExceptionHandler handler;
 
