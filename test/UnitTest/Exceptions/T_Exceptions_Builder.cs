@@ -51,5 +51,21 @@ namespace Neptuo.Exceptions
             Assert.AreEqual(1, handler3.CallCount);
             Assert.AreEqual(2, handler4.CallCount);
         }
+
+        [TestMethod]
+        public void Ignore()
+        {
+            ExceptionHandlerBuilder builder = new ExceptionHandlerBuilder();
+            ArgumentExceptionHandler handler = new ArgumentExceptionHandler();
+
+            builder.Ignore();
+            builder.Handler(handler);
+
+            IExceptionHandlerCollection collection = new DefaultExceptionHandlerCollection()
+                .Add(builder);
+
+            collection.Handle(new ArgumentException("X"));
+            Assert.AreEqual(0, handler.CallCount);
+        }
     }
 }
