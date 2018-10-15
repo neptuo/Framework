@@ -1,5 +1,4 @@
-﻿using Neptuo;
-using Neptuo.Collections.Specialized;
+﻿using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,7 +62,10 @@ namespace Neptuo.Exceptions.Handlers
         private readonly List<Func<T, bool>> filters = new List<Func<T, bool>>();
         private readonly List<IExceptionHandler<IExceptionHandlerContext<T>>> handlers = new List<IExceptionHandler<IExceptionHandlerContext<T>>>();
 
-        protected List<IExceptionHandler<IExceptionHandlerContext>> ChildHandlers = new List<IExceptionHandler<IExceptionHandlerContext>>();
+        /// <summary>
+        /// A collection of child handlers.
+        /// </summary>
+        protected readonly List<IExceptionHandler<IExceptionHandlerContext>> ChildHandlers = new List<IExceptionHandler<IExceptionHandlerContext>>();
 
         internal ExceptionHandlerBuilder()
         { }

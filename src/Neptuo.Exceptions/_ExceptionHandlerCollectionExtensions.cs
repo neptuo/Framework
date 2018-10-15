@@ -1,4 +1,5 @@
-﻿using Neptuo.Exceptions.Handlers;
+﻿using Neptuo;
+using Neptuo.Exceptions.Handlers;
 using Neptuo.Exceptions.Internals;
 using System;
 using System.Collections.Generic;
