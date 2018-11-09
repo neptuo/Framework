@@ -79,6 +79,8 @@ namespace Neptuo.Converters
 
                 if (inner != null)
                     return new DefaultConverterRepository(inner, exceptionHandler);
+
+                return new DefaultConverterRepository(exceptionHandler);
             }
 
             throw Ensure.Exception.NotImplemented("Invalid state of the 'DefaultConverterRepositoryBuilder'.");
