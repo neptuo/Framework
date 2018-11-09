@@ -4,4 +4,4 @@ This repository contains base framework libraries which are used as mscorlib ext
 
 ### Appveyor
 
-![Build Status](https://ci.appveyor.com/api/projects/status/56doggb3eaqxxqtq?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/56doggb3eaqxxqtq?svg=true)](https://ci.appveyor.com/project/Neptuo/framework)
