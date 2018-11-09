@@ -46,7 +46,7 @@ namespace Neptuo.Formatters
         public async Task<bool> TrySerializeAsync(object input, ISerializerContext context)
         {
             Ensure.NotNull(context, "context");
-
+            
             try
             {
                 string result = await Task.Factory.StartNew(() => JsonConvert.SerializeObject(input, formatting, settings));
@@ -55,7 +55,7 @@ namespace Neptuo.Formatters
             }
             catch (JsonException e)
             {
-                throw new SerializationFailedException(e);
+                throw SerializationFailed(input, e);
             }
 
             return true;
@@ -73,27 +73,31 @@ namespace Neptuo.Formatters
             }
             catch (JsonException e)
             {
-                throw new SerializationFailedException(e);
+                throw SerializationFailed(input, e);
             }
 
             return true;
         }
 
+        private static SerializationFailedException SerializationFailed(object input, JsonException e)
+            => new SerializationFailedException(input?.GetType() ?? typeof(object), e);
+
         public async Task<bool> TryDeserializeAsync(Stream input, IDeserializerContext context)
         {
             Ensure.NotNull(context, "context");
 
+            string inputValue = null;
             try
             {
                 using (StreamReader reader = new StreamReader(input))
                 {
-                    string inputValue = await reader.ReadToEndAsync();
+                    inputValue = await reader.ReadToEndAsync();
                     context.Output = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(inputValue, context.OutputType, settings));
                 }
             }
             catch (JsonException e)
             {
-                throw new DeserializationFailedException(context.OutputType, e);
+                throw DeserializationFailed(context, inputValue, e);
             }
 
             return true;
@@ -103,20 +107,24 @@ namespace Neptuo.Formatters
         {
             Ensure.NotNull(context, "context");
 
+            string inputValue = null;
             try
             {
                 using (StreamReader reader = new StreamReader(input))
                 {
-                    string inputValue = reader.ReadToEnd();
+                    inputValue = reader.ReadToEnd();
                     context.Output = JsonConvert.DeserializeObject(inputValue, context.OutputType, settings);
                 }
             }
             catch (JsonException e)
             {
-                throw new DeserializationFailedException(context.OutputType, e);
+                throw DeserializationFailed(context, inputValue, e);
             }
 
             return true;
         }
+
+        private static DeserializationFailedException DeserializationFailed(IDeserializerContext context, string inputValue, JsonException e)
+            => new DeserializationFailedException(context.OutputType, inputValue ?? "<unknown>", e);
     }
 }

@@ -85,17 +85,18 @@ namespace Neptuo.Formatters.Generics
         {
             Ensure.NotNull(context, "context");
 
+            string inputValue = null;
             try
             {
                 using (StreamReader reader = new StreamReader(input))
                 {
-                    string inputValue = await reader.ReadToEndAsync();
+                    inputValue = await reader.ReadToEndAsync();
                     context.Output = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject(inputValue, settings));
                 }
             }
             catch (JsonException e)
             {
-                throw new DeserializationFailedException(e);
+                throw DeserializationFailed(inputValue, e);
             }
 
             return true;
@@ -105,20 +106,24 @@ namespace Neptuo.Formatters.Generics
         {
             Ensure.NotNull(context, "context");
 
+            string inputValue = null;
             try
             {
                 using (StreamReader reader = new StreamReader(input))
                 {
-                    string inputValue = reader.ReadToEnd();
+                    inputValue = reader.ReadToEnd();
                     context.Output = JsonConvert.DeserializeObject(inputValue, settings);
                 }
             }
             catch (JsonException e)
             {
-                throw new DeserializationFailedException(e);
+                throw DeserializationFailed(inputValue, e);
             }
 
             return true;
         }
+
+        private static DeserializationFailedException DeserializationFailed(string inputValue, JsonException e)
+            => new DeserializationFailedException(inputValue ?? "<unknown>", e);
     }
 }
