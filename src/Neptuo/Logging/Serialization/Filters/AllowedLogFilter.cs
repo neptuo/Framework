@@ -11,6 +11,11 @@ namespace Neptuo.Logging.Serialization.Filters
     /// </summary>
     public class AllowedLogFilter : ILogFilter
     {
+        /// <summary>
+        /// Gets a singleton.
+        /// </summary>
+        public static AllowedLogFilter Instance { get; } = new AllowedLogFilter();
+
         public bool IsEnabled(string scopeName, LogLevel level)
         {
             return true;

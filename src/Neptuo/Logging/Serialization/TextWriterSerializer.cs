@@ -24,7 +24,7 @@ namespace Neptuo.Logging.Serialization
         /// </summary>
         /// <param name="output">Serializer output writer.</param>
         public TextWriterSerializer(TextWriter output)
-            : this(output, new DefaultLogFormatter(), new AllowedLogFilter())
+            : this(output, DefaultLogFormatter.Instance, AllowedLogFilter.Instance)
         { }
 
         /// <summary>

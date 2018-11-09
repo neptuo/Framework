@@ -25,13 +25,13 @@ namespace Neptuo.Logging
         {
             Ensure.NotNull(logFactory, "logFactory");
 
-            ILogSerializer serializer;
-            if (formatter == null)
-                serializer = new ConsoleSerializer();
-            else
-                serializer = new ConsoleSerializer(formatter, filter ?? new AllowedLogFilter());
+            if (filter == null)
+                filter = AllowedLogFilter.Instance;
 
-            return logFactory.AddSerializer(serializer);
+            if (formatter == null)
+                formatter = DefaultLogFormatter.Instance;
+
+            return logFactory.AddSerializer(new ConsoleSerializer(formatter, filter));
         }
 
         /// <summary>
@@ -45,13 +45,13 @@ namespace Neptuo.Logging
         {
             Ensure.NotNull(logFactory, "logFactory");
 
-            ILogSerializer serializer;
-            if (formatter == null)
-                serializer = new TraceSerializer();
-            else
-                serializer = new TraceSerializer(formatter, filter ?? new AllowedLogFilter());
+            if (filter == null)
+                filter = AllowedLogFilter.Instance;
 
-            return logFactory.AddSerializer(serializer);
+            if (formatter == null)
+                formatter = DefaultLogFormatter.Instance;
+
+            return logFactory.AddSerializer(new TraceSerializer(formatter, filter));
         }
     }
 }
