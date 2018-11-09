@@ -30,6 +30,8 @@ namespace Neptuo.Converters
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
+            TestConvertersBase.ClearRepository();
+
             Converts.Repository
                 .Add<string, int>(Int32.TryParse)
                 .AddSearchHandler(TryGetConverter)

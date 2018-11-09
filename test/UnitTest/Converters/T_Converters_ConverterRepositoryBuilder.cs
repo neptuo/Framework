@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Converters
 {
     [TestClass]
-    public class T_Converters_ConverterRepositoryBuilder
+    public class T_Converters_ConverterRepositoryBuilder : TestConvertersBase
     {
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]

@@ -85,8 +85,9 @@ namespace Neptuo.Localization
                 "*.txt"
             );
 
-            string rootPath = @"C:\\Temp\\Localization";
-            Assert.AreEqual(true, Directory.Exists(rootPath));
+            string rootPath = @"C:\Temp2\Localization2";
+            if (!Directory.Exists(rootPath))
+                Directory.CreateDirectory(rootPath);
 
             File.WriteAllText(Path.Combine(rootPath, "en-US.txt"), "Hello, World!=Hello, World!");
             File.WriteAllText(Path.Combine(rootPath, "cs-CZ.txt"), "Hello, World!=Ahoj všichni!");

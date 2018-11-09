@@ -29,6 +29,7 @@ namespace Neptuo.Reflection
                     .AddHandler(t => result.AppendLine(t.FullName));
             }
 
+            Directory.CreateDirectory("C:/Temp/");
             File.WriteAllText("C:/Temp/Files.txt", result.ToString());
         }
 

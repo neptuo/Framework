@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Neptuo.Converters
 {
     [TestClass]
-    public class T_Converters_ExceptionHandling
+    public class T_Converters_ExceptionHandling : TestConvertersBase
     {
         [TestMethod]
         [ExpectedException(typeof(FormatException))]
