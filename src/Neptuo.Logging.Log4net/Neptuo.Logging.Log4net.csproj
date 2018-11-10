@@ -19,5 +19,4 @@
     <PackageReference Include="log4net" version="2.0.3" />
   </ItemGroup>
 
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>

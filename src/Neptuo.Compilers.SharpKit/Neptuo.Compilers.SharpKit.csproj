@@ -22,5 +22,4 @@
     <PackageReference Include="System.CodeDom" Version="4.4.0" />
   </ItemGroup>
 
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>

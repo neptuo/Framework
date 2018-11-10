@@ -11,5 +11,4 @@
     <PackageTags>Neptuo SourceLink</PackageTags>
   </PropertyGroup>
 
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>

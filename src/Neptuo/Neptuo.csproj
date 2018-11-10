@@ -11,6 +11,5 @@
     <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo</PackageLicenseUrl>
     <PackageTags>Neptuo</PackageTags>
   </PropertyGroup>
-
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
+  
 </Project>

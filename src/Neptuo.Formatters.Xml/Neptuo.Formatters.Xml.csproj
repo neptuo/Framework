@@ -18,5 +18,4 @@
     <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
   </ItemGroup>
 
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
 </Project>
