@@ -9,4 +9,6 @@ platform: Any CPU
 before_build:
 - cmd: dotnet restore Neptuo.sln
 build:
-  verbosity: quiet
+  verbosity: normal
+test_script:
+- cmd: dotnet test .\test\UnitTest\UnitTest.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
