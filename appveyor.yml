@@ -6,9 +6,7 @@ skip_tags: true
 image: Visual Studio 2017
 configuration: Release
 platform: Any CPU
-before_build:
-- cmd: dotnet restore Neptuo.sln
-build:
-  verbosity: normal
+build_script:
+- cmd: dotnet build Neptuo.sln -c Release
 test_script:
 - cmd: dotnet test .\test\UnitTest\UnitTest.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
