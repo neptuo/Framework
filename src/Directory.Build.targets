@@ -1,13 +1,21 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project>
 
   <PropertyGroup>
     <Company>Neptuo</Company>
     <Authors>Neptuo</Authors>
     <RepositoryUrl>https://github.com/neptuo/Framework</RepositoryUrl>
+    <LangVersion>latest</LangVersion>
+
+    <PackageIcon>https://apps.neptuo.com/icon.jpg</PackageIcon>
+    <PackageLicenseUrl Condition="$(PackageLicenseUrl) == ''">$(PackageProjectUrl)</PackageLicenseUrl>
+
+    <!-- Versions -->
+    <AssemblyVersion Condition="$(AssemblyVersion) == ''">$(Version).0</AssemblyVersion>
+    <FileVersion Condition="$(FileVersion) == ''">$(Version).0</FileVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(Configuration) == 'Release'">
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <LangVersion>latest</LangVersion>
-    <PackageIcon>https://apps.neptuo.com/icon.jpg</PackageIcon>
 
     <!-- SourceLink -->
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
