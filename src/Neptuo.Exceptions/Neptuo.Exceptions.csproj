@@ -6,7 +6,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>2.0.0</VersionPrefix>
     <VersionSuffix>alpha1</VersionSuffix>
-    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.exceptions</PackageProjectUrl>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.exceptions</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

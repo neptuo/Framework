@@ -5,7 +5,7 @@
     <Description>Compilers abstractions. Contains implementation for System.CodeDom.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>1.0.0</VersionPrefix>
-    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.compilers</PackageProjectUrl>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.compilers</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

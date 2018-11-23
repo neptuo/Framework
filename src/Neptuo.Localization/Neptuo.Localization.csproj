@@ -5,7 +5,7 @@
     <Description>Support for localization based on dictionaries and culture info.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>2.0.0</VersionPrefix>
-    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.localization</PackageProjectUrl>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.localization</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>

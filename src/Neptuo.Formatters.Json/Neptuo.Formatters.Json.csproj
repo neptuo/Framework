@@ -6,7 +6,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>2.0.0</VersionPrefix>
     <VersionSuffix>alpha1</VersionSuffix>
-    <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.json</PackageProjectUrl>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.formatters.json</PackageProjectUrl>
     <PackageTags>Neptuo Formatters Json</PackageTags>
     <RootNamespace>Neptuo.Formatters</RootNamespace>
   </PropertyGroup>
