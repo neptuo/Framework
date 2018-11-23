@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Product>Neptuo</Product>
     <Description>Common utils by Neptuo.</Description>
-    <Version>6.0.1</Version>
+    <VersionPrefix>6.0.1</VersionPrefix>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo</PackageProjectUrl>
     <PackageTags>Neptuo</PackageTags>

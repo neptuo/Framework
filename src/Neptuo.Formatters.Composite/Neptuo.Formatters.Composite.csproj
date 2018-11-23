@@ -4,8 +4,8 @@
     <Product>Neptuo.Formatters.Composite</Product>
     <Description>Implementation of Neptuo.Formatters with support for immutable and versioned objects.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <Version>3.0.0-alpha1</Version>
+    <VersionPrefix>3.0.0</VersionPrefix>
+    <VersionSuffix>alpha1</VersionSuffix>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageProjectUrl>
     <PackageTags>Neptuo Formatters Composite</PackageTags>
     <RootNamespace>Neptuo.Formatters</RootNamespace>

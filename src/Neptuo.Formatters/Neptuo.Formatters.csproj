@@ -4,8 +4,8 @@
     <Product>Neptuo.Formatters</Product>
     <Description>Serialization and deserialization formatters for Neptuo.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <Version>3.0.0-alpha1</Version>
+    <VersionPrefix>3.0.0</VersionPrefix>
+    <VersionSuffix>alpha1</VersionSuffix>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters</PackageProjectUrl>
     <PackageTags>Neptuo Formatters</PackageTags>
   </PropertyGroup>
