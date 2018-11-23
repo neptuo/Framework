@@ -5,10 +5,8 @@
     <Description>Newtonsoft.Json storage implementation for Neptuo.Formatters.Composite.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
     <Version>3.0.0-alpha1</Version>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.json</PackageProjectUrl>
-    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.json</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Json</PackageTags>
     <RootNamespace>Neptuo.Formatters</RootNamespace>
   </PropertyGroup>

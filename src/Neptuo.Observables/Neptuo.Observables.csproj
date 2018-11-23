@@ -4,10 +4,7 @@
     <Product>Neptuo.Observables</Product>
     <Description>Observable objects, collections and commands.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
     <Version>2.0.0</Version>
-    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.observables</PackageLicenseUrl>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.observables</PackageProjectUrl>
   </PropertyGroup>
 

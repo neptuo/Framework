@@ -4,10 +4,7 @@
     <Product>Neptuo.Behaviors</Product>
     <Description>Generic (compilable) interception pipeline.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
     <Version>2.0.0</Version>
-    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.behaviors</PackageLicenseUrl>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.behaviors</PackageProjectUrl>
   </PropertyGroup>
 

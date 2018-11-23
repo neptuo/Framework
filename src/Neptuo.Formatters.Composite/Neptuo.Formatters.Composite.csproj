@@ -5,10 +5,8 @@
     <Description>Implementation of Neptuo.Formatters with support for immutable and versioned objects.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
     <Version>3.0.0-alpha1</Version>
     <PackageProjectUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageProjectUrl>
-    <PackageLicenseUrl>http://www.neptuo.com/project/dev/neptuo.formatters.composite</PackageLicenseUrl>
     <PackageTags>Neptuo Formatters Composite</PackageTags>
     <RootNamespace>Neptuo.Formatters</RootNamespace>
   </PropertyGroup>
