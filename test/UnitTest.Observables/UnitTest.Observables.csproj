@@ -51,6 +51,7 @@
     <Compile Include="Models\DelayAsyncCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestAsyncCommand.cs" />
+    <Compile Include="TestMoveCommand.cs" />
     <Compile Include="TestPropertyChangedObserver.cs" />
     <Compile Include="Models\MainModel.cs" />
   </ItemGroup>
