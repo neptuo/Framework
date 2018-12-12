@@ -30,6 +30,10 @@ namespace Neptuo.Observables
             => ExecuteDown(new ObservableCollection<string>() { "One", "Two", "Three" }, null, false, "One", "Two", "Three");
 
         [TestMethod]
+        public void Down_DefaultValue()
+            => ExecuteDown(new ObservableCollection<int>() { 1, 0, 2 }, 0, true, 1, 2, 0);
+
+        [TestMethod]
         public void Down_First()
             => ExecuteDown(collection, 1, true, 2, 1, 3, 4, 5, 6);
 
@@ -49,6 +53,10 @@ namespace Neptuo.Observables
         [TestMethod]
         public void Up_Null()
             => ExecuteUp(new ObservableCollection<string>() { "One", "Two", "Three" }, null, false, "One", "Two", "Three");
+
+        [TestMethod]
+        public void Up_DefaultValue()
+            => ExecuteUp(new ObservableCollection<int>() { 1, 0, 2 }, 0, true, 0, 1, 2);
 
         [TestMethod]
         public void Up_First()
