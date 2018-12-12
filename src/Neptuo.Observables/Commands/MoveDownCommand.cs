@@ -21,10 +21,10 @@ namespace Neptuo.Observables.Commands
             : base(collection)
         { }
 
-        public override bool CanExecute(T item)
-            => !Equals(item, default(T)) && Collection.IndexOf(item) > 0;
+        protected override bool CanExecute(T item, int itemIndex)
+            => itemIndex < Collection.Count - 1;
 
         protected override int? FindNewIndex(T item, int itemIndex)
-            => itemIndex - 1;
+            => itemIndex + 1;
     }
 }

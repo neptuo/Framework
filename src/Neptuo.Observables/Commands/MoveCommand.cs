@@ -36,6 +36,26 @@ namespace Neptuo.Observables.Commands
         private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
             => RaiseCanExecuteChanged();
 
+        public override bool CanExecute(T item)
+        {
+            if (typeof(T).IsClass && Equals(item, default(T)))
+                return false;
+
+            int itemIndex = Collection.IndexOf(item);
+            if (itemIndex < 0)
+                return false;
+
+            return CanExecute(item, itemIndex);
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if <paramref name="item"/> at <paramref name="itemIndex"/> can be moved.
+        /// </summary>
+        /// <param name="item">An item to move.</param>
+        /// <param name="itemIndex">An index of the <paramref name="itemIndex"/>.</param>
+        /// <returns><c>true</c> if <paramref name="item"/> item be moved; otherwise <c>false</c>.</returns>
+        protected abstract bool CanExecute(T item, int itemIndex);
+
         public override void Execute(T item)
         {
             if (CanExecute(item))
