@@ -13,9 +13,10 @@ namespace Neptuo.Observables.Collections
     /// for <see cref="ICollection{T}.Count"/> changes.
     /// Contains <see cref="AddRange(IEnumerable{T})"/> for adding mutli items.
     /// Also implements feature interfaces <see cref="IRemoveAtCollection"/> and <see cref="ICountCollection"/>.
+    /// It implements <see cref="IMoveCollection{T}"/> to support ordering items using standard commands.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IRemoveAtCollection, ICountCollection
+    public class ObservableCollection<T> : System.Collections.ObjectModel.ObservableCollection<T>, IRemoveAtCollection, ICountCollection, IMoveCollection<T>
     {
         /// <summary>
         /// Creates new empty instance.
