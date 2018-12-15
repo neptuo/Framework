@@ -9,4 +9,7 @@ platform: Any CPU
 build_script:
 - cmd: dotnet build Neptuo.sln -c Release
 test_script:
-- cmd: dotnet test .\test\UnitTest\UnitTest.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
+- cmd: >-
+    dotnet test .\test\UnitTest\UnitTest.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
+
+    dotnet test .\test\UnitTest.Observables\UnitTest.Observables.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
