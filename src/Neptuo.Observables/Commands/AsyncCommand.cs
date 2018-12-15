@@ -23,7 +23,7 @@ namespace Neptuo.Observables.Commands
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
         /// </summary>
-        public bool IsRunning 
+        public bool IsRunning
             => cancellationTokenSource != null;
 
         /// <summary>
@@ -75,6 +75,9 @@ namespace Neptuo.Observables.Commands
         {
             if (cancellationTokenSource != value)
             {
+                if (cancellationTokenSource != null)
+                    cancellationTokenSource.Dispose();
+
                 cancellationTokenSource = value;
                 RaiseCanExecuteChanged();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
@@ -113,7 +116,7 @@ namespace Neptuo.Observables.Commands
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
         /// </summary>
-        public bool IsRunning 
+        public bool IsRunning
             => cancellationTokenSource != null;
 
         /// <summary>
@@ -165,6 +168,9 @@ namespace Neptuo.Observables.Commands
         {
             if (cancellationTokenSource != value)
             {
+                if (cancellationTokenSource != null)
+                    cancellationTokenSource.Dispose();
+
                 cancellationTokenSource = value;
                 RaiseCanExecuteChanged();
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsRunning)));
