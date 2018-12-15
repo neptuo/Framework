@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,16 @@ namespace Neptuo.Observables.Commands
         /// Event raised when <see cref="IsRunning"/> changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Runs <see cref="PropertyChanged"/> caused by property <paramref name="propertyName"/>.
+        /// </summary>
+        /// <param name="propertyName">A name of the changed property.</param>
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            Ensure.NotNull(propertyName, "propertyName");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
@@ -112,6 +123,16 @@ namespace Neptuo.Observables.Commands
         /// Event raised when <see cref="IsRunning"/> changed.
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// Runs <see cref="PropertyChanged"/> caused by property <paramref name="propertyName"/>.
+        /// </summary>
+        /// <param name="propertyName">A name of the changed property.</param>
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            Ensure.NotNull(propertyName, "propertyName");
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         /// <summary>
         /// Returns <c>true</c> when asynchronous operation is running.
