@@ -1,97 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Neptuo.Bootstrap</RootNamespace>
-    <AssemblyName>Neptuo.Bootstrap</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <Product>Neptuo.Bootstrap</Product>
+    <Description>Application bootstrapper.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>5.0.0</VersionPrefix>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.bootstrap</PackageProjectUrl>
+    <PackageTags>Neptuo Bootstrap</PackageTags>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;Javascript</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Neptuo.Bootstrap.XML</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\_AssemblyInfo.cs">
-      <Link>Properties\_AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="AutomaticBootstrapper.cs" />
-    <Compile Include="BootstrapperBase.cs" />
-    <Compile Include="Constraints\ConstraintAttribute.cs" />
-    <Compile Include="Constraints\Providers\AttributeConstraintProvider.cs" />
-    <Compile Include="Constraints\Providers\CachingConstraintProvider.cs" />
-    <Compile Include="Constraints\DefaultBootstrapConstraintContext.cs" />
-    <Compile Include="Constraints\IBootstrapConstraint.cs" />
-    <Compile Include="Constraints\IBootstrapConstraintContext.cs" />
-    <Compile Include="Constraints\IBootstrapConstraintProvider.cs" />
-    <Compile Include="Constraints\IEnumerableConstraintExtensions.cs" />
-    <Compile Include="Constraints\Providers\NullObjectConstrainProvider.cs" />
-    <Compile Include="Dependencies\Providers\Exporters\EmptyDependencyExporter.cs" />
-    <Compile Include="Dependencies\ExportAttribute.cs" />
-    <Compile Include="Dependencies\Providers\Targets\ExportAttributeTarget.cs" />
-    <Compile Include="Dependencies\ImportAttribute.cs" />
-    <Compile Include="Dependencies\Providers\Targets\ImportAttributeTarget.cs" />
-    <Compile Include="Dependencies\Providers\Exporters\IDependencyExporter.cs" />
-    <Compile Include="Dependencies\Providers\IDependencyDescriptorProvider.cs" />
-    <Compile Include="Dependencies\Providers\IDependencyExportDescriptor.cs" />
-    <Compile Include="Dependencies\Providers\IDependencyImportDescriptor.cs" />
-    <Compile Include="Dependencies\Providers\Targets\IDependencyTarget.cs" />
-    <Compile Include="Dependencies\Providers\PropertyExportDescriptor.cs" />
-    <Compile Include="Dependencies\Providers\PropertyImportDescriptor.cs" />
-    <Compile Include="Dependencies\Providers\PropertyDescriptorProvider.cs" />
-    <Compile Include="HierarchicalBootstrapper.cs" />
-    <Compile Include="HierarchicalBuilder.cs" />
-    <Compile Include="HierarchicalContext.cs" />
-    <Compile Include="IBootstrapper.cs" />
-    <Compile Include="IBootstrapTaskRegistry.cs" />
-    <Compile Include="IBootstrapTask.cs" />
-    <Compile Include="Constraints\IgnoreAutomaticConstraintAttribute.cs" />
-    <Compile Include="ManualBootstrapper.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\VersionInfo.cs" />
-    <Compile Include="ProxyBootstrapTask.cs" />
-    <Compile Include="SequenceBootstrapper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Neptuo.Bootstrap.xml">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Neptuo\Neptuo.csproj">
-      <Project>{2392ed97-e671-4871-81a4-c85975f33794}</Project>
-      <Name>Neptuo</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\build\Neptuo.Build.targets" />
+
 </Project>
