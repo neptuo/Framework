@@ -159,10 +159,6 @@
       <Project>{e293c506-6fe1-4ed9-840f-9c29c5066227}</Project>
       <Name>Neptuo.FileSystems</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Jobs.Behaviors\Neptuo.Jobs.Behaviors.csproj">
-      <Project>{e50bf0b3-514e-4170-98da-580a2cf8a016}</Project>
-      <Name>Neptuo.Jobs.Behaviors</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Logging.Log4net\Neptuo.Logging.Log4net.csproj">
       <Project>{6a8e9cab-4d18-4dec-9b65-2d589479130a}</Project>
       <Name>Neptuo.Logging.Log4net</Name>
@@ -170,10 +166,6 @@
     <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj">
       <Project>{0834dfd1-3536-4305-9e23-21061c5c0414}</Project>
       <Name>Neptuo.PresentationModels.Validators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Jobs\Neptuo.Jobs.csproj">
-      <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
-      <Name>Neptuo.Jobs</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj">
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>

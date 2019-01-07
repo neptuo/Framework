@@ -147,10 +147,6 @@
       <Project>{00a151b0-ac8e-43a9-9002-d6089e7fb8b3}</Project>
       <Name>Neptuo.Exceptions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Jobs\Neptuo.Jobs.csproj">
-      <Project>{d2204dfa-be95-4c97-88c1-33ae2a5cea3b}</Project>
-      <Name>Neptuo.Jobs</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj">
       <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
       <Name>Neptuo.Models.Deleters</Name>
