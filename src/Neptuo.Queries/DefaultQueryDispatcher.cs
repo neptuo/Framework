@@ -9,29 +9,29 @@ using System.Threading.Tasks;
 namespace Neptuo.Queries
 {
     /// <summary>
-    /// Default implementation of <see cref="IQueryDispatcher"/> and <see cref="IQueryHandlerCollection"/>.
+    /// A default implementation of a <see cref="IQueryDispatcher"/> and a <see cref="IQueryHandlerCollection"/>.
     /// When handling query and query handler is missing, exception is thrown.
     /// </summary>
     public class DefaultQueryDispatcher : IQueryHandlerCollection, IQueryDispatcher
     {
         private readonly Dictionary<Type, DefaultQueryHandlerDefinition> storage = new Dictionary<Type, DefaultQueryHandlerDefinition>();
 
-        public IQueryHandlerCollection Add<TQuery, TOutput>(IQueryHandler<TQuery, TOutput> handler) 
-            where TQuery : IQuery<TOutput>
+        public IQueryHandlerCollection Add<TQuery, TResult>(IQueryHandler<TQuery, TResult> handler)
+            where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(handler, "handler");
-            DefaultQueryHandlerDefinition<TOutput> definition = new DefaultQueryHandlerDefinition<TOutput>(handler, query => handler.HandleAsync((TQuery)query));
+            DefaultQueryHandlerDefinition<TQuery, TResult> definition = new DefaultQueryHandlerDefinition<TQuery, TResult>(handler, handler.HandleAsync);
             storage[typeof(TQuery)] = definition;
             return this;
         }
 
-        public bool TryGet<TQuery, TOutput>(out IQueryHandler<TQuery, TOutput> handler)
-            where TQuery : IQuery<TOutput>
+        public bool TryGet<TQuery, TResult>(out IQueryHandler<TQuery, TResult> handler)
+            where TQuery : IQuery<TResult>
         {
             DefaultQueryHandlerDefinition definition;
-            if(storage.TryGetValue(typeof(TQuery), out definition))
+            if (storage.TryGetValue(typeof(TQuery), out definition))
             {
-                handler = (IQueryHandler<TQuery, TOutput>)definition.QueryHandler;
+                handler = (IQueryHandler<TQuery, TResult>)definition.QueryHandler;
                 return true;
             }
 
@@ -39,15 +39,16 @@ namespace Neptuo.Queries
             return false;
         }
 
-        public Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query)
+        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query)
+            where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(query, "query");
-            DefaultQueryHandlerDefinition definition;
 
             Type queryType = query.GetType();
+            DefaultQueryHandlerDefinition definition;
             if (storage.TryGetValue(queryType, out definition))
             {
-                DefaultQueryHandlerDefinition<TOutput> target = (DefaultQueryHandlerDefinition<TOutput>)definition;
+                DefaultQueryHandlerDefinition<TQuery, TResult> target = (DefaultQueryHandlerDefinition<TQuery, TResult>)definition;
                 return target.HandleAsync(query);
             }
 

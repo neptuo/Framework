@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,20 +28,20 @@ namespace Neptuo.Queries.Internals
     /// Output typed definition of query handler.
     /// Used when handling query from <see cref="IQueryDispatcher"/> for <see cref="IQuery{TOutput}"/>.
     /// </summary>
-    /// <typeparam name="TOutput">Type of query output.</typeparam>
-    internal class DefaultQueryHandlerDefinition<TOutput> : DefaultQueryHandlerDefinition
+    /// <typeparam name="TQuery">A type of the query.</typeparam>
+    /// <typeparam name="TResult">A type of the query result.</typeparam>
+    internal class DefaultQueryHandlerDefinition<TQuery, TResult> : DefaultQueryHandlerDefinition
+        where TQuery : IQuery<TResult>
     {
-        public Func<object, Task<TOutput>> HandleMethod { get; set; }
+        public Func<TQuery, Task<TResult>> HandleMethod { get; set; }
 
-        public DefaultQueryHandlerDefinition(object queryHandler, Func<object, Task<TOutput>> handleMethod)
+        public DefaultQueryHandlerDefinition(object queryHandler, Func<TQuery, Task<TResult>> handleMethod)
             : base(queryHandler)
         {
             HandleMethod = handleMethod;
         }
 
-        public Task<TOutput> HandleAsync(IQuery<TOutput> query)
-        {
-            return HandleMethod(query);
-        }
+        public Task<TResult> HandleAsync(TQuery query)
+            => HandleMethod(query);
     }
 }

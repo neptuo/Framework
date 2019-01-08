@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 namespace Neptuo.Queries.Handlers
 {
     /// <summary>
-    /// Handler for query of type <typeparamref name="TQuery"/>.
+    /// A handler for a query of a type <typeparamref name="TQuery"/>.
     /// </summary>
-    /// <typeparam name="TQuery">Type of query.</typeparam>
-    /// <typeparam name="TResult">Type of result.</typeparam>
+    /// <typeparam name="TQuery">A type of the query.</typeparam>
+    /// <typeparam name="TResult">A type of the result.</typeparam>
     public interface IQueryHandler<in TQuery, TResult>
         where TQuery : IQuery<TResult>
     {
         /// <summary>
-        /// Should process <paramref name="query"/> and provide result of type <typeparamref name="TResult"/>.
+        /// Processes a <paramref name="query"/> and provides a result of the type <typeparamref name="TResult"/>.
         /// </summary>
-        /// <param name="query">Query parameters.</param>
-        /// <returns>Result to <paramref name="query"/>.</returns>
+        /// <param name="query">A query parameters.</param>
+        /// <returns>A result to the <paramref name="query"/>.</returns>
         Task<TResult> HandleAsync(TQuery query);
     }
 }

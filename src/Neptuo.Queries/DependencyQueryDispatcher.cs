@@ -11,32 +11,29 @@ using System.Threading.Tasks;
 namespace Neptuo.Queries
 {
     /// <summary>
-    /// Implementation of <see cref="IQueryDispatcher"/> which uses <see cref="IDependencyProvider"/> to read registrations from.
+    /// An implementation of the <see cref="IQueryDispatcher"/> which uses a <see cref="IDependencyProvider"/> to read registrations of a <see cref="IQueryHandler{TQuery, TResult}"/>.
     /// </summary>
     public class DependencyQueryDispatcher : IQueryDispatcher
     {
-        private static string handleAsyncMethodName = "HandleAsync"; //TypeHelper.MethodName<IQueryHandler<IQuery<object>, object>, IQuery<object>, object>(q => q.HandleAsync);
         private IDependencyProvider dependencyProvider;
         
         /// <summary>
-        /// Creates new instance with <paramref name="dependencyProvider"/>.
+        /// Creates a new instance with a <paramref name="dependencyProvider"/>.
         /// </summary>
-        /// <param name="dependencyProvider">Source for registrations.</param>
+        /// <param name="dependencyProvider">A query handler provider.</param>
         public DependencyQueryDispatcher(IDependencyProvider dependencyProvider)
         {
             Ensure.NotNull(dependencyProvider, "dependencyProvider");
             this.dependencyProvider = dependencyProvider;
         }
 
-        public Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query)
+        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query)
+            where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(query, "query");
 
-            Type handlerType = typeof(IQueryHandler<,>).MakeGenericType(query.GetType(), typeof(TOutput));
-            object handler = dependencyProvider.Resolve(handlerType);
-
-            MethodInfo method = handlerType.GetMethod(handleAsyncMethodName);
-            return (Task<TOutput>)method.Invoke(handler, new object[] { handler });
+            IQueryHandler<TQuery, TResult> handler = dependencyProvider.Resolve<IQueryHandler<TQuery, TResult>>();
+            return handler.HandleAsync(query);
         }
     }
 }
