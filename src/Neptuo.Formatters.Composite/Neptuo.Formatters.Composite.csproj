@@ -14,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
-    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj" />
     <ProjectReference Include="..\Neptuo.TypeMapping\Neptuo.TypeMapping.csproj" />
   </ItemGroup>
 </Project>

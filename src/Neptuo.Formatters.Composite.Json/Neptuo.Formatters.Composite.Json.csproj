@@ -15,7 +15,6 @@
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
     <ProjectReference Include="..\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj" />
-    <ProjectReference Include="..\Neptuo.Formatters.Composite.Metadata\Neptuo.Formatters.Composite.Metadata.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
