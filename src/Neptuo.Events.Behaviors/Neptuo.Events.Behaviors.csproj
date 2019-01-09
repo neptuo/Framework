@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Product>Neptuo.Events.Behaviors</Product>
+    <RootNamespace>Neptuo.Events</RootNamespace>
     <Description>Behaviors integration for Events.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>2.0.0</VersionPrefix>
