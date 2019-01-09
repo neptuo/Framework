@@ -1,13 +1,10 @@
-﻿using Neptuo.PresentationModels;
-using Neptuo;
-using Neptuo.Activators;
+﻿using Neptuo.Activators;
 using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SharpKit.JavaScript;
 
 namespace Neptuo.PresentationModels.UI
 {
@@ -202,7 +199,6 @@ namespace Neptuo.PresentationModels.UI
                 return x.Equals(y);
             }
 
-            [JsMethod(Name = "GetHashCode$$T", NativeOverloads = true)]
             public int GetHashCode(Key obj)
             {
                 return obj.GetHashCode();

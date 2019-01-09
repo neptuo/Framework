@@ -1,4 +1,5 @@
 ﻿using Neptuo.Activators;
+using Neptuo.Collections.Specialized;
 using Neptuo.PresentationModels;
 using System;
 using System.Collections.Generic;

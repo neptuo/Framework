@@ -1,4 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<UnobtrusiveFeatures xmlns="http://schemas.neptuo.com/xsd/sharpkit-unobtrusivefeatures.xsd">
-    <Export Filename="Neptuo.PresentationModels.UI.js" FilenameFormat="~/bin/{0}" />
-</UnobtrusiveFeatures>
