@@ -11,6 +11,9 @@ namespace Neptuo.PresentationModels
     /// </summary>
     public class DictionaryModelValueProvider : DisposableBase, IModelValueProvider
     {
+        /// <summary>
+        /// Gets a value storage.
+        /// </summary>
         protected Dictionary<string, object> Storage { get; private set; }
 
         /// <summary>
