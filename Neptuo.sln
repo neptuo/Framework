@@ -54,11 +54,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Models.Deleters", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Validators", "src\Neptuo.Validators\Neptuo.Validators.csproj", "{191A52C5-789C-4D8C-9551-0FAE9D632439}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Queries", "src\Neptuo.Queries\Neptuo.Queries.csproj", "{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Queries", "src\Neptuo.Queries\Neptuo.Queries.csproj", "{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands", "src\Neptuo.Commands\Neptuo.Commands.csproj", "{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Commands", "src\Neptuo.Commands\Neptuo.Commands.csproj", "{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Events", "src\Neptuo.Events\Neptuo.Events.csproj", "{FE22167D-A8F5-400E-941D-4437EF22CECE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Events", "src\Neptuo.Events\Neptuo.Events.csproj", "{FE22167D-A8F5-400E-941D-4437EF22CECE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FileSystems", "src\Neptuo.FileSystems\Neptuo.FileSystems.csproj", "{E293C506-6FE1-4ED9-840F-9C29C5066227}"
 EndProject
@@ -76,11 +76,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Services", "test\U
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Queries.Behaviors", "src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Queries.Behaviors", "src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj", "{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Behaviors", "src\Neptuo.Commands.Behaviors\Neptuo.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Commands.Behaviors", "src\Neptuo.Commands.Behaviors\Neptuo.Commands.Behaviors.csproj", "{3B70454A-3537-4696-B2FE-1280CAC029DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Events.Behaviors", "src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Events.Behaviors", "src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Net.Http.Clients", "src\Neptuo.Net.Http.Clients\Neptuo.Net.Http.Clients.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
 EndProject
@@ -159,6 +159,7 @@ Global
 		{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A28A56-C534-4F93-A62C-0BB2D290BBA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2392ED97-E671-4871-81A4-C85975F33794}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2392ED97-E671-4871-81A4-C85975F33794}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2392ED97-E671-4871-81A4-C85975F33794}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -222,12 +223,15 @@ Global
 		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85ACE13A-C74C-4219-B1DF-D93B9B1C8983}.Release|Any CPU.Build.0 = Release|Any CPU
 		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21D7ECEF-62E7-4C65-9076-8D88A9C9E1EC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE22167D-A8F5-400E-941D-4437EF22CECE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E293C506-6FE1-4ED9-840F-9C29C5066227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E293C506-6FE1-4ED9-840F-9C29C5066227}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E293C506-6FE1-4ED9-840F-9C29C5066227}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -259,12 +263,15 @@ Global
 		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B70454A-3537-4696-B2FE-1280CAC029DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9AE39411-759E-4682-9CB1-D1308C868290}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE39411-759E-4682-9CB1-D1308C868290}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -432,7 +439,7 @@ Global
 		{07EB063B-F3D5-41BB-BEF0-788F3C7773E7} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
