@@ -1,5 +1,4 @@
-﻿using Neptuo.Models;
-using Neptuo.Validators.Handlers;
+﻿using Neptuo.Validators.Handlers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,22 +41,12 @@ namespace Neptuo.Validators
 
         public async Task<IValidationResult> ValidateAsync<TModel>(TModel model)
         {
-            IValidatableModel validatable = model as IValidatableModel;
-            if (validatable != null)
-            {
-                if (validatable.IsValid != null)
-                    return new ValidationResult(validatable.IsValid.Value);
-            }
-
             Type modelType = typeof(TModel);
             object validationHandler;
             if (TryGetValidationHandler(modelType, out validationHandler))
             {
                 IValidationHandler<TModel> validator = (IValidationHandler<TModel>)validationHandler;
                 IValidationResult result = await validator.HandleAsync(model);
-
-                if (validatable != null)
-                    validatable.IsValid = result.IsValid;
 
                 return result;
             }

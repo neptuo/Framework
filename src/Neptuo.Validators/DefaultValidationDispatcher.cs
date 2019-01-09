@@ -1,4 +1,4 @@
-﻿using Neptuo;
+﻿using Neptuo.Collections.Specialized;
 using Neptuo.Validators.Handlers;
 using Neptuo.Validators.Internals;
 using System;
