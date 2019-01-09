@@ -4,7 +4,6 @@
     <Product>Neptuo.PresentationModels</Product>
     <Description>Model definition and usage abstractions.</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Neptuo.Activators</RootNamespace>
     <VersionPrefix>2.0.0</VersionPrefix>
     <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.presentationmodels</PackageProjectUrl>
     <PackageTags>Neptuo PresentationModels</PackageTags>
