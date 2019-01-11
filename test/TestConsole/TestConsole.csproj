@@ -215,10 +215,6 @@
       <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
       <Name>Neptuo.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Binding\Neptuo.PresentationModels.Binding.csproj">
-      <Project>{471e1120-9720-449e-8ec2-7338b58eaf59}</Project>
-      <Name>Neptuo.PresentationModels.Binding</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Serialization.Xml\Neptuo.PresentationModels.Serialization.Xml.csproj">
       <Project>{35f29c01-f567-420b-8e9e-57bd9fc3de60}</Project>
       <Name>Neptuo.PresentationModels.Serialization.Xml</Name>
