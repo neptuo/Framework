@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries
@@ -27,13 +28,13 @@ namespace Neptuo.Queries
             this.dependencyProvider = dependencyProvider;
         }
 
-        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query)
+        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default)
             where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(query, "query");
 
             IQueryHandler<TQuery, TResult> handler = dependencyProvider.Resolve<IQueryHandler<TQuery, TResult>>();
-            return handler.HandleAsync(query);
+            return handler.HandleAsync(query, cancellationToken);
         }
     }
 }

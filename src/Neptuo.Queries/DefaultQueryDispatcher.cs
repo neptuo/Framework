@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries
@@ -20,8 +21,7 @@ namespace Neptuo.Queries
             where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(handler, "handler");
-            DefaultQueryHandlerDefinition<TQuery, TResult> definition = new DefaultQueryHandlerDefinition<TQuery, TResult>(handler, handler.HandleAsync);
-            storage[typeof(TQuery)] = definition;
+            storage[typeof(TQuery)] = new DefaultQueryHandlerDefinition<TQuery, TResult>(handler);
             return this;
         }
 
@@ -39,20 +39,15 @@ namespace Neptuo.Queries
             return false;
         }
 
-        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query)
+        public Task<TResult> QueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default)
             where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(query, "query");
 
-            Type queryType = query.GetType();
-            DefaultQueryHandlerDefinition definition;
-            if (storage.TryGetValue(queryType, out definition))
-            {
-                DefaultQueryHandlerDefinition<TQuery, TResult> target = (DefaultQueryHandlerDefinition<TQuery, TResult>)definition;
-                return target.HandleAsync(query);
-            }
+            if (TryGet<TQuery, TResult>(out var handler))
+                return handler.HandleAsync(query, cancellationToken);
 
-            throw Ensure.Exception.ArgumentOutOfRange("query", "There isn't query handler for query of type '{0}'.", queryType.FullName);
+            throw Ensure.Exception.ArgumentOutOfRange("query", $"There isn't a query handler for a query of the type '{query.GetType().FullName}'.");
         }
     }
 }

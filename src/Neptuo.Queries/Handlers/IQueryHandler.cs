@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries.Handlers
@@ -18,7 +19,8 @@ namespace Neptuo.Queries.Handlers
         /// Processes a <paramref name="query"/> and provides a result of the type <typeparamref name="TResult"/>.
         /// </summary>
         /// <param name="query">A query parameters.</param>
+        /// <param name="cancellationToken">A cancellation token.</param>
         /// <returns>A result to the <paramref name="query"/>.</returns>
-        Task<TResult> HandleAsync(TQuery query);
+        Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken);
     }
 }

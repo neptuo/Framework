@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries.Handlers
@@ -38,15 +39,18 @@ namespace Neptuo.Queries.Handlers
 
         async Task IBehavior<T>.ExecuteAsync(T handler, IBehaviorContext context)
         {
-            TResult result = await handler.HandleAsync(context.CustomValues.Get<TQuery>("Query"));
+            TQuery query = context.CustomValues.Get<TQuery>("Query");
+            CancellationToken cancellationToken = context.CustomValues.Get<CancellationToken>("CancellationToken");
+            TResult result = await handler.HandleAsync(query, cancellationToken);
             context.CustomValues.Add("Result", result);
         }
 
-        public async Task<TResult> HandleAsync(TQuery query)
+        public async Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken)
         {
             T instance = handlerFactory.Create();
             IKeyValueCollection customValues = new KeyValueCollection()
-                .Add("Query", query);
+                .Add("Query", query)
+                .Add("CancellationToken", cancellationToken);
 
             await pipeline.ExecuteAsync(instance, customValues);
             return customValues.Get<TResult>("Result");
