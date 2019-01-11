@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Neptuo.PresentationModels.TypeModels</Product>
+    <Description>Model definitions based on .NET types.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.presentationmodels.typemodels</PackageProjectUrl>
+    <PackageTags>Neptuo PresentationModels</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj" />
+  </ItemGroup>
+
+</Project>
