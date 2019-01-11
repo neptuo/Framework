@@ -80,13 +80,27 @@ namespace Neptuo.Events.Internals
 
         #region Reading handlers
 
+        private IEnumerable<object> ConcatHandlers(List<object> concreteHandlers, List<object> genericHandlers)
+        {
+            if (concreteHandlers == null && genericHandlers == null)
+                return Enumerable.Empty<object>();
+
+            if (concreteHandlers == null)
+                return genericHandlers;
+
+            if (genericHandlers == null)
+                return concreteHandlers;
+
+            return Enumerable.Concat(concreteHandlers, genericHandlers);
+        }
+
         private IEnumerable<object> GetHandlersInternal(Type eventType, Dictionary<Type, List<object>> storage, bool includeSubTypes)
         {
             if (storage != null)
             {
-                List<object> handlers;
-                if (storage.TryGetValue(eventType, out handlers))
-                    return handlers;
+                storage.TryGetValue(eventType, out var concreteHandlers);
+                storage.TryGetValue(typeof(object), out var genericHandlers);
+                return ConcatHandlers(concreteHandlers, genericHandlers);
             }
                 
             return Enumerable.Empty<object>();
