@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Neptuo.Windows.Converters</Product>
+    <Description>Generic value converters usable in any WPF project.</Description>
+    <TargetFramework>net461</TargetFramework>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.windows.converters</PackageProjectUrl>
+    <PackageTags>Neptuo Windows</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+
+</Project>
