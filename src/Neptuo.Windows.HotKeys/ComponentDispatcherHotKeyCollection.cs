@@ -11,20 +11,23 @@ using System.Windows.Interop;
 namespace Neptuo.Windows.HotKeys
 {
     /// <summary>
-    /// Implementation of <see cref="IHotKeyCollection"/> with <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
+    /// An implementation of the <see cref="IHotkeyCollection"/> with <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
     /// </summary>
     public class ComponentDispatcherHotKeyCollection : HotkeyCollectionBase
     {
         /// <summary>
-        /// Creates new instance and binds to <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
+        /// Creates a new instance and binds to <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
         /// </summary>
         public ComponentDispatcherHotKeyCollection()
             : base(IntPtr.Zero)
         {
-            ComponentDispatcher.ThreadFilterMessage += new ThreadMessageEventHandler(OnComponentDispatcherThreadFilterMessage);
+            ComponentDispatcher.ThreadFilterMessage += OnComponentDispatcherThreadFilterMessage;
         }
 
-        private void OnComponentDispatcherThreadFilterMessage(ref MSG message, ref bool handled)
+        /// <summary>
+        /// A method executed when a <see cref="ComponentDispatcher.ThreadFilterMessage"/> raises.
+        /// </summary>
+        protected void OnComponentDispatcherThreadFilterMessage(ref MSG message, ref bool handled)
         {
             if (!handled)
             {

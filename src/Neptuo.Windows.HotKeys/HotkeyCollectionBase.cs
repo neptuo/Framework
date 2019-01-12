@@ -11,24 +11,33 @@ using System.Windows.Input;
 namespace Neptuo.Windows.HotKeys
 {
     /// <summary>
-    /// Base implementation of registering and firing hot keys.
+    /// A base implementation of registering and firing hot keys.
     /// </summary>
     public abstract class HotkeyCollectionBase : DisposableBase, IHotkeyCollection
     {
         private readonly Dictionary<KeyModel, HandlerList> storage = new Dictionary<KeyModel, HandlerList>();
-        private readonly IntPtr handle;
 
-        protected IntPtr Handle
-        {
-            get { return handle; }
-        }
+        /// <summary>
+        /// Gets a handler bound to.
+        /// </summary>
+        protected IntPtr Handle { get; }
 
+        /// <summary>
+        /// Creates a new instance which binds to <paramref name="handle"/>.
+        /// </summary>
+        /// <param name="handle">A windows handle to bind to.</param>
         public HotkeyCollectionBase(IntPtr handle)
         {
             Ensure.NotNull(handle, "handle");
-            this.handle = handle;
+            Handle = handle;
         }
 
+        /// <summary>
+        /// Executed when hotkey is pressed.
+        /// </summary>
+        /// <param name="key">A pressed key.</param>
+        /// <param name="modifiers">A pressed modifiers.</param>
+        /// <returns><c>true</c> if handler exists; otherwise <c>false</c>.</returns>
         protected bool OnHotKey(Key key, ModifierKeys modifiers)
         {
             KeyModel hotkey = new KeyModel(modifiers, key);
@@ -44,7 +53,6 @@ namespace Neptuo.Windows.HotKeys
             return false;
         }
 
-
         public IHotkeyCollection Add(Key key, ModifierKeys modifier, Action<Key, ModifierKeys> handler)
         {
             KeyModel hotkey = new KeyModel(modifier, key);
@@ -52,7 +60,7 @@ namespace Neptuo.Windows.HotKeys
             if (!storage.TryGetValue(hotkey, out handlers))
             {
                 handlers = new HandlerList((short)hotkey.GetHashCode());
-                if (Win32.RegisterHotKey(handle, handlers.Atom, (uint)hotkey.Modifier, (uint)KeyInterop.VirtualKeyFromKey(hotkey.Key)))
+                if (Win32.RegisterHotKey(Handle, handlers.Atom, (uint)hotkey.Modifier, (uint)KeyInterop.VirtualKeyFromKey(hotkey.Key)))
                     storage[hotkey] = handlers;
                 else
                     throw new Win32Exception(Marshal.GetLastWin32Error());
@@ -69,7 +77,7 @@ namespace Neptuo.Windows.HotKeys
             if (storage.TryGetValue(hotkey, out handlers))
             {
                 if (storage.Remove(hotkey))
-                    Win32.UnregisterHotKey(handle, handlers.Atom);
+                    Win32.UnregisterHotKey(Handle, handlers.Atom);
             }
 
             return this;
@@ -96,7 +104,7 @@ namespace Neptuo.Windows.HotKeys
 
             foreach (HandlerList handlers in storage.Values)
             {
-                Win32.UnregisterHotKey(handle, handlers.Atom);
+                Win32.UnregisterHotKey(Handle, handlers.Atom);
                 Win32.GlobalDeleteAtom(handlers.Atom);
             }
 

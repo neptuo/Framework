@@ -7,10 +7,13 @@ using System.Windows.Input;
 
 namespace Neptuo.Windows.HotKeys.Internals
 {
+    /// <summary>
+    /// An internal key registration model.
+    /// </summary>
     internal class KeyModel : IEquatable<KeyModel>
     {
-        public ModifierKeys Modifier { get; private set; }
-        public Key Key { get; private set; }
+        public ModifierKeys Modifier { get; }
+        public Key Key { get; }
 
         public KeyModel(ModifierKeys modifier, Key key)
         {
@@ -47,8 +50,6 @@ namespace Neptuo.Windows.HotKeys.Internals
         }
 
         public override string ToString()
-        {
-            return String.Format("({0} + {1})", Modifier, Key);
-        }
+            => String.Format("({0} + {1})", Modifier, Key);
     }
 }

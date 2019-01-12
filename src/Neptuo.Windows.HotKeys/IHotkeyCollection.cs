@@ -8,7 +8,7 @@ using System.Windows.Input;
 namespace Neptuo.Windows.HotKeys
 {
     /// <summary>
-    /// Collection of registered hot keys.
+    /// A collection of registered hot keys.
     /// </summary>
     public interface IHotkeyCollection
     {

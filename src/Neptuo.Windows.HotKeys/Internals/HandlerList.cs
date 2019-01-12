@@ -8,10 +8,13 @@ using System.Windows.Input;
 
 namespace Neptuo.Windows.HotKeys.Internals
 {
+    /// <summary>
+    /// An internal list of registered handler delegates.
+    /// </summary>
     internal class HandlerList : IEnumerable<Action<Key, ModifierKeys>>
     {
-        public short Atom { get; private set; }
-        public List<Action<Key, ModifierKeys>> Handlers { get; private set; }
+        public short Atom { get; }
+        public List<Action<Key, ModifierKeys>> Handlers { get; }
 
         public HandlerList(short atom)
         {
@@ -20,13 +23,9 @@ namespace Neptuo.Windows.HotKeys.Internals
         }
 
         public IEnumerator<Action<Key, ModifierKeys>> GetEnumerator()
-        {
-            return Handlers.GetEnumerator();
-        }
+            => Handlers.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            => GetEnumerator();
     }
 }

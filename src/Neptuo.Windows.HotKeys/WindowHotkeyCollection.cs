@@ -13,13 +13,24 @@ using System.Windows.Interop;
 namespace Neptuo.Windows.HotKeys
 {
     /// <summary>
-    /// Implementation of <see cref="IHotkeyCollection"/> that binds to instance of <see cref="Window"/>.
+    /// An implementation of <see cref="IHotkeyCollection"/> that binds to instance of <see cref="Window"/>.
     /// </summary>
     public class WindowHotKeyCollection : HotkeyCollectionBase
     {
+        /// <summary>
+        /// Gets a window that a this instance is bound to.
+        /// </summary>
         public Window Window { get; protected set; }
+
+        /// <summary>
+        /// Gets a HWnd source of <see cref="Window"/> that a this instance is bound to.
+        /// </summary>
         public HwndSource HWndSource { get; protected set; }
 
+        /// <summary>
+        /// Creates new instance bound to a <paramref name="window"/>.
+        /// </summary>
+        /// <param name="window">A window this instance will be bound to.</param>
         public WindowHotKeyCollection(Window window)
             : base(CreateInteropHelper(window).Handle)
         {
@@ -37,7 +48,11 @@ namespace Neptuo.Windows.HotKeys
             return helper;
         }
 
-        public IntPtr WindowProcHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        /// <summary>
+        /// A method executed when a windows gets a message.
+        /// </summary>
+        /// <returns><see cref="IntPtr.Zero"/>.</returns>
+        protected IntPtr WindowProcHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
             {
@@ -45,6 +60,7 @@ namespace Neptuo.Windows.HotKeys
                     handled = OnHotKey(KeyInterop.KeyFromVirtualKey(((int)lParam >> 16) & 0xFFFF), (ModifierKeys)((int)lParam & 0xFFFF));
                     break;
             }
+
             return IntPtr.Zero;
         }
     }
