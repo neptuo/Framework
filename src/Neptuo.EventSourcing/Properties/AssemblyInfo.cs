@@ -1,12 +1,3 @@
-﻿using Neptuo.EventSourcing;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-
-[assembly: AssemblyTitle("Neptuo.EventSourcing")]
-[assembly: AssemblyDescription("EventSourcing hosting infrastructure.")]
-
-[assembly: AssemblyVersion(VersionInfo.Version)]
-[assembly: AssemblyInformationalVersion(VersionInfo.Version + VersionInfo.Preview)]
-[assembly: AssemblyFileVersion(VersionInfo.Version)]
+﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("UnitTest.Services")]

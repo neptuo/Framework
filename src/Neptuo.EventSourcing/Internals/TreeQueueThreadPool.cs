@@ -91,9 +91,9 @@ namespace Neptuo.Internals
                 Task.Run(execute).ContinueWith(OnQueueItemCompleted, item);
         }
         
-        protected override void DisposeUnmanagedResources()
+        protected override void DisposeManagedResources()
         {
-            base.DisposeUnmanagedResources();
+            base.DisposeManagedResources();
             // TODO: Cancel all currently running tasks.
         }
     }
