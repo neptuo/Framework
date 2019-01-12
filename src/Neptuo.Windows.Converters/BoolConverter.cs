@@ -9,11 +9,27 @@ using System.Windows.Data;
 
 namespace Neptuo.Windows.Converters
 {
+    /// <summary>
+    /// Based on a passed value of a type <see cref="Boolean"/> (or nullable equivalent), it uses <see cref="Test"/> to compare the value and returns either a <see cref="TrueValue"/> or a <see cref="FalseValue"/>.
+    /// Before returning <see cref="TrueValue"/> or <see cref="FalseValue"/> it tries to convert the value to a target type using <see cref="TypeConverter"/>.
+    /// </summary>
     public class BoolConverter : IValueConverter
     {
+        /// <summary>
+        /// Gets or sets a value to compare to.
+        /// A default value is <c>true</c>.
+        /// </summary>
         [DefaultValue(true)]
         public bool Test { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets a value to return when the passed value is equal to the <see cref="Test"/>.
+        /// </summary>
         public object TrueValue { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value to return when the passed value is not equal to the <see cref="Test"/>.
+        /// </summary>
         public object FalseValue { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

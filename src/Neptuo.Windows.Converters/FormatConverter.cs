@@ -8,8 +8,14 @@ using System.Windows.Data;
 
 namespace Neptuo.Windows.Converters
 {
+    /// <summary>
+    /// IF a passed value implements <see cref="IFormattable"/>, it applies <see cref="Format"/> to it.
+    /// </summary>
     public class FormatConverter : IValueConverter
     {
+        /// <summary>
+        /// Gets or sets a format to apply to a passed <see cref="IFormattable"/>.
+        /// </summary>
         public string Format { get; set; }
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
