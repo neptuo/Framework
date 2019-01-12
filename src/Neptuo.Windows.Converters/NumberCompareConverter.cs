@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace Neptuo.Windows.Converters
 {
-    public class EdgeConverter : IValueConverter
+    public class NumberCompareConverter : IValueConverter
     {
         public int EdgeValue { get; set; }
 
