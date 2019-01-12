@@ -66,8 +66,8 @@ namespace Neptuo.Models.Domains
         /// <param name="events">The enumeration of events describing current state.</param>
         protected AggregateRoot(IKey key, IEnumerable<IEvent> events)
         {
-            Ensure.Condition.NotEmptyKey(key, "key");
-            Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName, "key");
+            Ensure.Condition.NotEmptyKey(key);
+            Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName);
             Ensure.NotNull(events, "events");
             EnsureHandlerRegistration();
             Key = key;
@@ -89,9 +89,9 @@ namespace Neptuo.Models.Domains
         /// <param name="events">The enumeration of events describing current state.</param>
         protected AggregateRoot(IKey key, ISnapshot snapshot, IEnumerable<IEvent> events)
         {
-            Ensure.Condition.NotEmptyKey(key, "key");
+            Ensure.Condition.NotEmptyKey(key);
             Ensure.NotNull(snapshot, "snapshot");
-            Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName, "key");
+            Ensure.Condition.NotDifferentKeyType(key, GetType().AssemblyQualifiedName);
             Ensure.NotNull(events, "events");
             EnsureHandlerRegistration();
             Key = key;

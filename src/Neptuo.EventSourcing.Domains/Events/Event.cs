@@ -45,8 +45,8 @@ namespace Neptuo.Events
         protected Event(IKey key, IKey aggregateKey, int version)
             : this()
         {
-            Ensure.Condition.NotEmptyKey(key, "key");
-            Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
+            Ensure.Condition.NotEmptyKey(key);
+            Ensure.Condition.NotEmptyKey(aggregateKey);
             Key = key;
             AggregateKey = aggregateKey;
             Version = version;

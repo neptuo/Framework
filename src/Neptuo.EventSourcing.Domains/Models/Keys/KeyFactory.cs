@@ -1,5 +1,5 @@
-﻿using Neptuo;
-using Neptuo.Models.Keys;
+﻿using Neptuo.Models.Keys;
+using Neptuo.TypeMapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +10,14 @@ namespace Neptuo
 {
     /// <summary>
     /// A factory used for creating instances of <see cref="IKey"/>.
-    /// By default it uses <see cref="KeyTypeProvider.Default"/> and <see cref="GuidKey"/>.
+    /// By default it uses <see cref="TypeNameMapper.Default"/> and <see cref="GuidKey"/>.
     /// You can 
     /// </summary>
     public static class KeyFactory
     {
         private static Func<Type, IKey> keyFactory = null;
         private static Func<Type, IKey> emptyFactory = null;
-        private static IKeyTypeProvider keyTypeProvider;
+        private static ITypeNameMapper keyTypeProvider;
 
         /// <summary>
         /// Sets <paramref name="keyFactory"/> to be used for generating new keys and <paramref name="emptyFactory"/> for generating empty keys.
@@ -37,7 +37,7 @@ namespace Neptuo
         /// </summary>
         public static void SetGuidKeyWithTypeFullNameAndAssembly()
         {
-            keyTypeProvider = new TypeFullNameWithAssemblyKeyTypeProvider();
+            keyTypeProvider = new TypeFullNameWithAssemblyMapper();
             keyFactory = null;
             emptyFactory = null;
         }
@@ -46,7 +46,7 @@ namespace Neptuo
         /// Sets <paramref name="keyTypeProvider"/> as provider for mapping from <see cref="Type"/> to <see cref="IKey.Type"/>.
         /// </summary>
         /// <param name="keyTypeProvider">A mapping provider.</param>
-        public static void SetKeyTypeProvider(IKeyTypeProvider keyTypeProvider)
+        public static void SetKeyTypeProvider(ITypeNameMapper keyTypeProvider)
         {
             KeyFactory.keyTypeProvider = keyTypeProvider;
         }
@@ -63,7 +63,7 @@ namespace Neptuo
             if (keyFactory != null)
                 return keyFactory(targetType);
 
-            string keyType = (keyTypeProvider ?? KeyTypeProvider.Default).Get(targetType);
+            string keyType = (keyTypeProvider ?? TypeNameMapper.Default).Get(targetType);
             return GuidKey.Create(Guid.NewGuid(), keyType);
         }
 
@@ -79,7 +79,7 @@ namespace Neptuo
             if (emptyFactory != null)
                 return emptyFactory(targetType);
 
-            string keyType = (keyTypeProvider ?? KeyTypeProvider.Default).Get(targetType);
+            string keyType = (keyTypeProvider ?? TypeNameMapper.Default).Get(targetType);
             return GuidKey.Empty(keyType);
         }
     }

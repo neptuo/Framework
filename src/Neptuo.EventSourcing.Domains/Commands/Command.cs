@@ -31,7 +31,7 @@ namespace Neptuo.Commands
         /// <param name="key">The key of this command.</param>
         protected Command(IKey key)
         {
-            Ensure.Condition.NotEmptyKey(key, "key");
+            Ensure.Condition.NotEmptyKey(key);
             Key = key;
         }
     }
