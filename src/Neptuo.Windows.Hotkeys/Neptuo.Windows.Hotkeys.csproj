@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Product>Neptuo.Windows.HotKeys</Product>
+    <Product>Neptuo.Windows.Hotkeys</Product>
     <Description>Windows (global) HotKey binding support.</Description>
     <TargetFramework>net461</TargetFramework>
     <VersionPrefix>1.0.0</VersionPrefix>

@@ -13,12 +13,12 @@ namespace Neptuo.Windows.HotKeys
     /// <summary>
     /// An implementation of the <see cref="IHotkeyCollection"/> with <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
     /// </summary>
-    public class ComponentDispatcherHotKeyCollection : HotkeyCollectionBase
+    public class ComponentDispatcherHotkeyCollection : HotkeyCollectionBase
     {
         /// <summary>
         /// Creates a new instance and binds to <see cref="ComponentDispatcher.ThreadFilterMessage"/>.
         /// </summary>
-        public ComponentDispatcherHotKeyCollection()
+        public ComponentDispatcherHotkeyCollection()
             : base(IntPtr.Zero)
         {
             ComponentDispatcher.ThreadFilterMessage += OnComponentDispatcherThreadFilterMessage;
