@@ -34,7 +34,7 @@ namespace Neptuo.Data
 
         public IEnumerable<EventModel> Get(IKey aggregateKey, int version)
         {
-            Ensure.Condition.NotEmptyKey(aggregateKey, "aggregateKey");
+            Ensure.Condition.NotEmptyKey(aggregateKey);
 
             GuidKey key = aggregateKey as GuidKey;
             if (key == null)
