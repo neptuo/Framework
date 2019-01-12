@@ -13,3 +13,5 @@ test_script:
     dotnet test .\test\UnitTest\UnitTest.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
 
     dotnet test .\test\UnitTest.Observables\UnitTest.Observables.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU
+
+    dotnet test .\test\UnitTest.Observables\UnitTest.Formatters.csproj -c Release --no-build --test-adapter-path:. --logger:Appveyor /property:Platform=AnyCPU

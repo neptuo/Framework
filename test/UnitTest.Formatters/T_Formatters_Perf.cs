@@ -2,8 +2,7 @@
 using Neptuo;
 using Neptuo.Activators;
 using Neptuo.Formatters;
-using Neptuo.Formatters.Converters;
-using Neptuo.Formatters.Metadata;
+using Neptuo.Formatters.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UnitTest.Formatters.Composite;
 
 namespace UnitTest.Formatters
 {
@@ -28,8 +26,6 @@ namespace UnitTest.Formatters
             long rawNewtonSoft = RawNewtonsoftJson(count);
             KeyValuePair<long, long> wrappedNewtonSoft = WrappedNewtonsoftJson(count);
             KeyValuePair<long, long> wrappedNewtonSoftSync = WrappedNewtonsoftJsonSync(count);
-            long buildCompositeType = BuildComposityType();
-            KeyValuePair<long, long> composite = CompositeTypeFormatter(count);
             KeyValuePair<long, long> compositeStorage = CompositeStorage(count);
             //long wrappedXml = WrappedXml(count);
 
@@ -42,9 +38,6 @@ namespace UnitTest.Formatters
                     String.Format("Newtonsoft.Json wrapped (stream):        {0}ms", wrappedNewtonSoft.Value),
                     String.Format("Newtonsoft.Json SYNC wrapped:            {0}ms", wrappedNewtonSoftSync.Key),
                     String.Format("Newtonsoft.Json SYNC wrapped (stream):   {0}ms", wrappedNewtonSoftSync.Value),
-                    String.Format("Build composite type:                    {0}ms", buildCompositeType),
-                    String.Format("Composite+Newtonsoft.Json:               {0}ms", composite.Key),
-                    String.Format("Composite+Newtonsoft.Json (stream):      {0}ms", composite.Value),
                     String.Format("CompositeStorage:                        {0}ms", compositeStorage.Key),
                     String.Format("CompositeStorage (stream):               {0}ms", compositeStorage.Value)//,
                     //String.Format("XML wrapped:                 {0}ms", wrappedXml)
@@ -150,62 +143,7 @@ namespace UnitTest.Formatters
             XmlFormatter formatter = new XmlFormatter();
             return ReadWriteUsingFormatter(count, formatter, formatter);
         }
-
-        private long BuildComposityType()
-        {
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
-            ICompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
-            CompositeType compositeType;
-            provider.TryGet(typeof(UserModel), out compositeType);
-            sw.Stop();
-            return sw.ElapsedMilliseconds;
-        }
-
-        private KeyValuePair<long, long> CompositeTypeFormatter(int count)
-        {
-            Converts.Repository
-                .AddJsonEnumSearchHandler()
-                .AddJsonPrimitivesSearchHandler()
-                .AddJsonObjectSearchHandler();
-
-            ICompositeTypeProvider provider = new ReflectionCompositeTypeProvider(new ReflectionCompositeDelegateFactory());
-            CompositeType compositeType;
-            provider.TryGet(typeof(UserModel), out compositeType);
-
-            CompositeTypeFormatter formatter = new CompositeTypeFormatter(provider, new DefaultFactory<JsonCompositeStorage>());
-            Stopwatch sw = new Stopwatch();
-            Stopwatch streamSw = new Stopwatch();
-            sw.Start();
-            for (int i = 0; i < count; i++)
-            {
-                UserModel model = new UserModel(1, "UserName", "Password");
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    Task<bool> isSerializedTask = formatter.TrySerializeAsync(model, new DefaultSerializerContext(typeof(UserModel), stream));
-                    isSerializedTask.Wait();
-
-                    streamSw.Start();
-                    stream.Seek(0, SeekOrigin.Begin);
-
-                    string json = null;
-                    using (StreamReader reader = new StreamReader(stream, Encoding.UTF8, true, 1024, true))
-                        json = reader.ReadToEnd();
-
-                    stream.Seek(0, SeekOrigin.Begin);
-                    streamSw.Stop();
-
-                    IDeserializerContext context = new DefaultDeserializerContext(typeof(UserModel));
-                    Task<bool> isDeserializedTask = formatter.TryDeserializeAsync(stream, context);
-                    isDeserializedTask.Wait();
-
-                    model = (UserModel)context.Output;
-                }
-            }
-            sw.Stop();
-            return new KeyValuePair<long, long>(sw.ElapsedMilliseconds, streamSw.ElapsedMilliseconds);
-        }
-
+        
         private KeyValuePair<long, long> CompositeStorage(int count)
         {
             Stopwatch streamSw = new Stopwatch();
