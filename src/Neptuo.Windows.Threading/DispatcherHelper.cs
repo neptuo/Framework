@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Neptuo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace Neptuo.Windows.Threading
         /// <param name="priority">Priority of operations.</param>
         public DispatcherHelper(Dispatcher dispatcher, DispatcherPriority priority = DispatcherPriority.Normal)
         {
+            Ensure.NotNull(dispatcher, "dispatcher");
             this.dispatcher = dispatcher;
             this.priority = priority;
         }
@@ -37,9 +39,7 @@ namespace Neptuo.Windows.Threading
         /// <param name="delay">Delay, before executing <paramref name="action"/>.</param>
         /// <param name="priority">Priority override.</param>
         public void Run(Action action, int delay = 0, DispatcherPriority priority = DispatcherPriority.Normal)
-        {
-            DispatcherHelper.Run(dispatcher, action, delay, priority);
-        }
+            => Run(dispatcher, action, delay, priority);
 
         /// <summary>
         /// Runs <paramref name="action"/> on <paramref name="dispatcher"/>, eventually after <paramref name="delay"/>.
@@ -51,6 +51,9 @@ namespace Neptuo.Windows.Threading
         /// <param name="priority">Opeartion priority.</param>
         public static void Run(Dispatcher dispatcher, Action action, int delay = 0, DispatcherPriority priority = DispatcherPriority.Normal)
         {
+            Ensure.NotNull(dispatcher, "dispatcher");
+            Ensure.NotNull(action, "action");
+
             ThreadStart start = delegate()
             {
                 if (delay >= 0)
