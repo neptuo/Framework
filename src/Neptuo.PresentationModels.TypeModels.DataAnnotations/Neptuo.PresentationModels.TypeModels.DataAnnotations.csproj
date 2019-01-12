@@ -14,9 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj" />
+    <ProjectReference Include="..\Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj" />
+    <ProjectReference Include="..\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj" />
   </ItemGroup>
 
 </Project>
