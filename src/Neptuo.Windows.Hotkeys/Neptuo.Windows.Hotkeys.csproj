@@ -4,7 +4,7 @@
     <Product>Neptuo.Windows.Hotkeys</Product>
     <Description>Windows (global) HotKey binding support.</Description>
     <TargetFramework>net461</TargetFramework>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>2.0.0</VersionPrefix>
     <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.windows.hotkeys</PackageProjectUrl>
     <PackageTags>Neptuo Windows</PackageTags>
   </PropertyGroup>
