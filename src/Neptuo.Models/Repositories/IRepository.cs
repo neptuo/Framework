@@ -12,7 +12,7 @@ namespace Neptuo.Models.Repositories
     /// </summary>
     /// <typeparam name="TDomainModel">A type of the domain model.</typeparam>
     /// <typeparam name="TKey">A type of the domain model key.</typeparam>
-    public interface IRepository<TDomainModel, in TKey> : IReadOnlyRepository<TDomainModel, TKey>
+    public interface IRepository<TDomainModel, TKey> : IReadOnlyRepository<TDomainModel, TKey>
         where TKey : IKey
         where TDomainModel : IDomainModel<TKey>
     {
@@ -21,6 +21,6 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         /// <param name="model">An instance of the model to save.</param>
         /// <returns>A continuation task.</returns>
-        Task SaveAsync(TDomainModel model);
+        Task<TKey> SaveAsync(TDomainModel model);
     }
 }
