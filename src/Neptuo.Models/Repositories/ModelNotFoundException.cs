@@ -15,12 +15,20 @@ namespace Neptuo.Models.Repositories
     public class ModelNotFoundException : Exception
     {
         /// <summary>
+        /// Gets a key of the changed model.
+        /// </summary>
+        public IKey Key { get; }
+
+        /// <summary>
         /// Creates a new instance.
         /// </summary>
         /// <param name="key">A key of the model that has been changed.</param>
         public ModelNotFoundException(IKey key)
             : base($"A model with the key '{key}' doesn't exist.")
-        { }
+        {
+            Ensure.NotNull(key, "key");
+            Key = key;
+        }
 
         /// <summary>
         /// Creates a new instance for <paramref name="key"/> with root cause in <paramref name="inner"/> exception.
@@ -29,7 +37,10 @@ namespace Neptuo.Models.Repositories
         /// <param name="inner">The inner cause of the exceptional state.</param>
         public ModelNotFoundException(IKey key, Exception inner)
             : base($"A model with the key '{key}' doesn't exist.", inner)
-        { }
+        {
+            Ensure.NotNull(key, "key");
+            Key = key;
+        }
 
         /// <summary>
         /// Creates a new instance for deserialization.
