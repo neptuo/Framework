@@ -10,18 +10,8 @@ namespace Neptuo.Models.Keys
     /// Base implementation of <see cref="IKey"/>.
     /// Solves equality, hash codes, comparing to other keys, atc.
     /// </summary>
-    public abstract class KeyBase : IKey
+    public abstract class KeyBase : IKey, IEquatable<IKey>
     {
-        /// <summary>
-        /// Constant for hash code computing of the type.
-        /// </summary>
-        private const int hashPrimeNumber = 216613626;
-
-        /// <summary>
-        /// Constant for hash code computing of the hash code value provided by derivered class.
-        /// </summary>
-        private const int hashPrimeNumberField = 16777619;
-
         public string Type { get; private set; }
 
         public bool IsEmpty { get; private set; }
@@ -85,21 +75,14 @@ namespace Neptuo.Models.Keys
         /// <rereturns><see cref="IComparable.CompareTo"/>.</rereturns>
         protected abstract int CompareValueTo(KeyBase other);
 
-
         public override int GetHashCode()
         {
-            //TODO: Do NOT export this method?
-            //unchecked // Overflow is fine, just wrap ...
-            //{
-                int hash = hashPrimeNumber;
-
-                hash = hash * hashPrimeNumberField ^ Type.GetHashCode();
-                hash = !IsEmpty
-                    ? hash * hashPrimeNumberField ^ GetValueHashCode()
-                    : hash * hashPrimeNumberField ^ -1;
-
-                return hash;
-            //}
+            var hashCode = -333279565;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Type);
+            hashCode = !IsEmpty
+                    ? hashCode * -1521134295 + GetValueHashCode()
+                    : hashCode * -1521134295 + 42;
+            return hashCode;
         }
 
         /// <summary>

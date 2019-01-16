@@ -69,13 +69,9 @@ namespace Neptuo.Models.Keys
         }
 
         protected override int GetValueHashCode()
-        {
-            return Identifier.GetHashCode();
-        }
+            => Identifier.GetHashCode();
 
         protected override string ToStringValue()
-        {
-            return Identifier;
-        }
+            => Identifier;
     }
 }
