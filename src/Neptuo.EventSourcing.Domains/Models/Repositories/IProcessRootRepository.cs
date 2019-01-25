@@ -21,6 +21,7 @@ namespace Neptuo.Models.Repositories
         /// </summary>
         /// <param name="model">The aggregate to save.</param>
         /// <param name="sourceCommandKey">The command key to use as source command in the envelopes of unpublished events.</param>
-        void Save(T model, IKey sourceCommandKey);
+        /// <returns>A continuation task.</returns>
+        Task SaveAsync(T model, IKey sourceCommandKey);
     }
 }

@@ -27,7 +27,7 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repositoryFactory">The factory for instances of the repository.</param>
         public AggregateRootCommandHandler(IFactory<IRepository<T, IKey>> repositoryFactory)
         {
-            defaultExecutor = new AggregateRootCommandExecutor<T, IRepository<T, IKey>>(repositoryFactory, null, GetAggregate, SaveAggregate);
+            defaultExecutor = new AggregateRootCommandExecutor<T, IRepository<T, IKey>>(repositoryFactory, null, GetAggregateAsync, SaveAggregateAsync);
         }
 
         /// <summary>
@@ -36,9 +36,7 @@ namespace Neptuo.Commands.Handlers
         /// </summary>
         /// <param name="handler">The handler that creates new instance of aggregate; when <c>null</c> is returned, nothing is saved.</param>
         protected Task Execute(Func<T> handler)
-        {
-            return defaultExecutor.Execute(handler);
-        }
+            => defaultExecutor.ExecuteAsync(handler);
 
         /// <summary>
         /// Loads aggregate by <paramref name="key"/> and executes <paramref name="handler"/> with it. Then the aggregate is saved.
@@ -47,9 +45,7 @@ namespace Neptuo.Commands.Handlers
         /// <param name="key">The key of the aggregate to load.</param>
         /// <param name="handler">The handler method for modifying aggregate.</param>
         protected Task Execute(IKey key, Action<T> handler)
-        {
-            return defaultExecutor.Execute(key, handler);
-        }
+            => defaultExecutor.ExecuteAsync(key, handler);
         
         /// <summary>
         /// Loads aggregate root with the <paramref name="key"/> from the <paramref name="repository"/>.
@@ -57,11 +53,8 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repository">The repository to load the aggregate root from.</param>
         /// <param name="key">The key of the aggregate root to load.</param>
         /// <returns>The loaded aggregate root.</returns>
-        protected virtual T GetAggregate(IRepository<T, IKey> repository, IKey key)
-        {
-            T aggregate = repository.Get(key);
-            return aggregate;
-        }
+        protected virtual Task<T> GetAggregateAsync(IRepository<T, IKey> repository, IKey key)
+            => repository.GetAsync(key);
 
         /// <summary>
         /// Saves the <paramref name="aggregate"/> root to the <paramref name="repository"/>.
@@ -69,10 +62,8 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repository">The repository to save the aggreate root to.</param>
         /// <param name="aggregate">The aggregate root to save.</param>
         /// <param name="commandKey">The key of the command (if specified; or <c>null</c>).</param>
-        protected virtual void SaveAggregate(IRepository<T, IKey> repository, T aggregate, IKey commandKey)
-        {
-            repository.Save(aggregate);
-        }
+        protected virtual Task SaveAggregateAsync(IRepository<T, IKey> repository, T aggregate, IKey commandKey)
+            => repository.SaveAsync(aggregate);
 
         /// <summary>
         /// Uses command executor that saved information about source command key.
@@ -80,8 +71,6 @@ namespace Neptuo.Commands.Handlers
         /// <param name="commandKey">The key of the command that initiates execute operations.</param>
         /// <returns>The instance of command executor associated with the command key.</returns>
         protected AggregateRootCommandExecutor<T, IRepository<T, IKey>> WithCommand(IKey commandKey)
-        {
-            return defaultExecutor.WithCommand(commandKey);
-        }
+            => defaultExecutor.WithCommand(commandKey);
     }
 }

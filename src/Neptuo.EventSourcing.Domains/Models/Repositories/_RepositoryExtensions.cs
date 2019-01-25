@@ -18,18 +18,16 @@ namespace Neptuo.Models.Repositories
         /// If no such instance exists, throws <see cref="AggregateRootNotFoundException"/>.
         /// </summary>
         /// <typeparam name="TDomainModel">The type of the model to return.</typeparam>
-        /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <param name="repository">The repository.</param>
         /// <param name="key">The key to model associated with.</param>
         /// <returns>The instance of model associated with the <paramref name="key"/>.</returns>
         /// <exception cref="AggregateRootNotFoundException">When no such model is associated with the <paramref name="key"/>.</exception>
-        public static TDomainModel Get<TDomainModel, TKey>(this IReadOnlyRepository<TDomainModel, TKey> repository, TKey key)
-            where TDomainModel : IDomainModel<TKey>
-            where TKey : IKey
+        public static async Task<TDomainModel> GetAsync<TDomainModel>(this IReadOnlyRepository<TDomainModel, IKey> repository, IKey key)
+            where TDomainModel : AggregateRoot
         {
             Ensure.NotNull(repository, "repository");
 
-            TDomainModel model = repository.Find(key);
+            TDomainModel model = await repository.FindAsync(key);
             if (model == null)
                 throw new AggregateRootNotFoundException(key);
 

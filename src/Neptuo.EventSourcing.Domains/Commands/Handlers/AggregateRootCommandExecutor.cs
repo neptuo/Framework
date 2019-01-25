@@ -13,19 +13,20 @@ using System.Threading.Tasks;
 namespace Neptuo.Commands.Handlers
 {
     /// <summary>
-    /// The helper class for execution commands, catching exceptions, passing source command key.
+    /// A helper class for commands execution, catching exceptions, passing source command key.
     /// </summary>
-    /// <typeparam name="T">The type of the aggregate root.</typeparam>
+    /// <typeparam name="T">A type of the aggregate root.</typeparam>
+    /// <typeparam name="TRepository">A type of the repository.</typeparam>
     public class AggregateRootCommandExecutor<T, TRepository>
         where T : AggregateRoot
         where TRepository : IRepository<T, IKey>
     {
         private readonly IFactory<TRepository> repositoryFactory;
         private readonly IKey commandKey;
-        private readonly Func<TRepository, IKey, T> getAggregate;
-        private readonly Action<TRepository, T, IKey> saveAggregate;
+        private readonly Func<TRepository, IKey, Task<T>> getAggregate;
+        private readonly Func<TRepository, T, IKey, Task> saveAggregate;
 
-        internal AggregateRootCommandExecutor(IFactory<TRepository> repositoryFactory, IKey commandKey, Func<TRepository, IKey, T> getAggregate, Action<TRepository, T, IKey> saveAggregate)
+        internal AggregateRootCommandExecutor(IFactory<TRepository> repositoryFactory, IKey commandKey, Func<TRepository, IKey, Task<T>> getAggregate, Func<TRepository, T, IKey, Task> saveAggregate)
         {
             Ensure.NotNull(repositoryFactory, "repositoryFactory");
             Ensure.NotNull(getAggregate, "getAggregate");
@@ -40,7 +41,7 @@ namespace Neptuo.Commands.Handlers
         /// Executes <paramref name="handler"/> that creates new instance of aggregate and saves it.
         /// </summary>
         /// <param name="handler">The handler that creates new instance of aggregate; when <c>null</c> is returned, nothing is saved.</param>
-        public Task Execute(Func<T> handler)
+        public async Task ExecuteAsync(Func<T> handler)
         {
             Ensure.NotNull(handler, "handler");
 
@@ -50,7 +51,7 @@ namespace Neptuo.Commands.Handlers
                 if (aggregate != null)
                 {
                     TRepository repository = repositoryFactory.Create();
-                    saveAggregate(repository, aggregate, commandKey);
+                    await saveAggregate(repository, aggregate, commandKey);
                 }
             }
             catch (AggregateRootException e)
@@ -63,8 +64,6 @@ namespace Neptuo.Commands.Handlers
 
                 throw e;
             }
-
-            return Async.CompletedTask;
         }
 
         /// <summary>
@@ -72,18 +71,18 @@ namespace Neptuo.Commands.Handlers
         /// </summary>
         /// <param name="key">The key of the aggregate to load.</param>
         /// <param name="handler">The handler method for modifying aggregate.</param>
-        public Task Execute(IKey key, Action<T> handler)
+        public async Task ExecuteAsync(IKey key, Action<T> handler)
         {
             Ensure.NotNull(key, "key");
             Ensure.NotNull(handler, "handler");
 
             TRepository repository = repositoryFactory.Create();
-            T aggregate = getAggregate(repository, key);
+            T aggregate = await getAggregate(repository, key);
 
             try
             {
                 handler(aggregate);
-                saveAggregate(repository, aggregate, commandKey);
+                await saveAggregate(repository, aggregate, commandKey);
             }
             catch (AggregateRootException e)
             {
@@ -95,8 +94,6 @@ namespace Neptuo.Commands.Handlers
 
                 throw e;
             }
-
-            return Async.CompletedTask;
         }
 
         internal AggregateRootCommandExecutor<T, TRepository> WithCommand(IKey commandKey)

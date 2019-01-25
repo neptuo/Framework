@@ -25,7 +25,7 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repositoryFactory">The factory for instances of the repository.</param>
         public ProcessRootCommandHandler(IFactory<IProcessRootRepository<T>> repositoryFactory)
         {
-            defaultExecutor = new AggregateRootCommandExecutor<T, IProcessRootRepository<T>>(repositoryFactory, null, GetProcess, SaveProcess);
+            defaultExecutor = new AggregateRootCommandExecutor<T, IProcessRootRepository<T>>(repositoryFactory, null, GetProcessAsync, SaveProcessAsync);
         }
 
         /// <summary>
@@ -33,10 +33,8 @@ namespace Neptuo.Commands.Handlers
         /// Nothing about source command is saved.
         /// </summary>
         /// <param name="handler">The handler that creates new instance of process; when <c>null</c> is returned, nothing is saved.</param>
-        protected Task Execute(Func<T> handler)
-        {
-            return defaultExecutor.Execute(handler);
-        }
+        protected Task ExecuteAsync(Func<T> handler)
+            => defaultExecutor.ExecuteAsync(handler);
 
         /// <summary>
         /// Loads process by <paramref name="key"/> and executes <paramref name="handler"/> with it. Then the process is saved.
@@ -44,10 +42,8 @@ namespace Neptuo.Commands.Handlers
         /// </summary>
         /// <param name="key">The key of the process to load.</param>
         /// <param name="handler">The handler method for modifying process.</param>
-        protected Task Execute(IKey key, Action<T> handler)
-        {
-            return defaultExecutor.Execute(key, handler);
-        }
+        protected Task ExecuteAsync(IKey key, Action<T> handler)
+            => defaultExecutor.ExecuteAsync(key, handler);
 
         /// <summary>
         /// Loads aggregate root with the <paramref name="key"/> from the <paramref name="repository"/>.
@@ -55,21 +51,18 @@ namespace Neptuo.Commands.Handlers
         /// <param name="repository">The repository to load the process root from.</param>
         /// <param name="key">The key of the process root to load.</param>
         /// <returns>The loaded process root.</returns>
-        protected virtual T GetProcess(IProcessRootRepository<T> repository, IKey key)
-        {
-            T aggregate = repository.Get(key);
-            return aggregate;
-        }
+        protected virtual Task<T> GetProcessAsync(IProcessRootRepository<T> repository, IKey key)
+            => repository.GetAsync(key);
 
         /// <summary>
         /// Saves the <paramref name="process"/> root to the <paramref name="repository"/>.
         /// </summary>
         /// <param name="repository">The repository to save the process root to.</param>
         /// <param name="process">The process root to save.</param>
-        protected virtual void SaveProcess(IProcessRootRepository<T> repository, T process, IKey commandKey)
-        {
-            repository.Save(process, commandKey);
-        }
+        /// <param name="commandKey">A key of the command.</param>
+        /// <returns>A continuation task.</returns>
+        protected virtual Task SaveProcessAsync(IProcessRootRepository<T> repository, T process, IKey commandKey)
+            => repository.SaveAsync(process, commandKey);
 
         /// <summary>
         /// Uses command executor that saved information about source command key.
@@ -77,8 +70,6 @@ namespace Neptuo.Commands.Handlers
         /// <param name="commandKey">The key of the command that initiates execute operations.</param>
         /// <returns>The instance of command executor associated with the command key.</returns>
         protected AggregateRootCommandExecutor<T, IProcessRootRepository<T>> WithCommand(IKey commandKey)
-        {
-            return defaultExecutor.WithCommand(commandKey);
-        }
+            => defaultExecutor.WithCommand(commandKey);
     }
 }
