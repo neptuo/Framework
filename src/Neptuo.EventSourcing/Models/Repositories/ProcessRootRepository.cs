@@ -50,14 +50,14 @@ namespace Neptuo.Models.Repositories
             this.commandDispatcher = commandDispatcher;
         }
 
-        public override void Save(T model)
+        public override Task<IKey> SaveAsync(T model)
         {
-            Save(model, null);
+            return SaveAsync(model, null);
         }
         
-        public void Save(T model, IKey sourceCommandKey)
+        public Task<IKey> SaveAsync(T model, IKey sourceCommandKey)
         {
-            base.Save(model);
+            base.SaveAsync(model);
 
             IEnumerable<Envelope<ICommand>> commands = model.Commands;
             if (commands.Any())
@@ -74,6 +74,8 @@ namespace Neptuo.Models.Repositories
                 foreach (Envelope<ICommand> e in commands)
                     commandDispatcher.HandleAsync(e).Wait();
             }
+
+            return Task.FromResult(model.Key);
         }
     }
 }

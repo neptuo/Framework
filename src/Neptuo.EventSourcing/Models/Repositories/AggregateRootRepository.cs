@@ -56,7 +56,7 @@ namespace Neptuo.Models.Repositories
             this.snapshotStore = snapshotStore;
         }
 
-        public virtual void Save(T model)
+        public virtual Task<IKey> SaveAsync(T model)
         {
             Ensure.NotNull(model, "model");
 
@@ -76,9 +76,11 @@ namespace Neptuo.Models.Repositories
                 foreach (IEvent e in events)
                     eventDispatcher.PublishAsync(e).Wait();
             }
+
+            return Task.FromResult(model.Key);
         }
 
-        public T Find(IKey key)
+        public Task<T> FindAsync(IKey key)
         {
             Ensure.Condition.NotEmptyKey(key);
 
@@ -102,7 +104,7 @@ namespace Neptuo.Models.Repositories
                 instance = factory.Create(key, snapshot, events);
 
             // Return the aggregate.
-            return instance;
+            return Task.FromResult(instance);
         }
     }
 }
