@@ -13,6 +13,9 @@ namespace Neptuo.Formatters.Models
         public string UserName { get; private set; }
         public string Password { get; private set; }
 
+        public UserModel()
+        { }
+
         public UserModel(string userName, string password)
         {
             Ensure.NotNullOrEmpty(userName, "userName");
