@@ -8,31 +8,26 @@ using System.Threading.Tasks;
 namespace Neptuo.Models.Deleters
 {
     /// <summary>
-    /// Implementation of <see cref="IDeleteContext"/> for missing delete handler.
+    /// An implementation of <see cref="IDeleteContext"/> for missing delete handler.
     /// </summary>
     public class MissingHandlerContext : IDeleteContext
     {
-        public IKey SourceKey { get; private set; }
+        public IKey SourceKey { get; }
         
-        public bool CanDelete
-        {
-            get { return false; }
-        }
+        public bool CanDelete => false;
 
-        public IEnumerable<IDeleteReference> References
-        {
-            get { return Enumerable.Empty<IDeleteReference>(); }
-        }
+        public IEnumerable<IDeleteReference> References => Enumerable.Empty<IDeleteReference>();
 
+        /// <summary>
+        /// Creates a new instance for a <paramref name="sourceKey"/>.
+        /// </summary>
+        /// <param name="sourceKey">A key of the object.</param>
         public MissingHandlerContext(IKey sourceKey)
         {
             Ensure.NotNull(sourceKey, "sourceKey");
             SourceKey = sourceKey;
         }
 
-        public void Delete()
-        {
-            throw Ensure.Exception.NotSupported();
-        }
+        public void Delete() => throw Ensure.Exception.NotSupported();
     }
 }

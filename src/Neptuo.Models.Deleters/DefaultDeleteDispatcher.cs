@@ -1,5 +1,4 @@
-﻿using Neptuo.Collections.Generic;
-using Neptuo.Models.Keys;
+﻿using Neptuo.Models.Keys;
 using Neptuo.Models.Deleters.Handlers;
 using System;
 using System.Collections.Generic;
@@ -46,18 +45,18 @@ namespace Neptuo.Models.Deleters
             return this;
         }
 
-        public IDeleteContext PrepareContext(IKey key)
+        public Task<IDeleteContext> PrepareContextAsync(IKey key)
         {
             Ensure.NotNull(key, "key");
 
             IDeleteHandler handler;
             if (handlers.TryGetValue(key.Type, out handler))
-                return handler.Handle(key);
+                return handler.HandleAsync(key);
 
             if (onSearchHandler.TryExecute(key.Type, out handler))
-                return handler.Handle(key);
+                return handler.HandleAsync(key);
 
-            return new MissingHandlerContext(key);
+            return Task.FromResult<IDeleteContext>(new MissingHandlerContext(key));
         }
     }
 }

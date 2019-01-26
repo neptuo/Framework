@@ -31,23 +31,23 @@ namespace Neptuo.Models.Deleters.Handlers
             this.repository = repository;
         }
 
-        public IDeleteContext Handle(IKey key)
+        public async Task<IDeleteContext> HandleAsync(IKey key)
         {
             TKey modelKey = key as TKey;
             Ensure.NotNull(modelKey, "key");
 
-            TModel model = repository.Find(modelKey);
+            TModel model = await repository.FindAsync(modelKey);
             if (model == null)
                 return new MissingHandlerContext(key);
 
-            return HandleModel(model);
+            return await HandleModelAsync(model);
         }
 
         /// <summary>
         /// Prepares <see cref="IDeleteContext"/> for <paramref name="model"/>.
         /// </summary>
-        /// <param name="key">Model to delete.</param>
-        /// <returns>Deletion context.</returns>
-        protected abstract IDeleteContext HandleModel(TModel model);
+        /// <param name="model">A model to delete.</param>
+        /// <returns>A continuation task contaning a deletion context.</returns>
+        protected abstract Task<IDeleteContext> HandleModelAsync(TModel model);
     }
 }
