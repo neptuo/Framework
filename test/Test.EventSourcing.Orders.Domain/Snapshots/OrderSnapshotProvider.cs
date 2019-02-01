@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Models.Domains;
 
-namespace Orders.Domains.Snapshots
+namespace Orders.Snapshots
 {
     public class OrderSnapshotProvider : ISnapshotProvider
     {

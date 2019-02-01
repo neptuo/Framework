@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains.Snapshots
+namespace Orders.Snapshots
 {
     public class OrderSnapshot : ISnapshot
     {

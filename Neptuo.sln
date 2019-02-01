@@ -114,7 +114,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.EventSourcing.Orders.Domains", "test\Test.EventSourcing.Orders.Domains\Test.EventSourcing.Orders.Domains.csproj", "{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.EventSourcing.Orders.Domain", "test\Test.EventSourcing.Orders.Domain\Test.EventSourcing.Orders.Domain.csproj", "{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Exceptions", "src\Neptuo.Exceptions\Neptuo.Exceptions.csproj", "{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}"
 EndProject

@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains.Commands.Handlers
+namespace Orders.Commands.Handlers
 {
     public class CreateOrderHandler : ICommandHandler<CreateOrder>
     {
@@ -22,9 +22,6 @@ namespace Orders.Domains.Commands.Handlers
         }
 
         public Task HandleAsync(CreateOrder command)
-        {
-            repository.Save(new Order(command.OrderKey));
-            return Async.CompletedTask;
-        }
+            => repository.SaveAsync(new Order(command.OrderKey));
     }
 }

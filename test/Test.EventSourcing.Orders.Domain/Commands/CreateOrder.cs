@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains.Commands
+namespace Orders.Commands
 {
     public class CreateOrder : Command
     {

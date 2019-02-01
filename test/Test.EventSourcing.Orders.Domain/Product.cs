@@ -6,10 +6,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Events;
 using Neptuo.Models.Keys;
-using Orders.Domains.Events;
+using Orders.Events;
 using Neptuo;
 
-namespace Orders.Domains
+namespace Orders
 {
     public class Product : AggregateRoot
     {

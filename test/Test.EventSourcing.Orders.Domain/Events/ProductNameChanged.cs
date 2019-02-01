@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains.Events
+namespace Orders.Events
 {
     public class ProductNameChanged : Event
     {

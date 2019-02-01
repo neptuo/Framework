@@ -4,15 +4,15 @@ using Neptuo.Events.Handlers;
 using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Snapshots;
-using Orders.Domains.Events;
-using Orders.Domains.Snapshots;
+using Orders.Events;
+using Orders.Snapshots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains
+namespace Orders
 {
     public class Order : AggregateRoot,
         IEventHandler<OrderPlaced>,

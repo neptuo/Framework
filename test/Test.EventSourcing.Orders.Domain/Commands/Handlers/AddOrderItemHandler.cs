@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.Domains.Commands.Handlers
+namespace Orders.Commands.Handlers
 {
     public class AddOrderItemHandler : ICommandHandler<AddOrderItem>
     {
@@ -21,15 +21,14 @@ namespace Orders.Domains.Commands.Handlers
             this.repository = repository;
         }
 
-        public Task HandleAsync(AddOrderItem command)
+        public async Task HandleAsync(AddOrderItem command)
         {
-            Order order = repository.Find(command.OrderKey);
+            Order order = await repository.FindAsync(command.OrderKey);
             if (order == null)
                 throw new MissingOrderException(command.OrderKey);
 
             order.AddItem(command.ProductKey, command.Count);
-            repository.Save(order);
-            return Async.CompletedTask;
+            await repository.SaveAsync(order);
         }
     }
 }

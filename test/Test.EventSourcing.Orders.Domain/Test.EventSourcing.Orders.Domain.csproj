@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Test.EventSourcing.Orders.Domains</Product>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <RootNamespace>Orders</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj" />
+  </ItemGroup>
+
+</Project>
