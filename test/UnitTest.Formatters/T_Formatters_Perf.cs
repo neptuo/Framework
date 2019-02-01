@@ -2,6 +2,7 @@
 using Neptuo;
 using Neptuo.Activators;
 using Neptuo.Formatters;
+using Neptuo.Formatters.Converters;
 using Neptuo.Formatters.Models;
 using Newtonsoft.Json;
 using System;
@@ -21,6 +22,11 @@ namespace UnitTest.Formatters
         [TestMethod]
         public void SimplePerf()
         {
+            Converts.Repository
+                .AddJsonEnumSearchHandler()
+                .AddJsonPrimitivesSearchHandler()
+                .AddJsonObjectSearchHandler();
+
             int count = 100000;
 
             long rawNewtonSoft = RawNewtonsoftJson(count);
