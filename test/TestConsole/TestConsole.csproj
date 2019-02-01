@@ -201,10 +201,6 @@
       <Project>{2e14dd4a-afa7-4754-a126-ce0cab103b14}</Project>
       <Name>Neptuo.Compilers.SharpKit</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Migrations\Neptuo.Migrations.csproj">
-      <Project>{70114d0d-b9f1-464f-a068-9840d7fa6798}</Project>
-      <Name>Neptuo.Migrations</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj">
       <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
       <Name>Neptuo.Models</Name>
