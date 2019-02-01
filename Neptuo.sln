@@ -18,15 +18,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Migrations", "src\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Controls", "src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Threading", "src\Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Windows.Threading", "src\Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "test\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.PresentationModels", "src\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj", "{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.PresentationModels.TypeModels.DataAnnotations", "src\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj", "{C4909618-FA01-4E6F-B34B-9F1D24239C87}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Configuration", "src\Neptuo.Configuration\Neptuo.Configuration.csproj", "{B21273F3-6326-4E7B-8D1C-13D4DB440801}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PresentationModels", "PresentationModels", "{5D0CB141-A610-4243-BBDA-7D5A9084FC53}"
 EndProject
@@ -94,13 +92,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileSystems", "FileSystems"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.PresentationModels.Validators", "src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj", "{0834DFD1-3536-4305-9E23-21061C5C0414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Hotkeys", "src\Neptuo.Windows.HotKeys\Neptuo.Windows.Hotkeys.csproj", "{F22B45A9-CE8E-49D8-8C43-99351AC4595F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Windows.Hotkeys", "src\Neptuo.Windows.HotKeys\Neptuo.Windows.Hotkeys.csproj", "{F22B45A9-CE8E-49D8-8C43-99351AC4595F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.FileSystems.Events.Local", "src\Neptuo.FileSystems.Events.Local\Neptuo.FileSystems.Events.Local.csproj", "{5EDC8298-58B5-48A0-83CE-28650BAE9270}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing", "src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj", "{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing", "src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj", "{9AF3CC63-A2E4-4801-A511-F3A631F95C7E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Entity", "src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj", "{4FF6188F-8010-47EB-A4BC-3AA7A17A517D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing.Entity", "src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj", "{4FF6188F-8010-47EB-A4BC-3AA7A17A517D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Formatters", "Formatters", "{C9CA80A3-55F8-47F7-9FBF-833D0B0F4EE7}"
 EndProject
@@ -112,19 +110,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Xml", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite", "src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj", "{51BE86F0-1512-4D63-9E8B-BF53DC96E7AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Formatters", "test\UnitTest.Formatters\UnitTest.Formatters.csproj", "{5E6FBC06-2110-47D3-A0E2-ACD99D7E8D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Formatters", "test\UnitTest.Formatters\UnitTest.Formatters.csproj", "{5E6FBC06-2110-47D3-A0E2-ACD99D7E8D41}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Formatters.Composite.Json", "src\Neptuo.Formatters.Composite.Json\Neptuo.Formatters.Composite.Json.csproj", "{8F0929A3-B0DD-4C95-A465-CE896FCAAA4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing.Domains", "src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj", "{8997CF9A-2985-407E-A7B8-5282DF052A28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.EventSourcing.Orders.Domains", "test\Test.EventSourcing.Orders.Domains\Test.EventSourcing.Orders.Domains.csproj", "{8BB59E74-2323-4F04-8AD8-BDA31BF9FA91}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Exceptions", "src\Neptuo.Exceptions\Neptuo.Exceptions.csproj", "{00A151B0-AC8E-43A9-9002-D6089E7FB8B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.Formatters.Composite.Json", "src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj", "{2C713448-D1C0-4480-86CE-A85ECEB39DF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing.Formatters.Composite.Json", "src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj", "{2C713448-D1C0-4480-86CE-A85ECEB39DF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.EventSourcing.PresentationModels.Visualization", "src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.EventSourcing.PresentationModels.Visualization", "src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj", "{F5C03409-A415-4CBF-8231-453B977DC8FB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Commands.Validators", "src\Neptuo.Commands.Validators\Neptuo.Commands.Validators.csproj", "{4066B113-7406-42BB-94A1-4D27FB0C686F}"
 EndProject
@@ -185,9 +183,6 @@ Global
 		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4909618-FA01-4E6F-B34B-9F1D24239C87}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B21273F3-6326-4E7B-8D1C-13D4DB440801}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{834CEB47-4BCD-4895-80FA-44960472C64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -404,7 +399,6 @@ Global
 		{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 		{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{C4909618-FA01-4E6F-B34B-9F1D24239C87} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
-		{B21273F3-6326-4E7B-8D1C-13D4DB440801} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{891F1607-D6F3-4D9F-8FF1-ABC9DA73B563} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{A9D02667-9762-4C91-A403-41DE7B8A4EFE} = {2CBC9170-F18E-4CAC-B9BA-860DB1625765}
 		{2E14DD4A-AFA7-4754-A126-CE0CAB103B14} = {E2CADDB6-3074-4310-B3EC-E69568D4F180}
@@ -457,7 +451,7 @@ Global
 		{F9377571-8686-4079-8074-DBF0C73B03BC} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
