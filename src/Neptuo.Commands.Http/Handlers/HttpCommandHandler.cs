@@ -1,4 +1,4 @@
-﻿using Neptuo.Net.Http.Clients.Routing;
+﻿using Neptuo.Net.Http.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +21,9 @@ namespace Neptuo.Commands.Handlers
         /// <param name="route">Route definition.</param>
         public HttpCommandHandler(RouteDefinition route)
         {
-            this.dispatcher = new HttpCommandDispatcher(new DefaultRouteTable().Add(typeof(TCommand), route));
+            dispatcher = new HttpCommandDispatcher(new DefaultRouteTable().Add(typeof(TCommand), route));
         }
 
-        public Task HandleAsync(TCommand command)
-        {
-            return dispatcher.HandleAsync(command);
-        }
+        public Task HandleAsync(TCommand command) => dispatcher.HandleAsync(command);
     }
 }
