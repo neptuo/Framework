@@ -1,8 +1,9 @@
-﻿using Neptuo.Net.Http.Clients.Routing;
+﻿using Neptuo.Net.Http.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries.Handlers
@@ -23,12 +24,9 @@ namespace Neptuo.Queries.Handlers
         /// <param name="route">Route definition.</param>
         public HttpQueryHandler(RouteDefinition route)
         {
-            this.dispatcher = new HttpQueryDispatcher(new DefaultRouteTable().Add(typeof(TQuery), route));
+            dispatcher = new HttpQueryDispatcher(new DefaultRouteTable().Add(typeof(TQuery), route));
         }
 
-        public Task<TResult> HandleAsync(TQuery query)
-        {
-            return dispatcher.QueryAsync(query);
-        }
+        public Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken) => dispatcher.QueryAsync<TQuery, TResult>(query, cancellationToken);
     }
 }

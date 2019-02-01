@@ -1,14 +1,12 @@
-﻿using Neptuo.Net.Http.Clients;
-using Neptuo.Net.Http.Clients.Routing;
+﻿using Neptuo.Net.Http.Routing;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries
@@ -32,7 +30,8 @@ namespace Neptuo.Queries
             this.httpAdapter = new HttpClientAdapter(routeTable);
         }
 
-        public async Task<TOutput> QueryAsync<TOutput>(IQuery<TOutput> query)
+        public async Task<TResult> QueryAsync<TQuery, TResult>(TQuery query, CancellationToken cancellationToken = default)
+            where TQuery : IQuery<TResult>
         {
             Ensure.NotNull(query, "query");
             Type queryType = query.GetType();
@@ -46,7 +45,7 @@ namespace Neptuo.Queries
                     HttpResponseMessage response = await httpAdapter.Execute(httpClient, objectContent, route);
 
                     // Parse output.
-                    TOutput output = await response.Content.ReadAsAsync<TOutput>();
+                    TResult output = await response.Content.ReadAsAsync<TOutput>();
                     return output;
                 }
             }
