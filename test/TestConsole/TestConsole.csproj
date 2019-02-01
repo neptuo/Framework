@@ -102,8 +102,6 @@
     <Compile Include="Commands\CreateProductCommandHandler.cs" />
     <Compile Include="Commands\TestCommands.cs" />
     <Compile Include="Compilers\TestCompiler.cs" />
-    <Compile Include="Configuration\StaticConfigurationScope.cs" />
-    <Compile Include="Configuration\TestConfiguration.cs" />
     <Compile Include="Data\Category.cs" />
     <Compile Include="Data\CategoryEntity.cs" />
     <Compile Include="Data\CategoryRepository.cs" />
