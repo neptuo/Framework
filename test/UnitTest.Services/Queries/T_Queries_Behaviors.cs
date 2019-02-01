@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries
@@ -28,7 +29,7 @@ namespace Neptuo.Queries
 
     public class ProductQueryHandler : IQueryHandler<ProductQuery, Product>
     {
-        public Task<Product> HandleAsync(ProductQuery query)
+        public Task<Product> HandleAsync(ProductQuery query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new Product()
             {
@@ -60,7 +61,7 @@ namespace Neptuo.Queries
             IPipeline<ProductQueryHandler> pipeline = pipelinefactory(behaviorProvider);
             IQueryHandler<ProductQuery, Product> queryHandler = new BehaviorQueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultFactory<ProductQueryHandler>());
 
-            Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" });
+            Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" }, default);
             if (!task.IsCompleted)
                 task.RunSynchronously();
 

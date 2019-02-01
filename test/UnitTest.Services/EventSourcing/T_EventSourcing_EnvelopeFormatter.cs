@@ -1,11 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
-using Neptuo.Converters;
 using Neptuo.Collections.Specialized;
 using Neptuo.Formatters;
 using Neptuo.Formatters.Converters;
-using Neptuo.Formatters.Metadata;
-using Orders.Domains.Commands;
+using Orders.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +11,8 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Models.Keys;
-using Orders.Domains.Events;
-using Orders.Domains;
+using Orders.Events;
+using Orders;
 
 namespace Neptuo.EventSourcing
 {

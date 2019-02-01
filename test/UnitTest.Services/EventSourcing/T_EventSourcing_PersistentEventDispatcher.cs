@@ -3,7 +3,7 @@ using Neptuo.Events.Handlers;
 using Neptuo.Exceptions;
 using Neptuo.Internals;
 using Neptuo.Linq.Expressions;
-using Orders.Domains.Events;
+using Orders.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

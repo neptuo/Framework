@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Neptuo.Queries
@@ -35,12 +36,12 @@ namespace Neptuo.Queries
     [QueryHandler]
     class Q1Handler : IQueryHandler<Q1, R1>, IQueryHandler<Q2, R2>
     {
-        public Task<R1> HandleAsync(Q1 query)
+        public Task<R1> HandleAsync(Q1 query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new R1());
         }
 
-        public Task<R2> HandleAsync(Q2 query)
+        public Task<R2> HandleAsync(Q2 query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new R2());
         }
@@ -49,12 +50,12 @@ namespace Neptuo.Queries
     [QueryHandler(typeof(Q3))]
     class Q2Handler : IQueryHandler<Q3, R3>, IQueryHandler<Q4, R4>
     {
-        public Task<R3> HandleAsync(Q3 query)
+        public Task<R3> HandleAsync(Q3 query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new R3());
         }
 
-        public Task<R4> HandleAsync(Q4 query)
+        public Task<R4> HandleAsync(Q4 query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new R4());
         }

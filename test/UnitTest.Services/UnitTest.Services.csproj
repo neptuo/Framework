@@ -1,214 +1,43 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
     <RootNamespace>Neptuo</RootNamespace>
-    <AssemblyName>UnitTest.Services</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo, Version=5.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.5.2.0\lib\net45\Neptuo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.2.0.0\lib\net45\Neptuo.Formatters.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters.Composite, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.2.1.0\lib\net45\Neptuo.Formatters.Composite.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters.Composite.Json, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Json.2.1.0\lib\net45\Neptuo.Formatters.Composite.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Neptuo.Formatters.Composite.Metadata, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Neptuo.Formatters.Composite.Metadata.1.0.1\lib\net45\Neptuo.Formatters.Composite.Metadata.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
-  <Choose>
-    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
-  </Choose>
-  <ItemGroup>
-    <Compile Include="Commands\_Services.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_PersistentCommandDispatcher.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_ReadModels_Rebuilder.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_ReflectionAggregateRootFactory.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_AggregateRoot.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_EnvelopeFormatter.cs" />
-    <Compile Include="EventSourcing\T_EventSourcing_PersistentEventDispatcher.cs" />
-    <Compile Include="EventSourcing\_Services.cs" />
-    <Compile Include="Events\T_Events_Sync.cs" />
-    <Compile Include="Events\_Services.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\T_Queries_AutoExport.cs" />
-    <Compile Include="Queries\T_Queries_Behaviors.cs" />
-    <Compile Include="T_AddAll.cs" />
-    <Compile Include="Queries\_Services.cs" />
-    <Compile Include="T_KeyFactory.cs" />
-    <Compile Include="T_SchedulingContext.cs" />
-    <Compile Include="Validators\T_Validators_MissingHandler.cs" />
-    <Compile Include="Validators\T_Validators_SearchHandler.cs" />
-    <Compile Include="Validators\_Services.cs" />
+    <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Behaviors\Neptuo.Behaviors.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Commands.Behaviors\Neptuo.Commands.Behaviors.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Commands.Validators\Neptuo.Commands.Validators.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Models.Keys.Serialization\Neptuo.Models.Keys.Serialization.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Net.Http.Routing\Neptuo.Net.Http.Routing.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Queries\Neptuo.Queries.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.TypeMapping\Neptuo.TypeMapping.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Validators\Neptuo.Validators.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Formatters\Neptuo.Formatters.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Composite.Json\Neptuo.Formatters.Composite.Json.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Json\Neptuo.Formatters.Json.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Formatters.Xml\Neptuo.Formatters.Xml.csproj" />
+    <ProjectReference Include="..\Test.EventSourcing.Orders.Domain\Test.EventSourcing.Orders.Domain.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Neptuo.Activators.Simple\Neptuo.Activators.Simple.csproj">
-      <Project>{891f1607-d6f3-4d9f-8ff1-abc9da73b563}</Project>
-      <Name>Neptuo.Activators.Simple</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Behaviors\Neptuo.Behaviors.csproj">
-      <Project>{8b01eea6-3b82-44db-adfe-033c36310c1e}</Project>
-      <Name>Neptuo.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj">
-      <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
-      <Name>Neptuo.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj">
-      <Project>{8997cf9a-2985-407e-a7b8-5282df052a28}</Project>
-      <Name>Neptuo.EventSourcing.Domains</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj">
-      <Project>{4ff6188f-8010-47eb-a4bc-3aa7a17a517d}</Project>
-      <Name>Neptuo.EventSourcing.Entity</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj">
-      <Project>{2c713448-d1c0-4480-86ce-a85eceb39df8}</Project>
-      <Name>Neptuo.EventSourcing.Formatters.Composite.Json</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj">
-      <Project>{9af3cc63-a2e4-4801-a511-f3a631f95c7e}</Project>
-      <Name>Neptuo.EventSourcing</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj">
-      <Project>{fe22167d-a8f5-400e-941d-4437ef22cece}</Project>
-      <Name>Neptuo.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Exceptions\Neptuo.Exceptions.csproj">
-      <Project>{00a151b0-ac8e-43a9-9002-d6089e7fb8b3}</Project>
-      <Name>Neptuo.Exceptions</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Models.Deleters\Neptuo.Models.Deleters.csproj">
-      <Project>{03fd4941-515a-4c2f-a0a6-3ecfd1e16d4e}</Project>
-      <Name>Neptuo.Models.Deleters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj">
-      <Project>{37f9b51a-2e66-4a99-950a-17ebf6880aba}</Project>
-      <Name>Neptuo.Models</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj">
-      <Project>{f1deaa68-6740-42ec-9c02-6946cda4ce26}</Project>
-      <Name>Neptuo.Queries.Behaviors</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Queries.Http\Neptuo.Queries.Http.csproj">
-      <Project>{8ec49c59-5f97-4877-95ca-f1bb2254f332}</Project>
-      <Name>Neptuo.Queries.Http</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Queries\Neptuo.Queries.csproj">
-      <Project>{85ace13a-c74c-4219-b1df-d93b9b1c8983}</Project>
-      <Name>Neptuo.Queries</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\Neptuo.Validators\Neptuo.Validators.csproj">
-      <Project>{191a52c5-789c-4d8c-9551-0fae9d632439}</Project>
-      <Name>Neptuo.Validators</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Test.EventSourcing.Orders.Domains\Test.EventSourcing.Orders.Domains.csproj">
-      <Project>{8bb59e74-2323-4f04-8ad8-bda31bf9fa91}</Project>
-      <Name>Test.EventSourcing.Orders.Domains</Name>
-    </ProjectReference>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
-  <Choose>
-    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-          <Private>False</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+  
 </Project>

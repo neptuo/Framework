@@ -2,9 +2,7 @@
 using Neptuo.Activators;
 using Neptuo.Commands;
 using Neptuo.Data;
-using Neptuo.EventSourcing;
 using Neptuo.Formatters;
-using Neptuo.Formatters.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
