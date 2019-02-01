@@ -76,7 +76,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Commands.Behaviors",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Events.Behaviors", "src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj", "{9AE39411-759E-4682-9CB1-D1308C868290}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Net.Http.Clients", "src\Neptuo.Net.Http.Clients\Neptuo.Net.Http.Clients.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Net.Http.Routing", "src\Neptuo.Net.Http.Routing\Neptuo.Net.Http.Routing.csproj", "{2FBB5921-7AC8-473D-8356-954E0087659F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Commands.Http", "src\Neptuo.Commands.Http\Neptuo.Commands.Http.csproj", "{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}"
 EndProject
@@ -268,6 +268,7 @@ Global
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FBB5921-7AC8-473D-8356-954E0087659F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FBB5921-7AC8-473D-8356-954E0087659F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -445,7 +446,7 @@ Global
 		{F9377571-8686-4079-8074-DBF0C73B03BC} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
+		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
 	EndGlobalSection
 EndGlobal

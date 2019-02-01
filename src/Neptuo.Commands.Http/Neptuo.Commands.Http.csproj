@@ -67,9 +67,9 @@
       <Project>{21d7ecef-62e7-4c65-9076-8d88a9c9e1ec}</Project>
       <Name>Neptuo.Commands</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Neptuo.Net.Http.Clients\Neptuo.Net.Http.Clients.csproj">
+    <ProjectReference Include="..\Neptuo.Net.Http.Routing\Neptuo.Net.Http.Routing.csproj">
       <Project>{2fbb5921-7ac8-473d-8356-954e0087659f}</Project>
-      <Name>Neptuo.Net.Http.Clients</Name>
+      <Name>Neptuo.Net.Http.Routing</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

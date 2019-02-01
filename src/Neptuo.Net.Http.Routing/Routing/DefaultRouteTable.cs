@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Net.Http.Clients.Routing
+namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
     /// Default (with manual registration) implementation of <see cref="IRouteTable"/>.

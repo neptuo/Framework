@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Net.Http.Clients.Routing
+namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
-    /// Enumeration of supported HTTP methods.
+    /// An enumeration of supported HTTP methods.
     /// </summary>
     public enum RouteMethod
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Net.Http.Clients.Routing
+namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
     /// Implementation of <see cref="IRouteTable"/> which uses inner route table
@@ -28,8 +28,7 @@ namespace Neptuo.Net.Http.Clients.Routing
             Ensure.NotNullOrEmpty(baseUrl, "baseUrl");
             Ensure.NotNull(routeTable, "routeTable");
 
-            Uri url;
-            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out url))
+            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out Uri url))
                 throw Ensure.Exception.ArgumentOutOfRange("baseUrl", "Base URL must be valid and absolute URL.");
 
             this.baseUrl = baseUrl;
@@ -41,14 +40,13 @@ namespace Neptuo.Net.Http.Clients.Routing
             if (routeTable.TryGet(inputType, out route))
             {
                 // If URL in route is absolute, nothing is needed.
-                Uri url;
-                if (Uri.TryCreate(route.Url, UriKind.Absolute, out url))
+                if (Uri.TryCreate(route.Url, UriKind.Absolute, out Uri url))
                     return true;
 
                 if (route.Url.StartsWith("~/"))
                 {
                     string relativeUrl = route.Url.Substring(1);
-                    route = new RouteDefinition(baseUrl + relativeUrl, route.Method, route.Serialization);
+                    route = new RouteDefinition(baseUrl + relativeUrl, route.Method, route.Serializer);
                     return true;
                 }
             }

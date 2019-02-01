@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Neptuo.Net.Http.Routing</Product>
+    <Description>Base library for sending .NET objects over the HTTP.</Description>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <PackageProjectUrl>https://www.neptuo.com/project/dev/neptuo.net.http.routing</PackageProjectUrl>
+    <PackageTags>Neptuo Http</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
+    <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
+  </ItemGroup>
+
+</Project>
