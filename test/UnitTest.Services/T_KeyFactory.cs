@@ -17,7 +17,7 @@ namespace Neptuo
             KeyFactory.SetGuidKeyWithTypeFullNameAndAssembly();
             GuidKey key = KeyFactory.Create(typeof(KeyFactory)).AsGuidKey();
 
-            Assert.AreEqual("Neptuo.KeyFactory, Neptuo.EventSourcing.Domains", key.Type);
+            Assert.AreEqual("Neptuo.KeyFactory, Neptuo.EventSourcing", key.Type);
 
             Type keyFactoryType = Type.GetType(key.Type);
             Assert.IsNotNull(keyFactoryType);

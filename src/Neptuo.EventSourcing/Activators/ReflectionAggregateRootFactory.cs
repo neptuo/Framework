@@ -1,5 +1,4 @@
-﻿using Neptuo.Events;
-using Neptuo.Models.Domains;
+﻿using Neptuo.Models;
 using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Neptuo.Models.Snapshots;
-using Neptuo;
 
 namespace Neptuo.Activators
 {

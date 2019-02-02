@@ -1,7 +1,5 @@
-﻿using Neptuo;
-using Neptuo.Events;
+﻿using Neptuo.Events;
 using Neptuo.Events.Handlers;
-using Neptuo.Linq.Expressions;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Snapshots;
 using Neptuo.Threading.Tasks;
@@ -12,7 +10,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Domains
+namespace Neptuo.Models
 {
     /// <summary>
     /// The base class for aggregate root model.

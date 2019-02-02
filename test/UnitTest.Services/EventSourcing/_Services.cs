@@ -3,8 +3,9 @@ using Neptuo.Commands.Handlers;
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
-using Neptuo.Models.Domains;
+using Neptuo.Models;
 using Neptuo.Models.Keys;
+using Neptuo.Models.Snapshots;
 using Neptuo.Threading.Tasks;
 using Orders.Events;
 using System;
@@ -14,7 +15,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using Neptuo.Models.Snapshots;
 
 namespace Neptuo.EventSourcing
 {

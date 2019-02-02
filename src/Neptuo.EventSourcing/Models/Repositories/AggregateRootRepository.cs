@@ -1,10 +1,8 @@
-﻿using Neptuo;
-using Neptuo.Activators;
+﻿using Neptuo.Activators;
 using Neptuo.Data;
 using Neptuo.Events;
 using Neptuo.Formatters;
 using Neptuo.Internals;
-using Neptuo.Models.Domains;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Snapshots;
 using System;

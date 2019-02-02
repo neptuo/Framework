@@ -1,5 +1,5 @@
 ﻿using Neptuo.Activators;
-using Neptuo.Models.Domains;
+using Neptuo.Models;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Repositories;
 using System;

@@ -1,7 +1,7 @@
 ﻿using Neptuo;
 using Neptuo.Events;
 using Neptuo.Events.Handlers;
-using Neptuo.Models.Domains;
+using Neptuo.Models;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Snapshots;
 using Orders.Events;

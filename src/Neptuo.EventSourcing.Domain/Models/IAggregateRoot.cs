@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Domains
+namespace Neptuo.Models
 {
     /// <summary>
     /// Describes event-sourcing compatible aggregate root.

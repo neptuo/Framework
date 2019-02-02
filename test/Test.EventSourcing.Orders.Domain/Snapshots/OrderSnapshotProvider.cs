@@ -1,10 +1,10 @@
-﻿using Neptuo.Models.Snapshots;
+﻿using Neptuo.Models;
+using Neptuo.Models.Snapshots;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Neptuo.Models.Domains;
 
 namespace Orders.Snapshots
 {

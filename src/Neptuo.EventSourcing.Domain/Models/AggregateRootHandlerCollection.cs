@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Domains
+namespace Neptuo.Models
 {
     /// <summary>
     /// Collection of event handlers bound from aggregate roots.

@@ -1,17 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neptuo.Activators;
-using Neptuo.Commands;
-using Neptuo.Data;
-using Neptuo.Data.Entity;
 using Neptuo.Events;
-using Neptuo.Formatters;
-using Neptuo.Models.Domains;
-using Neptuo.Models.Keys;
-using Neptuo.Models.Repositories;
-using Orders;
-using Orders.Commands;
-using Orders.Commands.Handlers;
-using Orders.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

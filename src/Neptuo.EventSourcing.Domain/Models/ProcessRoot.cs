@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models.Domains
+namespace Neptuo.Models
 {
     /// <summary>
     /// The base class for (long running) process model.

@@ -1,4 +1,4 @@
-﻿using Neptuo.Models.Domains;
+﻿using Neptuo.Models;
 using Neptuo.Models.Keys;
 using Neptuo.Models.Snapshots;
 using System;
