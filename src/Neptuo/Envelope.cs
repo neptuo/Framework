@@ -18,31 +18,25 @@ namespace Neptuo
         /// <typeparam name="T">Type of the body.</typeparam>
         /// <param name="body">The body of the evelope.</param>
         /// <returns>New instance of <see cref="Envelope{T}"/> with <paramref name="body"/>.</returns>
-        public static Envelope<T> Create<T>(T body)
-        {
-            return new Envelope<T>(body);
-        }
+        public static Envelope<T> Create<T>(T body) => new Envelope<T>(body);
 
         /// <summary>
         /// Creates new instance of <see cref="Envelope"/> with body.
         /// </summary>
         /// <param name="body">The body of the evelope.</param>
         /// <returns>New instance of <see cref="Envelope"/> with <paramref name="body"/>.</returns>
-        public static Envelope Create(object body)
-        {
-            return new Envelope(body);
-        }
+        public static Envelope Create(object body) => new Envelope(body);
 
 
         /// <summary>
         /// The body of the evelope.
         /// </summary>
-        public object Body { get; private set; }
+        public object Body { get; }
 
         /// <summary>
         /// The collection of metadata.
         /// </summary>
-        public IKeyValueCollection Metadata { get; private set; }
+        public IKeyValueCollection Metadata { get; }
 
         /// <summary>
         /// Creates new instance with the <paramref name="body"/>.
