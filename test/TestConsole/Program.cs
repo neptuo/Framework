@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TestConsole.Behaviors;
 using TestConsole.BootstrapTasks;
-using TestConsole.Cloning;
 using TestConsole.Collections;
 using TestConsole.Commands;
 using TestConsole.Delegates;
@@ -19,7 +18,6 @@ using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
 using TestConsole.Threading;
 using TestConsole.DispatcherExceptions;
-using TestConsole.Asyncing;
 
 namespace TestConsole
 {
@@ -41,8 +39,7 @@ namespace TestConsole
             //TestMultiLockProvider.Test();
             //TestDependency.Test();
             //TestAppServices.Test();
-            //TestCloning.Test();
-            TestBehaviors.Test();
+            //TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
             //TestLog4net.Test();
@@ -50,7 +47,6 @@ namespace TestConsole
             //Services.Queries.TestQueries.Test();
             //TestDispatcherException.Test();
             //TestEventManager.Test();
-            TestAsync.Test();
 
             Console.ReadKey(true);
         }
