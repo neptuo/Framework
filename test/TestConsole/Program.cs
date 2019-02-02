@@ -18,7 +18,6 @@ using TestConsole.Logging;
 using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
 using TestConsole.Threading;
-using TestConsole.Tokens;
 using TestConsole.DispatcherExceptions;
 using TestConsole.Asyncing;
 
@@ -28,9 +27,6 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            //TestTokens.Test();
-            //TestTokenWriter.Test();
-            //TestEntity.Test();
             //TestPresentationModels.Test();
             //TestXmlModelDefinition.Test();
             //TestFieldMetadataValidatorKey.Test();
