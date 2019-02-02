@@ -32,19 +32,13 @@ namespace Neptuo.Windows.Controls
             if (DesignerProperties.GetIsInDesignMode(d))
                 return;
 
-            UITabItem tabItem = d as UITabItem;
-            if (tabItem != null)
+            if (d is UITabItem tabItem)
             {
                 TabControl tabControl = ControlHelper.FindVisualParent<TabControl>(tabItem);
-                SelectionChangedEventHandler selectionChanged = (object sender, SelectionChangedEventArgs args) =>
+                SelectionChangedEventHandler selectionChanged = (sender, args) =>
                 {
                     if (tabItem.IsSelected)
-                    {
-                        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() =>
-                        {
-                            GetFocus(tabItem).Focus();
-                        }));
-                    }
+                        Dispatcher.CurrentDispatcher.BeginInvoke(DispatcherPriority.Render, new Action(() => GetFocus(tabItem).Focus()));
                 };
 
                 if (e.NewValue != null)

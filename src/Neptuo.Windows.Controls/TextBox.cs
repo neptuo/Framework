@@ -120,7 +120,7 @@ namespace Neptuo.Windows.Controls
             if (textBox == null || newCommand == null)
                 return;
 
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Escape)
             {
                 BindingExpression binding = textBox.GetBindingExpression(UITextBox.TextProperty);
                 if (binding != null)
