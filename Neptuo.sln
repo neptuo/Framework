@@ -62,8 +62,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Logging.Log4net", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Localization", "src\Neptuo.Localization\Neptuo.Localization.csproj", "{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLibrary", "test\TestLibrary\TestLibrary.csproj", "{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.Services", "test\UnitTest.Services\UnitTest.Services.csproj", "{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Behaviors", "src\Neptuo.Behaviors\Neptuo.Behaviors.csproj", "{8B01EEA6-3B82-44DB-ADFE-033C36310C1E}"
@@ -239,9 +237,6 @@ Global
 		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{577A8095-EFCA-43C7-9797-3E9F3AD4BFB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66A47143-0FEA-4FEA-84C3-BE2F9CBE0693}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15945ACB-4304-41AE-B2EE-6C9E0D4D1A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
