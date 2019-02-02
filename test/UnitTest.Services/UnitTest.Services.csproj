@@ -14,7 +14,7 @@
     <ProjectReference Include="..\..\src\Neptuo.Commands.Validators\Neptuo.Commands.Validators.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Events.Behaviors\Neptuo.Events.Behaviors.csproj" />
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domain\Neptuo.EventSourcing.Domain.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Entity\Neptuo.EventSourcing.Entity.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Formatters.Composite.Json\Neptuo.EventSourcing.Formatters.Composite.Json.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.EventSourcing.PresentationModels.Visualization\Neptuo.EventSourcing.PresentationModels.Visualization.csproj" />

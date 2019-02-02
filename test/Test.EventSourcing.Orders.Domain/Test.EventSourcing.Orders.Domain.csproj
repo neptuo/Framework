@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domain\Neptuo.EventSourcing.Domain.csproj" />
     <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Commands\Neptuo.Commands.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Events\Neptuo.Events.csproj" />
-    <ProjectReference Include="..\..\src\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj" />
   </ItemGroup>
 
 </Project>

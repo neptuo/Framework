@@ -11,11 +11,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.EventSourcing.Domain\Neptuo.EventSourcing.Domain.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj" />
     <ProjectReference Include="..\Neptuo.Events\Neptuo.Events.csproj" />
     <ProjectReference Include="..\Neptuo.EventSourcing\Neptuo.EventSourcing.csproj" />
-    <ProjectReference Include="..\Neptuo.EventSourcing.Domains\Neptuo.EventSourcing.Domains.csproj" />
     <ProjectReference Include="..\Neptuo.Exceptions\Neptuo.Exceptions.csproj" />
     <ProjectReference Include="..\Neptuo.Formatters\Neptuo.Formatters.csproj" />
     <ProjectReference Include="..\Neptuo.Formatters.Composite\Neptuo.Formatters.Composite.csproj" />
