@@ -27,7 +27,6 @@ namespace TestConsole.Localization
             DebugIteration("GetCallingAssembly", 100000, () => Assembly.GetCallingAssembly());
 
             Console.WriteLine(Assembly.GetCallingAssembly().FullName);
-            TestLibrary.Localization.TestCallingAssembly.Test();
 
             Translate.SetHandler((assembly, text) =>
             {

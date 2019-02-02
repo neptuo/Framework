@@ -20,7 +20,7 @@ namespace TestConsole.Commands
 
         public static void Test()
         {
-            DependencyContainer = new UnityDependencyContainer();
+            DependencyContainer = new SimpleDependencyContainer();
 
             DefaultEventManager eventManager = new DefaultEventManager();
 

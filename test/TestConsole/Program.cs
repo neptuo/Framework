@@ -1,29 +1,22 @@
-﻿using Neptuo;
-using Neptuo.Collections.Specialized;
+﻿using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestConsole.Services.Jobs;
 using TestConsole.Behaviors;
 using TestConsole.BootstrapTasks;
 using TestConsole.Cloning;
 using TestConsole.Collections;
 using TestConsole.Commands;
-using TestConsole.Compilers;
-using TestConsole.Configuration;
-using TestConsole.Data;
 using TestConsole.Delegates;
-using TestConsole.DependencyContainers;
 using TestConsole.Events;
 using TestConsole.Hashing;
 using TestConsole.Localization;
 using TestConsole.Logging;
 using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
-using TestConsole.SharpKitCompilers;
 using TestConsole.Threading;
 using TestConsole.Tokens;
 using TestConsole.DispatcherExceptions;
@@ -33,7 +26,7 @@ namespace TestConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             //TestTokens.Test();
             //TestTokenWriter.Test();
@@ -53,7 +46,7 @@ namespace TestConsole
             //TestDependency.Test();
             //TestAppServices.Test();
             //TestCloning.Test();
-            //TestBehaviors.Test();
+            TestBehaviors.Test();
             //TestObjectSize.Test();
             //TestSharpKitCompiler.Test();
             //TestLog4net.Test();

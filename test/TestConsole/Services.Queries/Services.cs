@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestConsole.Services.Queries
@@ -22,7 +23,7 @@ namespace TestConsole.Services.Queries
     [Log]
     public class ProductQueryHandler : IQueryHandler<ProductQuery, Product>
     {
-        public Task<Product> HandleAsync(ProductQuery query)
+        public Task<Product> HandleAsync(ProductQuery query, CancellationToken cancellationToken)
         {
             return Task.FromResult(new Product()
             {

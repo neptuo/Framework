@@ -1,6 +1,4 @@
 ﻿using Neptuo.FileSystems;
-using Neptuo.FileSystems.Features;
-using Neptuo.Models.Features;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Serialization;
 using System;
@@ -16,12 +14,12 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            IFile personXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/PersonDefinition.xml");
-            IFile organizationXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/OrganizationDefinition.xml");
+            var personXmlFile = new LocalFileContentFactory("../../PresentationModels/PersonDefinition.xml", FileMode.Open);
+            var organizationXmlFile = new LocalFileContentFactory("../../PresentationModels/OrganizationDefinition.xml", FileMode.Open);
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
-            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(personXmlFile)).Create();
-            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, new FileContentFactory(organizationXmlFile)).Create();
+            IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
+            IModelDefinition organizationDefinition = new XmlModelDefinitionBuilder(typeMappings, organizationXmlFile).Create();
 
             XmlModelDefinitionSerializer serializer = new XmlModelDefinitionSerializer(typeMappings);
             using (StringWriter writer = new StringWriter())
@@ -30,8 +28,8 @@ namespace TestConsole.PresentationModels
                 Console.WriteLine(writer);
             }
 
-            IFile mixedXmlFile = LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSource.xml");
-            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile.With<IFileContentReader>().GetContentAsStream());
+            var mixedXmlFile = new LocalFileContentFactory("../../PresentationModels/MixedDataSource.xml", FileMode.Open);
+            XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile.Create());
 
             XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);
             XmlModelValueGetterCollection organizations = getterFactory.Create(organizationDefinition);
@@ -66,7 +64,7 @@ namespace TestConsole.PresentationModels
             foreach (IModelValueGetter getter in organizations)
                 organizationCopier.Update(setterFactory.Create(organizationDefinition), getter);
 
-            //IFile newMixedFile = (IFile)LocalFileSystem.FromFilePath("../../PresentationModels/MixedDataSourceNEW.xml");
+            //IFile newMixedFile = (IFile)new LocalFileContentFactory("../../PresentationModels/MixedDataSourceNEW.xml");
             using (FileStream stream = new FileStream("../../PresentationModels/MixedDataSourceNEW.xml", FileMode.OpenOrCreate))
             {
                 setterFactory.SaveToStream(stream);

@@ -18,7 +18,7 @@ namespace TestConsole.Delegates
 
         public static void Test()
         {
-            IDependencyContainer dependencyContainer = new UnityDependencyContainer();
+            IDependencyContainer dependencyContainer = new SimpleDependencyContainer();
             dependencyContainer.Definitions
                 .AddScoped<ResolveUrl>(dependencyContainer.ScopeName, new ResolveUrl(ResolveUrl));
 

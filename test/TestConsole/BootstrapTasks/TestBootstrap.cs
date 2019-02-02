@@ -32,7 +32,7 @@ namespace TestConsole.BootstrapTasks
 
         private static HelloService Sequence()
         {
-            IDependencyContainer dependencyContainer = new UnityDependencyContainer();
+            IDependencyContainer dependencyContainer = new SimpleDependencyContainer();
             dependencyContainer.Definitions
                 .AddScoped<string>(dependencyContainer.ScopeName, "Hi")
                 .AddScoped<TextWriter>(dependencyContainer.ScopeName, Console.Out);

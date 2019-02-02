@@ -20,7 +20,7 @@ namespace TestConsole.Services.Queries
             ReflectionPipeline<ProductQueryHandler> pipeline = new ReflectionPipeline<ProductQueryHandler>(behaviorProvider, new DefaultReflectionBehaviorFactory());
             IQueryHandler<ProductQuery, Product> queryHandler = new BehaviorQueryHandler<ProductQueryHandler, ProductQuery, Product>(pipeline, new DefaultFactory<ProductQueryHandler>());
 
-            Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" });
+            Task<Product> task = queryHandler.HandleAsync(new ProductQuery() { Name = "Test" }, default);
             if (!task.IsCompleted)
                 task.RunSynchronously();
 

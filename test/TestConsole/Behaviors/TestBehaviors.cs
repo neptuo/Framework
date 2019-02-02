@@ -1,8 +1,5 @@
-﻿using Neptuo.Jobs.Handlers.Behaviors;
-using Neptuo.Jobs.Handlers.Behaviors.Processing;
-using Neptuo.Jobs.Handlers.Behaviors.Processing.Reflection;
+﻿using Neptuo;
 using Neptuo.Behaviors;
-using Neptuo.Behaviors.Processing;
 using Neptuo.Behaviors.Processing.Reflection;
 using Neptuo.Behaviors.Providers;
 using System;
@@ -27,10 +24,7 @@ namespace TestConsole.Behaviors
 
             IBehaviorProvider behaviorProvider = new BehaviorProviderCollection()
                 .Add(interfaceBehaviors)
-                .Add(
-                    new AttributeBehaviorCollection()
-                        .Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior))
-                );
+                .Add(new AttributeBehaviorCollection().Add(typeof(ReprocessAttribute), typeof(ReprocessBehavior)));
 
             IEnumerable<Type> behaviors = behaviorProvider.GetBehaviors(typeof(Test));
             Console.WriteLine("Number of behaviors for Test class '{0}'.", behaviors.Count());
@@ -42,6 +36,50 @@ namespace TestConsole.Behaviors
             // Invoke pipeline.
             //ReflectionMethodInvokePipeline<HelloService, string> pipeline = new ReflectionMethodInvokePipeline<HelloService, string>(interfaceBehaviors, behaviorInstance, "SayHello");
             //pipeline.ExecuteAsync().ContinueWith(message => Console.WriteLine("Method result: '{0}'.", message.Result));
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Class)]
+    public sealed class ReprocessAttribute : Attribute
+    {
+        public int Count { get; }
+        public int Delay { get; }
+
+        public ReprocessAttribute(int count, int delay)
+        {
+            Ensure.PositiveOrZero(count, "count");
+            Ensure.PositiveOrZero(delay, "delay");
+            Count = count;
+            Delay = delay;
+        }
+    }
+
+    public class ReprocessBehavior : IBehavior<object>
+    {
+        public async Task ExecuteAsync(object handler, IBehaviorContext context)
+        {
+            int count = 0;
+
+            while (true)
+            {
+                try
+                {
+                    await context.NextAsync();
+                    break;
+                }
+                catch (Exception)
+                {
+                    count++;
+                }
+            }
+        }
+    }
+
+    public class ReflectionReprocessBehaviorInstanceProvider : IReflectionBehaviorFactory
+    {
+        public object TryCreate(IReflectionBehaviorFactoryContext context, Type behaviorType)
+        {
+            return new ReprocessBehavior();
         }
     }
 
