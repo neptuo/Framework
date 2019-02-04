@@ -10,53 +10,29 @@ using System.Threading.Tasks;
 namespace Neptuo.Formatters
 {
     /// <summary>
-    /// Stores/Loads all-events-shared properties with internal setters.
+    /// Provides methods for setting <see cref="Event"/> key, aggregate key and version.
     /// </summary>
     public class EventExtender
     {
         /// <summary>
-        /// The names of the keys used in store/load methods.
+        /// Sets <see cref="Event.Key"/> to a <paramref name="eventKey"/>.
         /// </summary>
-        protected static class Name
-        {
-            /// <summary>
-            /// The name where the key of the event is stored.
-            /// </summary>
-            public const string Key = "Key";
-
-            /// <summary>
-            /// The name where the aggregate root key of the event is stored.
-            /// </summary>
-            public const string AggregateKey = "AggregateKey";
-
-            /// <summary>
-            /// The name where the aggregate root version of the event is stored.
-            /// </summary>
-            public const string AggregateVersion = "AggregateVersion";
-        }
+        /// <param name="payload">An event to change.</param>
+        /// <param name="eventKey">A key to set as the event key.</param>
+        public void SetKey(Event payload, IKey eventKey) => payload.Key = eventKey;
 
         /// <summary>
-        /// Stores <paramref name="payload"/> properties to the <paramref name="storage"/>.
+        /// Sets <see cref="Event.AggregateKey"/> to a <paramref name="aggregateKey"/>.
         /// </summary>
-        /// <param name="storage">The storage to save values to.</param>
-        /// <param name="payload">The event payload to store.</param>
-        public void Store(IKeyValueCollection storage, Event payload)
-        {
-            storage.Add(Name.Key, payload.Key);
-            storage.Add(Name.AggregateKey, payload.AggregateKey);
-            storage.Add(Name.AggregateVersion, payload.Version);
-        }
+        /// <param name="payload">An event to change.</param>
+        /// <param name="aggregateKey">A key to set as the event aggregate key.</param>
+        public void SetAggregateKey(Event payload, IKey aggregateKey) => payload.AggregateKey = aggregateKey;
 
         /// <summary>
-        /// Loads <paramref name="payload"/> properties from the <paramref name="storage"/>.
+        /// Sets <see cref="Event.Version"/> to a <paramref name="version"/>.
         /// </summary>
-        /// <param name="storage">The storage to load values from.</param>
-        /// <param name="payload">The event payload to load.</param>
-        public void Load(IReadOnlyKeyValueCollection storage, Event payload)
-        {
-            payload.Key = storage.Get<IKey>(Name.Key);
-            payload.AggregateKey = storage.Get<IKey>(Name.AggregateKey);
-            payload.Version = storage.Get<int>(Name.AggregateVersion);
-        }
+        /// <param name="payload">An event to change.</param>
+        /// <param name="version">A version to set as the event version.</param>
+        public void SetVersion(Event payload, int version) => payload.Version = version;
     }
 }
