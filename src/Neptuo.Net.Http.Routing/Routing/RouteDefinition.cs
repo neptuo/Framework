@@ -28,16 +28,23 @@ namespace Neptuo.Net.Http.Routing
         public ISerializer Serializer { get; }
 
         /// <summary>
+        /// Gets a content type for the route.
+        /// </summary>
+        public string ContentType { get; }
+
+        /// <summary>
         /// Creates a new instance.
         /// </summary>
         /// <param name="url">A route URL.</param>
         /// <param name="method">A HTTP method used for the route.</param>
-        /// <param name="serialization">A serializer for the route.</param>
-        public RouteDefinition(string url, RouteMethod method, ISerializer serializer)
+        /// <param name="serializer">A serializer for the route.</param>
+        /// <param name="contentType">A content type for the route.</param>
+        public RouteDefinition(string url, RouteMethod method, ISerializer serializer, string contentType)
         {
             Url = url;
             Method = method;
             Serializer = serializer;
+            ContentType = contentType;
         }
     }
 }

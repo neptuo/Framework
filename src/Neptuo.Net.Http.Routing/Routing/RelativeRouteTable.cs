@@ -46,7 +46,7 @@ namespace Neptuo.Net.Http.Routing
                 if (route.Url.StartsWith("~/"))
                 {
                     string relativeUrl = route.Url.Substring(1);
-                    route = new RouteDefinition(baseUrl + relativeUrl, route.Method, route.Serializer);
+                    route = new RouteDefinition(baseUrl + relativeUrl, route.Method, route.Serializer, route.ContentType);
                     return true;
                 }
             }
