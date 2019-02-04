@@ -14,11 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CDC21A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo", "src\Neptuo\Neptuo.csproj", "{2392ED97-E671-4871-81A4-C85975F33794}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neptuo.Windows.Controls", "src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Windows.Controls", "src\Neptuo.Windows.Controls\Neptuo.Windows.Controls.csproj", "{0A82625A-BB41-48CE-B3AD-0141DD3CB779}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Windows.Threading", "src\Neptuo.Windows.Threading\Neptuo.Windows.Threading.csproj", "{6D0AD236-40F4-4734-8FC3-16E99C7BE2F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "test\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestConsole", "test\TestConsole\TestConsole.csproj", "{A5BF3C46-5A9A-4151-BF55-9AF3EF1E3146}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.PresentationModels", "src\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj", "{671BF5EF-9E1C-4EF9-AE7C-57C9F960650B}"
 EndProject
@@ -409,6 +409,7 @@ Global
 		{F1DEAA68-6740-42EC-9C02-6946CDA4CE26} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{3B70454A-3537-4696-B2FE-1280CAC029DC} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{9AE39411-759E-4682-9CB1-D1308C868290} = {3DD699AC-6B4F-489D-B304-F9057800834E}
+		{2FBB5921-7AC8-473D-8356-954E0087659F} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{980DAF38-FF5E-40CB-9B34-1888EACC0E3C} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 		{EDA4C50E-2873-4237-A84B-F73A15C27CD6} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 		{90E35420-D546-4B7F-BD44-3DB0FE95C2E0} = {F5F770F3-8007-4256-91F5-EB1BA6D19315}
@@ -440,7 +441,7 @@ Global
 		{F9377571-8686-4079-8074-DBF0C73B03BC} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
