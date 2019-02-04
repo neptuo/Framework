@@ -1,16 +1,17 @@
-﻿using Neptuo.Models.Keys;
+﻿using Neptuo.Models;
+using Neptuo.Models.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Neptuo.Models
+namespace Neptuo.Formatters
 {
     /// <summary>
     /// Provides methods for setting <see cref="AggregateRootException"/> command and aggregate relate keys.
     /// </summary>
-    public class AggregateRootExceptionDecorator
+    public class AggregateRootExceptionExtender
     {
         /// <summary>
         /// Gets the exception.
@@ -21,7 +22,7 @@ namespace Neptuo.Models
         /// Creates a new instance for modifying <paramref name="exception"/>.
         /// </summary>
         /// <param name="exception">An instance of aggregate root exception.</param>
-        public AggregateRootExceptionDecorator(AggregateRootException exception)
+        public AggregateRootExceptionExtender(AggregateRootException exception)
         {
             Ensure.NotNull(exception, "exception");
             Exception = exception;
@@ -32,7 +33,7 @@ namespace Neptuo.Models
         /// </summary>
         /// <param name="key">A key of the aggregate root.</param>
         /// <returns>Self (for fluency).</returns>
-        public AggregateRootExceptionDecorator SetKey(IKey key)
+        public AggregateRootExceptionExtender SetKey(IKey key)
         {
             Ensure.NotNull(key, "key");
             Exception.Key = key;
@@ -44,7 +45,7 @@ namespace Neptuo.Models
         /// </summary>
         /// <param name="commandKey">A key of the command that caused the exception.</param>
         /// <returns>Self (for fluency).</returns>
-        public AggregateRootExceptionDecorator SetCommandKey(IKey commandKey)
+        public AggregateRootExceptionExtender SetCommandKey(IKey commandKey)
         {
             Ensure.NotNull(commandKey, "commandKey");
             Exception.CommandKey = commandKey;
@@ -56,7 +57,7 @@ namespace Neptuo.Models
         /// </summary>
         /// <param name="commandKey">A key of the original (first) command in the execution hain.</param>
         /// <returns>Self (for fluency).</returns>
-        public AggregateRootExceptionDecorator SetSourceCommandKey(IKey commandKey)
+        public AggregateRootExceptionExtender SetSourceCommandKey(IKey commandKey)
         {
             Ensure.NotNull(commandKey, "commandKey");
             Exception.SourceCommandKey = commandKey;
