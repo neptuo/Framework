@@ -1,4 +1,4 @@
-﻿using Neptuo.Threading;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,15 +6,17 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TestConsole.Threading
+namespace Neptuo.Threading
 {
-    class TestMultiLockProvider : TestClass
+    [TestClass]
+    public class TestMultiLockProvider
     {
-        public static void Test()
+        [TestMethod]
+        public void Basic()
         {
             MultiLockProvider provider = new MultiLockProvider();
-            //LockProvider provider = new LockProvider(new ReaderWriterLockSlim());
-            //ReaderWriterLockSlim slimLock = new ReaderWriterLockSlim();
+            bool a = false;
+            bool b = false;
 
             for (int i = 0; i < 10; i++)
             {
@@ -22,9 +24,13 @@ namespace TestConsole.Threading
                 {
                     using (provider.Lock("A"))
                     {
-                        Console.Write("a{0}", index);
+                        Thread.Sleep(100);
+                        Assert.IsFalse(a);
+                        a = true;
+
                         Thread.Sleep(1000);
-                        Console.WriteLine(" -> a{0}", index);
+                        Assert.IsTrue(a);
+                        a = false;
                     }
                 }).Start(i);
             }
@@ -35,9 +41,13 @@ namespace TestConsole.Threading
                 {
                     using (provider.Lock("B"))
                     {
-                        Console.Write("b{0}", index);
+                        Thread.Sleep(100);
+                        Assert.IsFalse(b);
+                        b = true;
+
                         Thread.Sleep(1000);
-                        Console.WriteLine(" -> b{0}", index);
+                        Assert.IsTrue(b);
+                        b = false;
                     }
                 }).Start(i);
             }
