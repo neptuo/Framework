@@ -13,6 +13,7 @@ namespace Neptuo.Net.Http.Routing
     {
         Post,
         Put,
+        Delete,
         Get
     }
 }

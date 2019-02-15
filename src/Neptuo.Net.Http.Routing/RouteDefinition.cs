@@ -25,7 +25,12 @@ namespace Neptuo.Net.Http.Routing
         /// <summary>
         /// Gets a serializer for the route.
         /// </summary>
-        public ISerializer Serializer { get; }
+        public ISerializer RequestSerializer { get; }
+
+        /// <summary>
+        /// Gets a deserializer for processing of the response.
+        /// </summary>
+        public IDeserializer ResponseDeserializer { get; }
 
         /// <summary>
         /// Gets a content type for the route.
@@ -37,13 +42,15 @@ namespace Neptuo.Net.Http.Routing
         /// </summary>
         /// <param name="url">A route URL.</param>
         /// <param name="method">A HTTP method used for the route.</param>
-        /// <param name="serializer">A serializer for the route.</param>
+        /// <param name="requestSerializer">A serializer for the route.</param>
+        /// <param name="responseDeserializer">A deserializer for processing of the response.</param>
         /// <param name="contentType">A content type for the route.</param>
-        public RouteDefinition(string url, RouteMethod method, ISerializer serializer, string contentType)
+        public RouteDefinition(string url, RouteMethod method, ISerializer requestSerializer, IDeserializer responseDeserializer, string contentType)
         {
             Url = url;
             Method = method;
-            Serializer = serializer;
+            RequestSerializer = requestSerializer;
+            ResponseDeserializer = responseDeserializer;
             ContentType = contentType;
         }
     }
