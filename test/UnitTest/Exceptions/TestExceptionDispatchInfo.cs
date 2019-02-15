@@ -1,29 +1,31 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestConsole.DispatcherExceptions
+namespace Neptuo.Exceptions
 {
-    class TestDispatcherException
+    [TestClass]
+    public class TestExceptionDispatchInfo
     {
-        public static void Test()
+        [TestMethod]
+        public void CompareStackTraces()
         {
+            Exception e1 = null;
+            Exception e2 = null;
+            Exception e3 = null;
+
             try
             {
                 Method1();
             }
             catch (NotSupportedException e)
             {
-                Console.WriteLine(e.StackTrace);
+                e1 = e;
             }
-
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
 
             try
             {
@@ -31,13 +33,8 @@ namespace TestConsole.DispatcherExceptions
             }
             catch (NotSupportedException e)
             {
-                Console.WriteLine(e.StackTrace);
+                e2 = e;
             }
-
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
 
             try
             {
@@ -45,8 +42,20 @@ namespace TestConsole.DispatcherExceptions
             }
             catch (NotSupportedException e)
             {
-                Console.WriteLine(e.StackTrace);
+                e3 = e;
             }
+
+            Assert.IsNotNull(e1);
+            Assert.IsNotNull(e2);
+            Assert.IsNotNull(e3);
+
+            Assert.IsTrue(e1.StackTrace.Contains("Method1"));
+            Assert.IsTrue(e1.StackTrace.Contains("Throw"));
+
+            Assert.IsTrue(e2.StackTrace.Contains("Method2"));
+            Assert.IsFalse(e2.StackTrace.Contains("Throw"));
+
+            Assert.IsFalse(e3.StackTrace.Contains("Method3"));
         }
 
         private static void Method1()
