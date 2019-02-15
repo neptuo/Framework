@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 namespace Neptuo.Commands.Handlers
 {
     /// <summary>
-    /// Implementation of <see cref="ICommandHandler{TCommand}"/> that transfers commands over HTTP.
+    /// An implementation of <see cref="ICommandHandler{TCommand}"/> that transfers commands over HTTP.
     /// </summary>
-    /// <typeparam name="TCommand">Type of command.</typeparam>
+    /// <typeparam name="TCommand">A type of the command.</typeparam>
     public class HttpCommandHandler<TCommand> : ICommandHandler<TCommand>
     {
         private readonly HttpCommandDispatcher dispatcher;
 
         /// <summary>
-        /// Creates new instance that routes commands of type <typeparamref name="TCommand"/> to the <paramref name="route"/>.
+        /// Creates new instance that sends commands of type <typeparamref name="TCommand"/> throught <paramref name="objectSender"/>.
         /// </summary>
-        /// <param name="route">Route definition.</param>
-        public HttpCommandHandler(RouteDefinition route)
+        /// <param name="objectSender">An object sender.</param>
+        public HttpCommandHandler(ObjectSender objectSender)
         {
-            dispatcher = new HttpCommandDispatcher(new DefaultRouteTable().Add(typeof(TCommand), route));
+            dispatcher = new HttpCommandDispatcher(objectSender);
         }
 
         public Task HandleAsync(TCommand command) => dispatcher.HandleAsync(command);

@@ -1,4 +1,5 @@
-﻿using Neptuo.Net.Http.Routing;
+﻿using Neptuo;
+using Neptuo.Net.Http.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,11 @@ namespace Neptuo.Queries.Handlers
         /// <summary>
         /// Creates new instance that routes queries of type <typeparamref name="TQuery"/> to the <paramref name="route"/>.
         /// </summary>
-        /// <param name="route">Route definition.</param>
-        public HttpQueryHandler(RouteDefinition route)
+        /// <param name="objectSender">An object sender.</param>
+        public HttpQueryHandler(ObjectSender objectSender)
         {
-            dispatcher = new HttpQueryDispatcher(new DefaultRouteTable().Add(typeof(TQuery), route));
+            Ensure.NotNull(objectSender, "objectSender");
+            dispatcher = new HttpQueryDispatcher(objectSender);
         }
 
         public Task<TResult> HandleAsync(TQuery query, CancellationToken cancellationToken) => dispatcher.QueryAsync<TQuery, TResult>(query, cancellationToken);

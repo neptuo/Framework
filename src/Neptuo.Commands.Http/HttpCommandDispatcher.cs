@@ -9,43 +9,26 @@ using System.Threading.Tasks;
 namespace Neptuo.Commands
 {
     /// <summary>
-    /// Implementation of <see cref="ICommandDispatcher"/> that transfers commands over HTTP.
+    /// An implementation of <see cref="ICommandDispatcher"/> that transfers commands over HTTP.
     /// </summary>
     public class HttpCommandDispatcher : ICommandDispatcher
     {
-        private readonly IRouteTable routeTable;
-        private readonly HttpClientAdapter httpAdapter;
+        private readonly ObjectSender objectSender;
 
         /// <summary>
-        /// Creates new instance with absolute URLs defined in <paramref name="routeTable"/>.
+        /// Creates a new instance which sends objects using <paramref name="objectSender"/>.
         /// </summary>
-        /// <param name="routeTable">Route table with absolute URLs.</param>
-        public HttpCommandDispatcher(IRouteTable routeTable)
+        /// <param name="objectSender">An object sender.</param>
+        public HttpCommandDispatcher(ObjectSender objectSender)
         {
-            Ensure.NotNull(routeTable, "routeTable");
-            this.routeTable = routeTable;
-            this.httpAdapter = new HttpClientAdapter(routeTable);
+            Ensure.NotNull(objectSender, "objectSender");
+            this.objectSender = objectSender;
         }
 
-        public async Task HandleAsync<TCommand>(TCommand command)
+        public Task HandleAsync<TCommand>(TCommand command)
         {
             Ensure.NotNull(command, "command");
-            Type commandType = command.GetType();
-            RouteDefinition route;
-            if (routeTable.TryGet(commandType, out route))
-            {
-                using (HttpClient httpClient = httpAdapter.PrepareHttpClient(route))
-                {
-                    // Prepare content and send request.
-                    ObjectContent objectContent = httpAdapter.PrepareObjectContent(command, route);
-                    HttpResponseMessage response = await httpAdapter.Execute(httpClient, objectContent, route);
-
-                    //TODO: Process HTTP status errors.
-                    return;
-                }
-            }
-
-            throw Ensure.Exception.InvalidOperation("Unnable to preces command without registered URL route, command type is '{0}'.", commandType.FullName);
+            return objectSender.SendAsync(command, default);
         }
     }
 }
