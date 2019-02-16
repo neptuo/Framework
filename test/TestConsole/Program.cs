@@ -17,28 +17,12 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            //TestPresentationModels.Test();
             //TestXmlModelDefinition.Test();
-            //TestFieldMetadataValidatorKey.Test();
-            //TestConfiguration.Test();
-            //TestCommands.Test();
-            //TestEvents.Test();
             //TestDelegates.Test();
-            //TestCompiler.Test();
-            //TestHash.Test();
             //TestBootstrap.Test();
-            //TestKeyValue.Test();
-            //TestMultiLockProvider.Test();
-            //TestDependency.Test();
-            //TestAppServices.Test();
             //TestBehaviors.Test();
-            //TestObjectSize.Test();
-            //TestSharpKitCompiler.Test();
-            //TestLog4net.Test();
             //TestLocalization.Test();
             //Services.Queries.TestQueries.Test();
-            //TestDispatcherException.Test();
-            //TestEventManager.Test();
 
             Console.ReadKey(true);
         }

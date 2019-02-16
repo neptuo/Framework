@@ -9,7 +9,7 @@ namespace Neptuo.PresentationModels.Validators
     /// <summary>
     /// Describes key for selecting <see cref="IFieldMetadataValidator"/>.
     /// </summary>
-    public class FieldMetadataValidatorKey
+    public class FieldMetadataValidatorKey : IEquatable<FieldMetadataValidatorKey>
     {
         /// <summary>
         /// Identifier of model definition.
@@ -41,35 +41,21 @@ namespace Neptuo.PresentationModels.Validators
 
         public override int GetHashCode()
         {
-            int value = 13;
-            if (ModelIdentifier != null)
-                value ^= ModelIdentifier.GetHashCode();
-
-            if (FieldIdentifier != null)
-                value ^= FieldIdentifier.GetHashCode();
-
-            if(MetadataKey != null)
-                value ^= MetadataKey.GetHashCode();
-
-            return value;
+            var hashCode = -469800716;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ModelIdentifier);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FieldIdentifier);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(MetadataKey);
+            return hashCode;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object obj) => Equals(obj as FieldMetadataValidatorKey);
+
+        public bool Equals(FieldMetadataValidatorKey other)
         {
-            FieldMetadataValidatorKey other = obj as FieldMetadataValidatorKey;
-            if (other == null)
-                return false;
-
-            if (ModelIdentifier != other.ModelIdentifier)
-                return false;
-
-            if (FieldIdentifier != other.FieldIdentifier)
-                return false;
-
-            if (MetadataKey != other.MetadataKey)
-                return false;
-
-            return true;
+            return other != null &&
+                ModelIdentifier == other.ModelIdentifier &&
+                FieldIdentifier == other.FieldIdentifier &&
+                MetadataKey == other.MetadataKey;
         }
     }
 }

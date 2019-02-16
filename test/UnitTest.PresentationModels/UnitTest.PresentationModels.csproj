@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <RootNamespace>Neptuo.PresentationModels</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Serialization.Xml\Neptuo.PresentationModels.Serialization.Xml.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.TypeModels.DataAnnotations\Neptuo.PresentationModels.TypeModels.DataAnnotations.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.TypeModels\Neptuo.PresentationModels.TypeModels.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.UI\Neptuo.PresentationModels.UI.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels.Validators\Neptuo.PresentationModels.Validators.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.PresentationModels\Neptuo.PresentationModels.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Validators\Neptuo.Validators.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo\Neptuo.csproj" />
+  </ItemGroup>
+
+</Project>
