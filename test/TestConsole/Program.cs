@@ -1,4 +1,6 @@
-﻿using Neptuo.Collections.Specialized;
+﻿using Neptuo;
+using Neptuo.Converters;
+using Neptuo.Collections.Specialized;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,7 +19,7 @@ namespace TestConsole
     {
         private static void Main(string[] args)
         {
-            //TestXmlModelDefinition.Test();
+            TestXmlModelDefinition.Test();
             //TestDelegates.Test();
             //TestBootstrap.Test();
             //TestBehaviors.Test();

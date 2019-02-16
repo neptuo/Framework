@@ -1,4 +1,6 @@
-﻿using Neptuo.FileSystems;
+﻿using Neptuo;
+using Neptuo.Converters;
+using Neptuo.FileSystems;
 using Neptuo.PresentationModels;
 using Neptuo.PresentationModels.Serialization;
 using System;
@@ -14,8 +16,10 @@ namespace TestConsole.PresentationModels
     {
         public static void Test()
         {
-            var personXmlFile = new LocalFileContentFactory("../../PresentationModels/PersonDefinition.xml", FileMode.Open);
-            var organizationXmlFile = new LocalFileContentFactory("../../PresentationModels/OrganizationDefinition.xml", FileMode.Open);
+            Converts.Repository.AddStringTo<int>(Int32.TryParse);
+
+            var personXmlFile = new LocalFileContentFactory("PresentationModels/PersonDefinition.xml", FileMode.Open);
+            var organizationXmlFile = new LocalFileContentFactory("PresentationModels/OrganizationDefinition.xml", FileMode.Open);
 
             XmlTypeMappingCollection typeMappings = new XmlTypeMappingCollection().AddStandartKeywords();
             IModelDefinition personDefiniton = new XmlModelDefinitionBuilder(typeMappings, personXmlFile).Create();
@@ -28,7 +32,7 @@ namespace TestConsole.PresentationModels
                 Console.WriteLine(writer);
             }
 
-            var mixedXmlFile = new LocalFileContentFactory("../../PresentationModels/MixedDataSource.xml", FileMode.Open);
+            var mixedXmlFile = new LocalFileContentFactory("PresentationModels/MixedDataSource.xml", FileMode.Open);
             XmlModelValueGetterFactory getterFactory = new XmlModelValueGetterFactory(mixedXmlFile.Create());
 
             XmlModelValueGetterCollection persons = getterFactory.Create(personDefiniton);
@@ -65,7 +69,7 @@ namespace TestConsole.PresentationModels
                 organizationCopier.Update(setterFactory.Create(organizationDefinition), getter);
 
             //IFile newMixedFile = (IFile)new LocalFileContentFactory("../../PresentationModels/MixedDataSourceNEW.xml");
-            using (FileStream stream = new FileStream("../../PresentationModels/MixedDataSourceNEW.xml", FileMode.OpenOrCreate))
+            using (FileStream stream = new FileStream("PresentationModels/MixedDataSourceNEW.xml", FileMode.OpenOrCreate))
             {
                 setterFactory.SaveToStream(stream);
             }

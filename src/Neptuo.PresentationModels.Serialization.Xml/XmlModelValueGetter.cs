@@ -54,7 +54,7 @@ namespace Neptuo.PresentationModels.Serialization
                     return true;
                 }
 
-                if(Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
+                if (Converts.Try(typeof(string), fieldDefinition.FieldType, stringValue, out value))
                     return true;
             }
 
