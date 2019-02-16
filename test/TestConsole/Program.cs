@@ -7,17 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TestConsole.Behaviors;
 using TestConsole.BootstrapTasks;
-using TestConsole.Collections;
-using TestConsole.Commands;
 using TestConsole.Delegates;
-using TestConsole.Events;
-using TestConsole.Hashing;
 using TestConsole.Localization;
-using TestConsole.Logging;
-using TestConsole.ObjectSizes;
 using TestConsole.PresentationModels;
-using TestConsole.Threading;
-using TestConsole.DispatcherExceptions;
 
 namespace TestConsole
 {
