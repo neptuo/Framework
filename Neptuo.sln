@@ -144,6 +144,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Windows.Converters",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest.PresentationModels", "test\UnitTest.PresentationModels\UnitTest.PresentationModels.csproj", "{E6A1053C-6D3A-415D-B599-7B8040C44C9D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Neptuo.Events.Http", "src\Neptuo.Events.Http\Neptuo.Events.Http.csproj", "{7D002E07-5301-44CF-82A5-6A2687DC5694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -385,6 +387,10 @@ Global
 		{E6A1053C-6D3A-415D-B599-7B8040C44C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6A1053C-6D3A-415D-B599-7B8040C44C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6A1053C-6D3A-415D-B599-7B8040C44C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D002E07-5301-44CF-82A5-6A2687DC5694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D002E07-5301-44CF-82A5-6A2687DC5694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D002E07-5301-44CF-82A5-6A2687DC5694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D002E07-5301-44CF-82A5-6A2687DC5694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -448,9 +454,10 @@ Global
 		{F43B4223-E136-4AE2-9A57-8220F2452F54} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
 		{F9377571-8686-4079-8074-DBF0C73B03BC} = {A7CE8ABF-9770-49F4-8969-8AB6957A87E6}
 		{E6A1053C-6D3A-415D-B599-7B8040C44C9D} = {5D0CB141-A610-4243-BBDA-7D5A9084FC53}
+		{7D002E07-5301-44CF-82A5-6A2687DC5694} = {3DD699AC-6B4F-489D-B304-F9057800834E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 		SolutionGuid = {C551EE44-C191-455D-BEFA-6366FEC51A7D}
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.2\lib\NET35
 	EndGlobalSection
 EndGlobal
