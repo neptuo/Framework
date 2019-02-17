@@ -139,6 +139,17 @@ namespace Neptuo.Exceptions
         }
 
         /// <summary>
+        /// Wraps execution of an <paramref name="task"/> with try-catch.
+        /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
+        /// </summary>
+        /// <param name="task">A task to run.</param>
+        public Task RunAsync(Task task)
+        {
+            Ensure.NotNull(task, "task");
+            return task.HandleException(handler);
+        }
+
+        /// <summary>
         /// Wraps <paramref name="execute"/> with a delegate containing try-catch block.
         /// Note: If the <see cref="IExceptionHandler"/> throws an exception, this exception is not handled.
         /// </summary>
