@@ -23,7 +23,7 @@
     <ProjectReference Include="..\..\src\Neptuo.Models.Keys.Serialization\Neptuo.Models.Keys.Serialization.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Models.Keys\Neptuo.Models.Keys.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Models\Neptuo.Models.csproj" />
-    <ProjectReference Include="..\..\src\Neptuo.Net.Http.Routing\Neptuo.Net.Http.Routing.csproj" />
+    <ProjectReference Include="..\..\src\Neptuo.Net.Http.ObjectSender\Neptuo.Net.Http.ObjectSender.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Queries.Behaviors\Neptuo.Queries.Behaviors.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.Queries\Neptuo.Queries.csproj" />
     <ProjectReference Include="..\..\src\Neptuo.TypeMapping\Neptuo.TypeMapping.csproj" />

@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Neptuo.Net.Http.ObjectSender\Neptuo.Net.Http.ObjectSender.csproj" />
     <ProjectReference Include="..\Neptuo\Neptuo.csproj" />
     <ProjectReference Include="..\Neptuo.Commands\Neptuo.Commands.csproj" />
-    <ProjectReference Include="..\Neptuo.Net.Http.Routing\Neptuo.Net.Http.Routing.csproj" />
   </ItemGroup>
 
 </Project>

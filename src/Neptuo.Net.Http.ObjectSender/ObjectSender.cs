@@ -1,4 +1,5 @@
 ﻿using Neptuo.Formatters.Generics;
+using Neptuo.Net.Http.Routing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Neptuo.Net.Http.Routing
+namespace Neptuo.Net.Http
 {
     public class ObjectSender
     {
