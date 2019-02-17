@@ -16,13 +16,10 @@ namespace Neptuo.Commands.Handlers
         private readonly HttpCommandDispatcher dispatcher;
 
         /// <summary>
-        /// Creates new instance that sends commands of type <typeparamref name="TCommand"/> throught <paramref name="objectSender"/>.
+        /// Creates a new instance that sends commands of type <typeparamref name="TCommand"/> throught <paramref name="objectSender"/>.
         /// </summary>
         /// <param name="objectSender">An object sender.</param>
-        public HttpCommandHandler(ObjectSender objectSender)
-        {
-            dispatcher = new HttpCommandDispatcher(objectSender);
-        }
+        public HttpCommandHandler(ObjectSender objectSender) => dispatcher = new HttpCommandDispatcher(objectSender);
 
         public Task HandleAsync(TCommand command) => dispatcher.HandleAsync(command);
     }
