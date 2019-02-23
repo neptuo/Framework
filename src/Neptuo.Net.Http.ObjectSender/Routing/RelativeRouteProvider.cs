@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,23 +7,22 @@ using System.Threading.Tasks;
 namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
-    /// Implementation of <see cref="IRouteProvider"/> which uses inner route table
-    /// and makes relative URLs absolute.
+    /// An implementation of a <see cref="IRouteProvider"/> which uses inner route provider and makes relative URLs absolute.
     /// 
-    /// Inner table can return absolute URL, then this class does nothing,
-    /// but when inner table return relative URL (prefixed with '~/'), base url is applied.
+    /// The inner provider can return absolute URL, then this class does nothing,
+    /// but when the inner provider returns a relative URL (prefixed with the '~/'), the base url is applied.
     /// </summary>
-    public class RelativeRouteTable : IRouteProvider
+    public class RelativeRouteProvider : IRouteProvider
     {
         private readonly string baseUrl;
         private readonly IRouteProvider routeTable;
 
         /// <summary>
-        /// Creates new instance with <paramref name="baseUrl"/> and inner <paramref name="routeTable"/>.
+        /// Creates a new instance with a <paramref name="baseUrl"/> and a inner <paramref name="routeTable"/>.
         /// </summary>
-        /// <param name="baseUrl">Base URL prepended to relative URLs.</param>
-        /// <param name="routeTable">Inner route table.</param>
-        public RelativeRouteTable(string baseUrl, IRouteProvider routeTable)
+        /// <param name="baseUrl">A base URL prepended to relative URLs.</param>
+        /// <param name="routeTable">An inner route provider.</param>
+        public RelativeRouteProvider(string baseUrl, IRouteProvider routeTable)
         {
             Ensure.NotNullOrEmpty(baseUrl, "baseUrl");
             Ensure.NotNull(routeTable, "routeTable");
@@ -39,7 +38,7 @@ namespace Neptuo.Net.Http.Routing
         {
             if (routeTable.TryGet(inputType, out route))
             {
-                // If URL in route is absolute, nothing is needed.
+                // If the URL in route is absolute, nothing is needed.
                 if (Uri.TryCreate(route.Url, UriKind.Absolute, out Uri url))
                     return true;
 
