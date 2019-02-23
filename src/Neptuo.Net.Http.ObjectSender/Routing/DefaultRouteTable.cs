@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
-    /// Default (with manual registration) implementation of <see cref="IRouteTable"/>.
+    /// Default (with manual registration) implementation of <see cref="IRouteProvider"/>.
     /// </summary>
-    public class DefaultRouteTable : IRouteTable
+    public class DefaultRouteTable : IRouteProvider
     {
         private readonly Dictionary<Type, RouteDefinition> storage = new Dictionary<Type, RouteDefinition>();
 

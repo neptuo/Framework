@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
-    /// Implementation of <see cref="IRouteTable"/> which uses inner route table
+    /// Implementation of <see cref="IRouteProvider"/> which uses inner route table
     /// and makes relative URLs absolute.
     /// 
     /// Inner table can return absolute URL, then this class does nothing,
     /// but when inner table return relative URL (prefixed with '~/'), base url is applied.
     /// </summary>
-    public class RelativeRouteTable : IRouteTable
+    public class RelativeRouteTable : IRouteProvider
     {
         private readonly string baseUrl;
-        private readonly IRouteTable routeTable;
+        private readonly IRouteProvider routeTable;
 
         /// <summary>
         /// Creates new instance with <paramref name="baseUrl"/> and inner <paramref name="routeTable"/>.
         /// </summary>
         /// <param name="baseUrl">Base URL prepended to relative URLs.</param>
         /// <param name="routeTable">Inner route table.</param>
-        public RelativeRouteTable(string baseUrl, IRouteTable routeTable)
+        public RelativeRouteTable(string baseUrl, IRouteProvider routeTable)
         {
             Ensure.NotNullOrEmpty(baseUrl, "baseUrl");
             Ensure.NotNull(routeTable, "routeTable");

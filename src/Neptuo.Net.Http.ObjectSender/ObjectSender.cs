@@ -15,9 +15,9 @@ namespace Neptuo.Net.Http
     public class ObjectSender
     {
         private readonly HttpClient httpClient;
-        private readonly IRouteTable routes;
+        private readonly IRouteProvider routes;
 
-        public ObjectSender(HttpClient httpClient, IRouteTable routes)
+        public ObjectSender(HttpClient httpClient, IRouteProvider routes)
         {
             Ensure.NotNull(httpClient, "httpClient");
             Ensure.NotNull(routes, "routes");
