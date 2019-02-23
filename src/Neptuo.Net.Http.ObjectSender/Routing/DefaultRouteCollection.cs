@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 namespace Neptuo.Net.Http.Routing
 {
     /// <summary>
-    /// Default (with manual registration) implementation of <see cref="IRouteProvider"/>.
+    /// A default (with manual registration) implementation of the <see cref="IRouteProvider"/>.
     /// </summary>
-    public class DefaultRouteTable : IRouteProvider
+    public class DefaultRouteCollection : IRouteProvider
     {
         private readonly Dictionary<Type, RouteDefinition> storage = new Dictionary<Type, RouteDefinition>();
 
         /// <summary>
-        /// Add mapping for <paramref name="inputType"/> to <paramref name="route"/>.
+        /// Adds a mapping for a <paramref name="inputType"/> to a <paramref name="route"/>.
         /// </summary>
-        /// <param name="inputType">Type of input object.</param>
-        /// <param name="route">Route definition.</param>
+        /// <param name="inputType">A type of the input object.</param>
+        /// <param name="route">A route definition.</param>
         /// <returns>Self (for fluency).</returns>
-        public DefaultRouteTable Add(Type inputType, RouteDefinition route)
+        public DefaultRouteCollection Add(Type inputType, RouteDefinition route)
         {
             Ensure.NotNull(inputType, "inputType");
             Ensure.NotNull(route, "route");
