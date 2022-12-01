@@ -6,7 +6,7 @@
     <RepositoryUrl>https://github.com/neptuo/Framework</RepositoryUrl>
     <LangVersion>latest</LangVersion>
 
-    <PackageIcon>https://apps.neptuo.com/icon.jpg</PackageIcon>
+	<PackageIconUrl>../assets/icon.jpg</PackageIconUrl>
     <PackageLicenseUrl Condition="'$(PackageLicenseUrl)' == ''">$(PackageProjectUrl)</PackageLicenseUrl>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
